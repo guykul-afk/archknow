@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArchiCheck - AI Plan Analyzer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Rubik:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span class="highlight">Archi</span>Check
+        </div>
+        <div class="project-info">Project: <span class="project-name">Urban Residence V.2</span></div>
+        <div class="user-profile">
+            <div class="avatar"></div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Left Column: Blueprint/Upload Area -->
+        <section class="column glass-panel" id="blueprint-section">
+            <h2 class="section-title">Blueprint Analysis</h2>
+            
+            <div id="upload-zone" class="upload-zone">
+                <div class="upload-icon">📄</div>
+                <p>גרור לכאן קובץ שרטוט (DXF/JSON)</p>
+                <button id="btn-analyze" class="btn-primary" style="display: none;">הרץ מנוע אנליזה</button>
+            </div>
+
+            <div id="blueprint-viewer" class="blueprint-viewer hidden">
+                <!-- Visual Nodes will be injected here via JS -->
+                <div class="node" style="top: 20%; left: 30%;">Master Bedroom</div>
+                <div class="node" style="top: 40%; left: 70%;">Living Room</div>
+                <div class="node" style="top: 60%; left: 30%;">Bathroom</div>
+                <svg class="connection-lines">
+                    <!-- Connections -->
+                </svg>
+            </div>
+        </section>
+
+        <!-- Middle Column: Quantitative Checklist -->
+        <section class="column glass-panel" id="quantitative-section">
+            <h2 class="section-title">Quantitative Rules</h2>
+            <p class="section-subtitle">בדיקה אוטומטית מול מדדי ה-OKF</p>
+            
+            <div id="checklist-container" class="checklist-container">
+                <div class="placeholder-state">המתן להעלאת שרטוט...</div>
+                <!-- Items injected via JS -->
+            </div>
+        </section>
+
+        <!-- Right Column: AI Qualitative Insights -->
+        <section class="column glass-panel glow-accent" id="qualitative-section">
+            <h2 class="section-title">AI Qualitative Insights</h2>
+            <p class="section-subtitle">ניתוח אדריכלי חכם מבוסס Topology</p>
+            
+            <div id="ai-insights-container" class="ai-insights-container">
+                <div class="placeholder-state">המתן להעלאת שרטוט...</div>
+                <!-- Content injected via JS -->
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+:root {
+    --bg-dark: #0f111a;
+    --panel-bg: rgba(255, 255, 255, 0.03);
+    --panel-border: rgba(255, 255, 255, 0.08);
+    --text-main: #f0f2f5;
+    --text-muted: #8b92a5;
+    --accent-blue: #00e1ff;
+    --accent-purple: #9d00ff;
+    --success: #00d26a;
+    --danger: #ff3b3b;
+    --font-family: 'Inter', 'Rubik', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image: radial-gradient(circle at top right, rgba(0, 225, 255, 0.05), transparent 40%),
+                      radial-gradient(circle at bottom left, rgba(157, 0, 255, 0.05), transparent 40%);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--panel-border);
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.logo .highlight {
+    color: var(--accent-blue);
+}
+
+.project-info {
+    color: var(--text-muted);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.project-name {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 24px;
+    padding: 30px 40px;
+    height: calc(100vh - 80px);
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    border-radius: 20px;
+    overflow-y: auto;
+}
+
+.glass-panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.glow-accent {
+    position: relative;
+    overflow: hidden;
+}
+
+.glow-accent::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: var(--accent-blue);
+    filter: blur(100px);
+    opacity: 0.2;
+    z-index: -1;
+}
+
+.section-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.section-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+/* Upload Zone */
+.upload-zone {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed var(--panel-border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-zone:hover {
+    border-color: var(--accent-blue);
+    background: rgba(0, 225, 255, 0.02);
+}
+
+.upload-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.7;
+}
+
+.btn-primary {
+    margin-top: 20px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 225, 255, 0.3);
+}
+
+/* Blueprint Viewer */
+.blueprint-viewer {
+    flex: 1;
+    position: relative;
+    background-image: 
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--accent-blue);
+    box-shadow: inset 0 0 20px rgba(0, 225, 255, 0.1);
+}
+
+.blueprint-viewer.hidden {
+    display: none;
+}
+
+.node {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--accent-blue);
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--accent-blue);
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.node::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--accent-blue);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+/* Checklist Items */
+.checklist-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    transition: transform 0.2s ease;
+}
+
+.checklist-item:hover {
+    transform: translateX(4px);
+}
+
+.status-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 16px; /* RTL fix */
+    font-weight: bold;
+}
+
+.status-pass {
+    border: 1px solid var(--success);
+    color: var(--success);
+    box-shadow: 0 0 10px rgba(0, 210, 106, 0.2);
+}
+
+.status-fail {
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    box-shadow: 0 0 10px rgba(255, 59, 59, 0.2);
+}
+
+.rule-info {
+    flex: 1;
+}
+
+.rule-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.rule-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.tag {
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.tag-pass { background: rgba(0, 210, 106, 0.1); color: var(--success); }
+.tag-fail { background: rgba(255, 59, 59, 0.1); color: var(--danger); }
+
+/* AI Report */
+.ai-report {
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+.ai-report h3 {
+    color: var(--accent-blue);
+    margin-bottom: 12px;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.ai-report p {
+    margin-bottom: 16px;
+    color: #cbd5e1;
+}
+
+.ai-report strong {
+    color: var(--text-main);
+}
+
+.placeholder-state {
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 50px;
+}
