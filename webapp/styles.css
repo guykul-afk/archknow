@@ -300,3 +300,35 @@ body {
     font-style: italic;
     margin-top: 50px;
 }
+
+/* Form Selectors */
+.project-navigator {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--panel-border);
+}
+
+.project-navigator.hidden {
+    display: none;
+}
+
+.form-select {
+    background: var(--bg-dark);
+    color: var(--text-main);
+    border: 1px solid var(--accent-blue);
+    padding: 10px;
+    border-radius: 8px;
+    font-family: var(--font-family);
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+}
+
+.form-select:focus {
+    box-shadow: 0 0 10px rgba(0, 225, 255, 0.2);
+}
+
