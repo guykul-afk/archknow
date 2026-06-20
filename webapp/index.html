@@ -23,10 +23,11 @@
         <section class="column glass-panel" id="blueprint-section">
             <h2 class="section-title">Blueprint Analysis</h2>
             
-            <div id="upload-zone" class="upload-zone">
+            <div id="upload-zone" class="upload-zone" style="position: relative;">
+                <input type="file" id="file-input" style="display: none;" accept=".dxf,.dwg,.dwf">
                 <div class="upload-icon">📄</div>
-                <p>גרור לכאן קובץ שרטוט (DXF/JSON)</p>
-                <button id="btn-analyze" class="btn-primary" style="display: none;">הרץ מנוע אנליזה</button>
+                <p>גרור לכאן קובץ שרטוט (DXF/DWG/DWF) או לחץ לבחירה</p>
+                <button id="btn-analyze" class="btn-primary" style="display: none; position: relative; z-index: 10;">הרץ מנוע אנליזה</button>
             </div>
             
             <div id="project-navigator" class="project-navigator hidden" style="margin-bottom: 20px;">

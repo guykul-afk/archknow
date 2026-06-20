@@ -19,3 +19,6 @@ __pycache__/
 # Temporary/output data
 data/
 extracted_apartment.json
+extracted_project.json
+uploads/
+

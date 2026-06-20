@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const uploadZone = document.getElementById('upload-zone');
+    const fileInput = document.getElementById('file-input');
     const btnAnalyze = document.getElementById('btn-analyze');
     const blueprintViewer = document.getElementById('blueprint-viewer');
     const checklistContainer = document.getElementById('checklist-container');
@@ -9,7 +10,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const floorSelect = document.getElementById('floor-select');
     const aptSelect = document.getElementById('apt-select');
     
+    let selectedFile = null;
     let projectData = null;
+
+    // Click to select file
+    uploadZone.addEventListener('click', (e) => {
+        if (e.target !== btnAnalyze) {
+            fileInput.click();
+        }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+        if (fileInput.files.length > 0) {
+            handleFileSelection(fileInput.files[0]);
+        }
+    });
 
     // Handle Drag & Drop visually
     uploadZone.addEventListener('dragover', (e) => {
@@ -26,31 +41,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
     uploadZone.addEventListener('drop', (e) => {
         e.preventDefault();
-        uploadZone.style.borderColor = 'var(--success)';
-        uploadZone.style.background = 'rgba(0, 210, 106, 0.05)';
-        uploadZone.querySelector('p').innerText = 'קובץ נטען בהצלחה: sample_project.dxf';
-        btnAnalyze.style.display = 'block';
+        if (e.dataTransfer.files.length > 0) {
+            handleFileSelection(e.dataTransfer.files[0]);
+        }
     });
 
-    // API Call to our Python Engine
-    btnAnalyze.addEventListener('click', () => {
-        btnAnalyze.innerText = 'מנתח פרויקט (מחפש קומות ודירות)...';
+    function handleFileSelection(file) {
+        selectedFile = file;
+        uploadZone.style.borderColor = 'var(--success)';
+        uploadZone.style.background = 'rgba(0, 210, 106, 0.05)';
+        uploadZone.querySelector('p').innerText = `קובץ נבחר: ${file.name}`;
+        btnAnalyze.style.display = 'block';
+    }
+
+    // API Call to our Python Engine with file upload
+    btnAnalyze.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent triggering fileInput click
+        
+        if (!selectedFile) return;
+
+        btnAnalyze.innerText = 'מפענח ומנתח שרטוט (זה עשוי לקחת מספר שניות)...';
         btnAnalyze.disabled = true;
 
-        fetch('/api/analyze')
-            .then(res => res.json())
-            .then(data => {
-                projectData = data;
-                uploadZone.style.display = 'none';
-                projectNavigator.classList.remove('hidden');
-                blueprintViewer.classList.remove('hidden');
-                
-                populateFloors();
-            })
-            .catch(err => {
-                console.error(err);
-                btnAnalyze.innerText = 'שגיאה בשרת';
-            });
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+
+        fetch('/api/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(async (res) => {
+            const data = await res.json();
+            if (!res.ok) {
+                throw new Error(data.error || 'שגיאה בעיבוד הקובץ');
+            }
+            return data;
+        })
+        .then(data => {
+            projectData = data;
+            uploadZone.style.display = 'none';
+            projectNavigator.classList.remove('hidden');
+            blueprintViewer.classList.remove('hidden');
+            
+            populateFloors();
+        })
+        .catch(err => {
+            console.error(err);
+            alert(`שגיאה:\n${err.message}`);
+            btnAnalyze.innerText = 'הרץ מנוע אנליזה';
+            btnAnalyze.disabled = false;
+        });
     });
 
     function populateFloors() {

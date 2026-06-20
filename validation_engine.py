@@ -36,7 +36,7 @@ def load_okf_rules(rules_dir):
 
 def run_validation(apartment, rules):
     results = []
-    print(f"Validating Apartment: {apartment['project_name']}")
+    print(f"Validating Apartment: {apartment.get('apartment_id', 'Unknown')}")
     print("-" * 50)
     
     # 1. Global Parameters Check (e.g., Ceiling Height B1.13)
