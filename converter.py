@@ -16,7 +16,7 @@ def convert_to_dxf(input_path, output_dxf_path):
             shutil.copy(input_path, output_dxf_path)
         return True
 
-    if ext not in [".dwg", ".dwf"]:
+    if ext != ".dwg":
         raise ValueError(f"Unsupported file format: {ext}")
         
     if not os.path.exists(ODA_CONVERTER_PATH):

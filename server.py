@@ -29,7 +29,7 @@ def api_upload():
     filename = file.filename
     ext = os.path.splitext(filename)[1].lower()
     
-    if ext not in ['.dxf', '.dwg', '.dwf']:
+    if ext not in ['.dxf', '.dwg']:
         return jsonify({"error": f"Unsupported format: {ext}"}), 400
         
     input_path = os.path.join(UPLOAD_FOLDER, filename)
