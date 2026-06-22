@@ -165,10 +165,14 @@ body {
 .blueprint-viewer {
     flex: 1;
     position: relative;
+    background-color: #0b132b;
     background-image: 
-        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-    background-size: 20px 20px;
+        linear-gradient(rgba(0,225,255,0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,225,255,0.1) 1px, transparent 1px),
+        url('blueprint_bg.png');
+    background-size: 20px 20px, 20px 20px, cover;
+    background-position: center, center, center;
+    background-blend-mode: overlay;
     border-radius: 12px;
     border: 1px solid var(--accent-blue);
     box-shadow: inset 0 0 20px rgba(0, 225, 255, 0.1);
@@ -180,17 +184,50 @@ body {
 
 .node {
     position: absolute;
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
     background: var(--accent-blue);
     border-radius: 50%;
     box-shadow: 0 0 15px var(--accent-blue);
     transform: translate(-50%, -50%);
-    font-size: 12px;
-    white-space: nowrap;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.node .tooltip {
+    visibility: hidden;
+    width: max-content;
+    background-color: rgba(10, 25, 47, 0.95);
+    color: #fff;
+    text-align: right;
+    border: 1px solid var(--accent-blue);
+    border-radius: 8px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 100;
+    bottom: 150%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 13px;
+    box-shadow: 0 4px 12px rgba(0,225,255,0.3);
+}
+
+.node .tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--accent-blue) transparent transparent transparent;
+}
+
+.node:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
 }
 
 .node::after {

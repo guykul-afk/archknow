@@ -147,8 +147,15 @@ document.addEventListener('DOMContentLoaded', () => {
             div.className = 'node';
             div.style.top = top + '%';
             div.style.left = left + '%';
-            div.innerText = r.name;
+            
+            // Create tooltip
+            const tooltip = document.createElement('div');
+            tooltip.className = 'tooltip';
+            tooltip.innerHTML = `<strong>${r.name}</strong><br/>שטח: ${r.area_sqm} מ"ר<br/>דלת: ${r.door_width_cm} ס"מ`;
+            
+            div.appendChild(tooltip);
             blueprintViewer.appendChild(div);
+            
             left += 30;
             if (left > 70) {
                 left = 10;

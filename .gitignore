@@ -22,3 +22,7 @@ extracted_apartment.json
 extracted_project.json
 uploads/
 
+# CAD files
+*.dwfx
+*.dwg
+*.dxf

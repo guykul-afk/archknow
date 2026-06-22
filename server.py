@@ -1,5 +1,6 @@
 from flask import Flask, send_from_directory, jsonify, request
 import json
+import hashlib
 import os
 from validation_engine import run_validation, load_okf_rules
 from cad_parser import parse_multi_apartment_cad
@@ -29,28 +30,33 @@ def api_upload():
     filename = file.filename
     ext = os.path.splitext(filename)[1].lower()
     
-    if ext not in ['.dxf', '.dwg']:
+    if ext not in ['.dxf', '.dwg', '.dwf', '.dwfx']:
         return jsonify({"error": f"Unsupported format: {ext}"}), 400
         
-    input_path = os.path.join(UPLOAD_FOLDER, filename)
-    file.save(input_path)
+    file_content = file.read()
+    file_hash = hashlib.md5(file_content).hexdigest()
+    file.seek(0)
     
-    dxf_path = os.path.join(UPLOAD_FOLDER, "converted.dxf")
+    input_path = os.path.join(UPLOAD_FOLDER, f"{file_hash}_{filename}")
+    dxf_path = os.path.join(UPLOAD_FOLDER, f"{file_hash}.dxf")
+    project_json_path = os.path.join(UPLOAD_FOLDER, f"{file_hash}_project.json")
     
-    # 1. Convert to DXF if necessary
-    try:
-        convert_to_dxf(input_path, dxf_path)
-    except FileNotFoundError as e:
-        return jsonify({"error": str(e)}), 412  # Precondition Failed (needs ODA installation)
-    except Exception as e:
-        return jsonify({"error": f"Conversion error: {str(e)}"}), 500
+    if not os.path.exists(project_json_path):
+        file.save(input_path)
         
-    # 2. Parse the DXF
-    project_json_path = os.path.join(UPLOAD_FOLDER, "extracted_project.json")
-    try:
-        parse_multi_apartment_cad(dxf_path, project_json_path)
-    except Exception as e:
-        return jsonify({"error": f"Failed to parse CAD: {str(e)}"}), 500
+        # 1. Convert to DXF if necessary
+        try:
+            convert_to_dxf(input_path, dxf_path)
+        except FileNotFoundError as e:
+            return jsonify({"error": str(e)}), 412  # Precondition Failed
+        except Exception as e:
+            return jsonify({"error": f"Conversion error: {str(e)}"}), 500
+            
+        # 2. Parse the DXF
+        try:
+            parse_multi_apartment_cad(dxf_path, project_json_path)
+        except Exception as e:
+            return jsonify({"error": str(e)}), 400
         
     # 3. Read and run validation engine
     try:
