@@ -156,16 +156,21 @@ def parse_multi_apartment_cad(dxf_filepath, output_json_path):
     if not project_data["floors"]:
         print("No A-TITLE layers found. Initiating PURE GEOMETRIC PARSING using Shapely.")
         try:
-            from shapely.geometry import LineString
+            from shapely.geometry import LineString, Point
             from shapely.ops import polygonize
             
             lines = []
             count = 0
             # Collect lines and polylines up to a limit to avoid server crash on huge files
-            for pl in msp.query('POLYLINE')[:50000]:
-                pts = [v.dxf.location for v in pl.vertices]
-                if len(pts) > 1:
-                    lines.append(LineString([(p[0], p[1]) for p in pts]))
+            for pl in msp.query('POLYLINE LWPOLYLINE')[:50000]:
+                if pl.dxftype() == 'LWPOLYLINE':
+                    pts = list(pl.get_points('xy'))
+                    if len(pts) > 1:
+                        lines.append(LineString([(p[0], p[1]) for p in pts]))
+                else:
+                    pts = [v.dxf.location for v in pl.vertices]
+                    if len(pts) > 1:
+                        lines.append(LineString([(p[0], p[1]) for p in pts]))
             
             for ln in msp.query('LINE')[:10000]:
                 lines.append(LineString([(ln.dxf.start.x, ln.dxf.start.y), (ln.dxf.end.x, ln.dxf.end.y)]))
@@ -178,10 +183,32 @@ def parse_multi_apartment_cad(dxf_filepath, output_json_path):
                 areas = [p.area for p in polygons]
                 areas.sort()
                 median_area = areas[len(areas)//2]
+                unit_factor = 10000.0 if median_area > 10000 else 1.0
                 
-                # Filter logical room sizes based on median area to auto-adapt to units
-                valid_rooms = [p for p in polygons if 0.5 * median_area < p.area < 50 * median_area]
-                valid_rooms = sorted(valid_rooms, key=lambda x: x.area, reverse=True)[:10] # Top 10 rooms
+                # Filter logical room sizes and eliminate shafts
+                valid_rooms = []
+                for p in polygons:
+                    area_sqm = p.area / unit_factor
+                    if area_sqm < 1.0 or area_sqm > 200.0:
+                        continue # Ignore very small (shafts) or huge (outlines)
+                    
+                    minx, miny, maxx, maxy = p.bounds
+                    width = maxx - minx
+                    height = maxy - miny
+                    if width == 0 or height == 0:
+                        continue
+                    
+                    aspect_ratio = max(width/height, height/width)
+                    if aspect_ratio > 5.0 and area_sqm < 3.0:
+                        continue # Likely a shaft or wall artifact
+                        
+                    valid_rooms.append(p)
+                
+                valid_rooms = sorted(valid_rooms, key=lambda x: x.area, reverse=True)[:20] # Top 20 rooms
+                
+                # Extract texts and arcs for name and door detection
+                texts = list(msp.query('TEXT MTEXT'))
+                arcs = list(msp.query('ARC'))
                 
                 floor_data = {"floor_name": "קומה מחולצת גיאומטרית (Shapely)", "apartments": []}
                 apartment_data = {
@@ -193,23 +220,88 @@ def parse_multi_apartment_cad(dxf_filepath, output_json_path):
                 }
                 
                 for i, p in enumerate(valid_rooms):
-                    room_type = "living_room" if i == 0 else ("bathroom" if i == len(valid_rooms)-1 else "bedroom")
-                    name = "סלון" if room_type == "living_room" else ("חדר רחצה" if room_type == "bathroom" else f"חדר {i}")
+                    name = f"חדר {i}"
+                    room_type = "bedroom"
+                    
+                    for t in texts:
+                        txt_pt = Point(t.dxf.insert[0], t.dxf.insert[1])
+                        if p.contains(txt_pt):
+                            text_val = t.dxf.text if t.dxftype() == 'TEXT' else t.text
+                            if text_val:
+                                name = text_val.strip()
+                                break
+                    
+                    if "סלון" in name or "מגורים" in name or "Living" in name:
+                        room_type = "living_room"
+                    elif "רחצה" in name or "שירותים" in name or "מקלחת" in name or "Bath" in name:
+                        room_type = "bathroom"
+                    elif "מטבח" in name or "Kitchen" in name:
+                        room_type = "kitchen"
+                    elif "מרפסת" in name or "Balcony" in name:
+                        room_type = "balcony"
+                    elif "ממ\"ד" in name or "שינה" in name or "חדר" in name:
+                        room_type = "bedroom"
+                        
+                    # Fallback for i=0 if no text matched
+                    if room_type == "bedroom" and name == f"חדר {i}" and i == 0:
+                        room_type = "living_room"
+                        name = "סלון"
                     
                     apartment_data["rooms"].append({
                         "id": f"R{i}",
                         "type": room_type,
                         "name": name,
-                        "area_sqm": round(p.area / 10000.0 if median_area > 10000 else p.area, 2), # rough cm to m conversion
+                        "area_sqm": round(p.area / unit_factor, 2),
                         "has_window": True,
                         "door_width_cm": 80
                     })
                 
                 if len(apartment_data["rooms"]) > 1:
-                    apartment_data["topology"] = [
-                        {"source": "R0", "target": f"R{i}", "type": "door", "width_cm": 80}
-                        for i in range(1, len(apartment_data["rooms"]))
-                    ]
+                    room_polys = {f"R{i}": valid_rooms[i] for i in range(len(valid_rooms))}
+                    
+                    # Check arcs for doors connecting rooms
+                    for arc in arcs:
+                        arc_pt = Point(arc.dxf.center[0], arc.dxf.center[1])
+                        connected_rooms = []
+                        for r_id, r_poly in room_polys.items():
+                            # If arc center is near the room boundary
+                            if r_poly.distance(arc_pt) < 100.0:
+                                connected_rooms.append(r_id)
+                        
+                        if len(connected_rooms) == 2:
+                            r1, r2 = connected_rooms[0], connected_rooms[1]
+                            radius = arc.dxf.radius
+                            
+                            # Avoid duplicates
+                            exists = any(t["source"] == r1 and t["target"] == r2 for t in apartment_data["topology"]) or \
+                                     any(t["source"] == r2 and t["target"] == r1 for t in apartment_data["topology"])
+                            
+                            if not exists:
+                                apartment_data["topology"].append({
+                                    "source": r1,
+                                    "target": r2,
+                                    "type": "door",
+                                    "width_cm": round(radius / (100 if unit_factor > 1 else 1)) if radius > 100 else round(radius)
+                                })
+                    
+                    # Fallback topology if none or very few doors found
+                    if len(apartment_data["topology"]) < len(apartment_data["rooms"]) - 1:
+                        # Find the living room ID
+                        lr_id = next((r["id"] for r in apartment_data["rooms"] if r["type"] == "living_room"), "R0")
+                        existing_links = set()
+                        for t in apartment_data["topology"]:
+                            existing_links.add((t["source"], t["target"]))
+                            existing_links.add((t["target"], t["source"]))
+                            
+                        for i in range(len(apartment_data["rooms"])):
+                            r_id = f"R{i}"
+                            if r_id != lr_id and (lr_id, r_id) not in existing_links:
+                                apartment_data["topology"].append({
+                                    "source": lr_id,
+                                    "target": r_id,
+                                    "type": "door",
+                                    "width_cm": 80
+                                })
                     
                 floor_data["apartments"].append(apartment_data)
                 project_data["floors"].append(floor_data)
