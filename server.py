@@ -5,6 +5,7 @@ import os
 from validation_engine import run_validation, load_okf_rules
 from cad_parser import parse_multi_apartment_cad
 from converter import convert_to_dxf
+from pdf_parser import parse_pdf_plan
 
 app = Flask(__name__, static_folder='webapp')
 UPLOAD_FOLDER = 'uploads'
@@ -30,7 +31,7 @@ def api_upload():
     filename = file.filename
     ext = os.path.splitext(filename)[1].lower()
     
-    if ext not in ['.dxf', '.dwg', '.dwf', '.dwfx']:
+    if ext not in ['.dxf', '.dwg', '.dwf', '.dwfx', '.pdf']:
         return jsonify({"error": f"Unsupported format: {ext}"}), 400
         
     file_content = file.read()
@@ -44,19 +45,26 @@ def api_upload():
     if not os.path.exists(project_json_path):
         file.save(input_path)
         
-        # 1. Convert to DXF if necessary
-        try:
-            convert_to_dxf(input_path, dxf_path)
-        except FileNotFoundError as e:
-            return jsonify({"error": str(e)}), 412  # Precondition Failed
-        except Exception as e:
-            return jsonify({"error": f"Conversion error: {str(e)}"}), 500
-            
-        # 2. Parse the DXF
-        try:
-            parse_multi_apartment_cad(dxf_path, project_json_path)
-        except Exception as e:
-            return jsonify({"error": str(e)}), 400
+        if ext == '.pdf':
+            try:
+                parse_pdf_plan(input_path, project_json_path, file_hash)
+            except Exception as e:
+                return jsonify({"error": f"Error parsing PDF plan: {str(e)}"}), 400
+        else:
+            # 1. Convert to DXF if necessary and generate PNG preview
+            png_path = os.path.join("webapp/uploads", f"{file_hash}_page.png")
+            try:
+                convert_to_dxf(input_path, dxf_path, png_path)
+            except FileNotFoundError as e:
+                return jsonify({"error": str(e)}), 412  # Precondition Failed
+            except Exception as e:
+                return jsonify({"error": f"Conversion error: {str(e)}"}), 500
+                
+            # 2. Parse the DXF
+            try:
+                parse_multi_apartment_cad(dxf_path, project_json_path)
+            except Exception as e:
+                return jsonify({"error": str(e)}), 400
         
     # 3. Read and run validation engine
     try:
@@ -64,6 +72,10 @@ def api_upload():
             project_data = json.load(f)
     except Exception as e:
         return jsonify({"error": f"Failed to load parsed project: {str(e)}"}), 500
+
+    bg_filename = f"{file_hash}_page.png"
+    if os.path.exists(os.path.join("webapp/uploads", bg_filename)):
+        project_data["bg_image_url"] = f"/uploads/{bg_filename}"
 
     rules = load_okf_rules("okf_rules")
     

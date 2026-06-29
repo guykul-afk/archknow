@@ -108,6 +108,13 @@ def parse_multi_apartment_cad(dxf_filepath, output_json_path):
             
             # Find rooms inside this apartment boundary
             room_count = 1
+            apt_xs = [p[0] for p in apt_pts]
+            apt_ys = [p[1] for p in apt_pts]
+            apt_min_x, apt_max_x = min(apt_xs), max(apt_xs)
+            apt_min_y, apt_max_y = min(apt_ys), max(apt_ys)
+            apt_w = apt_max_x - apt_min_x
+            apt_h = apt_max_y - apt_min_y
+            
             for room_poly in all_rooms:
                 r_pts = list(room_poly.get_points('xy'))
                 if not r_pts: continue
@@ -132,13 +139,18 @@ def parse_multi_apartment_cad(dxf_filepath, output_json_path):
                     if "מטבח" in room_name: r_type = "kitchen"
                     if "רחצה" in room_name: r_type = "bathroom"
                     
+                    x_pct = (r_center_x - apt_min_x) / apt_w * 100 if apt_w > 0 else 50
+                    y_pct = (apt_max_y - r_center_y) / apt_h * 100 if apt_h > 0 else 50
+                    
                     apartment_data["rooms"].append({
                         "id": f"R{room_count}",
                         "type": r_type,
                         "name": room_name,
                         "area_sqm": round(room_area / 10000.0, 2), # convert from cm^2 or similar to sqm assumption
                         "has_window": True,
-                        "door_width_cm": 80
+                        "door_width_cm": 80,
+                        "x_pct": round(x_pct, 1),
+                        "y_pct": round(y_pct, 1)
                     })
                     room_count += 1
             
@@ -210,6 +222,22 @@ def parse_multi_apartment_cad(dxf_filepath, output_json_path):
                 texts = list(msp.query('TEXT MTEXT'))
                 arcs = list(msp.query('ARC'))
                 
+                # Calculate global bounding box of all rooms
+                all_xs = []
+                all_ys = []
+                for p in valid_rooms:
+                    minx, miny, maxx, maxy = p.bounds
+                    all_xs.extend([minx, maxx])
+                    all_ys.extend([miny, maxy])
+                
+                if all_xs and all_ys:
+                    min_x, max_x = min(all_xs), max(all_xs)
+                    min_y, max_y = min(all_ys), max(all_ys)
+                    width = max_x - min_x
+                    height = max_y - min_y
+                else:
+                    min_x, max_x, min_y, max_y, width, height = 0, 100, 0, 100, 100, 100
+                
                 floor_data = {"floor_name": "קומה מחולצת גיאומטרית (Shapely)", "apartments": []}
                 apartment_data = {
                     "apartment_id": "דירה גיאומטרית",
@@ -247,13 +275,19 @@ def parse_multi_apartment_cad(dxf_filepath, output_json_path):
                         room_type = "living_room"
                         name = "סלון"
                     
+                    centroid = p.centroid
+                    x_pct = (centroid.x - min_x) / width * 100 if width > 0 else 50
+                    y_pct = (max_y - centroid.y) / height * 100 if height > 0 else 50
+                    
                     apartment_data["rooms"].append({
                         "id": f"R{i}",
                         "type": room_type,
                         "name": name,
                         "area_sqm": round(p.area / unit_factor, 2),
                         "has_window": True,
-                        "door_width_cm": 80
+                        "door_width_cm": 80,
+                        "x_pct": round(x_pct, 1),
+                        "y_pct": round(y_pct, 1)
                     })
                 
                 if len(apartment_data["rooms"]) > 1:
