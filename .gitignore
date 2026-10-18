@@ -22,6 +22,8 @@ data/
 extracted_apartment.json
 extracted_project.json
 uploads/
+.env*
+*.env
 
 # CAD files
 *.dwfx
