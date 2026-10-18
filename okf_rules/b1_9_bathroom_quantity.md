@@ -5,6 +5,8 @@ indicator: Bathroom Quantity
 rule_id: B1.9
 target_room: bathroom/toilet
 type: architectural_rule
+min_area_sqm: 1.8
+min_width_m: 0.90
 ---
 # Total number of restrooms, bathrooms, and toilets
 

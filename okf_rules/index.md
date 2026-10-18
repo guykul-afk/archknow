@@ -4,6 +4,17 @@ title: Architectural & Accessibility Knowledge Base Index
 ---
 # Complete Architectural & Accessibility Knowledge Base
 
+## Planning Standards & Checklists
+- **[ISRAEL_2026](israel_housing_planning_book_2026.md)**: ספר התכנון השלם לדירת המגורים: חוק, מרחב, פסיכולוגיה וקיימות
+- **[CHECKLIST_ISRAEL_INT](checklist_israel_international_integration.md)**: רשימת הבדיקה המלאה לבחינת תוכנית דירה: אינטגרציה ישראלית ובינלאומית
+
+## International Benchmarks, Design Theory & Computational Metrics (v2)
+- **[WBS_NDSS_ADG](wbs_ndss_adg_housing_benchmarks.md)**: מדדי שטח, אחסון, מרפסות ואיכות חיים — NDSS (בריטניה), London Plan D6, NSW ADG, WBS (שווייץ)
+- **[NKBA_KB](nkba_kitchen_bath_planning_guidelines.md)**: הנדסת מטבחים וחדרי רחצה — הנחיות NKBA (משולש עבודה, מעברים, משטחי הנחה, מרווחי כלים סניטריים)
+- **[APL_HOUSING](alexander_pattern_language_housing.md)**: שפת התבניות של כריסטופר אלכסנדר — 29 תבניות לקנה מידה של דירה
+- **[SPACE_SYNTAX_SAGA](space_syntax_saga_metrics.md)**: Space Syntax (עומק, אינטגרציה), יעילות תוכנית (יחס מסדרונות, מלבניות) ומדדי קירוב לגמישות SAGA
+- **[IS1918_ACCESS](israel_accessibility_is1918_housing.md)**: נגישות דירות — מסגרת ת"י 1918 ומידות ייחוס בינלאומיות (סטטוס: לאימות)
+- **[SOURCES_REGISTRY](sources_registry_architectural_quality.md)**: מרשם מקורות המופת והמקורות הרשמיים וסטטוס שילובם בבסיס הידע
 
 ## Technical Performance Regulations
 - **[A10](a10_overall_perception_of_acoustic_privacy_a.md)**: Overall perception of acoustic privacy and comfort in the ap...

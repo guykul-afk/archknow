@@ -5,6 +5,8 @@ indicator: Bedroom Area
 rule_id: B1.6
 target_room: bedroom
 type: architectural_rule
+min_area_sqm: 8.0
+min_width_m: 2.60
 ---
 # Area of typical bedrooms
 

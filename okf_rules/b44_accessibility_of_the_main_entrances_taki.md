@@ -4,6 +4,7 @@ description_summary: Accessibility of the main entrances (taking trolleys and wh
 rule_id: B44
 subcategory: Building support services
 type: architectural_rule
+min_width_cm: 80
 ---
 # B44: Accessibility of the main entrances (taking trolleys and wheelchairs in to mind)
 

@@ -42,29 +42,29 @@ def api_upload():
     dxf_path = os.path.join(UPLOAD_FOLDER, f"{file_hash}.dxf")
     project_json_path = os.path.join(UPLOAD_FOLDER, f"{file_hash}_project.json")
     
-    if not os.path.exists(project_json_path):
-        file.save(input_path)
-        
-        if ext == '.pdf':
-            try:
-                parse_pdf_plan(input_path, project_json_path, file_hash)
-            except Exception as e:
-                return jsonify({"error": f"Error parsing PDF plan: {str(e)}"}), 400
-        else:
-            # 1. Convert to DXF if necessary and generate PNG preview
-            png_path = os.path.join("webapp/uploads", f"{file_hash}_page.png")
-            try:
-                convert_to_dxf(input_path, dxf_path, png_path)
-            except FileNotFoundError as e:
-                return jsonify({"error": str(e)}), 412  # Precondition Failed
-            except Exception as e:
-                return jsonify({"error": f"Conversion error: {str(e)}"}), 500
-                
-            # 2. Parse the DXF
-            try:
-                parse_multi_apartment_cad(dxf_path, project_json_path)
-            except Exception as e:
-                return jsonify({"error": str(e)}), 400
+    file.save(input_path)
+    
+    if ext == '.pdf':
+        try:
+            # smart analysis: plan_analyzer (reading + 2D model + QA), legacy fallback inside
+            parse_pdf_plan(input_path, project_json_path, file_hash, preview_dir=os.path.join("webapp", "uploads"))
+        except Exception as e:
+            return jsonify({"error": f"Error parsing PDF plan: {str(e)}"}), 400
+    else:
+        # 1. Convert to DXF if necessary and generate PNG preview
+        png_path = os.path.join("webapp/uploads", f"{file_hash}_page.png")
+        try:
+            convert_to_dxf(input_path, dxf_path, png_path)
+        except FileNotFoundError as e:
+            return jsonify({"error": str(e)}), 412  # Precondition Failed
+        except Exception as e:
+            return jsonify({"error": f"Conversion error: {str(e)}"}), 500
+            
+        # 2. Parse the DXF
+        try:
+            parse_multi_apartment_cad(dxf_path, project_json_path)
+        except Exception as e:
+            return jsonify({"error": str(e)}), 400
         
     # 3. Read and run validation engine
     try:
@@ -86,7 +86,11 @@ def api_upload():
             val_results = run_validation(apt, rules)
             apt["validation_results"] = val_results
             
-            # Mock Qualitative validation per apartment
+            # Mock Qualitative validation per apartment (placeholder — not for analyzed PDFs,
+            # whose plan-derived findings come from the engine's topology checks)
+            if "plan_extraction" in apt:
+                apt["qualitative_insights"] = []
+                continue
             apt["qualitative_insights"] = [
                 {
                     "title": "⚠️ פגיעה בפרטיות (כלל B1.2)",

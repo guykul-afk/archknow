@@ -5,6 +5,7 @@ indicator: Ceiling Height
 rule_id: B1.13
 target_room: all
 type: architectural_rule
+min_height_m: 2.50
 ---
 # Ceilings height
 

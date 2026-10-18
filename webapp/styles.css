@@ -67,7 +67,7 @@ body {
 
 .container {
     display: grid;
-    grid-template-columns: 1.2fr 1fr 1fr;
+    grid-template-columns: 1.2fr 2.5fr;
     gap: 24px;
     padding: 30px 40px;
     height: calc(100vh - 80px);
@@ -166,16 +166,10 @@ body {
     flex: 1;
     position: relative;
     background-color: #0b132b;
-    background-image: 
-        linear-gradient(rgba(0,225,255,0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,225,255,0.1) 1px, transparent 1px),
-        url('blueprint_bg.png');
-    background-size: 20px 20px, 20px 20px, cover;
-    background-position: center, center, center;
-    background-blend-mode: overlay;
     border-radius: 12px;
     border: 1px solid var(--accent-blue);
     box-shadow: inset 0 0 20px rgba(0, 225, 255, 0.1);
+    overflow: hidden;
 }
 
 .blueprint-viewer.hidden {
@@ -308,6 +302,12 @@ body {
 
 .tag-pass { background: rgba(0, 210, 106, 0.1); color: var(--success); }
 .tag-fail { background: rgba(255, 59, 59, 0.1); color: var(--danger); }
+.status-warn {
+    border: 1px solid #f5a623;
+    color: #f5a623;
+    box-shadow: 0 0 10px rgba(245, 166, 35, 0.2);
+}
+.tag-warn { background: rgba(245, 166, 35, 0.12); color: #f5a623; }
 
 /* AI Report */
 .ai-report {
@@ -369,3 +369,207 @@ body {
     box-shadow: 0 0 10px rgba(0, 225, 255, 0.2);
 }
 
+/* Dimensions Table & Nodes styling */
+.dimensions-table th {
+    font-weight: 600;
+    border-bottom: 2px solid var(--panel-border);
+}
+
+.dimensions-table td {
+    padding: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+}
+
+.dimensions-table tr:hover {
+    background: rgba(0, 225, 255, 0.05);
+}
+
+.node.fail {
+    background: #ff3838;
+    box-shadow: 0 0 15px #ff3838;
+    border: 1px solid #ff7979;
+}
+
+.node.fail::after {
+    border-color: #ff3838;
+}
+
+/* Info Icon and Smart Card Styles */
+.info-icon-node {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: rgba(10, 25, 47, 0.8);
+    border: 1px solid var(--accent-blue);
+    border-radius: 50%;
+    color: var(--accent-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    transition: all 0.2s ease;
+}
+
+.info-icon-node:hover, .info-icon-node.hover-focus {
+    background: var(--accent-blue);
+    color: #fff;
+    transform: translate(-50%, -50%) scale(1.2);
+    box-shadow: 0 0 10px var(--accent-blue);
+}
+
+.info-icon-node.has-error {
+    border-color: #ff3838;
+    color: #ff3838;
+}
+
+.info-icon-node.has-error:hover, .info-icon-node.has-error.hover-focus {
+    background: #ff3838;
+    color: #fff;
+    box-shadow: 0 0 10px #ff3838;
+}
+
+.room-highlight-glow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(0, 225, 255, 0.4) 0%, rgba(0, 225, 255, 0) 70%);
+    z-index: 10;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.room-highlight-glow.active {
+    width: 150px;
+    height: 150px;
+}
+
+.smart-card {
+    position: absolute;
+    width: 200px;
+    background-color: rgba(10, 25, 47, 0.95);
+    border: 1px solid var(--accent-blue);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 225, 255, 0.2);
+    padding: 12px;
+    color: #fff;
+    font-size: 13px;
+    z-index: 30;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.smart-card.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.smart-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 225, 255, 0.3);
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+    color: var(--accent-blue);
+}
+
+.close-card-btn {
+    background: none;
+    border: none;
+    color: #8892b0;
+    font-size: 16px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-card-btn:hover {
+    color: #fff;
+}
+
+.smart-card-body div {
+    margin-bottom: 4px;
+}
+
+.smart-card-errors {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed rgba(255, 56, 56, 0.4);
+}
+
+.card-error {
+    color: #ff7979;
+    font-weight: 600;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+/* ---------- Smart PDF extraction panel ---------- */
+.blueprint-polygons {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+}
+.blueprint-polygons polygon {
+    fill: rgba(0, 225, 255, 0.10);
+    stroke: rgba(0, 225, 255, 0.85);
+    stroke-width: 0.15;
+    vector-effect: non-scaling-stroke;
+}
+.blueprint-polygons polygon.type-balcony { fill: rgba(0, 210, 106, 0.12); stroke: rgba(0, 210, 106, 0.9); }
+.blueprint-polygons polygon.type-safe_room { fill: rgba(157, 0, 255, 0.12); stroke: rgba(157, 0, 255, 0.9); }
+.blueprint-polygons polygon.type-corridor,
+.blueprint-polygons polygon.type-entrance { fill: rgba(245, 166, 35, 0.10); stroke: rgba(245, 166, 35, 0.9); stroke-dasharray: 1 1; }
+.blueprint-polygons polygon.active { fill: rgba(0, 225, 255, 0.30); }
+.blueprint-polygons.hidden { display: none; }
+
+.extraction-panel {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    max-height: 420px;
+    overflow-y: auto;
+}
+.extraction-panel.hidden { display: none; }
+.extraction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.extraction-header h3 {
+    font-family: 'Rubik', sans-serif;
+    font-size: 16px;
+    color: var(--text-main);
+}
+.extraction-header .toggle { font-size: 12px; color: var(--text-muted); cursor: pointer; }
+.extraction-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.meta-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 6px 10px;
+}
+.meta-item .meta-label { font-size: 11px; color: var(--text-muted); }
+.meta-item .meta-value { font-size: 14px; color: var(--text-main); font-weight: 600; }
+.meta-item .meta-src { font-size: 10px; color: var(--accent-blue); }
+.extraction-subtitle { font-size: 13px; color: var(--accent-blue); margin: 6px 0; font-weight: 600; }
+.extraction-warnings { margin-top: 8px; font-size: 12px; color: #f5a623; }
+.extraction-warnings div { margin-bottom: 4px; }
+.room-source { font-size: 10px; color: var(--text-muted); }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -19,58 +19,158 @@
     </nav>
 
     <main class="container">
+        <!-- Right Column: Quantitative Rules & Qualitative Insights -->
+        <section class="column glass-panel" id="analysis-section">
+            <h2 class="section-title">Quantitative Rules</h2>
+            <p class="section-subtitle">׳‘׳“׳™׳§׳” ׳׳•׳˜׳•׳׳˜׳™׳× ׳׳•׳ ׳׳“׳“׳™ ׳”-OKF</p>
+            
+            <div id="checklist-container" class="checklist-container" style="overflow-y: auto; margin-bottom: 20px; max-height: 250px;">
+                <div class="placeholder-state">׳”׳׳×׳ ׳׳”׳¢׳׳׳× ׳©׳¨׳˜׳•׳˜...</div>
+                <!-- Items injected via JS -->
+            </div>
+
+            <!-- Vector Dimensions partitioned by type -->
+            <div id="vector-dimensions-container" class="vector-dimensions-container hidden" style="margin-bottom: 20px;">
+                <h3 style="font-size: 16px; margin-bottom: 10px; color: var(--text-main); font-family: 'Rubik', sans-serif;">׳׳™׳“׳•׳× ׳•׳©׳˜׳—׳™׳ ׳•׳§׳˜׳•׳¨׳™׳™׳</h3>
+                
+                <!-- ׳—׳“׳¨׳™׳ -->
+                <div class="room-group" id="group-rooms-container" style="margin-bottom: 15px;">
+                    <h4 style="font-size: 13px; color: var(--accent-blue); margin-bottom: 5px; font-weight: 600;">׳—׳“׳¨׳™׳</h4>
+                    <table class="dimensions-table" style="width: 100%; border-collapse: collapse; text-align: right; font-size: 13px;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid var(--panel-border); color: var(--text-muted);">
+                                <th style="padding: 6px 8px;">׳©׳</th>
+                                <th style="padding: 6px 8px;">׳©׳˜׳— (׳"׳¨)</th>
+                                <th style="padding: 6px 8px;">׳¨׳•׳—׳‘ (׳¡"׳)</th>
+                                <th style="padding: 6px 8px;">׳׳•׳¨׳ (׳¡"׳)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rooms-table-body"></tbody>
+                    </table>
+                </div>
+
+                <!-- ׳׳˜׳‘׳— -->
+                <div class="room-group" id="group-kitchen-container" style="margin-bottom: 15px;">
+                    <h4 style="font-size: 13px; color: var(--accent-blue); margin-bottom: 5px; font-weight: 600;">׳׳˜׳‘׳—</h4>
+                    <table class="dimensions-table" style="width: 100%; border-collapse: collapse; text-align: right; font-size: 13px;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid var(--panel-border); color: var(--text-muted);">
+                                <th style="padding: 6px 8px;">׳©׳</th>
+                                <th style="padding: 6px 8px;">׳©׳˜׳— (׳"׳¨)</th>
+                                <th style="padding: 6px 8px;">׳¨׳•׳—׳‘ (׳¡"׳)</th>
+                                <th style="padding: 6px 8px;">׳׳•׳¨׳ (׳¡"׳)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="kitchen-table-body"></tbody>
+                    </table>
+                </div>
+
+                <!-- ׳׳¡׳“׳¨׳•׳ ׳•׳× -->
+                <div class="room-group" id="group-corridors-container" style="margin-bottom: 15px;">
+                    <h4 style="font-size: 13px; color: var(--accent-blue); margin-bottom: 5px; font-weight: 600;">׳׳¡׳“׳¨׳•׳ ׳•׳×</h4>
+                    <table class="dimensions-table" style="width: 100%; border-collapse: collapse; text-align: right; font-size: 13px;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid var(--panel-border); color: var(--text-muted);">
+                                <th style="padding: 6px 8px;">׳©׳</th>
+                                <th style="padding: 6px 8px;">׳©׳˜׳— (׳"׳¨)</th>
+                                <th style="padding: 6px 8px;">׳¨׳•׳—׳‘ (׳¡"׳)</th>
+                                <th style="padding: 6px 8px;">׳׳•׳¨׳ (׳¡"׳)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corridors-table-body"></tbody>
+                    </table>
+                </div>
+
+                <!-- ׳׳¨׳₪׳¡׳•׳× -->
+                <div class="room-group" id="group-balconies-container" style="margin-bottom: 15px;">
+                    <h4 style="font-size: 13px; color: var(--accent-blue); margin-bottom: 5px; font-weight: 600;">׳׳¨׳₪׳¡׳•׳×</h4>
+                    <table class="dimensions-table" style="width: 100%; border-collapse: collapse; text-align: right; font-size: 13px;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid var(--panel-border); color: var(--text-muted);">
+                                <th style="padding: 6px 8px;">׳©׳</th>
+                                <th style="padding: 6px 8px;">׳©׳˜׳— (׳"׳¨)</th>
+                                <th style="padding: 6px 8px;">׳¨׳•׳—׳‘ (׳¡"׳)</th>
+                                <th style="padding: 6px 8px;">׳׳•׳¨׳ (׳¡"׳)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="balconies-table-body"></tbody>
+                    </table>
+                </div>
+
+                <!-- ׳—׳“׳¨׳™ ׳¨׳—׳¦׳” ׳•׳©׳™׳¨׳•׳×׳™׳ -->
+                <div class="room-group" id="group-bathrooms-container" style="margin-bottom: 15px;">
+                    <h4 style="font-size: 13px; color: var(--accent-blue); margin-bottom: 5px; font-weight: 600;">׳—׳“׳¨׳™ ׳¨׳—׳¦׳” ׳•׳©׳™׳¨׳•׳×׳™׳</h4>
+                    <table class="dimensions-table" style="width: 100%; border-collapse: collapse; text-align: right; font-size: 13px;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid var(--panel-border); color: var(--text-muted);">
+                                <th style="padding: 6px 8px;">׳©׳</th>
+                                <th style="padding: 6px 8px;">׳©׳˜׳— (׳"׳¨)</th>
+                                <th style="padding: 6px 8px;">׳¨׳•׳—׳‘ (׳¡"׳)</th>
+                                <th style="padding: 6px 8px;">׳׳•׳¨׳ (׳¡"׳)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bathrooms-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <hr style="border: 0; border-top: 1px solid var(--panel-border); margin: 20px 0;">
+
+            <!-- AI Qualitative Insights -->
+            <h2 class="section-title">AI Qualitative Insights</h2>
+            <p class="section-subtitle">׳ ׳™׳×׳•׳— ׳׳“׳¨׳™׳›׳׳™ ׳—׳›׳ ׳׳‘׳•׳¡׳¡ Topology</p>
+            
+            <div id="ai-insights-container" class="ai-insights-container" style="overflow-y: auto; max-height: 250px; padding-right: 5px;">
+                <div class="placeholder-state">׳”׳׳×׳ ׳׳”׳¢׳׳׳× ׳©׳¨׳˜׳•׳˜...</div>
+                <!-- Content injected via JS -->
+            </div>
+        </section>
+
         <!-- Left Column: Blueprint/Upload Area -->
         <section class="column glass-panel" id="blueprint-section">
             <h2 class="section-title">Blueprint Analysis</h2>
             
             <div id="upload-zone" class="upload-zone" style="position: relative;">
-                <input type="file" id="file-input" style="display: none;" accept=".dxf,.dwg,.dwf,.dwfx">
-                <div class="upload-icon">📄</div>
-                <p>גרור לכאן קובץ שרטוט (DXF/DWG/DWF/DWFX) או לחץ לבחירה</p>
-                <button id="btn-analyze" class="btn-primary" style="display: none; position: relative; z-index: 10;">הרץ מנוע אנליזה</button>
+                <input type="file" id="file-input" style="display: none;" accept=".dxf,.dwg,.dwf,.dwfx,.pdf">
+                <div class="upload-icon">נ“„</div>
+                <p>׳’׳¨׳•׳¨ ׳׳›׳׳ ׳§׳•׳‘׳¥ ׳©׳¨׳˜׳•׳˜ (DXF/DWG/DWF/DWFX/PDF) ׳׳• ׳׳—׳¥ ׳׳‘׳—׳™׳¨׳”</p>
+                <button id="btn-analyze" class="btn-primary" style="display: none; position: relative; z-index: 10;">׳”׳¨׳¥ ׳׳ ׳•׳¢ ׳׳ ׳׳™׳–׳”</button>
             </div>
             
-            <div id="project-navigator" class="project-navigator hidden" style="margin-bottom: 20px;">
-                <label>בחר קומה:</label>
+            <div id="project-navigator" class="project-navigator hidden" style="display: none !important;">
+                <label>׳‘׳—׳¨ ׳§׳•׳׳”:</label>
                 <select id="floor-select" class="form-select"></select>
-                <label>בחר דירה:</label>
+                <label>׳‘׳—׳¨ ׳“׳™׳¨׳”:</label>
                 <select id="apt-select" class="form-select"></select>
             </div>
 
-            <div id="blueprint-viewer" class="blueprint-viewer hidden">
-                <!-- Visual Nodes will be injected here via JS -->
-                <div class="node" style="top: 20%; left: 30%;">Master Bedroom</div>
-                <div class="node" style="top: 40%; left: 70%;">Living Room</div>
-                <div class="node" style="top: 60%; left: 30%;">Bathroom</div>
-                <svg class="connection-lines">
-                    <!-- Connections -->
-                </svg>
+            <div id="blueprint-viewer" class="blueprint-viewer hidden" style="position: relative; display: flex; align-items: center; justify-content: center;">
+                <div style="position: relative; max-width: 100%; max-height: 100%;">
+                    <img id="blueprint-img" style="max-width: 100%; max-height: 100%; display: block; object-fit: contain;" />
+                    <svg id="blueprint-polygons" class="blueprint-polygons" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+                    <div id="blueprint-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;"></div>
+                </div>
             </div>
-        </section>
 
-        <!-- Middle Column: Quantitative Checklist -->
-        <section class="column glass-panel" id="quantitative-section">
-            <h2 class="section-title">Quantitative Rules</h2>
-            <p class="section-subtitle">בדיקה אוטומטית מול מדדי ה-OKF</p>
-            
-            <div id="checklist-container" class="checklist-container">
-                <div class="placeholder-state">המתן להעלאת שרטוט...</div>
-                <!-- Items injected via JS -->
-            </div>
-        </section>
-
-        <!-- Right Column: AI Qualitative Insights -->
-        <section class="column glass-panel glow-accent" id="qualitative-section">
-            <h2 class="section-title">AI Qualitative Insights</h2>
-            <p class="section-subtitle">ניתוח אדריכלי חכם מבוסס Topology</p>
-            
-            <div id="ai-insights-container" class="ai-insights-container">
-                <div class="placeholder-state">המתן להעלאת שרטוט...</div>
-                <!-- Content injected via JS -->
+            <!-- Smart PDF extraction: the analysis database built from the plan -->
+            <div id="extraction-panel" class="extraction-panel hidden">
+                <div class="extraction-header">
+                    <h3>׳ ׳×׳•׳ ׳™ ׳—׳™׳׳•׳¥ ׳׳”׳×׳›׳ ׳™׳×</h3>
+                    <label class="toggle"><input type="checkbox" id="toggle-polygons" checked> ׳”׳¦׳’ ׳’׳‘׳•׳׳•׳× ׳—׳׳׳™׳</label>
+                </div>
+                <div id="extraction-meta" class="extraction-meta"></div>
+                <h4 class="extraction-subtitle">׳‘׳§׳¨׳× ׳׳™׳›׳•׳× ׳”׳—׳™׳׳•׳¥</h4>
+                <div id="extraction-qa" class="checklist-container"></div>
+                <div id="extraction-warnings" class="extraction-warnings"></div>
             </div>
         </section>
     </main>
 
-    <script src="app.js"></script>
+    <!-- Firebase SDK (Compat Version) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+    <script src="app.js?v=4"></script>
 </body>
 </html>

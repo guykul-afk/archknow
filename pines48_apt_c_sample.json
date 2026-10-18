@@ -1,0 +1,138 @@
+{
+  "apartment_id": "Pines 48 - Apt C",
+  "global_parameters": {
+    "ceiling_height_m": 2.67
+  },
+  "accessibility": {
+    "main_entrance_width_cm": 90
+  },
+  "orientations": [
+    "S",
+    "E"
+  ],
+  "rooms": [
+    {
+      "id": "LIV",
+      "type": "living_room",
+      "name": "סלון C",
+      "area_sqm": 19.2,
+      "width_cm": 400
+    },
+    {
+      "id": "KIT",
+      "type": "kitchen",
+      "name": "מטבח C",
+      "area_sqm": 8.16,
+      "width_cm": 245
+    },
+    {
+      "id": "COR",
+      "type": "corridor",
+      "name": "מסדרון C",
+      "area_sqm": 8.69,
+      "width_cm": 110
+    },
+    {
+      "id": "MBR",
+      "type": "bedroom",
+      "name": "חדר הורים C",
+      "area_sqm": 11.51,
+      "width_cm": 295
+    },
+    {
+      "id": "ENS",
+      "type": "bathroom",
+      "name": "רחצה הורים C",
+      "area_sqm": 3.09,
+      "width_cm": 165,
+      "has_window": true
+    },
+    {
+      "id": "BR2",
+      "type": "bedroom",
+      "name": "חדר דרומי C",
+      "area_sqm": 9.32,
+      "width_cm": 270
+    },
+    {
+      "id": "MMD",
+      "type": "safe_room",
+      "name": "ממד C",
+      "area_sqm": 9.49,
+      "width_cm": 292
+    },
+    {
+      "id": "BTH",
+      "type": "bathroom",
+      "name": "רחצה כללי C",
+      "area_sqm": 3.74,
+      "width_cm": 170,
+      "has_window": true
+    },
+    {
+      "id": "SRV",
+      "type": "utility",
+      "name": "שירות C",
+      "area_sqm": 2.53
+    },
+    {
+      "id": "BAL",
+      "type": "balcony",
+      "name": "מרפסת C",
+      "area_sqm": 12.0,
+      "depth_m": 2.0
+    }
+  ],
+  "topology": [
+    {
+      "source": "EXT",
+      "target": "LIV",
+      "type": "door"
+    },
+    {
+      "source": "LIV",
+      "target": "KIT",
+      "type": "opening"
+    },
+    {
+      "source": "LIV",
+      "target": "BAL",
+      "type": "door"
+    },
+    {
+      "source": "LIV",
+      "target": "COR",
+      "type": "opening"
+    },
+    {
+      "source": "COR",
+      "target": "MBR",
+      "type": "door"
+    },
+    {
+      "source": "COR",
+      "target": "BR2",
+      "type": "door"
+    },
+    {
+      "source": "COR",
+      "target": "MMD",
+      "type": "door"
+    },
+    {
+      "source": "COR",
+      "target": "BTH",
+      "type": "door"
+    },
+    {
+      "source": "COR",
+      "target": "SRV",
+      "type": "door"
+    },
+    {
+      "source": "MBR",
+      "target": "ENS",
+      "type": "door"
+    }
+  ]
+}
