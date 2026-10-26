@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArchiCheck AI — מערכת ניתוח אדריכלי ובקרת תכניות אינטראקטיבית</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=2.9" />
+</head>
+<body>
+  <!-- TOP COMMAND & SEARCH BAR -->
+  <header class="top-command-bar">
+    <div class="brand-area">
+      <div class="brand-logo">🏛️</div>
+      <div>
+        <div class="brand-title">ArchiCheck AI <span class="brand-ver">v2.9</span></div>
+        <div class="brand-sub">סריקת תיקיות · ניתוח תכניות אדריכליות · מודל החיסכון המוצע על התכנית (איפה ואיך)</div>
+      </div>
+    </div>
+
+    <!-- Project Search Input Form -->
+    <form id="project-search-form" class="search-form" autocomplete="off">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          id="project-query-input"
+          class="project-query-input"
+          placeholder="בחר או הקלד פרויקט של החברה (פינס 48, קק״ל 10, חפץ חיים 44, יטקובסקי 7, קטרוני 37–39, פאירברג 3)..."
+          value="פינס 48"
+        />
+        <button type="submit" id="btn-run-analysis" class="btn-analyze">
+          ⚡ בצע ניתוח פרויקט
+        </button>
+      </div>
+    </form>
+
+    <!-- Quick Project Chips & Actions -->
+    <div class="quick-actions-area">
+      <div class="quick-chips" id="project-quick-chips">
+        <span class="chips-label">פרויקטי החברה:</span>
+        <button type="button" class="proj-chip active" data-query="פינס 48">פינס 48</button>
+        <button type="button" class="proj-chip" data-query="קק״ל 10">קק״ל 10</button>
+        <button type="button" class="proj-chip" data-query="חפץ חיים 44">חפץ חיים 44</button>
+        <button type="button" class="proj-chip" data-query="יטקובסקי 7">יטקובסקי 7</button>
+        <button type="button" class="proj-chip" data-query="קטרוני 37–39">קטרוני 37–39</button>
+        <button type="button" class="proj-chip" data-query="פאירברג 3">פאירברג 3</button>
+      </div>
+
+      <div class="header-tools">
+        <button type="button" id="btn-open-value-eng-modal" class="btn-tool btn-value-eng" title="בדיקת ייעול תכנון, הורדת עלויות בנייה (6,200 ₪/מ״ר עילי, 3,500 ₪/מ״ר חניון, 700/300 ₪ חיפוי מול טיח) וסימולטור חיסכון">
+          💰 בדיקת ייעול תכנון וחיסכון
+        </button>
+        <button type="button" id="btn-open-summary-modal" class="btn-tool btn-summary-areas" title="הצג מסמך סיכום הערות והצעות לשיפור + טבלאות שטחי בנייה, מרפסות וחזיתות">
+          📊 סיכום הערות, שטחים וחזיתות
+        </button>
+        <a id="btn-open-3d-viewer" href="#" target="_blank" class="btn-tool btn-3d-bim hidden" title="פתח צופה מודל 3D BIM אינטראקטיבי של הפרויקט">
+          🧊 מודל 3D BIM
+        </a>
+        <a id="btn-open-summary-doc" href="#" target="_blank" class="btn-tool btn-pdf hidden" title="פתח מסמך סיכום הערות ונתוני שטחים להדפסה">
+          📋 מסמך סיכום מלא
+        </a>
+        <a id="btn-open-pdf-report" href="#" target="_blank" class="btn-tool btn-pdf hidden">
+          📄 דוח PDF מלא
+        </a>
+        <button type="button" id="btn-toggle-files" class="btn-tool" title="הצג את כל הקבצים שאותרו בתיקיות ובדרייב">
+          📂 קבצים (<span id="files-count-badge">0</span>)
+        </button>
+        <a href="/api/docs" target="_blank" class="btn-tool" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px;" title="ממשק API ו-Swagger לסוכני בינה מלאכותית">
+          🤖 API
+        </a>
+        <label for="file-upload-input" class="btn-tool btn-upload" title="העלה קובץ DWG/DXF/PDF חדש לניתוח">
+          ➕ העלאת קובץ
+          <input type="file" id="file-upload-input" accept=".dxf,.dwg,.dwf,.dwfx,.pdf" hidden />
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <!-- DISCOVERED FILES DRAWER (Collapsible) -->
+  <section id="discovered-files-drawer" class="files-drawer hidden">
+    <div class="files-drawer-header">
+      <div>
+        <strong>📂 מקורות מידע וקבצים שאותרו אוטומטית בתיקיות המערכת ובכונן השיתופי (G:\):</strong>
+        <span id="files-drawer-subtitle" class="files-drawer-sub"></span>
+      </div>
+      <button type="button" id="btn-close-files-drawer" class="btn-close-drawer">✕ סגור</button>
+    </div>
+    <div id="discovered-files-list" class="discovered-files-grid"></div>
+  </section>
+
+  <!-- MAIN SPLIT-SCREEN WORKSPACE (RTL: Right = 28% Text Document, Left = 72% Visual Plan Canvas) -->
+  <main class="split-workspace">
+    <!-- RIGHT PANEL (~28% Width — "רבע מסך"): TEXTUAL ANALYSIS DOCUMENT -->
+    <aside class="doc-panel" id="doc-panel">
+      <!-- Sticky Document Header & Filters -->
+      <div class="doc-panel-header">
+        <div class="doc-proj-badge-row">
+          <span class="doc-live-pill">מסמך ניתוח אדריכלי</span>
+          <span class="doc-hover-hint">💡 עבור עם העכבר על כל הערה להצגתה על התכנית</span>
+        </div>
+        <h1 id="doc-project-title" class="doc-project-title">טוען פרויקט...</h1>
+        <p id="doc-project-subtitle" class="doc-project-subtitle"></p>
+
+        <!-- Compact Scorecards -->
+        <div id="doc-metrics-grid" class="doc-metrics-grid"></div>
+
+        <!-- Status & Filter Bar -->
+        <div class="doc-filter-bar">
+          <button type="button" class="filter-btn active" data-filter="ALL">
+            הכל (<span id="count-all">0</span>)
+          </button>
+          <button type="button" class="filter-btn filter-ve" data-filter="VE" title="הצג רק את מוקדי מודל החיסכון המוצע על התכנית (איפה ואיך)">
+            💰 מודל החיסכון (<span id="count-ve">0</span>)
+          </button>
+          <button type="button" class="filter-btn filter-warn-fail" data-filter="ISSUES">
+            ליקויים (<span id="count-issues">0</span>)
+          </button>
+          <button type="button" class="filter-btn filter-pass" data-filter="PASS">
+            עובר (<span id="count-pass">0</span>)
+          </button>
+        </div>
+      </div>
+
+      <!-- Scrollable Continuous Textual Document Content -->
+      <div id="doc-scroll-container" class="doc-scroll-container">
+        <div id="doc-sections-root" class="doc-sections-root"></div>
+      </div>
+    </aside>
+
+    <!-- LEFT PANEL (~72% Width — "שני שליש מסך"): VISUAL ARCHITECTURAL PLAN & ANNOTATIONS -->
+    <section class="visual-panel" id="visual-panel">
+      <!-- Top Visual Plan Toolbar -->
+      <div class="visual-toolbar">
+        <!-- Floor / Sheet Selector Tabs -->
+        <div class="sheet-tabs" id="sheet-tabs-container"></div>
+
+        <!-- View Mode & Zoom Controls -->
+        <div class="canvas-controls">
+          <div class="status-legend">
+            <span class="legend-item"><i class="dot dot-ve"></i> מוקד חיסכון (איפה ואיך)</span>
+            <span class="legend-item"><i class="dot dot-pass"></i> תקין (PASS)</span>
+            <span class="legend-item"><i class="dot dot-warn"></i> התראת איכות (WARN)</span>
+            <span class="legend-item"><i class="dot dot-fail"></i> ליקוי חוקי (FAIL)</span>
+          </div>
+
+          <button type="button" id="btn-toggle-ve-plan-mode" class="ctrl-btn ctrl-btn-ve" title="הצג על התכנית את מודל החיסכון המוצע עם פירוט איפה ואיך">
+            💰 הצג מודל חיסכון על התכנית (איפה ואיך)
+          </button>
+          <button type="button" id="btn-toggle-all-pins" class="ctrl-btn active" title="הצג/הסתר את כל הסיכות על התכנית">
+            📌 הצג כל ההערות
+          </button>
+          <div class="zoom-group">
+            <button type="button" id="btn-zoom-in" class="ctrl-btn" title="הגדל תכנית (+)">＋</button>
+            <span id="zoom-level-label" class="zoom-label">100%</span>
+            <button type="button" id="btn-zoom-out" class="ctrl-btn" title="הקטן תכנית (-)">－</button>
+            <button type="button" id="btn-zoom-reset" class="ctrl-btn" title="איפוס זום ומרכוז">איפוס</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive On-Plan Savings Navigator Bar (מודל החיסכון המוצע — ניווט מהיר איפה ואיך על התכנית) -->
+      <div id="ve-plan-bar" class="ve-plan-bar">
+        <div class="ve-plan-bar-header">
+          <span class="ve-plan-bar-badge" id="ve-plan-bar-total">💰 מודל החיסכון המוצע על התכנית</span>
+          <span class="ve-plan-bar-hint">לחץ על כל מוקד חיסכון כדי לראות <strong>איפה</strong> ו<strong>איך</strong> על גבי התכנית:</span>
+        </div>
+        <div id="ve-plan-hotspots-list" class="ve-plan-hotspots-list"></div>
+      </div>
+
+      <!-- Main Visual Body: Plan Viewport + Side Inspector Dock (Never covers the plan) -->
+      <div class="plan-body-layout">
+        <!-- Interactive Architectural Plan Stage -->
+        <div id="plan-viewport" class="plan-viewport">
+          <!-- Pan & Zoom Transform Wrapper -->
+          <div id="plan-stage" class="plan-stage">
+            <div id="plan-image-wrapper" class="plan-image-wrapper">
+              <img id="plan-image" class="plan-image" src="/uploads/pines48_f1_5.png" alt="תכנית אדריכלית" draggable="false" />
+
+              <!-- Synchronized SVG Room Polygons & Highlight Layer -->
+              <svg id="plan-svg-overlay" class="plan-svg-overlay" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+
+              <!-- Interactive Numbered Pins Layer -->
+              <div id="plan-pins-layer" class="plan-pins-layer"></div>
+            </div>
+          </div>
+
+          <!-- Bottom Status HUD on Plan -->
+          <div class="plan-bottom-hud">
+            <div class="hud-right">
+              <span id="hud-sheet-badge" class="hud-sheet-badge">גיליון A-1002</span>
+              <span id="hud-active-note-text" class="hud-active-note-text">עמוד על הערה במסמך הטקסט או על סיכה בתכנית להצגת פירוט מלא בצד התכנית</span>
+            </div>
+            <div class="hud-left">
+              <span>🖱️ גלגלת: זום · גרירה: הזזת תכנית · מעבר עכבר: הדגשה אוטומטית</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Inspector Dock (Displayed beside the plan, never covering it) -->
+        <aside id="plan-side-dock" class="plan-side-dock">
+          <div class="side-dock-caption">📋 פירוט ממצא נבחר בתכנית</div>
+          <div id="plan-floating-card" class="plan-floating-card hidden">
+            <div class="floating-card-header">
+              <span id="fc-pin-badge" class="fc-pin-badge">#1</span>
+              <span id="fc-status-badge" class="fc-status-badge">WARN</span>
+              <span id="fc-rule-badge" class="fc-rule-badge">ADG 4D-3</span>
+            </div>
+            <div id="fc-room-name" class="fc-room-name"></div>
+            <div id="fc-title" class="fc-title"></div>
+            <div class="fc-metrics-row">
+              <div class="fc-metric-box">
+                <span class="fc-metric-label">מדידה בתכנית:</span>
+                <strong id="fc-measured"></strong>
+              </div>
+              <div class="fc-metric-box">
+                <span class="fc-metric-label">דרישת תקן / יעד:</span>
+                <strong id="fc-benchmark"></strong>
+              </div>
+            </div>
+            <p id="fc-summary" class="fc-summary"></p>
+            <div id="fc-ve-where-how-box" class="fc-ve-where-how-box hidden">
+              <div class="fc-ve-saving-banner" id="fc-ve-saving-banner"></div>
+              <div class="fc-ve-row">
+                <span class="fc-ve-tag">📍 איפה על התכנית:</span>
+                <div id="fc-ve-where" class="fc-ve-text"></div>
+              </div>
+              <div class="fc-ve-row" style="margin-top:6px;">
+                <span class="fc-ve-tag fc-ve-tag-how">🛠️ איך מבצעים בפועל:</span>
+                <div id="fc-ve-how" class="fc-ve-text"></div>
+              </div>
+            </div>
+            <div id="fc-rec-box" class="fc-rec-box">
+              <strong>💡 המלצה תכנונית:</strong> <span id="fc-recommendation"></span>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Loading Overlay -->
+      <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <div id="loading-title" class="loading-title">סורק תיקיות ומבצע ניתוח אדריכלי...</div>
+        <div class="loading-sub">בודק קובצי DWG / PDF / BIM מול חוק התכנון והבנייה, פיקוד העורף, NDSS, ADG ו-NKBA</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- SUMMARY DOCUMENT & QUANTITATIVE PROJECT DATA MODAL -->
+  <div id="summary-areas-modal" class="summary-modal-backdrop hidden">
+    <div class="summary-modal-dialog">
+      <div class="summary-modal-header">
+        <div>
+          <span class="doc-live-pill">מסמך סיכום מנהלים ונתונים כמותיים</span>
+          <h2 id="summary-modal-title" class="summary-modal-title">מסמך סיכום הערות, הצעות לשיפור ונתוני שטחים וחזיתות</h2>
+        </div>
+        <div class="summary-modal-actions">
+          <a id="summary-modal-print-link" href="#" target="_blank" class="btn-tool btn-pdf" style="text-decoration:none;">
+            🖨️ פתח מסמך סיכום מלא להדפסה
+          </a>
+          <button type="button" id="btn-close-summary-modal" class="btn-close-drawer">✕ סגור חלון</button>
+        </div>
+      </div>
+      <div id="summary-modal-body" class="summary-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- DESIGN OPTIMIZATION & VALUE ENGINEERING MODAL (מנגנון בדיקת ייעול תכנון והנדסת ערך) -->
+  <div id="value-eng-modal" class="summary-modal-backdrop hidden">
+    <div class="summary-modal-dialog">
+      <div class="summary-modal-header" style="background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%); border-bottom: 2px solid #10b981;">
+        <div>
+          <span class="doc-live-pill" style="background:#dcfce7;color:#065f46;border-color:#6ee7b7;">💰 מנגנון בדיקת ייעול תכנון והנדסת ערך (Value Engineering)</span>
+          <h2 id="value-eng-modal-title" class="summary-modal-title">בדיקת ייעול תכנון וחיסכון בעלויות הבנייה — ללא פגיעה בשטח הדירות או בשימושים הציבוריים</h2>
+        </div>
+        <div class="summary-modal-actions">
+          <button type="button" id="btn-close-value-eng-modal" class="btn-close-drawer">✕ סגור חלון</button>
+        </div>
+      </div>
+      <div id="value-eng-modal-body" class="summary-modal-body"></div>
+    </div>
+  </div>
+
+  <script src="app.js?v=2.9"></script>
+</body>
+</html>

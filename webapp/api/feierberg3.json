@@ -1,0 +1,1940 @@
+{
+  "project_id": "feierberg3",
+  "project_name": "פאירברג 3, פתח תקווה (גוש 6387, חלקה 193)",
+  "project_subtitle": "דוח בקרת איכות תכנון, אימות BIM 1:1 והנדסת ערך (v2.8) — 10 קומות + 2 מרתפים · 18 יח״ד · אלישע רובין אדריכלים · א. קולסקי",
+  "overall_score": 91.2,
+  "metrics": [
+    {
+      "label": "ציון איכות משוקלל",
+      "value": "91.2/100",
+      "sub": "דירוג A — מצוין (0 FAIL)"
+    },
+    {
+      "label": "אימות מודל 3D BIM",
+      "value": "100% PASS",
+      "sub": "IoU=1.000 · שגיאת גובה 0.00m"
+    },
+    {
+      "label": "היקף הפרויקט",
+      "value": "18 יח״ד",
+      "sub": "16 דירות 4 חד׳ + 2 דופלקסים"
+    },
+    {
+      "label": "חניה תת-קרקעית",
+      "value": "19 חניות",
+      "sub": "2 מרתפים · 100% חניות רגילות"
+    }
+  ],
+  "pdf_report_url": "/reports/feierberg3_architectural_quality_analysis.pdf",
+  "viewer_3d_url": "/feierberg3_3d_bim_viewer.html",
+  "spatial_map_url": "/feierberg3_spatial_map.html",
+  "discovered_files": [
+    {
+      "name": "feierberg3_project_sample.json",
+      "path": "C:/Users/User/archknow/feierberg3_project_sample.json",
+      "folder": "C:/Users/User/archknow",
+      "ext": "JSON",
+      "size_kb": 15.9
+    },
+    {
+      "name": "feierberg3_architectural_quality_analysis.html",
+      "path": "C:/Users/User/archknow/reports/feierberg3_architectural_quality_analysis.html",
+      "folder": "C:/Users/User/archknow/reports",
+      "ext": "HTML",
+      "size_kb": 68.0
+    },
+    {
+      "name": "feierberg3_architectural_quality_analysis.pdf",
+      "path": "C:/Users/User/archknow/reports/feierberg3_architectural_quality_analysis.pdf",
+      "folder": "C:/Users/User/archknow/reports",
+      "ext": "PDF",
+      "size_kb": 1105.0
+    },
+    {
+      "name": "feierberg3_summary_and_areas_report.html",
+      "path": "C:/Users/User/archknow/reports/feierberg3_summary_and_areas_report.html",
+      "folder": "C:/Users/User/archknow/reports",
+      "ext": "HTML",
+      "size_kb": 68.0
+    },
+    {
+      "name": "feierberg3_summary_and_areas_report.pdf",
+      "path": "C:/Users/User/archknow/reports/feierberg3_summary_and_areas_report.pdf",
+      "folder": "C:/Users/User/archknow/reports",
+      "ext": "PDF",
+      "size_kb": 1105.0
+    },
+    {
+      "name": "feierberg3_3d_bim_viewer.html",
+      "path": "C:/Users/User/archknow/webapp/feierberg3_3d_bim_viewer.html",
+      "folder": "C:/Users/User/archknow/webapp",
+      "ext": "HTML",
+      "size_kb": 6717.5
+    },
+    {
+      "name": "feierberg3_model.glb",
+      "path": "C:/Users/User/archknow/webapp/feierberg3_model.glb",
+      "folder": "C:/Users/User/archknow/webapp",
+      "ext": "GLB",
+      "size_kb": 1560.1
+    },
+    {
+      "name": "feierberg3_model.mtl",
+      "path": "C:/Users/User/archknow/webapp/feierberg3_model.mtl",
+      "folder": "C:/Users/User/archknow/webapp",
+      "ext": "MTL",
+      "size_kb": 0.5
+    },
+    {
+      "name": "feierberg3_model.obj",
+      "path": "C:/Users/User/archknow/webapp/feierberg3_model.obj",
+      "folder": "C:/Users/User/archknow/webapp",
+      "ext": "OBJ",
+      "size_kb": 4305.4
+    },
+    {
+      "name": "feierberg3_spatial_map.html",
+      "path": "C:/Users/User/archknow/webapp/feierberg3_spatial_map.html",
+      "folder": "C:/Users/User/archknow/webapp",
+      "ext": "HTML",
+      "size_kb": 2229.9
+    },
+    {
+      "name": "feierberg3_architectural_quality_analysis.html",
+      "path": "C:/Users/User/archknow/webapp/reports/feierberg3_architectural_quality_analysis.html",
+      "folder": "C:/Users/User/archknow/webapp/reports",
+      "ext": "HTML",
+      "size_kb": 68.0
+    },
+    {
+      "name": "feierberg3_architectural_quality_analysis.pdf",
+      "path": "C:/Users/User/archknow/webapp/reports/feierberg3_architectural_quality_analysis.pdf",
+      "folder": "C:/Users/User/archknow/webapp/reports",
+      "ext": "PDF",
+      "size_kb": 1105.0
+    },
+    {
+      "name": "feierberg3_summary_and_areas_report.html",
+      "path": "C:/Users/User/archknow/webapp/reports/feierberg3_summary_and_areas_report.html",
+      "folder": "C:/Users/User/archknow/webapp/reports",
+      "ext": "HTML",
+      "size_kb": 68.0
+    },
+    {
+      "name": "feierberg3_summary_and_areas_report.pdf",
+      "path": "C:/Users/User/archknow/webapp/reports/feierberg3_summary_and_areas_report.pdf",
+      "folder": "C:/Users/User/archknow/webapp/reports",
+      "ext": "PDF",
+      "size_kb": 1105.0
+    },
+    {
+      "name": "feierberg3_basement1.png",
+      "path": "C:/Users/User/archknow/webapp/uploads/feierberg3_basement1.png",
+      "folder": "C:/Users/User/archknow/webapp/uploads",
+      "ext": "PNG",
+      "size_kb": 132.5
+    },
+    {
+      "name": "feierberg3_basement2.png",
+      "path": "C:/Users/User/archknow/webapp/uploads/feierberg3_basement2.png",
+      "folder": "C:/Users/User/archknow/webapp/uploads",
+      "ext": "PNG",
+      "size_kb": 127.9
+    },
+    {
+      "name": "feierberg3_floor10.png",
+      "path": "C:/Users/User/archknow/webapp/uploads/feierberg3_floor10.png",
+      "folder": "C:/Users/User/archknow/webapp/uploads",
+      "ext": "PNG",
+      "size_kb": 178.7
+    },
+    {
+      "name": "feierberg3_floor9.png",
+      "path": "C:/Users/User/archknow/webapp/uploads/feierberg3_floor9.png",
+      "folder": "C:/Users/User/archknow/webapp/uploads",
+      "ext": "PNG",
+      "size_kb": 171.4
+    },
+    {
+      "name": "feierberg3_ground.png",
+      "path": "C:/Users/User/archknow/webapp/uploads/feierberg3_ground.png",
+      "folder": "C:/Users/User/archknow/webapp/uploads",
+      "ext": "PNG",
+      "size_kb": 246.4
+    },
+    {
+      "name": "feierberg3_typical.png",
+      "path": "C:/Users/User/archknow/webapp/uploads/feierberg3_typical.png",
+      "folder": "C:/Users/User/archknow/webapp/uploads",
+      "ext": "PNG",
+      "size_kb": 180.0
+    },
+    {
+      "name": "פאירברג 3 - פתח תקוה-29-12-2025.dwf",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/פאירברג 3 - פתח תקוה-29-12-2025.dwf",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
+      "ext": "DWF",
+      "size_kb": 1412.4
+    },
+    {
+      "name": "feierberg3_model.mtl",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/feierberg3_model.mtl",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
+      "ext": "MTL",
+      "size_kb": 0.5
+    },
+    {
+      "name": "feierberg3_model.obj",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/feierberg3_model.obj",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
+      "ext": "OBJ",
+      "size_kb": 4305.4
+    },
+    {
+      "name": "feierberg3_model.glb",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/feierberg3_model.glb",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
+      "ext": "GLB",
+      "size_kb": 1560.1
+    },
+    {
+      "name": "feierberg3_architectural_quality_analysis.html",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/feierberg3_architectural_quality_analysis.html",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
+      "ext": "HTML",
+      "size_kb": 3.6
+    },
+    {
+      "name": "feierberg3_spatial_map.html",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/feierberg3_spatial_map.html",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
+      "ext": "HTML",
+      "size_kb": 2229.9
+    },
+    {
+      "name": "feierberg3_architectural_quality_analysis.pdf",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/feierberg3_architectural_quality_analysis.pdf",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
+      "ext": "PDF",
+      "size_kb": 717.9
+    },
+    {
+      "name": "compact_bim.json",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/compact_bim.json",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
+      "ext": "JSON",
+      "size_kb": 3.5
+    },
+    {
+      "name": "feierberg3_3d_model.html",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/feierberg3_3d_model.html",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
+      "ext": "HTML",
+      "size_kb": 6717.5
+    },
+    {
+      "name": "feierberg3_3d_bim_viewer.html",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/feierberg3_3d_bim_viewer.html",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
+      "ext": "HTML",
+      "size_kb": 6717.5
+    },
+    {
+      "name": "index.html",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/index.html",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
+      "ext": "HTML",
+      "size_kb": 6717.5
+    },
+    {
+      "name": "unified_3d_map.json",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/data/unified_3d_map.json",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/data",
+      "ext": "JSON",
+      "size_kb": 5431.9
+    },
+    {
+      "name": "spatial_map_data.json",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/data/spatial_map_data.json",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/data",
+      "ext": "JSON",
+      "size_kb": 2207.0
+    },
+    {
+      "name": "unified_feierberg3_3d_map.json",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/data/unified_feierberg3_3d_map.json",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/data",
+      "ext": "JSON",
+      "size_kb": 5431.9
+    },
+    {
+      "name": "feierberg3_spatial_map_data.json",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/data/feierberg3_spatial_map_data.json",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/data",
+      "ext": "JSON",
+      "size_kb": 2207.0
+    },
+    {
+      "name": "compact_bim.json",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/data/compact_bim.json",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/data",
+      "ext": "JSON",
+      "size_kb": 3.5
+    },
+    {
+      "name": "feierberg3_extracted_plans.json",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/data/feierberg3_extracted_plans.json",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/data",
+      "ext": "JSON",
+      "size_kb": 862.2
+    },
+    {
+      "name": "feierberg3_units_crm.json",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/data/feierberg3_units_crm.json",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/data",
+      "ext": "JSON",
+      "size_kb": 33.7
+    },
+    {
+      "name": "feierberg3_architectural_quality_analysis.html",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/docs/feierberg3_architectural_quality_analysis.html",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/docs",
+      "ext": "HTML",
+      "size_kb": 3.6
+    },
+    {
+      "name": "אישור פתיחת תיק פיארברג 3 (2).pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/אישור פתיחת תיק פיארברג 3 (2).pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3",
+      "ext": "PDF",
+      "size_kb": 150.7
+    },
+    {
+      "name": "אישור קונסטרוקטור.pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/אישור קונסטרוקטור.pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3",
+      "ext": "PDF",
+      "size_kb": 344.8
+    },
+    {
+      "name": "הסכם התקשרות עם היזם - סופי (2) (2).pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם התקשרות עם היזם - סופי (2) (2).pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3",
+      "ext": "PDF",
+      "size_kb": 98.5
+    },
+    {
+      "name": "FA-hagsha-הגשה בצבע (1).dwfx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/FA-hagsha-הגשה בצבע (1).dwfx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3",
+      "ext": "DWFX",
+      "size_kb": 1063.1
+    },
+    {
+      "name": "שולחן עגול.pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/שולחן עגול.pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3",
+      "ext": "PDF",
+      "size_kb": 1212.0
+    },
+    {
+      "name": "FA-p1-8.pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/FA-p1-8.pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3",
+      "ext": "PDF",
+      "size_kb": 49.3
+    },
+    {
+      "name": "FA-p10.pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/FA-p10.pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3",
+      "ext": "PDF",
+      "size_kb": 65.2
+    },
+    {
+      "name": "FA-p9.pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/FA-p9.pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3",
+      "ext": "PDF",
+      "size_kb": 53.1
+    },
+    {
+      "name": "חישוב שטחים עדכני.pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/חישוב שטחים עדכני.pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3",
+      "ext": "PDF",
+      "size_kb": 88.6
+    },
+    {
+      "name": "רשימת יועצים -פאירברג.docx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/רשימת יועצים -פאירברג.docx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3",
+      "ext": "DOCX",
+      "size_kb": 3468.7
+    },
+    {
+      "name": "הסכם תמא רחוב פאירברג 3 19.12.23 .docx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/הסכם תמא רחוב פאירברג 3 19.12.23 .docx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה",
+      "ext": "DOCX",
+      "size_kb": 168.5
+    },
+    {
+      "name": "דואר Kuleski.co.il - פאירברג.pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/דואר Kuleski.co.il - פאירברג.pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה",
+      "ext": "PDF",
+      "size_kb": 138.4
+    },
+    {
+      "name": "תנועות בחשבון - גפני.pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/תנועות בחשבון - גפני.pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה",
+      "ext": "PDF",
+      "size_kb": 492.6
+    },
+    {
+      "name": "טיוטת הסכם תמא פאירברג 3 פתח תקוה -  24.8.23.docx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/טויוטת/טיוטת הסכם תמא פאירברג 3 פתח תקוה -  24.8.23.docx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/טויוטת",
+      "ext": "DOCX",
+      "size_kb": 185.7
+    },
+    {
+      "name": "טיוטת הסכם תמא פאירברג 3 פתח תקוה -  30.8.23.docx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/טויוטת/טיוטת הסכם תמא פאירברג 3 פתח תקוה -  30.8.23.docx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/טויוטת",
+      "ext": "DOCX",
+      "size_kb": 184.7
+    },
+    {
+      "name": "טיוטת הסכם תמא פאירברג 3 פתח תקוה -  5.9.23.docx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/טויוטת/טיוטת הסכם תמא פאירברג 3 פתח תקוה -  5.9.23.docx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/טויוטת",
+      "ext": "DOCX",
+      "size_kb": 179.1
+    },
+    {
+      "name": "טיוטת הסכם תמא פאירברג 3 פתח תקוה -  5.10.2023.docx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/טויוטת/טיוטת הסכם תמא פאירברג 3 פתח תקוה -  5.10.2023.docx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/טויוטת",
+      "ext": "DOCX",
+      "size_kb": 178.7
+    },
+    {
+      "name": "הסכם תמא רחוב פאירברג 27.5.24.docx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/טויוטת/הסכם תמא רחוב פאירברג 27.5.24.docx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/טויוטת",
+      "ext": "DOCX",
+      "size_kb": 196.5
+    },
+    {
+      "name": "נספח ז1 - דוגמת נוסח ערבות בנקאית בנק מלווה.pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/נספחים/נספח ז1 - דוגמת נוסח ערבות בנקאית בנק מלווה.pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/נספחים",
+      "ext": "PDF",
+      "size_kb": 1265.6
+    },
+    {
+      "name": "נספח ח - תעודת התאגדות - יצחק קולסקי חברה לבניה והשקעות בעמ.pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/נספחים/נספח ח - תעודת התאגדות - יצחק קולסקי חברה לבניה והשקעות בעמ.pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/נספחים",
+      "ext": "PDF",
+      "size_kb": 254.1
+    },
+    {
+      "name": "נספח יד - ‏‏יפוי כח לרישום הערות אזהרה ולביטול צו רישום הבית המשותף.docx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/נספחים/נספח יד - ‏‏יפוי כח לרישום הערות אזהרה ולביטול צו רישום הבית המשותף.docx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/נספחים",
+      "ext": "DOCX",
+      "size_kb": 17.0
+    }
+  ],
+  "sheets": [
+    {
+      "id": "fb_typical",
+      "title": "קומות 1–8 — קומה טיפוסית (דירות 4 חד׳ מערב 105.5 מ״ר ומזרח 85.5 מ״ר)",
+      "sheet_code": "FA-P1-8",
+      "elevation": "+3.50m עד +25.55m",
+      "image_url": "/uploads/feierberg3_typical.png",
+      "scale": "1:50 CAD/BIM"
+    },
+    {
+      "id": "fb_floor9",
+      "title": "קומה 9 — מפלס תחתון דופלקס-פנטהאוזים (#17 מערב ו-#18 מזרח + טרסות גג)",
+      "sheet_code": "FA-P9",
+      "elevation": "+28.87m",
+      "image_url": "/uploads/feierberg3_floor9.png",
+      "scale": "1:50 CAD/BIM"
+    },
+    {
+      "id": "fb_floor10",
+      "title": "קומה 10 — מפלס עליון דופלקס-פנטהאוזים (#17 ו-#18 — סוויטות הורים וגלריות)",
+      "sheet_code": "FA-P10",
+      "elevation": "+32.02m",
+      "image_url": "/uploads/feierberg3_floor10.png",
+      "scale": "1:50 CAD/BIM"
+    },
+    {
+      "id": "fb_ground",
+      "title": "קומת קרקע (±0.00m) — לובי כניסה, מועדון דיירים, אופניים, אשפה ופיתוח מגרש",
+      "sheet_code": "FA-KAR",
+      "elevation": "±0.00m",
+      "image_url": "/uploads/feierberg3_ground.png",
+      "scale": "1:50 גרמושקה"
+    },
+    {
+      "id": "fb_basement1",
+      "title": "מרתף 1- (-4.80m) — חניון עליון (8 חניות רגילות #1–#8, רמפה דו-שיפועית וגרעין)",
+      "sheet_code": "FA-B1",
+      "elevation": "-4.80m",
+      "image_url": "/uploads/feierberg3_basement1.png",
+      "scale": "1:50 גרמושקה"
+    },
+    {
+      "id": "fb_basement2",
+      "title": "מרתף 2- (-7.80m) — חניון תחתון (11 חניות רגילות #9–#19, בורות שאיבה וגרעין)",
+      "sheet_code": "FA-B2",
+      "elevation": "-7.80m",
+      "image_url": "/uploads/feierberg3_basement2.png",
+      "scale": "1:50 גרמושקה"
+    }
+  ],
+  "sections": [
+    {
+      "id": "sec_fb_west",
+      "title": "1. אגף מערבי (קומות 1–8 · דירות אי-זוגיות #1, #3, #5, #7, #9, #11, #13, #15 — 4 חדרים 105.46+12 מ״ר)",
+      "subtitle": "3 כיווני אוויר (דרום, מערב, צפון) · סלון ברוחב 4.20 מ׳ (30.80 מ״ר) · סוויטת הורים ברוחב 3.50 מ׳ ומרפסת 12 מ״ר",
+      "intro": "הדירה המערבית בקומות 1–8 מציעה פרוגרמה נדיבה במיוחד לדירת 4 חדרים (102.82 מ״ר פלדלת + 2.64 מ״ר מסתור כביסה + 12.00 מ״ר מרפסת דרומית) עם סלון רחב וסוויטת הורים העוברים בהצטיינות את תקן ADG."
+    },
+    {
+      "id": "sec_fb_east",
+      "title": "2. אגף מזרחי (קומות 1–8 · דירות זוגיות #2, #4, #6, #8, #10, #12, #14, #16 — 4 חדרים 85.53+12 מ״ר)",
+      "subtitle": "3 כיווני אוויר (דרום, מזרח, צפון) · סלון ברוחב 4.10 מ׳ (24.80 מ״ר) · מטבח מקבילי עם אי ומרפסת דרומית 12 מ״ר",
+      "intro": "הדירה המזרחית (כל 8 הדירות בשיווק א. קולסקי) מתוכננת ביעילות גבוהה עם חלל ציבורי רחב מ-4.00 מ׳ ומרפסת שמש דרומית באורך 7.50 מ׳."
+    },
+    {
+      "id": "sec_fb_penthouses",
+      "title": "3. דופלקס-פנטהאוזים #17 ו-#18 (קומות 9–10), קומת קרקע ו-2 מרתפי חניון (19 חניות רגילות)",
+      "subtitle": "דופלקס מערבי #17 (121.27+46.15 מ״ר) · דופלקס מזרחי #18 (103.58+38.80 מ״ר) · אימות BIM 1:1 (IoU=1.000)",
+      "intro": "קומות הפנטהאוז 9–10 נהנות מטרסות גג היקפיות בצורת L ומפרגולות דרומיות, מעל קומת קרקע ייצוגית ו-2 מרתפי חניון עם 19 חניות קונבנציונליות רגילות."
+    },
+    {
+      "id": "sec_feierberg3_value_eng",
+      "title": "💰 בדיקת ייעול תכנון והנדסת ערך (פוטנציאל חיסכון ישיר: 1,101,220 ₪)",
+      "subtitle": "חיסכון עילי: 82.0 מ״ר (6,200 ₪/מ״ר) · חניון: 95.0 מ״ר (3,500 ₪/מ״ר) · חיפוי מול טיח: 650.8 מ״ר (400 ₪/מ״ר) · השבחת פנים דירות: 29.8 מ״ר",
+      "intro": "0 מ״ר פגיעה בשטח הדירות (1,752.8 מ״ר פלדלת נשמרים במלואם) · 0 פגיעה במצבת החניות (19 חניות נשמרות) · שמירה מלאה על כל ארונות החשמל, המים, הגז, התקשורת וציוד כיבוי האש."
+    }
+  ],
+  "notes": [
+    {
+      "id": "FB3-W-01",
+      "pin_num": 1,
+      "sheet_id": "fb_typical",
+      "section_id": "sec_fb_west",
+      "typology": "אגף מערבי — דירות אי-זוגיות #1,3,5,7,9,11,13,15 (4 חדרים · 105.46+12 מ״ר)",
+      "room_name": "סלון ופינת אוכל דרומית (735×420 ס״מ = 30.80 מ״ר) + מרפסת שמש (750×160 ס״מ)",
+      "status": "PASS",
+      "rule_id": "ADG 4D-3 / B1.3",
+      "title": "חלל ציבורי רחב ומואר במיוחד (רוחב 4.20 מ׳ — עובר ADG!) עם ויטרינה דרומית רחבה ליציאה למרפסת 12 מ״ר",
+      "measured": "סלון-אוכל: 30.80 מ״ר (רוחב 4.20 מ׳) · מרפסת: 12.00 מ״ר (750×160 ס״מ)",
+      "benchmark": "תקנות הבנייה: ≥2.60 מ׳ | ADG: רוחב סלון ≥4.00 מ׳ (כאן 4.20 מ׳!)",
+      "summary": "הדירה המערבית נהנית מסלון ופינת אוכל רחבים מאוד (4.20×7.35 מ׳) הפונים לדרום (רחוב פאירברג), עם קשר ישיר למטבח L מואר (10.10 מ״ר) ולמרפסת שמש באורך 7.50 מ׳.",
+      "recommendation": "לשמר את מסילת הוויטרינה השקועה (Zero-Threshold) בין הסלון למרפסת הדרומית.",
+      "x_pct": 28.65,
+      "y_pct": 51.05,
+      "w_pct": 21.89,
+      "h_pct": 21.05,
+      "cx_pct": 39.59,
+      "cy_pct": 61.57
+    },
+    {
+      "id": "FB3-W-02",
+      "pin_num": 2,
+      "sheet_id": "fb_typical",
+      "section_id": "sec_fb_west",
+      "typology": "אגף מערבי — דירות אי-זוגיות #1..#15 (4 חדרים · 105.46 מ״ר)",
+      "room_name": "סוויטת הורים דרום-מערבית (350×388 ס״מ = 13.60 מ״ר), חדר ארונות (2.75 מ״ר) ורחצה הורים (3.85 מ״ר)",
+      "status": "PASS",
+      "rule_id": "ADG 4D-3 / NDSS",
+      "title": "סוויטת הורים מרווחת ברוחב 3.50 מ׳ (מעל רף ADG 3.00 מ׳) עם חדר רחצה מאוורר טבעית למערב",
+      "measured": "הורים: 13.60 מ״ר (350×388 ס״מ) + ארונות 2.75 מ״ר + רחצה 3.85 מ״ר",
+      "benchmark": "ADG Master Suite: רוחב ≥3.00 מ׳ ושטח ≥11.0 מ״ר",
+      "summary": "סוויטת ההורים המערבית מצטיינת ברוחב של 3.50 מ׳ ובאוורור כפול לדרום ולמערב. עם זאת, מחיצת חדר הארונות הקטן (2.75 מ״ר) גוזלת שטח מעבר שניתן לייעל.",
+      "recommendation": "במסגרת ייעול התכנון הפנימי ניתן להחליף את מחיצת חדר הארונות הקטן בארון קיר נגרות באורך 3.60 מ׳ ולהגדיל את שטח החדר הפתוח.",
+      "x_pct": 14.59,
+      "y_pct": 48.95,
+      "w_pct": 13.78,
+      "h_pct": 23.16,
+      "cx_pct": 21.48,
+      "cy_pct": 60.53
+    },
+    {
+      "id": "FB3-W-03",
+      "pin_num": 3,
+      "sheet_id": "fb_typical",
+      "section_id": "sec_fb_west",
+      "typology": "אגף מערבי — דירות אי-זוגיות #1..#15 (4 חדרים · 105.46 מ״ר)",
+      "room_name": "ממ״ד צפון-מערבי (280×350 ס״מ = 9.80 מ״ר) וחדר שינה צפוני (280×370 ס״מ = 10.36 מ״ר)",
+      "status": "WARN",
+      "rule_id": "פקע״ר / ADG 4D-3",
+      "title": "ממ״ד וחדר שינה צפוני עוברים תקנות בנייה, פקע״ר ו-NDSS (9.8 ו-10.36 מ״ר); רוחב 2.80 מ׳ מתחת לרף ADG (3.00 מ׳)",
+      "measured": "ממ״ד: 9.80 מ״ר (רוחב 2.80 מ׳) · חדר שינה צפוני: 10.36 מ״ר (רוחב 2.80 מ׳)",
+      "benchmark": "תקנות הבנייה ופקע״ר: ≥9.0 מ״ר ורוחב ≥2.60 מ׳ (עובר) | ADG: ≥3.00 מ׳",
+      "summary": "שני חדרי השינה הצפוניים מרווחים בשטחם (מעל 9.8 מ״ר נטו) ועוברים את אוגדן משרד השיכון (≥2.80 מ׳), אך קיצור זנב המסדרון המערבי יאפשר להרחיב את חדר השינה הצפוני ל-2.98 מ׳.",
+      "recommendation": "קיצור זנב המסדרון המערבי והסטת קיר חדר השינה הצפוני ב-18 ס״מ דרומה.",
+      "x_pct": 14.59,
+      "y_pct": 27.89,
+      "w_pct": 25.95,
+      "h_pct": 21.05,
+      "cx_pct": 27.56,
+      "cy_pct": 38.41
+    },
+    {
+      "id": "FB3-E-01",
+      "pin_num": 4,
+      "sheet_id": "fb_typical",
+      "section_id": "sec_fb_east",
+      "typology": "אגף מזרחי — דירות זוגיות #2,4,6,8,10,12,14,16 (4 חדרים · 85.53+12 מ״ר)",
+      "room_name": "סלון ופינת אוכל (605×410 ס״מ = 24.80 מ״ר), מטבח עם אי (8.65 מ״ר) ומרפסת דרומית (12.0 מ״ר)",
+      "status": "PASS",
+      "rule_id": "ADG 4D-3 / NKBA",
+      "title": "תכנון מצוין לדירת 4 חדרים קומפקטית (85.5 מ״ר): סלון ברוחב 4.10 מ׳ ו-3 כיווני אוויר מלאים (דרום, מזרח, צפון)",
+      "measured": "סלון: 24.80 מ״ר (רוחב 4.10 מ׳) · מטבח: 8.65 מ״ר · מרפסת: 12.00 מ״ר",
+      "benchmark": "ADG Living Width: ≥4.00 מ׳ (כאן 4.10 מ׳!) · 3 כיווני אוויר",
+      "summary": "דירת ה-4 חדרים המזרחית מנצלת בצורה מרבית שטח של 85.53 מ״ר ברוטו ומספקת סלון רחב מ-4.00 מ׳ ומרפסת שמש דרומית מלאה של 12.0 מ״ר.",
+      "recommendation": "לשמור על רוחב מעבר 105 ס״מ סביב אי המטבח המזרחי.",
+      "x_pct": 54.59,
+      "y_pct": 51.05,
+      "w_pct": 18.65,
+      "h_pct": 21.05,
+      "cx_pct": 63.92,
+      "cy_pct": 61.57
+    },
+    {
+      "id": "FB3-E-02",
+      "pin_num": 5,
+      "sheet_id": "fb_typical",
+      "section_id": "sec_fb_east",
+      "typology": "אגף מזרחי — דירות זוגיות #2..#16 (4 חדרים · 85.53 מ״ר)",
+      "room_name": "סוויטת הורים דרום-מזרחית (295×386 ס״מ = 11.40 מ״ר) וחדר שינה צפון-מזרחי (270×365 ס״מ = 9.85 מ״ר)",
+      "status": "WARN",
+      "rule_id": "ADG 4D-3 / B1.6",
+      "title": "סוויטת הורים ברוחב 2.95 מ׳ (נושק ל-3.00 מ׳ של ADG) וחדר שינה צפון-מזרחי ברוחב 2.70 מ׳ (עובר חוקית, צר מ-NDSS 2.75 מ׳)",
+      "measured": "הורים: 11.40 מ״ר (295×386 ס״מ) · ח.שינה צפון-מזרחי: 9.85 מ״ר (270×365 ס״מ)",
+      "benchmark": "תקנות הבנייה: ≥2.60 מ׳ (עובר) | NDSS: ≥2.75 מ׳ | ADG: ≥3.00 מ׳",
+      "summary": "סוויטת ההורים המזרחית קרובה מאוד לרף ה-3.00 מ׳ (295 ס״מ), בעוד קצה המסדרון המזרחי גוזל 1.4 מ״ר של שטח מעבר.",
+      "recommendation": "הזזת דלת סוויטת ההורים המזרחית ב-95 ס״מ לכיוון המבואה תגדיל את הסוויטה ב-1.4 מ״ר ותאפשר הרחבתה ל-3.12 מ׳.",
+      "x_pct": 73.24,
+      "y_pct": 27.89,
+      "w_pct": 12.16,
+      "h_pct": 44.21,
+      "cx_pct": 79.32,
+      "cy_pct": 50.0
+    },
+    {
+      "id": "FB3-PH-01",
+      "pin_num": 6,
+      "sheet_id": "fb_floor9",
+      "section_id": "sec_fb_penthouses",
+      "typology": "קומות 9–10 — דופלקס-פנטהאוז מערבי #17 (121.27+46.15 מ״ר) ומזרחי #18 (103.58+38.80 מ״ר)",
+      "room_name": "מפלס אירוח תחתון (קומה 9) + מרפסות גג היקפיות בצורת L (43.30 מ״ר במערב ו-36.40 מ״ר במזרח)",
+      "status": "PASS",
+      "rule_id": "ADG 4E / Zero-Trust BIM",
+      "title": "דופלקס-פנטהאוזים מרהיבים עם טרסות גג היקפיות ב-3 כיווני אוויר ופרגולות אלומיניום דרומיות",
+      "measured": "דופלקס #17: 121.27 מ״ר + 46.15 מ״ר מרפסות · דופלקס #18: 103.58 מ״ר + 38.80 מ״ר מרפסות",
+      "benchmark": "נסיגות קומה 9–10 תואמות 1:1 לחזיתות ההגשה (IoU גרעין = 1.000)",
+      "summary": "קומות 9–10 מתוכננות כצמד דופלקס-פנטהאוזים עם הפרדה מושלמת בין מפלס האירוח התחתון (קומה 9 עם ממ״ד, סלון, מטבח שף ומרפסת גג היקפית) למפלס סוויטות השינה העליון (קומה 10).",
+      "recommendation": "שילוב זיגוג Low-E בוויטרינות הפנורמיות של קומה 9 לאיזון עומס החום הדרומי והמערבי.",
+      "x_pct": 14.59,
+      "y_pct": 27.89,
+      "w_pct": 70.81,
+      "h_pct": 52.63,
+      "cx_pct": 50.0,
+      "cy_pct": 54.2
+    },
+    {
+      "id": "FB3-BSM-01",
+      "pin_num": 7,
+      "sheet_id": "fb_basement1",
+      "section_id": "sec_fb_penthouses",
+      "typology": "מרתפי חניון -1 (-4.80m) ו--2 (-7.80m) וקומת קרקע (±0.00m)",
+      "room_name": "19 חניות קונבנציונליות רגילות (8 במרתף 1- + 11 במרתף 2-) וגרעין מדרגות/מעלית רציף",
+      "status": "PASS",
+      "rule_id": "IL_MOT_PARK / ת״י 1918",
+      "title": "19 חניות רגילות מלאות ל-18 דירות (יחס 1:1.06 ללא מכפילים!) עם רציפות אנכית מלאה של הגרעין (IoU=1.000)",
+      "measured": "19 חניות רגילות (כולל חניית נכה P17) · 2 מרתפים × 548 מ״ר = 1,096 מ״ר",
+      "benchmark": "הנחיות משרד התחבורה: מיסעה דו-סטרית 6.00 מ׳ וחניות תקניות",
+      "summary": "שני מרתפי החניון מספקים 19 חניות קונבנציונליות נוחות ללא מתקנים מכניים. עם זאת, יחס השטח הכולל (57.7 מ״ר לחניה) מאפשר חיסכון הנדסי משמעותי של 95 מ״ר חפירה ודיפון בצד המזרחי.",
+      "recommendation": "העברת מאגר המים מקומת הקרקע לתחתית הרמפה במרתף 1- וקיצור שלוחת הדיפון המזרחית במרתף 2- מעבר לחניה P19 (חיסכון של 332,500 ₪ במרתפים + 260,400 ₪ בקרקע!).",
+      "x_pct": 4.59,
+      "y_pct": 12.11,
+      "w_pct": 90.81,
+      "h_pct": 75.79,
+      "cx_pct": 50.0,
+      "cy_pct": 50.01
+    },
+    {
+      "id": "FB3-OPT-AG1",
+      "pin_num": 8,
+      "sheet_id": "fb_ground",
+      "section_id": "sec_feierberg3_value_eng",
+      "is_value_eng": true,
+      "ve_category": "AG",
+      "ve_saving_ils": 260400,
+      "ve_saved_sqm": 42.0,
+      "ve_callout_badge": "💰 -42.0 מ״ר עילי | 260,400 ₪",
+      "where_on_plan": "קומת קרקע (±0.00m — העברת מאגר מים מתחת לרמפה והידוק מעברי שירות)",
+      "how_to_execute": "העברת מאגר המים וחדר המשאבות (28 מ״ר בחלק המזרחי של קומת הקרקע X=[8.5..12.5]) אל החלל התחתון מתחת לרמפה הדו-שיפועית במרתף, ואיחוד מסדרון השירות העורפי בין חדר האשפה למועדון הדיירים (חיסכון של 42.0 מ״ר בנוי עילי).",
+      "typology": "ייעול נפחיות עילית (6,200 ₪/מ״ר) — קומת קרקע (±0.00m — העברת מאגר מים מתחת לרמפה והידוק מעברי שירות)",
+      "room_name": "📍 איפה: קומת קרקע (±0.00m — העברת מאגר מים מתחת לרמפה והידוק מעברי שירות)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (6,200 ₪/מ״ר)",
+      "title": "חיסכון 42.0 מ״ר עילי = 260,400 ₪ (0% פגיעה בדירות ובארונות שירות)",
+      "measured": "שטח קיים: 265.0 מ״ר (ליבה/שירות)",
+      "benchmark": "שטח מוצע: 223.0 מ״ר (חיסכון 42.0 מ״ר × 6,200 ₪)",
+      "summary": "🛠️ איך מבצעים על התכנית: העברת מאגר המים וחדר המשאבות (28 מ״ר בחלק המזרחי של קומת הקרקע X=[8.5..12.5]) אל החלל התחתון מתחת לרמפה הדו-שיפועית במרתף, ואיחוד מסדרון השירות העורפי בין חדר האשפה למועדון הדיירים (חיסכון של 42.0 מ״ר בנוי עילי).",
+      "recommendation": "🛡️ שימושים נשמרים (0% פגיעה): שמירה מלאה על לובי כניסה ראשי, מועדון דיירים, חדר אופניים ועגלות, חדר אשפה ודחסנית, חדר גז ולוח חח״י וכל ארונות המונים. סה״כ חיסכון ישיר במוקד זה: 260,400 ₪.",
+      "x_pct": 52.0,
+      "y_pct": 28.0,
+      "w_pct": 24.0,
+      "h_pct": 26.0,
+      "cx_pct": 64.0,
+      "cy_pct": 41.0
+    },
+    {
+      "id": "FB3-OPT-AG2",
+      "pin_num": 9,
+      "sheet_id": "fb_typical",
+      "section_id": "sec_feierberg3_value_eng",
+      "is_value_eng": true,
+      "ve_category": "AG",
+      "ve_saving_ils": 173600,
+      "ve_saved_sqm": 28.0,
+      "ve_callout_badge": "💰 -28.0 מ״ר עילי | 173,600 ₪",
+      "where_on_plan": "קומות 1–8 (8 קומות — הידוק גרעין ומבואה קומתית ל-2 דירות בקומה)",
+      "how_to_execute": "בקומה טיפוסית של 2 דירות בלבד (מערבית ומזרחית), הידוק מבואת הקומה מ-31.0 מ״ר ל-27.5 מ״ר לקומה (חיסכון של 3.5 מ״ר × 8 קומות = 28.0 מ״ר) על ידי יישור קיר המבואה הדרומי והטמעת ארונות המונים בקו אפס בדופן הגרעין.",
+      "typology": "ייעול נפחיות עילית (6,200 ₪/מ״ר) — קומות 1–8 (8 קומות — הידוק גרעין ומבואה קומתית ל-2 דירות בקומה)",
+      "room_name": "📍 איפה: קומות 1–8 (8 קומות — הידוק גרעין ומבואה קומתית ל-2 דירות בקומה)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (6,200 ₪/מ״ר)",
+      "title": "חיסכון 28.0 מ״ר עילי = 173,600 ₪ (0% פגיעה בדירות ובארונות שירות)",
+      "measured": "שטח קיים: 248.0 מ״ר (ליבה/שירות)",
+      "benchmark": "שטח מוצע: 220.0 מ״ר (חיסכון 28.0 מ״ר × 6,200 ₪)",
+      "summary": "🛠️ איך מבצעים על התכנית: בקומה טיפוסית של 2 דירות בלבד (מערבית ומזרחית), הידוק מבואת הקומה מ-31.0 מ״ר ל-27.5 מ״ר לקומה (חיסכון של 3.5 מ״ר × 8 קומות = 28.0 מ״ר) על ידי יישור קיר המבואה הדרומי והטמעת ארונות המונים בקו אפס בדופן הגרעין.",
+      "recommendation": "🛡️ שימושים נשמרים (0% פגיעה): שמירה מלאה על חדר מדרגות מוגן (3.50×3.60 מ׳), פיר מעלית (1.75×1.80 מ׳) וכל ארונות החשמל, המים, התקשורת וכיבוי האש הקומתיים. סה״כ חיסכון ישיר במוקד זה: 173,600 ₪.",
+      "x_pct": 40.5,
+      "y_pct": 27.5,
+      "w_pct": 21.5,
+      "h_pct": 22.0,
+      "cx_pct": 51.2,
+      "cy_pct": 38.5
+    },
+    {
+      "id": "FB3-OPT-AG3",
+      "pin_num": 10,
+      "sheet_id": "fb_floor10",
+      "section_id": "sec_feierberg3_value_eng",
+      "is_value_eng": true,
+      "ve_category": "AG",
+      "ve_saving_ils": 74400,
+      "ve_saved_sqm": 12.0,
+      "ve_callout_badge": "💰 -12.0 מ״ר עילי | 74,400 ₪",
+      "where_on_plan": "קומות 9–10 וגג עליון (+28.87m עד +35.17m — מבואת דופלקסים ויציאה לגג)",
+      "how_to_execute": "צמצום מבואת הגלריה המשותפת בקומה 10 (שבה הכניסה הראשית לדופלקסים #17 ו-#18 היא מקומה 9) והתאמת חדר היציאה לגג לקונטור הפירים ההנדסי בלבד (חיסכון של 12.0 מ״ר בנוי עילי).",
+      "typology": "ייעול נפחיות עילית (6,200 ₪/מ״ר) — קומות 9–10 וגג עליון (+28.87m עד +35.17m — מבואת דופלקסים ויציאה לגג)",
+      "room_name": "📍 איפה: קומות 9–10 וגג עליון (+28.87m עד +35.17m — מבואת דופלקסים ויציאה לגג)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (6,200 ₪/מ״ר)",
+      "title": "חיסכון 12.0 מ״ר עילי = 74,400 ₪ (0% פגיעה בדירות ובארונות שירות)",
+      "measured": "שטח קיים: 100.8 מ״ר (ליבה/שירות)",
+      "benchmark": "שטח מוצע: 88.8 מ״ר (חיסכון 12.0 מ״ר × 6,200 ₪)",
+      "summary": "🛠️ איך מבצעים על התכנית: צמצום מבואת הגלריה המשותפת בקומה 10 (שבה הכניסה הראשית לדופלקסים #17 ו-#18 היא מקומה 9) והתאמת חדר היציאה לגג לקונטור הפירים ההנדסי בלבד (חיסכון של 12.0 מ״ר בנוי עילי).",
+      "recommendation": "🛡️ שימושים נשמרים (0% פגיעה): שמירה על יציאה תקנית לגג, גישה למערכות קולטי השמש ופיר המעלית העליון. סה״כ חיסכון ישיר במוקד זה: 74,400 ₪.",
+      "x_pct": 41.0,
+      "y_pct": 27.5,
+      "w_pct": 20.0,
+      "h_pct": 21.0,
+      "cx_pct": 51.0,
+      "cy_pct": 38.0
+    },
+    {
+      "id": "FB3-OPT-UG1",
+      "pin_num": 11,
+      "sheet_id": "fb_basement1",
+      "section_id": "sec_feierberg3_value_eng",
+      "is_value_eng": true,
+      "ve_category": "UG",
+      "ve_saving_ils": 157500,
+      "ve_saved_sqm": 45.0,
+      "ve_callout_badge": "🅿️ -45.0 מ״ר חניון | 157,500 ₪",
+      "where_on_plan": "מרתף 1- (-4.80m — ניצול תחתית הרמפה הדו-שיפועית וגיזום פינה מזרחית)",
+      "how_to_execute": "מיקום מאגר המים וחדר המשאבות מתחת לשלוחת הרמפה במזרח המגרש (X=[9.5..16.5]) וצמצום כיס החפירה הדרום-מזרחי מחוץ למיסעה — חיסכון של 45.0 מ״ר מרתף ודיפון ללא גריעת אף חניה.",
+      "typology": "ייעול מרתף חניון (3,500 ₪/מ״ר) — מרתף 1- (-4.80m — ניצול תחתית הרמפה הדו-שיפועית וגיזום פינה מזרחית)",
+      "room_name": "📍 איפה: מרתף 1- (-4.80m — ניצול תחתית הרמפה הדו-שיפועית וגיזום פינה מזרחית)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (3,500 ₪/מ״ר)",
+      "title": "חיסכון 45.0 מ״ר במרתף החניון = 157,500 ₪ (שמירת 100% מהחניות)",
+      "measured": "שטח קיים: 548.0 מ״ר (57.7 מ״ר/חניה)",
+      "benchmark": "שטח מוצע: 503.0 מ״ר (52.7 מ״ר/חניה · חיסכון 45.0 מ״ר × 3,500 ₪)",
+      "summary": "🛠️ איך מבצעים על התכנית: מיקום מאגר המים וחדר המשאבות מתחת לשלוחת הרמפה במזרח המגרש (X=[9.5..16.5]) וצמצום כיס החפירה הדרום-מזרחי מחוץ למיסעה — חיסכון של 45.0 מ״ר מרתף ודיפון ללא גריעת אף חניה.",
+      "recommendation": "🛡️ שמירת מצבת החניות: 8 חניות רגילות במרתף 1- (#1–#8) + רמפה דו-שיפועית תקנית + מיסעה 6.00 מ׳. סה״כ חיסכון ישיר במוקד זה: 157,500 ₪.",
+      "x_pct": 66.0,
+      "y_pct": 26.0,
+      "w_pct": 26.0,
+      "h_pct": 52.0,
+      "cx_pct": 79.0,
+      "cy_pct": 52.0
+    },
+    {
+      "id": "FB3-OPT-UG2",
+      "pin_num": 12,
+      "sheet_id": "fb_basement2",
+      "section_id": "sec_feierberg3_value_eng",
+      "is_value_eng": true,
+      "ve_category": "UG",
+      "ve_saving_ils": 175000,
+      "ve_saved_sqm": 50.0,
+      "ve_callout_badge": "🅿️ -50.0 מ״ר חניון | 175,000 ₪",
+      "where_on_plan": "מרתף 2- (-7.80m — קיצור שלוחת מרתף מזרחית מעבר לחניה P19)",
+      "how_to_execute": "במרתף 2- חניות P9–P19 מרוכזות ב-X=[-16.8..+10.4], בעוד החפירה נמשכת עד X=+16.75. עצירת קו הדיפון המזרחי ב-X=+11.8 (כולל בורות השאיבה) חוסכת 50.0 מ״ר חפירה בעומק -7.80 מ׳ תוך שמירה על כל 11 החניות.",
+      "typology": "ייעול מרתף חניון (3,500 ₪/מ״ר) — מרתף 2- (-7.80m — קיצור שלוחת מרתף מזרחית מעבר לחניה P19)",
+      "room_name": "📍 איפה: מרתף 2- (-7.80m — קיצור שלוחת מרתף מזרחית מעבר לחניה P19)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (3,500 ₪/מ״ר)",
+      "title": "חיסכון 50.0 מ״ר במרתף החניון = 175,000 ₪ (שמירת 100% מהחניות)",
+      "measured": "שטח קיים: 548.0 מ״ר (57.7 מ״ר/חניה)",
+      "benchmark": "שטח מוצע: 498.0 מ״ר (52.7 מ״ר/חניה · חיסכון 50.0 מ״ר × 3,500 ₪)",
+      "summary": "🛠️ איך מבצעים על התכנית: במרתף 2- חניות P9–P19 מרוכזות ב-X=[-16.8..+10.4], בעוד החפירה נמשכת עד X=+16.75. עצירת קו הדיפון המזרחי ב-X=+11.8 (כולל בורות השאיבה) חוסכת 50.0 מ״ר חפירה בעומק -7.80 מ׳ תוך שמירה על כל 11 החניות.",
+      "recommendation": "🛡️ שמירת מצבת החניות: 11 חניות רגילות במרתף 2- (#9–#19 כולל חניית נכה P17) + בורות שאיבה וגרעין מוגן. סה״כ חיסכון ישיר במוקד זה: 175,000 ₪.",
+      "x_pct": 72.0,
+      "y_pct": 22.0,
+      "w_pct": 21.0,
+      "h_pct": 60.0,
+      "cx_pct": 82.5,
+      "cy_pct": 52.0
+    },
+    {
+      "id": "FEIERBERG3-VE-FAC-1",
+      "pin_num": 13,
+      "sheet_id": "fb_typical",
+      "section_id": "sec_feierberg3_value_eng",
+      "is_value_eng": true,
+      "ve_category": "FAC",
+      "ve_saving_ils": 54400,
+      "ve_saved_sqm": 136.0,
+      "ve_callout_badge": "🧱 דרום: -136.0 מ״ר יבש←טיח | 54,400 ₪",
+      "where_on_plan": "חזית דרומית (חזית ראשית לרחוב פאירברג 3) (680.0 מ״ר קירות אטומים)",
+      "how_to_execute": "חזית רחוב ייצוגית — שמירת חיפוי יבש מלא בחזית הראשית ובמסד; המרת קירות פנים-מרפסות ונסיגות קומות גג בלבד לטיח (20%)",
+      "typology": "אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית דרומית (חזית ראשית לרחוב פאירברג 3)",
+      "room_name": "📍 איפה: חזית דרומית (חזית ראשית לרחוב פאירברג 3) (כיוון דרום)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (400 ₪/מ״ר הפרש)",
+      "title": "המרת 136.0 מ״ר מחיפוי יבש לטיח בחזית דרום = חיסכון 54,400 ₪",
+      "measured": "שטח אטום: 680.0 מ״ר (חיפוי יבש נוכחי: 578.0 מ״ר)",
+      "benchmark": "יחס מוצע: 65.0% יבש (442.0 מ״ר) / 35.0% טיח (238.0 מ״ר)",
+      "summary": "🛠️ איך מבצעים על התכנית: חזית רחוב ייצוגית — שמירת חיפוי יבש מלא בחזית הראשית ובמסד; המרת קירות פנים-מרפסות ונסיגות קומות גג בלבד לטיח (20%)",
+      "recommendation": "חיסכון ישיר של 400 ₪ למ״ר מומר × 136.0 מ״ר = 54,400 ₪ בחזית זו (מתוך סה״כ 260,320 ₪ ב-4 החזיתות).",
+      "x_pct": 14.0,
+      "y_pct": 72.0,
+      "w_pct": 72.0,
+      "h_pct": 10.0,
+      "cx_pct": 50.0,
+      "cy_pct": 77.0
+    },
+    {
+      "id": "FEIERBERG3-VE-FAC-2",
+      "pin_num": 14,
+      "sheet_id": "fb_typical",
+      "section_id": "sec_feierberg3_value_eng",
+      "is_value_eng": true,
+      "ve_category": "FAC",
+      "ve_saving_ils": 144000,
+      "ve_saved_sqm": 360.0,
+      "ve_callout_badge": "🧱 צפון: -360.0 מ״ר יבש←טיח | 144,000 ₪",
+      "where_on_plan": "חזית צפונית (חזית עורפית) (750.0 מ״ר קירות אטומים)",
+      "how_to_execute": "חזית עורפית — המרת שטחי הקירות האטומים העורפיים ומסתורי הכביסה לטיח תרמי/אקרילי משובח תוך שמירת מסגרות חיפוי יבש (48%)",
+      "typology": "אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית צפונית (חזית עורפית)",
+      "room_name": "📍 איפה: חזית צפונית (חזית עורפית) (כיוון צפון)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (400 ₪/מ״ר הפרש)",
+      "title": "המרת 360.0 מ״ר מחיפוי יבש לטיח בחזית צפון = חיסכון 144,000 ₪",
+      "measured": "שטח אטום: 750.0 מ״ר (חיפוי יבש נוכחי: 637.5 מ״ר)",
+      "benchmark": "יחס מוצע: 37.0% יבש (277.5 מ״ר) / 63.0% טיח (472.5 מ״ר)",
+      "summary": "🛠️ איך מבצעים על התכנית: חזית עורפית — המרת שטחי הקירות האטומים העורפיים ומסתורי הכביסה לטיח תרמי/אקרילי משובח תוך שמירת מסגרות חיפוי יבש (48%)",
+      "recommendation": "חיסכון ישיר של 400 ₪ למ״ר מומר × 360.0 מ״ר = 144,000 ₪ בחזית זו (מתוך סה״כ 260,320 ₪ ב-4 החזיתות).",
+      "x_pct": 14.0,
+      "y_pct": 16.0,
+      "w_pct": 72.0,
+      "h_pct": 10.0,
+      "cx_pct": 50.0,
+      "cy_pct": 21.0
+    },
+    {
+      "id": "FEIERBERG3-VE-FAC-3",
+      "pin_num": 15,
+      "sheet_id": "fb_typical",
+      "section_id": "sec_feierberg3_value_eng",
+      "is_value_eng": true,
+      "ve_category": "FAC",
+      "ve_saving_ils": 30680,
+      "ve_saved_sqm": 76.7,
+      "ve_callout_badge": "🧱 מערב: -76.7 מ״ר יבש←טיח | 30,680 ₪",
+      "where_on_plan": "חזית מערבית (חזית צד) (213.0 מ״ר קירות אטומים)",
+      "how_to_execute": "חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)",
+      "typology": "אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית מערבית (חזית צד)",
+      "room_name": "📍 איפה: חזית מערבית (חזית צד) (כיוון מערב)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (400 ₪/מ״ר הפרש)",
+      "title": "המרת 76.7 מ״ר מחיפוי יבש לטיח בחזית מערב = חיסכון 30,680 ₪",
+      "measured": "שטח אטום: 213.0 מ״ר (חיפוי יבש נוכחי: 181.0 מ״ר)",
+      "benchmark": "יחס מוצע: 49.0% יבש (104.3 מ״ר) / 51.0% טיח (108.7 מ״ר)",
+      "summary": "🛠️ איך מבצעים על התכנית: חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)",
+      "recommendation": "חיסכון ישיר של 400 ₪ למ״ר מומר × 76.7 מ״ר = 30,680 ₪ בחזית זו (מתוך סה״כ 260,320 ₪ ב-4 החזיתות).",
+      "x_pct": 11.0,
+      "y_pct": 24.0,
+      "w_pct": 9.0,
+      "h_pct": 50.0,
+      "cx_pct": 15.5,
+      "cy_pct": 49.0
+    },
+    {
+      "id": "FEIERBERG3-VE-FAC-4",
+      "pin_num": 16,
+      "sheet_id": "fb_typical",
+      "section_id": "sec_feierberg3_value_eng",
+      "is_value_eng": true,
+      "ve_category": "FAC",
+      "ve_saving_ils": 31240,
+      "ve_saved_sqm": 78.1,
+      "ve_callout_badge": "🧱 מזרח: -78.1 מ״ר יבש←טיח | 31,240 ₪",
+      "where_on_plan": "חזית מזרחית (חזית צד) (217.0 מ״ר קירות אטומים)",
+      "how_to_execute": "חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)",
+      "typology": "אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית מזרחית (חזית צד)",
+      "room_name": "📍 איפה: חזית מזרחית (חזית צד) (כיוון מזרח)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (400 ₪/מ״ר הפרש)",
+      "title": "המרת 78.1 מ״ר מחיפוי יבש לטיח בחזית מזרח = חיסכון 31,240 ₪",
+      "measured": "שטח אטום: 217.0 מ״ר (חיפוי יבש נוכחי: 184.4 מ״ר)",
+      "benchmark": "יחס מוצע: 49.0% יבש (106.3 מ״ר) / 51.0% טיח (110.7 מ״ר)",
+      "summary": "🛠️ איך מבצעים על התכנית: חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)",
+      "recommendation": "חיסכון ישיר של 400 ₪ למ״ר מומר × 78.1 מ״ר = 31,240 ₪ בחזית זו (מתוך סה״כ 260,320 ₪ ב-4 החזיתות).",
+      "x_pct": 80.0,
+      "y_pct": 24.0,
+      "w_pct": 9.0,
+      "h_pct": 50.0,
+      "cx_pct": 84.5,
+      "cy_pct": 49.0
+    },
+    {
+      "id": "FB3-OPT-APT1",
+      "pin_num": 17,
+      "sheet_id": "fb_typical",
+      "section_id": "sec_feierberg3_value_eng",
+      "is_value_eng": true,
+      "ve_category": "APT",
+      "ve_saving_ils": 0,
+      "ve_saved_sqm": 14.4,
+      "ve_callout_badge": "🛋️ +1.8 מ״ר לדירה (+14.4 מ״ר סה״כ)",
+      "where_on_plan": "אגף מערבי — דירות 4 חדרים (#1,3,5,7,9,11,13,15 · 8 דירות — 105.46 מ״ר)",
+      "how_to_execute": "קיצור זנב המסדרון המערבי ב-105 ס״מ וביטול המחיצה הכפולה של חדר הארונות הקטן (2.75 מ״ר) לטובת ארון קיר אינטגרלי — השבחה של 1.8 מ״ר שטח מגורים אפקטיבי בכל אחת מ-8 הדירות (14.4 מ״ר סה״כ).",
+      "typology": "ייעול תכנון פנימי ופתחים — אגף מערבי — דירות 4 חדרים (#1,3,5,7,9,11,13,15 · 8 דירות — 105.46 מ״ר)",
+      "room_name": "📍 איפה: אגף מערבי — דירות 4 חדרים (#1,3,5,7,9,11,13,15 · 8 דירות — 105.46 מ״ר) — מסדרונות (9.8 ← 8.0 מ״ר)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT / Space Syntax",
+      "title": "המרת +1.8 מ״ר ממסדרון לחדרי מגורים (+14.4 מ״ר ב-8 דירות)",
+      "measured": "מסדרון נוכחי: 9.8 מ״ר לדירה",
+      "benchmark": "מסדרון מוצע: 8.0 מ״ר (+1.8 מ״ר לחדרי המגורים)",
+      "summary": "🛠️ איך מבצעים על התכנית: קיצור זנב המסדרון המערבי ב-105 ס״מ וביטול המחיצה הכפולה של חדר הארונות הקטן (2.75 מ״ר) לטובת ארון קיר אינטגרלי — השבחה של 1.8 מ״ר שטח מגורים אפקטיבי בכל אחת מ-8 הדירות (14.4 מ״ר סה״כ). | תוצאה: הגדלת חדר השינה הצפוני (מרוחב 2.80 מ׳ ל-2.98 מ׳) + הרחבת סוויטת ההורים הדרום-מערבית והסלון.",
+      "recommendation": "🪟 ייעול פתחים ואלומיניום: איחוד מפתחי חלונות חדרי השינה הצפוניים והמערביים למודול אחיד של 140×150 ס״מ עם זיגוג Low-E ואקוסטיקה 40dB.",
+      "x_pct": 18.0,
+      "y_pct": 38.0,
+      "w_pct": 24.0,
+      "h_pct": 20.0,
+      "cx_pct": 30.0,
+      "cy_pct": 48.0
+    },
+    {
+      "id": "FB3-OPT-APT2",
+      "pin_num": 18,
+      "sheet_id": "fb_typical",
+      "section_id": "sec_feierberg3_value_eng",
+      "is_value_eng": true,
+      "ve_category": "APT",
+      "ve_saving_ils": 0,
+      "ve_saved_sqm": 11.2,
+      "ve_callout_badge": "🛋️ +1.4 מ״ר לדירה (+11.2 מ״ר סה״כ)",
+      "where_on_plan": "אגף מזרחי — דירות 4 חדרים (#2,4,6,8,10,12,14,16 · 8 דירות — 85.53 מ״ר)",
+      "how_to_execute": "קיצור קצה המסדרון המזרחי ב-95 ס״מ והזזת דלת סוויטת ההורים קדימה לקו האמבטיה — העברת 1.4 מ״ר נטו משטח המעבר אל תוך חדר ההורים (11.2 מ״ר ב-8 דירות).",
+      "typology": "ייעול תכנון פנימי ופתחים — אגף מזרחי — דירות 4 חדרים (#2,4,6,8,10,12,14,16 · 8 דירות — 85.53 מ״ר)",
+      "room_name": "📍 איפה: אגף מזרחי — דירות 4 חדרים (#2,4,6,8,10,12,14,16 · 8 דירות — 85.53 מ״ר) — מסדרונות (7.9 ← 6.5 מ״ר)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT / Space Syntax",
+      "title": "המרת +1.4 מ״ר ממסדרון לחדרי מגורים (+11.2 מ״ר ב-8 דירות)",
+      "measured": "מסדרון נוכחי: 7.9 מ״ר לדירה",
+      "benchmark": "מסדרון מוצע: 6.5 מ״ר (+1.4 מ״ר לחדרי המגורים)",
+      "summary": "🛠️ איך מבצעים על התכנית: קיצור קצה המסדרון המזרחי ב-95 ס״מ והזזת דלת סוויטת ההורים קדימה לקו האמבטיה — העברת 1.4 מ״ר נטו משטח המעבר אל תוך חדר ההורים (11.2 מ״ר ב-8 דירות). | תוצאה: הרחבת סוויטת ההורים הדרום-מזרחית מרוחב 2.95 מ׳ ל-3.12 מ׳ (עמידה מלאה ברף המצוינות של ADG ≥3.00 מ׳!).",
+      "recommendation": "🪟 ייעול פתחים ואלומיניום: סטנדרטיזציה של ויטרינת המרפסת הדרומית (380 ס״מ) וחלונות החזית המזרחית.",
+      "x_pct": 58.0,
+      "y_pct": 38.0,
+      "w_pct": 24.0,
+      "h_pct": 20.0,
+      "cx_pct": 70.0,
+      "cy_pct": 48.0
+    },
+    {
+      "id": "FB3-OPT-APT3",
+      "pin_num": 19,
+      "sheet_id": "fb_floor10",
+      "section_id": "sec_feierberg3_value_eng",
+      "is_value_eng": true,
+      "ve_category": "APT",
+      "ve_saving_ils": 0,
+      "ve_saved_sqm": 4.2,
+      "ve_callout_badge": "🛋️ +2.1 מ״ר לדירה (+4.2 מ״ר סה״כ)",
+      "where_on_plan": "דופלקס-פנטהאוזים #17 (מערב) ו-#18 (מזרח) (קומות 9–10 · 2 דירות — 121.3 ו-103.6 מ״ר)",
+      "how_to_execute": "הידוק גלריית המעבר העליונה בקומה 10 והעברת 2.1 מ״ר לכל דופלקס לטובת סוויטת ההורים הראשית.",
+      "typology": "ייעול תכנון פנימי ופתחים — דופלקס-פנטהאוזים #17 (מערב) ו-#18 (מזרח) (קומות 9–10 · 2 דירות — 121.3 ו-103.6 מ״ר)",
+      "room_name": "📍 איפה: דופלקס-פנטהאוזים #17 (מערב) ו-#18 (מזרח) (קומות 9–10 · 2 דירות — 121.3 ו-103.6 מ״ר) — מסדרונות (11.5 ← 9.4 מ״ר)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT / Space Syntax",
+      "title": "המרת +2.1 מ״ר ממסדרון לחדרי מגורים (+4.2 מ״ר ב-2 דירות)",
+      "measured": "מסדרון נוכחי: 11.5 מ״ר לדירה",
+      "benchmark": "מסדרון מוצע: 9.4 מ״ר (+2.1 מ״ר לחדרי המגורים)",
+      "summary": "🛠️ איך מבצעים על התכנית: הידוק גלריית המעבר העליונה בקומה 10 והעברת 2.1 מ״ר לכל דופלקס לטובת סוויטת ההורים הראשית. | תוצאה: הגדלת סוויטות ההורים הראשיות בקומה 10 ופינת העבודה/גלריה.",
+      "recommendation": "🪟 ייעול פתחים ואלומיניום: איזון מפתחי הוויטרינות הפנורמיות בקומה 9 (WWR 52% ← 38%) עם פרגולות ההצללה הדרומיות לחיסכון בעלויות האלומיניום ושיפור הבידוד התרמי.",
+      "x_pct": 22.0,
+      "y_pct": 30.0,
+      "w_pct": 56.0,
+      "h_pct": 34.0,
+      "cx_pct": 50.0,
+      "cy_pct": 47.0
+    }
+  ],
+  "project_data_summary": {
+    "project_id": "feierberg3",
+    "project_name": "פאירברג 3, פתח תקווה",
+    "summary_doc_url": "/reports/feierberg3_summary_and_areas_report.html",
+    "lot_area_sqm": 548.0,
+    "buildings_count": 1,
+    "apartments_count": 18,
+    "floors_above_ground": 11,
+    "underground_levels": 2,
+    "building_height_m": 37.5,
+    "total_built_area_sqm": 3462.6,
+    "above_ground_areas": {
+      "total_sqm": 2366.6,
+      "net_apartments_sqm": 1752.8,
+      "core_and_service_sqm": 613.8,
+      "summary_note": "בניין בוטיק בן 10 קומות מגורים + קומת קרקע + גג עליון (18 יח״ד: 16 דירות 4 חדרים בקומות 1–8 + 2 דופלקס-פנטהאוז 5 חדרים בקומות 9–10)",
+      "by_floor": [
+        {
+          "floor_label": "קומת קרקע (0.00 — לובי, מועדון דיירים וחדרי שירות)",
+          "elevation": "±0.00",
+          "units_count": 0,
+          "usage_description": "לובי כניסה ראשי, מועדון דיירים, חדר אופניים ועגלות, חדר אשפה, מאגר מים וחדר גז",
+          "apartments_sqm": 0.0,
+          "core_service_sqm": 265.0,
+          "total_floor_sqm": 265.0,
+          "pct_of_above_ground": 11.2
+        },
+        {
+          "floor_label": "קומה 1 (טיפוסית — דירה #1 מערב 105.5, דירה #2 מזרח 85.5)",
+          "elevation": "+3.50",
+          "units_count": 2,
+          "usage_description": "2 דירות 4 חדרים (3 כיווני אוויר כ״א) + גרעין מדרגות ומעלית",
+          "apartments_sqm": 191.0,
+          "core_service_sqm": 31.0,
+          "total_floor_sqm": 222.0,
+          "pct_of_above_ground": 9.38
+        },
+        {
+          "floor_label": "קומה 2 (טיפוסית — דירה #3 מערב, דירה #4 מזרח)",
+          "elevation": "+6.65",
+          "units_count": 2,
+          "usage_description": "2 דירות 4 חדרים + גרעין קומתי",
+          "apartments_sqm": 191.0,
+          "core_service_sqm": 31.0,
+          "total_floor_sqm": 222.0,
+          "pct_of_above_ground": 9.38
+        },
+        {
+          "floor_label": "קומה 3 (טיפוסית — דירה #5 מערב, דירה #6 מזרח)",
+          "elevation": "+9.80",
+          "units_count": 2,
+          "usage_description": "2 דירות 4 חדרים + גרעין קומתי",
+          "apartments_sqm": 191.0,
+          "core_service_sqm": 31.0,
+          "total_floor_sqm": 222.0,
+          "pct_of_above_ground": 9.38
+        },
+        {
+          "floor_label": "קומה 4 (טיפוסית — דירה #7 מערב, דירה #8 מזרח)",
+          "elevation": "+12.95",
+          "units_count": 2,
+          "usage_description": "2 דירות 4 חדרים + גרעין קומתי",
+          "apartments_sqm": 191.0,
+          "core_service_sqm": 31.0,
+          "total_floor_sqm": 222.0,
+          "pct_of_above_ground": 9.38
+        },
+        {
+          "floor_label": "קומה 5 (טיפוסית — דירה #9 מערב, דירה #10 מזרח)",
+          "elevation": "+16.10",
+          "units_count": 2,
+          "usage_description": "2 דירות 4 חדרים + גרעין קומתי",
+          "apartments_sqm": 191.0,
+          "core_service_sqm": 31.0,
+          "total_floor_sqm": 222.0,
+          "pct_of_above_ground": 9.38
+        },
+        {
+          "floor_label": "קומה 6 (טיפוסית — דירה #11 מערב, דירה #12 מזרח)",
+          "elevation": "+19.25",
+          "units_count": 2,
+          "usage_description": "2 דירות 4 חדרים + גרעין קומתי",
+          "apartments_sqm": 191.0,
+          "core_service_sqm": 31.0,
+          "total_floor_sqm": 222.0,
+          "pct_of_above_ground": 9.38
+        },
+        {
+          "floor_label": "קומה 7 (טיפוסית — דירה #13 מערב, דירה #14 מזרח)",
+          "elevation": "+22.40",
+          "units_count": 2,
+          "usage_description": "2 דירות 4 חדרים + גרעין קומתי",
+          "apartments_sqm": 191.0,
+          "core_service_sqm": 31.0,
+          "total_floor_sqm": 222.0,
+          "pct_of_above_ground": 9.38
+        },
+        {
+          "floor_label": "קומה 8 (דירה #15 מערב, דירה #16 מזרח + פרגולות)",
+          "elevation": "+25.55",
+          "units_count": 2,
+          "usage_description": "2 דירות 4 חדרים + פרגולות אלומיניום דרומיות + גרעין",
+          "apartments_sqm": 191.0,
+          "core_service_sqm": 31.0,
+          "total_floor_sqm": 222.0,
+          "pct_of_above_ground": 9.38
+        },
+        {
+          "floor_label": "קומה 9 (מפלס תחתון דופלקס-פנטהאוזים #17 ו-#18)",
+          "elevation": "+28.87",
+          "units_count": 2,
+          "usage_description": "מפלס מגורים תחתון דופלקס מערבי #17 (63.57 מ״ר) ומזרחי #18 (52.45 מ״ר) + מרפסות גג",
+          "apartments_sqm": 116.0,
+          "core_service_sqm": 32.8,
+          "total_floor_sqm": 148.8,
+          "pct_of_above_ground": 6.29
+        },
+        {
+          "floor_label": "קומה 10 (מפלס עליון דופלקס-פנטהאוזים #17 ו-#18)",
+          "elevation": "+32.02",
+          "units_count": 0,
+          "usage_description": "מפלס חדרי שינה עליון דופלקס #17 (57.70 מ״ר) ודופלקס #18 (51.13 מ״ר) + גרעין",
+          "apartments_sqm": 108.8,
+          "core_service_sqm": 30.0,
+          "total_floor_sqm": 138.8,
+          "pct_of_above_ground": 5.86
+        },
+        {
+          "floor_label": "גג עליון ויציאה לגג (+35.17m)",
+          "elevation": "+35.17",
+          "units_count": 0,
+          "usage_description": "חדר יציאה לגג, פיר מעלית ומערכות קולטי שמש",
+          "apartments_sqm": 0.0,
+          "core_service_sqm": 38.0,
+          "total_floor_sqm": 38.0,
+          "pct_of_above_ground": 1.61
+        }
+      ]
+    },
+    "underground_areas": {
+      "total_sqm": 1096.0,
+      "parking_spaces": 19,
+      "parking_ratio": "1:1.06",
+      "summary_note": "2 קומות מרתף חניון בקו מגרש 0.00 (548 מ״ר לקומה × 2 = 1,096.0 מ״ר) ל-19 חניות קונבנציונליות רגילות (ללא מכפילים)",
+      "by_floor": [
+        {
+          "floor_label": "מרתף 1- (חניון עליון · מפלס -4.80m)",
+          "elevation": "-4.80",
+          "usage_description": "8 חניות רגילות (#1–#8), רמפה דו-שיפועית (12.5%–15%), מיסעה וגרעין מדרגות/מעלית",
+          "total_floor_sqm": 548.0,
+          "pct_of_underground": 50.0
+        },
+        {
+          "floor_label": "מרתף 2- (חניון תחתון · מפלס -7.80m)",
+          "elevation": "-7.80",
+          "usage_description": "11 חניות רגילות (#9–#19 כולל חניית נכה P17), בורות שאיבה וגרעין מדרגות/מעלית",
+          "total_floor_sqm": 548.0,
+          "pct_of_underground": 50.0
+        }
+      ]
+    },
+    "roof_terraces": {
+      "total_sqm": 85.0,
+      "count": 4,
+      "garden_terraces_sqm": 0.0,
+      "summary_note": "84.95 מ״ר מרפסות גג ומרפסות שקועות בדופלקס-פנטהאוזים #17 ו-#18 בקומות 9–10",
+      "breakdown": [
+        {
+          "floor_label": "קומות 9–10 (דופלקס-פנטהאוז מערבי #17)",
+          "unit_label": "מרפסת גג היקפית ק׳ 9 (43.30 מ״ר) + מרפסת שקועה ק׳ 10 (2.85 מ״ר)",
+          "dimensions": "טרסת גג בצורת L דרום-מערב + מרפסת סוויטה עליונה",
+          "area_sqm": 46.15
+        },
+        {
+          "floor_label": "קומות 9–10 (דופלקס-פנטהאוז מזרחי #18)",
+          "unit_label": "מרפסת גג היקפית ק׳ 9 (36.40 מ״ר) + מרפסת שקועה ק׳ 10 (2.40 מ״ר)",
+          "dimensions": "טרסת גג בצורת L דרום-מזרח + מרפסת עליונה",
+          "area_sqm": 38.8
+        }
+      ]
+    },
+    "suspended_balconies": {
+      "total_sqm": 192.0,
+      "count": 16,
+      "sun_balconies_sqm": 192.0,
+      "service_balconies_sqm": 39.0,
+      "summary_note": "16 מרפסות שמש דרומיות בקומות 1–8 (7.50×1.60 מ׳ = 12.0 מ״ר לדירה, סה״כ 192.0 מ״ר) + 39.0 מ״ר מסתורי כביסה",
+      "breakdown": [
+        {
+          "floor_label": "קומות 1–8 (אגף מערבי — דירות אי-זוגיות #1..#15)",
+          "unit_label": "מרפסת שמש דרומית מערבית",
+          "count": 8,
+          "unit_area_sqm": 12.0,
+          "total_area_sqm": 96.0,
+          "dimensions": "750×160 ס״מ (כולל פרגולה בקומה 8)"
+        },
+        {
+          "floor_label": "קומות 1–8 (אגף מזרחי — דירות זוגיות #2..#16)",
+          "unit_label": "מרפסת שמש דרומית מזרחית",
+          "count": 8,
+          "unit_area_sqm": 12.0,
+          "total_area_sqm": 96.0,
+          "dimensions": "750×160 ס״מ (כולל פרגולה בקומה 8)"
+        }
+      ]
+    },
+    "facades": {
+      "total_sqm": 2380.0,
+      "building_height_m": 37.5,
+      "total_glazing_sqm": 520.0,
+      "total_opaque_sqm": 1860.0,
+      "average_wwr_pct": 21.8,
+      "summary_note": "סה״כ שטחי חזיתות החוץ (גובה +35.17/+37.50 מ׳): 2,380.0 מ״ר בחלוקה ל-4 חזיתות (דרום רחוב פאירברג, צפון, מערב ומזרח)",
+      "by_direction": [
+        {
+          "facade_name": "חזית דרומית (חזית ראשית לרחוב פאירברג 3)",
+          "direction": "דרום",
+          "length_m": 26.25,
+          "height_m": 34.86,
+          "gross_area_sqm": 915.0,
+          "pct_of_total": 38.45,
+          "glazing_area_sqm": 235.0,
+          "opaque_area_sqm": 680.0,
+          "wwr_pct": 25.7,
+          "materials_and_elements": "מרפסות שמש דרומיות (7.50×1.60 מ׳), ויטרינות סלונים רחבות, מסגרות דו-קומתיות כהות וחיפוי אבן נסורה לבנה"
+        },
+        {
+          "facade_name": "חזית צפונית (חזית עורפית)",
+          "direction": "צפון",
+          "length_m": 26.25,
+          "height_m": 34.86,
+          "gross_area_sqm": 915.0,
+          "pct_of_total": 38.45,
+          "glazing_area_sqm": 165.0,
+          "opaque_area_sqm": 750.0,
+          "wwr_pct": 18.0,
+          "materials_and_elements": "חלונות ממ״דים, חדרי שינה צפוניים, חלונות חדר מדרגות מרכזי ורפפות מסתור כביסה צפון-מערבי"
+        },
+        {
+          "facade_name": "חזית מערבית (חזית צד)",
+          "direction": "מערב",
+          "length_m": 8.4,
+          "height_m": 32.74,
+          "gross_area_sqm": 275.0,
+          "pct_of_total": 11.55,
+          "glazing_area_sqm": 62.0,
+          "opaque_area_sqm": 213.0,
+          "wwr_pct": 22.5,
+          "materials_and_elements": "חלונות סוויטת הורים מערבית, חדר רחצה הורים ומרפסת גג מערבית בקומה 9"
+        },
+        {
+          "facade_name": "חזית מזרחית (חזית צד)",
+          "direction": "מזרח",
+          "length_m": 8.4,
+          "height_m": 32.74,
+          "gross_area_sqm": 275.0,
+          "pct_of_total": 11.55,
+          "glazing_area_sqm": 58.0,
+          "opaque_area_sqm": 217.0,
+          "wwr_pct": 21.1,
+          "materials_and_elements": "חלונות חדר שינה צפון-מזרחי, רפפות מסתור כביסה מזרחי ומרפסת גג מזרחית בקומה 9"
+        }
+      ]
+    },
+    "summary_document": {
+      "document_title": "מסמך סיכום הערות בקרת איכות והצעות לשיפור — פאירברג 3, פתח תקווה",
+      "overall_verdict": "ציון איכות משוקלל 91.2/100 (דירוג A — מצוין). בניין בוטיק בן 10 קומות + 2 מרתפי חניון ו-18 יח״ד המתאפיין ב-0 כשלים סטטוטוריים (0 FAIL), רציפות אנכית מלאה של הגרעין (IoU=1.000), 3 כיווני אוויר לכל דירה ו-19 חניות קונבנציונליות רגילות. פוטנציאל הנדסת הערך מתמקד בהעברת מאגר המים מקומת הקרקע לתחתית הרמפה, קיצור שלוחת הדיפון המזרחית במרתף 2- והשבחת המסדרונות לטובת חדרי השינה.",
+      "critical_notes_summary": [
+        "0 כשלים סטטוטוריים (0 FAIL) בכל בדיקות המנוע ו-100% הצלחה ב-5 מבחני ה-Zero-Trust BIM.",
+        "בדירה המזרחית (85.53 מ״ר) רוחב סוויטת ההורים הוא 295 ס״מ (עובר תקן ישראלי ו-NDSS, חסרים 5 ס״מ בלבד לרף המצוינות של ADG 300 ס״מ).",
+        "בדירה המערבית (105.46 מ״ר) חדר הארונות הקטן (2.75 מ״ר) גוזל שטח מעבר שניתן לצרף לחדר השינה ולסוויטת ההורים.",
+        "בקומת הקרקע מאגר המים וחדר המשאבות תופסים 28 מ״ר שטח עילי יקר שניתן למקם מתחת לרמפת המרתף."
+      ],
+      "improvement_proposals": [
+        {
+          "priority": "גבוהה (הנדסת ערך וחיסכון בעלויות בנייה — 435,900 ₪ בקרקע ובמרתפים)",
+          "target": "קומת קרקע (±0.00m) ומרתפי חניון -1 ו--2",
+          "issue": "מיקום מאגר המים בקומת הקרקע (יקר בבנייה עילית) וחפירת יתר בצד המזרחי של מרתף 2- מעבר לחניה P19.",
+          "proposal": "העברת מאגר המים וחדר המשאבות אל החלל התחתון מתחת לרמפה הדו-שיפועית במרתף 1- ועצירת קו הדיפון המזרחי במרתף 2- ב-X=+11.8 מ׳.",
+          "impact": "חיסכון ישיר של 42 מ״ר עילי (260,400 ₪) + 95 מ״ר תת-קרקעי (332,500 ₪) ללא גריעת אף חניה מתוך 19 החניות."
+        },
+        {
+          "priority": "בינונית (השבחת פנים דירות מזרחיות #2..#16)",
+          "target": "אגף מזרחי — סוויטת הורים דרום-מזרחית (רוחב 295 ס״מ)",
+          "issue": "רוחב חדר ההורים 295 ס״מ נושק לרף ה-ADG (300 ס״מ) בעוד קצה המסדרון המזרחי גוזל 1.4 מ״ר.",
+          "proposal": "קיצור קצה המסדרון המזרחי ב-95 ס״מ והזזת דלת סוויטת ההורים לקו האמבטיה.",
+          "impact": "הגדלת סוויטת ההורים ב-1.4 מ״ר והרחבתה ל-312 ס״מ (עמידה מלאה ב-ADG!)."
+        },
+        {
+          "priority": "בינונית (השבחת פנים דירות מערביות #1..#15)",
+          "target": "אגף מערבי — חדר ארונות (2.75 מ״ר) ומסדרון חדרי שינה",
+          "issue": "מחיצות חדר הארונות הקטן וזנב המסדרון המערבי תופסים 1.8 מ״ר שטח מעבר כפול.",
+          "proposal": "שילוב ארון קיר אינטגרלי באורך 3.60 מ׳ בסוויטת ההורים וקיצור זנב המסדרון המערבי.",
+          "impact": "תוספת של 1.8 מ״ר שטח אפקטיבי לחדר השינה הצפוני ולסוויטת ההורים בכל 8 הדירות המערביות."
+        }
+      ],
+      "notes_statistics": {
+        "total_notes": 19,
+        "fail_count": 0,
+        "warn_count": 14,
+        "pass_count": 5
+      },
+      "all_notes_digest": [
+        {
+          "pin_num": 1,
+          "id": "FB3-W-01",
+          "status": "PASS",
+          "typology": "אגף מערבי — דירות אי-זוגיות #1,3,5,7,9,11,13,15 (4 חדרים · 105.46+12 מ״ר)",
+          "room_name": "סלון ופינת אוכל דרומית (735×420 ס״מ = 30.80 מ״ר) + מרפסת שמש (750×160 ס״מ)",
+          "title": "חלל ציבורי רחב ומואר במיוחד (רוחב 4.20 מ׳ — עובר ADG!) עם ויטרינה דרומית רחבה ליציאה למרפסת 12 מ״ר",
+          "measured": "סלון-אוכל: 30.80 מ״ר (רוחב 4.20 מ׳) · מרפסת: 12.00 מ״ר (750×160 ס״מ)",
+          "recommendation": "לשמר את מסילת הוויטרינה השקועה (Zero-Threshold) בין הסלון למרפסת הדרומית."
+        },
+        {
+          "pin_num": 2,
+          "id": "FB3-W-02",
+          "status": "PASS",
+          "typology": "אגף מערבי — דירות אי-זוגיות #1..#15 (4 חדרים · 105.46 מ״ר)",
+          "room_name": "סוויטת הורים דרום-מערבית (350×388 ס״מ = 13.60 מ״ר), חדר ארונות (2.75 מ״ר) ורחצה הורים (3.85 מ״ר)",
+          "title": "סוויטת הורים מרווחת ברוחב 3.50 מ׳ (מעל רף ADG 3.00 מ׳) עם חדר רחצה מאוורר טבעית למערב",
+          "measured": "הורים: 13.60 מ״ר (350×388 ס״מ) + ארונות 2.75 מ״ר + רחצה 3.85 מ״ר",
+          "recommendation": "במסגרת ייעול התכנון הפנימי ניתן להחליף את מחיצת חדר הארונות הקטן בארון קיר נגרות באורך 3.60 מ׳ ולהגדיל את שטח החדר הפתוח."
+        },
+        {
+          "pin_num": 3,
+          "id": "FB3-W-03",
+          "status": "WARN",
+          "typology": "אגף מערבי — דירות אי-זוגיות #1..#15 (4 חדרים · 105.46 מ״ר)",
+          "room_name": "ממ״ד צפון-מערבי (280×350 ס״מ = 9.80 מ״ר) וחדר שינה צפוני (280×370 ס״מ = 10.36 מ״ר)",
+          "title": "ממ״ד וחדר שינה צפוני עוברים תקנות בנייה, פקע״ר ו-NDSS (9.8 ו-10.36 מ״ר); רוחב 2.80 מ׳ מתחת לרף ADG (3.00 מ׳)",
+          "measured": "ממ״ד: 9.80 מ״ר (רוחב 2.80 מ׳) · חדר שינה צפוני: 10.36 מ״ר (רוחב 2.80 מ׳)",
+          "recommendation": "קיצור זנב המסדרון המערבי והסטת קיר חדר השינה הצפוני ב-18 ס״מ דרומה."
+        },
+        {
+          "pin_num": 4,
+          "id": "FB3-E-01",
+          "status": "PASS",
+          "typology": "אגף מזרחי — דירות זוגיות #2,4,6,8,10,12,14,16 (4 חדרים · 85.53+12 מ״ר)",
+          "room_name": "סלון ופינת אוכל (605×410 ס״מ = 24.80 מ״ר), מטבח עם אי (8.65 מ״ר) ומרפסת דרומית (12.0 מ״ר)",
+          "title": "תכנון מצוין לדירת 4 חדרים קומפקטית (85.5 מ״ר): סלון ברוחב 4.10 מ׳ ו-3 כיווני אוויר מלאים (דרום, מזרח, צפון)",
+          "measured": "סלון: 24.80 מ״ר (רוחב 4.10 מ׳) · מטבח: 8.65 מ״ר · מרפסת: 12.00 מ״ר",
+          "recommendation": "לשמור על רוחב מעבר 105 ס״מ סביב אי המטבח המזרחי."
+        },
+        {
+          "pin_num": 5,
+          "id": "FB3-E-02",
+          "status": "WARN",
+          "typology": "אגף מזרחי — דירות זוגיות #2..#16 (4 חדרים · 85.53 מ״ר)",
+          "room_name": "סוויטת הורים דרום-מזרחית (295×386 ס״מ = 11.40 מ״ר) וחדר שינה צפון-מזרחי (270×365 ס״מ = 9.85 מ״ר)",
+          "title": "סוויטת הורים ברוחב 2.95 מ׳ (נושק ל-3.00 מ׳ של ADG) וחדר שינה צפון-מזרחי ברוחב 2.70 מ׳ (עובר חוקית, צר מ-NDSS 2.75 מ׳)",
+          "measured": "הורים: 11.40 מ״ר (295×386 ס״מ) · ח.שינה צפון-מזרחי: 9.85 מ״ר (270×365 ס״מ)",
+          "recommendation": "הזזת דלת סוויטת ההורים המזרחית ב-95 ס״מ לכיוון המבואה תגדיל את הסוויטה ב-1.4 מ״ר ותאפשר הרחבתה ל-3.12 מ׳."
+        },
+        {
+          "pin_num": 6,
+          "id": "FB3-PH-01",
+          "status": "PASS",
+          "typology": "קומות 9–10 — דופלקס-פנטהאוז מערבי #17 (121.27+46.15 מ״ר) ומזרחי #18 (103.58+38.80 מ״ר)",
+          "room_name": "מפלס אירוח תחתון (קומה 9) + מרפסות גג היקפיות בצורת L (43.30 מ״ר במערב ו-36.40 מ״ר במזרח)",
+          "title": "דופלקס-פנטהאוזים מרהיבים עם טרסות גג היקפיות ב-3 כיווני אוויר ופרגולות אלומיניום דרומיות",
+          "measured": "דופלקס #17: 121.27 מ״ר + 46.15 מ״ר מרפסות · דופלקס #18: 103.58 מ״ר + 38.80 מ״ר מרפסות",
+          "recommendation": "שילוב זיגוג Low-E בוויטרינות הפנורמיות של קומה 9 לאיזון עומס החום הדרומי והמערבי."
+        },
+        {
+          "pin_num": 7,
+          "id": "FB3-BSM-01",
+          "status": "PASS",
+          "typology": "מרתפי חניון -1 (-4.80m) ו--2 (-7.80m) וקומת קרקע (±0.00m)",
+          "room_name": "19 חניות קונבנציונליות רגילות (8 במרתף 1- + 11 במרתף 2-) וגרעין מדרגות/מעלית רציף",
+          "title": "19 חניות רגילות מלאות ל-18 דירות (יחס 1:1.06 ללא מכפילים!) עם רציפות אנכית מלאה של הגרעין (IoU=1.000)",
+          "measured": "19 חניות רגילות (כולל חניית נכה P17) · 2 מרתפים × 548 מ״ר = 1,096 מ״ר",
+          "recommendation": "העברת מאגר המים מקומת הקרקע לתחתית הרמפה במרתף 1- וקיצור שלוחת הדיפון המזרחית במרתף 2- מעבר לחניה P19 (חיסכון של 332,500 ₪ במרתפים + 260,400 ₪ בקרקע!)."
+        },
+        {
+          "pin_num": 8,
+          "id": "FB3-OPT-AG1",
+          "status": "WARN",
+          "typology": "ייעול נפחיות עילית (6,200 ₪/מ״ר) — קומת קרקע (±0.00m — העברת מאגר מים מתחת לרמפה והידוק מעברי שירות)",
+          "room_name": "📍 איפה: קומת קרקע (±0.00m — העברת מאגר מים מתחת לרמפה והידוק מעברי שירות)",
+          "title": "חיסכון 42.0 מ״ר עילי = 260,400 ₪ (0% פגיעה בדירות ובארונות שירות)",
+          "measured": "שטח קיים: 265.0 מ״ר (ליבה/שירות)",
+          "recommendation": "🛡️ שימושים נשמרים (0% פגיעה): שמירה מלאה על לובי כניסה ראשי, מועדון דיירים, חדר אופניים ועגלות, חדר אשפה ודחסנית, חדר גז ולוח חח״י וכל ארונות המונים. סה״כ חיסכון ישיר במוקד זה: 260,400 ₪."
+        },
+        {
+          "pin_num": 9,
+          "id": "FB3-OPT-AG2",
+          "status": "WARN",
+          "typology": "ייעול נפחיות עילית (6,200 ₪/מ״ר) — קומות 1–8 (8 קומות — הידוק גרעין ומבואה קומתית ל-2 דירות בקומה)",
+          "room_name": "📍 איפה: קומות 1–8 (8 קומות — הידוק גרעין ומבואה קומתית ל-2 דירות בקומה)",
+          "title": "חיסכון 28.0 מ״ר עילי = 173,600 ₪ (0% פגיעה בדירות ובארונות שירות)",
+          "measured": "שטח קיים: 248.0 מ״ר (ליבה/שירות)",
+          "recommendation": "🛡️ שימושים נשמרים (0% פגיעה): שמירה מלאה על חדר מדרגות מוגן (3.50×3.60 מ׳), פיר מעלית (1.75×1.80 מ׳) וכל ארונות החשמל, המים, התקשורת וכיבוי האש הקומתיים. סה״כ חיסכון ישיר במוקד זה: 173,600 ₪."
+        },
+        {
+          "pin_num": 10,
+          "id": "FB3-OPT-AG3",
+          "status": "WARN",
+          "typology": "ייעול נפחיות עילית (6,200 ₪/מ״ר) — קומות 9–10 וגג עליון (+28.87m עד +35.17m — מבואת דופלקסים ויציאה לגג)",
+          "room_name": "📍 איפה: קומות 9–10 וגג עליון (+28.87m עד +35.17m — מבואת דופלקסים ויציאה לגג)",
+          "title": "חיסכון 12.0 מ״ר עילי = 74,400 ₪ (0% פגיעה בדירות ובארונות שירות)",
+          "measured": "שטח קיים: 100.8 מ״ר (ליבה/שירות)",
+          "recommendation": "🛡️ שימושים נשמרים (0% פגיעה): שמירה על יציאה תקנית לגג, גישה למערכות קולטי השמש ופיר המעלית העליון. סה״כ חיסכון ישיר במוקד זה: 74,400 ₪."
+        },
+        {
+          "pin_num": 11,
+          "id": "FB3-OPT-UG1",
+          "status": "WARN",
+          "typology": "ייעול מרתף חניון (3,500 ₪/מ״ר) — מרתף 1- (-4.80m — ניצול תחתית הרמפה הדו-שיפועית וגיזום פינה מזרחית)",
+          "room_name": "📍 איפה: מרתף 1- (-4.80m — ניצול תחתית הרמפה הדו-שיפועית וגיזום פינה מזרחית)",
+          "title": "חיסכון 45.0 מ״ר במרתף החניון = 157,500 ₪ (שמירת 100% מהחניות)",
+          "measured": "שטח קיים: 548.0 מ״ר (57.7 מ״ר/חניה)",
+          "recommendation": "🛡️ שמירת מצבת החניות: 8 חניות רגילות במרתף 1- (#1–#8) + רמפה דו-שיפועית תקנית + מיסעה 6.00 מ׳. סה״כ חיסכון ישיר במוקד זה: 157,500 ₪."
+        },
+        {
+          "pin_num": 12,
+          "id": "FB3-OPT-UG2",
+          "status": "WARN",
+          "typology": "ייעול מרתף חניון (3,500 ₪/מ״ר) — מרתף 2- (-7.80m — קיצור שלוחת מרתף מזרחית מעבר לחניה P19)",
+          "room_name": "📍 איפה: מרתף 2- (-7.80m — קיצור שלוחת מרתף מזרחית מעבר לחניה P19)",
+          "title": "חיסכון 50.0 מ״ר במרתף החניון = 175,000 ₪ (שמירת 100% מהחניות)",
+          "measured": "שטח קיים: 548.0 מ״ר (57.7 מ״ר/חניה)",
+          "recommendation": "🛡️ שמירת מצבת החניות: 11 חניות רגילות במרתף 2- (#9–#19 כולל חניית נכה P17) + בורות שאיבה וגרעין מוגן. סה״כ חיסכון ישיר במוקד זה: 175,000 ₪."
+        },
+        {
+          "pin_num": 13,
+          "id": "FEIERBERG3-VE-FAC-1",
+          "status": "WARN",
+          "typology": "אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית דרומית (חזית ראשית לרחוב פאירברג 3)",
+          "room_name": "📍 איפה: חזית דרומית (חזית ראשית לרחוב פאירברג 3) (כיוון דרום)",
+          "title": "המרת 136.0 מ״ר מחיפוי יבש לטיח בחזית דרום = חיסכון 54,400 ₪",
+          "measured": "שטח אטום: 680.0 מ״ר (חיפוי יבש נוכחי: 578.0 מ״ר)",
+          "recommendation": "חיסכון ישיר של 400 ₪ למ״ר מומר × 136.0 מ״ר = 54,400 ₪ בחזית זו (מתוך סה״כ 260,320 ₪ ב-4 החזיתות)."
+        },
+        {
+          "pin_num": 14,
+          "id": "FEIERBERG3-VE-FAC-2",
+          "status": "WARN",
+          "typology": "אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית צפונית (חזית עורפית)",
+          "room_name": "📍 איפה: חזית צפונית (חזית עורפית) (כיוון צפון)",
+          "title": "המרת 360.0 מ״ר מחיפוי יבש לטיח בחזית צפון = חיסכון 144,000 ₪",
+          "measured": "שטח אטום: 750.0 מ״ר (חיפוי יבש נוכחי: 637.5 מ״ר)",
+          "recommendation": "חיסכון ישיר של 400 ₪ למ״ר מומר × 360.0 מ״ר = 144,000 ₪ בחזית זו (מתוך סה״כ 260,320 ₪ ב-4 החזיתות)."
+        },
+        {
+          "pin_num": 15,
+          "id": "FEIERBERG3-VE-FAC-3",
+          "status": "WARN",
+          "typology": "אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית מערבית (חזית צד)",
+          "room_name": "📍 איפה: חזית מערבית (חזית צד) (כיוון מערב)",
+          "title": "המרת 76.7 מ״ר מחיפוי יבש לטיח בחזית מערב = חיסכון 30,680 ₪",
+          "measured": "שטח אטום: 213.0 מ״ר (חיפוי יבש נוכחי: 181.0 מ״ר)",
+          "recommendation": "חיסכון ישיר של 400 ₪ למ״ר מומר × 76.7 מ״ר = 30,680 ₪ בחזית זו (מתוך סה״כ 260,320 ₪ ב-4 החזיתות)."
+        },
+        {
+          "pin_num": 16,
+          "id": "FEIERBERG3-VE-FAC-4",
+          "status": "WARN",
+          "typology": "אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית מזרחית (חזית צד)",
+          "room_name": "📍 איפה: חזית מזרחית (חזית צד) (כיוון מזרח)",
+          "title": "המרת 78.1 מ״ר מחיפוי יבש לטיח בחזית מזרח = חיסכון 31,240 ₪",
+          "measured": "שטח אטום: 217.0 מ״ר (חיפוי יבש נוכחי: 184.4 מ״ר)",
+          "recommendation": "חיסכון ישיר של 400 ₪ למ״ר מומר × 78.1 מ״ר = 31,240 ₪ בחזית זו (מתוך סה״כ 260,320 ₪ ב-4 החזיתות)."
+        },
+        {
+          "pin_num": 17,
+          "id": "FB3-OPT-APT1",
+          "status": "WARN",
+          "typology": "ייעול תכנון פנימי ופתחים — אגף מערבי — דירות 4 חדרים (#1,3,5,7,9,11,13,15 · 8 דירות — 105.46 מ״ר)",
+          "room_name": "📍 איפה: אגף מערבי — דירות 4 חדרים (#1,3,5,7,9,11,13,15 · 8 דירות — 105.46 מ״ר) — מסדרונות (9.8 ← 8.0 מ״ר)",
+          "title": "המרת +1.8 מ״ר ממסדרון לחדרי מגורים (+14.4 מ״ר ב-8 דירות)",
+          "measured": "מסדרון נוכחי: 9.8 מ״ר לדירה",
+          "recommendation": "🪟 ייעול פתחים ואלומיניום: איחוד מפתחי חלונות חדרי השינה הצפוניים והמערביים למודול אחיד של 140×150 ס״מ עם זיגוג Low-E ואקוסטיקה 40dB."
+        },
+        {
+          "pin_num": 18,
+          "id": "FB3-OPT-APT2",
+          "status": "WARN",
+          "typology": "ייעול תכנון פנימי ופתחים — אגף מזרחי — דירות 4 חדרים (#2,4,6,8,10,12,14,16 · 8 דירות — 85.53 מ״ר)",
+          "room_name": "📍 איפה: אגף מזרחי — דירות 4 חדרים (#2,4,6,8,10,12,14,16 · 8 דירות — 85.53 מ״ר) — מסדרונות (7.9 ← 6.5 מ״ר)",
+          "title": "המרת +1.4 מ״ר ממסדרון לחדרי מגורים (+11.2 מ״ר ב-8 דירות)",
+          "measured": "מסדרון נוכחי: 7.9 מ״ר לדירה",
+          "recommendation": "🪟 ייעול פתחים ואלומיניום: סטנדרטיזציה של ויטרינת המרפסת הדרומית (380 ס״מ) וחלונות החזית המזרחית."
+        },
+        {
+          "pin_num": 19,
+          "id": "FB3-OPT-APT3",
+          "status": "WARN",
+          "typology": "ייעול תכנון פנימי ופתחים — דופלקס-פנטהאוזים #17 (מערב) ו-#18 (מזרח) (קומות 9–10 · 2 דירות — 121.3 ו-103.6 מ״ר)",
+          "room_name": "📍 איפה: דופלקס-פנטהאוזים #17 (מערב) ו-#18 (מזרח) (קומות 9–10 · 2 דירות — 121.3 ו-103.6 מ״ר) — מסדרונות (11.5 ← 9.4 מ״ר)",
+          "title": "המרת +2.1 מ״ר ממסדרון לחדרי מגורים (+4.2 מ״ר ב-2 דירות)",
+          "measured": "מסדרון נוכחי: 11.5 מ״ר לדירה",
+          "recommendation": "🪟 ייעול פתחים ואלומיניום: איזון מפתחי הוויטרינות הפנורמיות בקומה 9 (WWR 52% ← 38%) עם פרגולות ההצללה הדרומיות לחיסכון בעלויות האלומיניום ושיפור הבידוד התרמי."
+        }
+      ]
+    },
+    "flooring_areas": {
+      "total_apartments_flooring_sqm": 1542.4,
+      "total_apartments_dry_sqm": 1394.4,
+      "total_apartments_wet_sqm": 148.0,
+      "total_public_flooring_sqm": 412.0,
+      "total_balconies_flooring_sqm": 316.0,
+      "grand_total_flooring_sqm": 2270.4,
+      "methodology_note": "מחושב מתוך פוליגוני החדרים של פאירברג 3 (18 יח״ד): קומות 1–8 (168.0 מ״ר ריצוף דירות נטו לקומה × 8 קומות = 1,344.0 מ״ר), דופלקסים קומות 9–10 (198.4 מ״ר ריצוף פנים נטו), ריצוף ציבורי (412.0 מ״ר) וריצוף מרפסות שמש, כביסה וגג (316.0 מ״ר).",
+      "by_floor": [
+        {
+          "floor_label": "מרתפים -1 ו--2 (מבואות מעלית ומדרגות)",
+          "elevation": "-4.80 / -7.80",
+          "units_count": 0,
+          "apartments_flooring_sqm": 0.0,
+          "apartments_dry_sqm": 0.0,
+          "apartments_wet_sqm": 0.0,
+          "public_flooring_sqm": 44.0,
+          "balconies_flooring_sqm": 0.0,
+          "total_floor_flooring_sqm": 44.0,
+          "notes": "מבואות מעלית מוגנות וחדרי מדרגות ב-2 מרתפי החניון (ללא מיסעות ו-19 החניות בבטון מוחלק)"
+        },
+        {
+          "floor_label": "קומת קרקע (0.00 — לובי, מועדון דיירים ושירות)",
+          "elevation": "±0.00",
+          "units_count": 0,
+          "apartments_flooring_sqm": 0.0,
+          "apartments_dry_sqm": 0.0,
+          "apartments_wet_sqm": 0.0,
+          "public_flooring_sqm": 156.0,
+          "balconies_flooring_sqm": 0.0,
+          "total_floor_flooring_sqm": 156.0,
+          "notes": "לובי כניסה ראשי, מועדון דיירים, חדר אופניים ועגלות, מעברים ומדרגות"
+        },
+        {
+          "floor_label": "קומות 1–8 (8 קומות טיפוסיות — 16 דירות 4 חדרים)",
+          "elevation": "+3.50 עד +25.55",
+          "units_count": 16,
+          "apartments_flooring_sqm": 1344.0,
+          "apartments_dry_sqm": 1216.0,
+          "apartments_wet_sqm": 128.0,
+          "public_flooring_sqm": 160.0,
+          "balconies_flooring_sqm": 231.0,
+          "total_floor_flooring_sqm": 1735.0,
+          "notes": "168.0 מ״ר ריצוף דירות נטו לקומה (92.5 מערב + 75.5 מזרח) × 8 | 20.0 מ״ר ציבורי לקומה × 8 | מרפסות שמש + כביסה"
+        },
+        {
+          "floor_label": "קומות 9–10 (דופלקס-פנטהאוזים #17 ו-#18 + גג)",
+          "elevation": "+28.87 עד +35.17",
+          "units_count": 2,
+          "apartments_flooring_sqm": 198.4,
+          "apartments_dry_sqm": 178.4,
+          "apartments_wet_sqm": 20.0,
+          "public_flooring_sqm": 52.0,
+          "balconies_flooring_sqm": 85.0,
+          "total_floor_flooring_sqm": 335.4,
+          "notes": "דופלקס #17 (106.8 מ״ר נטו) + דופלקס #18 (91.6 מ״ר נטו) | מבואות ק׳ 9–10 ויציאה לגג (52.0) | מרפסות גג (85.0)"
+        }
+      ]
+    },
+    "design_optimization": {
+      "pricing_parameters": {
+        "above_ground_saved_per_sqm_ils": 6200,
+        "underground_parking_saved_per_sqm_ils": 3500,
+        "dry_cladding_cost_per_sqm_ils": 700,
+        "plaster_cost_per_sqm_ils": 300,
+        "cladding_to_plaster_diff_per_sqm_ils": 400
+      },
+      "zero_damage_guarantees": {
+        "apartment_saleable_area_loss_sqm": 0.0,
+        "apartment_saleable_area_preserved_sqm": 1752.8,
+        "parking_spaces_lost": 0,
+        "parking_spaces_preserved": 19,
+        "public_utilities_preserved": true,
+        "guarantee_statement": "0 מ״ר פגיעה בשטח הדירות (1,752.8 מ״ר פלדלת נשמרים במלואם) · 0 פגיעה במצבת החניות (19 חניות נשמרות) · שמירה מלאה על כל ארונות החשמל, המים, הגז, התקשורת וציוד כיבוי האש."
+      },
+      "executive_kpis": {
+        "above_ground_saved_sqm": 82.0,
+        "above_ground_saving_ils": 508400,
+        "underground_saved_sqm": 95.0,
+        "underground_saving_ils": 332500,
+        "facade_converted_to_plaster_sqm": 650.8,
+        "facade_saving_ils": 260320,
+        "internal_reclaimed_living_sqm": 29.8,
+        "grand_total_direct_saving_ils": 1101220,
+        "current_core_share_pct": 25.9,
+        "optimized_core_share_pct": 23.3,
+        "current_basement_sqm_per_stall": 57.7,
+        "optimized_basement_sqm_per_stall": 52.7
+      },
+      "above_ground_optimization": {
+        "current_total_above_ground_sqm": 2366.6,
+        "current_core_and_service_sqm": 613.8,
+        "optimized_core_and_service_sqm": 531.8,
+        "optimized_total_above_ground_sqm": 2284.6,
+        "total_saved_sqm": 82.0,
+        "rate_per_sqm_ils": 6200,
+        "total_saving_ils": 508400,
+        "items": [
+          {
+            "id": "FB3-OPT-AG1",
+            "floor_or_zone": "קומת קרקע (±0.00m — העברת מאגר מים מתחת לרמפה והידוק מעברי שירות)",
+            "current_sqm": 265.0,
+            "optimal_sqm": 223.0,
+            "saved_sqm": 42.0,
+            "preserved_utilities": "שמירה מלאה על לובי כניסה ראשי, מועדון דיירים, חדר אופניים ועגלות, חדר אשפה ודחסנית, חדר גז ולוח חח״י וכל ארונות המונים",
+            "engineering_action": "העברת מאגר המים וחדר המשאבות (28 מ״ר בחלק המזרחי של קומת הקרקע X=[8.5..12.5]) אל החלל התחתון מתחת לרמפה הדו-שיפועית במרתף, ואיחוד מסדרון השירות העורפי בין חדר האשפה למועדון הדיירים (חיסכון של 42.0 מ״ר בנוי עילי).",
+            "sheet_id": "fb_ground",
+            "x_pct": 52.0,
+            "y_pct": 28.0,
+            "w_pct": 24.0,
+            "h_pct": 26.0,
+            "cx_pct": 64.0,
+            "cy_pct": 41.0,
+            "unit_cost_ils": 6200,
+            "cost_saving_ils": 260400,
+            "note_id": "FB3-OPT-AG1",
+            "pin_num": 8
+          },
+          {
+            "id": "FB3-OPT-AG2",
+            "floor_or_zone": "קומות 1–8 (8 קומות — הידוק גרעין ומבואה קומתית ל-2 דירות בקומה)",
+            "current_sqm": 248.0,
+            "optimal_sqm": 220.0,
+            "saved_sqm": 28.0,
+            "preserved_utilities": "שמירה מלאה על חדר מדרגות מוגן (3.50×3.60 מ׳), פיר מעלית (1.75×1.80 מ׳) וכל ארונות החשמל, המים, התקשורת וכיבוי האש הקומתיים",
+            "engineering_action": "בקומה טיפוסית של 2 דירות בלבד (מערבית ומזרחית), הידוק מבואת הקומה מ-31.0 מ״ר ל-27.5 מ״ר לקומה (חיסכון של 3.5 מ״ר × 8 קומות = 28.0 מ״ר) על ידי יישור קיר המבואה הדרומי והטמעת ארונות המונים בקו אפס בדופן הגרעין.",
+            "sheet_id": "fb_typical",
+            "x_pct": 40.5,
+            "y_pct": 27.5,
+            "w_pct": 21.5,
+            "h_pct": 22.0,
+            "cx_pct": 51.2,
+            "cy_pct": 38.5,
+            "unit_cost_ils": 6200,
+            "cost_saving_ils": 173600,
+            "note_id": "FB3-OPT-AG2",
+            "pin_num": 9
+          },
+          {
+            "id": "FB3-OPT-AG3",
+            "floor_or_zone": "קומות 9–10 וגג עליון (+28.87m עד +35.17m — מבואת דופלקסים ויציאה לגג)",
+            "current_sqm": 100.8,
+            "optimal_sqm": 88.8,
+            "saved_sqm": 12.0,
+            "preserved_utilities": "שמירה על יציאה תקנית לגג, גישה למערכות קולטי השמש ופיר המעלית העליון",
+            "engineering_action": "צמצום מבואת הגלריה המשותפת בקומה 10 (שבה הכניסה הראשית לדופלקסים #17 ו-#18 היא מקומה 9) והתאמת חדר היציאה לגג לקונטור הפירים ההנדסי בלבד (חיסכון של 12.0 מ״ר בנוי עילי).",
+            "sheet_id": "fb_floor10",
+            "x_pct": 41.0,
+            "y_pct": 27.5,
+            "w_pct": 20.0,
+            "h_pct": 21.0,
+            "cx_pct": 51.0,
+            "cy_pct": 38.0,
+            "unit_cost_ils": 6200,
+            "cost_saving_ils": 74400,
+            "note_id": "FB3-OPT-AG3",
+            "pin_num": 10
+          }
+        ]
+      },
+      "underground_optimization": {
+        "current_total_underground_sqm": 1096.0,
+        "optimized_total_underground_sqm": 1001.0,
+        "parking_spaces": 19,
+        "current_sqm_per_stall": 57.7,
+        "optimized_sqm_per_stall": 52.7,
+        "total_saved_sqm": 95.0,
+        "rate_per_sqm_ils": 3500,
+        "total_saving_ils": 332500,
+        "items": [
+          {
+            "id": "FB3-OPT-UG1",
+            "zone": "מרתף 1- (-4.80m — ניצול תחתית הרמפה הדו-שיפועית וגיזום פינה מזרחית)",
+            "current_sqm": 548.0,
+            "optimal_sqm": 503.0,
+            "saved_sqm": 45.0,
+            "parking_spaces_preserved": "8 חניות רגילות במרתף 1- (#1–#8) + רמפה דו-שיפועית תקנית + מיסעה 6.00 מ׳",
+            "engineering_action": "מיקום מאגר המים וחדר המשאבות מתחת לשלוחת הרמפה במזרח המגרש (X=[9.5..16.5]) וצמצום כיס החפירה הדרום-מזרחי מחוץ למיסעה — חיסכון של 45.0 מ״ר מרתף ודיפון ללא גריעת אף חניה.",
+            "sheet_id": "fb_basement1",
+            "x_pct": 66.0,
+            "y_pct": 26.0,
+            "w_pct": 26.0,
+            "h_pct": 52.0,
+            "cx_pct": 79.0,
+            "cy_pct": 52.0,
+            "unit_cost_ils": 3500,
+            "cost_saving_ils": 157500,
+            "note_id": "FB3-OPT-UG1",
+            "pin_num": 11
+          },
+          {
+            "id": "FB3-OPT-UG2",
+            "zone": "מרתף 2- (-7.80m — קיצור שלוחת מרתף מזרחית מעבר לחניה P19)",
+            "current_sqm": 548.0,
+            "optimal_sqm": 498.0,
+            "saved_sqm": 50.0,
+            "parking_spaces_preserved": "11 חניות רגילות במרתף 2- (#9–#19 כולל חניית נכה P17) + בורות שאיבה וגרעין מוגן",
+            "engineering_action": "במרתף 2- חניות P9–P19 מרוכזות ב-X=[-16.8..+10.4], בעוד החפירה נמשכת עד X=+16.75. עצירת קו הדיפון המזרחי ב-X=+11.8 (כולל בורות השאיבה) חוסכת 50.0 מ״ר חפירה בעומק -7.80 מ׳ תוך שמירה על כל 11 החניות.",
+            "sheet_id": "fb_basement2",
+            "x_pct": 72.0,
+            "y_pct": 22.0,
+            "w_pct": 21.0,
+            "h_pct": 60.0,
+            "cx_pct": 82.5,
+            "cy_pct": 52.0,
+            "unit_cost_ils": 3500,
+            "cost_saving_ils": 175000,
+            "note_id": "FB3-OPT-UG2",
+            "pin_num": 12
+          }
+        ]
+      },
+      "facade_cladding_optimization": {
+        "total_facade_gross_sqm": 2380.0,
+        "total_glazing_sqm": 520.0,
+        "total_opaque_wall_sqm": 1860.0,
+        "dry_cladding_price_per_sqm_ils": 700,
+        "plaster_price_per_sqm_ils": 300,
+        "saving_per_converted_sqm_ils": 400,
+        "baseline_dry_cladding_pct": 85.0,
+        "baseline_plaster_pct": 15.0,
+        "baseline_dry_cladding_sqm": 1581.0,
+        "baseline_plaster_sqm": 279.0,
+        "baseline_total_cost_ils": 1190400,
+        "recommended_converted_to_plaster_sqm": 650.8,
+        "optimized_dry_cladding_sqm": 930.2,
+        "optimized_plaster_sqm": 929.8,
+        "optimized_dry_cladding_pct": 50.0,
+        "optimized_plaster_pct": 50.0,
+        "optimized_total_cost_ils": 930080,
+        "recommended_saving_ils": 260320,
+        "by_facade": [
+          {
+            "facade_name": "חזית דרומית (חזית ראשית לרחוב פאירברג 3)",
+            "direction": "דרום",
+            "gross_area_sqm": 915.0,
+            "glazing_area_sqm": 235.0,
+            "opaque_area_sqm": 680.0,
+            "current_dry_cladding_sqm": 578.0,
+            "current_plaster_sqm": 102.0,
+            "recommended_converted_to_plaster_sqm": 136.0,
+            "optimized_dry_cladding_sqm": 442.0,
+            "optimized_plaster_sqm": 238.0,
+            "optimized_dry_pct": 65.0,
+            "optimized_plaster_pct": 35.0,
+            "cost_saving_ils": 54400,
+            "strategy_note": "חזית רחוב ייצוגית — שמירת חיפוי יבש מלא בחזית הראשית ובמסד; המרת קירות פנים-מרפסות ונסיגות קומות גג בלבד לטיח (20%)",
+            "x_pct": 14.0,
+            "y_pct": 72.0,
+            "w_pct": 72.0,
+            "h_pct": 10.0,
+            "cx_pct": 50.0,
+            "cy_pct": 77.0,
+            "note_id": "FEIERBERG3-VE-FAC-1",
+            "pin_num": 13,
+            "sheet_id": "fb_typical"
+          },
+          {
+            "facade_name": "חזית צפונית (חזית עורפית)",
+            "direction": "צפון",
+            "gross_area_sqm": 915.0,
+            "glazing_area_sqm": 165.0,
+            "opaque_area_sqm": 750.0,
+            "current_dry_cladding_sqm": 637.5,
+            "current_plaster_sqm": 112.5,
+            "recommended_converted_to_plaster_sqm": 360.0,
+            "optimized_dry_cladding_sqm": 277.5,
+            "optimized_plaster_sqm": 472.5,
+            "optimized_dry_pct": 37.0,
+            "optimized_plaster_pct": 63.0,
+            "cost_saving_ils": 144000,
+            "strategy_note": "חזית עורפית — המרת שטחי הקירות האטומים העורפיים ומסתורי הכביסה לטיח תרמי/אקרילי משובח תוך שמירת מסגרות חיפוי יבש (48%)",
+            "x_pct": 14.0,
+            "y_pct": 16.0,
+            "w_pct": 72.0,
+            "h_pct": 10.0,
+            "cx_pct": 50.0,
+            "cy_pct": 21.0,
+            "note_id": "FEIERBERG3-VE-FAC-2",
+            "pin_num": 14,
+            "sheet_id": "fb_typical"
+          },
+          {
+            "facade_name": "חזית מערבית (חזית צד)",
+            "direction": "מערב",
+            "gross_area_sqm": 275.0,
+            "glazing_area_sqm": 62.0,
+            "opaque_area_sqm": 213.0,
+            "current_dry_cladding_sqm": 181.0,
+            "current_plaster_sqm": 32.0,
+            "recommended_converted_to_plaster_sqm": 76.7,
+            "optimized_dry_cladding_sqm": 104.3,
+            "optimized_plaster_sqm": 108.7,
+            "optimized_dry_pct": 49.0,
+            "optimized_plaster_pct": 51.0,
+            "cost_saving_ils": 30680,
+            "strategy_note": "חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)",
+            "x_pct": 11.0,
+            "y_pct": 24.0,
+            "w_pct": 9.0,
+            "h_pct": 50.0,
+            "cx_pct": 15.5,
+            "cy_pct": 49.0,
+            "note_id": "FEIERBERG3-VE-FAC-3",
+            "pin_num": 15,
+            "sheet_id": "fb_typical"
+          },
+          {
+            "facade_name": "חזית מזרחית (חזית צד)",
+            "direction": "מזרח",
+            "gross_area_sqm": 275.0,
+            "glazing_area_sqm": 58.0,
+            "opaque_area_sqm": 217.0,
+            "current_dry_cladding_sqm": 184.4,
+            "current_plaster_sqm": 32.6,
+            "recommended_converted_to_plaster_sqm": 78.1,
+            "optimized_dry_cladding_sqm": 106.3,
+            "optimized_plaster_sqm": 110.7,
+            "optimized_dry_pct": 49.0,
+            "optimized_plaster_pct": 51.0,
+            "cost_saving_ils": 31240,
+            "strategy_note": "חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)",
+            "x_pct": 80.0,
+            "y_pct": 24.0,
+            "w_pct": 9.0,
+            "h_pct": 50.0,
+            "cx_pct": 84.5,
+            "cy_pct": 49.0,
+            "note_id": "FEIERBERG3-VE-FAC-4",
+            "pin_num": 16,
+            "sheet_id": "fb_typical"
+          }
+        ],
+        "scenarios": [
+          {
+            "scenario_id": "conservative_25",
+            "title": "תרחיש שמרני (המרת 25% מהשטח האטום לטיח — עורף ומסתורי כביסה בלבד)",
+            "converted_sqm": 465.0,
+            "new_dry_pct": 60.0,
+            "new_plaster_pct": 40.0,
+            "saving_ils": 186000
+          },
+          {
+            "scenario_id": "balanced_recommended",
+            "title": "תרחיש מומלץ ומאוזן (שמירת חזית רחוב ומסד בחיפוי קשיח, המרת ~35% בעורף/צד/מרפסות לטיח)",
+            "converted_sqm": 650.8,
+            "new_dry_pct": 50.0,
+            "new_plaster_pct": 50.0,
+            "saving_ils": 260320
+          },
+          {
+            "scenario_id": "value_eng_50",
+            "title": "תרחיש הנדסת ערך מלאה (המרת 50% מהשטח האטום לטיח — חיפוי יבש בקומות המסד ובאלמנטים מרכזיים)",
+            "converted_sqm": 930.0,
+            "new_dry_pct": 35.0,
+            "new_plaster_pct": 65.0,
+            "saving_ils": 372000
+          }
+        ]
+      },
+      "internal_apartment_optimization": {
+        "total_reclaimed_effective_living_sqm": 29.8,
+        "items": [
+          {
+            "id": "FB3-OPT-APT1",
+            "typology": "אגף מערבי — דירות 4 חדרים (#1,3,5,7,9,11,13,15 · 8 דירות — 105.46 מ״ר)",
+            "current_corridor_sqm": 9.8,
+            "optimal_corridor_sqm": 8.0,
+            "reclaimed_sqm_per_unit": 1.8,
+            "units_count": 8,
+            "total_reclaimed_sqm": 14.4,
+            "target_rooms_benefiting": "הגדלת חדר השינה הצפוני (מרוחב 2.80 מ׳ ל-2.98 מ׳) + הרחבת סוויטת ההורים הדרום-מערבית והסלון",
+            "openings_optimization": "איחוד מפתחי חלונות חדרי השינה הצפוניים והמערביים למודול אחיד של 140×150 ס״מ עם זיגוג Low-E ואקוסטיקה 40dB.",
+            "engineering_action": "קיצור זנב המסדרון המערבי ב-105 ס״מ וביטול המחיצה הכפולה של חדר הארונות הקטן (2.75 מ״ר) לטובת ארון קיר אינטגרלי — השבחה של 1.8 מ״ר שטח מגורים אפקטיבי בכל אחת מ-8 הדירות (14.4 מ״ר סה״כ).",
+            "sheet_id": "fb_typical",
+            "x_pct": 18.0,
+            "y_pct": 38.0,
+            "w_pct": 24.0,
+            "h_pct": 20.0,
+            "cx_pct": 30.0,
+            "cy_pct": 48.0,
+            "note_id": "FB3-OPT-APT1",
+            "pin_num": 17
+          },
+          {
+            "id": "FB3-OPT-APT2",
+            "typology": "אגף מזרחי — דירות 4 חדרים (#2,4,6,8,10,12,14,16 · 8 דירות — 85.53 מ״ר)",
+            "current_corridor_sqm": 7.9,
+            "optimal_corridor_sqm": 6.5,
+            "reclaimed_sqm_per_unit": 1.4,
+            "units_count": 8,
+            "total_reclaimed_sqm": 11.2,
+            "target_rooms_benefiting": "הרחבת סוויטת ההורים הדרום-מזרחית מרוחב 2.95 מ׳ ל-3.12 מ׳ (עמידה מלאה ברף המצוינות של ADG ≥3.00 מ׳!)",
+            "openings_optimization": "סטנדרטיזציה של ויטרינת המרפסת הדרומית (380 ס״מ) וחלונות החזית המזרחית.",
+            "engineering_action": "קיצור קצה המסדרון המזרחי ב-95 ס״מ והזזת דלת סוויטת ההורים קדימה לקו האמבטיה — העברת 1.4 מ״ר נטו משטח המעבר אל תוך חדר ההורים (11.2 מ״ר ב-8 דירות).",
+            "sheet_id": "fb_typical",
+            "x_pct": 58.0,
+            "y_pct": 38.0,
+            "w_pct": 24.0,
+            "h_pct": 20.0,
+            "cx_pct": 70.0,
+            "cy_pct": 48.0,
+            "note_id": "FB3-OPT-APT2",
+            "pin_num": 18
+          },
+          {
+            "id": "FB3-OPT-APT3",
+            "typology": "דופלקס-פנטהאוזים #17 (מערב) ו-#18 (מזרח) (קומות 9–10 · 2 דירות — 121.3 ו-103.6 מ״ר)",
+            "current_corridor_sqm": 11.5,
+            "optimal_corridor_sqm": 9.4,
+            "reclaimed_sqm_per_unit": 2.1,
+            "units_count": 2,
+            "total_reclaimed_sqm": 4.2,
+            "target_rooms_benefiting": "הגדלת סוויטות ההורים הראשיות בקומה 10 ופינת העבודה/גלריה",
+            "openings_optimization": "איזון מפתחי הוויטרינות הפנורמיות בקומה 9 (WWR 52% ← 38%) עם פרגולות ההצללה הדרומיות לחיסכון בעלויות האלומיניום ושיפור הבידוד התרמי.",
+            "engineering_action": "הידוק גלריית המעבר העליונה בקומה 10 והעברת 2.1 מ״ר לכל דופלקס לטובת סוויטת ההורים הראשית.",
+            "sheet_id": "fb_floor10",
+            "x_pct": 22.0,
+            "y_pct": 30.0,
+            "w_pct": 56.0,
+            "h_pct": 34.0,
+            "cx_pct": 50.0,
+            "cy_pct": 47.0,
+            "note_id": "FB3-OPT-APT3",
+            "pin_num": 19
+          }
+        ]
+      }
+    },
+    "summary_md_url": "/reports/feierberg3_summary_and_areas_report.md"
+  }
+}

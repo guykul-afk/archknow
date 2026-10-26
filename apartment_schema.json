@@ -1,0 +1,50 @@
+{
+  "project_name": "דירת 4 חדרים לדוגמה",
+  "global_parameters": {
+    "ceiling_height_m": 2.5
+  },
+  "rooms": [
+    {
+      "id": "R1",
+      "type": "bedroom",
+      "name": "חדר שינה הורים",
+      "area_sqm": 12.5,
+      "has_window": true,
+      "door_width_cm": 80
+    },
+    {
+      "id": "R2",
+      "type": "bedroom",
+      "name": "חדר שינה ממד",
+      "area_sqm": 6.5,
+      "has_window": true,
+      "door_width_cm": 70
+    },
+    {
+      "id": "R3",
+      "type": "bathroom",
+      "name": "חדר רחצה ראשי",
+      "area_sqm": 3.0,
+      "has_window": false,
+      "ventilation_type": "none"
+    },
+    {
+      "id": "R4",
+      "type": "kitchen",
+      "name": "מטבח",
+      "area_sqm": 10.0,
+      "has_window": true
+    },
+    {
+      "id": "R5",
+      "type": "reception/living room",
+      "name": "סלון",
+      "area_sqm": 25.0,
+      "has_window": true
+    }
+  ],
+  "accessibility": {
+    "main_entrance_width_cm": 85,
+    "has_ramp": false
+  }
+}

@@ -1,0 +1,1529 @@
+{
+  "project_name": "יטקובסקי אחים 7 (7א), פתח תקווה (יצחק קולסקי חברה לבניה והשקעות בע\"מ · א.ב. דרגן אדריכלים)",
+  "floors": [
+    {
+      "floor_id": "ground_0",
+      "level": "±0.00m (+57.00m)",
+      "apartments": [
+        {
+          "apartment_id": "Apt_1_Garden_South (דירה #1 — דירת גן 4-5 חדרים דרומית, 105 מ\"ר בנוי + 153 מ\"ר גינה פרטית)",
+          "bedrooms": 3,
+          "bedspaces": 5,
+          "net_area_sqm": 105.0,
+          "orientations": [
+            "S",
+            "W",
+            "E"
+          ],
+          "sunlight_hours": 4.2,
+          "cross_vent_path_m": 11.4,
+          "adaptable_partition_ratio": 0.72,
+          "accessible_unit": false,
+          "entrance_room_id": "living_g1",
+          "global_parameters": {
+            "ceiling_height_m": 3.25,
+            "adaptable_partition_ratio": 0.72
+          },
+          "storage": {
+            "built_in_sqm": 3.8,
+            "volume_m3": 9.8
+          },
+          "rooms": [
+            {
+              "id": "living_g1",
+              "name": "סלון ופינת אוכל (דירת גן #1)",
+              "type": "living_room",
+              "area_sqm": 27.96,
+              "width_m": 4.2,
+              "depth_m": 6.65,
+              "window_area_sqm": 11.8,
+              "openable_window_area_sqm": 5.9,
+              "window_orientation": "S",
+              "external_shading": true,
+              "ventilation_mode": "cross",
+              "view_distance_m": 25.0,
+              "view_angle_deg": 65.0,
+              "view_layers": 3,
+              "no_sky_line_share": 0.92,
+              "obstruction_angle_deg": 16.0,
+              "distance_to_window_m": 4.1,
+              "clear_width_cm": 90,
+              "latch_side_clearance_cm": 50,
+              "door_open_side": "push",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  6.65,
+                  0
+                ],
+                [
+                  6.65,
+                  4.2
+                ],
+                [
+                  0,
+                  4.2
+                ]
+              ],
+              "width_cm": 420
+            },
+            {
+              "id": "kitchen_g1",
+              "name": "מטבח מערבי (דירת גן #1)",
+              "type": "kitchen",
+              "area_sqm": 10.54,
+              "width_m": 3.1,
+              "depth_m": 3.4,
+              "window_area_sqm": 1.8,
+              "openable_window_area_sqm": 0.9,
+              "window_orientation": "W",
+              "external_shading": true,
+              "ventilation_mode": "cross",
+              "view_distance_m": 18.0,
+              "view_angle_deg": 45.0,
+              "view_layers": 2,
+              "distance_to_window_m": 2.8,
+              "kitchen_layout": {
+                "cooks": 2,
+                "aisle_width_cm": 135,
+                "walkway_width_cm": 115,
+                "work_triangle_legs_m": [
+                  1.55,
+                  1.75,
+                  1.85
+                ],
+                "countertop_frontage_cm": 640,
+                "seating_clearance_cm": 105,
+                "traffic_behind_seating": false
+              },
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  3.4,
+                  0
+                ],
+                [
+                  3.4,
+                  3.1
+                ],
+                [
+                  0,
+                  3.1
+                ]
+              ],
+              "width_cm": 310
+            },
+            {
+              "id": "garden_g1",
+              "name": "גינה פרטית היקפית דרומית",
+              "type": "balcony",
+              "area_sqm": 153.0,
+              "width_m": 6.5,
+              "depth_m": 11.5,
+              "threshold_cm": 1.5,
+              "width_cm": 650
+            },
+            {
+              "id": "corr_g1",
+              "name": "מסדרון אגף חדרי שינה (דירת גן)",
+              "type": "corridor",
+              "area_sqm": 4.95,
+              "width_m": 1.05,
+              "depth_m": 4.7,
+              "width_cm": 105
+            },
+            {
+              "id": "master_g1",
+              "name": "סוויטת הורים דרום-מזרחית (דירת גן)",
+              "type": "bedroom",
+              "bedspaces": 2,
+              "area_sqm": 12.24,
+              "width_m": 3.4,
+              "depth_m": 3.6,
+              "window_area_sqm": 2.4,
+              "openable_window_area_sqm": 1.2,
+              "window_orientation": "S",
+              "external_shading": true,
+              "ventilation_mode": "cross",
+              "view_distance_m": 25.0,
+              "view_angle_deg": 50.0,
+              "view_layers": 3,
+              "no_sky_line_share": 0.9,
+              "obstruction_angle_deg": 16.0,
+              "distance_to_window_m": 3.2,
+              "unbroken_wall_m": 3.6,
+              "wardrobe_wall_m": 2.8,
+              "door_corner_offset_cm": 65,
+              "bedside_clearance_cm": 80,
+              "adjacent_to_noisy_zone": false,
+              "clear_width_cm": 80,
+              "latch_side_clearance_cm": 35,
+              "door_open_side": "push",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  3.4,
+                  0
+                ],
+                [
+                  3.4,
+                  3.6
+                ],
+                [
+                  0,
+                  3.6
+                ]
+              ],
+              "width_cm": 340
+            },
+            {
+              "id": "bath_master_g1",
+              "name": "חדר רחצה הורים (דירת גן)",
+              "type": "bathroom",
+              "area_sqm": 3.3,
+              "width_m": 1.65,
+              "depth_m": 2.0,
+              "has_window": true,
+              "turning_circle_cm": 125,
+              "clear_width_cm": 70,
+              "latch_side_clearance_cm": 25,
+              "door_open_side": "push",
+              "fixtures": {
+                "toilet_centerline_to_side_cm": 40,
+                "toilet_front_clearance_cm": 70,
+                "lavatory_front_clearance_cm": 72,
+                "shower_cm": [
+                  90,
+                  90
+                ]
+              },
+              "width_cm": 165
+            },
+            {
+              "id": "bed1_g1",
+              "name": "חדר שינה 1 דרומי (דירת גן)",
+              "type": "bedroom",
+              "bedspaces": 1,
+              "area_sqm": 9.86,
+              "width_m": 2.9,
+              "depth_m": 3.4,
+              "window_area_sqm": 1.65,
+              "openable_window_area_sqm": 0.85,
+              "window_orientation": "S",
+              "external_shading": true,
+              "ventilation_mode": "single_sided",
+              "view_distance_m": 24.0,
+              "view_angle_deg": 42.0,
+              "view_layers": 2,
+              "no_sky_line_share": 0.88,
+              "obstruction_angle_deg": 17.0,
+              "distance_to_window_m": 3.0,
+              "unbroken_wall_m": 3.4,
+              "wardrobe_wall_m": 1.8,
+              "door_corner_offset_cm": 60,
+              "bedside_clearance_cm": 85,
+              "adjacent_to_noisy_zone": false,
+              "clear_width_cm": 80,
+              "latch_side_clearance_cm": 35,
+              "door_open_side": "push",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  2.9,
+                  0
+                ],
+                [
+                  2.9,
+                  3.4
+                ],
+                [
+                  0,
+                  3.4
+                ]
+              ],
+              "width_cm": 290
+            },
+            {
+              "id": "mamad_g1",
+              "name": "ממ\"ד מזרחי (דירת גן #1)",
+              "type": "mamad",
+              "bedspaces": 1,
+              "area_sqm": 9.72,
+              "width_m": 2.9,
+              "depth_m": 3.35,
+              "window_area_sqm": 1.1,
+              "openable_window_area_sqm": 0.55,
+              "window_orientation": "E",
+              "external_shading": false,
+              "ventilation_mode": "single_sided",
+              "view_distance_m": 18.0,
+              "view_angle_deg": 35.0,
+              "view_layers": 2,
+              "no_sky_line_share": 0.85,
+              "obstruction_angle_deg": 18.0,
+              "distance_to_window_m": 3.0,
+              "unbroken_wall_m": 3.35,
+              "wardrobe_wall_m": 1.7,
+              "door_corner_offset_cm": 60,
+              "bedside_clearance_cm": 85,
+              "adjacent_to_noisy_zone": false,
+              "clear_width_cm": 80,
+              "latch_side_clearance_cm": 45,
+              "door_open_side": "pull",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  2.9,
+                  0
+                ],
+                [
+                  2.9,
+                  3.35
+                ],
+                [
+                  0,
+                  3.35
+                ]
+              ],
+              "width_cm": 290
+            },
+            {
+              "id": "bath_main_g1",
+              "name": "חדר רחצה כללי ומסתור כביסה (דירת גן)",
+              "type": "bathroom",
+              "area_sqm": 5.46,
+              "width_m": 2.1,
+              "depth_m": 2.6,
+              "has_window": true,
+              "turning_circle_cm": 150,
+              "clear_width_cm": 80,
+              "latch_side_clearance_cm": 35,
+              "door_open_side": "push",
+              "fixtures": {
+                "toilet_centerline_to_side_cm": 42,
+                "toilet_front_clearance_cm": 78,
+                "lavatory_front_clearance_cm": 80
+              },
+              "width_cm": 210
+            }
+          ],
+          "topology": [
+            {
+              "source": "EXT",
+              "target": "living_g1"
+            },
+            {
+              "source": "living_g1",
+              "target": "kitchen_g1"
+            },
+            {
+              "source": "living_g1",
+              "target": "garden_g1"
+            },
+            {
+              "source": "living_g1",
+              "target": "corr_g1"
+            },
+            {
+              "source": "corr_g1",
+              "target": "mamad_g1"
+            },
+            {
+              "source": "corr_g1",
+              "target": "bath_main_g1"
+            },
+            {
+              "source": "corr_g1",
+              "target": "bed1_g1"
+            },
+            {
+              "source": "corr_g1",
+              "target": "master_g1"
+            },
+            {
+              "source": "master_g1",
+              "target": "bath_master_g1"
+            }
+          ],
+          "accessibility": {
+            "main_entrance_width_cm": 90,
+            "accessible_unit": false
+          }
+        }
+      ]
+    },
+    {
+      "floor_id": "typical_f1_f4",
+      "level": "+3.85m עד +13.30m",
+      "apartments": [
+        {
+          "apartment_id": "Type_N_4Rooms_North (דירות #3, #5, #7, #9 — 4 חדרים חזיתית צפונית, 97+14 מ\"ר · 3 כיווני אוויר N/W/E)",
+          "bedrooms": 3,
+          "bedspaces": 5,
+          "net_area_sqm": 97.0,
+          "orientations": [
+            "N",
+            "W",
+            "E"
+          ],
+          "sunlight_hours": 3.4,
+          "cross_vent_path_m": 11.2,
+          "adaptable_partition_ratio": 0.68,
+          "accessible_unit": false,
+          "entrance_room_id": "living_n",
+          "global_parameters": {
+            "ceiling_height_m": 2.85,
+            "adaptable_partition_ratio": 0.68
+          },
+          "storage": {
+            "built_in_sqm": 3.6,
+            "volume_m3": 9.2
+          },
+          "rooms": [
+            {
+              "id": "living_n",
+              "name": "סלון ופינת אוכל (דירה צפונית 97 מ\"ר)",
+              "type": "living_room",
+              "area_sqm": 23.5,
+              "width_m": 4.1,
+              "depth_m": 5.73,
+              "window_area_sqm": 10.2,
+              "openable_window_area_sqm": 5.1,
+              "window_orientation": "N",
+              "external_shading": true,
+              "ventilation_mode": "cross",
+              "view_distance_m": 32.0,
+              "view_angle_deg": 62.0,
+              "view_layers": 3,
+              "no_sky_line_share": 0.9,
+              "obstruction_angle_deg": 15.0,
+              "distance_to_window_m": 3.9,
+              "clear_width_cm": 90,
+              "latch_side_clearance_cm": 45,
+              "door_open_side": "push",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  5.73,
+                  0
+                ],
+                [
+                  5.73,
+                  4.1
+                ],
+                [
+                  0,
+                  4.1
+                ]
+              ],
+              "width_cm": 410
+            },
+            {
+              "id": "kitchen_n",
+              "name": "מטבח פתוח (דירה צפונית)",
+              "type": "kitchen",
+              "area_sqm": 8.99,
+              "width_m": 2.9,
+              "depth_m": 3.1,
+              "window_area_sqm": 1.6,
+              "openable_window_area_sqm": 0.8,
+              "window_orientation": "N",
+              "external_shading": true,
+              "ventilation_mode": "cross",
+              "view_distance_m": 30.0,
+              "view_angle_deg": 42.0,
+              "view_layers": 2,
+              "distance_to_window_m": 2.7,
+              "kitchen_layout": {
+                "cooks": 2,
+                "aisle_width_cm": 125,
+                "walkway_width_cm": 110,
+                "work_triangle_legs_m": [
+                  1.45,
+                  1.65,
+                  1.75
+                ],
+                "countertop_frontage_cm": 590,
+                "seating_clearance_cm": 100,
+                "traffic_behind_seating": false
+              },
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  3.1,
+                  0
+                ],
+                [
+                  3.1,
+                  2.9
+                ],
+                [
+                  0,
+                  2.9
+                ]
+              ],
+              "width_cm": 290
+            },
+            {
+              "id": "balcony_n",
+              "name": "מרפסת שמש סוכה צפונית (480×240)",
+              "type": "balcony",
+              "area_sqm": 12.0,
+              "width_m": 2.4,
+              "depth_m": 4.8,
+              "threshold_cm": 1.5,
+              "width_cm": 240
+            },
+            {
+              "id": "corr_n",
+              "name": "מסדרון דירה צפונית",
+              "type": "corridor",
+              "area_sqm": 5.15,
+              "width_m": 1.05,
+              "depth_m": 4.9,
+              "width_cm": 105
+            },
+            {
+              "id": "master_n",
+              "name": "סוויטת הורים מזרחית (דירה צפונית)",
+              "type": "bedroom",
+              "bedspaces": 2,
+              "area_sqm": 12.24,
+              "width_m": 3.4,
+              "depth_m": 3.6,
+              "window_area_sqm": 2.4,
+              "openable_window_area_sqm": 1.2,
+              "window_orientation": "E",
+              "external_shading": true,
+              "ventilation_mode": "cross",
+              "view_distance_m": 28.0,
+              "view_angle_deg": 48.0,
+              "view_layers": 3,
+              "no_sky_line_share": 0.9,
+              "obstruction_angle_deg": 15.0,
+              "distance_to_window_m": 3.1,
+              "unbroken_wall_m": 3.6,
+              "wardrobe_wall_m": 2.8,
+              "door_corner_offset_cm": 60,
+              "bedside_clearance_cm": 80,
+              "adjacent_to_noisy_zone": false,
+              "clear_width_cm": 80,
+              "latch_side_clearance_cm": 35,
+              "door_open_side": "push",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  3.4,
+                  0
+                ],
+                [
+                  3.4,
+                  3.6
+                ],
+                [
+                  0,
+                  3.6
+                ]
+              ],
+              "width_cm": 340
+            },
+            {
+              "id": "bath_master_n",
+              "name": "חדר רחצה הורים (דירה צפונית)",
+              "type": "bathroom",
+              "area_sqm": 3.52,
+              "width_m": 1.6,
+              "depth_m": 2.2,
+              "has_window": true,
+              "turning_circle_cm": 125,
+              "clear_width_cm": 70,
+              "latch_side_clearance_cm": 25,
+              "door_open_side": "push",
+              "fixtures": {
+                "toilet_centerline_to_side_cm": 40,
+                "toilet_front_clearance_cm": 72,
+                "lavatory_front_clearance_cm": 74,
+                "shower_cm": [
+                  90,
+                  90
+                ]
+              },
+              "width_cm": 160
+            },
+            {
+              "id": "bed1_n",
+              "name": "חדר שינה 1 צפון-מערבי",
+              "type": "bedroom",
+              "bedspaces": 1,
+              "area_sqm": 10.03,
+              "width_m": 2.95,
+              "depth_m": 3.4,
+              "window_area_sqm": 1.8,
+              "openable_window_area_sqm": 0.9,
+              "window_orientation": "W",
+              "external_shading": true,
+              "ventilation_mode": "cross",
+              "view_distance_m": 24.0,
+              "view_angle_deg": 44.0,
+              "view_layers": 2,
+              "no_sky_line_share": 0.88,
+              "obstruction_angle_deg": 16.0,
+              "distance_to_window_m": 3.0,
+              "unbroken_wall_m": 3.4,
+              "wardrobe_wall_m": 1.8,
+              "door_corner_offset_cm": 60,
+              "bedside_clearance_cm": 85,
+              "adjacent_to_noisy_zone": false,
+              "clear_width_cm": 80,
+              "latch_side_clearance_cm": 35,
+              "door_open_side": "push",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  2.95,
+                  0
+                ],
+                [
+                  2.95,
+                  3.4
+                ],
+                [
+                  0,
+                  3.4
+                ]
+              ],
+              "width_cm": 295
+            },
+            {
+              "id": "mamad_n",
+              "name": "ממ\"ד מערבי (דירה צפונית)",
+              "type": "mamad",
+              "bedspaces": 1,
+              "area_sqm": 9.72,
+              "width_m": 2.9,
+              "depth_m": 3.35,
+              "window_area_sqm": 1.1,
+              "openable_window_area_sqm": 0.55,
+              "window_orientation": "W",
+              "external_shading": false,
+              "ventilation_mode": "single_sided",
+              "view_distance_m": 22.0,
+              "view_angle_deg": 35.0,
+              "view_layers": 2,
+              "no_sky_line_share": 0.85,
+              "obstruction_angle_deg": 18.0,
+              "distance_to_window_m": 3.0,
+              "unbroken_wall_m": 3.35,
+              "wardrobe_wall_m": 1.7,
+              "door_corner_offset_cm": 60,
+              "bedside_clearance_cm": 85,
+              "adjacent_to_noisy_zone": false,
+              "clear_width_cm": 80,
+              "latch_side_clearance_cm": 45,
+              "door_open_side": "pull",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  2.9,
+                  0
+                ],
+                [
+                  2.9,
+                  3.35
+                ],
+                [
+                  0,
+                  3.35
+                ]
+              ],
+              "width_cm": 290
+            },
+            {
+              "id": "bath_main_n",
+              "name": "חדר רחצה כללי ומסתור כביסה (צפונית)",
+              "type": "bathroom",
+              "area_sqm": 5.46,
+              "width_m": 2.1,
+              "depth_m": 2.6,
+              "has_window": true,
+              "turning_circle_cm": 145,
+              "clear_width_cm": 75,
+              "latch_side_clearance_cm": 35,
+              "door_open_side": "push",
+              "fixtures": {
+                "toilet_centerline_to_side_cm": 42,
+                "toilet_front_clearance_cm": 76,
+                "lavatory_front_clearance_cm": 78
+              },
+              "width_cm": 210
+            }
+          ],
+          "topology": [
+            {
+              "source": "EXT",
+              "target": "living_n"
+            },
+            {
+              "source": "living_n",
+              "target": "kitchen_n"
+            },
+            {
+              "source": "living_n",
+              "target": "balcony_n"
+            },
+            {
+              "source": "living_n",
+              "target": "master_n"
+            },
+            {
+              "source": "master_n",
+              "target": "bath_master_n"
+            },
+            {
+              "source": "living_n",
+              "target": "corr_n"
+            },
+            {
+              "source": "corr_n",
+              "target": "bed1_n"
+            },
+            {
+              "source": "corr_n",
+              "target": "bath_main_n"
+            },
+            {
+              "source": "corr_n",
+              "target": "mamad_n"
+            }
+          ],
+          "accessibility": {
+            "main_entrance_width_cm": 90,
+            "accessible_unit": false
+          }
+        },
+        {
+          "apartment_id": "Type_S_4Rooms_South (דירות #2, #4, #6, #8 — 4 חדרים עורפית דרומית, 102+14 מ\"ר · 3 כיווני אוויר S/W/E)",
+          "bedrooms": 3,
+          "bedspaces": 5,
+          "net_area_sqm": 102.0,
+          "orientations": [
+            "S",
+            "W",
+            "E"
+          ],
+          "sunlight_hours": 4.5,
+          "cross_vent_path_m": 11.4,
+          "adaptable_partition_ratio": 0.7,
+          "accessible_unit": false,
+          "entrance_room_id": "living_s",
+          "global_parameters": {
+            "ceiling_height_m": 2.85,
+            "adaptable_partition_ratio": 0.7
+          },
+          "storage": {
+            "built_in_sqm": 3.8,
+            "volume_m3": 9.5
+          },
+          "rooms": [
+            {
+              "id": "living_s",
+              "name": "סלון ופינת אוכל (דירה דרומית 102 מ\"ר)",
+              "type": "living_room",
+              "area_sqm": 27.38,
+              "width_m": 4.2,
+              "depth_m": 6.52,
+              "window_area_sqm": 11.5,
+              "openable_window_area_sqm": 5.75,
+              "window_orientation": "S",
+              "external_shading": true,
+              "ventilation_mode": "cross",
+              "view_distance_m": 35.0,
+              "view_angle_deg": 65.0,
+              "view_layers": 3,
+              "no_sky_line_share": 0.92,
+              "obstruction_angle_deg": 14.0,
+              "distance_to_window_m": 4.1,
+              "clear_width_cm": 90,
+              "latch_side_clearance_cm": 48,
+              "door_open_side": "push",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  6.52,
+                  0
+                ],
+                [
+                  6.52,
+                  4.2
+                ],
+                [
+                  0,
+                  4.2
+                ]
+              ],
+              "width_cm": 420
+            },
+            {
+              "id": "kitchen_s",
+              "name": "מטבח מערבי (דירה דרומית)",
+              "type": "kitchen",
+              "area_sqm": 10.54,
+              "width_m": 3.1,
+              "depth_m": 3.4,
+              "window_area_sqm": 1.8,
+              "openable_window_area_sqm": 0.9,
+              "window_orientation": "W",
+              "external_shading": true,
+              "ventilation_mode": "cross",
+              "view_distance_m": 24.0,
+              "view_angle_deg": 45.0,
+              "view_layers": 2,
+              "distance_to_window_m": 2.9,
+              "kitchen_layout": {
+                "cooks": 2,
+                "aisle_width_cm": 132,
+                "walkway_width_cm": 115,
+                "work_triangle_legs_m": [
+                  1.5,
+                  1.75,
+                  1.85
+                ],
+                "countertop_frontage_cm": 635,
+                "seating_clearance_cm": 105,
+                "traffic_behind_seating": false
+              },
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  3.4,
+                  0
+                ],
+                [
+                  3.4,
+                  3.1
+                ],
+                [
+                  0,
+                  3.1
+                ]
+              ],
+              "width_cm": 310
+            },
+            {
+              "id": "balcony_s",
+              "name": "מרפסת שמש סוכה דרומית (680×180)",
+              "type": "balcony",
+              "area_sqm": 14.0,
+              "width_m": 1.8,
+              "depth_m": 6.8,
+              "threshold_cm": 1.5,
+              "width_cm": 180
+            },
+            {
+              "id": "corr_s",
+              "name": "מסדרון דירה דרומית",
+              "type": "corridor",
+              "area_sqm": 5.35,
+              "width_m": 1.05,
+              "depth_m": 5.1,
+              "width_cm": 105
+            },
+            {
+              "id": "master_s",
+              "name": "סוויטת הורים דרום-מזרחית",
+              "type": "bedroom",
+              "bedspaces": 2,
+              "area_sqm": 12.24,
+              "width_m": 3.4,
+              "depth_m": 3.6,
+              "window_area_sqm": 2.4,
+              "openable_window_area_sqm": 1.2,
+              "window_orientation": "S",
+              "external_shading": true,
+              "ventilation_mode": "cross",
+              "view_distance_m": 35.0,
+              "view_angle_deg": 52.0,
+              "view_layers": 3,
+              "no_sky_line_share": 0.92,
+              "obstruction_angle_deg": 14.0,
+              "distance_to_window_m": 3.15,
+              "unbroken_wall_m": 3.6,
+              "wardrobe_wall_m": 2.8,
+              "door_corner_offset_cm": 62,
+              "bedside_clearance_cm": 80,
+              "adjacent_to_noisy_zone": false,
+              "clear_width_cm": 80,
+              "latch_side_clearance_cm": 35,
+              "door_open_side": "push",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  3.4,
+                  0
+                ],
+                [
+                  3.4,
+                  3.6
+                ],
+                [
+                  0,
+                  3.6
+                ]
+              ],
+              "width_cm": 340
+            },
+            {
+              "id": "bath_master_s",
+              "name": "חדר רחצה הורים (דירה דרומית)",
+              "type": "bathroom",
+              "area_sqm": 3.47,
+              "width_m": 1.65,
+              "depth_m": 2.1,
+              "has_window": true,
+              "turning_circle_cm": 125,
+              "clear_width_cm": 70,
+              "latch_side_clearance_cm": 25,
+              "door_open_side": "push",
+              "fixtures": {
+                "toilet_centerline_to_side_cm": 40,
+                "toilet_front_clearance_cm": 72,
+                "lavatory_front_clearance_cm": 74,
+                "shower_cm": [
+                  90,
+                  90
+                ]
+              },
+              "width_cm": 165
+            },
+            {
+              "id": "bed1_s",
+              "name": "חדר שינה דרומי",
+              "type": "bedroom",
+              "bedspaces": 1,
+              "area_sqm": 9.86,
+              "width_m": 2.9,
+              "depth_m": 3.4,
+              "window_area_sqm": 1.7,
+              "openable_window_area_sqm": 0.85,
+              "window_orientation": "S",
+              "external_shading": true,
+              "ventilation_mode": "single_sided",
+              "view_distance_m": 35.0,
+              "view_angle_deg": 45.0,
+              "view_layers": 3,
+              "no_sky_line_share": 0.9,
+              "obstruction_angle_deg": 14.0,
+              "distance_to_window_m": 3.0,
+              "unbroken_wall_m": 3.4,
+              "wardrobe_wall_m": 1.8,
+              "door_corner_offset_cm": 60,
+              "bedside_clearance_cm": 85,
+              "adjacent_to_noisy_zone": false,
+              "clear_width_cm": 80,
+              "latch_side_clearance_cm": 35,
+              "door_open_side": "push",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  2.9,
+                  0
+                ],
+                [
+                  2.9,
+                  3.4
+                ],
+                [
+                  0,
+                  3.4
+                ]
+              ],
+              "width_cm": 290
+            },
+            {
+              "id": "mamad_s",
+              "name": "ממ\"ד מזרחי (דירה דרומית)",
+              "type": "mamad",
+              "bedspaces": 1,
+              "area_sqm": 9.72,
+              "width_m": 2.9,
+              "depth_m": 3.35,
+              "window_area_sqm": 1.1,
+              "openable_window_area_sqm": 0.55,
+              "window_orientation": "E",
+              "external_shading": false,
+              "ventilation_mode": "single_sided",
+              "view_distance_m": 22.0,
+              "view_angle_deg": 35.0,
+              "view_layers": 2,
+              "no_sky_line_share": 0.86,
+              "obstruction_angle_deg": 17.0,
+              "distance_to_window_m": 3.0,
+              "unbroken_wall_m": 3.35,
+              "wardrobe_wall_m": 1.7,
+              "door_corner_offset_cm": 60,
+              "bedside_clearance_cm": 85,
+              "adjacent_to_noisy_zone": false,
+              "clear_width_cm": 80,
+              "latch_side_clearance_cm": 45,
+              "door_open_side": "pull",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  2.9,
+                  0
+                ],
+                [
+                  2.9,
+                  3.35
+                ],
+                [
+                  0,
+                  3.35
+                ]
+              ],
+              "width_cm": 290
+            },
+            {
+              "id": "bath_main_s",
+              "name": "חדר רחצה כללי ומסתור כביסה (דרומית)",
+              "type": "bathroom",
+              "area_sqm": 5.46,
+              "width_m": 2.1,
+              "depth_m": 2.6,
+              "has_window": true,
+              "turning_circle_cm": 145,
+              "clear_width_cm": 75,
+              "latch_side_clearance_cm": 35,
+              "door_open_side": "push",
+              "fixtures": {
+                "toilet_centerline_to_side_cm": 42,
+                "toilet_front_clearance_cm": 76,
+                "lavatory_front_clearance_cm": 78
+              },
+              "width_cm": 210
+            }
+          ],
+          "topology": [
+            {
+              "source": "EXT",
+              "target": "living_s"
+            },
+            {
+              "source": "living_s",
+              "target": "kitchen_s"
+            },
+            {
+              "source": "living_s",
+              "target": "balcony_s"
+            },
+            {
+              "source": "living_s",
+              "target": "corr_s"
+            },
+            {
+              "source": "corr_s",
+              "target": "mamad_s"
+            },
+            {
+              "source": "corr_s",
+              "target": "bath_main_s"
+            },
+            {
+              "source": "corr_s",
+              "target": "bed1_s"
+            },
+            {
+              "source": "corr_s",
+              "target": "master_s"
+            },
+            {
+              "source": "master_s",
+              "target": "bath_master_s"
+            }
+          ],
+          "accessibility": {
+            "main_entrance_width_cm": 90,
+            "accessible_unit": false
+          }
+        }
+      ]
+    },
+    {
+      "floor_id": "penthouses_f5_f6",
+      "level": "+16.53m & +19.76m",
+      "apartments": [
+        {
+          "apartment_id": "Penthouse_F5_F6 (דירות #10 ו-#11 — מיני-פנטהאוז ופנטהאוז קומה שלמה, 125–150 מ\"ר + 52–64 מ\"ר מרפסות גג · 4 כיווני אוויר)",
+          "bedrooms": 4,
+          "bedspaces": 6,
+          "net_area_sqm": 150.0,
+          "orientations": [
+            "N",
+            "S",
+            "E",
+            "W"
+          ],
+          "sunlight_hours": 5.5,
+          "cross_vent_path_m": 14.5,
+          "adaptable_partition_ratio": 0.78,
+          "accessible_unit": false,
+          "entrance_room_id": "living_ph",
+          "global_parameters": {
+            "ceiling_height_m": 2.93,
+            "adaptable_partition_ratio": 0.78
+          },
+          "storage": {
+            "built_in_sqm": 5.2,
+            "volume_m3": 14.0
+          },
+          "rooms": [
+            {
+              "id": "living_ph",
+              "name": "סלון פנורמי ופינת אוכל (פנטהאוז)",
+              "type": "living_room",
+              "area_sqm": 34.8,
+              "width_m": 4.8,
+              "depth_m": 7.25,
+              "window_area_sqm": 18.5,
+              "openable_window_area_sqm": 9.25,
+              "window_orientation": "N",
+              "external_shading": true,
+              "ventilation_mode": "cross",
+              "view_distance_m": 60.0,
+              "view_angle_deg": 90.0,
+              "view_layers": 3,
+              "no_sky_line_share": 0.96,
+              "obstruction_angle_deg": 8.0,
+              "distance_to_window_m": 4.2,
+              "clear_width_cm": 100,
+              "latch_side_clearance_cm": 60,
+              "door_open_side": "push",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  7.25,
+                  0
+                ],
+                [
+                  7.25,
+                  4.8
+                ],
+                [
+                  0,
+                  4.8
+                ]
+              ],
+              "width_cm": 480
+            },
+            {
+              "id": "kitchen_ph",
+              "name": "מטבח שף ואי מרכזי (פנטהאוז)",
+              "type": "kitchen",
+              "area_sqm": 17.28,
+              "width_m": 3.6,
+              "depth_m": 4.8,
+              "window_area_sqm": 3.2,
+              "openable_window_area_sqm": 1.6,
+              "window_orientation": "W",
+              "external_shading": true,
+              "ventilation_mode": "cross",
+              "view_distance_m": 50.0,
+              "view_angle_deg": 55.0,
+              "view_layers": 3,
+              "distance_to_window_m": 3.2,
+              "kitchen_layout": {
+                "cooks": 2,
+                "aisle_width_cm": 130,
+                "walkway_width_cm": 120,
+                "work_triangle_legs_m": [
+                  1.5,
+                  1.8,
+                  1.9
+                ],
+                "countertop_frontage_cm": 780,
+                "seating_clearance_cm": 115,
+                "traffic_behind_seating": false
+              },
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  4.8,
+                  0
+                ],
+                [
+                  4.8,
+                  3.6
+                ],
+                [
+                  0,
+                  3.6
+                ]
+              ],
+              "width_cm": 360
+            },
+            {
+              "id": "terrace_n_ph",
+              "name": "מרפסת גג צפונית + פרגולה וסוכה (1120×340)",
+              "type": "balcony",
+              "area_sqm": 38.1,
+              "width_m": 3.4,
+              "depth_m": 11.2,
+              "threshold_cm": 1.5,
+              "width_cm": 340
+            },
+            {
+              "id": "terrace_s_ph",
+              "name": "מרפסת גג דרומית + ג'קוזי ומטבח חוץ (980×260)",
+              "type": "balcony",
+              "area_sqm": 25.5,
+              "width_m": 2.6,
+              "depth_m": 9.8,
+              "threshold_cm": 1.5,
+              "width_cm": 260
+            },
+            {
+              "id": "corr_ph",
+              "name": "גלריית מעבר פנטהאוז",
+              "type": "corridor",
+              "area_sqm": 7.15,
+              "width_m": 1.15,
+              "depth_m": 6.2,
+              "width_cm": 115
+            },
+            {
+              "id": "master_ph",
+              "name": "סוויטת הורים ראשית מזרחית (פנטהאוז)",
+              "type": "bedroom",
+              "bedspaces": 2,
+              "area_sqm": 14.35,
+              "width_m": 3.5,
+              "depth_m": 4.1,
+              "window_area_sqm": 3.4,
+              "openable_window_area_sqm": 1.7,
+              "window_orientation": "E",
+              "external_shading": true,
+              "ventilation_mode": "cross",
+              "view_distance_m": 55.0,
+              "view_angle_deg": 65.0,
+              "view_layers": 3,
+              "no_sky_line_share": 0.95,
+              "obstruction_angle_deg": 9.0,
+              "distance_to_window_m": 3.3,
+              "unbroken_wall_m": 4.1,
+              "wardrobe_wall_m": 3.4,
+              "door_corner_offset_cm": 70,
+              "bedside_clearance_cm": 90,
+              "adjacent_to_noisy_zone": false,
+              "clear_width_cm": 80,
+              "latch_side_clearance_cm": 40,
+              "door_open_side": "push",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  3.5,
+                  0
+                ],
+                [
+                  3.5,
+                  4.1
+                ],
+                [
+                  0,
+                  4.1
+                ]
+              ],
+              "width_cm": 350
+            },
+            {
+              "id": "bath_master_ph",
+              "name": "חדר רחצה הורים מפואר (פנטהאוז)",
+              "type": "bathroom",
+              "area_sqm": 4.2,
+              "width_m": 1.75,
+              "depth_m": 2.4,
+              "has_window": true,
+              "turning_circle_cm": 140,
+              "clear_width_cm": 75,
+              "latch_side_clearance_cm": 35,
+              "door_open_side": "push",
+              "fixtures": {
+                "toilet_centerline_to_side_cm": 44,
+                "toilet_front_clearance_cm": 80,
+                "lavatory_front_clearance_cm": 82,
+                "shower_cm": [
+                  100,
+                  120
+                ]
+              },
+              "width_cm": 175
+            },
+            {
+              "id": "bed1_ph",
+              "name": "חדר שינה מערבי 1 (פנטהאוז)",
+              "type": "bedroom",
+              "bedspaces": 1,
+              "area_sqm": 10.88,
+              "width_m": 3.2,
+              "depth_m": 3.4,
+              "window_area_sqm": 1.9,
+              "openable_window_area_sqm": 0.95,
+              "window_orientation": "W",
+              "external_shading": true,
+              "ventilation_mode": "single_sided",
+              "view_distance_m": 45.0,
+              "view_angle_deg": 48.0,
+              "view_layers": 3,
+              "no_sky_line_share": 0.92,
+              "obstruction_angle_deg": 10.0,
+              "distance_to_window_m": 3.0,
+              "unbroken_wall_m": 3.4,
+              "wardrobe_wall_m": 2.0,
+              "door_corner_offset_cm": 65,
+              "bedside_clearance_cm": 90,
+              "adjacent_to_noisy_zone": false,
+              "clear_width_cm": 80,
+              "latch_side_clearance_cm": 35,
+              "door_open_side": "push",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  3.2,
+                  0
+                ],
+                [
+                  3.2,
+                  3.4
+                ],
+                [
+                  0,
+                  3.4
+                ]
+              ],
+              "width_cm": 320
+            },
+            {
+              "id": "bed2_ph",
+              "name": "חדר שינה דרומי 2 (פנטהאוז)",
+              "type": "bedroom",
+              "bedspaces": 1,
+              "area_sqm": 10.2,
+              "width_m": 3.0,
+              "depth_m": 3.4,
+              "window_area_sqm": 2.2,
+              "openable_window_area_sqm": 1.1,
+              "window_orientation": "S",
+              "external_shading": true,
+              "ventilation_mode": "cross",
+              "view_distance_m": 50.0,
+              "view_angle_deg": 52.0,
+              "view_layers": 3,
+              "no_sky_line_share": 0.94,
+              "obstruction_angle_deg": 9.0,
+              "distance_to_window_m": 3.0,
+              "unbroken_wall_m": 3.4,
+              "wardrobe_wall_m": 1.9,
+              "door_corner_offset_cm": 65,
+              "bedside_clearance_cm": 85,
+              "adjacent_to_noisy_zone": false,
+              "clear_width_cm": 80,
+              "latch_side_clearance_cm": 35,
+              "door_open_side": "push",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  3.0,
+                  0
+                ],
+                [
+                  3.0,
+                  3.4
+                ],
+                [
+                  0,
+                  3.4
+                ]
+              ],
+              "width_cm": 300
+            },
+            {
+              "id": "mamad_ph",
+              "name": "ממ\"ד פנטהאוז",
+              "type": "mamad",
+              "bedspaces": 1,
+              "area_sqm": 9.72,
+              "width_m": 2.9,
+              "depth_m": 3.35,
+              "window_area_sqm": 1.1,
+              "openable_window_area_sqm": 0.55,
+              "window_orientation": "E",
+              "external_shading": false,
+              "ventilation_mode": "single_sided",
+              "view_distance_m": 45.0,
+              "view_angle_deg": 38.0,
+              "view_layers": 3,
+              "no_sky_line_share": 0.9,
+              "obstruction_angle_deg": 10.0,
+              "distance_to_window_m": 3.0,
+              "unbroken_wall_m": 3.35,
+              "wardrobe_wall_m": 1.7,
+              "door_corner_offset_cm": 60,
+              "bedside_clearance_cm": 85,
+              "adjacent_to_noisy_zone": false,
+              "clear_width_cm": 80,
+              "latch_side_clearance_cm": 45,
+              "door_open_side": "pull",
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  2.9,
+                  0
+                ],
+                [
+                  2.9,
+                  3.35
+                ],
+                [
+                  0,
+                  3.35
+                ]
+              ],
+              "width_cm": 290
+            },
+            {
+              "id": "bath_main_ph",
+              "name": "חדר רחצה כללי ומסתור כביסה (פנטהאוז)",
+              "type": "bathroom",
+              "area_sqm": 5.46,
+              "width_m": 2.1,
+              "depth_m": 2.6,
+              "has_window": true,
+              "turning_circle_cm": 150,
+              "clear_width_cm": 80,
+              "latch_side_clearance_cm": 35,
+              "door_open_side": "push",
+              "fixtures": {
+                "toilet_centerline_to_side_cm": 44,
+                "toilet_front_clearance_cm": 80,
+                "lavatory_front_clearance_cm": 82
+              },
+              "width_cm": 210
+            }
+          ],
+          "topology": [
+            {
+              "source": "EXT",
+              "target": "living_ph"
+            },
+            {
+              "source": "living_ph",
+              "target": "kitchen_ph"
+            },
+            {
+              "source": "living_ph",
+              "target": "terrace_n_ph"
+            },
+            {
+              "source": "living_ph",
+              "target": "master_ph"
+            },
+            {
+              "source": "master_ph",
+              "target": "bath_master_ph"
+            },
+            {
+              "source": "living_ph",
+              "target": "corr_ph"
+            },
+            {
+              "source": "corr_ph",
+              "target": "mamad_ph"
+            },
+            {
+              "source": "corr_ph",
+              "target": "bath_main_ph"
+            },
+            {
+              "source": "corr_ph",
+              "target": "bed1_ph"
+            },
+            {
+              "source": "corr_ph",
+              "target": "bed2_ph"
+            },
+            {
+              "source": "bed2_ph",
+              "target": "terrace_s_ph"
+            }
+          ],
+          "accessibility": {
+            "main_entrance_width_cm": 100,
+            "accessible_unit": false
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+flask
+gunicorn
+shapely
+networkx
+ezdxf
+PyMuPDF
+scipy
+numpy

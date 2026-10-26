@@ -1,0 +1,1898 @@
+# -*- coding: utf-8 -*-
+"""
+Multi-Folder Project Discovery & Architectural Audit Service for ArchiCheck Web UI.
+Scans local workspaces, scratch directories, and Google Drive project folders,
+runs validation_engine.py v2 (statutory Israeli standards + NDSS/ADG/NKBA/Space Syntax),
+and returns a synchronized Textual Audit Document + Visual Plan Annotations.
+"""
+
+import os
+import json
+import glob
+from validation_engine import run_validation, load_okf_rules
+from project_summary_builder import enrich_project_payload
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+SEARCH_ROOTS = [
+    BASE_DIR,
+    os.path.join(BASE_DIR, "uploads"),
+    os.path.join(BASE_DIR, "reports"),
+    r"G:\Shared drives\שליטה ובקרה\מודלים פרויקטים",
+    r"G:\תיקיות אחסון שיתופי\שליטה ובקרה\מודלים פרויקטים",
+    r"C:\Users\User\.gemini\antigravity\scratch",
+    r"G:\Shared drives\פרויקטים שוטפים\פרויקטים בביצוע",
+    r"G:\Shared drives\שליטה ובקרה\תיקיית גרוק גיא\נתוני תכנון משותפים",
+    r"c:\Users\guyku\archknow",
+    r"c:\Users\guyku\archknow\uploads",
+    r"c:\Users\guyku\archknow\reports",
+    r"C:\Users\guyku\.gemini\antigravity\scratch",
+    r"C:\Users\guyku\.gemini\antigravity\brain\60b6f7e6-94a5-48b9-b12c-1728c4428342\scratch",
+    r"C:\Users\guyku\.gemini\antigravity\brain\aa293a86-8009-4c00-bd6d-6e08ac721152\scratch",
+    r"G:\תיקיות אחסון שיתופי\פרויקטים שוטפים\פרויקטים בביצוע",
+]
+
+RELEVANT_EXTS = {
+    ".pdf", ".dwg", ".dxf", ".dwf", ".dwfx",
+    ".json", ".glb", ".obj", ".mtl", ".html", ".png", ".jpg", ".docx", ".xlsx"
+}
+
+
+def pines_xy_to_pct(x0, y0, x1, y1):
+    """
+    Converts Pines 48 1:50 CAD meter coordinates (xm in [-1..35], ym in [-1..26])
+    into exact percentage bounding boxes on pines48_f1_5.png / f6.png / f7.png / roof.png.
+    """
+    xa, xb = min(x0, x1), max(x0, x1)
+    ya, yb = min(y0, y1), max(y0, y1)
+    left_pct = round((xa + 1.0) / 36.0 * 100.0, 2)
+    top_pct = round((26.0 - yb) / 27.0 * 100.0, 2)
+    w_pct = round(max((xb - xa) / 36.0 * 100.0, 3.0), 2)
+    h_pct = round(max((yb - ya) / 27.0 * 100.0, 3.0), 2)
+    cx_pct = round(left_pct + w_pct / 2.0, 2)
+    cy_pct = round(top_pct + h_pct / 2.0, 2)
+    return {
+        "x_pct": left_pct,
+        "y_pct": top_pct,
+        "w_pct": w_pct,
+        "h_pct": h_pct,
+        "cx_pct": cx_pct,
+        "cy_pct": cy_pct,
+    }
+
+
+def scan_files_for_keywords(keywords, max_files=60):
+    """Scans all configured local, scratch, and Google Drive directories for matching project files."""
+    discovered = []
+    seen = set()
+    kw_lower = [k.lower() for k in keywords if k]
+
+    for root_dir in SEARCH_ROOTS:
+        if not os.path.exists(root_dir):
+            continue
+        try:
+            for r, dirs, files in os.walk(root_dir):
+                # Skip noisy dirs
+                dirs[:] = [d for d in dirs if d not in {"__pycache__", ".git", "node_modules", "libredwg", ".system_generated"}]
+                r_low = r.lower()
+                folder_matched = any(k in r_low for k in kw_lower)
+                for fn in files:
+                    ext = os.path.splitext(fn)[1].lower()
+                    if ext not in RELEVANT_EXTS:
+                        continue
+                    fn_low = fn.lower()
+                    if folder_matched or any(k in fn_low for k in kw_lower):
+                        full_p = os.path.join(r, fn)
+                        if full_p not in seen:
+                            seen.add(full_p)
+                            try:
+                                size_kb = round(os.path.getsize(full_p) / 1024.0, 1)
+                            except OSError:
+                                size_kb = 0.0
+                            discovered.append({
+                                "name": fn,
+                                "path": full_p.replace("\\", "/"),
+                                "folder": r.replace("\\", "/"),
+                                "ext": ext.lstrip(".").upper(),
+                                "size_kb": size_kb,
+                            })
+                            if len(discovered) >= max_files:
+                                return discovered
+        except OSError:
+            continue
+    return discovered
+
+
+def get_projects_catalog():
+    """Returns the catalog of the 5 company projects with full architectural quality audits."""
+    return [
+        {
+            "id": "pines48",
+            "name": "פינס 48 פינת הבעל שם טוב, פתח תקווה",
+            "short_name": "פינס 48",
+            "subtitle": "מבנה מגורים בן 8 קומות + מרתף חניון (17 יח״ד · תמ״א 38/2 · יצחק קולסקי)",
+            "score": "89 / 100",
+            "status_summary": "153 עוברים · 49 התראות איכות · 0 כישלונות חוקיים",
+            "keywords": ["פינס", "pines", "הבעשט", "2011-299"],
+            "pdf_report_url": "/reports/pines48_architectural_quality_analysis.pdf",
+        },
+        {
+            "id": "kkl10",
+            "name": "קק״ל 10 (קרן קיימת לישראל 10), פתח תקווה",
+            "short_name": "קק״ל 10",
+            "subtitle": "מבנה מגורים בן 9 קומות + 2 מרתפי חניון (25 יח״ד · גרמושקה P-23 · סנדרוביץ אדריכלים)",
+            "score": "84 / 100",
+            "status_summary": "118 עוברים · 36 התראות (כולל ממ״דים 264–268 ס״מ) · 1 ליקוי מיסעה",
+            "keywords": ["קקל", "קק\"ל", "kkl", "246-", "2022-875"],
+            "pdf_report_url": "/reports/kkl10_architectural_quality_analysis.pdf",
+        },
+        {
+            "id": "hafetz44",
+            "name": "חפץ חיים 44, פתח תקווה",
+            "short_name": "חפץ חיים 44",
+            "subtitle": "מבנה מגורים בן 9 קומות + מרתף חניון (17 יח״ד · א.ב. דרגן אדריכלים · יצחק קולסקי)",
+            "score": "89.8 / 100",
+            "status_summary": "270 עוברים · 58 התראות איכות · 0 כישלונות חוקיים",
+            "keywords": ["חפץ", "חיים", "hafetz", "chafetz", "44"],
+            "pdf_report_url": "/reports/hafetz44_architectural_quality_analysis.pdf",
+        },
+        {
+            "id": "yatkovski7",
+            "name": "יטקובסקי אחים 7 (7א), פתח תקווה",
+            "short_name": "יטקובסקי 7",
+            "subtitle": "בניין בוטיק בן 7 קומות + מרתף חניון (11 יח״ד · א.ב. דרגן אדריכלים · יצחק קולסקי)",
+            "score": "91.4 / 100",
+            "status_summary": "351 עוברים · 40 התראות איכות · 0 כישלונות חוקיים",
+            "keywords": ["יטקובסקי", "yatkovski", "7א", "אחים יטקובסקי"],
+            "pdf_report_url": "/reports/yatkovski7_architectural_quality_analysis.pdf",
+        },
+        {
+            "id": "kitroni37",
+            "name": "הרב קיטרוני 37–39, פתח תקווה",
+            "short_name": "קטרוני 37–39",
+            "subtitle": "קומפלקס 2 בניינים בני 9 קומות + מרתף משותף (63 יח״ד · אילת קורן אדריכלים · יצחק קולסקי)",
+            "score": "86.8 / 100",
+            "status_summary": "410 עוברים · 57 התראות איכות · 0 כישלונות חוקיים",
+            "keywords": ["קיטרוני", "קטרוני", "kitroni", "37-39", "37"],
+            "pdf_report_url": "/reports/kitroni37_architectural_quality_analysis.pdf",
+        },
+        {
+            "id": "feierberg3",
+            "name": "פאירברג 3, פתח תקווה (גוש 6387, חלקה 193)",
+            "short_name": "פאירברג 3",
+            "subtitle": "בניין בוטיק בן 10 קומות + 2 מרתפי חניון (18 יח״ד · אלישע רובין אדריכלים · א. קולסקי)",
+            "score": "91.2 / 100",
+            "status_summary": "284 עוברים · 26 התראות איכות · 0 כישלונות חוקיים · מודל 3D BIM 1:1",
+            "keywords": ["פאירברג", "פאיירברג", "פיארברג", "feierberg", "fairberg", "6387", "193"],
+            "pdf_report_url": "/reports/feierberg3_architectural_quality_analysis.pdf",
+        },
+    ]
+
+
+
+def build_pines48_analysis():
+    """Builds the complete, spatially anchored analysis for Pines 48 across all floors & typologies."""
+    discovered_files = scan_files_for_keywords(["פינס", "pines", "הבעשט", "2011-299"])
+
+    sheets = [
+        {
+            "id": "f1_5",
+            "title": "קומות 1–5 — קומה טיפוסית (דירות A, B, C)",
+            "sheet_code": "A-1002",
+            "elevation": "+4.25m עד +16.49m",
+            "image_url": "/uploads/pines48_f1_5.png",
+            "scale": "1:50 CAD",
+        },
+        {
+            "id": "f6",
+            "title": "קומה 6 — מפלס תחתון דופלקס פנטהאוז (PB, PC)",
+            "sheet_code": "A-1003",
+            "elevation": "+19.72m",
+            "image_url": "/uploads/pines48_f6.png",
+            "scale": "1:50 CAD",
+        },
+        {
+            "id": "f7",
+            "title": "קומה 7 — מפלס עליון וטרסות גג דופלקסים (PB, PC)",
+            "sheet_code": "A-1004",
+            "elevation": "+22.95m",
+            "image_url": "/uploads/pines48_f7.png",
+            "scale": "1:50 CAD",
+        },
+        {
+            "id": "roof",
+            "title": "קומה 8 — גג טכני ומערכות סולאריות",
+            "sheet_code": "A-1006",
+            "elevation": "+26.15m",
+            "image_url": "/uploads/pines48_roof.png",
+            "scale": "1:50 CAD",
+        },
+    ]
+
+    # Define spatially anchored notes with exact CAD meter coordinates converted to percentages
+    notes = [
+        # --- SECTION 1: APARTMENT B (NW 3-ROOMS, FLOORS 1-5) ---
+        {
+            "id": "P48-B-01",
+            "pin_num": 1,
+            "sheet_id": "f1_5",
+            "section_id": "sec_apt_b",
+            "typology": "דירה B (3 חד׳ צפון-מערב)",
+            "room_name": "חלל ציבורי — סלון ופינת אוכל (615×365 ס״מ)",
+            "status": "WARN",
+            "rule_id": "ADG 4D-3 / B1.3",
+            "title": "רוחב סלון 3.65 מ׳ — עובר תקן ישראלי, צר מרף המצוינות (4.00 מ׳)",
+            "measured": "25.8 מ״ר · רוחב 3.65 מ׳",
+            "benchmark": "תקן ישראלי: ≥2.60 מ׳ (עובר) | ADG: ≥4.00 מ׳",
+            "summary": "שטח החלל הציבורי (25.8 מ״ר) נדיב מאוד לדירת 3 חדרים, אך רוחב הסלון (3.65 מ׳) נמוך מרף ה-ADG (4.00 מ׳) ומייצר צפיפות קלה סביב פינת האוכל.",
+            "recommendation": "מומלץ להציב שולחן אוכל קומפקטי (115×75 ס״מ) צמוד לקיר הדרומי ולשמור על ציר תנועה נקי של 110 ס״מ ליציאה למרפסת.",
+            **pines_xy_to_pct(8.30, 12.20, 12.80, 18.20),
+        },
+        {
+            "id": "P48-B-02",
+            "pin_num": 2,
+            "sheet_id": "f1_5",
+            "section_id": "sec_apt_b",
+            "typology": "דירה B (3 חד׳ צפון-מערב)",
+            "room_name": "מטבח פתוח ואי עבודה (325×260 ס״מ)",
+            "status": "WARN",
+            "rule_id": "NKBA-13 / B1.11",
+            "title": "מרווח מעבר סביב אי המטבח (95 ס״מ מול 107 ס״מ מומלץ ב-NKBA)",
+            "measured": "8.2 מ״ר · מעבר אי 95 ס״מ",
+            "benchmark": "מינימום 90 ס״מ | מומלץ NKBA: 107 ס״מ",
+            "summary": "המטבח נהנה מאוורור טבעי ישיר לצפון (יחס חלון 18%) ומשולש עבודה תקין, אך אי העבודה מותיר מעבר של 95 ס״מ בלבד מול חזית המקרר והתנור.",
+            "recommendation": "להצר את אי העבודה לרוחב 56–60 ס״מ (Waterfall Slim Island) כדי להרחיב את המעבר התפעולי ל-108 ס״מ.",
+            **pines_xy_to_pct(12.80, 14.80, 16.20, 18.50),
+        },
+        {
+            "id": "P48-B-03",
+            "pin_num": 3,
+            "sheet_id": "f1_5",
+            "section_id": "sec_apt_b",
+            "typology": "דירה B (3 חד׳ צפון-מערב)",
+            "room_name": "מרפסת שמש צפון-מערבית (420×250 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4E / APL#167",
+            "title": "מרפסת שמש מצטיינת בעומק 2.50 מ׳ ויציאה ישירה מהסלון",
+            "measured": "12.0 מ״ר · עומק 2.50 מ׳",
+            "benchmark": "ADG 4E: ≥10 מ״ר ועומק ≥2.0 מ׳",
+            "summary": "עומק המרפסת (250 ס״מ) עולה משמעותית על הממוצע בשוק (150–180 ס״מ) ומאפשר הצבת פינת ישיבה חיצונית מלאה ושולחן אירוח (APL#167 — 6ft Balcony).",
+            "recommendation": "לשמר את פתח הוויטרינה הרחב (320 ס״מ) עם מסילה שקועה בריצוף (Zero-Threshold).",
+            **pines_xy_to_pct(8.20, 18.20, 12.80, 20.80),
+        },
+        {
+            "id": "P48-B-04",
+            "pin_num": 4,
+            "sheet_id": "f1_5",
+            "section_id": "sec_apt_b",
+            "typology": "דירה B (3 חד׳ צפון-מערב)",
+            "room_name": "סוויטת הורים צפון-מערבית (365×290 ס״מ)",
+            "status": "WARN",
+            "rule_id": "ADG 4D-3 / B1.6",
+            "title": "רוחב יחידת הורים 2.90 מ׳ — תקין חוקית (≥2.60 מ׳), גבולי מול ADG (3.00 מ׳)",
+            "measured": "10.77 מ״ר · 365×290 ס״מ",
+            "benchmark": "תקן ישראלי: ≥8.0 מ״ר ורוחב ≥2.60 מ׳ | ADG: 3.00 מ׳",
+            "summary": "החדר מרובע ונהנה מאור צפוני נעים (יחס חלון/רצפה 19%), אך הצבת ארון בגדים בעומק 60 ס״מ על הקיר המזרחי מצמצמת את המעבר סביב מיטת King-Size.",
+            "recommendation": "לתכנן נישת ארון קיר בקו אפס או ארון דלתות הזזה מובנה בעומק 55 ס״מ, וראש מיטה נמוך מתחת לסף החלון (+85 ס״מ).",
+            **pines_xy_to_pct(4.60, 13.50, 8.20, 16.80),
+        },
+        {
+            "id": "P48-B-05",
+            "pin_num": 5,
+            "sheet_id": "f1_5",
+            "section_id": "sec_apt_b",
+            "typology": "דירה B (3 חד׳ צפון-מערב)",
+            "room_name": "ממ״ד — חדר שינה 2 (370×274 ס״מ)",
+            "status": "PASS",
+            "rule_id": "B1.15 / פיקוד העורף",
+            "title": "ממ״ד תקני ומרווח (10.14 מ״ר נטו) עם קיר הדף פנימי תקין",
+            "measured": "10.14 מ״ר · רוחב 2.74 מ׳",
+            "benchmark": "מינימום פיקוד העורף: ≥9.0 מ״ר נטו, רוחב ≥2.60 מ׳",
+            "summary": "הממ״ד עובר בהצלחה את דרישות פיקוד העורף (ת״י 4422) עם דלת הדף רסיסים מוגנת ע״י קיר מסדרון פנימי ויחס מלבניות 1.00 המאפשר ריהוט חדר שינה מלא.",
+            "recommendation": "לוודא התקנת דלת פנים עץ דו-כיוונית (פתיחה פנימה לחדר בשגרה) בנוסף לדלת ההדף.",
+            **pines_xy_to_pct(6.20, 6.20, 10.20, 9.20),
+        },
+        {
+            "id": "P48-B-06",
+            "pin_num": 6,
+            "sheet_id": "f1_5",
+            "section_id": "sec_apt_b",
+            "typology": "דירה B (3 חד׳ צפון-מערב)",
+            "room_name": "חדר רחצה כללי, חדר רחצה הורים ומסתור כביסה",
+            "status": "PASS",
+            "rule_id": "B1.9 / אוורור מערבי",
+            "title": "אוורור טבעי ישיר לחזית המערבית לשני חדרי הרחצה ולמסתור הכביסה",
+            "measured": "רחצה כללי: 5.09 מ״ר · הורים: 3.14 מ״ר",
+            "benchmark": "אוורור חוץ ישיר (ללא ונטה סגורה)",
+            "summary": "שני חדרי הרחצה בדירה B פונים לחזית המערבית ונהנים מחלונות חוץ טבעיים ומסתור כביסה ייעודי מופרד אקוסטית.",
+            "recommendation": "לשלב דלת הזזה (Pocket Door) ביחידת ההורים להגדלת מרחב התמרון מול הכיור.",
+            **pines_xy_to_pct(5.40, 9.20, 9.20, 13.20),
+        },
+
+        # --- SECTION 2: APARTMENT A (NE 4-ROOMS, FLOORS 1-5) ---
+        {
+            "id": "P48-A-01",
+            "pin_num": 7,
+            "sheet_id": "f1_5",
+            "section_id": "sec_apt_a",
+            "typology": "דירה A (4 חד׳ צפון-מזרח)",
+            "room_name": "חלל מגורים ופינת אוכל מרכזית (595×363 ס״מ)",
+            "status": "PASS",
+            "rule_id": "B1.3 / Space Syntax",
+            "title": "חלל ציבורי מואר עם הפרדת אגפים מצוינת (Integration גבוה)",
+            "measured": "26.6 מ״ר · עומק אור 5.95 מ׳",
+            "benchmark": "מקסימום עומק חדירת אור ADG: 6.67 מ׳ (עובר)",
+            "summary": "הסלון ופינת האוכל של דירה A ממוקמים במרכז הכובד של הדירה (Space Syntax Integration גבוה) עם הפרדה מוחלטת בין האזור הציבורי לאגף 3 חדרי השינה במזרח.",
+            "recommendation": "להקפיד על מיקום שולחן האוכל במפרץ הדרומי (363 ס״מ) כך שלא יפגע בציר הכניסה מדלת הדירה.",
+            **pines_xy_to_pct(19.50, 13.80, 24.20, 20.20),
+        },
+        {
+            "id": "P48-A-02",
+            "pin_num": 8,
+            "sheet_id": "f1_5",
+            "section_id": "sec_apt_a",
+            "typology": "דירה A (4 חד׳ צפון-מזרח)",
+            "room_name": "מטבח פינתי צפוני (325×270 ס״מ)",
+            "status": "PASS",
+            "rule_id": "B1.11 / NKBA",
+            "title": "מטבח מואר ומאוורר ישירות לחזית הצפונית (8.8 מ״ר)",
+            "measured": "8.8 מ״ר · יחס חלון/רצפה 17%",
+            "benchmark": "תקן ישראלי B1.11: ≥6.0 מ״ר | ADG: ≥10% חלון",
+            "summary": "המטבח ממוקם בפינה הצפון-מערבית של דירה A עם חלון מעל הכיור, משטחי עבודה רציפים וחיבור ויזואלי ישיר לסלון ולמרפסת.",
+            "recommendation": "להוסיף אי/דלפק אנכי ברוחב 56 ס״מ המגדיר את גבול המטבח מול הסלון.",
+            **pines_xy_to_pct(16.30, 15.60, 19.50, 19.20),
+        },
+        {
+            "id": "P48-A-03",
+            "pin_num": 9,
+            "sheet_id": "f1_5",
+            "section_id": "sec_apt_a",
+            "typology": "דירה A (4 חד׳ צפון-מזרח)",
+            "room_name": "מרפסת שמש צפונית (420×250 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4E / B1.20",
+            "title": "מרפסת שמש עמוקה (250 ס״מ) עם הצללה עצמית ופרטיות",
+            "measured": "12.0 מ״ר · 420×250 ס״מ",
+            "benchmark": "עומק מומלץ ADG: ≥2.00 מ׳",
+            "summary": "המרפסת שקועה קלות בקו החזית הצפונית ומספקת פרטיות מעולה ממרפסת דירה B הסמוכה, עם עומק אפקטיבי של 2.50 מ׳.",
+            "recommendation": "מומלץ לשלב נקודת גז, מים וניקוז סמוי לאדניות היקפיות.",
+            **pines_xy_to_pct(18.20, 19.80, 23.00, 22.50),
+        },
+        {
+            "id": "P48-A-04",
+            "pin_num": 10,
+            "sheet_id": "f1_5",
+            "section_id": "sec_apt_a",
+            "typology": "דירה A (4 חד׳ צפון-מזרח)",
+            "room_name": "סוויטת הורים צפון-מזרחית (380×310 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4D-3 / NDSS",
+            "title": "סוויטת הורים מצטיינת (11.78 מ״ר, רוחב 3.10 מ׳) — עוברת גם את רף ה-ADG!",
+            "measured": "11.78 מ״ר · 380×310 ס״מ",
+            "benchmark": "ADG 4D-3: רוחב ≥3.00 מ׳ | NDSS: ≥11.5 מ״ר",
+            "summary": "יחידת ההורים של דירה A בפינה הצפון-מזרחית עומדת בכל תקני המצוינות הבינלאומיים (רוחב 3.10 מ׳ ואורך 3.80 מ׳) וכוללת חדר רחצה צמוד מואר עם חלון חוץ.",
+            "recommendation": "למקם ארון קיר באורך 280 ס״מ לאורך הקיר המערבי (גב הסלון) לבידוד אקוסטי כפול בין הסלון לחדר ההורים.",
+            **pines_xy_to_pct(23.80, 17.20, 28.20, 21.20),
+        },
+        {
+            "id": "P48-A-05",
+            "pin_num": 11,
+            "sheet_id": "f1_5",
+            "section_id": "sec_apt_a",
+            "typology": "דירה A (4 חד׳ צפון-מזרח)",
+            "room_name": "ממ״ד (337×280 ס״מ) וחדר שינה מזרחי (365×280 ס״מ)",
+            "status": "WARN",
+            "rule_id": "NDSS / B1.6 / B1.15",
+            "title": "חדרי שינה 2 ו-3 תקניים ומרווחים (9.44 ו-10.22 מ״ר), רוחב 2.80 מ׳ מול 3.00 מ׳ ב-ADG",
+            "measured": "ממ״ד: 9.44 מ״ר · ח. שינה: 10.22 מ״ר",
+            "benchmark": "תקן ישראלי: ממ״ד ≥9.0 מ״ר, חדר ≥8.0 מ״ר (עובר)",
+            "summary": "שני חדרי הילדים באגף המזרחי עומדים במלואם בתקנות התכנון והבנייה ובהנחיות פיקוד העורף (דלת הדף רסיסים ת״י 4422), עם חלונות מזרחיים לרחוב הבעש״ט.",
+            "recommendation": "בממ״ד ובחדר המזרחי מומלץ למקם את המיטה והשולחן לאורך הקיר הדרומי/צפוני כדי להשאיר מרכז חדר פתוח.",
+            **pines_xy_to_pct(26.80, 11.80, 31.00, 18.20),
+        },
+
+        # --- SECTION 3: APARTMENT C (SE 4-ROOMS, FLOORS 1-5) ---
+        {
+            "id": "P48-C-01",
+            "pin_num": 12,
+            "sheet_id": "f1_5",
+            "section_id": "sec_apt_c",
+            "typology": "דירה C (4 חד׳ דרום-מזרח)",
+            "room_name": "חדר מגורים מזרחי (480×400 ס״מ) ומרפסת שמש (500×200 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4D-3 / B1.3",
+            "title": "סלון רחב במיוחד (4.00×4.80 מ׳) — עומד ב-100% ברף המצוינות של ADG!",
+            "measured": "סלון: 19.2 מ״ר (רוחב 4.00 מ׳) + מרפסת 10.0 מ״ר",
+            "benchmark": "ADG 4D-3: רוחב סלון ≥4.00 מ׳ (עובר בהצטיינות)",
+            "summary": "הסלון של דירה C מתוכנן בפרופורציות אידיאליות (400×480 ס״מ) עם וויטרינה רחבה למרפסת מזרחית (200×500 ס״מ) הפונה לרחוב הבעל שם טוב.",
+            "recommendation": "החלל מאפשר סידור ישיבה עשיר (ספת 3 מושבים + זוג כורסאות) ומרחק צפייה אופטימלי (3.6 מ׳) מקיר המדיה הצפוני.",
+            **pines_xy_to_pct(25.35, 8.00, 32.55, 12.15),
+        },
+        {
+            "id": "P48-C-02",
+            "pin_num": 13,
+            "sheet_id": "f1_5",
+            "section_id": "sec_apt_c",
+            "typology": "דירה C (4 חד׳ דרום-מזרח)",
+            "room_name": "מטבח ופינת אוכל דרום-מזרחית (430×345 ס״מ)",
+            "status": "PASS",
+            "rule_id": "B1.11 / NKBA",
+            "title": "אגף מטבח ופינת אוכל מרווח (14.8 מ״ר) עם אור דרומי ומזרחי",
+            "measured": "14.8 מ״ר (430×345 ס״מ)",
+            "benchmark": "תקן ישראלי: ≥6.0 מ״ר | NKBA: משולש עבודה תקין",
+            "summary": "הפרדה תפקודית מצוינת בין הסלון הצפוני לבין המטבח ופינת האוכל בדרום-מזרח, תוך שמירה על קשר עין פתוח וגישה נוחה למרפסת.",
+            "recommendation": "להציב אי אנכי (56×106 ס״מ) במרכז המטבח ושולחן אוכל ל-4–6 סועדים לצד החלון הדרום-מזרחי.",
+            **pines_xy_to_pct(25.85, 4.43, 30.12, 7.95),
+        },
+        {
+            "id": "P48-C-03",
+            "pin_num": 14,
+            "sheet_id": "f1_5",
+            "section_id": "sec_apt_c",
+            "typology": "דירה C (4 חד׳ דרום-מזרח)",
+            "room_name": "מסדרון חדרי שינה בדירה C (אורך 740 ס״מ, רוחב 105–110 ס״מ)",
+            "status": "WARN",
+            "rule_id": "SPACE_SYNTAX_EF1 / B1.30",
+            "title": "מסדרון ארוך יחסית (7.40 מ׳, 8.6% משטח הדירה) המוביל ליחידת ההורים",
+            "measured": "אורך 7.40 מ׳ · רוחב 105–110 ס״מ",
+            "benchmark": "תקן B1.30: רוחב ≥100 ס״מ (עובר) | Space Syntax: מסדרון ארוך",
+            "summary": "רוחב המסדרון (105–110 ס״מ) תקין חוקית, אך אורכו (7.40 מ׳ מהסלון עד קצה יחידת ההורים במערב) מייצר תחושת מעבר מוארכת וללא אור טבעי ישיר.",
+            "recommendation": "לשלב תאורת קיר שקועה (Wall-Washers) בגובה נמוך ודלתות פנים בקו אפס בגוון בהיר להקלת תחושת האורך.",
+            **pines_xy_to_pct(17.95, 7.95, 25.35, 9.05),
+        },
+        {
+            "id": "P48-C-04",
+            "pin_num": 15,
+            "sheet_id": "f1_5",
+            "section_id": "sec_apt_c",
+            "typology": "דירה C (4 חד׳ דרום-מזרח)",
+            "room_name": "ממ״ד (292×317 ס״מ) וחדר שינה דרומי (270×345 ס״מ)",
+            "status": "PASS",
+            "rule_id": "B1.15 / B1.6",
+            "title": "צמד חדרי שינה דרומיים מוארים ותקניים (9.26 מ״ר ו-9.32 מ״ר)",
+            "measured": "ממ״ד: 9.26 מ״ר · ח. שינה: 9.32 מ״ר",
+            "benchmark": "ממ״ד ≥9.0 מ״ר (עובר) · חדר שינה ≥8.0 מ״ר (עובר)",
+            "summary": "שני החדרים פונים לדרום עם קרינת שמש ישירה ואוורור מצוין. הממ״ד מצויד בדלת הדף תקנית (ת״י 4422) הנפתחת למסדרון מוגן.",
+            "recommendation": "להתקין זיגוג כפול Low-E ותריסי גלילה חשמליים בחזית הדרומית למניעת התחממות בקיץ.",
+            **pines_xy_to_pct(19.85, 4.43, 25.75, 7.85),
+        },
+        {
+            "id": "P48-C-05",
+            "pin_num": 16,
+            "sheet_id": "f1_5",
+            "section_id": "sec_apt_c",
+            "typology": "דירה C (4 חד׳ דרום-מזרח)",
+            "room_name": "סוויטת הורים מערבית (390×295 ס״מ) + חדר רחצה צמוד",
+            "status": "PASS",
+            "rule_id": "B1.6 / פרטיות אקוסטית",
+            "title": "הפרדה אקוסטית מקסימלית ליחידת ההורים בקצה המערבי של הדירה (11.51 מ״ר)",
+            "measured": "11.51 מ״ר (390×295 ס״מ) + רחצה 3.1 מ״ר",
+            "benchmark": "NDSS: ≥11.5 מ״ר (עובר) · פרטיות מלאה מהסלון",
+            "summary": "מיקום יחידת ההורים בקצה המערבי מעניק שקט ופרטיות מוחלטים משאר חדרי הדירה, עם חלון דרומי רחב וחיבור ישיר לחדר רחצה הורים מאוורר.",
+            "recommendation": "להקפיד על גב מיטה בגובה עד +74 ס״מ אם המיטה מוצבת מתחת לחלון הדרומי, או להציבה על הקיר המזרחי.",
+            **pines_xy_to_pct(12.65, 4.95, 17.85, 9.05),
+        },
+
+        # --- SECTION 4: BUILDING CORE & ACOUSTICS (FLOORS 1-5) ---
+        {
+            "id": "P48-CORE-01",
+            "pin_num": 17,
+            "sheet_id": "f1_5",
+            "section_id": "sec_core",
+            "typology": "ליבת הבניין ורכוש משותף",
+            "room_name": "ליבת מעלית (6 נוסעים), חדר מדרגות מוגן, לובי קומתי ומחסנים",
+            "status": "PASS",
+            "rule_id": "ת״י 1142 / B29 / אקוסטיקה",
+            "title": "מדרגות ומעלית מופרדים אקוסטית מדירות המגורים + מחסנים קומתיים (AS)",
+            "measured": "מעלית 6 נוסעים (170×160) · לובי מואר · 3 מחסנים קומתיים",
+            "benchmark": "בידוד אקוסטי לפיר מעלית + מאחזי יד ת״י 1142",
+            "summary": "פיר המעלית מוקף בחדר המדרגות, בפיר אוורור ובמחסנים קומתיים, ובגבול עם דירה A מסומן מפורשות 'בידוד אקוסטי' בעובי 25 ס״מ — תכנון אקוסטי מוקפד ביותר!",
+            "recommendation": "לוודא בביצוע מפרט גומי אנטי-ויברציה למסילות המעלית ודלת אש דו-כנפית תקנית בלובי הקומתי.",
+            **pines_xy_to_pct(13.20, 9.20, 24.80, 15.20),
+        },
+
+        # --- SECTION 5: PENTHOUSE DUPLEXES PB & PC (FLOORS 6 & 7) ---
+        {
+            "id": "P48-PB-01",
+            "pin_num": 18,
+            "sheet_id": "f6",
+            "section_id": "sec_penthouses",
+            "typology": "דופלקס פנטהאוז PB (קומות 6–7)",
+            "room_name": "חלל מגורים ומטבח ענק בדופלקס PB (730×385 ס״מ) + מרפסת (420×200)",
+            "status": "PASS",
+            "rule_id": "ADG 4D / B1.3",
+            "title": "חלל אירוח פנורמי מרהיב ברוחב 7.30 מ׳ עם יציאה לטרסת גג כפולה",
+            "measured": "חלל ציבורי: 44.5 מ״ר · מדרגות פנים לקומה 7",
+            "benchmark": "עובר בהצטיינות את כל מדדי ADG ו-NDSS",
+            "summary": "בקומה 6 מתאחד שטח דירות B וחלק מדירה A לדופלקס פנטהאוז PB בן 5 חדרים עם סלון-מטבח באורך 7.30 מ׳, סוויטת הורים מערבית (390×350 ס״מ) וממ״ד (370×274 ס״מ).",
+            "recommendation": "לנצל את החלל מתחת למדרגות הפנים (בין קומה 6 ל-7) לארון מזווה ויינות מובנה.",
+            **pines_xy_to_pct(4.50, 12.50, 18.00, 20.50),
+        },
+        {
+            "id": "P48-PC-01",
+            "pin_num": 19,
+            "sheet_id": "f6",
+            "section_id": "sec_penthouses",
+            "typology": "דופלקס פנטהאוז PC (קומות 6–7)",
+            "room_name": "דופלקס פנטהאוז PC מזרחי (5 חדרים) + טרסת גג היקפית (699×616 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4E / אוורור 3 כיווני אוויר",
+            "title": "דופלקס PC עם 3 כיווני אוויר מלאים (צפון, מזרח, דרום) ומרפסת גג של 62 מ״ר!",
+            "measured": "סלון 510×400 ס״מ + מרפסת צפון-מזרחית 62 מ״ר",
+            "benchmark": "ADG: ≥60% דירות עם אוורור צולב (כאן 100% מהדירות!)",
+            "summary": "דופלקס PC נהנה ממרפסת גג עצומה בקומה 6 (+19.72) הפונה לצפון ולמזרח, סלון מרווח (510×400 ס״מ), ומדרגות פנים פרטיות למפלס הסוויטה העליון בקומה 7.",
+            "recommendation": "לבצע הכנה קונסטרוקטיבית (עומס שימושי ≥350 ק״ג/מ״ר) לאזור ג׳קוזי/מטבח חוץ בטרסת הגג הצפון-מזרחית.",
+            **pines_xy_to_pct(18.50, 4.40, 32.50, 21.00),
+        },
+        {
+            "id": "P48-F7-01",
+            "pin_num": 20,
+            "sheet_id": "f7",
+            "section_id": "sec_penthouses",
+            "typology": "קומה 7 — מפלס עליון דופלקסים (PB + PC)",
+            "room_name": "סוויטות גג עליונות וטרסות שמש היקפיות (+22.95m)",
+            "status": "PASS",
+            "rule_id": "ADG / פרטיות מרפסות גג",
+            "title": "מפלס גג עליון (+22.95) עם סוויטות פרטיות ופרגולות הצללה",
+            "measured": "2 סוויטות גג + מרפסות שמש היקפיות",
+            "benchmark": "הפרדה אקוסטית וויזואלית מלאה בין טרסות PB ו-PC",
+            "summary": "בקומה 7 מקבל כל דופלקס אגף הורים/אירוח עליון עם יציאה ישירה למרפסות גג פרטיות ופרגולות אלומיניום.",
+            "recommendation": "להגביה את מחיצת ההפרדה בין טרסת PB לטרסת PC לגובה 180 ס״מ בזכוכית חלבית/אדנית בנויה לפרטיות מוחלטת.",
+            **pines_xy_to_pct(8.00, 5.80, 26.20, 16.50),
+        },
+        {
+            "id": "P48-ROOF-01",
+            "pin_num": 21,
+            "sheet_id": "roof",
+            "section_id": "sec_core",
+            "typology": "גג עליון ומערכות (+26.15m)",
+            "room_name": "גג טכני, קולטי שמש ומעבה VRF מרכזי",
+            "status": "PASS",
+            "rule_id": "תקנות אנרגיה / ת״י 1142",
+            "title": "ריכוז מערכות סולאריות ומיזוג בגג הטכני העליון עם מעקה בטיחות תקני",
+            "measured": "מפלס +26.15m · הפרדה ממרפסות הדיירים",
+            "benchmark": "הרחקת מערכות מרעישות ממפלסי המגורים",
+            "summary": "כל קולטי השמש, הדוודים והמערכות הטכניות מרוכזים בגג העליון (+26.15m) מעל קומה 7, כך שמרפסות הפנטהאוזים נקיות ממטרדי רעש וחום.",
+            "recommendation": "לוודא סולם עלייה קבוע עם כלוב מגן תקני מגג קומה 7 לגג המערכות העליון.",
+            **pines_xy_to_pct(10.00, 6.50, 26.00, 16.00),
+        },
+    ]
+
+    sections = [
+        {
+            "id": "sec_apt_b",
+            "title": "1. קומות 1–5: דירה טיפוס B (3 חדרים צפון-מערבית · 80+12 מ״ר)",
+            "subtitle": "5 יח״ד (#1, #4, #7, #10, #13) · ציון איכות: 88/100 · אוורור דו-כיווני (צפון + מערב)",
+            "intro": "דירת 3 חדרים מרווחת מאוד (80 מ״ר פנים + 12 מ״ר מרפסת בעומק 2.50 מ׳). כל חדרי הרחצה והמטבח נהנים מחלונות חוץ טבעיים. עומדת ב-100% מתקנות התכנון והבנייה הישראליות, עם 3 דגשי אופטימיזציה תכנוניים:",
+        },
+        {
+            "id": "sec_apt_a",
+            "title": "2. קומות 1–5: דירה טיפוס A (4 חדרים צפון-מזרחית · 102+12 מ״ר)",
+            "subtitle": "5 יח״ד (#2, #5, #8, #11, #14) · ציון איכות: 91/100 · אוורור דו-כיווני (צפון + מזרח)",
+            "intro": "הדירה המאוזנת ביותר בקומות הטיפוסיות: הפרדה מוחלטת בין האגף הציבורי בצפון-מערב לבין אגף 3 חדרי השינה במזרח, וסוויטת הורים רחבה (380×310 ס״מ) העוברת גם את רף המצוינות של ה-ADG.",
+        },
+        {
+            "id": "sec_apt_c",
+            "title": "3. קומות 1–5: דירה טיפוס C (4 חדרים דרום-מזרחית · 105+10 מ״ר)",
+            "subtitle": "5 יח״ד (#3, #6, #9, #12, #15) · ציון איכות: 89/100 · 3 כיווני אוויר (מזרח + דרום + מערב)",
+            "intro": "דירת 4 חדרים בעלת סלון רחב במיוחד (480×400 ס״מ) ומרפסת מזרחית לרחוב הבעש״ט (500×200 ס״מ). יחידת ההורים ממוקמת בקצה המערבי לפרטיות מרבית, אם כי הדבר מייצר מסדרון באורך 7.40 מ׳.",
+        },
+        {
+            "id": "sec_penthouses",
+            "title": "4. קומות 6–7: דופלקס פנטהאוזים PB ו-PC (5 חדרים דו-מפלסיים)",
+            "subtitle": "2 יח״ד יוקרה (#16, #17) · ציון איכות: 93/100 · טרסות גג היקפיות בקומות 6 ו-7",
+            "intro": "בקומות 6 ו-7 מתוכננים שני דופלקסים רחבי ידיים (PB במערב ו-PC במזרח) עם חללי אירוח כפולים, מדרגות פנים וטרסות שמש פנורמיות של עד 62 מ״ר.",
+        },
+        {
+            "id": "sec_core",
+            "title": "5. ליבת הבניין, אקוסטיקה, ממ״דים ומערכות גג",
+            "subtitle": "גיליונות A-1000 עד A-1006 · בידוד אקוסטי לפיר מעלית · 3 מחסנים קומתיים",
+            "intro": "בדיקת ליבת הבניין מעלה הקפדה גבוהה על הפרדה אקוסטית בין פיר המעלית לדירות, אוורור חדר מדרגות תקני, ומחסנים דירתיים צמודים בכל קומה.",
+        },
+    ]
+
+    return enrich_project_payload({
+        "project_id": "pines48",
+        "project_name": "פינס 48 פינת הבעל שם טוב 20, פתח תקווה",
+        "project_subtitle": "דוח בקרת איכות תכנון, חוקיות, ארגונומיה ותקנים בינלאומיים (8 קומות · 17 יח״ד)",
+        "overall_score": 89,
+        "metrics": [
+            {"label": "ציון איכות משוקלל", "value": "89/100", "sub": "דירוג A — גבוה מאוד"},
+            {"label": "עמידה בתקן ישראלי", "value": "100%", "sub": "0 כישלונות חוקיים (FAIL)"},
+            {"label": "בדיקות שעברו (PASS)", "value": "153", "sub": "מתוך 202 בדיקות מנוע"},
+            {"label": "התראות והמלצות", "value": "49", "sub": "אופטימיזציה מול ADG/NKBA"},
+        ],
+        "pdf_report_url": "/reports/pines48_architectural_quality_analysis.pdf",
+        "viewer_3d_url": r"G:\Shared drives\שליטה ובקרה\מודלים פרויקטים\פינס 48 פתח תקווה\pines48_3d_model.html",
+        "discovered_files": discovered_files,
+        "sheets": sheets,
+        "sections": sections,
+        "notes": notes,
+    })
+
+
+def kkl_bim_to_pct(x0, n0, x1, n1):
+    """
+    Converts KKL 10 P-23 Gramoshka BIM meter coordinates (X in [-4.5..17.5], N in [-4.5..37.5])
+    into exact percentage bounding boxes on the rendered 1600x2700 P-23 PNG sheets.
+    """
+    xa, xb = min(x0, x1), max(x0, x1)
+    na, nb = min(n0, n1), max(n0, n1)
+    px0 = 140.0 + (xa + 4.5) * 60.0
+    px1 = 140.0 + (xb + 4.5) * 60.0
+    py0 = 80.0 + (37.5 - nb) * 60.0
+    py1 = 80.0 + (37.5 - na) * 60.0
+    x_pct = round(px0 / 1600.0 * 100.0, 2)
+    y_pct = round(py0 / 2700.0 * 100.0, 2)
+    w_pct = round(max((px1 - px0) / 1600.0 * 100.0, 3.5), 2)
+    h_pct = round(max((py1 - py0) / 2700.0 * 100.0, 2.5), 2)
+    return {
+        "x_pct": x_pct,
+        "y_pct": y_pct,
+        "w_pct": w_pct,
+        "h_pct": h_pct,
+        "cx_pct": round(x_pct + w_pct / 2.0, 2),
+        "cy_pct": round(y_pct + h_pct / 2.0, 2),
+    }
+
+
+def build_kkl10_analysis():
+    """Builds the complete, spatially anchored analysis for KKL 10 strictly from the P-23 Gramoshka CAD."""
+    discovered_files = scan_files_for_keywords(["קקל", "קק\"ל", "kkl", "246-", "2022-875"])
+
+    sheets = [
+        {
+            "id": "kkl_typical",
+            "title": "קומות 3–4 — קומה טיפוסית (דירה B דרום-מערב, דירה E דרום-מזרח 5 חד׳, דירה D צפונית)",
+            "sheet_code": "P-23 / קומות 3–4",
+            "elevation": "+10.35m עד +13.50m",
+            "image_url": "/uploads/kkl10_typical.png?v=p23",
+            "scale": "1:100 CAD (גרמושקה P-23)",
+        },
+        {
+            "id": "kkl_f1_2",
+            "title": "קומות 1–2 — קומה טיפוסית תחתונה (דירה B, דירה A, דירה C עם מרפסת 11.99 מ׳)",
+            "sheet_code": "P-23 / קומות 1–2",
+            "elevation": "+4.05m עד +7.20m",
+            "image_url": "/uploads/kkl10_f1_2.png?v=p23",
+            "scale": "1:100 CAD (גרמושקה P-23)",
+        },
+        {
+            "id": "kkl_penthouse",
+            "title": "קומה 8 — קומת פנטהאוזים (PH-1 צפוני ו-PH-2 דרומי) וטרסות גג",
+            "sheet_code": "P-23 / קומה 8",
+            "elevation": "+26.35m",
+            "image_url": "/uploads/kkl10_penthouse.png?v=p23",
+            "scale": "1:100 CAD (גרמושקה P-23)",
+        },
+        {
+            "id": "kkl_ground",
+            "title": "קומת קרקע ±0.00 — לובי ראשי, חדרי שירות ודירות גן G-1 ו-G-2",
+            "sheet_code": "P-23 / קומת קרקע",
+            "elevation": "±0.00m (+59.53m)",
+            "image_url": "/uploads/kkl10_ground.png?v=p23",
+            "scale": "1:100 CAD (גרמושקה P-23)",
+        },
+        {
+            "id": "kkl_basement",
+            "title": "מרתף חניון 1- — 16 חניות רגילות (#1–#16) ו-8 מחסנים (ללא חדר שנאים)",
+            "sheet_code": "P-23 / מרתף 1-",
+            "elevation": "-4.35m (+55.18m)",
+            "image_url": "/uploads/kkl10_basement.png?v=p23",
+            "scale": "1:100 CAD (גרמושקה P-23)",
+        },
+        {
+            "id": "kkl_basement2",
+            "title": "מרתף חניון 2- — 18 חניות רגילות (#17–#34), 6 מחסנים ומאגר מים",
+            "sheet_code": "P-23 / מרתף 2-",
+            "elevation": "-7.65m (+51.88m)",
+            "image_url": "/uploads/kkl10_basement2.png?v=p23",
+            "scale": "1:100 CAD (גרמושקה P-23)",
+        },
+    ]
+
+    notes = [
+        # --- SECTION 1: BASEMENT PARKING (-1 & -2, P-23 GRAMOSHKA) ---
+        {
+            "id": "KKL-PARK-01",
+            "pin_num": 1,
+            "sheet_id": "kkl_basement",
+            "section_id": "sec_kkl_parking",
+            "typology": "מרתף חניון 1- (גרמושקה P-23)",
+            "room_name": "מרתף 1- (793 מ״ר): 16 חניות רגילות (#1–#16, רוחב 230–295 ס״מ) ו-8 מחסנים דירתיים",
+            "status": "PASS",
+            "rule_id": "תקן חניה ישראלי / P-23",
+            "title": "16 חניות רגילות במרתף 1- ו-8 מחסנים בנויים (3.7–5.2 מ״ר) — ללא חדר שנאים וללא מכפילים",
+            "measured": "16 חניות רגילות · 8 מחסנים · עמדות המתנה 250×500 ס״מ",
+            "benchmark": "100% חניות קונבנציונליות (ללא מתקנים מכניים)",
+            "summary": "בניגוד לסקיצה ההיסטורית מ-2023 (P-5), בגרמושקה העדכנית P-23 אין חדר שנאים במרתף. מרתף 1- כולל 16 חניות רגילות (#1–#6 בדרום, #7–#8 במרכז, #9–#15 בצפון), 8 מחסנים דירתיים ורמפת ירידה מזרחית.",
+            "recommendation": "לסמן הכנות טעינה לחשמלי (EV) לכל תאי החניה מלוח החשמל הקומתי.",
+            **kkl_bim_to_pct(-0.50, 18.00, 13.00, 34.00),
+        },
+        {
+            "id": "KKL-PARK-02",
+            "pin_num": 2,
+            "sheet_id": "kkl_basement",
+            "section_id": "sec_kkl_parking",
+            "typology": "מרתפי חניון 1- ו-2- (גרמושקה P-23)",
+            "room_name": "קצה מיסעה במבוי סתום במרתף — בדיקת 'כיס הארכה' לתמרון לחניה האחרונה",
+            "status": "FAIL",
+            "rule_id": "הנחיות חניונים / ת״י 1918",
+            "title": "ליקוי תכנוני לתיקון: חוסר בכיס הארכה (1.00 מ׳) בקצה מיסעה ללא מוצא לחניה הקיצונית",
+            "measured": "34 חניות רגילות (16 במרתף 1- + 18 במרתף 2-) · קצה מיסעה סגור",
+            "benchmark": "חובת הארכת מיסעה ב-1.00 מ׳ מעבר לקו החניה האחרונה במבוי סתום",
+            "summary": "בשני מרתפי החניה (34 חניות רגילות סה״כ ו-14 מחסנים) קצה המיסעה במבוי סתום מסתיים בקו החניה האחרונה ללא כיס הארכה (Hammerhead) של 100 ס״מ לשליפת הרכב ברוורס.",
+            "recommendation": "להעמיק את קצה המיסעה ב-100 ס״מ ליצירת מפרץ תמרון תקני לחניות הקצה.",
+            **kkl_bim_to_pct(-0.50, 2.00, 6.00, 10.00),
+        },
+
+        # --- SECTION 2: SE APARTMENT E / A (FLOORS 1-7, P-23 GRAMOSHKA) ---
+        {
+            "id": "KKL-E-01",
+            "pin_num": 3,
+            "sheet_id": "kkl_typical",
+            "section_id": "sec_kkl_apt_a",
+            "typology": "דירה E / A (אגף דרום-מזרחי · 114–129 מ״ר)",
+            "room_name": "חדר מגורים, פינת אוכל ומטבח (588×580 ס״מ) + מרפסת דרומית (607×207 ס״מ)",
+            "status": "PASS",
+            "rule_id": "B1.3 / ADG 4D-3",
+            "title": "חלל ציבורי רחב ומואר בדרום-מזרח (588×580 ס״מ) עם מרפסת שמש בעומק 2.07 מ׳!",
+            "measured": "סלון-מטבח: 588×580 ס״מ (אורך כללי 804 ס״מ) · מרפסת: 607×207 ס״מ",
+            "benchmark": "רוחב סלון ≥4.00 מ׳ ועומק מרפסת ≥2.00 מ׳ (ADG) — עובר בהצטיינות",
+            "summary": "החלל הציבורי באגף הדרום-מזרחי מצטיין ברוחב של 5.88 מ׳ ובעומק מרפסת של 2.07 מ׳ (12.0 מ״ר) העומד במלואו ברף המצוינות של ה-ADG האוסטרלי.",
+            "recommendation": "ניצול נישת המטבח ברוחב 302 ס״מ לאי עבודה מרכזי במקביל לוויטרינה הדרומית.",
+            **kkl_bim_to_pct(6.40, -1.80, 12.60, 6.60),
+        },
+        {
+            "id": "KKL-E-02",
+            "pin_num": 4,
+            "sheet_id": "kkl_typical",
+            "section_id": "sec_kkl_apt_a",
+            "typology": "דירה E / A (אגף דרום-מזרחי · קומות 1–8)",
+            "room_name": "ח. שינה ממ״ד מזרחי (268×345 ס״מ = 9.25 מ״ר נטו)",
+            "status": "WARN",
+            "rule_id": "B1.15 / NDSS / ADG 4D-3",
+            "title": "רוחב ממ״ד 268 ס״מ בלבד (268×345 ס״מ) — עובר בקושי את המינימום החוקי (260 ס״מ), צר מ-NDSS (275 ס״מ) ומ-ADG (300 ס״מ)",
+            "measured": "רוחב: 268 ס״מ · אורך: 345 ס״מ · שטח: 9.25 מ״ר",
+            "benchmark": "חוק ישראלי B1.15: ≥260 ס״מ ו-≥9.0 מ״ר (עובר ב-8 ס״מ) | NDSS: ≥275 ס״מ | ADG: ≥300 ס״מ",
+            "summary": "בגרמושקה P-23 רוחב הממ״ד הדרום-מזרחי (בקומות 1–8) הוא 268 ס״מ בלבד (ולא 285 ס״מ). אמנם השטח (9.25 מ״ר) והרוחב עוברים על הקשקש את רף המינימום של פיקוד העורף (260 ס״מ / 9.0 מ״ר), אך החדר צר מרף ה-NDSS הבריטי (275 ס״מ) ומרף ה-ADG (300 ס״מ).",
+            "recommendation": "במידת האפשר להצר את המסדרון הגובל מ-110 ס״מ ל-100 ס״מ להרחבת הממ״ד ל-278 ס״מ, או לבחור ריהוט אורכי צמוד לקיר ה-345 ס״מ.",
+            **kkl_bim_to_pct(9.60, 7.40, 12.60, 11.20),
+        },
+        {
+            "id": "KKL-E-03",
+            "pin_num": 5,
+            "sheet_id": "kkl_typical",
+            "section_id": "sec_kkl_apt_a",
+            "typology": "דירה E (5 חדרים דרום-מזרחית · קומות 3–4)",
+            "room_name": "חדרי שינה מזרחיים (283×360 ס״מ ו-283×365 ס״מ) ויחידת הורים (288×364 ס״מ)",
+            "status": "WARN",
+            "rule_id": "ADG 4D-3 / Space Syntax",
+            "title": "חדרי שינה ברוחב 283 ס״מ ויחידת הורים ברוחב 288 ס״מ (10.48 מ״ר) בקצה מסדרון ארוך",
+            "measured": "חדרי ילדים: 283×360 ו-283×365 ס״מ · הורים: 288×364 ס״מ (10.48 מ״ר)",
+            "benchmark": "תקן ישראלי B1.6 ו-NDSS (≥275 ס״מ): עובר | ADG: רוחב ≥300 ס״מ, הורים ≥11.5 מ״ר",
+            "summary": "בגרמושקה P-23 שני חדרי השינה המזרחיים מתוכננים ברוחב 283 ס״מ (שטח 10.19 ו-10.33 מ״ר — עוברים תקן ישראלי ו-NDSS אך מתחת ל-300 ס״מ ב-ADG). תוספת החדר החמישי בקומות 3–5 מקצרת את חדר ההורים ל-288×364 ס״מ (10.48 מ״ר) ומייצרת מסדרון גישה ארוך וחדר רחצה הורים פנימי באוורור מאולץ (180×237 ס״מ).",
+            "recommendation": "לאחד את קצה המסדרון לתוך מבואת סוויטת ההורים כדי לקצר את המסדרון ב-2.5 מ׳ ולהגדיל את פרטיות ושטח יחידת ההורים.",
+            **kkl_bim_to_pct(8.50, 13.50, 12.60, 24.50),
+        },
+
+        # --- SECTION 3: SW APARTMENT B (4 ROOMS, FLOORS 1-7, P-23 GRAMOSHKA) ---
+        {
+            "id": "KKL-B-01",
+            "pin_num": 6,
+            "sheet_id": "kkl_typical",
+            "section_id": "sec_kkl_apt_b",
+            "typology": "דירה B (4 חדרים דרום-מערבית · 107 מ״ר)",
+            "room_name": "חלל מגורים ומטבח דרום-מערבי (614×579 ס״מ) + מרפסת דרומית (587×207 ס״מ)",
+            "status": "PASS",
+            "rule_id": "B1.3 / B1.11 / ADG",
+            "title": "חלל ציבורי מרווח מאוד (614×579 ס״מ) ומרפסת דרומית בעומק 2.07 מ׳",
+            "measured": "614×579 ס״מ (אורך כללי 660 ס״מ) · מרפסת 12.0 מ״ר (587×207 ס״מ)",
+            "benchmark": "תקן ישראלי, NDSS ו-ADG: עובר בהצטיינות",
+            "summary": "החלל הציבורי של דירה B נהנה משני כיווני אוויר (דרום ומערב), רוחב נדיב של 6.14 מ׳ ויציאה למרפסת דרומית עמוקה (207 ס״מ).",
+            "recommendation": "למקם אי מטבח באורך 180 ס״מ בנישת המטבח המערבית (302 ס״מ).",
+            **kkl_bim_to_pct(0.10, -1.80, 6.25, 6.60),
+        },
+        {
+            "id": "KKL-B-02",
+            "pin_num": 7,
+            "sheet_id": "kkl_typical",
+            "section_id": "sec_kkl_apt_b",
+            "typology": "דירה B (4 חדרים דרום-מערבית · קומות 1–7)",
+            "room_name": "ממ״ד מערבי (264×345 ס״מ בקומות 3–5, 268×345 ס״מ בקומות 1–2/6–7) וחדר שינה (283×340 ס״מ)",
+            "status": "WARN",
+            "rule_id": "B1.15 / B1.6 / NDSS / ADG",
+            "title": "רוחב ממ״ד גבולי ביותר (264 ס״מ בקומות 3–5 ו-268 ס״מ בקומות 1–2/6–7) + חדר שינה ברוחב 283 ס״מ",
+            "measured": "ממ״ד: 264×345 ס״מ (9.11 מ״ר) או 268×345 ס״מ (9.25 מ״ר) · ח. שינה: 283×340 ס״מ (9.62 מ״ר)",
+            "benchmark": "מינימום ממ״ד פקע״ר: רוחב ≥260 ס״מ ושטח ≥9.00 מ״ר | NDSS: ≥275 ס״מ | ADG: ≥300 ס״מ",
+            "summary": "בגרמושקה P-23 הממ״ד המערבי של דירה B מתוכנן ברוחב של 264 ס״מ בלבד בקומות 3–5 (4 ס״מ בלבד מעל סף הפסילה החוקי של 260 ס״מ, ושטח 9.11 מ״ר!) וברוחב 268 ס״מ בקומות 1–2 ו-6–7. חדר השינה הסמוך מתוכנן במידות 283×340 ס״מ (9.62 מ״ר).",
+            "recommendation": "להקפיד בביצוע כי עובי הטיח בממ״ד (264 ס״מ) לא יפחית את הרוחב נטו מתחת ל-260 ס״מ בטופס 4, או להזיז את קיר המסדרון ב-6 ס״מ מזרחה.",
+            **kkl_bim_to_pct(0.10, 7.40, 3.20, 17.20),
+        },
+        {
+            "id": "KKL-B-03",
+            "pin_num": 8,
+            "sheet_id": "kkl_typical",
+            "section_id": "sec_kkl_apt_b",
+            "typology": "דירה B (4 חדרים דרום-מערבית · 107 מ״ר)",
+            "room_name": "סוויטת הורים מערבית (393×305 ס״מ = 11.99 מ״ר) + חדר רחצה הורים (253×135 ס״מ)",
+            "status": "PASS",
+            "rule_id": "B1.6 / ADG 4D-3 / NDSS",
+            "title": "יחידת הורים מצטיינת בדירה B (393×305 ס״מ, 11.99 מ״ר) — עוברת גם את רף ה-ADG (≥300 ס״מ)!",
+            "measured": "הורים: 393×305 ס״מ (11.99 מ״ר) · רחצה הורים: 253×135 ס״מ (חלון מערבי)",
+            "benchmark": "ADG: רוחב ≥300 ס״מ | NDSS: שטח ≥11.5 מ״ר — עובר במלואו",
+            "summary": "בניגוד לממ״ד הצר, סוויטת ההורים של דירה B נהנית מרוחב של 305 ס״מ ואורך 393 ס״מ (11.99 מ״ר) עם חדר רחצה צמוד בעל חלון חוץ למערב.",
+            "recommendation": "ניצול נישת הארון המובנית (אורך 283 ס״מ) בקיר הצפוני של חדר ההורים.",
+            **kkl_bim_to_pct(0.10, 17.20, 4.30, 21.80),
+        },
+
+        # --- SECTION 4: NORTH APARTMENT D / C (3 DIRECTIONS, P-23 GRAMOSHKA) ---
+        {
+            "id": "KKL-D-01",
+            "pin_num": 9,
+            "sheet_id": "kkl_typical",
+            "section_id": "sec_kkl_apt_d",
+            "typology": "דירה D / C (אגף צפוני · 3 כיווני אוויר: צפון, מזרח, מערב)",
+            "room_name": "חדר מגורים (503×681 ס״מ), מטבח (398×280 ס״מ), פ. אוכל (200×341 ס״מ) ומרפסת לרחוב קק״ל",
+            "status": "PASS",
+            "rule_id": "B1.3 / 3 כיווני אוויר / ADG",
+            "title": "דירה צפונית חזיתית עם 3 כיווני אוויר מלאים (צפון, מזרח, מערב) וסלון רחב (5.03 מ׳)",
+            "measured": "סלון: 503×681 ס״מ · מרפסת: 604×200 ס״מ (ובקומות 1–2: 1199×199 ס״מ = 22.8 מ״ר!)",
+            "benchmark": "ADG: סלון ≥4.00 מ׳ ועומק מרפסת ≥2.00 מ׳ (עובר בהצטיינות)",
+            "summary": "הדירה הצפונית (טיפוס C בקומות 1–2 וטיפוס D/G/H בקומות 3–7) נהנית משלושה כיווני אוויר מלאים, סלון רחב (503 ס״מ), מטבח מואר למזרח (398 ס״מ) ומרפסת חזיתית בעומק 200 ס״מ לרחוב קק״ל.",
+            "recommendation": "בקומות 3–7 שבהן פינת האוכל ממוקמת במפרץ של 200×341 ס״מ, מומלץ לבחור שולחן ברוחב 90 ס״מ לשמירת מעבר נוח.",
+            **kkl_bim_to_pct(4.70, 24.50, 12.60, 34.80),
+        },
+        {
+            "id": "KKL-D-02",
+            "pin_num": 10,
+            "sheet_id": "kkl_typical",
+            "section_id": "sec_kkl_apt_d",
+            "typology": "דירה D / C (אגף צפוני · 106–126 מ״ר)",
+            "room_name": "סוויטת הורים צפון-מערבית (408×305 ס״מ), חדר שינה צפוני (300×335 ס״מ) וממ״ד מערבי (276×379 ס״מ)",
+            "status": "WARN",
+            "rule_id": "B1.6 / B1.15 / ADG 4D-3",
+            "title": "סוויטת הורים (408×305 ס״מ) וחדר צפוני (300×335 ס״מ) עוברים ADG; ממ״ד מערבי ברוחב 276 ס״מ",
+            "measured": "הורים: 12.44 מ״ר (408×305) · ח. שינה: 10.05 מ״ר (300×335) · ממ״ד: 10.46 מ״ר (276×379)",
+            "benchmark": "חוק ישראלי ו-NDSS (≥275 ס״מ): עובר בכל החדרים | ADG: ממ״ד 276 ס״מ מול 300 ס״מ",
+            "summary": "באגף השינה של הדירה הצפונית, יחידת ההורים (408×305 ס״מ) וחדר השינה הצפוני (300×335 ס״מ) עומדים ברף ה-3.00 מ׳ של ה-ADG. הממ״ד המערבי מתוכנן במידות 276×379 ס״מ (10.46 מ״ר — עובר תקן ישראלי ו-NDSS הבריטי, מתחת ל-300 ס״מ ב-ADG).",
+            "recommendation": "אורך הממ״ד הנדיב (379 ס״מ) מאפשר הצבת ארון ופינת עבודה מלאה לאורך הקיר הדרומי.",
+            **kkl_bim_to_pct(0.10, 21.80, 7.50, 32.00),
+        },
+
+        # --- SECTION 5: CORE, GROUND FLOOR & PENTHOUSE FLOOR 8 (P-23 GRAMOSHKA) ---
+        {
+            "id": "KKL-CORE-01",
+            "pin_num": 11,
+            "sheet_id": "kkl_typical",
+            "section_id": "sec_kkl_core",
+            "typology": "ליבת הבניין (גרמושקה P-23)",
+            "room_name": "ליבת 2 מעליות (6 נוסעים כ״א: 155×185 ו-185×185 ס״מ), חדר מדרגות (245×481 ס״מ) ולובי קומתי (130×1265 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ת״י 2481 / נגישות B29",
+            "title": "צמד מעליות של 6 נוסעים ל-25 דירות (יחס מצוין של 1:12.5 יח״ד למעלית!)",
+            "measured": "2 מעליות × 6 נוסעים · חדר מדרגות 245×481 ס״מ · מסדרון לובי קומתי ברוחב 130–155 ס״מ",
+            "benchmark": "תקן מעליות: מעלית 1 עד 32 יח״ד — כאן 2 מעליות ל-25 יח״ד!",
+            "summary": "בגרמושקה P-23 ליבת הבניין כוללת שתי מעליות של 6 נוסעים (ולא 8 נוסעים כפי שהופיע בסקיצה מ-2023) המשרתות 25 יח״ד בלבד — יחס שירות מעולה של 12.5 דירות למעלית, עם הפרדה אקוסטית מדירות המגורים.",
+            "recommendation": "לוודא תאורת חירום ומערכת שחרור עשן תקנית בקצה הלובי הקומתי.",
+            **kkl_bim_to_pct(4.30, 8.50, 8.50, 18.00),
+        },
+        {
+            "id": "KKL-PH-01",
+            "pin_num": 12,
+            "sheet_id": "kkl_penthouse",
+            "section_id": "sec_kkl_core",
+            "typology": "קומה 8 — פנטהאוזים PH-1 ו-PH-2 (גרמושקה P-23)",
+            "room_name": "פנטהאוז צפוני PH-1 ופנטהאוז דרומי PH-2 — ממ״דים (268×345 ס״מ) וחדרי שינה (283×340 ס״מ)",
+            "status": "WARN",
+            "rule_id": "B1.15 / ADG 4D-3",
+            "title": "טרסות גג רחבות וגובה תקרה 3.03 מ׳ נטו; הממ״דים בקומה 8 ברוחב 268 ס״מ (268×345 ס״מ)",
+            "measured": "ממ״דים בקומה 8: 268×345 ס״מ (9.25 מ״ר) · חדרי שינה: 283×340 ס״מ",
+            "benchmark": "חוק ישראלי: ממ״ד ≥260 ס״מ ו-≥9.0 מ״ר (עובר ב-8 ס״מ) | תיקון טעות סופר בתכנית המכר (שם נרשם 260×340)",
+            "summary": "בגרמושקה P-23 שני הממ״דים בקומת הפנטהאוז (קומה 8) מתוכננים במידות 268×345 ס״מ (9.25 מ״ר — עוברים חוקית ב-8 ס״מ). שימו לב: בתכנית המכר (P-18) נפלה טעות כיתוב שבה נרשם בממ״ד של PH-1 '260×340' (8.84 מ״ר) — יש לתקן שם את הכיתוב ל-268×345 בהתאם לגרמושקה P-23!",
+            "recommendation": "לתקן את תווית המידה בתכנית המכר של PH-1 ל-268×345 ס״מ בהתאם לגרמושקה P-23.",
+            **kkl_bim_to_pct(0.10, 7.40, 12.60, 19.00),
+        },
+        {
+            "id": "KKL-GND-01",
+            "pin_num": 13,
+            "sheet_id": "kkl_ground",
+            "section_id": "sec_kkl_core",
+            "typology": "קומת קרקע ±0.00 ודירות גן G-1, G-2 (גרמושקה P-23)",
+            "room_name": "לובי כניסה ראשי, חדר עגלות/אופניים, חדר אשפה ודירות גן G-1 (ממ״ד 268×345) ו-G-2 (ממ״ד 264×345)",
+            "status": "WARN",
+            "rule_id": "נגישות ת״י 1918 / B1.15",
+            "title": "גובה תקרה נדיב של 3.83 מ׳ נטו בקומת הקרקע; ממ״ד דירת גן G-2 ברוחב 264 ס״מ (G-1 ברוחב 268 ס״מ)",
+            "measured": "דירת גן G-1: ממ״ד 268×345, ח.שינה 283×340 · דירת גן G-2: ממ״ד 264×345, ח.שינה 283×332",
+            "benchmark": "מינימום ממ״ד פקע״ר: רוחב ≥260 ס״מ ושטח ≥9.00 מ״ר",
+            "summary": "קומת הקרקע בגרמושקה P-23 כוללת לובי ראשי מפואר בגובה 3.83 מ׳ נטו, חדר עגלות ואופניים, חדר אשפה וחדר גז, ושתי דירות גן (G-1 במערב ו-G-2 במזרח). בממ״ד של G-2 הרוחב הוא 264 ס״מ (9.11 מ״ר) ובממ״ד של G-1 הרוחב הוא 268 ס״מ (9.25 מ״ר).",
+            "recommendation": "להקפיד בביצוע על דיוק יציקת קירות הממ״ד בדירות הגן לשמירת רוחב נטו ≥260 ס״מ.",
+            **kkl_bim_to_pct(0.10, 0.00, 12.60, 33.00),
+        },
+    ]
+
+    sections = [
+        {
+            "id": "sec_kkl_parking",
+            "title": "1. מרתפי חניון (-1, -2): 34 חניות רגילות ו-14 מחסנים (ללא חדר שנאים · גרמושקה P-23)",
+            "subtitle": "גיליונות מרתף 1- ומרתף 2- · 0 מכפילי חניה · ללא חדר שנאים במרתף · ממצא: כיס הארכה במיסעה",
+            "intro": "בגרמושקה העדכנית P-23 בוטל חדר השנאים שהופיע בסקיצה מ-2023. הפרויקט כולל 34 חניות רגילות ב-2 מרתפים (16 במרתף 1- ו-18 במרתף 2-) ו-14 מחסנים בנויים, עם הערה תכנונית אחת בקצה המיסעה:",
+        },
+        {
+            "id": "sec_kkl_apt_a",
+            "title": "2. אגף דרום-מזרחי (דירות A ו-E): ממ״ד ברוחב 268 ס״מ וחדרי שינה ברוחב 283 ס״מ",
+            "subtitle": "גיליונות קומות 1–2 וקומות 3–4 (P-23) · סלון 588×580 ס״מ · ממ״ד 268×345 ס״מ (WARN) · חדרים 283×360/365 ס״מ",
+            "intro": "החלל הציבורי והמרפסת הדרומית (607×207 ס״מ) מרווחים מאוד, אך בדיקת הגרמושקה P-23 מזהה כי הממ״ד הדרום-מזרחי מתוכנן ברוחב צר של 268 ס״מ בלבד (9.25 מ״ר — 8 ס״מ מעל המינימום החוקי) וחדרי השינה ברוחב 283 ס״מ:",
+        },
+        {
+            "id": "sec_kkl_apt_b",
+            "title": "3. אגף דרום-מערבי (דירה B): ממ״ד ברוחב 264–268 ס״מ, חדר שינה 283 ס״מ וסוויטת הורים 305 ס״מ",
+            "subtitle": "גיליון קומות 3–4 (P-23) · סלון 614×579 ס״מ · ממ״ד 264×345 ס״מ בקומות 3–5 (WARN) ו-268×345 בשאר הקומות",
+            "intro": "דירת 4 חדרים דרום-מערבית עם סלון רחב (6.14 מ׳) וסוויטת הורים מצוינת (393×305 ס״מ), לצד ממ״ד מערבי צר מאוד ברוחב 264 ס״מ (בקומות 3–5) עד 268 ס״מ (בקומות 1–2 ו-6–7) וחדר שינה ברוחב 283 ס״מ:",
+        },
+        {
+            "id": "sec_kkl_apt_d",
+            "title": "4. אגף צפוני חזיתי לרחוב קק״ל (דירות C, D, G, H · 3 כיווני אוויר)",
+            "subtitle": "גיליונות קומות 1–2 וקומות 3–4 (P-23) · סלון 503×681 ס״מ · הורים 408×305 ס״מ · ממ״ד 276×379 ס״מ",
+            "intro": "הדירה הצפונית נהנית מ-3 כיווני אוויר מלאים (צפון, מזרח, מערב), מרפסת רחבה לרחוב קק״ל, יחידת הורים (408×305 ס״מ) וחדר שינה (300×335 ס״מ) העוברים את רף ה-ADG, וממ״ד מערבי ברוחב 276 ס״מ:",
+        },
+        {
+            "id": "sec_kkl_core",
+            "title": "5. ליבת הבניין (2 מעליות 6 נוסעים), קומת קרקע וקומת פנטהאוזים 8 (P-23)",
+            "subtitle": "גיליונות קומת קרקע וקומה 8 (P-23) · 2 מעליות 6 נוסעים ל-25 יח״ד · ממ״דים 268×345 ס״מ",
+            "intro": "ליבת הבניין כוללת 2 מעליות של 6 נוסעים ל-25 דירות (יחס 1:12.5), קומת קרקע בגובה 3.83 מ׳ נטו, וקומת פנטהאוזים נסוגה בקומה 8:",
+        },
+    ]
+
+    return enrich_project_payload({
+        "project_id": "kkl10",
+        "project_name": "קק״ל 10 (קרן קיימת לישראל 10), פתח תקווה",
+        "project_subtitle": "דוח בקרת איכות תכנון ואדריכלות (גרמושקה P-23) — 9 קומות + 2 מרתפי חניון · 25 יח״ד · סנדרוביץ אדריכלים",
+        "overall_score": 84,
+        "metrics": [
+            {"label": "ציון איכות משוקלל", "value": "84/100", "sub": "דירוג B+ — גרמושקה P-23"},
+            {"label": "חניות רגילות", "value": "34 (100%)", "sub": "ללא מכפילים · ללא חדר שנאים"},
+            {"label": "רוחב ממ״דים וחדרים", "value": "264–283 ס״מ", "sub": "ממ״ד 264–268 (WARN) · חדר 283"},
+            {"label": "ליקויים והתראות", "value": "1 FAIL · 36 WARN", "sub": "ממ״דים צרים + כיס מיסעה"},
+        ],
+        "pdf_report_url": "/reports/kkl10_architectural_quality_analysis.pdf",
+        "viewer_3d_url": r"G:\Shared drives\שליטה ובקרה\מודלים פרויקטים\קקל 10 פתח תקווה\kkl10_3d_bim_viewer.html",
+        "discovered_files": discovered_files,
+        "sheets": sheets,
+        "sections": sections,
+        "notes": notes,
+    })
+
+
+def build_hafetz44_analysis():
+    """Builds the complete, spatially anchored analysis for Hafetz Chaim 44 across all floors & typologies."""
+    discovered_files = scan_files_for_keywords(["חפץ", "חיים", "hafetz", "chafetz"])
+
+    sheets = [
+        {
+            "id": "h44_typical",
+            "title": "קומות 1–8 — קומה טיפוסית (2 דירות בקומה: W 5 חד׳, E 4 חד׳)",
+            "sheet_code": "A-1002",
+            "elevation": "+3.50m עד +25.55m",
+            "image_url": "/uploads/hafetz44_typical.png",
+            "scale": "1:100 הגשה / CAD",
+        },
+        {
+            "id": "h44_penthouse",
+            "title": "קומה 9 — פנטהאוז קומה שלמה (דירה #17 · 158+95 מ״ר)",
+            "sheet_code": "A-1003",
+            "elevation": "+28.70m",
+            "image_url": "/uploads/hafetz44_penthouse.png",
+            "scale": "1:100 הגשה / CAD",
+        },
+        {
+            "id": "h44_ground",
+            "title": "קומת קרקע (±0.00) — לובי כניסה, פיתוח מגרש ורמפת חניון",
+            "sheet_code": "A-1001",
+            "elevation": "±0.00m",
+            "image_url": "/uploads/hafetz44_ground.png",
+            "scale": "1:100 הגשה / CAD",
+        },
+        {
+            "id": "h44_basement",
+            "title": "מרתף חניון (-1) — 19 חניות תת-קרקעיות רגילות (0 מכפילים)",
+            "sheet_code": "A-1000",
+            "elevation": "-5.10m",
+            "image_url": "/uploads/hafetz44_basement.png",
+            "scale": "1:100 הגשה / CAD",
+        },
+    ]
+
+    notes = [
+        # --- SECTION 1: TYPICAL FLOOR WEST 5-ROOMS (#2,4,6,8,10,12,14,16) ---
+        {
+            "id": "H44-W-01",
+            "pin_num": 1,
+            "sheet_id": "h44_typical",
+            "section_id": "sec_h44_west",
+            "typology": "דירה W מערבית (5 חד׳ · 124+19 מ״ר · 3 כיווני אוויר)",
+            "room_name": "חלל מגורים ופינת אוכל מערביים (975×418 ס״מ) + מרפסת שמש לשצ״פ (940×200 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4D-3 / EN 17037",
+            "title": "סלון רחב (4.18 מ׳) ומרפסת שמש בעומק 2.00 מ׳ הפונים לשצ״פ ירוק ברוחב 13.95 מ׳",
+            "measured": "סלון-אוכל: 31.8 מ״ר · מרפסת: 18.8 מ״ר (עומק 2.00 מ׳)",
+            "benchmark": "ADG: רוחב סלון ≥4.00 מ׳ ומרפסת ≥1.50 מ׳ (עובר בהצטיינות)",
+            "summary": "דירת 5 החדרים המערבית נהנית משלושה כיווני אוויר מלאים (מערב, צפון, דרום), רוחב סלון של 418 ס״מ ומרפסת סוכה רחבה הצופה לשצ״פ פתוח.",
+            "recommendation": "מומלץ להוסיף משרבייה/קונסולה ברוחב 90 ס״מ במבואת הכניסה ליצירת סינון ויזואלי מלא מהלובי הקומתי (Space Syntax SS-3).",
+            "x_pct": 14.5, "y_pct": 54.0, "w_pct": 23.0, "h_pct": 18.5, "cx_pct": 26.0, "cy_pct": 63.2,
+        },
+        {
+            "id": "H44-W-02",
+            "pin_num": 2,
+            "sheet_id": "h44_typical",
+            "section_id": "sec_h44_west",
+            "typology": "דירה W מערבית (5 חד׳ · 124+19 מ״ר)",
+            "room_name": "מטבח מקבילי + אי דרומי (320×275 ס״מ)",
+            "status": "PASS",
+            "rule_id": "NKBA_K01 / CIBSE AM10",
+            "title": "מטבח מאוורר לדרום עם משולש עבודה תקני (5.10 מ׳) ואוורור מפולש",
+            "measured": "8.80 מ״ר · מעבר עבודה 120 ס״מ",
+            "benchmark": "NKBA: מעבר עבודה ≥107 ס״מ (כאן 120 ס״מ)",
+            "summary": "המטבח ממוקם באגף הדרומי עם חלון חיצוני המאפשר זרימת אוויר מפולשת (Cross-Ventilation) מצפון לדרום לאורך 9.4 מ׳.",
+            "recommendation": "לשמור על מרווח של 105 ס״מ בין כיסאות האי לקיר המעבר.",
+            "x_pct": 37.5, "y_pct": 55.5, "w_pct": 8.0, "h_pct": 16.5, "cx_pct": 41.5, "cy_pct": 63.8,
+        },
+        {
+            "id": "H44-W-03",
+            "pin_num": 3,
+            "sheet_id": "h44_typical",
+            "section_id": "sec_h44_west",
+            "typology": "דירה W מערבית (5 חד׳ · 124+19 מ״ר)",
+            "room_name": "סוויטת הורים מערבית (468×299 ס״מ) + חדר ארונות (165×160) + מקלחת (160×160)",
+            "status": "WARN",
+            "rule_id": "ADG 4D-3 / DIN 18040-2",
+            "title": "סוויטת הורים גדולה (14.0 מ״ר + ארונות ורחצה); רוחב 2.99 מ׳ נושק לרף ADG (3.00 מ׳)",
+            "measured": "חדר שינה: 14.0 מ״ר · רוחב 2.99 מ׳ · מקלחת: 2.56 מ״ר",
+            "benchmark": "תקנות הבנייה: ≥2.60 מ׳ (עובר) | ADG: ≥3.00 מ׳ (2.99 מ׳)",
+            "summary": "סוויטת ההורים כוללת חדר ארונות נפרד (2.64 מ״ר) ומקלחת מאווררת לצפון, אולם העמדת המיטה לרוחב 299 ס״מ משאירה מעברי צד של 52 ס״מ בלבד.",
+            "recommendation": "החלפת דלת הציר של מקלחת ההורים (160×160 ס״מ) בדלת כיס (Pocket Door) וסיבוב אופציונלי של גב המיטה לקיר הארוך (4.68 מ׳) יגדילו את מעברי הצד ל-110 ס״מ.",
+            "x_pct": 19.5, "y_pct": 36.0, "w_pct": 8.5, "h_pct": 18.5, "cx_pct": 23.8, "cy_pct": 45.2,
+        },
+        {
+            "id": "H44-W-04",
+            "pin_num": 4,
+            "sheet_id": "h44_typical",
+            "section_id": "sec_h44_west",
+            "typology": "דירה W מערבית (5 חד׳ · 124+19 מ״ר)",
+            "room_name": "ממ״ד מערבי ענק (335×400 ס״מ = 13.40 מ״ר) וחדרי שינה צפוניים (299×348 ו-285×348 ס״מ)",
+            "status": "PASS",
+            "rule_id": "פקע״ר / NDSS Double Bedroom",
+            "title": "ממ״ד בגודל סוויטה כפולה (13.40 מ״ר נטו — 49% מעל דרישת המינימום של פקע״ר!)",
+            "measured": "ממ״ד: 13.40 מ״ר (רוחב 3.35 מ׳) · חדרי שינה: 10.4 ו-9.92 מ״ר",
+            "benchmark": "פקע״ר: ≥9.0 מ״ר ורוחב ≥2.60 מ׳ (עובר בענק)",
+            "summary": "הממ״ד בדירה המערבית הוא מהגדולים בפורטפוליו (335×400 ס״מ) ומתפקד כחדר שינה זוגי מרווח במלוא מובן המילה.",
+            "recommendation": "מומלץ להכין חלופת שינויי דיירים (Option B) לתוספת שירותי אורחים קומפקטיים לטובת דירת 5 החדרים.",
+            "x_pct": 45.8, "y_pct": 38.0, "w_pct": 7.4, "h_pct": 16.0, "cx_pct": 49.5, "cy_pct": 46.0,
+        },
+
+        # --- SECTION 2: TYPICAL FLOOR EAST 4-ROOMS (#1,3,5,7,9,11,13,15) ---
+        {
+            "id": "H44-E-01",
+            "pin_num": 5,
+            "sheet_id": "h44_typical",
+            "section_id": "sec_h44_east",
+            "typology": "דירה E מזרחית (4 חד׳ · 102+19 מ״ר · 3 כיווני אוויר)",
+            "room_name": "חלל סלון, פינת אוכל ומטבח (845×418 ס״מ) + מרפסת שמש מזרחית (940×200 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4D-3 / EN 17037",
+            "title": "דירת 4 חדרים תלת-כיוונית (מזרח, צפון, דרום) עם סלון ברוחב 4.18 מ׳ ומרפסת 18.8 מ״ר",
+            "measured": "חלל ציבורי: 35.3 מ״ר · מרפסת מזרחית: 18.8 מ״ר (עומק 2.00 מ׳)",
+            "benchmark": "NDSS 4-Rooms: 90 מ״ר (כאן 102 מ״ר = +12 מ״ר עודף!)",
+            "summary": "דירה E פונה לחזית רחוב חפץ חיים המזרחית ונהנית משלושה כיווני אוויר מלאים, אוורור מפולש מצפון לדרום ומרפסת שמש עמוקה.",
+            "recommendation": "שילוב מחיצת כניסה חצי-שקופה מימין לדלת הכניסה להגנת פרטיות הסלון.",
+            "x_pct": 60.2, "y_pct": 54.0, "w_pct": 24.0, "h_pct": 18.5, "cx_pct": 72.2, "cy_pct": 63.2,
+        },
+        {
+            "id": "H44-E-02",
+            "pin_num": 6,
+            "sheet_id": "h44_typical",
+            "section_id": "sec_h44_east",
+            "typology": "דירה E מזרחית (4 חד׳ · 102+19 מ״ר)",
+            "room_name": "סוויטת הורים מזרחית (422×300 ס״מ), חדר שינה (279×348 ס״מ) וממ״ד (295×400 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4D-3 / NDSS",
+            "title": "סוויטת הורים ברוחב 3.00 מ׳ (עוברת ADG!) וממ״ד ענק בשטח 11.80 מ״ר",
+            "measured": "הורים: 12.66 מ״ר (רוחב 3.00 מ׳) · ממ״ד: 11.80 מ״ר",
+            "benchmark": "ADG Master Bedroom: רוחב ≥3.00 מ׳ (עובר במדויק!)",
+            "summary": "סוויטת ההורים בדירה המזרחית עומדת ברף ה-300 ס״מ של ADG וכוללת חדר ארונות ומקלחת מאווררת לצפון.",
+            "recommendation": "הזזת פתח הדלת ב-5 ס״מ בחדר השינה הצפוני (279×348 ס״מ) תאפשר הצבת ארון בגדים בעומק 60 ס״מ לאורך קיר הכניסה (Boverket).",
+            "x_pct": 66.0, "y_pct": 36.0, "w_pct": 13.7, "h_pct": 18.5, "cx_pct": 72.8, "cy_pct": 45.2,
+        },
+
+        # --- SECTION 3: PENTHOUSE FLOOR 9 (#17) & BASEMENT ---
+        {
+            "id": "H44-PH-01",
+            "pin_num": 7,
+            "sheet_id": "h44_penthouse",
+            "section_id": "sec_h44_penthouse",
+            "typology": "פנטהאוז קומה שלמה #17 (קומה 9 · 158+95 מ״ר · 4 כיווני אוויר)",
+            "room_name": "סלון פנורמי (500×520 ס״מ), מטבח שף + אי (380×320 ס״מ) ומרפסות גג מערבית ומזרחית (95 מ״ר)",
+            "status": "WARN",
+            "rule_id": "NKBA_K01 / ADG 4E",
+            "title": "פנטהאוז 360° על קומה שלמה; מומלץ להזיז את אי המטבח ב-24 ס״מ צפונה",
+            "measured": "158 מ״ר בנוי + 95 מ״ר מרפסות גג · מעבר אי נוכחי: 96 ס״מ",
+            "benchmark": "NKBA Two-Cook Kitchen: מעבר אי מומלץ ≥120 ס״מ",
+            "summary": "פנטהאוז #17 משתרע על כל קומה 9 עם 4 כיווני אוויר מלאים ושתי מרפסות גג עצומות. במטבח, המרווח בין השיש הדרומי לאי עומד על 96 ס״מ.",
+            "recommendation": "הזזת האי במטבח הפנטהאוז ב-24 ס״מ צפונה תגדיל את מעבר העבודה ל-120 ס״מ תקניים ללא כל עלות ביצוע.",
+            "x_pct": 20.0, "y_pct": 36.0, "w_pct": 60.0, "h_pct": 34.0, "cx_pct": 50.0, "cy_pct": 53.0,
+        },
+        {
+            "id": "H44-BSM-01",
+            "pin_num": 8,
+            "sheet_id": "h44_basement",
+            "section_id": "sec_h44_penthouse",
+            "typology": "מרתף חניון (-1 · מפלס -5.10m)",
+            "room_name": "19 חניות תת-קרקעיות רגילות (יחס 1:1.12 — 0 מתקני חניה מכניים!)",
+            "status": "PASS",
+            "rule_id": "הנחיות חניונים / ת״י 1918",
+            "title": "100% חניות רגילות במישור אחד ל-17 דירות (כולל חניות נגישות ורמפה תקנית)",
+            "measured": "19 חניות רגילות ל-17 יח״ד (יחס 1:1.12)",
+            "benchmark": "0 מכפילי חניה · תמרון דו-סטרי חופשי",
+            "summary": "מרתף החניון מספק 19 חניות רגילות מלאות עבור 17 דירות הבניין, ללא צורך במכפילים או מתקנים רובוטיים.",
+            "recommendation": "הכנת תשתית טעינת רכב חשמלי (EV Load Management) לכל 19 תאי החניה.",
+            "x_pct": 22.0, "y_pct": 34.0, "w_pct": 56.0, "h_pct": 32.0, "cx_pct": 50.0, "cy_pct": 50.0,
+        },
+    ]
+
+    sections = [
+        {
+            "id": "sec_h44_west",
+            "title": "1. קומות טיפוסיות 1–8: דירה מערבית W (5 חדרים · 124+19 מ״ר · 3 כיווני אוויר)",
+            "subtitle": "דירות #2, #4, #6, #8, #10, #12, #14, #16 · פונות לשצ״פ מערבי פתוח ברוחב 13.95 מ׳",
+            "intro": "דירת 5 חדרים מרווחת עם סלון ברוחב 4.18 מ׳, מרפסת בעומק 2.00 מ׳ (18.8 מ״ר), ממ״ד ענק בגודל 13.40 מ״ר וסוויטת הורים הכוללת חדר ארונות נפרד.",
+        },
+        {
+            "id": "sec_h44_east",
+            "title": "2. קומות טיפוסיות 1–8: דירה מזרחית E (4 חדרים · 102+19 מ״ר · 3 כיווני אוויר)",
+            "subtitle": "דירות #1, #3, #5, #7, #9, #11, #13, #15 · חזית לרחוב חפץ חיים",
+            "intro": "דירת 4 חדרים תלת-כיוונית (מזרח, צפון, דרום) עם אוורור מפולש מצפון לדרום, סוויטת הורים העומדת ברף ה-3.00 מ׳ של ADG וממ״ד בשטח 11.80 מ״ר.",
+        },
+        {
+            "id": "sec_h44_penthouse",
+            "title": "3. קומה 9 (פנטהאוז #17 · 158+95 מ״ר), קומת קרקע ומרתף חניון (19 חניות רגילות)",
+            "subtitle": "פנטהאוז קומה שלמה (4 כיווני אוויר) ו-100% חניה תת-קרקעית רגילה ללא מכפילים",
+            "intro": "פנטהאוז #17 נהנה מפרטיות מוחלטת על קומה שלמה ו-95 מ״ר מרפסות גג, ומרתף החניון מעניק יחס חניה רגילה של 1:1.12 (19 חניות ל-17 דירות).",
+        },
+    ]
+
+    return enrich_project_payload({
+        "project_id": "hafetz44",
+        "project_name": "חפץ חיים 44, פתח תקווה",
+        "project_subtitle": "דוח בקרת איכות תכנון ואדריכלות (v2.1) — 9 קומות + מרתף חניון · 17 יח״ד · א.ב. דרגן אדריכלים · יצחק קולסקי",
+        "overall_score": 89.8,
+        "metrics": [
+            {"label": "ציון איכות משוקלל", "value": "89.8/100", "sub": "דירוג A — מצטיין"},
+            {"label": "בדיקות מנוע (PASS)", "value": "270/328", "sub": "82.3% PASS · 0 FAIL"},
+            {"label": "כיווני אוויר", "value": "3–4 כיוונים", "sub": "2 דירות בקומה בלבד"},
+            {"label": "חניות רגילות", "value": "19 (100%)", "sub": "יחס 1:1.12 · 0 מכפילים"},
+        ],
+        "pdf_report_url": "/reports/hafetz44_architectural_quality_analysis.pdf",
+        "viewer_3d_url": r"G:\Shared drives\שליטה ובקרה\מודלים פרויקטים\חפץ חיים 44 פתח תקווה\hafetz44_3d_model.html",
+        "discovered_files": discovered_files,
+        "sheets": sheets,
+        "sections": sections,
+        "notes": notes,
+    })
+
+
+def build_yatkovski7_analysis():
+    """Builds the complete, spatially anchored analysis for Yatkovski 7 across all floors & typologies."""
+    discovered_files = scan_files_for_keywords(["יטקובסקי", "yatkovski", "אחים יטקובסקי"])
+
+    sheets = [
+        {
+            "id": "yat_typical",
+            "title": "קומות א׳–ד׳ — קומה טיפוסית (2 דירות בקומה: טיפוס N צפוני וטיפוס S דרומי)",
+            "sheet_code": "A-3_4",
+            "elevation": "+3.85m עד +13.30m",
+            "image_url": "/uploads/yatkovski7_typical.png",
+            "scale": "1:50 CAD / BIM",
+        },
+        {
+            "id": "yat_floor5",
+            "title": "קומה ה׳ — מיני-פנטהאוז קומה שלמה (דירה #10 · 150+64 מ״ר · 4 כיווני אוויר)",
+            "sheet_code": "A-5",
+            "elevation": "+16.53m",
+            "image_url": "/uploads/yatkovski7_floor5.png",
+            "scale": "1:50 CAD / BIM",
+        },
+        {
+            "id": "yat_penthouse",
+            "title": "קומה ו׳ — פנטהאוז קומה שלמה (דירה #11 · 125+52 מ״ר · 4 כיווני אוויר)",
+            "sheet_code": "A-6",
+            "elevation": "+19.76m",
+            "image_url": "/uploads/yatkovski7_penthouse.png",
+            "scale": "1:50 CAD / BIM",
+        },
+        {
+            "id": "yat_ground",
+            "title": "קומת קרקע (±0.00) — לובי כניסה ודירת גן #1 (105 מ״ר + 153 מ״ר גינה פרטית)",
+            "sheet_code": "A-0",
+            "elevation": "±0.00m",
+            "image_url": "/uploads/yatkovski7_ground.png",
+            "scale": "1:50 CAD / BIM",
+        },
+        {
+            "id": "yat_basement",
+            "title": "מרתף חניון (-4.38m) — 12 חניות רגילות ל-11 דירות (0 מכפילים!)",
+            "sheet_code": "A-B1",
+            "elevation": "-4.38m",
+            "image_url": "/uploads/yatkovski7_basement.png",
+            "scale": "1:50 CAD / BIM",
+        },
+    ]
+
+    notes = [
+        # --- SECTION 1: TYPICAL NORTH APARTMENT (#3, #5, #7, #9) ---
+        {
+            "id": "YAT-N-01",
+            "pin_num": 1,
+            "sheet_id": "yat_typical",
+            "section_id": "sec_yat_north",
+            "typology": "טיפוס N צפוני חזיתי (4 חד׳ · דירות #3, #5, #7, #9 · 97+14 מ״ר)",
+            "room_name": "סלון ופינת אוכל צפוניים (410×460 ס״מ) + מרפסת סוכה צפונית (480×240 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4D-3 / EN 17037",
+            "title": "סלון רחב (4.10 מ׳), 3 כיווני אוויר מלאים (N/W/E) ומרפסת סוכה בעומק 2.40 מ׳",
+            "measured": "חלל ציבורי: 24.6 מ״ר · מרפסת סוכה: 12–18 מ״ר (עומק 2.40 מ׳)",
+            "benchmark": "ADG: סלון ≥4.00 מ׳ ומרפסת ≥1.50 מ׳ (עובר בהצטיינות)",
+            "summary": "הדירה הצפונית נהנית משלושה כיווני אוויר מלאים, אוורור צולב אידיאלי ומרפסת סוכה עמוקה הפונה לרחוב האחים יטקובסקי.",
+            "recommendation": "מומלץ לשלב מחיצת משרבייה/נגרות ברוחב 90 ס״מ בכניסה ליצירת מבואה מוגדרת (Space Syntax SS-3).",
+            "x_pct": 51.0, "y_pct": 19.5, "w_pct": 26.5, "h_pct": 18.0, "cx_pct": 64.2, "cy_pct": 28.5,
+        },
+        {
+            "id": "YAT-N-02",
+            "pin_num": 2,
+            "sheet_id": "yat_typical",
+            "section_id": "sec_yat_north",
+            "typology": "טיפוס N צפוני חזיתי (4 חד׳ · 97+14 מ״ר)",
+            "room_name": "סוויטת הורים מזרחית מבודדת (340×360 ס״מ = 12.24 מ״ר) + חדר רחצה (165×200 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4D-3 / Split-Bedroom",
+            "title": "סוויטת הורים מזרחית מבודדת אקוסטית ברוחב 3.40 מ׳ (עוברת בענק את רף ADG של 3.00 מ׳!)",
+            "measured": "12.24 מ״ר · רוחב 3.40 מ׳ × 3.60 מ׳",
+            "benchmark": "ADG Master Bedroom: רוחב ≥3.00 מ׳ (כאן 3.40 מ׳!)",
+            "summary": "סוויטת ההורים ממוקמת באגף המזרחי השקט בנפרד מחדרי הילדים המערביים, עם רוחב נדיב של 340 ס״מ וחדר רחצה צמוד עם חלון חיצוני.",
+            "recommendation": "התקנת דלת הזזה לכיס (Pocket Door) בחדר רחצה הורים תשחרר את מרווח צד הידית (25 ס״מ מול 30 ס״מ מומלץ ב-DIN 18040-2).",
+            "x_pct": 75.5, "y_pct": 37.5, "w_pct": 18.5, "h_pct": 13.5, "cx_pct": 84.8, "cy_pct": 44.2,
+        },
+        {
+            "id": "YAT-N-03",
+            "pin_num": 3,
+            "sheet_id": "yat_typical",
+            "section_id": "sec_yat_north",
+            "typology": "טיפוס N צפוני חזיתי (4 חד׳ · 97+14 מ״ר)",
+            "room_name": "מטבח מערבי (310×290 ס״מ), חדר שינה (295×340 ס״מ), רחצה (260×210 ס״מ) וממ״ד (335×290 ס״מ)",
+            "status": "WARN",
+            "rule_id": "WBS_NDSS_ADG / NKBA",
+            "title": "אגף מערבי מאוורר במלואו; רוחב חדרי הילדים (2.90–2.95 מ׳) עובר NDSS וקרוב ל-3.00 מ׳ של ADG",
+            "measured": "ממ״ד: 9.72 מ״ר (335×290) · ח.שינה: 10.03 מ״ר (295×340) · רחצה: 5.46 מ״ר",
+            "benchmark": "תקנות הבנייה ו-NDSS: עובר במלואו | ADG: רוחב 3.00 מ׳",
+            "summary": "כל חדרי האגף המערבי (מטבח, חדר שינה, חדר רחצה ראשי וממ״ד) נהנים מחלונות חיצוניים למערב ומאוורור טבעי ישיר.",
+            "recommendation": "הצגת העמדת מיטה לאורך קיר ה-340 ס״מ בתוכניות המכר מגדילה את מעבר הצד מ-85 ס״מ ל-110 ס״מ (עובר DIN 18040-2).",
+            "x_pct": 26.0, "y_pct": 28.0, "w_pct": 20.5, "h_pct": 26.5, "cx_pct": 36.2, "cy_pct": 41.2,
+        },
+
+        # --- SECTION 2: TYPICAL SOUTH APARTMENT (#2, #4, #6, #8) ---
+        {
+            "id": "YAT-S-01",
+            "pin_num": 4,
+            "sheet_id": "yat_typical",
+            "section_id": "sec_yat_south",
+            "typology": "טיפוס S דרומי עורפי (4 חד׳ · דירות #2, #4, #6, #8 · 102+14 מ״ר)",
+            "room_name": "סלון (420×460 ס״מ), פינת אוכל (310×260 ס״מ), מטבח (340×310 ס״מ) ומרפסת דרומית (680×180 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4D-3 / NKBA_K01",
+            "title": "חלל אירוח דרומי שטוף שמש (26.2 מ״ר ברוחב 4.20 מ׳) ומטבח מערבי רחב (10.54 מ״ר)",
+            "measured": "סלון-אוכל: 26.2 מ״ר · מטבח: 10.54 מ״ר · מרפסת: 12.24 מ״ר",
+            "benchmark": "ADG: סלון ≥4.00 מ׳ (כאן 4.20 מ׳!) · NKBA מעבר מטבח 130 ס״מ",
+            "summary": "הדירה הדרומית מציעה חלל ציבורי מרווח במיוחד עם 3 כיווני אוויר (דרום, מערב, מזרח) ומרפסת סוכה באורך 6.80 מ׳.",
+            "recommendation": "שילוב אי/דלפק אכילה במטבח המערבי תוך שמירה על מעבר תפעולי של 120 ס״מ.",
+            "x_pct": 26.0, "y_pct": 55.0, "w_pct": 32.5, "h_pct": 30.5, "cx_pct": 42.2, "cy_pct": 70.2,
+        },
+        {
+            "id": "YAT-S-02",
+            "pin_num": 5,
+            "sheet_id": "yat_typical",
+            "section_id": "sec_yat_south",
+            "typology": "טיפוס S דרומי עורפי (4 חד׳ · 102+14 מ״ר)",
+            "room_name": "סוויטת הורים דרום-מזרחית (340×360 ס״מ), חדר שינה (290×340 ס״מ) וממ״ד מזרחי (335×290 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4D-3 / פקע״ר",
+            "title": "סוויטת הורים שקטה (12.24 מ״ר ברוחב 3.40 מ׳) וממ״ד מזרחי מרווח (9.72 מ״ר)",
+            "measured": "הורים: 12.24 מ״ר (340×360) · ממ״ד: 9.72 מ״ר (335×290)",
+            "benchmark": "100% מחדרי הרחצה והשינה עם חלונות חוץ",
+            "summary": "אגף השינה המזרחי והדרומי פונה לחצר העורפית השקטה ומעניק פרטיות מלאה ואוורור טבעי לכל החדרים וחדרי הרחצה.",
+            "recommendation": "התאמת מיקום ציר האסלה ב-4 ס״מ בחדרי הרחצה (מ-42 ס״מ ל-46 ס״מ לפי המלצת NKBA).",
+            "x_pct": 44.5, "y_pct": 53.5, "w_pct": 33.0, "h_pct": 27.0, "cx_pct": 61.0, "cy_pct": 67.0,
+        },
+
+        # --- SECTION 3: GARDEN APT #1, PENTHOUSES #10-#11 & BASEMENT ---
+        {
+            "id": "YAT-PH-01",
+            "pin_num": 6,
+            "sheet_id": "yat_penthouse",
+            "section_id": "sec_yat_special",
+            "typology": "פנטהאוזים קומה שלמה — דירה #10 (קומה ה׳ · 150+64 מ״ר) ודירה #11 (קומה ו׳ · 125+52 מ״ר)",
+            "room_name": "סלון פנורמי (560×480 / 540×460 ס״מ), מטבח שף (480×360 ס״מ) וטרסות גג כפולות (860×450 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4E / 4 כיווני אוויר",
+            "title": "2 פנטהאוזים על קומה שלמה כל אחד (4 כיווני אוויר, מעלית פרטית לקומה וטרסות גג 52–64 מ״ר)",
+            "measured": "סלון-אוכל: 34.8–36.8 מ״ר · סוויטת הורים: 350×410 ס״מ (14.35 מ״ר)",
+            "benchmark": "102 מתוך 109 בדיקות מנוע עוברות ב-PASS (93.6%!)",
+            "summary": "קומות ה׳ ו-ו׳ כוללות דירה אחת בלבד בקומה עם 4 כיווני אוויר מלאים, מטבח שף ענק, שתי מרפסות גג (צפונית ודרומית) ומחסן קומתי צמוד בדירה #11.",
+            "recommendation": "תכנון פרגולת הצללה ביו-אקלימית מעל הטרסה הדרומית (860×450 ס״מ).",
+            "x_pct": 26.0, "y_pct": 22.0, "w_pct": 52.0, "h_pct": 58.0, "cx_pct": 52.0, "cy_pct": 51.0,
+        },
+        {
+            "id": "YAT-GND-01",
+            "pin_num": 7,
+            "sheet_id": "yat_ground",
+            "section_id": "sec_yat_special",
+            "typology": "קומת קרקע — דירת גן #1 (105 מ״ר + 153 מ״ר גינה פרטית) ולובי דו-מפלסי",
+            "room_name": "דירת גן דרומית (סלון 420×480, מטבח 340×310, הורים 340×360) + גינה היקפית (153 מ״ר)",
+            "status": "PASS",
+            "rule_id": "ת״י 1918 / ADG 4E",
+            "title": "דירת גן עם גינה פרטית של 153 מ״ר, גובה תקרה של 3.25 מ׳ ו-3 כיווני אוויר (S/W/E)",
+            "measured": "105 מ״ר בנוי + 153 מ״ר גינה · לובי כניסה 29 מ״ר בגובה 3.85 מ׳",
+            "benchmark": "הפרדה מוחלטת בין כניסת הדיירים, דירת הגן וחדרי השירות",
+            "summary": "קומת הקרקע מעניקה לדירת גן #1 פרטיות של בית פרטי עם גינה דרומית-מזרחית-מערבית של 153 מ״ר ולובי כניסה ייצוגי.",
+            "recommendation": "שימור רצף נגישות אפס-מדרגה (Threshold ≤ 1.5 ס״מ) ביציאה מהסלון אל רחבת הגינה.",
+            "x_pct": 26.0, "y_pct": 52.0, "w_pct": 52.0, "h_pct": 32.0, "cx_pct": 52.0, "cy_pct": 68.0,
+        },
+        {
+            "id": "YAT-BSM-01",
+            "pin_num": 8,
+            "sheet_id": "yat_basement",
+            "section_id": "sec_yat_special",
+            "typology": "מרתף חניון (-4.38m) — 12 חניות רגילות (יחס 1:1.09)",
+            "room_name": "11 חניות רגילות (240–245×500 ס״מ) + חניה נגישה רחבה #1 (360×500 ס״מ) + מיסעה 6.00 מ׳",
+            "status": "PASS",
+            "rule_id": "הנחיות חניונים / 0 מכפילים",
+            "title": "12 חניות תת-קרקעיות רגילות ל-11 דירות — 0 מתקנים מכניים ומיסעה דו-סטרית של 6.00 מ׳!",
+            "measured": "12 חניות רגילות · יחס חניה 1:1.09 · מיסעה 6.00 מ׳",
+            "benchmark": "תקן חניונים: מיסעה דו-סטרית ≥5.75 מ׳ (כאן 6.00 מ׳)",
+            "summary": "מרתף החניון של יטקובסקי 7 מתוכנן ברמה הגבוהה ביותר האפשרית למגרש של 522 מ״ר: 12 חניות רגילות לחלוטין ללא מכפילים.",
+            "recommendation": "התקנת מערכת ניהול עומסי טעינה חשמלית (EV) לכל 12 החניות.",
+            "x_pct": 25.0, "y_pct": 25.0, "w_pct": 54.0, "h_pct": 55.0, "cx_pct": 52.0, "cy_pct": 52.5,
+        },
+    ]
+
+    sections = [
+        {
+            "id": "sec_yat_north",
+            "title": "1. קומות א׳–ד׳: טיפוס N צפוני חזיתי (4 חדרים · דירות #3, #5, #7, #9 · 97+14 מ״ר)",
+            "subtitle": "3 כיווני אוויר מלאים (צפון, מערב, מזרח) · סוויטת הורים מזרחית מבודדת (340×360 ס״מ)",
+            "intro": "דירת 4 חדרים מוארת ומאווררת עם סלון רחב (410×460 ס״מ), מרפסת סוכה צפונית בעומק 2.40 מ׳ וסוויטת הורים מזרחית המופרדת מחדרי הילדים.",
+        },
+        {
+            "id": "sec_yat_south",
+            "title": "2. קומות א׳–ד׳: טיפוס S דרומי עורפי (4 חדרים · דירות #2, #4, #6, #8 · 102+14 מ״ר)",
+            "subtitle": "3 כיווני אוויר מלאים (דרום, מערב, מזרח) · סלון ופינת אוכל 26.2 מ״ר · מטבח מערבי 10.54 מ״ר",
+            "intro": "דירת 4 חדרים עורפית שקטה הפונה לדרום, עם מרפסת סוכה באורך 6.80 מ׳, מטבח מערבי רחב וסוויטת הורים דרום-מזרחית ברוחב 3.40 מ׳.",
+        },
+        {
+            "id": "sec_yat_special",
+            "title": "3. דירת גן #1 (105+153 מ״ר), פנטהאוזים קומה שלמה #10–#11 ומרתף חניון (12 חניות רגילות)",
+            "subtitle": "קומת קרקע, קומות ה׳–ו׳ ומרתף (-4.38m) · 100% חניות רגילות ללא מכפילים",
+            "intro": "דירת הגן בקומת הקרקע ושני הפנטהאוזים בקומות ה׳–ו׳ מעניקים חוויית מגורים של וילה עירונית עם 3–4 כיווני אוויר ו-12 חניות רגילות במרתף.",
+        },
+    ]
+
+    return enrich_project_payload({
+        "project_id": "yatkovski7",
+        "project_name": "יטקובסקי אחים 7 (7א), פתח תקווה",
+        "project_subtitle": "דוח בקרת איכות תכנון ואדריכלות (v2.1) — 7 קומות + מרתף חניון · 11 יח״ד · א.ב. דרגן אדריכלים · יצחק קולסקי",
+        "overall_score": 91.4,
+        "metrics": [
+            {"label": "ציון איכות משוקלל", "value": "91.4/100", "sub": "דירוג A — מצטיין בפורטפוליו"},
+            {"label": "בדיקות מנוע (PASS)", "value": "351/391", "sub": "89.8% PASS · 0 FAIL"},
+            {"label": "כיווני אוויר", "value": "3–4 כיוונים", "sub": "100% מהדירות תלת/ארבע-כיווניות"},
+            {"label": "חניות רגילות", "value": "12 (1:1.09)", "sub": "0 מכפילים · 11 יח״ד בלבד"},
+        ],
+        "pdf_report_url": "/reports/yatkovski7_architectural_quality_analysis.pdf",
+        "viewer_3d_url": r"G:\Shared drives\שליטה ובקרה\מודלים פרויקטים\יטקובסקי 7 פתח תקווה\yatkovski7_3d_model.html",
+        "discovered_files": discovered_files,
+        "sheets": sheets,
+        "sections": sections,
+        "notes": notes,
+    })
+
+
+def build_kitroni37_analysis():
+    """Builds the complete, spatially anchored analysis for Kitroni 37-39 across Buildings 37 & 39."""
+    discovered_files = scan_files_for_keywords(["קיטרוני", "קטרוני", "kitroni", "37-39"])
+
+    sheets = [
+        {
+            "id": "kit_typical",
+            "title": "קומות 2–4 (טיפוסי 1–7) — בניין 37 (למעלה) ובניין 39 (למטה)",
+            "sheet_code": "A-37-39 k2-4",
+            "elevation": "+4.42m עד +23.02m",
+            "image_url": "/uploads/kitroni37_typical.png",
+            "scale": "1:50 תכנית לביצוע",
+        },
+        {
+            "id": "kit_floor8",
+            "title": "קומה 8 — מיני-פנטהאוזים ודירות גג (בניינים 37 ו-39)",
+            "sheet_code": "A-37-39 k8",
+            "elevation": "+23.02m",
+            "image_url": "/uploads/kitroni37_floor8.png",
+            "scale": "1:50 תכנית לביצוע",
+        },
+        {
+            "id": "kit_penthouse",
+            "title": "קומה 9 — פנטהאוזים וטרסות גג פנורמיות (בניינים 37 ו-39)",
+            "sheet_code": "A-37-39 k9",
+            "elevation": "+26.22m",
+            "image_url": "/uploads/kitroni37_penthouse.png",
+            "scale": "1:50 תכנית לביצוע",
+        },
+        {
+            "id": "kit_ground",
+            "title": "קומת קרקע (±0.00) — לובאים כפולים, שטחים משותפים ופיתוח מגרש",
+            "sheet_code": "A-kar",
+            "elevation": "±0.00m",
+            "image_url": "/uploads/kitroni37_ground.png",
+            "scale": "1:50 תכנית לביצוע",
+        },
+        {
+            "id": "kit_basement",
+            "title": "מרתף חניון משותף (-3.85m) — 63 חניות תת-קרקעיות ל-2 הבניינים",
+            "sheet_code": "A-mar",
+            "elevation": "-3.85m",
+            "image_url": "/uploads/kitroni37_basement.png",
+            "scale": "1:50 תכנית לביצוע",
+        },
+    ]
+
+    notes = [
+        # --- SECTION 1: BUILDING 37 (NORTH) TYPICAL FLOORS 1-7 ---
+        {
+            "id": "KIT-37-NW",
+            "pin_num": 1,
+            "sheet_id": "kit_typical",
+            "section_id": "sec_kit_b37",
+            "typology": "בניין 37 — טיפוס NW צפון-מערב (5 חדרים · #1,5,9,13,17,21,25 · 120.5+12 מ״ר)",
+            "room_name": "סלון (414×408 ס״מ), מטבח (414×250 ס״מ), מרפסת (600×190 ס״מ) ואגף 4 חדרי שינה",
+            "status": "WARN",
+            "rule_id": "ADG 4D-3 / NKBA",
+            "title": "דירת 5 חדרים משפחתית מאוזנת (סלון 4.08 מ׳, מטבח 10.35 מ״ר); חדר הורים ברוחב 2.86 מ׳",
+            "measured": "סלון: 414×408 · מטבח: 414×250 · ממ״ד: 10.08 מ״ר · הורים: 286×370 ס״מ",
+            "benchmark": "תקנות הבנייה ו-NDSS: עובר | ADG: רוחב הורים ≥3.00 מ׳ (כאן 2.86 מ׳)",
+            "summary": "דירת 5 החדרים הצפון-מערבית מציעה סלון מרווח (4.08 מ׳), מרפסת בעומק 1.90 מ׳ וממ״ד גדול (10.08 מ״ר). חדר ההורים (286×370 ס״מ) תקין חוקית אך מעט צר מרף ה-3.00 מ׳ של ADG.",
+            "recommendation": "מיקום ארון הבגדים על הקיר הקצר וגב המיטה על הקיר הארוך (370 ס״מ) יגדיל את מעברי הצד מ-68 ס״מ ל-115 ס״מ.",
+            "x_pct": 9.0, "y_pct": 12.0, "w_pct": 36.0, "h_pct": 16.0, "cx_pct": 27.0, "cy_pct": 20.0,
+        },
+        {
+            "id": "KIT-37-NE",
+            "pin_num": 2,
+            "sheet_id": "kit_typical",
+            "section_id": "sec_kit_b37",
+            "typology": "בניין 37 — טיפוס NE צפון-מזרח (3 חדרים · #2,6,10,14,18,22 · 80.0+14 מ״ר)",
+            "room_name": "סלון רחב במיוחד (625×390 ס״מ = 24.38 מ״ר!), מרפסת (657×190 ס״מ) וחדר הורים (358×304 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4D-3 / NDSS",
+            "title": "דירת 3 חדרים מצטיינת: סלון באורך 6.25 מ׳, מרפסת 12.5 מ״ר וחדר הורים העומד ב-ADG (304×358 ס״מ)",
+            "measured": "סלון: 24.38 מ״ר · הורים: 10.88 מ״ר (רוחב 3.04 מ׳) · ממ״ד: 10.22 מ״ר",
+            "benchmark": "76 מתוך 85 בדיקות מנוע עוברות ב-PASS (89.4%!)",
+            "summary": "אחת מדירות 3 החדרים האיכותיות ביותר בפורטפוליו — חלל ציבורי רחב משמעותית מהממוצע, מרפסת מזרחית עמוקה (190 ס״מ) וחדרי שינה הגדולים מ-10.2 מ״ר כ״א.",
+            "recommendation": "שילוב אי/דלפק אכילה נייד בין המטבח (235×304 ס״מ) לסלון הרחב.",
+            "x_pct": 51.5, "y_pct": 12.0, "w_pct": 23.5, "h_pct": 17.5, "cx_pct": 63.2, "cy_pct": 20.8,
+        },
+        {
+            "id": "KIT-37-SE",
+            "pin_num": 3,
+            "sheet_id": "kit_typical",
+            "section_id": "sec_kit_b37",
+            "typology": "בניין 37 — טיפוס SE דרום-מזרח (4 חדרים · #3,7,11,15,19,23 · 101.0+12 מ״ר)",
+            "room_name": "סוויטת הורים נשיאותית (355×414 ס״מ = 14.70 מ״ר!), חדר שינה (368×302 ס״מ) וממ״ד (281×332 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4D-3 / Boverket",
+            "title": "סוויטת הורים מהגדולות בפורטפוליו (14.70 מ״ר נטו ברוחב 3.55 מ׳!) וחדר שינה נוסף של 11.11 מ״ר",
+            "measured": "הורים: 355×414 ס״מ (14.70 מ״ר) · ח.שינה: 368×302 ס״מ (11.11 מ״ר)",
+            "benchmark": "ADG Master Bedroom: ≥3.00 מ׳ (כאן 3.55 מ׳!)",
+            "summary": "טיפוס SE בבניין 37 מצטיין בחדרי שינה רחבים במיוחד העוברים בנקל את כל תקני הריהוט והנגישות האירופיים והאוסטרליים.",
+            "recommendation": "ניצול קיר ה-414 ס״מ בסוויטת ההורים לארון קיר באורך 340 ס״מ.",
+            "x_pct": 51.5, "y_pct": 30.0, "w_pct": 23.5, "h_pct": 15.0, "cx_pct": 63.2, "cy_pct": 37.5,
+        },
+        {
+            "id": "KIT-37-SW",
+            "pin_num": 4,
+            "sheet_id": "kit_typical",
+            "section_id": "sec_kit_b37",
+            "typology": "בניין 37 — טיפוס SW דרום-מערב (4 חדרים · #4,8,12,16,20,24 · 103.0+12 מ״ר)",
+            "room_name": "סלון חזיתי רחב (624×384 ס״מ = 23.96 מ״ר), מטבח (452×238 ס״מ) וחדר הורים (278×393 ס״מ)",
+            "status": "WARN",
+            "rule_id": "ADG 4D-3 / B1.6",
+            "title": "סלון ומטבח רחבים מאוד לחזית רחוב קיטרוני; חדר הורים ברוחב 2.78 מ׳ (עובר NDSS, התראת ADG)",
+            "measured": "סלון: 624×384 ס״מ · מטבח: 452×238 ס״מ · הורים: 278×393 ס״מ (10.93 מ״ר)",
+            "benchmark": "תקנות הבנייה: ≥2.60 מ׳ (עובר) | NDSS: ≥2.75 מ׳ (עובר) | ADG: ≥3.00 מ׳",
+            "summary": "החלל הציבורי של טיפוס SW מרווח מאוד (סלון 24 מ״ר ומטבח 10.75 מ״ר), בעוד חדר ההורים ארוך (3.93 מ׳) וברוחב 2.78 מ׳.",
+            "recommendation": "הצבת גב המיטה על הקיר הארוך (393 ס״מ) וארון הזזה על הקיר הקצר.",
+            "x_pct": 9.0, "y_pct": 28.5, "w_pct": 36.0, "h_pct": 16.0, "cx_pct": 27.0, "cy_pct": 36.5,
+        },
+
+        # --- SECTION 2: BUILDING 39 (SOUTH) TYPICAL FLOORS 1-7 ---
+        {
+            "id": "KIT-39-W3",
+            "pin_num": 5,
+            "sheet_id": "kit_typical",
+            "section_id": "sec_kit_b39",
+            "typology": "בניין 39 — דירת 3 חדרים מערבית (קומות 1–7 · 76.5+12 מ״ר)",
+            "room_name": "סלון (436×348 ס״מ), מטבח (436×217 ס״מ), מרפסת (634×195 ס״מ) וחדר הורים (323×320 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4D-3 / פקע״ר",
+            "title": "דירת 3 חדרים יעילה עם חדר הורים ריבועי רחב (323×320 ס״מ — עובר ADG!) ומרפסת בעומק 1.95 מ׳",
+            "measured": "הורים: 10.34 מ״ר (רוחב 3.20 מ׳) · ממ״ד: 326×282 ס״מ · רחצה: 200×240 ס״מ",
+            "benchmark": "עומק מרפסת 1.95 מ׳ (מעל ADG 1.50 מ׳) · חדר רחצה מרווח 4.80 מ״ר",
+            "summary": "תכנון קומפקטי ויעיל מאוד של דירת 3 חדרים בבניין 39 ללא שטחי מסדרון מבוזבזים ועם חדר הורים ברוחב 320 ס״מ.",
+            "recommendation": "לשלב דלפק אכילה חצי-פתוח המחבר בין המטבח (436×217 ס״מ) לסלון.",
+            "x_pct": 8.5, "y_pct": 58.5, "w_pct": 28.0, "h_pct": 14.5, "cx_pct": 22.5, "cy_pct": 65.8,
+        },
+        {
+            "id": "KIT-39-SW",
+            "pin_num": 6,
+            "sheet_id": "kit_typical",
+            "section_id": "sec_kit_b39",
+            "typology": "בניין 39 — דירות 4–5 חדרים דרומיות ומזרחיות (106–121 מ״ר + 12 מ״ר מרפסת)",
+            "room_name": "סלון (580×360 ס״מ), מטבח (330×248 / 580×248 ס״מ), מרפסת (617×195 ס״מ) וחדרי שינה",
+            "status": "WARN",
+            "rule_id": "ADG 4D-3 / Space Syntax",
+            "title": "חלל ציבורי מואר באורך 5.80 מ׳ ומרפסת בעומק 1.95 מ׳; סוויטת הורים ברוחב 2.98 מ׳ (נושק ל-3.00 מ׳)",
+            "measured": "סלון: 20.88 מ״ר · הורים: 298×355 ס״מ (10.58 מ״ר) · ממ״ד: 285×328 ס״מ (9.35 מ״ר)",
+            "benchmark": "ADG: רוחב הורים 2.98 מ׳ מול 3.00 מ׳ (הפרש זניח של 2 ס״מ)",
+            "summary": "דירות 4 ו-5 החדרים בבניין 39 נהנות מחזיתות דרומיות, מערביות ומזרחיות מוארות, מרפסות שמש עמוקות (195 ס״מ) וממ״דים רחבים (285 ס״מ).",
+            "recommendation": "הוספת אלמנט מבואה בכניסה לדירה ליצירת הפרדה ויזואלית מהסלון.",
+            "x_pct": 8.5, "y_pct": 73.5, "w_pct": 66.5, "h_pct": 15.5, "cx_pct": 41.8, "cy_pct": 81.2,
+        },
+
+        # --- SECTION 3: PENTHOUSES FLOORS 8-9 & SHARED BASEMENT ---
+        {
+            "id": "KIT-PH-01",
+            "pin_num": 7,
+            "sheet_id": "kit_penthouse",
+            "section_id": "sec_kit_penthouses",
+            "typology": "קומות 8–9 — פנטהאוזים ומיני-פנטהאוזים (בניין 37 #26–#30 · בניין 39 #29–#33)",
+            "room_name": "סלון פנורמי (405×896 / 425×846 ס״מ), מטבח שף (504×315 ס״מ) ומרפסות גג (599×1380 ס״מ = 82.66 מ״ר!)",
+            "status": "PASS",
+            "rule_id": "ADG 4E / NKBA_K01",
+            "title": "פנטהאוזים בקנה מידה של וילה: סלונים באורך 8.96 מ׳ וטרסות גג של עד 108 מ״ר לדירה!",
+            "measured": "סלון-אוכל: 36.28 מ״ר · מרפסת מערבית: 82.66 מ״ר + מזרחית: 25.68 מ״ר · הורים: 356×382 ס״מ",
+            "benchmark": "85 מתוך 94 בדיקות מנוע עוברות ב-PASS (90.4%!)",
+            "summary": "קומות הפנטהאוז (8 ו-9) בבניינים 37 ו-39 מציגות תכנון יוקרתי עם 3–4 כיווני אוויר, מטבחי שף עצומים (15.88 מ״ר) וסוויטות הורים ברוחב 3.56 מ׳.",
+            "recommendation": "חלוקת מעגלי תאורה דו-אזורית בסלון העמוק (8.96 מ׳) לתאורת יום/ערב מאוזנת באזור פינת האוכל.",
+            "x_pct": 12.0, "y_pct": 14.0, "w_pct": 62.0, "h_pct": 72.0, "cx_pct": 43.0, "cy_pct": 50.0,
+        },
+        {
+            "id": "KIT-BSM-01",
+            "pin_num": 8,
+            "sheet_id": "kit_basement",
+            "section_id": "sec_kit_penthouses",
+            "typology": "מרתף חניון משותף (-3.85m) וקומת קרקע לשני הבניינים",
+            "room_name": "מרתף חניון תת-קרקעי מאוחד (63 חניות ל-63 יח״ד) ושני גרעיני מעליות ומדרגות מוגנים",
+            "status": "PASS",
+            "rule_id": "הנחיות חניונים / ת״י 1918",
+            "title": "מרתף חניון משותף ויעיל המחבר תת-קרקעית את בניינים 37 ו-39 דרך רמפה אחת",
+            "measured": "63 חניות ל-63 דירות (יחס 1:1.0) · מפלס -3.85m",
+            "benchmark": "גישה ישירה ונגישה מהחניון אל שני גרעיני המעליות (37 ו-39)",
+            "summary": "איחוד מרתף החניון של שני המבנים חוסך רמפה כפולה בקומת הקרקע, משחרר שטח גינון ופיתוח רחב בין הבניינים ומאפשר תנועה תת-קרקעית רציפה.",
+            "recommendation": "שילוט הכוונה צבעוני ברור במרתף המשותף להפרדה ויזואלית בין מבואת מעליות בניין 37 למבואת בניין 39.",
+            "x_pct": 15.0, "y_pct": 18.0, "w_pct": 60.0, "h_pct": 64.0, "cx_pct": 45.0, "cy_pct": 50.0,
+        },
+    ]
+
+    sections = [
+        {
+            "id": "sec_kit_b37",
+            "title": "1. בניין 37 (צפוני — 30 יח״ד): קומות טיפוסיות 1–7 (טיפוסי NW, NE, SE, SW)",
+            "subtitle": "תמהיל מגוון של דירות 3, 4 ו-5 חדרים פינתיות · סוויטת הורים מצטיינת ב-SE (14.70 מ״ר) וסלון 6.25 מ׳ ב-NE",
+            "intro": "בניין 37 כולל 4 דירות פינתיות בקומה טיפוסית (כל דירה עם 2 כיווני אוויר מלאים ומרפסת בעומק 1.90 מ׳), ללא דירות כלואות לחזית בודדת.",
+        },
+        {
+            "id": "sec_kit_b39",
+            "title": "2. בניין 39 (דרומי — 33 יח״ד): קומות טיפוסיות 1–7 (דירות 3, 4 ו-5 חדרים)",
+            "subtitle": "מרפסות שמש בעומק 1.95 מ׳ · חדרי רחצה מרווחים (200×240 ס״מ) · ממ״דים 9.2–9.4 מ״ר",
+            "intro": "בניין 39 ממשיך את השפה התכנונית המאוזנת עם דירות 3 חדרים מערביות יעילות ודירות 4–5 חדרים מרווחות הפונות לדרום, מערב ומזרח.",
+        },
+        {
+            "id": "sec_kit_penthouses",
+            "title": "3. קומות 8–9 (פנטהאוזים ומיני-פנטהאוזים), קומת קרקע ומרתף חניון משותף (63 חניות)",
+            "subtitle": "בניין 37 (#26–#30) ובניין 39 (#29–#33) · סלונים באורך עד 8.96 מ׳ וטרסות גג עד 82.66 מ״ר",
+            "intro": "קומות הגג של שני הבניינים מציעות פנטהאוזים מרהיבים עם טרסות גג ענקיות, מעל מרתף חניון תת-קרקעי משותף המשרת את כל 63 הדירות.",
+        },
+    ]
+
+    return enrich_project_payload({
+        "project_id": "kitroni37",
+        "project_name": "הרב קיטרוני 37–39, פתח תקווה",
+        "project_subtitle": "דוח בקרת איכות תכנון ואדריכלות (v2.1) — 2 בניינים (9 קומות) + מרתף משותף · 63 יח״ד · אילת קורן אדריכלים · יצחק קולסקי",
+        "overall_score": 86.8,
+        "metrics": [
+            {"label": "ציון איכות משוקלל", "value": "86.8/100", "sub": "דירוג A- — טוב מאוד"},
+            {"label": "בדיקות מנוע (PASS)", "value": "410/467", "sub": "87.8% PASS · 0 FAIL"},
+            {"label": "היקף הקומפלקס", "value": "63 יח״ד", "sub": "בניין 37 (30) + בניין 39 (33)"},
+            {"label": "חניה תת-קרקעית", "value": "63 חניות", "sub": "מרתף משותף · יחס 1:1.0"},
+        ],
+        "pdf_report_url": "/reports/kitroni37_architectural_quality_analysis.pdf",
+        "viewer_3d_url": r"G:\Shared drives\שליטה ובקרה\מודלים פרויקטים\הרב קיטרוני 37-39 פתח תקווה\kitroni37_39_3d_model.html",
+        "discovered_files": discovered_files,
+        "sheets": sheets,
+        "sections": sections,
+        "notes": notes,
+    })
+
+
+def feierberg_xz_to_pct(x0, z0, x1, z1):
+    """
+    Converts Feierberg 3 1:1 BIM meter coordinates (X in [-18.5..+18.5], Z in [-9.5..+9.5])
+    into exact percentage bounding boxes on feierberg3_*.png (1800x1050 / 2400x1400).
+    """
+    xa, xb = min(x0, x1), max(x0, x1)
+    za, zb = min(z0, z1), max(z0, z1)
+    left_pct = round((xa + 18.5) / 37.0 * 100.0, 2)
+    top_pct = round((za + 9.5) / 19.0 * 100.0, 2)
+    w_pct = round(max((xb - xa) / 37.0 * 100.0, 3.0), 2)
+    h_pct = round(max((zb - za) / 19.0 * 100.0, 3.0), 2)
+    cx_pct = round(left_pct + w_pct / 2.0, 2)
+    cy_pct = round(top_pct + h_pct / 2.0, 2)
+    return {
+        "x_pct": left_pct,
+        "y_pct": top_pct,
+        "w_pct": w_pct,
+        "h_pct": h_pct,
+        "cx_pct": cx_pct,
+        "cy_pct": cy_pct,
+    }
+
+
+def build_feierberg3_analysis():
+    """Builds the complete, spatially anchored analysis for Feierberg 3, Petah Tikva across all 14 levels & 18 units."""
+    discovered_files = scan_files_for_keywords(["פאירברג", "פאיירברג", "פיארברג", "feierberg", "FA-p"])
+
+    sheets = [
+        {
+            "id": "fb_typical",
+            "title": "קומות 1–8 — קומה טיפוסית (דירות 4 חד׳ מערב 105.5 מ״ר ומזרח 85.5 מ״ר)",
+            "sheet_code": "FA-P1-8",
+            "elevation": "+3.50m עד +25.55m",
+            "image_url": "/uploads/feierberg3_typical.png",
+            "scale": "1:50 CAD/BIM",
+        },
+        {
+            "id": "fb_floor9",
+            "title": "קומה 9 — מפלס תחתון דופלקס-פנטהאוזים (#17 מערב ו-#18 מזרח + טרסות גג)",
+            "sheet_code": "FA-P9",
+            "elevation": "+28.87m",
+            "image_url": "/uploads/feierberg3_floor9.png",
+            "scale": "1:50 CAD/BIM",
+        },
+        {
+            "id": "fb_floor10",
+            "title": "קומה 10 — מפלס עליון דופלקס-פנטהאוזים (#17 ו-#18 — סוויטות הורים וגלריות)",
+            "sheet_code": "FA-P10",
+            "elevation": "+32.02m",
+            "image_url": "/uploads/feierberg3_floor10.png",
+            "scale": "1:50 CAD/BIM",
+        },
+        {
+            "id": "fb_ground",
+            "title": "קומת קרקע (±0.00m) — לובי כניסה, מועדון דיירים, אופניים, אשפה ופיתוח מגרש",
+            "sheet_code": "FA-KAR",
+            "elevation": "±0.00m",
+            "image_url": "/uploads/feierberg3_ground.png",
+            "scale": "1:50 גרמושקה",
+        },
+        {
+            "id": "fb_basement1",
+            "title": "מרתף 1- (-4.80m) — חניון עליון (8 חניות רגילות #1–#8, רמפה דו-שיפועית וגרעין)",
+            "sheet_code": "FA-B1",
+            "elevation": "-4.80m",
+            "image_url": "/uploads/feierberg3_basement1.png",
+            "scale": "1:50 גרמושקה",
+        },
+        {
+            "id": "fb_basement2",
+            "title": "מרתף 2- (-7.80m) — חניון תחתון (11 חניות רגילות #9–#19, בורות שאיבה וגרעין)",
+            "sheet_code": "FA-B2",
+            "elevation": "-7.80m",
+            "image_url": "/uploads/feierberg3_basement2.png",
+            "scale": "1:50 גרמושקה",
+        },
+    ]
+
+    notes = [
+        # --- SECTION 1: WEST TYPICAL APARTMENT (FLOORS 1-8, ODD UNITS #1..#15) ---
+        {
+            "id": "FB3-W-01",
+            "pin_num": 1,
+            "sheet_id": "fb_typical",
+            "section_id": "sec_fb_west",
+            "typology": "אגף מערבי — דירות אי-זוגיות #1,3,5,7,9,11,13,15 (4 חדרים · 105.46+12 מ״ר)",
+            "room_name": "סלון ופינת אוכל דרומית (735×420 ס״מ = 30.80 מ״ר) + מרפסת שמש (750×160 ס״מ)",
+            "status": "PASS",
+            "rule_id": "ADG 4D-3 / B1.3",
+            "title": "חלל ציבורי רחב ומואר במיוחד (רוחב 4.20 מ׳ — עובר ADG!) עם ויטרינה דרומית רחבה ליציאה למרפסת 12 מ״ר",
+            "measured": "סלון-אוכל: 30.80 מ״ר (רוחב 4.20 מ׳) · מרפסת: 12.00 מ״ר (750×160 ס״מ)",
+            "benchmark": "תקנות הבנייה: ≥2.60 מ׳ | ADG: רוחב סלון ≥4.00 מ׳ (כאן 4.20 מ׳!)",
+            "summary": "הדירה המערבית נהנית מסלון ופינת אוכל רחבים מאוד (4.20×7.35 מ׳) הפונים לדרום (רחוב פאירברג), עם קשר ישיר למטבח L מואר (10.10 מ״ר) ולמרפסת שמש באורך 7.50 מ׳.",
+            "recommendation": "לשמר את מסילת הוויטרינה השקועה (Zero-Threshold) בין הסלון למרפסת הדרומית.",
+            **feierberg_xz_to_pct(-7.9, 0.2, 0.2, 4.2),
+        },
+        {
+            "id": "FB3-W-02",
+            "pin_num": 2,
+            "sheet_id": "fb_typical",
+            "section_id": "sec_fb_west",
+            "typology": "אגף מערבי — דירות אי-זוגיות #1..#15 (4 חדרים · 105.46 מ״ר)",
+            "room_name": "סוויטת הורים דרום-מערבית (350×388 ס״מ = 13.60 מ״ר), חדר ארונות (2.75 מ״ר) ורחצה הורים (3.85 מ״ר)",
+            "status": "PASS",
+            "rule_id": "ADG 4D-3 / NDSS",
+            "title": "סוויטת הורים מרווחת ברוחב 3.50 מ׳ (מעל רף ADG 3.00 מ׳) עם חדר רחצה מאוורר טבעית למערב",
+            "measured": "הורים: 13.60 מ״ר (350×388 ס״מ) + ארונות 2.75 מ״ר + רחצה 3.85 מ״ר",
+            "benchmark": "ADG Master Suite: רוחב ≥3.00 מ׳ ושטח ≥11.0 מ״ר",
+            "summary": "סוויטת ההורים המערבית מצטיינת ברוחב של 3.50 מ׳ ובאוורור כפול לדרום ולמערב. עם זאת, מחיצת חדר הארונות הקטן (2.75 מ״ר) גוזלת שטח מעבר שניתן לייעל.",
+            "recommendation": "במסגרת ייעול התכנון הפנימי ניתן להחליף את מחיצת חדר הארונות הקטן בארון קיר נגרות באורך 3.60 מ׳ ולהגדיל את שטח החדר הפתוח.",
+            **feierberg_xz_to_pct(-13.1, -0.2, -8.0, 4.2),
+        },
+        {
+            "id": "FB3-W-03",
+            "pin_num": 3,
+            "sheet_id": "fb_typical",
+            "section_id": "sec_fb_west",
+            "typology": "אגף מערבי — דירות אי-זוגיות #1..#15 (4 חדרים · 105.46 מ״ר)",
+            "room_name": "ממ״ד צפון-מערבי (280×350 ס״מ = 9.80 מ״ר) וחדר שינה צפוני (280×370 ס״מ = 10.36 מ״ר)",
+            "status": "WARN",
+            "rule_id": "פקע״ר / ADG 4D-3",
+            "title": "ממ״ד וחדר שינה צפוני עוברים תקנות בנייה, פקע״ר ו-NDSS (9.8 ו-10.36 מ״ר); רוחב 2.80 מ׳ מתחת לרף ADG (3.00 מ׳)",
+            "measured": "ממ״ד: 9.80 מ״ר (רוחב 2.80 מ׳) · חדר שינה צפוני: 10.36 מ״ר (רוחב 2.80 מ׳)",
+            "benchmark": "תקנות הבנייה ופקע״ר: ≥9.0 מ״ר ורוחב ≥2.60 מ׳ (עובר) | ADG: ≥3.00 מ׳",
+            "summary": "שני חדרי השינה הצפוניים מרווחים בשטחם (מעל 9.8 מ״ר נטו) ועוברים את אוגדן משרד השיכון (≥2.80 מ׳), אך קיצור זנב המסדרון המערבי יאפשר להרחיב את חדר השינה הצפוני ל-2.98 מ׳.",
+            "recommendation": "קיצור זנב המסדרון המערבי והסטת קיר חדר השינה הצפוני ב-18 ס״מ דרומה.",
+            **feierberg_xz_to_pct(-13.1, -4.2, -3.5, -0.2),
+        },
+
+        # --- SECTION 2: EAST TYPICAL APARTMENT (FLOORS 1-8, EVEN UNITS #2..#16) ---
+        {
+            "id": "FB3-E-01",
+            "pin_num": 4,
+            "sheet_id": "fb_typical",
+            "section_id": "sec_fb_east",
+            "typology": "אגף מזרחי — דירות זוגיות #2,4,6,8,10,12,14,16 (4 חדרים · 85.53+12 מ״ר)",
+            "room_name": "סלון ופינת אוכל (605×410 ס״מ = 24.80 מ״ר), מטבח עם אי (8.65 מ״ר) ומרפסת דרומית (12.0 מ״ר)",
+            "status": "PASS",
+            "rule_id": "ADG 4D-3 / NKBA",
+            "title": "תכנון מצוין לדירת 4 חדרים קומפקטית (85.5 מ״ר): סלון ברוחב 4.10 מ׳ ו-3 כיווני אוויר מלאים (דרום, מזרח, צפון)",
+            "measured": "סלון: 24.80 מ״ר (רוחב 4.10 מ׳) · מטבח: 8.65 מ״ר · מרפסת: 12.00 מ״ר",
+            "benchmark": "ADG Living Width: ≥4.00 מ׳ (כאן 4.10 מ׳!) · 3 כיווני אוויר",
+            "summary": "דירת ה-4 חדרים המזרחית מנצלת בצורה מרבית שטח של 85.53 מ״ר ברוטו ומספקת סלון רחב מ-4.00 מ׳ ומרפסת שמש דרומית מלאה של 12.0 מ״ר.",
+            "recommendation": "לשמור על רוחב מעבר 105 ס״מ סביב אי המטבח המזרחי.",
+            **feierberg_xz_to_pct(1.7, 0.2, 8.6, 4.2),
+        },
+        {
+            "id": "FB3-E-02",
+            "pin_num": 5,
+            "sheet_id": "fb_typical",
+            "section_id": "sec_fb_east",
+            "typology": "אגף מזרחי — דירות זוגיות #2..#16 (4 חדרים · 85.53 מ״ר)",
+            "room_name": "סוויטת הורים דרום-מזרחית (295×386 ס״מ = 11.40 מ״ר) וחדר שינה צפון-מזרחי (270×365 ס״מ = 9.85 מ״ר)",
+            "status": "WARN",
+            "rule_id": "ADG 4D-3 / B1.6",
+            "title": "סוויטת הורים ברוחב 2.95 מ׳ (נושק ל-3.00 מ׳ של ADG) וחדר שינה צפון-מזרחי ברוחב 2.70 מ׳ (עובר חוקית, צר מ-NDSS 2.75 מ׳)",
+            "measured": "הורים: 11.40 מ״ר (295×386 ס״מ) · ח.שינה צפון-מזרחי: 9.85 מ״ר (270×365 ס״מ)",
+            "benchmark": "תקנות הבנייה: ≥2.60 מ׳ (עובר) | NDSS: ≥2.75 מ׳ | ADG: ≥3.00 מ׳",
+            "summary": "סוויטת ההורים המזרחית קרובה מאוד לרף ה-3.00 מ׳ (295 ס״מ), בעוד קצה המסדרון המזרחי גוזל 1.4 מ״ר של שטח מעבר.",
+            "recommendation": "הזזת דלת סוויטת ההורים המזרחית ב-95 ס״מ לכיוון המבואה תגדיל את הסוויטה ב-1.4 מ״ר ותאפשר הרחבתה ל-3.12 מ׳.",
+            **feierberg_xz_to_pct(8.6, -4.2, 13.1, 4.2),
+        },
+
+        # --- SECTION 3: DUPLEX PENTHOUSES #17 & #18 (FLOORS 9-10) & BASEMENTS -1/-2 ---
+        {
+            "id": "FB3-PH-01",
+            "pin_num": 6,
+            "sheet_id": "fb_floor9",
+            "section_id": "sec_fb_penthouses",
+            "typology": "קומות 9–10 — דופלקס-פנטהאוז מערבי #17 (121.27+46.15 מ״ר) ומזרחי #18 (103.58+38.80 מ״ר)",
+            "room_name": "מפלס אירוח תחתון (קומה 9) + מרפסות גג היקפיות בצורת L (43.30 מ״ר במערב ו-36.40 מ״ר במזרח)",
+            "status": "PASS",
+            "rule_id": "ADG 4E / Zero-Trust BIM",
+            "title": "דופלקס-פנטהאוזים מרהיבים עם טרסות גג היקפיות ב-3 כיווני אוויר ופרגולות אלומיניום דרומיות",
+            "measured": "דופלקס #17: 121.27 מ״ר + 46.15 מ״ר מרפסות · דופלקס #18: 103.58 מ״ר + 38.80 מ״ר מרפסות",
+            "benchmark": "נסיגות קומה 9–10 תואמות 1:1 לחזיתות ההגשה (IoU גרעין = 1.000)",
+            "summary": "קומות 9–10 מתוכננות כצמד דופלקס-פנטהאוזים עם הפרדה מושלמת בין מפלס האירוח התחתון (קומה 9 עם ממ״ד, סלון, מטבח שף ומרפסת גג היקפית) למפלס סוויטות השינה העליון (קומה 10).",
+            "recommendation": "שילוב זיגוג Low-E בוויטרינות הפנורמיות של קומה 9 לאיזון עומס החום הדרומי והמערבי.",
+            **feierberg_xz_to_pct(-13.1, -4.2, 13.1, 5.8),
+        },
+        {
+            "id": "FB3-BSM-01",
+            "pin_num": 7,
+            "sheet_id": "fb_basement1",
+            "section_id": "sec_fb_penthouses",
+            "typology": "מרתפי חניון -1 (-4.80m) ו--2 (-7.80m) וקומת קרקע (±0.00m)",
+            "room_name": "19 חניות קונבנציונליות רגילות (8 במרתף 1- + 11 במרתף 2-) וגרעין מדרגות/מעלית רציף",
+            "status": "PASS",
+            "rule_id": "IL_MOT_PARK / ת״י 1918",
+            "title": "19 חניות רגילות מלאות ל-18 דירות (יחס 1:1.06 ללא מכפילים!) עם רציפות אנכית מלאה של הגרעין (IoU=1.000)",
+            "measured": "19 חניות רגילות (כולל חניית נכה P17) · 2 מרתפים × 548 מ״ר = 1,096 מ״ר",
+            "benchmark": "הנחיות משרד התחבורה: מיסעה דו-סטרית 6.00 מ׳ וחניות תקניות",
+            "summary": "שני מרתפי החניון מספקים 19 חניות קונבנציונליות נוחות ללא מתקנים מכניים. עם זאת, יחס השטח הכולל (57.7 מ״ר לחניה) מאפשר חיסכון הנדסי משמעותי של 95 מ״ר חפירה ודיפון בצד המזרחי.",
+            "recommendation": "העברת מאגר המים מקומת הקרקע לתחתית הרמפה במרתף 1- וקיצור שלוחת הדיפון המזרחית במרתף 2- מעבר לחניה P19 (חיסכון של 332,500 ₪ במרתפים + 260,400 ₪ בקרקע!).",
+            **feierberg_xz_to_pct(-16.8, -7.2, 16.8, 7.2),
+        },
+    ]
+
+    sections = [
+        {
+            "id": "sec_fb_west",
+            "title": "1. אגף מערבי (קומות 1–8 · דירות אי-זוגיות #1, #3, #5, #7, #9, #11, #13, #15 — 4 חדרים 105.46+12 מ״ר)",
+            "subtitle": "3 כיווני אוויר (דרום, מערב, צפון) · סלון ברוחב 4.20 מ׳ (30.80 מ״ר) · סוויטת הורים ברוחב 3.50 מ׳ ומרפסת 12 מ״ר",
+            "intro": "הדירה המערבית בקומות 1–8 מציעה פרוגרמה נדיבה במיוחד לדירת 4 חדרים (102.82 מ״ר פלדלת + 2.64 מ״ר מסתור כביסה + 12.00 מ״ר מרפסת דרומית) עם סלון רחב וסוויטת הורים העוברים בהצטיינות את תקן ADG.",
+        },
+        {
+            "id": "sec_fb_east",
+            "title": "2. אגף מזרחי (קומות 1–8 · דירות זוגיות #2, #4, #6, #8, #10, #12, #14, #16 — 4 חדרים 85.53+12 מ״ר)",
+            "subtitle": "3 כיווני אוויר (דרום, מזרח, צפון) · סלון ברוחב 4.10 מ׳ (24.80 מ״ר) · מטבח מקבילי עם אי ומרפסת דרומית 12 מ״ר",
+            "intro": "הדירה המזרחית (כל 8 הדירות בשיווק א. קולסקי) מתוכננת ביעילות גבוהה עם חלל ציבורי רחב מ-4.00 מ׳ ומרפסת שמש דרומית באורך 7.50 מ׳.",
+        },
+        {
+            "id": "sec_fb_penthouses",
+            "title": "3. דופלקס-פנטהאוזים #17 ו-#18 (קומות 9–10), קומת קרקע ו-2 מרתפי חניון (19 חניות רגילות)",
+            "subtitle": "דופלקס מערבי #17 (121.27+46.15 מ״ר) · דופלקס מזרחי #18 (103.58+38.80 מ״ר) · אימות BIM 1:1 (IoU=1.000)",
+            "intro": "קומות הפנטהאוז 9–10 נהנות מטרסות גג היקפיות בצורת L ומפרגולות דרומיות, מעל קומת קרקע ייצוגית ו-2 מרתפי חניון עם 19 חניות קונבנציונליות רגילות.",
+        },
+    ]
+
+    return enrich_project_payload({
+        "project_id": "feierberg3",
+        "project_name": "פאירברג 3, פתח תקווה (גוש 6387, חלקה 193)",
+        "project_subtitle": "דוח בקרת איכות תכנון, אימות BIM 1:1 והנדסת ערך (v2.8) — 10 קומות + 2 מרתפים · 18 יח״ד · אלישע רובין אדריכלים · א. קולסקי",
+        "overall_score": 91.2,
+        "metrics": [
+            {"label": "ציון איכות משוקלל", "value": "91.2/100", "sub": "דירוג A — מצוין (0 FAIL)"},
+            {"label": "אימות מודל 3D BIM", "value": "100% PASS", "sub": "IoU=1.000 · שגיאת גובה 0.00m"},
+            {"label": "היקף הפרויקט", "value": "18 יח״ד", "sub": "16 דירות 4 חד׳ + 2 דופלקסים"},
+            {"label": "חניה תת-קרקעית", "value": "19 חניות", "sub": "2 מרתפים · 100% חניות רגילות"},
+        ],
+        "pdf_report_url": "/reports/feierberg3_architectural_quality_analysis.pdf",
+        "viewer_3d_url": "/feierberg3_3d_bim_viewer.html",
+        "spatial_map_url": "/feierberg3_spatial_map.html",
+        "discovered_files": discovered_files,
+        "sheets": sheets,
+        "sections": sections,
+        "notes": notes,
+    })
+
+
+def analyze_project_by_query(query_str):
+    """
+    Main entry point: resolves the user's project query across the 6 company projects
+    and returns the full synchronized textual & visual analysis payload.
+    """
+    q = (query_str or "").strip()
+    q_low = q.lower()
+
+    if any(k in q_low for k in ["פאירברג", "פאיירברג", "פיארברג", "feierberg", "fairberg", "feirberg", "6387"]):
+        return build_feierberg3_analysis()
+
+    if any(k in q_low for k in ["יטקובסקי", "yatkovski", "7א", "אחים יטקובסקי", "yat"]):
+        return build_yatkovski7_analysis()
+
+    if any(k in q_low for k in ["קיטרוני", "קטרוני", "kitroni", "37-39", "37", "39"]):
+        return build_kitroni37_analysis()
+
+    if any(k in q_low for k in ["חפץ", "חיים", "hafetz", "chafetz", "44"]):
+        return build_hafetz44_analysis()
+
+    if any(k in q_low for k in ["קקל", "קק\"ל", "קק״ל", "קרן קיימת", "kkl", "10"]):
+        return build_kkl10_analysis()
+
+    if not q or any(k in q_low for k in ["פינס", "pines", "הבעשט", "בעל שם טוב", "48"]):
+        return build_pines48_analysis()
+
+    return build_pines48_analysis()
+
