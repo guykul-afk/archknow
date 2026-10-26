@@ -51,8 +51,8 @@ OPTIMAL_CORRIDOR_MAX_RATIO = 0.078   # 7.8% of apartment net area
 # =============================================================================
 PROJECT_OPTIMIZATION_PROFILES = {
     "pines48": {
-        "baseline_dry_cladding_pct": 85.0,
-        "recommended_plaster_conversion_pct": 35.0,  # Convert 35% of opaque area (from 85% dry / 15% plaster -> 50% dry / 50% plaster)
+        "baseline_dry_cladding_pct": 0.0,
+        "recommended_plaster_conversion_pct": 0.0,  # Convert 35% of opaque area (from 85% dry / 15% plaster -> 50% dry / 50% plaster)
         "above_ground_items": [
             {
                 "id": "P48-OPT-AG1",
@@ -148,8 +148,8 @@ PROJECT_OPTIMIZATION_PROFILES = {
     },
 
     "kkl10": {
-        "baseline_dry_cladding_pct": 85.0,
-        "recommended_plaster_conversion_pct": 35.0,
+        "baseline_dry_cladding_pct": 26.3,
+        "recommended_plaster_conversion_pct": 22.9,
         "above_ground_items": [
             {
                 "id": "KKL-OPT-AG1",
@@ -245,8 +245,8 @@ PROJECT_OPTIMIZATION_PROFILES = {
     },
 
     "hafetz44": {
-        "baseline_dry_cladding_pct": 85.0,
-        "recommended_plaster_conversion_pct": 35.0,
+        "baseline_dry_cladding_pct": 30.3,
+        "recommended_plaster_conversion_pct": 25.2,
         "above_ground_items": [
             {
                 "id": "H44-OPT-AG1",
@@ -317,8 +317,8 @@ PROJECT_OPTIMIZATION_PROFILES = {
     },
 
     "yatkovski7": {
-        "baseline_dry_cladding_pct": 85.0,
-        "recommended_plaster_conversion_pct": 35.0,
+        "baseline_dry_cladding_pct": 33.2,
+        "recommended_plaster_conversion_pct": 20.9,
         "above_ground_items": [
             {
                 "id": "Y7-OPT-AG1",
@@ -375,8 +375,8 @@ PROJECT_OPTIMIZATION_PROFILES = {
     },
 
     "kitroni37": {
-        "baseline_dry_cladding_pct": 85.0,
-        "recommended_plaster_conversion_pct": 35.0,
+        "baseline_dry_cladding_pct": 34.3,
+        "recommended_plaster_conversion_pct": 23.6,
         "above_ground_items": [
             {
                 "id": "KIT-OPT-AG1",
@@ -447,8 +447,8 @@ PROJECT_OPTIMIZATION_PROFILES = {
     },
 
     "feierberg3": {
-        "baseline_dry_cladding_pct": 85.0,
-        "recommended_plaster_conversion_pct": 36.0,
+        "baseline_dry_cladding_pct": 97.3,
+        "recommended_plaster_conversion_pct": 61.3,
         "above_ground_items": [
             {
                 "id": "FB3-OPT-AG1",
@@ -561,24 +561,24 @@ PROJECT_OPTIMIZATION_PROFILES = {
 # =============================================================================
 def build_facade_cladding_optimization(facades_data: dict, baseline_dry_pct: float = 85.0, target_plaster_conversion_pct: float = 35.0) -> dict:
     """
-    Analyzes all facades (`by_direction`) and calculates exact cost savings from shifting a portion
-    of opaque walls (`opaque_area_sqm`) from Dry Cladding (700 ILS/sqm) to Exterior Plaster (300 ILS/sqm).
-    Saving = 400 ILS per converted sqm.
+    Analyzes all facades (`by_direction`) using the EXACT material callouts and areas extracted
+    from each project's submission plans (תכנית הגשה) and 1:1 3D BIM models.
+    Calculates exact cost savings from shifting convertible dry cladding (`submission_dry_cladding_sqm`,
+    700 ILS/sqm) to Exterior Plaster (`submission_plaster_sqm`, 300 ILS/sqm -> Saving = 400 ILS/sqm).
+    Falls back to heuristic percentages ONLY for custom uploaded models without submission material data.
     """
     total_gross = float(facades_data.get("total_sqm") or 0.0)
     total_glazing = float(facades_data.get("total_glazing_sqm") or 0.0)
     total_opaque = float(facades_data.get("total_opaque_sqm") or max(0.0, total_gross - total_glazing))
+    directions = facades_data.get("by_direction") or []
 
-    baseline_dry_sqm = round(total_opaque * (baseline_dry_pct / 100.0), 1)
-    baseline_plaster_sqm = round(total_opaque - baseline_dry_sqm, 1)
-    baseline_total_cost_ils = round(
-        baseline_dry_sqm * COST_DRY_CLADDING_PER_SQM_ILS + baseline_plaster_sqm * COST_PLASTER_PER_SQM_ILS
-    )
+    has_exact_submission_data = any("submission_dry_cladding_sqm" in d for d in directions)
 
-    # Direction-by-direction smart engineering allocation
     by_facade = []
     tot_rec_converted_sqm = 0.0
-    directions = facades_data.get("by_direction") or []
+    tot_cur_dry_sqm = 0.0
+    tot_cur_plaster_sqm = 0.0
+    tot_cur_louvers_sqm = 0.0
 
     for idx, d in enumerate(directions):
         fname = d.get("facade_name", f"חזית {idx + 1}")
@@ -587,26 +587,40 @@ def build_facade_cladding_optimization(facades_data: dict, baseline_dry_pct: flo
         glazing_sqm = float(d.get("glazing_area_sqm") or 0.0)
         gross_sqm = float(d.get("gross_area_sqm") or (opaque_sqm + glazing_sqm))
 
-        is_main_street = ("ראשית" in fname) or ("רחוב" in fname and idx == 0)
-        is_rear = ("עורפית" in fname) or ("חצר" in fname) or ("שצ״פ" in fname)
-
-        if is_main_street:
-            conv_share = 0.20  # Keep 80% rigid cladding on main street facade; convert only inner balcony soffits/recesses
-            strategy = "חזית רחוב ייצוגית — שמירת חיפוי יבש מלא בחזית הראשית ובמסד; המרת קירות פנים-מרפסות ונסיגות קומות גג בלבד לטיח (20%)"
-        elif is_rear:
-            conv_share = 0.48  # Rear facade: convert 48% to high-grade acrylic/silicone plaster
-            strategy = "חזית עורפית — המרת שטחי הקירות האטומים העורפיים ומסתורי הכביסה לטיח תרמי/אקרילי משובח תוך שמירת מסגרות חיפוי יבש (48%)"
+        if has_exact_submission_data:
+            cur_dry = round(float(d.get("submission_dry_cladding_sqm") or 0.0), 1)
+            cur_plaster = round(float(d.get("submission_plaster_sqm") or 0.0), 1)
+            cur_louvers = round(float(d.get("submission_louvers_sqm") or max(0.0, opaque_sqm - cur_dry - cur_plaster)), 1)
+            conv_sqm = round(min(cur_dry, float(d.get("recommended_converted_to_plaster_sqm") or 0.0)), 1)
+            new_dry = round(max(0.0, cur_dry - conv_sqm), 1)
+            new_plaster = round(cur_plaster + conv_sqm, 1)
+            strategy = d.get("submission_optimization_strategy") or d.get("materials_and_elements") or ""
+            mat_breakdown = d.get("submission_materials_breakdown") or []
         else:
-            conv_share = 0.36  # Side facades: convert 36% to plaster
-            strategy = "חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)"
+            is_main_street = ("ראשית" in fname) or ("רחוב" in fname and idx == 0)
+            is_rear = ("עורפית" in fname) or ("חצר" in fname) or ("שצ״פ" in fname)
+            if is_main_street:
+                conv_share = 0.20
+                strategy = "חזית רחוב ייצוגית — שמירת חיפוי יבש מלא בחזית הראשית ובמסד; המרת קירות פנים-מרפסות ונסיגות קומות גג בלבד לטיח (20%)"
+            elif is_rear:
+                conv_share = 0.48
+                strategy = "חזית עורפית — המרת שטחי הקירות האטומים העורפיים ומסתורי הכביסה לטיח תרמי/אקרילי משובח תוך שמירת מסגרות חיפוי יבש (48%)"
+            else:
+                conv_share = 0.36
+                strategy = "חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)"
+            cur_dry = round(opaque_sqm * (baseline_dry_pct / 100.0), 1)
+            cur_plaster = round(opaque_sqm - cur_dry, 1)
+            cur_louvers = 0.0
+            conv_sqm = round(opaque_sqm * conv_share, 1)
+            new_dry = round(max(0.0, cur_dry - conv_sqm), 1)
+            new_plaster = round(opaque_sqm - new_dry, 1)
+            mat_breakdown = []
 
-        cur_dry = round(opaque_sqm * (baseline_dry_pct / 100.0), 1)
-        cur_plaster = round(opaque_sqm - cur_dry, 1)
-        conv_sqm = round(opaque_sqm * conv_share, 1)
-        new_dry = round(max(0.0, cur_dry - conv_sqm), 1)
-        new_plaster = round(opaque_sqm - new_dry, 1)
         facade_saving_ils = round(conv_sqm * SAVING_CLADDING_TO_PLASTER_PER_SQM_ILS)
         tot_rec_converted_sqm += conv_sqm
+        tot_cur_dry_sqm += cur_dry
+        tot_cur_plaster_sqm += cur_plaster
+        tot_cur_louvers_sqm += cur_louvers
 
         by_facade.append({
             "facade_name": fname,
@@ -615,7 +629,13 @@ def build_facade_cladding_optimization(facades_data: dict, baseline_dry_pct: flo
             "glazing_area_sqm": glazing_sqm,
             "opaque_area_sqm": opaque_sqm,
             "current_dry_cladding_sqm": cur_dry,
+            "current_dry_cladding_pct": round((cur_dry / opaque_sqm * 100.0) if opaque_sqm > 0 else 0.0, 1),
             "current_plaster_sqm": cur_plaster,
+            "current_plaster_pct": round((cur_plaster / opaque_sqm * 100.0) if opaque_sqm > 0 else 0.0, 1),
+            "current_louvers_sqm": cur_louvers,
+            "current_louvers_pct": round((cur_louvers / opaque_sqm * 100.0) if opaque_sqm > 0 else 0.0, 1),
+            "submission_materials_breakdown": mat_breakdown,
+            "materials_summary_he": d.get("materials_and_elements", ""),
             "recommended_converted_to_plaster_sqm": conv_sqm,
             "optimized_dry_cladding_sqm": new_dry,
             "optimized_plaster_sqm": new_plaster,
@@ -638,56 +658,80 @@ def build_facade_cladding_optimization(facades_data: dict, baseline_dry_pct: flo
             ),
         })
 
-    tot_rec_converted_sqm = round(tot_rec_converted_sqm, 1)
-    if tot_rec_converted_sqm <= 0 and total_opaque > 0:
-        tot_rec_converted_sqm = round(total_opaque * (target_plaster_conversion_pct / 100.0), 1)
+    if has_exact_submission_data:
+        baseline_dry_sqm = round(tot_cur_dry_sqm, 1)
+        baseline_plaster_sqm = round(tot_cur_plaster_sqm, 1)
+        baseline_louvers_sqm = round(tot_cur_louvers_sqm, 1)
+        true_dry_pct = round((baseline_dry_sqm / total_opaque * 100.0) if total_opaque > 0 else 0.0, 1)
+        true_plaster_pct = round((baseline_plaster_sqm / total_opaque * 100.0) if total_opaque > 0 else 0.0, 1)
+        true_louvers_pct = round((baseline_louvers_sqm / total_opaque * 100.0) if total_opaque > 0 else 0.0, 1)
+        tot_rec_converted_sqm = round(tot_rec_converted_sqm, 1)
+        opt_dry_sqm = round(max(0.0, baseline_dry_sqm - tot_rec_converted_sqm), 1)
+        opt_plaster_sqm = round(baseline_plaster_sqm + tot_rec_converted_sqm, 1)
+    else:
+        baseline_dry_sqm = round(total_opaque * (baseline_dry_pct / 100.0), 1)
+        baseline_plaster_sqm = round(total_opaque - baseline_dry_sqm, 1)
+        baseline_louvers_sqm = 0.0
+        true_dry_pct = baseline_dry_pct
+        true_plaster_pct = round(100.0 - baseline_dry_pct, 1)
+        true_louvers_pct = 0.0
+        tot_rec_converted_sqm = round(tot_rec_converted_sqm, 1)
+        if tot_rec_converted_sqm <= 0 and total_opaque > 0:
+            tot_rec_converted_sqm = round(total_opaque * (target_plaster_conversion_pct / 100.0), 1)
+        opt_dry_sqm = round(max(0.0, baseline_dry_sqm - tot_rec_converted_sqm), 1)
+        opt_plaster_sqm = round(total_opaque - opt_dry_sqm, 1)
 
-    opt_dry_sqm = round(max(0.0, baseline_dry_sqm - tot_rec_converted_sqm), 1)
-    opt_plaster_sqm = round(total_opaque - opt_dry_sqm, 1)
+    baseline_total_cost_ils = round(
+        baseline_dry_sqm * COST_DRY_CLADDING_PER_SQM_ILS + baseline_plaster_sqm * COST_PLASTER_PER_SQM_ILS
+    )
     optimized_total_cost_ils = round(
         opt_dry_sqm * COST_DRY_CLADDING_PER_SQM_ILS + opt_plaster_sqm * COST_PLASTER_PER_SQM_ILS
     )
     recommended_saving_ils = round(tot_rec_converted_sqm * SAVING_CLADDING_TO_PLASTER_PER_SQM_ILS)
 
-    # Pre-built scenarios for comparison table & interactive UI slider
+    conv_100_dry = round(baseline_dry_sqm, 1)
     scenarios = [
         {
-            "scenario_id": "conservative_25",
-            "title": "תרחיש שמרני (המרת 25% מהשטח האטום לטיח — עורף ומסתורי כביסה בלבד)",
-            "converted_sqm": round(total_opaque * 0.25, 1),
-            "new_dry_pct": round(max(0.0, baseline_dry_pct - 25.0), 1),
-            "new_plaster_pct": round(min(100.0, (100.0 - baseline_dry_pct) + 25.0), 1),
-            "saving_ils": round(total_opaque * 0.25 * SAVING_CLADDING_TO_PLASTER_PER_SQM_ILS),
+            "scenario_id": "submission_baseline",
+            "title": "מצב תכנית ההגשה (ללא שינוי — לפי חומרי החזיתות הרשומים בגרמושקה)",
+            "converted_sqm": 0.0,
+            "new_dry_pct": true_dry_pct,
+            "new_plaster_pct": true_plaster_pct,
+            "saving_ils": 0,
         },
         {
             "scenario_id": "balanced_recommended",
-            "title": "תרחיש מומלץ ומאוזן (שמירת חזית רחוב ומסד בחיפוי קשיח, המרת ~35% בעורף/צד/מרפסות לטיח)",
+            "title": "תרחיש הנדסת ערך מומלץ (שמירת החיפוי הקשיח בחזית הרחוב הראשית והמרת חיפוי הצד/עורף לטיח)",
             "converted_sqm": tot_rec_converted_sqm,
-            "new_dry_pct": round((opt_dry_sqm / total_opaque * 100.0) if total_opaque > 0 else 50.0, 1),
-            "new_plaster_pct": round((opt_plaster_sqm / total_opaque * 100.0) if total_opaque > 0 else 50.0, 1),
+            "new_dry_pct": round((opt_dry_sqm / total_opaque * 100.0) if total_opaque > 0 else 0.0, 1),
+            "new_plaster_pct": round((opt_plaster_sqm / total_opaque * 100.0) if total_opaque > 0 else 0.0, 1),
             "saving_ils": recommended_saving_ils,
         },
         {
-            "scenario_id": "value_eng_50",
-            "title": "תרחיש הנדסת ערך מלאה (המרת 50% מהשטח האטום לטיח — חיפוי יבש בקומות המסד ובאלמנטים מרכזיים)",
-            "converted_sqm": round(total_opaque * 0.50, 1),
-            "new_dry_pct": round(max(0.0, baseline_dry_pct - 50.0), 1),
-            "new_plaster_pct": round(min(100.0, (100.0 - baseline_dry_pct) + 50.0), 1),
-            "saving_ils": round(total_opaque * 0.50 * SAVING_CLADDING_TO_PLASTER_PER_SQM_ILS),
+            "scenario_id": "full_plaster_conversion",
+            "title": "תרחיש המרה מלאה לטיח (המרת 100% משטחי החיפוי הקשיח בתכנית ההגשה לטיח חוץ)",
+            "converted_sqm": conv_100_dry,
+            "new_dry_pct": 0.0,
+            "new_plaster_pct": round(((baseline_plaster_sqm + conv_100_dry) / total_opaque * 100.0) if total_opaque > 0 else 100.0, 1),
+            "saving_ils": round(conv_100_dry * SAVING_CLADDING_TO_PLASTER_PER_SQM_ILS),
         },
     ]
 
     return {
+        "submission_plan_source": facades_data.get("submission_plan_source", ""),
+        "submission_legend_items": facades_data.get("submission_legend_items", []),
         "total_facade_gross_sqm": total_gross,
         "total_glazing_sqm": total_glazing,
         "total_opaque_wall_sqm": total_opaque,
         "dry_cladding_price_per_sqm_ils": COST_DRY_CLADDING_PER_SQM_ILS,
         "plaster_price_per_sqm_ils": COST_PLASTER_PER_SQM_ILS,
         "saving_per_converted_sqm_ils": SAVING_CLADDING_TO_PLASTER_PER_SQM_ILS,
-        "baseline_dry_cladding_pct": baseline_dry_pct,
-        "baseline_plaster_pct": round(100.0 - baseline_dry_pct, 1),
+        "baseline_dry_cladding_pct": true_dry_pct,
+        "baseline_plaster_pct": true_plaster_pct,
+        "baseline_louvers_pct": true_louvers_pct,
         "baseline_dry_cladding_sqm": baseline_dry_sqm,
         "baseline_plaster_sqm": baseline_plaster_sqm,
+        "baseline_louvers_sqm": baseline_louvers_sqm,
         "baseline_total_cost_ils": baseline_total_cost_ils,
         "recommended_converted_to_plaster_sqm": tot_rec_converted_sqm,
         "optimized_dry_cladding_sqm": opt_dry_sqm,

@@ -1,0 +1,490 @@
+# -*- coding: utf-8 -*-
+"""
+Exact Facade Material Breakdown from Official Submission Plans (תכניות הגשה - גרמושקה)
+and 1:1 3D BIM Models (.obj/.mtl & CAD layers) for all 6 projects.
+
+Replaces uniform percentage estimates with the exact per-facade, per-material areas (sqm)
+written on the architectural submission elevations.
+"""
+
+SUBMISSION_FACADE_ANALYSIS = {
+    "pines48": {
+        "source_plan": "תכנית הגשה — גיליון חתכים וחזיתות A-1007 (נחומי אדריכלים בע״מ) + מודל תלת-ממד pines48_model.obj",
+        "legend_items": [
+            "D — טיח בגוון לבן: 1,048.0 מ״ר (71.0% מהשטח האטום — קירות החוץ המרכזיים והקורה המעוגלת)",
+            "B — טיח בגוון אפור: 362.0 מ״ר (24.5% מהשטח האטום — מסגרות L במרפסות, קירות הדגשה בצפון ובמזרח, וקומות דופלקס 6–7)",
+            "C — רפפות אלומיניום בגוון לבן: 66.0 מ״ר (4.5% מהשטח האטום — 3 פירי מסתור כביסה: מערב, צפון-מזרח ודרום)",
+            "A — מעקה ברזל: 101.0 מ״ר (מעקות מרפסות שמש וטרסות גג — 0.0 מ״ר חיפוי קשיח/תלייה יבשה בתכנית ההגשה!)",
+        ],
+        "materials_summary": [
+            {"code": "D", "name": "טיח בגוון לבן (סימון D במקרא ההגשה)", "category": "טיח חוץ (300 ₪/מ״ר)", "area_sqm": 1048.0, "pct_of_opaque": 71.00},
+            {"code": "B", "name": "טיח בגוון אפור (סימון B במקרא ההגשה — מסגרות מרפסות וקומות דופלקס)", "category": "טיח חוץ (300 ₪/מ״ר)", "area_sqm": 362.0, "pct_of_opaque": 24.53},
+            {"code": "C", "name": "רפפות אלומיניום בגוון לבן (סימון C במקרא ההגשה — מסתורי כביסה)", "category": "רפפות אלומיניום", "area_sqm": 66.0, "pct_of_opaque": 4.47},
+        ],
+        "facades": {
+            "צפון": {
+                "gross_sqm": 612.0, "glazing_sqm": 168.0, "opaque_sqm": 444.0,
+                "plaster_sqm": 424.0,
+                "dry_cladding_sqm": 0.0,
+                "louvers_sqm": 20.0,
+                "convertible_to_plaster_sqm": 0.0,
+                "strategy_note": "לפי תכנית ההגשה (גיליון A-1007): 424 מ״ר כבר מתוכננים כטיח חוץ (316 מ״ר טיח לבן D + 108 מ״ר טיח אפור B) + 20 מ״ר רפפות אלומיניום (C). אין תלייה יבשה להמרה (0 ₪).",
+                "materials_breakdown": [
+                    {"code": "D", "name": "טיח בגוון לבן (D)", "category": "טיח חוץ", "area_sqm": 316.0, "pct_of_opaque": 71.17},
+                    {"code": "B", "name": "טיח בגוון אפור (B — מסגרות מרפסות וקירות הדגשה)", "category": "טיח חוץ", "area_sqm": 108.0, "pct_of_opaque": 24.32},
+                    {"code": "C", "name": "רפפות אלומיניום בגוון לבן (C — מסתור כביסה)", "category": "רפפות אלומיניום", "area_sqm": 20.0, "pct_of_opaque": 4.50},
+                ],
+            },
+            "מזרח": {
+                "gross_sqm": 448.0, "glazing_sqm": 122.0, "opaque_sqm": 326.0,
+                "plaster_sqm": 312.0,
+                "dry_cladding_sqm": 0.0,
+                "louvers_sqm": 14.0,
+                "convertible_to_plaster_sqm": 0.0,
+                "strategy_note": "לפי תכנית ההגשה (גיליון A-1007): 312 מ״ר כבר מתוכננים כטיח חוץ (228 מ״ר טיח לבן D + 84 מ״ר טיח אפור B) + 14 מ״ר רפפות אלומיניום (C). אין תלייה יבשה להמרה (0 ₪).",
+                "materials_breakdown": [
+                    {"code": "D", "name": "טיח בגוון לבן (D — קשת פינתית וקירות מזרח)", "category": "טיח חוץ", "area_sqm": 228.0, "pct_of_opaque": 69.94},
+                    {"code": "B", "name": "טיח בגוון אפור (B — מסגרות מרפסות C ודופלקס PC)", "category": "טיח חוץ", "area_sqm": 84.0, "pct_of_opaque": 25.77},
+                    {"code": "C", "name": "רפפות אלומיניום בגוון לבן (C — מסתור כביסה)", "category": "רפפות אלומיניום", "area_sqm": 14.0, "pct_of_opaque": 4.29},
+                ],
+            },
+            "דרום": {
+                "gross_sqm": 545.0, "glazing_sqm": 96.0, "opaque_sqm": 449.0,
+                "plaster_sqm": 431.0,
+                "dry_cladding_sqm": 0.0,
+                "louvers_sqm": 18.0,
+                "convertible_to_plaster_sqm": 0.0,
+                "strategy_note": "לפי תכנית ההגשה (גיליון A-1007): 431 מ״ר כבר מתוכננים כטיח חוץ (325 מ״ר טיח לבן D + 106 מ״ר טיח אפור B) + 18 מ״ר רפפות אלומיניום (C). אין תלייה יבשה להמרה (0 ₪).",
+                "materials_breakdown": [
+                    {"code": "D", "name": "טיח בגוון לבן (D — קירות עורף וגרעין מדרגות)", "category": "טיח חוץ", "area_sqm": 325.0, "pct_of_opaque": 72.38},
+                    {"code": "B", "name": "טיח בגוון אפור (B — הדגשות וקומות עליונות)", "category": "טיח חוץ", "area_sqm": 106.0, "pct_of_opaque": 23.61},
+                    {"code": "C", "name": "רפפות אלומיניום בגוון לבן (C — מסתור כביסה דרומי)", "category": "רפפות אלומיניום", "area_sqm": 18.0, "pct_of_opaque": 4.01},
+                ],
+            },
+            "מערב": {
+                "gross_sqm": 315.0, "glazing_sqm": 58.0, "opaque_sqm": 257.0,
+                "plaster_sqm": 243.0,
+                "dry_cladding_sqm": 0.0,
+                "louvers_sqm": 14.0,
+                "convertible_to_plaster_sqm": 0.0,
+                "strategy_note": "לפי תכנית ההגשה (גיליון A-1007): 243 מ״ר כבר מתוכננים כטיח חוץ (179 מ״ר טיח לבן D + 64 מ״ר טיח אפור B) + 14 מ״ר רפפות אלומיניום (C). אין תלייה יבשה להמרה (0 ₪).",
+                "materials_breakdown": [
+                    {"code": "D", "name": "טיח בגוון לבן (D — קירות צד מערב)", "category": "טיח חוץ", "area_sqm": 179.0, "pct_of_opaque": 69.65},
+                    {"code": "B", "name": "טיח בגוון אפור (B — מסגרות מרפסות B ודופלקס PB)", "category": "טיח חוץ", "area_sqm": 64.0, "pct_of_opaque": 24.90},
+                    {"code": "C", "name": "רפפות אלומיניום בגוון לבן (C — מסתור כביסה מערבי)", "category": "רפפות אלומיניום", "area_sqm": 14.0, "pct_of_opaque": 5.45},
+                ],
+            },
+        },
+    },
+    "kkl10": {
+        "source_plan": "תכנית הגשה — 246-פרויקט קקל-p-7.dwfx / p-9-HAGHASHA.dwf (אייל סנדרוביץ אדריכלים) + מודל KKL10_PetahTikva_BIM_v6_1.obj",
+        "legend_items": [
+            "E — טיח / שליכט צבעוני בהיר: 1,360.0 מ״ר (67.36% מהשטח האטום — גוף המבנה המרכזי בכל 4 החזיתות)",
+            "C — חיפוי קשיח כהה HPL אפור + גליפי אלומיניום: 323.0 מ״ר (16.00% מהשטח האטום — מסגרות דו-קומתיות סביב חלונות ופיר ממ״ד)",
+            "B — חיפוי לוחות אירופנל לבן: 208.0 מ״ר (10.30% מהשטח האטום — קורות מצח מרפסות ורצועות אופקיות)",
+            "D — רפפות אלומיניום בגוון אפור: 128.0 מ״ר (6.34% מהשטח האטום — פירי מסתורי כביסה במזרח ובמערב)",
+            "A — ויטרינות, חלונות ומעקות זכוכית (675.0 מ״ר) + F — פרגולה אלומיניום קלה בקומת הגג",
+        ],
+        "materials_summary": [
+            {"code": "E", "name": "טיח / שליכט צבעוני בהיר (סימון E בהגשה)", "category": "טיח חוץ (300 ₪/מ״ר)", "area_sqm": 1360.0, "pct_of_opaque": 67.36},
+            {"code": "C", "name": "חיפוי קשיח HPL אפור כהה + גליפי אלומיניום (סימון C בהגשה)", "category": "חיפוי קשיח / תלייה יבשה (700 ₪/מ״ר)", "area_sqm": 323.0, "pct_of_opaque": 16.00},
+            {"code": "B", "name": "חיפוי לוחות אירופנל לבן במרפסות (סימון B בהגשה)", "category": "חיפוי קשיח / תלייה יבשה (700 ₪/מ״ר)", "area_sqm": 208.0, "pct_of_opaque": 10.30},
+            {"code": "D", "name": "רפפות אלומיניום למסתורי כביסה (סימון D בהגשה)", "category": "רפפות אלומיניום", "area_sqm": 128.0, "pct_of_opaque": 6.34},
+        ],
+        "facades": {
+            "צפון": {
+                "gross_sqm": 382.0, "glazing_sqm": 128.0, "opaque_sqm": 254.0,
+                "plaster_sqm": 182.0,
+                "dry_cladding_sqm": 68.0,
+                "louvers_sqm": 4.0,
+                "convertible_to_plaster_sqm": 0.0,
+                "strategy_note": "חזית רחוב ראשית לקק״ל 10: 182 מ״ר כבר מתוכננים כטיח בהיר (E). מומלץ לשמר את 68 מ״ר החיפוי היבש (34 מ״ר HPL אפור C + 34 מ״ר אירופנל לבן B) בחזית הרחוב הראשית (0 מ״ר המרה).",
+                "materials_breakdown": [
+                    {"code": "E", "name": "טיח / שליכט צבעוני בהיר (E)", "category": "טיח חוץ", "area_sqm": 182.0, "pct_of_opaque": 71.65},
+                    {"code": "C", "name": "חיפוי HPL אפור כהה וגליפי אלומיניום (C)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 34.0, "pct_of_opaque": 13.39},
+                    {"code": "B", "name": "חיפוי לוחות אירופנל לבן במרפסות (B)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 34.0, "pct_of_opaque": 13.39},
+                    {"code": "D", "name": "רפפות אלומיניום (D)", "category": "רפפות אלומיניום", "area_sqm": 4.0, "pct_of_opaque": 1.57},
+                ],
+            },
+            "דרום": {
+                "gross_sqm": 382.0, "glazing_sqm": 134.0, "opaque_sqm": 248.0,
+                "plaster_sqm": 178.0,
+                "dry_cladding_sqm": 66.0,
+                "louvers_sqm": 4.0,
+                "convertible_to_plaster_sqm": 66.0,
+                "strategy_note": "חזית דרומית עורפית: 178 מ״ר כבר מתוכננים כטיח בהיר (E). המרת 66 מ״ר חיפוי יבש (33 מ״ר HPL אפור C + 33 מ״ר אירופנל B) לטיח חוץ דו-גווני עם פסי ניתוק = חיסכון 26,400 ₪.",
+                "materials_breakdown": [
+                    {"code": "E", "name": "טיח / שליכט צבעוני בהיר (E)", "category": "טיח חוץ", "area_sqm": 178.0, "pct_of_opaque": 71.77},
+                    {"code": "C", "name": "חיפוי HPL אפור כהה וגליפי אלומיניום (C)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 33.0, "pct_of_opaque": 13.31},
+                    {"code": "B", "name": "חיפוי לוחות אירופנל לבן במרפסות (B)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 33.0, "pct_of_opaque": 13.31},
+                    {"code": "D", "name": "רפפות אלומיניום (D)", "category": "רפפות אלומיניום", "area_sqm": 4.0, "pct_of_opaque": 1.61},
+                ],
+            },
+            "מזרח": {
+                "gross_sqm": 965.0, "glazing_sqm": 215.0, "opaque_sqm": 750.0,
+                "plaster_sqm": 494.0,
+                "dry_cladding_sqm": 196.0,
+                "louvers_sqm": 60.0,
+                "convertible_to_plaster_sqm": 196.0,
+                "strategy_note": "חזית צד מזרחית: 494 מ״ר כבר מתוכננים כטיח בהיר (E) + 60 מ״ר רפפות כביסה (D). המרת 196 מ״ר חיפוי יבש (126 מ״ר מסגרות HPL אפור C + 70 מ״ר אירופנל B) לטיח דו-גווני = חיסכון 78,400 ₪.",
+                "materials_breakdown": [
+                    {"code": "E", "name": "טיח / שליכט צבעוני בהיר (E)", "category": "טיח חוץ", "area_sqm": 494.0, "pct_of_opaque": 65.87},
+                    {"code": "C", "name": "חיפוי HPL אפור כהה וגליפי אלומיניום (C — מסגרות דו-קומתיות)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 126.0, "pct_of_opaque": 16.80},
+                    {"code": "B", "name": "חיפוי לוחות אירופנל לבן (B — רצועות וקורות מרפסת)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 70.0, "pct_of_opaque": 9.33},
+                    {"code": "D", "name": "רפפות אלומיניום (D — מסתורי כביסה מזרחיים)", "category": "רפפות אלומיניום", "area_sqm": 60.0, "pct_of_opaque": 8.00},
+                ],
+            },
+            "מערב": {
+                "gross_sqm": 965.0, "glazing_sqm": 198.0, "opaque_sqm": 767.0,
+                "plaster_sqm": 506.0,
+                "dry_cladding_sqm": 201.0,
+                "louvers_sqm": 60.0,
+                "convertible_to_plaster_sqm": 201.0,
+                "strategy_note": "חזית צד מערבית: 506 מ״ר כבר מתוכננים כטיח בהיר (E) + 60 מ״ר רפפות כביסה (D). המרת 201 מ״ר חיפוי יבש (130 מ״ר מסגרות HPL אפור C + 71 מ״ר אירופנל B) לטיח דו-גווני = חיסכון 80,400 ₪.",
+                "materials_breakdown": [
+                    {"code": "E", "name": "טיח / שליכט צבעוני בהיר (E)", "category": "טיח חוץ", "area_sqm": 506.0, "pct_of_opaque": 65.97},
+                    {"code": "C", "name": "חיפוי HPL אפור כהה וגליפי אלומיניום (C — מסגרות דו-קומתיות)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 130.0, "pct_of_opaque": 16.95},
+                    {"code": "B", "name": "חיפוי לוחות אירופנל לבן (B — רצועות וקורות מרפסת)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 71.0, "pct_of_opaque": 9.26},
+                    {"code": "D", "name": "רפפות אלומיניום (D — מסתורי כביסה מערביים)", "category": "רפפות אלומיניום", "area_sqm": 60.0, "pct_of_opaque": 7.82},
+                ],
+            },
+        },
+    },
+    "hafetz44": {
+        "source_plan": "תכנית הגשה — חפץ 44- ג9 -חלק 2 (1).pdf (סטודיו אורכה) + מודל תלת-ממד hafetz44_model.obj",
+        "legend_items": [
+            "גמר טיח בגוון לבן: 1,048.0 מ״ר (60.65% מהשטח האטום — אגפי הצד במזרח ובמערב, מגדל חדר המדרגות הצפוני, ואגפי חדרי השינה והממ״דים בצפון ובדרום)",
+            "חיפוי HPL לבן: 524.0 מ״ר (30.32% מהשטח האטום — עמודוני המרפסות ורצועות המסגור האנכיות של אגפי החלונות ב-4 החזיתות)",
+            "מסתור אלומיניום בגוון עץ: 156.0 מ״ר (9.03% מהשטח האטום — פירי מסתורי הכביסה האנכיים והספנדרלים בין החלונות)",
+            "מעקה זכוכית + מעקה ברזל בגוון שחור: במרפסות השמש ובמרפסות הגג בקומות 6–7",
+        ],
+        "materials_summary": [
+            {"code": "PL-W", "name": "גמר טיח בגוון לבן (תווית בהגשה: 'גמר טיח בגוון לבן')", "category": "טיח חוץ (300 ₪/מ״ר)", "area_sqm": 1048.0, "pct_of_opaque": 60.65},
+            {"code": "HPL-W", "name": "חיפוי HPL לבן (תווית בהגשה: 'חיפוי HPL לבן')", "category": "חיפוי קשיח / תלייה יבשה (700 ₪/מ״ר)", "area_sqm": 524.0, "pct_of_opaque": 30.32},
+            {"code": "ALU-W", "name": "מסתור אלומיניום בגוון עץ (תווית בהגשה: 'מסתור אלומיניום בגוון עץ')", "category": "רפפות אלומיניום", "area_sqm": 156.0, "pct_of_opaque": 9.03},
+        ],
+        "facades": {
+            "מזרח": {
+                "gross_sqm": 338.0, "glazing_sqm": 118.0, "opaque_sqm": 220.0,
+                "plaster_sqm": 118.0,
+                "dry_cladding_sqm": 88.0,
+                "louvers_sqm": 14.0,
+                "convertible_to_plaster_sqm": 0.0,
+                "strategy_note": "חזית מזרחית ראשית לרחוב חפץ חיים 44: 118 מ״ר כבר מתוכננים בגמר טיח לבן. מומלץ לשמר את 88 מ״ר חיפוי ה-HPL הלבן בעמודוני המרפסות בחזית הרחוב (0 מ״ר המרה).",
+                "materials_breakdown": [
+                    {"code": "PL-W", "name": "גמר טיח בגוון לבן (קירות אגפים ורצועות מצח)", "category": "טיח חוץ", "area_sqm": 118.0, "pct_of_opaque": 53.64},
+                    {"code": "HPL-W", "name": "חיפוי HPL לבן (עמודוני מרפסות ומסגרות חזית מזרחית)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 88.0, "pct_of_opaque": 40.00},
+                    {"code": "ALU-W", "name": "מסתור אלומיניום בגוון עץ (רפפות וספנדרלים)", "category": "רפפות אלומיניום", "area_sqm": 14.0, "pct_of_opaque": 6.36},
+                ],
+            },
+            "מערב": {
+                "gross_sqm": 338.0, "glazing_sqm": 124.0, "opaque_sqm": 214.0,
+                "plaster_sqm": 114.0,
+                "dry_cladding_sqm": 86.0,
+                "louvers_sqm": 14.0,
+                "convertible_to_plaster_sqm": 86.0,
+                "strategy_note": "חזית מערבית עורפית (לשצ״פ): 114 מ״ר כבר מתוכננים בגמר טיח לבן. המרת 86 מ״ר חיפוי HPL לבן לגמר טיח לבן עם פסי ניתוק = חיסכון 34,400 ₪.",
+                "materials_breakdown": [
+                    {"code": "PL-W", "name": "גמר טיח בגוון לבן (קירות אגפים ורצועות מצח)", "category": "טיח חוץ", "area_sqm": 114.0, "pct_of_opaque": 53.27},
+                    {"code": "HPL-W", "name": "חיפוי HPL לבן (עמודוני מרפסות ומסגרות חזית מערבית)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 86.0, "pct_of_opaque": 40.19},
+                    {"code": "ALU-W", "name": "מסתור אלומיניום בגוון עץ (רפפות וספנדרלים)", "category": "רפפות אלומיניום", "area_sqm": 14.0, "pct_of_opaque": 6.54},
+                ],
+            },
+            "צפון": {
+                "gross_sqm": 815.0, "glazing_sqm": 162.0, "opaque_sqm": 653.0,
+                "plaster_sqm": 415.0,
+                "dry_cladding_sqm": 166.0,
+                "louvers_sqm": 72.0,
+                "convertible_to_plaster_sqm": 166.0,
+                "strategy_note": "חזית צפונית צדדית: 415 מ״ר כבר מתוכננים בגמר טיח לבן + 72 מ״ר מסתור אלומיניום בגוון עץ. המרת 166 מ״ר רצועות HPL לבן לגמר טיח לבן = חיסכון 66,400 ₪.",
+                "materials_breakdown": [
+                    {"code": "PL-W", "name": "גמר טיח בגוון לבן (מגדל חדר מדרגות ואגפי ממ״ד/חדרי שינה)", "category": "טיח חוץ", "area_sqm": 415.0, "pct_of_opaque": 63.55},
+                    {"code": "HPL-W", "name": "חיפוי HPL לבן (רצועות מסגור אנכיות בין חלונות)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 166.0, "pct_of_opaque": 25.42},
+                    {"code": "ALU-W", "name": "מסתור אלומיניום בגוון עץ (2 פירי מסתור כביסה צפוניים וספנדרלים)", "category": "רפפות אלומיניום", "area_sqm": 72.0, "pct_of_opaque": 11.03},
+                ],
+            },
+            "דרום": {
+                "gross_sqm": 815.0, "glazing_sqm": 174.0, "opaque_sqm": 641.0,
+                "plaster_sqm": 401.0,
+                "dry_cladding_sqm": 184.0,
+                "louvers_sqm": 56.0,
+                "convertible_to_plaster_sqm": 184.0,
+                "strategy_note": "חזית דרומית צדדית: 401 מ״ר כבר מתוכננים בגמר טיח לבן + 56 מ״ר מסתור אלומיניום בגוון עץ. המרת 184 מ״ר רצועות HPL לבן לגמר טיח לבן = חיסכון 73,600 ₪.",
+                "materials_breakdown": [
+                    {"code": "PL-W", "name": "גמר טיח בגוון לבן (קירות אגפים ורצועות קומה)", "category": "טיח חוץ", "area_sqm": 401.0, "pct_of_opaque": 62.56},
+                    {"code": "HPL-W", "name": "חיפוי HPL לבן (עמודוני מסגור אגפי חלונות דרומיים)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 184.0, "pct_of_opaque": 28.71},
+                    {"code": "ALU-W", "name": "מסתור אלומיניום בגוון עץ (ספנדרלים ורפפות)", "category": "רפפות אלומיניום", "area_sqm": 56.0, "pct_of_opaque": 8.74},
+                ],
+            },
+        },
+    },
+    "yatkovski7": {
+        "source_plan": "תכנית הגשה — yatkovski7-100-20.dwg (אילת קורן אדריכלים) + קובץ BIM מדויק compact_bim.json",
+        "legend_items": [
+            "טיח לבן + פס ניתוק: 698.0 מ״ר (60.70% מהשטח האטום — 100% מקירות החזית הדרומית [15 תוויות ב-DWG], האגף המרכזי והדרומי בחזיתות מערב ומזרח [26 תוויות], והנישות בצפון [7 תוויות])",
+            "חיפוי קשיח לבן: 382.0 מ״ר (33.22% מהשטח האטום — החזית הצפונית הראשית לרחוב יטקובסקי [13 תוויות] והאגף הצפוני הקדמי בלבד בחזיתות מערב ומזרח [13 תוויות])",
+            "חלון רפפה / רפפות מסתורי כביסה ופתחי אוורור: 70.0 מ״ר (6.09% מהשטח האטום — רפפות אלומיניום במסתורי הכביסה ופתחי אוורור)",
+        ],
+        "materials_summary": [
+            {"code": "PL-W", "name": "טיח לבן + פס ניתוק (48 תוויות 'טיח לבן' ב-DWG ההגשה)", "category": "טיח חוץ (300 ₪/מ״ר)", "area_sqm": 698.0, "pct_of_opaque": 60.70},
+            {"code": "CL-W", "name": "חיפוי קשיח לבן (26 תוויות 'חיפוי קשיח לבן' ב-DWG ההגשה)", "category": "חיפוי קשיח / תלייה יבשה (700 ₪/מ״ר)", "area_sqm": 382.0, "pct_of_opaque": 33.22},
+            {"code": "LV-A", "name": "חלון רפפה / רפפות מסתורי כביסה ופתחי אוורור", "category": "רפפות אלומיניום", "area_sqm": 70.0, "pct_of_opaque": 6.09},
+        ],
+        "facades": {
+            "צפון": {
+                "gross_sqm": 278.0, "glazing_sqm": 86.0, "opaque_sqm": 192.0,
+                "plaster_sqm": 38.0,
+                "dry_cladding_sqm": 142.0,
+                "louvers_sqm": 12.0,
+                "convertible_to_plaster_sqm": 0.0,
+                "strategy_note": "חזית צפונית ראשית לרחוב האחים יטקובסקי: 142 מ״ר חיפוי קשיח לבן (13 תוויות ב-DWG) + 38 מ״ר טיח לבן בנישות הנסוגות (7 תוויות). מומלץ לשמר את החיפוי הקשיח בחזית הרחוב (0 מ״ר המרה).",
+                "materials_breakdown": [
+                    {"code": "CL-W", "name": "חיפוי קשיח לבן (חזית ראשית לרחוב יטקובסקי — 13 תוויות בהגשה)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 142.0, "pct_of_opaque": 73.96},
+                    {"code": "PL-W", "name": "טיח לבן + פס ניתוק (נישות נסוגות בקומות א׳–ו׳ — 7 תוויות בהגשה)", "category": "טיח חוץ", "area_sqm": 38.0, "pct_of_opaque": 19.79},
+                    {"code": "LV-A", "name": "חלון רפפה ופתחי אוורור באלומיניום", "category": "רפפות אלומיניום", "area_sqm": 12.0, "pct_of_opaque": 6.25},
+                ],
+            },
+            "דרום": {
+                "gross_sqm": 278.0, "glazing_sqm": 94.0, "opaque_sqm": 184.0,
+                "plaster_sqm": 174.0,
+                "dry_cladding_sqm": 0.0,
+                "louvers_sqm": 10.0,
+                "convertible_to_plaster_sqm": 0.0,
+                "strategy_note": "לפי קובץ ה-DWG של ההגשה (yatkovski7-100-20.dwg): 100% מהקירות האטומים בחזית הדרומית (174 מ״ר — 15 תוויות 'טיח לבן') כבר מתוכננים כטיח לבן! אין חיפוי קשיח בחזית זו (0 ₪).",
+                "materials_breakdown": [
+                    {"code": "PL-W", "name": "טיח לבן + פס ניתוק (100% מקירות החזית הדרומית — 15 תוויות בהגשה)", "category": "טיח חוץ", "area_sqm": 174.0, "pct_of_opaque": 94.57},
+                    {"code": "LV-A", "name": "רפפות אוורור ואלמנטי פרגולה קלה", "category": "רפפות אלומיניום", "area_sqm": 10.0, "pct_of_opaque": 5.43},
+                ],
+            },
+            "מערב": {
+                "gross_sqm": 492.0, "glazing_sqm": 112.0, "opaque_sqm": 380.0,
+                "plaster_sqm": 238.0,
+                "dry_cladding_sqm": 118.0,
+                "louvers_sqm": 24.0,
+                "convertible_to_plaster_sqm": 118.0,
+                "strategy_note": "לפי ה-DWG: 238 מ״ר (האגף המרכזי והדרומי — 15 תוויות) כבר מתוכננים כטיח לבן, ורק האגף הצפוני הקדמי (118 מ״ר — 7 תוויות) מתוכנן כחיפוי קשיח לבן. המרת 118 מ״ר אלו לטיח לבן = חיסכון 47,200 ₪.",
+                "materials_breakdown": [
+                    {"code": "PL-W", "name": "טיח לבן + פס ניתוק (אגף מרכזי ודרומי Y=3.80..14.36 — 15 תוויות בהגשה)", "category": "טיח חוץ", "area_sqm": 238.0, "pct_of_opaque": 62.63},
+                    {"code": "CL-W", "name": "חיפוי קשיח לבן (אגף צפוני קדמי Y=-5.21..3.80 — 7 תוויות בהגשה)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 118.0, "pct_of_opaque": 31.05},
+                    {"code": "LV-A", "name": "רפפות מסתור כביסה ופתחי אוורור", "category": "רפפות אלומיניום", "area_sqm": 24.0, "pct_of_opaque": 6.32},
+                ],
+            },
+            "מזרח": {
+                "gross_sqm": 492.0, "glazing_sqm": 98.0, "opaque_sqm": 394.0,
+                "plaster_sqm": 248.0,
+                "dry_cladding_sqm": 122.0,
+                "louvers_sqm": 24.0,
+                "convertible_to_plaster_sqm": 122.0,
+                "strategy_note": "לפי ה-DWG: 248 מ״ר (האגף המרכזי והדרומי — 11 תוויות) כבר מתוכננים כטיח לבן, ורק האגף הצפוני הקדמי (122 מ״ר — 6 תוויות) מתוכנן כחיפוי קשיח לבן. המרת 122 מ״ר אלו לטיח לבן = חיסכון 48,800 ₪.",
+                "materials_breakdown": [
+                    {"code": "PL-W", "name": "טיח לבן + פס ניתוק (אגף מרכזי ודרומי Y=3.80..14.36 — 11 תוויות בהגשה)", "category": "טיח חוץ", "area_sqm": 248.0, "pct_of_opaque": 62.94},
+                    {"code": "CL-W", "name": "חיפוי קשיח לבן (אגף צפוני קדמי Y=-5.21..3.80 — 6 תוויות בהגשה)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 122.0, "pct_of_opaque": 30.96},
+                    {"code": "LV-A", "name": "רפפות מסתור כביסה ופתחי אוורור", "category": "רפפות אלומיניום", "area_sqm": 24.0, "pct_of_opaque": 6.09},
+                ],
+            },
+        },
+    },
+    "kitroni37": {
+        "source_plan": "תכניות הגשה — חזית מערבית (4).pdf, חזית מזרחית (3).pdf, חזית צפונית 37 (3).pdf, חזית דרומית 37 (2).pdf (אילת קורן אדריכלים)",
+        "legend_items": [
+            "טיח לבן / בהיר + פס ניתוק אלומיניום: 2,230.0 מ״ר (57.92% מהשטח האטום — קירות הרקע הראשיים, רצועות הקומה האופקיות ומעקות הגג ב-2 הבניינים)",
+            "חיפוי קשיח לבן — צמנט בורד / פייבר צמנט: 860.0 מ״ר (22.34% מהשטח האטום — עמודוני המסגור האנכיים התוחמים את אגפי המרפסות והחלונות)",
+            "חיפוי קשיח אפור: 460.0 מ״ר (11.95% מהשטח האטום — רצועות המילוי והספנדרלים הכהים בין החלונות)",
+            "חיפוי קשיח דמוי עץ / מסתור כביסה פרופיל עץ 20/40: 300.0 מ״ר (7.79% מהשטח האטום — פירי מסתורי הכביסה ואלמנטי ההצללה)",
+        ],
+        "materials_summary": [
+            {"code": "PL-W", "name": "טיח לבן / בהיר + פס ניתוק אלומיניום (תווית בהגשה)", "category": "טיח חוץ (300 ₪/מ״ר)", "area_sqm": 2230.0, "pct_of_opaque": 57.92},
+            {"code": "FC-W", "name": "חיפוי קשיח לבן — צמנט בורד / פייבר צמנט (תווית בהגשה)", "category": "חיפוי קשיח / תלייה יבשה (700 ₪/מ״ר)", "area_sqm": 860.0, "pct_of_opaque": 22.34},
+            {"code": "FC-G", "name": "חיפוי קשיח אפור בין חלונות (תווית בהגשה)", "category": "חיפוי קשיח / תלייה יבשה (700 ₪/מ״ר)", "area_sqm": 460.0, "pct_of_opaque": 11.95},
+            {"code": "WD-L", "name": "חיפוי קשיח דמוי עץ / מסתור כביסה פרופיל עץ 20/40", "category": "רפפות ומסתורים", "area_sqm": 300.0, "pct_of_opaque": 7.79},
+        ],
+        "facades": {
+            "מערב": {
+                "gross_sqm": 1580.0, "glazing_sqm": 490.0, "opaque_sqm": 1090.0,
+                "plaster_sqm": 640.0,
+                "dry_cladding_sqm": 410.0,
+                "louvers_sqm": 40.0,
+                "convertible_to_plaster_sqm": 0.0,
+                "strategy_note": "חזית מערבית ראשית לרחוב הרב קיטרוני (2 הבניינים): 640 מ״ר כבר מתוכננים כטיח לבן/בהיר + פס ניתוק. מומלץ לשמר את 410 מ״ר החיפוי הקשיח (280 מ״ר צמנט-בורד לבן + 130 מ״ר אפור) בחזית הרחוב (0 מ״ר המרה).",
+                "materials_breakdown": [
+                    {"code": "PL-W", "name": "טיח לבן / בהיר + פס ניתוק אלומיניום (קירות רקע ורצועות מרפסות)", "category": "טיח חוץ", "area_sqm": 640.0, "pct_of_opaque": 58.72},
+                    {"code": "FC-W", "name": "חיפוי קשיח לבן — צמנט בורד / פייבר צמנט (עמודוני מסגור אנכיים)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 280.0, "pct_of_opaque": 25.69},
+                    {"code": "FC-G", "name": "חיפוי קשיח אפור (רצועות ספנדרל כהות בין חלונות)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 130.0, "pct_of_opaque": 11.93},
+                    {"code": "WD-L", "name": "חיפוי דמוי עץ / פרופיל 20/40 ואלמנטי הצללה", "category": "רפפות ומסתורים", "area_sqm": 40.0, "pct_of_opaque": 3.67},
+                ],
+            },
+            "מזרח": {
+                "gross_sqm": 1580.0, "glazing_sqm": 465.0, "opaque_sqm": 1115.0,
+                "plaster_sqm": 635.0,
+                "dry_cladding_sqm": 370.0,
+                "louvers_sqm": 110.0,
+                "convertible_to_plaster_sqm": 370.0,
+                "strategy_note": "חזית מזרחית עורפית (2 הבניינים): 635 מ״ר כבר מתוכננים כטיח לבן + 110 מ״ר מסתור פרופיל עץ 20/40. המרת 370 מ״ר חיפוי קשיח (240 מ״ר צמנט-בורד לבן + 130 מ״ר אפור) לטיח לבן/אפור עם פסי ניתוק = חיסכון 148,000 ₪.",
+                "materials_breakdown": [
+                    {"code": "PL-W", "name": "טיח לבן / בהיר + פס ניתוק אלומיניום (קירות רקע ורצועות אופקיות)", "category": "טיח חוץ", "area_sqm": 635.0, "pct_of_opaque": 56.95},
+                    {"code": "FC-W", "name": "חיפוי קשיח לבן — צמנט בורד / פייבר צמנט (עמודוני מסגור)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 240.0, "pct_of_opaque": 21.52},
+                    {"code": "FC-G", "name": "חיפוי קשיח אפור (רצועות מילוי כהות בין חלונות)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 130.0, "pct_of_opaque": 11.66},
+                    {"code": "WD-L", "name": "חיפוי קשיח דמוי עץ / מסתור כביסה פרופיל עץ 20/40", "category": "רפפות ומסתורים", "area_sqm": 110.0, "pct_of_opaque": 9.87},
+                ],
+            },
+            "צפון": {
+                "gross_sqm": 1120.0, "glazing_sqm": 285.0, "opaque_sqm": 835.0,
+                "plaster_sqm": 485.0,
+                "dry_cladding_sqm": 275.0,
+                "louvers_sqm": 75.0,
+                "convertible_to_plaster_sqm": 275.0,
+                "strategy_note": "חזיתות צד צפוניות (2 הבניינים): 485 מ״ר כבר מתוכננים כטיח לבן + 75 מ״ר מסתור עץ 20/40. המרת 275 מ״ר חיפוי קשיח (175 מ״ר פייבר-צמנט לבן + 100 מ״ר אפור) לטיח עם פסי ניתוק = חיסכון 110,000 ₪.",
+                "materials_breakdown": [
+                    {"code": "PL-W", "name": "טיח לבן / בהיר + פס ניתוק אלומיניום (קירות רקע ומעקות גג)", "category": "טיח חוץ", "area_sqm": 485.0, "pct_of_opaque": 58.08},
+                    {"code": "FC-W", "name": "חיפוי קשיח לבן — פייבר צמנט / צמנט בורד (עמודוני מסגור)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 175.0, "pct_of_opaque": 20.96},
+                    {"code": "FC-G", "name": "חיפוי קשיח אפור (רצועות ספנדרל כהות בין חלונות)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 100.0, "pct_of_opaque": 11.98},
+                    {"code": "WD-L", "name": "חיפוי קשיח דמוי עץ / מסתור כביסה פרופיל עץ 20/40", "category": "רפפות ומסתורים", "area_sqm": 75.0, "pct_of_opaque": 8.98},
+                ],
+            },
+            "דרום": {
+                "gross_sqm": 1120.0, "glazing_sqm": 310.0, "opaque_sqm": 810.0,
+                "plaster_sqm": 470.0,
+                "dry_cladding_sqm": 265.0,
+                "louvers_sqm": 75.0,
+                "convertible_to_plaster_sqm": 265.0,
+                "strategy_note": "חזיתות צד דרומיות (2 הבניינים): 470 מ״ר כבר מתוכננים כטיח לבן + 75 מ״ר מסתור עץ 20/40. המרת 265 מ״ר חיפוי קשיח (165 מ״ר פייבר-צמנט לבן + 100 מ״ר אפור) לטיח עם פסי ניתוק = חיסכון 106,000 ₪.",
+                "materials_breakdown": [
+                    {"code": "PL-W", "name": "טיח לבן / בהיר + פס ניתוק אלומיניום (קירות רקע וחדרי מדרגות)", "category": "טיח חוץ", "area_sqm": 470.0, "pct_of_opaque": 58.02},
+                    {"code": "FC-W", "name": "חיפוי קשיח לבן — פייבר צמנט / צמנט בורד (עמודוני מסגור)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 165.0, "pct_of_opaque": 20.37},
+                    {"code": "FC-G", "name": "חיפוי קשיח אפור (רצועות ספנדרל כהות בין חלונות)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 100.0, "pct_of_opaque": 12.35},
+                    {"code": "WD-L", "name": "חיפוי קשיח דמוי עץ / מסתור כביסה פרופיל עץ 20/40", "category": "רפפות ומסתורים", "area_sqm": 75.0, "pct_of_opaque": 9.26},
+                ],
+            },
+        },
+    },
+    "feierberg3": {
+        "source_plan": "תכנית הגשה — FA-hagsha-הגשה בצבע (1).dwfx (שכבות FA-e|Cover-Stone1 ו-Rail-Facade_Light) + מודל feierberg3_model.obj",
+        "legend_items": [
+            "חיפוי אבן נסורה לבנה (שכבת FA-e|Cover-Stone1 / ext_white): 1,478.0 מ״ר (79.46% מהשטח האטום — מעטפת קומות המגורים 1–8 בכל 4 החזיתות)",
+            "חיפוי קשיח כהה / אנתרציט (charcoal_crown / Rail-Facade_Light): 264.0 מ״ר (14.19% מהשטח האטום — קומות הפנטהאוז הנסוגות 9–10)",
+            "מסגרות חזית דו-קומתיות כהות וארגזי תריס (shutter_box): 68.0 מ״ר (3.66% מהשטח האטום — מסגור חלונות בקומות 1–8)",
+            "רפפות מסתורי כביסה בגוון ברונזה-אפור (bronze_portal): 50.0 מ״ר (2.69% מהשטח האטום — בצפון-מערב ובמזרח · 0.0 מ״ר טיח בתכנית ההגשה)",
+        ],
+        "materials_summary": [
+            {"code": "ST-W", "name": "חיפוי אבן נסורה לבנה (שכבת FA-e|Cover-Stone1 — קומות 1–8)", "category": "חיפוי קשיח / תלייה יבשה (700 ₪/מ״ר)", "area_sqm": 1478.0, "pct_of_opaque": 79.46},
+            {"code": "CL-D", "name": "חיפוי קשיח כהה / אנתרציט (קומות פנטהאוז 9–10)", "category": "חיפוי קשיח / תלייה יבשה (700 ₪/מ״ר)", "area_sqm": 264.0, "pct_of_opaque": 14.19},
+            {"code": "FR-D", "name": "מסגרות חזית דו-קומתיות כהות (קומות 1–8)", "category": "חיפוי קשיח / תלייה יבשה (700 ₪/מ״ר)", "area_sqm": 68.0, "pct_of_opaque": 3.66},
+            {"code": "LV-B", "name": "רפפות מסתורי כביסה ואלמנטי מתכת בגוון ברונזה-אפור", "category": "רפפות אלומיניום", "area_sqm": 50.0, "pct_of_opaque": 2.69},
+        ],
+        "facades": {
+            "דרום": {
+                "gross_sqm": 915.0, "glazing_sqm": 235.0, "opaque_sqm": 680.0,
+                "plaster_sqm": 0.0,
+                "dry_cladding_sqm": 670.0,
+                "louvers_sqm": 10.0,
+                "convertible_to_plaster_sqm": 0.0,
+                "strategy_note": "חזית דרומית ראשית לרחוב פאירברג 3: 670 מ״ר חיפוי קשיח בהגשה (552 מ״ר אבן נסורה לבנה + 92 מ״ר חיפוי כהה פנטהאוז + 26 מ״ר מסגרות כהות). מומלץ לשמר בחזית הרחוב (0 מ״ר המרה).",
+                "materials_breakdown": [
+                    {"code": "ST-W", "name": "חיפוי אבן נסורה לבנה (Cover-Stone1 — קומות 1–8 ורצועות מרפסות)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 552.0, "pct_of_opaque": 81.18},
+                    {"code": "CL-D", "name": "חיפוי קשיח כהה / אנתרציט (charcoal_crown — קומות פנטהאוז 9–10)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 92.0, "pct_of_opaque": 13.53},
+                    {"code": "FR-D", "name": "מסגרות חזית דו-קומתיות כהות (קומות 1–8)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 26.0, "pct_of_opaque": 3.82},
+                    {"code": "LV-B", "name": "רפפות ואלמנטי מתכת בגוון ברונזה-אפור", "category": "רפפות אלומיניום", "area_sqm": 10.0, "pct_of_opaque": 1.47},
+                ],
+            },
+            "צפון": {
+                "gross_sqm": 915.0, "glazing_sqm": 165.0, "opaque_sqm": 750.0,
+                "plaster_sqm": 0.0,
+                "dry_cladding_sqm": 728.0,
+                "louvers_sqm": 22.0,
+                "convertible_to_plaster_sqm": 728.0,
+                "strategy_note": "חזית צפונית עורפית: המרת 728 מ״ר חיפוי קשיח בהגשה (604 מ״ר אבן נסורה לבנה + 100 מ״ר חיפוי כהה פנטהאוז + 24 מ״ר מסגרות כהות) לטיח חוץ אקרילי לבן/אנתרציט = חיסכון 291,200 ₪.",
+                "materials_breakdown": [
+                    {"code": "ST-W", "name": "חיפוי אבן נסורה לבנה (Cover-Stone1 — קומות 1–8 וגרעין מדרגות)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 604.0, "pct_of_opaque": 80.53},
+                    {"code": "CL-D", "name": "חיפוי קשיח כהה / אנתרציט (charcoal_crown — קומות פנטהאוז 9–10)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 100.0, "pct_of_opaque": 13.33},
+                    {"code": "FR-D", "name": "מסגרות חזית דו-קומתיות כהות (קומות 1–8)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 24.0, "pct_of_opaque": 3.20},
+                    {"code": "LV-B", "name": "רפפות מסתור כביסה צפון-מערבי בגוון ברונזה-אפור", "category": "רפפות אלומיניום", "area_sqm": 22.0, "pct_of_opaque": 2.93},
+                ],
+            },
+            "מערב": {
+                "gross_sqm": 275.0, "glazing_sqm": 62.0, "opaque_sqm": 213.0,
+                "plaster_sqm": 0.0,
+                "dry_cladding_sqm": 209.0,
+                "louvers_sqm": 4.0,
+                "convertible_to_plaster_sqm": 209.0,
+                "strategy_note": "חזית צד מערבית: המרת 209 מ״ר חיפוי קשיח בהגשה (164 מ״ר אבן נסורה לבנה + 36 מ״ר חיפוי כהה פנטהאוז + 9 מ״ר מסגרות) לטיח חוץ אקרילי = חיסכון 83,600 ₪.",
+                "materials_breakdown": [
+                    {"code": "ST-W", "name": "חיפוי אבן נסורה לבנה (Cover-Stone1 — קומות 1–8)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 164.0, "pct_of_opaque": 77.00},
+                    {"code": "CL-D", "name": "חיפוי קשיח כהה / אנתרציט (charcoal_crown — קומות פנטהאוז 9–10)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 36.0, "pct_of_opaque": 16.90},
+                    {"code": "FR-D", "name": "מסגרות חזית דו-קומתיות כהות (קומות 1–8)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 9.0, "pct_of_opaque": 4.23},
+                    {"code": "LV-B", "name": "רפפות ואלמנטי מתכת בגוון ברונזה-אפור", "category": "רפפות אלומיניום", "area_sqm": 4.0, "pct_of_opaque": 1.88},
+                ],
+            },
+            "מזרח": {
+                "gross_sqm": 275.0, "glazing_sqm": 58.0, "opaque_sqm": 217.0,
+                "plaster_sqm": 0.0,
+                "dry_cladding_sqm": 203.0,
+                "louvers_sqm": 14.0,
+                "convertible_to_plaster_sqm": 203.0,
+                "strategy_note": "חזית צד מזרחית: המרת 203 מ״ר חיפוי קשיח בהגשה (158 מ״ר אבן נסורה לבנה + 36 מ״ר חיפוי כהה פנטהאוז + 9 מ״ר מסגרות) לטיח חוץ אקרילי = חיסכון 81,200 ₪.",
+                "materials_breakdown": [
+                    {"code": "ST-W", "name": "חיפוי אבן נסורה לבנה (Cover-Stone1 — קומות 1–8)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 158.0, "pct_of_opaque": 72.81},
+                    {"code": "CL-D", "name": "חיפוי קשיח כהה / אנתרציט (charcoal_crown — קומות פנטהאוז 9–10)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 36.0, "pct_of_opaque": 16.59},
+                    {"code": "FR-D", "name": "מסגרות חזית דו-קומתיות כהות (קומות 1–8)", "category": "חיפוי קשיח (תלייה יבשה)", "area_sqm": 9.0, "pct_of_opaque": 4.15},
+                    {"code": "LV-B", "name": "רפפות מסתור כביסה מזרחי בגוון ברונזה-אפור", "category": "רפפות אלומיניום", "area_sqm": 14.0, "pct_of_opaque": 6.45},
+                ],
+            },
+        },
+    },
+}
+
+
+def enrich_facades_with_submission_data(project_id: str, facades_dict: dict) -> dict:
+    """
+    Enriches `facades_dict` (from PROJECT_QUANTITATIVE_DATA[pid]['facades']) in-place
+    with the exact per-material, per-facade areas extracted from the submission plans.
+    """
+    if not facades_dict or project_id not in SUBMISSION_FACADE_ANALYSIS:
+        return facades_dict
+
+    sub = SUBMISSION_FACADE_ANALYSIS[project_id]
+    sub_facades = sub.get("facades", {})
+
+    tot_opq = float(facades_dict.get("total_opaque_sqm") or 0.0)
+    tot_pl = sum(float(v.get("plaster_sqm", 0.0)) for v in sub_facades.values())
+    tot_cl = sum(float(v.get("dry_cladding_sqm", 0.0)) for v in sub_facades.values())
+    tot_lv = sum(float(v.get("louvers_sqm", 0.0)) for v in sub_facades.values())
+    tot_conv = sum(float(v.get("convertible_to_plaster_sqm", 0.0)) for v in sub_facades.values())
+
+    facades_dict["submission_plan_source"] = sub.get("source_plan", "")
+    facades_dict["submission_legend_items"] = list(sub.get("legend_items", []))
+    facades_dict["materials_breakdown_summary"] = list(sub.get("materials_summary", []))
+    facades_dict["total_plaster_sqm"] = round(tot_pl, 1)
+    facades_dict["total_plaster_pct"] = round(tot_pl / tot_opq * 100.0, 1) if tot_opq > 0 else 0.0
+    facades_dict["total_dry_cladding_sqm"] = round(tot_cl, 1)
+    facades_dict["total_dry_cladding_pct"] = round(tot_cl / tot_opq * 100.0, 1) if tot_opq > 0 else 0.0
+    facades_dict["total_louvers_sqm"] = round(tot_lv, 1)
+    facades_dict["total_louvers_pct"] = round(tot_lv / tot_opq * 100.0, 1) if tot_opq > 0 else 0.0
+    facades_dict["total_convertible_to_plaster_sqm"] = round(tot_conv, 1)
+
+    for d in facades_dict.get("by_direction", []):
+        direction = d.get("direction", "")
+        sf = sub_facades.get(direction)
+        if not sf:
+            continue
+        opq = float(d.get("opaque_area_sqm") or sf.get("opaque_sqm") or 1.0)
+        pl_sqm = float(sf.get("plaster_sqm", 0.0))
+        cl_sqm = float(sf.get("dry_cladding_sqm", 0.0))
+        lv_sqm = float(sf.get("louvers_sqm", 0.0))
+        conv_sqm = float(sf.get("convertible_to_plaster_sqm", 0.0))
+        mat_list = list(sf.get("materials_breakdown", []))
+
+        d["submission_plaster_sqm"] = round(pl_sqm, 1)
+        d["submission_plaster_pct"] = round(pl_sqm / opq * 100.0, 1) if opq > 0 else 0.0
+        d["submission_dry_cladding_sqm"] = round(cl_sqm, 1)
+        d["submission_dry_cladding_pct"] = round(cl_sqm / opq * 100.0, 1) if opq > 0 else 0.0
+        d["submission_louvers_sqm"] = round(lv_sqm, 1)
+        d["submission_louvers_pct"] = round(lv_sqm / opq * 100.0, 1) if opq > 0 else 0.0
+        d["recommended_converted_to_plaster_sqm"] = round(conv_sqm, 1)
+        d["submission_materials_breakdown"] = mat_list
+        d["submission_optimization_strategy"] = sf.get("strategy_note", "")
+
+        # Update materials_and_elements string with exact per-material areas from the submission plan
+        parts = [f"{m['name']}: {m['area_sqm']:.0f} מ״ר ({m['pct_of_opaque']:.1f}%)" for m in mat_list]
+        d["materials_and_elements"] = " · ".join(parts)
+
+    return facades_dict

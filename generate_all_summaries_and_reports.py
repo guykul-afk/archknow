@@ -151,22 +151,39 @@ def build_markdown_summary_and_areas_section(payload):
         "",
         "---",
         "",
-        f"## 5. סך שטחי חזיתות בחלוקה לחזיתות השונות (סך הכל: **{fmt(fac.get('total_sqm'))} מ״ר**)",
+        f"## 5. סך שטחי חזיתות וחלוקה מדויקת לחומרים מתכנית ההגשה (סך הכל: **{fmt(fac.get('total_sqm'))} מ״ר ברוטו** · **{fmt(fac.get('total_opaque_sqm'))} מ״ר אטום**)",
         "",
-        f"*{fac.get('summary_note', '')}*",
+        f"- **מקור תכנית ההגשה והמודל:** {fac.get('submission_plan_source', fac.get('summary_note', ''))}",
+        f"- **סיכום שטחי חומרים מתכנית ההגשה (מתוך {fmt(fac.get('total_opaque_sqm'))} מ״ר שטח אטום ורפפות):**",
+        f"  - **טיח חוץ בתכנית ההגשה (`300 ₪/מ״ר`):** **{fmt(fac.get('total_plaster_sqm', 0))} מ״ר ({fac.get('total_plaster_pct', 0)}%)**",
+        f"  - **חיפוי קשיח / תלייה יבשה בתכנית ההגשה (`700 ₪/מ״ר`):** **{fmt(fac.get('total_dry_cladding_sqm', 0))} מ״ר ({fac.get('total_dry_cladding_pct', 0)}%)**",
+        f"  - **רפפות מסתורי כביסה ואלמנטי אוורור בהגשה:** **{fmt(fac.get('total_louvers_sqm', 0))} מ״ר ({fac.get('total_louvers_pct', 0)}%)**",
         "",
-        "| שם החזית והפניה | כיוון | אורך פיתוח | גובה משוקלל | שטח חזית ברוטו | % מסך החזיתות | שטח פתחים וזיגוג (WWR) | שטח קירות אטומים וחיפוי | חומרי גמר ואלמנטים אדריכליים |",
+        "| שם החזית והפניה | כיוון | שטח חזית ברוטו | פתחים וזיגוג (WWR) | שטח אטום ורפפות | טיח חוץ בהגשה (300 ₪) | חיפוי קשיח בהגשה (700 ₪) | רפפות ומסתורים בהגשה | פירוט חומרים מדויק מתכנית ההגשה |",
         "| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |",
     ])
 
     for d in fac.get("by_direction", []):
         lines.append(
-            f"| **{d.get('facade_name')}** | {d.get('direction')} | {fmt(d.get('length_m'))} מ׳ | {fmt(d.get('height_m'))} מ׳ | **{fmt(d.get('gross_area_sqm'))} מ״ר** | {d.get('pct_of_total')}% | {fmt(d.get('glazing_area_sqm'))} מ״ר ({d.get('wwr_pct')}%) | {fmt(d.get('opaque_area_sqm'))} מ״ר | {d.get('materials_and_elements')} |"
+            f"| **{d.get('facade_name')}** | {d.get('direction')} | **{fmt(d.get('gross_area_sqm'))} מ״ר** ({d.get('pct_of_total')}%) | {fmt(d.get('glazing_area_sqm'))} מ״ר ({d.get('wwr_pct')}%) | **{fmt(d.get('opaque_area_sqm'))} מ״ר** | **{fmt(d.get('submission_plaster_sqm', 0))} מ״ר** ({d.get('submission_plaster_pct', 0)}%) | **{fmt(d.get('submission_dry_cladding_sqm', 0))} מ״ר** ({d.get('submission_dry_cladding_pct', 0)}%) | {fmt(d.get('submission_louvers_sqm', 0))} מ״ר ({d.get('submission_louvers_pct', 0)}%) | {d.get('materials_and_elements')} |"
         )
 
     lines.append(
-        f"| **סה״כ שטחי חזיתות החוץ** | **4 רוחות השמיים** | — | **{fmt(fac.get('building_height_m'))} מ׳** | **{fmt(fac.get('total_sqm'))} מ״ר** | **100.0%** | **{fmt(fac.get('total_glazing_sqm'))} מ״ר ({fac.get('average_wwr_pct')}%)** | **{fmt(fac.get('total_opaque_sqm'))} מ״ר** | **מעטפת המבנה המלאה** |"
+        f"| **סה״כ שטחי חזיתות החוץ** | **4 חזיתות** | **{fmt(fac.get('total_sqm'))} מ״ר (100%)** | **{fmt(fac.get('total_glazing_sqm'))} מ״ר ({fac.get('average_wwr_pct')}%)** | **{fmt(fac.get('total_opaque_sqm'))} מ״ר (100%)** | **{fmt(fac.get('total_plaster_sqm', 0))} מ״ר ({fac.get('total_plaster_pct', 0)}%)** | **{fmt(fac.get('total_dry_cladding_sqm', 0))} מ״ר ({fac.get('total_dry_cladding_pct', 0)}%)** | **{fmt(fac.get('total_louvers_sqm', 0))} מ״ר ({fac.get('total_louvers_pct', 0)}%)** | **סה״כ מעטפת לפי תכנית ההגשה** |"
     )
+
+    if fac.get("materials_breakdown_summary"):
+        lines.extend([
+            "",
+            "### פירוט מקרא חומרי החזיתות מתכנית ההגשה (סיכום כמותי ב-4 החזיתות)",
+            "",
+            "| קוד / סימון בהגשה | תיאור החומר בתכנית ההגשה | קטגוריית תחשיב | שטח כולל ב-4 החזיתות (מ״ר) | % מסך השטח האטום |",
+            "| :---: | :--- | :--- | :---: | :---: |",
+        ])
+        for m in fac.get("materials_breakdown_summary", []):
+            lines.append(
+                f"| **`{m.get('code')}`** | **{m.get('name')}** | {m.get('category')} | **{fmt(m.get('area_sqm'))} מ״ר** | **{m.get('pct_of_opaque')}%** |"
+            )
 
     lines.extend([
         "",
@@ -301,14 +318,14 @@ def build_markdown_summary_and_areas_section(payload):
 
         lines.extend([
             "",
-            "### ד. אופטימיזציית יחס חיפוי קשיח/יבש (`700 ₪/מ״ר`) לעומת טיח חוץ (`300 ₪/מ״ר` — חיסכון `400 ₪/מ״ר`)",
+            "### ד. אופטימיזציית יחס חיפוי קשיח/יבש (`700 ₪/מ״ר`) לעומת טיח חוץ (`300 ₪/מ״ר` — חיסכון `400 ₪/מ״ר`) לפי תכנית ההגשה",
             "",
-            "| חזית וכיוון | שטח קירות אטומים | חיפוי יבש נוכחי (85%) | המרה מומלצת לטיח | תמהיל מומלץ (יבש / טיח) | חיסכון כספי (₪) | אסטרטגיה אדריכלית |",
-            "| :--- | :---: | :---: | :---: | :---: | :---: | :--- |",
+            "| חזית וכיוון | שטח אטום ורפפות | טיח קיים בהגשה (300 ₪) | חיפוי קשיח בהגשה (700 ₪) | רפפות בהגשה | המרה מומלצת לטיח | תמהיל מומלץ (יבש / טיח) | חיסכון כספי (₪) | אסטרטגיה אדריכלית לפי תכנית ההגשה |",
+            "| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |",
         ])
         for f_item in fac_opt.get("by_facade", []):
             lines.append(
-                f"| **{f_item.get('facade_name')}** | {fmt(f_item.get('opaque_area_sqm'))} מ״ר | {fmt(f_item.get('current_dry_cladding_sqm'))} מ״ר | **{fmt(f_item.get('recommended_converted_to_plaster_sqm'))} מ״ר** | {f_item.get('optimized_dry_pct')}% יבש / {f_item.get('optimized_plaster_pct')}% טיח | **{fmt(f_item.get('cost_saving_ils'))} ₪** | {f_item.get('strategy_note')} |"
+                f"| **{f_item.get('facade_name')}** | {fmt(f_item.get('opaque_area_sqm'))} מ״ר | {fmt(f_item.get('current_plaster_sqm', 0))} מ״ר ({f_item.get('current_plaster_pct', 0)}%) | {fmt(f_item.get('current_dry_cladding_sqm'))} מ״ר ({f_item.get('current_dry_pct', 0)}%) | {fmt(f_item.get('current_louvers_sqm', 0))} מ״ר | **{fmt(f_item.get('recommended_converted_to_plaster_sqm'))} מ״ר** | {f_item.get('optimized_dry_pct')}% יבש / {f_item.get('optimized_plaster_pct')}% טיח | **{fmt(f_item.get('cost_saving_ils'))} ₪** | {f_item.get('strategy_note')} |"
             )
 
     lines.append("")
@@ -378,12 +395,12 @@ def build_html_summary_and_areas_block(payload):
         f"""<tr>
           <td><strong>{d.get('facade_name')}</strong></td>
           <td style="text-align:center;">{d.get('direction')}</td>
-          <td style="text-align:center;">{fmt(d.get('length_m'))} מ'</td>
-          <td style="text-align:center;">{fmt(d.get('height_m'))} מ'</td>
-          <td style="text-align:center;font-weight:800;color:#1e3a8a;">{fmt(d.get('gross_area_sqm'))} מ"ר</td>
-          <td style="text-align:center;">{d.get('pct_of_total')}%</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">{fmt(d.get('gross_area_sqm'))} מ"ר ({d.get('pct_of_total')}%)</td>
           <td style="text-align:center;">{fmt(d.get('glazing_area_sqm'))} מ"ר ({d.get('wwr_pct')}%)</td>
-          <td style="text-align:center;">{fmt(d.get('opaque_area_sqm'))} מ"ר</td>
+          <td style="text-align:center;font-weight:700;">{fmt(d.get('opaque_area_sqm'))} מ"ר</td>
+          <td style="text-align:center;color:#0f766e;font-weight:700;">{fmt(d.get('submission_plaster_sqm', 0))} מ"ר ({d.get('submission_plaster_pct', 0)}%)</td>
+          <td style="text-align:center;color:#b45309;font-weight:700;">{fmt(d.get('submission_dry_cladding_sqm', 0))} מ"ר ({d.get('submission_dry_cladding_pct', 0)}%)</td>
+          <td style="text-align:center;">{fmt(d.get('submission_louvers_sqm', 0))} מ"ר ({d.get('submission_louvers_pct', 0)}%)</td>
           <td>{d.get('materials_and_elements')}</td>
         </tr>"""
         for d in fac.get("by_direction", [])
@@ -466,7 +483,8 @@ def build_html_summary_and_areas_block(payload):
         f"""<tr>
           <td><strong>{f_item.get('facade_name')}</strong></td>
           <td style="text-align:center;">{fmt(f_item.get('opaque_area_sqm'))} מ"ר</td>
-          <td style="text-align:center;">{fmt(f_item.get('current_dry_cladding_sqm'))} מ"ר</td>
+          <td style="text-align:center;color:#0f766e;font-weight:700;">{fmt(f_item.get('current_plaster_sqm', 0))} מ"ר ({f_item.get('current_plaster_pct', 0)}%)</td>
+          <td style="text-align:center;color:#b45309;font-weight:700;">{fmt(f_item.get('current_dry_cladding_sqm'))} מ"ר ({f_item.get('current_dry_pct', 0)}%)</td>
           <td style="text-align:center;font-weight:800;color:#0284c7;">{fmt(f_item.get('recommended_converted_to_plaster_sqm'))} מ"ר</td>
           <td style="text-align:center;">{f_item.get('optimized_dry_pct')}% יבש / {f_item.get('optimized_plaster_pct')}% טיח</td>
           <td style="text-align:center;font-weight:900;color:#15803d;background:#dcfce7;">{fmt(f_item.get('cost_saving_ils'))} ₪</td>
@@ -629,30 +647,33 @@ def build_html_summary_and_areas_block(payload):
     </tbody>
   </table>
 
-  <h3>ד. סך שטחי חזיתות בחלוקה לחזיתות השונות ({fmt(fac.get('total_sqm'))} מ"ר)</h3>
+  <h3>ד. סך שטחי חזיתות וחלוקה מדויקת לחומרים מתכנית ההגשה ({fmt(fac.get('total_sqm'))} מ"ר ברוטו · {fmt(fac.get('total_opaque_sqm'))} מ"ר אטום)</h3>
+  <p style="font-size:8.5pt;color:#1e3a8a;margin:2px 0 6px 0;"><strong>מקור תכנית ההגשה:</strong> {fac.get('submission_plan_source', '')}</p>
   <table>
     <thead>
       <tr>
-        <th style="width:20%;">שם החזית והפניה</th>
-        <th style="width:6%;text-align:center;">כיוון</th>
-        <th style="width:8%;text-align:center;">אורך</th>
-        <th style="width:8%;text-align:center;">גובה</th>
-        <th style="width:10%;text-align:center;">שטח חזית</th>
-        <th style="width:7%;text-align:center;">%</th>
-        <th style="width:12%;text-align:center;">זיגוג ופתחים</th>
-        <th style="width:10%;text-align:center;">קירות/חיפוי</th>
-        <th style="width:19%;">חומרי גמר ואלמנטים</th>
+        <th style="width:16%;">שם החזית והפניה</th>
+        <th style="width:5%;text-align:center;">כיוון</th>
+        <th style="width:10%;text-align:center;">שטח חזית ברוטו</th>
+        <th style="width:10%;text-align:center;">זיגוג ופתחים</th>
+        <th style="width:9%;text-align:center;">שטח אטום</th>
+        <th style="width:11%;text-align:center;">טיח בהגשה (300 ₪)</th>
+        <th style="width:11%;text-align:center;">חיפוי קשיח בהגשה (700 ₪)</th>
+        <th style="width:8%;text-align:center;">רפפות בהגשה</th>
+        <th style="width:20%;">פירוט חומרים מדויק מתכנית ההגשה</th>
       </tr>
     </thead>
     <tbody>
       {fac_rows}
       <tr style="background:#dbeafe;font-weight:800;">
-        <td colspan="4"><strong>סה"כ שטחי חזיתות החוץ (4 חזיתות המבנה)</strong></td>
-        <td style="text-align:center;color:#1e3a8a;"><strong>{fmt(fac.get('total_sqm'))} מ"ר</strong></td>
-        <td style="text-align:center;"><strong>100%</strong></td>
+        <td colspan="2"><strong>סה"כ 4 חזיתות המבנה</strong></td>
+        <td style="text-align:center;color:#1e3a8a;"><strong>{fmt(fac.get('total_sqm'))} מ"ר (100%)</strong></td>
         <td style="text-align:center;"><strong>{fmt(fac.get('total_glazing_sqm'))} מ"ר ({fac.get('average_wwr_pct')}%)</strong></td>
-        <td style="text-align:center;"><strong>{fmt(fac.get('total_opaque_sqm'))} מ"ר</strong></td>
-        <td><strong>מעטפת מלאה</strong></td>
+        <td style="text-align:center;"><strong>{fmt(fac.get('total_opaque_sqm'))} מ"ר (100%)</strong></td>
+        <td style="text-align:center;color:#0f766e;"><strong>{fmt(fac.get('total_plaster_sqm', 0))} מ"ר ({fac.get('total_plaster_pct', 0)}%)</strong></td>
+        <td style="text-align:center;color:#b45309;"><strong>{fmt(fac.get('total_dry_cladding_sqm', 0))} מ"ר ({fac.get('total_dry_cladding_pct', 0)}%)</strong></td>
+        <td style="text-align:center;"><strong>{fmt(fac.get('total_louvers_sqm', 0))} מ"ר ({fac.get('total_louvers_pct', 0)}%)</strong></td>
+        <td><strong>חלוקה מדויקת מתכנית ההגשה</strong></td>
       </tr>
     </tbody>
   </table>
@@ -795,17 +816,18 @@ def build_html_summary_and_areas_block(payload):
     </tbody>
   </table>
 
-  <h3>ג. אופטימיזציית חזיתות — יחס חיפוי קשיח/יבש (700 ₪/מ"ר) מול טיח חוץ (300 ₪/מ"ר · חיסכון 400 ₪/מ"ר)</h3>
+  <h3>ג. אופטימיזציית חזיתות מתכנית ההגשה — חיפוי קשיח/יבש (700 ₪/מ"ר) מול טיח חוץ (300 ₪/מ"ר · חיסכון 400 ₪/מ"ר)</h3>
   <table>
     <thead>
       <tr>
-        <th style="width:18%;">חזית וכיוון</th>
-        <th style="width:10%;text-align:center;">שטח אטום</th>
-        <th style="width:11%;text-align:center;">יבש נוכחי (85%)</th>
-        <th style="width:11%;text-align:center;">המרה לטיח</th>
-        <th style="width:14%;text-align:center;">תמהיל מומלץ</th>
-        <th style="width:12%;text-align:center;">חיסכון כספי</th>
-        <th style="width:24%;">אסטרטגיה אדריכלית</th>
+        <th style="width:15%;">חזית וכיוון</th>
+        <th style="width:9%;text-align:center;">שטח אטום</th>
+        <th style="width:11%;text-align:center;">טיח קיים בהגשה</th>
+        <th style="width:11%;text-align:center;">חיפוי קשיח בהגשה</th>
+        <th style="width:10%;text-align:center;">המרה לטיח</th>
+        <th style="width:12%;text-align:center;">תמהיל מומלץ</th>
+        <th style="width:10%;text-align:center;">חיסכון כספי</th>
+        <th style="width:22%;">אסטרטגיה אדריכלית לפי תכנית ההגשה</th>
       </tr>
     </thead>
     <tbody>
