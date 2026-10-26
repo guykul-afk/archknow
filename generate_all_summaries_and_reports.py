@@ -237,6 +237,7 @@ def build_markdown_summary_and_areas_section(payload):
     if opt:
         kpis = opt.get("executive_kpis", {})
         guar = opt.get("zero_damage_guarantees", {})
+        contour_audit = opt.get("contour_audit_summary", {})
         ag_opt = opt.get("above_ground_optimization", {})
         ug_opt = opt.get("underground_optimization", {})
         fac_opt = opt.get("facade_cladding_optimization", {})
@@ -244,42 +245,58 @@ def build_markdown_summary_and_areas_section(payload):
 
         lines.extend([
             "",
-            "---",
+            "### ג. שיפור תכנון (ללא הקטנת קונטור הבנייה): ייעול פנים-דירתי ושטחי ליבה/שירות כלואים שהועברו מחיסכון עלויות",
             "",
-            f"## 8. 💰 בדיקת ייעול תכנון, הנדסת ערך וחיסכון בעלויות בנייה (סה״כ פוטנציאל חיסכון ישיר: **{fmt(kpis.get('grand_total_direct_saving_ils'))} ₪**)",
-            "",
-            f"> **עקרון ברזל (Zero-Impact Guarantee):** {guar.get('guarantee_statement', '')}",
-            "",
-            "### א. סיכום מנהלים — מוקדי החיסכון הכספי והייעול התכנוני בפרויקט",
-            "",
-            "| ציר ייעול תכנוני והנדסי | תעריף / מקדם עלות | היקף שטח לייעול / המרה | אומדן חיסכון כספי ישיר (₪) | שמירת שטח דירות ושימושים ציבוריים |",
-            "| :--- | :---: | :---: | :---: | :--- |",
-            f"| **1. חיסכון בשטחי בנייה עיליים (ליבה/קרקע/גג)** | `6,200 ₪ / מ״ר` | **{fmt(kpis.get('above_ground_saved_sqm'))} מ״ר** | **{fmt(kpis.get('above_ground_saving_ils'))} ₪** | 0% פגיעה בדירות · שמירת ארונות חשמל/מים/גז/תקשורת |",
-            f"| **2. חיסכון בשטחי מרתף וחניון תת-קרקעי** | `3,500 ₪ / מ״ר` | **{fmt(kpis.get('underground_saved_sqm'))} מ״ר** | **{fmt(kpis.get('underground_saving_ils'))} ₪** | שמירת 100% מתאי החניה ({guar.get('parking_spaces_preserved')} חניות) ורדיוסי תמרון |",
-            f"| **3. אופטימיזציית חזיתות (חיפוי יבש 700 ₪ מול טיח 300 ₪)** | `400 ₪ / מ״ר` | **{fmt(kpis.get('facade_converted_to_plaster_sqm'))} מ״ר** | **{fmt(kpis.get('facade_saving_ils'))} ₪** | שמירת חיפוי קשיח בחזית הרחוב הראשית ובקומת המסד |",
-            f"| **4. ייעול פנים-דירתי (המרת מסדרונות לחדרי מגורים)** | השבחת שטח אפקטיבי | **{fmt(kpis.get('internal_reclaimed_living_sqm'))} מ״ר** | **השבחה + חיסכון מחיצות** | הגדלת סלונים וחדרי שינה על חשבון מסדרונות ומעברים |",
-            f"| **סה״כ פוטנציאל חיסכון ישיר בעלויות הבנייה** | — | **{fmt((kpis.get('above_ground_saved_sqm') or 0) + (kpis.get('underground_saved_sqm') or 0))} מ״ר שלד + {fmt(kpis.get('facade_converted_to_plaster_sqm'))} מ״ר חזית** | **{fmt(kpis.get('grand_total_direct_saving_ils'))} ₪** | **ללא פגיעה בשטח המשווק או בתפקוד הבניין** |",
-            "",
-            "### ב. פירוט ייעול נפחיות ושטחים עיליים (`6,200 ₪ למ״ר נחסך`)",
-            "",
-            "| קומה / מוקד | שטח נוכחי | שטח אופטימלי | שטח נחסך (מ״ר) | חיסכון כספי (₪) | פעולה הנדסית ושימושים נשמרים (ארונות חשמל/מים/גז) |",
+            "| טיפוס דירה / מוקד ליבה כלוא | מצב נוכחי | מצב יעיל | שטח מושבח לדירה/קומה | סה״כ שטח שיפור תכנון בפרויקט | פירוט הנדסי (מדוע לא הקטין קונטור בניין ומהו שיפור התכנון) |",
             "| :--- | :---: | :---: | :---: | :---: | :--- |",
         ])
-        for item in ag_opt.get("items", []):
+        for l_item in contour_audit.get("locked_core_reclassified_items", []):
             lines.append(
-                f"| **{item.get('floor_or_zone')}** | {fmt(item.get('current_sqm'))} מ״ר | {fmt(item.get('optimal_sqm'))} מ״ר | **{fmt(item.get('saved_sqm'))} מ״ר** | **{fmt(item.get('cost_saving_ils'))} ₪** | {item.get('engineering_action')} (*{item.get('preserved_utilities')}*) |"
+                f"| **🔄 ליבה כלואה: {l_item.get('zone')}** | הפחתת {fmt(l_item.get('proposed_core_reduction_sqm'))} מ״ר ליבה | 0.0 מ״ר הקטנת קונטור | **0 ₪ חיסכון שלד** | **+{fmt(l_item.get('reclassified_design_improvement_sqm'))} מ״ר שיפור תכנון** | **סיבת נעילת קונטור:** {l_item.get('why_not_contour_saving')} · **תועלת תכנונית:** {l_item.get('design_benefit')} |"
+            )
+        for a_item in apt_opt.get("items", []):
+            lines.append(
+                f"| **🛋️ פנים-דירתי: {a_item.get('typology')}** | מסדרון {fmt(a_item.get('current_corridor_sqm'))} מ״ר | מסדרון {fmt(a_item.get('optimal_corridor_sqm'))} מ״ר | **+{fmt(a_item.get('reclaimed_sqm_per_unit'))} מ״ר לדירה** | **+{fmt(a_item.get('total_reclaimed_sqm'))} מ״ר** ({a_item.get('units_count')} דירות) | **חדרים:** {a_item.get('target_rooms_benefiting')} · **פתחים:** {a_item.get('openings_optimization')} |"
             )
 
         lines.extend([
             "",
-            "### ג. פירוט ייעול חניון תת-קרקעי ומרתפים (`3,500 ₪ למ״ר נחסך`)",
+            "---",
             "",
-            "| מוקד במרתף החניון | שטח מרתף נוכחי | שטח מרתף אופטימלי | שטח נחסך (מ״ר) | חיסכון כספי (₪) | פתרון הנדסי ושמירת חניות |",
-            "| :--- | :---: | :---: | :---: | :---: | :--- |",
+            f"## 8. 💰 מודל החיסכון בעלויות הבנייה — צמצום קונטור בנייה מאומת וחיפוי (סה״כ פוטנציאל חיסכון ישיר: **{fmt(kpis.get('grand_total_direct_saving_ils'))} ₪**)",
+            "",
+            f"> **מנגנון בקרת כיווץ קונטור הבניין הכולל (Contour Shrinkage Audit):** {contour_audit.get('audit_rule_he', '')} · {guar.get('guarantee_statement', '')}",
+            "",
+            "### א. סיכום מנהלים ובקרת כיווץ קונטור — הפרדה בין הקטנת קונטור (חיסכון כספי) לבין ליבה כלואה (שיפור תכנון)",
+            "",
+            "| ציר בדיקה | הפחתת שטח גולמית שנבדקה | שטח כלוא שלא הקטין קונטור (0 ₪ ← שיפור תכנון) | שטח קונטור נחסך בפועל (נבנה פחות) | תעריף | אומדן חיסכון כספי ישיר (₪) |",
+            "| :--- | :---: | :---: | :---: | :---: | :---: |",
+            f"| **1. צמצום קונטור בנייה עילי (ליבה/קרקע/גג)** | {fmt(contour_audit.get('proposed_ag_gross_reduction_sqm'))} מ״ר | {fmt(contour_audit.get('rejected_locked_ag_core_sqm'))} מ״ר (ליבה כלואה/תחת תקרה) | **{fmt(kpis.get('above_ground_saved_sqm'))} מ״ר** | `6,200 ₪ / מ״ר` | **{fmt(kpis.get('above_ground_saving_ils'))} ₪** |",
+            f"| **2. צמצום קונטור מרתף וחניון תת-קרקעי** | {fmt(contour_audit.get('proposed_ug_gross_reduction_sqm'))} מ״ר | {fmt(contour_audit.get('rejected_locked_ug_zone_sqm'))} מ״ר (כלוא בין חניות) | **{fmt(kpis.get('underground_saved_sqm'))} מ״ר** | `3,500 ₪ / מ״ר` | **{fmt(kpis.get('underground_saving_ils'))} ₪** |",
+            f"| **3. אופטימיזציית חזיתות (חיפוי יבש 700 ₪ מול טיח 300 ₪)** | — | — | **{fmt(kpis.get('facade_converted_to_plaster_sqm'))} מ״ר מומר** | `400 ₪ / מ״ר` | **{fmt(kpis.get('facade_saving_ils'))} ₪** |",
+            f"| **4. מסדרונות פנים-דירתיים שהומרו לחדרים** | {fmt(contour_audit.get('rejected_internal_apt_corridor_sqm'))} מ״ר | {fmt(contour_audit.get('rejected_internal_apt_corridor_sqm'))} מ״ר (קונטור דירה קבוע) | **0.0 מ״ר** | `0 ₪` | **0 ₪ (שיפור תכנון)** |",
+            f"| **סה״כ פוטנציאל חיסכון ישיר מאומת בעלויות הבנייה** | **{fmt(contour_audit.get('total_proposed_raw_reduction_sqm'))} מ״ר נבדקו** | **{fmt(contour_audit.get('total_reclassified_to_design_improvement_sqm'))} מ״ר הועברו לשיפור תכנון** | **{fmt(contour_audit.get('total_verified_contour_saved_sqm'))} מ״ר קונטור + {fmt(kpis.get('facade_converted_to_plaster_sqm'))} מ״ר חזית** | — | **{fmt(kpis.get('grand_total_direct_saving_ils'))} ₪** |",
+            "",
+            "### ב. פירוט צמצום קונטור בנייה עילי מאומת (`6,200 ₪ למ״ר קונטור נחסך`)",
+            "",
+            "| קומה / מוקד | שטח נוכחי | הפחתת ליבה גולמית | ליבה כלואה (0 ₪ ← שיפור תכנון) | קונטור נחסך בפועל (נבנה פחות) | חיסכון כספי (₪) | הוכחת כיווץ קונטור גיאומטרית ושימושים נשמרים |",
+            "| :--- | :---: | :---: | :---: | :---: | :---: | :--- |",
+        ])
+        for item in ag_opt.get("items", []):
+            lines.append(
+                f"| **{item.get('floor_or_zone')}** | {fmt(item.get('current_sqm'))} מ״ר | {fmt(item.get('proposed_gross_reduction_sqm'))} מ״ר | {fmt(item.get('non_contour_reclassified_sqm'))} מ״ר | **{fmt(item.get('saved_sqm'))} מ״ר** | **{fmt(item.get('cost_saving_ils'))} ₪** | {item.get('engineering_action')} · **כיווץ קונטור:** {item.get('contour_mechanism')} (*{item.get('preserved_utilities')}*) |"
+            )
+
+        lines.extend([
+            "",
+            "### ג. פירוט צמצום קונטור חניון תת-קרקעי ומרתפים (`3,500 ₪ למ״ר קונטור דיפון נחסך`)",
+            "",
+            "| מוקד במרתף החניון | שטח מרתף נוכחי | הפחתה גולמית | כלוא בין חניות (0 ₪) | קונטור דיפון נחסך (נבנה פחות) | חיסכון כספי (₪) | הוכחת כיווץ פוליגון דיפון ושמירת חניות |",
+            "| :--- | :---: | :---: | :---: | :---: | :---: | :--- |",
         ])
         for item in ug_opt.get("items", []):
             lines.append(
-                f"| **{item.get('zone')}** | {fmt(item.get('current_sqm'))} מ״ר ({ug_opt.get('current_sqm_per_stall')} מ״ר/חניה) | {fmt(item.get('optimal_sqm'))} מ״ר ({ug_opt.get('optimized_sqm_per_stall')} מ״ר/חניה) | **{fmt(item.get('saved_sqm'))} מ״ר** | **{fmt(item.get('cost_saving_ils'))} ₪** | {item.get('engineering_action')} (*{item.get('parking_spaces_preserved')}*) |"
+                f"| **{item.get('zone')}** | {fmt(item.get('current_sqm'))} מ״ר ({ug_opt.get('current_sqm_per_stall')} מ״ר/חניה) | {fmt(item.get('proposed_gross_reduction_sqm'))} מ״ר | {fmt(item.get('non_contour_reclassified_sqm'))} מ״ר | **{fmt(item.get('saved_sqm'))} מ״ר** | **{fmt(item.get('cost_saving_ils'))} ₪** | {item.get('engineering_action')} · **כיווץ דיפון:** {item.get('contour_mechanism')} (*{item.get('parking_spaces_preserved')}*) |"
             )
 
         lines.extend([
@@ -292,18 +309,6 @@ def build_markdown_summary_and_areas_section(payload):
         for f_item in fac_opt.get("by_facade", []):
             lines.append(
                 f"| **{f_item.get('facade_name')}** | {fmt(f_item.get('opaque_area_sqm'))} מ״ר | {fmt(f_item.get('current_dry_cladding_sqm'))} מ״ר | **{fmt(f_item.get('recommended_converted_to_plaster_sqm'))} מ״ר** | {f_item.get('optimized_dry_pct')}% יבש / {f_item.get('optimized_plaster_pct')}% טיח | **{fmt(f_item.get('cost_saving_ils'))} ₪** | {f_item.get('strategy_note')} |"
-            )
-
-        lines.extend([
-            "",
-            "### ה. ייעול תכנון פנימי בדירות (הקטנת מסדרונות לטובת חדרי מגורים ואופטימיזציית פתחים)",
-            "",
-            "| טיפוס דירה | מסדרון נוכחי | מסדרון אופטימלי | שטח מומר לחדרים (לדירה) | סה״כ שטח מושבח בפרויקט | חדרים נשכרים ואופטימיזציית פתחים |",
-            "| :--- | :---: | :---: | :---: | :---: | :--- |",
-        ])
-        for a_item in apt_opt.get("items", []):
-            lines.append(
-                f"| **{a_item.get('typology')}** | {fmt(a_item.get('current_corridor_sqm'))} מ״ר | {fmt(a_item.get('optimal_corridor_sqm'))} מ״ר | **+{fmt(a_item.get('reclaimed_sqm_per_unit'))} מ״ר** | **{fmt(a_item.get('total_reclaimed_sqm'))} מ״ר** ({a_item.get('units_count')} דירות) | **חדרים:** {a_item.get('target_rooms_benefiting')} · **פתחים:** {a_item.get('openings_optimization')} |"
             )
 
     lines.append("")
@@ -417,6 +422,7 @@ def build_html_summary_and_areas_block(payload):
     # Build HTML tables for Design Optimization & Value Engineering
     opt_kpis = opt.get("executive_kpis", {})
     opt_guar = opt.get("zero_damage_guarantees", {})
+    contour_audit = opt.get("contour_audit_summary", {})
     ag_opt = opt.get("above_ground_optimization", {})
     ug_opt = opt.get("underground_optimization", {})
     fac_opt = opt.get("facade_cladding_optimization", {})
@@ -426,10 +432,15 @@ def build_html_summary_and_areas_block(payload):
         f"""<tr>
           <td><strong>{item.get('floor_or_zone')}</strong></td>
           <td style="text-align:center;">{fmt(item.get('current_sqm'))} מ"ר</td>
-          <td style="text-align:center;">{fmt(item.get('optimal_sqm'))} מ"ר</td>
-          <td style="text-align:center;font-weight:800;color:#15803d;">{fmt(item.get('saved_sqm'))} מ"ר</td>
+          <td style="text-align:center;">{fmt(item.get('proposed_gross_reduction_sqm'))} מ"ר</td>
+          <td style="text-align:center;color:#1d4ed8;font-weight:700;">{fmt(item.get('non_contour_reclassified_sqm'))} מ"ר (0 ₪)</td>
+          <td style="text-align:center;font-weight:800;color:#15803d;background:#ecfdf5;">{fmt(item.get('saved_sqm'))} מ"ר</td>
           <td style="text-align:center;font-weight:900;color:#15803d;background:#dcfce7;">{fmt(item.get('cost_saving_ils'))} ₪</td>
-          <td>{item.get('engineering_action')}<div style="font-size:8pt;color:#475569;margin-top:2px;">🛡️ {item.get('preserved_utilities')}</div></td>
+          <td>
+            <div>{item.get('engineering_action')}</div>
+            <div style="font-size:8pt;color:#0f766e;margin-top:2px;font-weight:700;">📐 כיווץ קונטור: {item.get('contour_mechanism')}</div>
+            <div style="font-size:8pt;color:#475569;margin-top:2px;">🛡️ {item.get('preserved_utilities')}</div>
+          </td>
         </tr>"""
         for item in ag_opt.get("items", [])
     ])
@@ -438,10 +449,15 @@ def build_html_summary_and_areas_block(payload):
         f"""<tr>
           <td><strong>{item.get('zone')}</strong></td>
           <td style="text-align:center;">{fmt(item.get('current_sqm'))} מ"ר ({ug_opt.get('current_sqm_per_stall')} מ"ר/חניה)</td>
-          <td style="text-align:center;">{fmt(item.get('optimal_sqm'))} מ"ר ({ug_opt.get('optimized_sqm_per_stall')} מ"ר/חניה)</td>
-          <td style="text-align:center;font-weight:800;color:#15803d;">{fmt(item.get('saved_sqm'))} מ"ר</td>
+          <td style="text-align:center;">{fmt(item.get('proposed_gross_reduction_sqm'))} מ"ר</td>
+          <td style="text-align:center;color:#1d4ed8;font-weight:700;">{fmt(item.get('non_contour_reclassified_sqm'))} מ"ר (0 ₪)</td>
+          <td style="text-align:center;font-weight:800;color:#15803d;background:#ecfdf5;">{fmt(item.get('saved_sqm'))} מ"ר</td>
           <td style="text-align:center;font-weight:900;color:#15803d;background:#dcfce7;">{fmt(item.get('cost_saving_ils'))} ₪</td>
-          <td>{item.get('engineering_action')}<div style="font-size:8pt;color:#475569;margin-top:2px;">🅿️ {item.get('parking_spaces_preserved')}</div></td>
+          <td>
+            <div>{item.get('engineering_action')}</div>
+            <div style="font-size:8pt;color:#0f766e;margin-top:2px;font-weight:700;">📐 כיווץ דיפון: {item.get('contour_mechanism')}</div>
+            <div style="font-size:8pt;color:#475569;margin-top:2px;">🅿️ {item.get('parking_spaces_preserved')}</div>
+          </td>
         </tr>"""
         for item in ug_opt.get("items", [])
     ])
@@ -459,13 +475,25 @@ def build_html_summary_and_areas_block(payload):
         for f_item in fac_opt.get("by_facade", [])
     ])
 
-    opt_apt_rows = "".join([
+    opt_locked_rows = "".join([
+        f"""<tr style="background:#eff6ff;">
+          <td><strong>🔄 ליבה כלואה: {l_item.get('zone')}</strong></td>
+          <td style="text-align:center;">הפחתת {fmt(l_item.get('proposed_core_reduction_sqm'))} מ"ר</td>
+          <td style="text-align:center;color:#dc2626;font-weight:800;">0.0 מ"ר קונטור</td>
+          <td style="text-align:center;font-weight:800;color:#64748b;">0 ₪</td>
+          <td style="text-align:center;font-weight:900;color:#1e3a8a;background:#dbeafe;">+{fmt(l_item.get('reclassified_design_improvement_sqm'))} מ"ר שיפור תכנון</td>
+          <td><strong>למה לא הקטין קונטור:</strong> {l_item.get('why_not_contour_saving')}<br/><strong>שיפור תכנון:</strong> {l_item.get('design_benefit')}</td>
+        </tr>"""
+        for l_item in contour_audit.get("locked_core_reclassified_items", [])
+    ])
+
+    opt_apt_rows = opt_locked_rows + "".join([
         f"""<tr>
-          <td><strong>{a_item.get('typology')}</strong></td>
-          <td style="text-align:center;">{fmt(a_item.get('current_corridor_sqm'))} מ"ר</td>
-          <td style="text-align:center;">{fmt(a_item.get('optimal_corridor_sqm'))} מ"ר</td>
-          <td style="text-align:center;font-weight:800;color:#1e3a8a;">+{fmt(a_item.get('reclaimed_sqm_per_unit'))} מ"ר</td>
-          <td style="text-align:center;font-weight:900;color:#1e3a8a;background:#dbeafe;">{fmt(a_item.get('total_reclaimed_sqm'))} מ"ר ({a_item.get('units_count')} דירות)</td>
+          <td><strong>🛋️ פנים-דירתי: {a_item.get('typology')}</strong></td>
+          <td style="text-align:center;">מסדרון {fmt(a_item.get('current_corridor_sqm'))} מ"ר</td>
+          <td style="text-align:center;">מסדרון {fmt(a_item.get('optimal_corridor_sqm'))} מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">+{fmt(a_item.get('reclaimed_sqm_per_unit'))} מ"ר לדירה</td>
+          <td style="text-align:center;font-weight:900;color:#1e3a8a;background:#dbeafe;">+{fmt(a_item.get('total_reclaimed_sqm'))} מ"ר ({a_item.get('units_count')} דירות)</td>
           <td><strong>הגדלת חדרים:</strong> {a_item.get('target_rooms_benefiting')}<br/><strong>פתחים:</strong> {a_item.get('openings_optimization')}</td>
         </tr>"""
         for a_item in apt_opt.get("items", [])
@@ -686,49 +714,62 @@ def build_html_summary_and_areas_block(payload):
     </tbody>
   </table>
 
-  <h2>💰 בדיקת ייעול תכנון, הנדסת ערך וחיסכון בעלויות בנייה (סה"כ חיסכון ישיר: {fmt(opt_kpis.get('grand_total_direct_saving_ils'))} ₪)</h2>
+  <h3>🛋️ שיפור תכנון (ללא הקטנת קונטור הבנייה): ייעול פנים-דירתי ושטחי ליבה כלואים שהועברו מחיסכון עלויות</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:22%;">טיפוס דירה / מוקד ליבה כלוא</th>
+        <th style="width:10%;text-align:center;">מצב נוכחי</th>
+        <th style="width:10%;text-align:center;">מצב יעיל / קונטור</th>
+        <th style="width:11%;text-align:center;">תוספת / חיסכון</th>
+        <th style="width:13%;text-align:center;">סה"כ שטח שיפור תכנון</th>
+        <th style="width:34%;">פירוט הנדסי (מדוע לא הקטין קונטור ומהו שיפור התכנון)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {opt_apt_rows}
+    </tbody>
+  </table>
+
+  <h2>💰 מודל החיסכון בעלויות הבנייה — צמצום קונטור בנייה מאומת וחיפוי (סה"כ חיסכון ישיר: {fmt(opt_kpis.get('grand_total_direct_saving_ils'))} ₪)</h2>
   <div class="alert-box alert-info" style="background:#f0fdf4;border:1px solid #86efac;border-right:4px solid #16a34a;padding:9px 12px;border-radius:6px;margin-bottom:10px;color:#14532d;">
-    <strong>🛡️ עקרון ברזל (Zero-Impact Guarantee):</strong> {opt_guar.get('guarantee_statement', '')}
+    <strong>📐 מנגנון בקרת כיווץ קונטור הבניין (Contour Shrinkage Audit):</strong> {contour_audit.get('audit_rule_he', '')} · {opt_guar.get('guarantee_statement', '')}
   </div>
 
-  <div class="scorecard-grid" style="grid-template-columns: repeat(5, 1fr); margin-bottom: 12px;">
+  <div class="scorecard-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 12px;">
     <div class="score-card" style="border-top-color:#16a34a;background:#f0fdf4;">
-      <div class="score-title">סה"כ חיסכון כספי ישיר</div>
+      <div class="score-title">סה"כ חיסכון כספי ישיר בבנייה</div>
       <div class="score-val" style="font-size:13.5pt;color:#15803d;">{fmt(opt_kpis.get('grand_total_direct_saving_ils'))} ₪</div>
-      <div class="score-sub">עילי + חניון + חזיתות</div>
+      <div class="score-sub">אך ורק מקונטור שנבנה פחות + חיפוי</div>
     </div>
     <div class="score-card" style="border-top-color:#2563eb;">
-      <div class="score-title">חיסכון שטח עילי (6,200 ₪/מ"ר)</div>
+      <div class="score-title">צמצום קונטור עילי מאומת (6,200 ₪/מ"ר)</div>
       <div class="score-val" style="font-size:13pt;color:#1e3a8a;">{fmt(opt_kpis.get('above_ground_saving_ils'))} ₪</div>
-      <div class="score-sub">צמצום {fmt(opt_kpis.get('above_ground_saved_sqm'))} מ"ר ליבה/שירות</div>
+      <div class="score-sub">נבנה פחות: {fmt(opt_kpis.get('above_ground_saved_sqm'))} מ"ר (נוכו {fmt(contour_audit.get('rejected_locked_ag_core_sqm'))} מ"ר כלואים)</div>
     </div>
     <div class="score-card" style="border-top-color:#0284c7;">
-      <div class="score-title">חיסכון מרתף חניון (3,500 ₪/מ"ר)</div>
+      <div class="score-title">צמצום קונטור חניון מאומת (3,500 ₪/מ"ר)</div>
       <div class="score-val" style="font-size:13pt;color:#0284c7;">{fmt(opt_kpis.get('underground_saving_ils'))} ₪</div>
-      <div class="score-sub">צמצום {fmt(opt_kpis.get('underground_saved_sqm'))} מ"ר מרתף</div>
+      <div class="score-sub">נבנה פחות: {fmt(opt_kpis.get('underground_saved_sqm'))} מ"ר (נוכו {fmt(contour_audit.get('rejected_locked_ug_zone_sqm'))} מ"ר כלואים)</div>
     </div>
     <div class="score-card" style="border-top-color:#d97706;">
       <div class="score-title">חיפוי יבש מול טיח (400 ₪/מ"ר)</div>
       <div class="score-val" style="font-size:13pt;color:#b45309;">{fmt(opt_kpis.get('facade_saving_ils'))} ₪</div>
       <div class="score-sub">המרת {fmt(opt_kpis.get('facade_converted_to_plaster_sqm'))} מ"ר לטיח</div>
     </div>
-    <div class="score-card" style="border-top-color:#7c3aed;">
-      <div class="score-title">השבחת שטח פנים דירות</div>
-      <div class="score-val" style="font-size:13pt;color:#7c3aed;">+{fmt(opt_kpis.get('internal_reclaimed_living_sqm'))} מ"ר</div>
-      <div class="score-sub">המרת מסדרונות לחדרי מגורים</div>
-    </div>
   </div>
 
-  <h3>א. ייעול נפחיות ושטחים עיליים (6,200 ₪ למ"ר נחסך — ללא פגיעה בדירות או בארונות שירות)</h3>
+  <h3>א. צמצום קונטור בנייה עילי מאומת (6,200 ₪ למ"ר קונטור נחסך — בניכוי ליבה כלואה שהועברה לשיפור תכנון)</h3>
   <table>
     <thead>
       <tr>
-        <th style="width:20%;">קומה / מוקד</th>
-        <th style="width:10%;text-align:center;">שטח נוכחי</th>
-        <th style="width:10%;text-align:center;">שטח אופטימלי</th>
-        <th style="width:10%;text-align:center;">שטח נחסך</th>
-        <th style="width:13%;text-align:center;">חיסכון כספי (₪)</th>
-        <th style="width:37%;">פעולה הנדסית ושימושים נשמרים (ארונות חשמל/מים/גז/תקשורת)</th>
+        <th style="width:18%;">קומה / מוקד</th>
+        <th style="width:8%;text-align:center;">שטח נוכחי</th>
+        <th style="width:9%;text-align:center;">הפחתה גולמית</th>
+        <th style="width:10%;text-align:center;">כלוא (0 ₪ ← שיפור תכנון)</th>
+        <th style="width:10%;text-align:center;">קונטור נחסך (נבנה פחות)</th>
+        <th style="width:12%;text-align:center;">חיסכון כספי (₪)</th>
+        <th style="width:33%;">פעולה הנדסית, הוכחת כיווץ קונטור ושימושים נשמרים</th>
       </tr>
     </thead>
     <tbody>
@@ -736,16 +777,17 @@ def build_html_summary_and_areas_block(payload):
     </tbody>
   </table>
 
-  <h3>ב. ייעול מרתף חניון תת-קרקעי (3,500 ₪ למ"ר נחסך — 100% שמירה על מצבת החניות)</h3>
+  <h3>ב. צמצום קונטור מרתף חניון תת-קרקעי מאומת (3,500 ₪ למ"ר קונטור דיפון נחסך — 100% שמירה על מצבת החניות)</h3>
   <table>
     <thead>
       <tr>
-        <th style="width:20%;">מוקד במרתף</th>
-        <th style="width:13%;text-align:center;">שטח נוכחי</th>
-        <th style="width:13%;text-align:center;">שטח אופטימלי</th>
-        <th style="width:10%;text-align:center;">שטח נחסך</th>
-        <th style="width:13%;text-align:center;">חיסכון כספי (₪)</th>
-        <th style="width:31%;">פתרון הנדסי ושמירת חניות</th>
+        <th style="width:18%;">מוקד במרתף</th>
+        <th style="width:11%;text-align:center;">שטח נוכחי</th>
+        <th style="width:9%;text-align:center;">הפחתה גולמית</th>
+        <th style="width:10%;text-align:center;">כלוא בין חניות (0 ₪)</th>
+        <th style="width:10%;text-align:center;">קונטור דיפון נחסך</th>
+        <th style="width:12%;text-align:center;">חיסכון כספי (₪)</th>
+        <th style="width:30%;">פתרון הנדסי, כיווץ פוליגון דיפון ושמירת חניות</th>
       </tr>
     </thead>
     <tbody>
@@ -768,23 +810,6 @@ def build_html_summary_and_areas_block(payload):
     </thead>
     <tbody>
       {opt_fac_rows}
-    </tbody>
-  </table>
-
-  <h3>ד. ייעול תכנון פנימי בדירות (הקטנת מסדרונות לטובת חדרי מגורים ואופטימיזציית פתחים)</h3>
-  <table>
-    <thead>
-      <tr>
-        <th style="width:22%;">טיפוס דירה</th>
-        <th style="width:10%;text-align:center;">מסדרון נוכחי</th>
-        <th style="width:10%;text-align:center;">מסדרון יעיל</th>
-        <th style="width:11%;text-align:center;">תוספת לדירה</th>
-        <th style="width:13%;text-align:center;">סה"כ שטח מושבח</th>
-        <th style="width:34%;">חדרים נשכרים ואופטימיזציית פתחים</th>
-      </tr>
-    </thead>
-    <tbody>
-      {opt_apt_rows}
     </tbody>
   </table>
 {MARKER_HTML_END}
