@@ -57,7 +57,15 @@ def run_validation(apartment, rules):
     # 1. Global Parameters Check (Ceiling Height B1.13)
     ceiling_height = apartment.get("global_parameters", {}).get("ceiling_height_m", 0)
     threshold_height = get_rule_param(rules, "B1.13", "min_height_m", FALLBACK_THRESHOLDS["B1.13"]["min_height_m"])
-    if ceiling_height < threshold_height:
+    if not ceiling_height:
+        # e.g. PDF sales plans carry no ceiling height — missing data is not a violation
+        results.append({
+            "status": "WARN",
+            "element": "גובה תקרה חלל עיקרי",
+            "rule_id": "B1.13",
+            "message": f"גובה תקרה לא מופיע בנתוני התכנית — לא ניתן לאמת מול המינימום {threshold_height:.2f} מ'."
+        })
+    elif ceiling_height < threshold_height:
         results.append({
             "status": "FAIL",
             "element": "גובה תקרה חלל עיקרי",
@@ -228,7 +236,14 @@ def run_validation(apartment, rules):
     # 3. Accessibility Check
     entrance_width = apartment.get("accessibility", {}).get("main_entrance_width_cm", 0)
     entrance_threshold = get_rule_param(rules, "B44", "min_width_cm", FALLBACK_THRESHOLDS["B44"]["min_width_cm"])
-    if entrance_width < entrance_threshold:
+    if not entrance_width:
+        results.append({
+            "status": "WARN",
+            "element": "רוחב דלת כניסה ראשית",
+            "rule_id": "B44",
+            "message": f"רוחב דלת הכניסה לא זוהה בנתוני התכנית — לא ניתן לאמת מול {entrance_threshold:.0f} ס\"מ."
+        })
+    elif entrance_width < entrance_threshold:
         results.append({
             "status": "FAIL",
             "element": "רוחב דלת כניסה ראשית",
@@ -258,11 +273,13 @@ def run_validation(apartment, rules):
 # Thresholds are read from the knowledge base (frontmatter of okf_rules/*.md)
 # through get_rule_param(). ADVANCED_FALLBACKS mirrors those values so the
 # engine still works if a file is missing. Knowledge files:
-#   WBS_NDSS_ADG      -> okf_rules/wbs_ndss_adg_housing_benchmarks.md
-#   NKBA_KB           -> okf_rules/nkba_kitchen_bath_planning_guidelines.md
-#   APL_HOUSING       -> okf_rules/alexander_pattern_language_housing.md
-#   SPACE_SYNTAX_SAGA -> okf_rules/space_syntax_saga_metrics.md
-#   IS1918_ACCESS     -> okf_rules/israel_accessibility_is1918_housing.md
+#   WBS_NDSS_ADG          -> okf_rules/wbs_ndss_adg_housing_benchmarks.md
+#   NKBA_KB               -> okf_rules/nkba_kitchen_bath_planning_guidelines.md
+#   APL_HOUSING           -> okf_rules/alexander_pattern_language_housing.md
+#   SPACE_SYNTAX_SAGA     -> okf_rules/space_syntax_saga_metrics.md
+#   IS1918_ACCESS         -> okf_rules/israel_accessibility_is1918_housing.md
+#   DAYLIGHT_VENT_IEQ     -> okf_rules/daylight_ventilation_ieq_standards.md
+#   USABILITY_FURNISH_HQI -> okf_rules/spatial_usability_furnishability_hqi.md
 # These are benchmarks / non-Israeli or unverified references, so every
 # advanced check reports WARN (never FAIL). Statutory FAILs stay above.
 # Every check runs only when its input data exists (zero-trust: no guessing).
@@ -332,6 +349,149 @@ ADVANCED_FALLBACKS = {
         "turning_circle_cm": 150,
         "door_clear_width_cm": 80,
         "threshold_max_cm": 2,
+    },
+    "DAYLIGHT_VENT_IEQ": {
+        "en17037_view_angle_min_deg": 14,
+        "en17037_view_angle_med_deg": 28,
+        "en17037_view_angle_high_deg": 54,
+        "en17037_view_dist_min_m": 6.0,
+        "en17037_view_dist_med_m": 20.0,
+        "en17037_view_dist_high_m": 50.0,
+        "en17037_view_layers_min": 1,
+        "en17037_view_layers_med": 2,
+        "en17037_view_layers_high": 3,
+        "en17037_sunlight_min_hours": 1.5,
+        "en17037_sunlight_med_hours": 3.0,
+        "en17037_sunlight_high_hours": 4.0,
+        "br209_no_sky_line_min_share": 0.80,
+        "br209_obstruction_angle_max_deg": 25.0,
+        "cibse_single_sided_single_open_depth_to_height": 2.0,
+        "cibse_single_sided_dual_open_depth_to_height": 2.5,
+        "cibse_cross_vent_max_depth_to_height": 5.0,
+        "cibse_openable_window_to_floor_min_ratio": 0.05,
+        "tm59_west_unshaded_glazing_warn_ratio": 0.25,
+        "well_window_access_max_m": 7.5,
+        "well_circadian_optimal_m": 4.5,
+    },
+    "USABILITY_FURNISH_HQI": {
+        "boverket_double_bed_wall_min_m": 3.00,
+        "boverket_single_bed_wall_min_m": 2.10,
+        "boverket_double_wardrobe_wall_min_m": 1.80,
+        "boverket_single_wardrobe_wall_min_m": 1.20,
+        "boverket_door_corner_offset_min_cm": 60,
+        "hqi_combined_living_sqm_by_bedspaces": {
+            1: 18.0, 2: 21.0, 3: 23.0, 4: 25.0, 5: 27.0, 6: 29.0, 7: 31.0, 8: 33.0,
+        },
+        "hqi_living_only_min_sqm_by_bedspaces": {
+            1: 11.0, 2: 12.0, 3: 13.0, 4: 14.0, 5: 16.0, 6: 18.0, 7: 20.0, 8: 21.0,
+        },
+        "din18040_corridor_min_cm": 120,
+        "din18040_latch_side_pull_min_cm": 60,
+        "din18040_latch_side_push_min_cm": 30,
+        "din18040_bedside_clearance_min_cm": 90,
+        "din18040_bedside_wheelchair_min_cm": 120,
+        "levels_adaptable_partition_min_ratio": 0.60,
+    },
+    "ACADEMIC_ARCH_COMPENDIUM": {
+        "etsab_generic_room_min_sqm": 12.5,
+        "etsab_generic_room_target_width_m": 3.60,
+        "etsab_room_size_variance_max_ratio": 1.25,
+        "lacaton_winter_garden_min_depth_m": 3.00,
+        "lacaton_winter_garden_optimal_depth_m": 3.80,
+        "lacaton_outer_balcony_maintenance_depth_m": 1.00,
+        "toronto_growing_up_min_2b_sqm": 87.0,
+        "toronto_growing_up_min_3b_sqm": 100.0,
+        "toronto_growing_up_balcony_min_depth_m": 1.80,
+        "vancouver_family_bulk_storage_min_m3": 5.70,
+        "japan_genkan_min_depth_m": 1.05,
+        "japan_genkan_shoe_cabinet_depth_m": 0.38,
+        "japan_santen_toilet_min_width_m": 0.80,
+        "japan_santen_toilet_min_length_m": 1.30,
+        "japan_santen_washstand_min_width_m": 0.90,
+        "moch_israel_regular_bedroom_min_sqm": 9.0,
+        "moch_israel_regular_bedroom_min_width_m": 2.80,
+        "moch_israel_master_bedroom_min_sqm": 11.0,
+        "moch_israel_master_bedroom_min_width_m": 2.90,
+        "oref_2025_mamad_net_min_sqm": 9.0,
+        "oref_2025_mamad_wet_room_max_bonus_sqm": 3.0,
+        "is1004_party_wall_airborne_min_db": 48,
+        "is1142_balcony_railing_min_height_cm": 105,
+        "is1142_stairs_railing_min_height_cm": 90,
+        "is1142_railing_max_gap_cm": 10,
+        "mot_parking_stall_open_min_width_m": 2.40,
+        "mot_parking_stall_single_column_min_width_m": 2.65,
+        "mot_parking_stall_between_columns_min_width_m": 2.90,
+        "mot_parking_aisle_90deg_min_width_m": 5.50,
+        "mot_parking_aisle_90deg_recommended_width_m": 6.00,
+    },
+    "ETH_TYPO_1": {
+        "eth_outer_buffer_min_depth_m": 1.80,
+        "eth_outer_buffer_max_depth_m": 3.00,
+        "eth_perimeter_room_min_depth_m": 3.60,
+        "eth_perimeter_room_max_depth_m": 4.50,
+        "eth_central_hall_min_width_m": 2.80,
+    },
+    "ETSAB_CC_1": {
+        "etsab_generic_room_min_sqm": 12.5,
+        "etsab_generic_room_target_width_m": 3.60,
+        "etsab_room_size_variance_max_ratio": 1.25,
+        "etsab_equipped_wall_min_depth_cm": 60,
+    },
+    "TUD_HERTZ_1": {
+        "hertzberger_counter_upstand_min_cm": 15,
+        "hertzberger_habitable_sill_min_depth_cm": 40,
+        "hertzberger_habitable_sill_max_height_cm": 48,
+    },
+    "SWISS_GK_1": {
+        "swiss_diagonal_sightline_min_multiplier": 1.35,
+    },
+    "LV_PLUS_1": {
+        "lacaton_winter_garden_min_depth_m": 3.00,
+        "lacaton_winter_garden_optimal_depth_m": 3.80,
+        "lacaton_outer_balcony_maintenance_depth_m": 1.00,
+    },
+    "JPN_SB_1": {
+        "japan_genkan_min_depth_m": 1.05,
+        "japan_genkan_shoe_cabinet_depth_m": 0.38,
+        "japan_santen_toilet_min_width_m": 0.80,
+        "japan_santen_toilet_min_length_m": 1.30,
+        "japan_santen_washstand_min_width_m": 0.90,
+    },
+    "FAM_VERT_1": {
+        "toronto_growing_up_min_2b_sqm": 87.0,
+        "toronto_growing_up_min_3b_sqm": 100.0,
+        "toronto_growing_up_balcony_min_depth_m": 1.80,
+        "vancouver_family_bulk_storage_min_m3": 5.70,
+    },
+    "IL_OREF_2025": {
+        "oref_2025_mamad_net_min_sqm": 9.0,
+        "oref_2025_mamad_min_width_m": 2.60,
+        "oref_2025_mamad_wet_room_max_bonus_sqm": 3.0,
+    },
+    "IL_MOCH_PROG": {
+        "moch_israel_regular_bedroom_min_sqm": 9.0,
+        "moch_israel_regular_bedroom_min_width_m": 2.80,
+        "moch_israel_master_bedroom_min_sqm": 11.0,
+        "moch_israel_master_bedroom_min_width_m": 2.90,
+        "moch_israel_public_3rooms_min_sqm": 21.0,
+        "moch_israel_public_4_5rooms_min_sqm": 24.0,
+    },
+    "IL_MOT_PARK": {
+        "mot_parking_stall_open_min_width_m": 2.40,
+        "mot_parking_stall_single_column_min_width_m": 2.65,
+        "mot_parking_stall_between_columns_min_width_m": 2.90,
+        "mot_parking_stall_min_length_m": 5.00,
+        "mot_parking_aisle_90deg_min_width_m": 5.50,
+        "mot_parking_aisle_90deg_recommended_width_m": 6.00,
+        "mot_parking_accessible_car_min_width_m": 3.70,
+        "mot_parking_accessible_van_min_width_m": 4.50,
+    },
+    "IL_IS1004_1142": {
+        "is1004_party_wall_airborne_min_db": 48,
+        "is1004_green_building_recommended_db": 50,
+        "is1142_balcony_railing_min_height_cm": 105,
+        "is1142_stairs_railing_min_height_cm": 90,
+        "is1142_railing_max_gap_cm": 10,
     },
 }
 
@@ -971,6 +1131,216 @@ def _check_topology(rules, typed, apartment):
     return out
 
 
+def _check_daylight_vent_ieq(rules, typed, apartment, ceiling):
+    """EN 17037, BR 209, CIBSE AM10/TM59 & WELL v2 checks (zero-trust: runs only when inputs exist)."""
+    out = []
+    g = lambda k: float(_p(rules, "DAYLIGHT_VENT_IEQ", k))
+
+    # 1. EN 17037 Sunlight exposure (apartment-level or room-level)
+    sun_hrs = apartment.get("sunlight_hours")
+    if sun_hrs is not None:
+        v = float(sun_hrs)
+        min_h, med_h, high_h = g("en17037_sunlight_min_hours"), g("en17037_sunlight_med_hours"), g("en17037_sunlight_high_hours")
+        tier = "גבוהה" if v >= high_h else ("בינונית" if v >= med_h else ("מינימום" if v >= min_h else "מתחת למינימום"))
+        out.append(_res("PASS" if v >= min_h else "WARN", "חשיפה לשמש ישירה (EN 17037)", "DAYLIGHT_VENT_IEQ",
+                        f"{v:.1f} שעות שמש (רמת EN 17037: {tier}; מינימום {min_h:.1f} שעות)."))
+
+    # 2. CIBSE AM10 apartment-level cross-ventilation path depth
+    cv_path = apartment.get("cross_vent_path_m")
+    if cv_path is not None and ceiling > 0:
+        v = float(cv_path)
+        lim = g("cibse_cross_vent_max_depth_to_height") * ceiling
+        out.append(_res("PASS" if v <= lim else "WARN", "עומק אוורור מפולש (CIBSE AM10)", "DAYLIGHT_VENT_IEQ",
+                        f"אורך מסלול זרימה {v:.2f} מ' מול מקסימום {lim:.2f} מ' (5×H לפי CIBSE AM10)."))
+
+    # 3. CIBSE TM59 single-aspect West/South-West overheating risk
+    ori = apartment.get("orientations")
+    if ori:
+        dirs = sorted(set(str(o).strip().upper() for o in ori))
+        if len(dirs) == 1 and dirs[0] in ("W", "SW"):
+            out.append(_res("WARN", "סיכון התחממות יתר (CIBSE TM59)", "DAYLIGHT_VENT_IEQ",
+                            f"דירה חד-כיוונית הפונה ל-{dirs[0]} ללא אוורור מפולש — סיכון גבוה לחימום יתר בקיץ (CIBSE TM59)."))
+
+    # 4. Per-room daylight, view out, ventilation depth & WELL v2 checks
+    for r, t in typed:
+        if t not in HABITABLE:
+            continue
+        lbl = _label(r)
+        a = _area(r)
+
+        # EN 17037 View Out (distance, horizontal angle, layers)
+        v_dist = r.get("view_distance_m")
+        v_ang = r.get("view_angle_deg")
+        v_lay = r.get("view_layers")
+        if v_dist is not None or v_ang is not None or v_lay is not None:
+            issues, notes = [], []
+            if v_dist is not None:
+                d = float(v_dist)
+                min_d = g("en17037_view_dist_min_m")
+                (notes if d >= min_d else issues).append(f"מרחק מבט {d:.1f} מ' ({'≥' if d >= min_d else '<'} {min_d:.0f} מ')")
+            if v_ang is not None:
+                ang = float(v_ang)
+                min_a = g("en17037_view_angle_min_deg")
+                (notes if ang >= min_a else issues).append(f"זווית מבט {ang:.0f}° ({'≥' if ang >= min_a else '<'} {min_a:.0f}°)")
+            if v_lay is not None:
+                lay = int(v_lay)
+                min_l = int(g("en17037_view_layers_min"))
+                (notes if lay >= min_l else issues).append(f"{lay} שכבות נוף")
+            out.append(_res("WARN" if issues else "PASS", f"איכות מבט החוצה EN 17037 ({lbl})", "DAYLIGHT_VENT_IEQ",
+                            "; ".join(issues + notes) + "."))
+
+        # BR 209 No-Sky Line & obstruction angle
+        if r.get("no_sky_line_share") is not None:
+            nsl = float(r["no_sky_line_share"])
+            req = g("br209_no_sky_line_min_share")
+            out.append(_res("PASS" if nsl >= req else "WARN", f"קו שמיים No-Sky Line BR 209 ({lbl})", "DAYLIGHT_VENT_IEQ",
+                            f"{nsl:.0%} משטח החדר רואה שמיים מול מינימום מומלץ {req:.0%} (BRE BR 209)."))
+        if r.get("obstruction_angle_deg") is not None:
+            ang = float(r["obstruction_angle_deg"])
+            lim = g("br209_obstruction_angle_max_deg")
+            out.append(_res("PASS" if ang <= lim else "WARN", f"זווית הסתרה BR 209 ({lbl})", "DAYLIGHT_VENT_IEQ",
+                            f"זווית הסתרה {ang:.1f}° מול סף {lim:.0f}° (BRE BR 209)."))
+
+        # CIBSE AM10 openable window area ratio
+        if r.get("openable_window_area_sqm") is not None and a > 0:
+            ratio = float(r["openable_window_area_sqm"]) / a
+            req = g("cibse_openable_window_to_floor_min_ratio")
+            out.append(_res("PASS" if ratio >= req else "WARN", f"שטח פתיחה חופשי לאוורור ({lbl})", "DAYLIGHT_VENT_IEQ",
+                            f"{ratio:.1%} משטח הרצפה מול {req:.0%} (CIBSE AM10)."))
+
+        # CIBSE AM10 ventilation mode effective depth
+        v_mode = str(r.get("ventilation_mode") or "").strip().lower()
+        if v_mode and r.get("depth_m") is not None and ceiling > 0:
+            d = float(r["depth_m"])
+            if v_mode in ("single", "single_opening", "single_sided"):
+                k_mult, desc = g("cibse_single_sided_single_open_depth_to_height"), "אוורור חד-צדדי מפתח יחיד (2.0×H)"
+            elif v_mode in ("dual_opening", "single_sided_dual"):
+                k_mult, desc = g("cibse_single_sided_dual_open_depth_to_height"), "אוורור חד-צדדי משני פתחים (2.5×H)"
+            else:
+                k_mult, desc = g("cibse_cross_vent_max_depth_to_height"), "אוורור מפולש (5.0×H)"
+            lim = k_mult * ceiling
+            out.append(_res("PASS" if d <= lim else "WARN", f"עומק אפקטיבי לאוורור CIBSE AM10 ({lbl})", "DAYLIGHT_VENT_IEQ",
+                            f"עומק {d:.2f} מ' מול מקסימום {lim:.2f} מ' עבור {desc}."))
+
+        # CIBSE TM59 / IES ASE West unshaded glazing risk
+        w_ori = str(r.get("window_orientation") or "").strip().upper()
+        if w_ori in ("W", "SW") and r.get("window_area_sqm") is not None and a > 0:
+            w_ratio = float(r["window_area_sqm"]) / a
+            warn_r = g("tm59_west_unshaded_glazing_warn_ratio")
+            if w_ratio > warn_r and not r.get("external_shading", False):
+                out.append(_res("WARN", f"סיכון סנוור וחימום בחזית מערבית ({lbl})", "DAYLIGHT_VENT_IEQ",
+                                f"יחס זיגוג {w_ratio:.0%} בחזית {w_ori} ללא הצללה חיצונית (סף {warn_r:.0%}, TM59 / IES ASE)."))
+
+        # WELL v2 circadian & window access distance
+        if r.get("distance_to_window_m") is not None:
+            dist = float(r["distance_to_window_m"])
+            max_d = g("well_window_access_max_m")
+            opt_d = g("well_circadian_optimal_m")
+            status = "PASS" if dist <= max_d else "WARN"
+            note = "אופטימלי לאור צירקדי" if dist <= opt_d else ("בטווח WELL L01" if dist <= max_d else "מעבר לטווח WELL L01")
+            out.append(_res(status, f"מרחק מחלון מבט WELL v2 ({lbl})", "DAYLIGHT_VENT_IEQ",
+                            f"{dist:.2f} מ' ({note}; אופטימלי ≤ {opt_d} מ', מקסימום ≤ {max_d} מ')."))
+
+    return out
+
+
+def _check_usability_furnish_hqi(rules, typed, apartment, sleeping, livings, bedspaces):
+    """Boverket/Byggforsk Möblerbarhet, HQI proportionality, DIN 18040-2/SIA 500, EU Level(s) 2.3 & CBE POE checks."""
+    out = []
+    g = lambda k: _p(rules, "USABILITY_FURNISH_HQI", k)
+    double_min = float(_p(rules, "WBS_NDSS_ADG", "ndss_double_bedroom_min_sqm"))
+
+    # 1. HQI Programmatic Proportionality (Living / Public area vs. Bedspaces)
+    if livings and sleeping and bedspaces >= 1:
+        p_key = min(max(bedspaces, 1), 8)
+        liv_sqm = sum(_area(r) for r in livings)
+        pub_sqm = sum(_area(r) for r, t in typed if t in PUBLIC)
+        req_liv = float(_int_key(g("hqi_living_only_min_sqm_by_bedspaces"), p_key) or 12.0)
+        req_pub = float(_int_key(g("hqi_combined_living_sqm_by_bedspaces"), p_key) or 21.0)
+        issues = []
+        if liv_sqm < req_liv:
+            issues.append(f"סלון {liv_sqm:.1f} < {req_liv:.0f} מ\"ר")
+        if pub_sqm > liv_sqm and pub_sqm < req_pub:
+            issues.append(f"חלל ציבורי משולב (סלון+מטבח/אוכל) {pub_sqm:.1f} < {req_pub:.0f} מ\"ר")
+        out.append(_res("WARN" if issues else "PASS",
+                        f"איזון פרוגרמטי — חלל ציבורי ל-{bedspaces} נפשות (HQI)",
+                        "USABILITY_FURNISH_HQI",
+                        ("; ".join(issues) + f" עבור דירה ל-{bedspaces} מיטות (HQI Unit Layout)."
+                         if issues else f"סלון {liv_sqm:.1f} מ\"ר וחלל ציבורי משולב {pub_sqm:.1f} מ\"ר תואמים {bedspaces} מיטות (HQI).")))
+
+    # 2. Boverket / Byggforsk Furnishability (Möblerbarhet) & DIN 18040-2 / CBE POE on bedrooms
+    is_acc = bool(apartment.get("accessible_unit") or (apartment.get("accessibility") or {}).get("accessible_unit"))
+    for r in sleeping:
+        lbl = _label(r)
+        is_double = (_area(r) >= double_min) or (r.get("bedspaces") == 2)
+        f_issues, f_ok = [], []
+
+        if r.get("unbroken_wall_m") is not None:
+            v = float(r["unbroken_wall_m"])
+            req = float(g("boverket_double_bed_wall_min_m") if is_double else g("boverket_single_bed_wall_min_m"))
+            (f_ok if v >= req else f_issues).append(f"קיר רציף למיטה {v:.2f} מ' ({'≥' if v >= req else '<'} {req:.2f} מ')")
+
+        if r.get("wardrobe_wall_m") is not None:
+            v = float(r["wardrobe_wall_m"])
+            req = float(g("boverket_double_wardrobe_wall_min_m") if is_double else g("boverket_single_wardrobe_wall_min_m"))
+            (f_ok if v >= req else f_issues).append(f"קיר לארון {v:.2f} מ' ({'≥' if v >= req else '<'} {req:.2f} מ')")
+
+        if r.get("door_corner_offset_cm") is not None:
+            off = float(r["door_corner_offset_cm"])
+            req_off = float(g("boverket_door_corner_offset_min_cm"))
+            if 10.0 < off < req_off:
+                f_issues.append(f"היסט דלת מהפינה {off:.0f} ס\"מ < {req_off:.0f} ס\"מ (חוסם ארון בעומק 60 ס\"מ)")
+            else:
+                f_ok.append(f"היסט דלת מהפינה {off:.0f} ס\"מ תקין")
+
+        if f_issues or f_ok:
+            out.append(_res("WARN" if f_issues else "PASS",
+                            f"יכולת ריהוט Möblerbarhet ({lbl})",
+                            "USABILITY_FURNISH_HQI",
+                            "; ".join(f_issues + f_ok) + " (Boverket / Byggforsk / WBS)."))
+
+        if r.get("bedside_clearance_cm") is not None:
+            v = float(r["bedside_clearance_cm"])
+            req = float(g("din18040_bedside_wheelchair_min_cm") if is_acc else g("din18040_bedside_clearance_min_cm"))
+            out.append(_res("PASS" if v >= req else "WARN",
+                            f"מרווח גישה לצד מיטה DIN 18040-2 ({lbl})",
+                            "USABILITY_FURNISH_HQI",
+                            f"{v:.0f} ס\"מ מול מינימום {req:.0f} ס\"מ (DIN 18040-2 / SIA 500)."))
+
+        if r.get("adjacent_to_noisy_zone") is not None:
+            noisy = bool(r["adjacent_to_noisy_zone"])
+            out.append(_res("WARN" if noisy else "PASS",
+                            f"חיץ אקוסטי לחדר שינה CBE POE ({lbl})",
+                            "USABILITY_FURNISH_HQI",
+                            ("קיר משותף ישיר לחלל רועש (סלון/מטבח/מעלית/מסתור כביסה) ללא חיץ ארון — סיכון רעש (CBE POE / ת\"י 1004)."
+                             if noisy else "מופרד אקוסטית מחללים רועשים (CBE POE / ת\"י 1004).")))
+
+    # 3. Door latch-side clearance (Lifetime Homes Crit. 6 / DIN 18040-2 / SIA 500)
+    for r, t in typed:
+        if r.get("latch_side_clearance_cm") is not None:
+            v = float(r["latch_side_clearance_cm"])
+            side = str(r.get("door_open_side") or "pull").strip().lower()
+            req = float(g("din18040_latch_side_push_min_cm") if side == "push" else g("din18040_latch_side_pull_min_cm"))
+            out.append(_res("PASS" if v >= req else "WARN",
+                            f"מרווח צד ידית דלת DIN 18040-2 ({_label(r)})",
+                            "USABILITY_FURNISH_HQI",
+                            f"{v:.0f} ס\"מ בצד ה-{'דחיפה' if side == 'push' else 'משיכה'} מול {req:.0f} ס\"מ (Lifetime Homes / DIN 18040-2)."))
+
+    # 4. EU Level(s) Indicator 2.3 — Non-load-bearing internal partition ratio
+    part_ratio = apartment.get("adaptable_partition_ratio")
+    if part_ratio is None:
+        part_ratio = (apartment.get("global_parameters") or {}).get("adaptable_partition_ratio")
+    if part_ratio is not None:
+        v = float(part_ratio)
+        req = float(g("levels_adaptable_partition_min_ratio"))
+        out.append(_res("PASS" if v >= req else "WARN",
+                        "גמישות מחיצות פנים — EU Level(s) 2.3",
+                        "USABILITY_FURNISH_HQI",
+                        f"{v:.0%} מחיצות פנים פריקות (לא-נושאות) מול רף מומלץ ≥ {req:.0%} (EU Level(s) 2.3 / Open Building)."))
+
+    return out
+
+
 def run_advanced_checks(apartment, rules):
     """v2 benchmark checks. Returns a list of PASS/WARN results (never FAIL)."""
     rooms = apartment.get("rooms") or []
@@ -1000,6 +1370,208 @@ def run_advanced_checks(apartment, rules):
     out += _check_bath_nkba(rules, typed)
     out += _check_accessibility(rules, typed, apartment)
     out += _check_topology(rules, typed, apartment)
+    out += _check_daylight_vent_ieq(rules, typed, apartment, ceiling)
+    out += _check_usability_furnish_hqi(rules, typed, apartment, sleeping, livings, bedspaces)
+    out += _check_academic_and_new_standards(rules, typed, apartment, sleeping, livings, n_bed, total)
+    return out
+
+
+def _check_academic_and_new_standards(rules, typed, apartment, sleeping, livings, n_bed, total):
+    """v3 cataloged OKF rules: ETH, ETSAB Casa Collage, TU Delft, Swiss Grundrisskritik,
+    Lacaton & Vassal, Japanese San-ten Bunri, Toronto/Vancouver Family, and Israeli MoCH/MoT/Oref/IS1004/IS1142."""
+    out = []
+
+    # 1. ETSAB_CC_1 — Casa Collage & MAIO Non-Hierarchical Generic Rooms
+    bed_areas = [_area(r) for r in sleeping if _area(r) > 0]
+    if len(bed_areas) >= 2:
+        max_b, min_b = max(bed_areas), min(bed_areas)
+        ratio = max_b / min_b if min_b > 0 else 1.0
+        max_var = float(_p(rules, "ETSAB_CC_1", "etsab_room_size_variance_max_ratio"))
+        gen_min = float(_p(rules, "ETSAB_CC_1", "etsab_generic_room_min_sqm"))
+        gen_cnt = sum(1 for a in bed_areas if a >= gen_min)
+        is_eq = ratio <= max_var
+        out.append(_res(
+            "PASS" if is_eq else "WARN",
+            "שוויון חדרים וגמישות — Casa Collage (ETSAB_CC_1)",
+            "ETSAB_CC_1",
+            f"יחס שטח בין חדר השינה הגדול לקטן {ratio:.2f}:1 (סף אי-היררכיה ≤ {max_var:.2f}:1); "
+            f"{gen_cnt}/{len(bed_areas)} חדרי שינה בגודל גנרי רב-שימושי ≥ {gen_min:.1f} מ\"ר (ETSAB Habitar / MAIO)."
+        ))
+
+    # 2. IL_MOCH_PROG — Israeli Ministry of Construction and Housing (MoCH) bedroom & public area standards
+    if sleeping:
+        main_b = max(sleeping, key=_area)
+        req_m_a = float(_p(rules, "IL_MOCH_PROG", "moch_israel_master_bedroom_min_sqm"))
+        req_m_w = float(_p(rules, "IL_MOCH_PROG", "moch_israel_master_bedroom_min_width_m"))
+        req_r_a = float(_p(rules, "IL_MOCH_PROG", "moch_israel_regular_bedroom_min_sqm"))
+        req_r_w = float(_p(rules, "IL_MOCH_PROG", "moch_israel_regular_bedroom_min_width_m"))
+        moch_issues = []
+        for r in sleeping:
+            a, w = _area(r), _width_m(r)
+            lbl = _label(r)
+            if r is main_b:
+                if a < req_m_a:
+                    moch_issues.append(f"{lbl}: שטח {a:.2f} < {req_m_a:.1f} מ\"ר")
+                if w is not None and w < req_m_w:
+                    moch_issues.append(f"{lbl}: רוחב {w:.2f} < {req_m_w:.2f} מ'")
+            else:
+                if a < req_r_a:
+                    moch_issues.append(f"{lbl}: שטח {a:.2f} < {req_r_a:.1f} מ\"ר")
+                if w is not None and w < req_r_w:
+                    moch_issues.append(f"{lbl}: רוחב {w:.2f} < {req_r_w:.2f} מ'")
+        out.append(_res(
+            "WARN" if moch_issues else "PASS",
+            "פרוגרמת חדרי שינה — משרד הבינוי והשיכון (IL_MOCH_PROG)",
+            "IL_MOCH_PROG",
+            ("; ".join(moch_issues) + " (אוגדן משרד הבינוי והשיכון)."
+             if moch_issues else f"כל חדרי השינה עומדים באוגדן משרד הבינוי והשיכון (הורים ≥ {req_m_a:.0f} מ\"ר/{req_m_w:.2f} מ', רגיל ≥ {req_r_a:.0f} מ\"ר/{req_r_w:.2f} מ').")
+        ))
+
+    # 3. FAM_VERT_1 — City of Toronto Growing Up & Vancouver Family Apartment Benchmarks
+    if n_bed >= 2 and total > 0:
+        req_fam = float(_p(rules, "FAM_VERT_1", "toronto_growing_up_min_2b_sqm" if n_bed == 2 else "toronto_growing_up_min_3b_sqm"))
+        out.append(_res(
+            "PASS" if total >= req_fam else "WARN",
+            "בנצ'מרק דירת משפחה — Toronto Growing Up (FAM_VERT_1)",
+            "FAM_VERT_1",
+            f"שטח דירה {total:.1f} מ\"ר מול רף דירת משפחה {req_fam:.0f} מ\"ר ל-{n_bed} ח\"ש (Toronto Growing Up Guidelines)."
+        ))
+
+    # 4. JPN_SB_1 — Japanese San-ten Bunri (3-point wet separation) & Genkan entry threshold
+    n_toilets = sum(1 for r, t in typed if t == "toilet")
+    n_baths = sum(1 for r, t in typed if t == "bathroom")
+    if (n_baths + n_toilets) >= 1 and n_bed >= 2:
+        has_sep_wc = n_toilets >= 1 or (n_baths >= 2)
+        out.append(_res(
+            "PASS" if has_sep_wc else "WARN",
+            "הפרדת נקודות רטובות — San-ten Bunri (JPN_SB_1)",
+            "JPN_SB_1",
+            ("קיימת הפרדה בין תא שירותים לחדר הרחצה העיקרי (או ≥ 2 חדרי רחצה) המאפשרת שימוש משפחתי בו-זמני (San-ten Bunri)."
+             if has_sep_wc else "חדר רחצה יחיד המשלב אסלה ומקלחת ללא תא שירותים נפרד — מקלחת 'נועלת' את השירותים לכל בני הבית (San-ten Bunri).")
+        ))
+    if apartment.get("genkan_depth_m") is not None:
+        gd = float(apartment["genkan_depth_m"])
+        req_gd = float(_p(rules, "JPN_SB_1", "japan_genkan_min_depth_m"))
+        out.append(_res(
+            "PASS" if gd >= req_gd else "WARN",
+            "עומק מבואת כניסה — Genkan (JPN_SB_1)",
+            "JPN_SB_1",
+            f"עומק מבואת כניסה {gd:.2f} מ' מול מינימום ארגונומי {req_gd:.2f} מ' (Genkan)."
+        ))
+
+    # 5. LV_PLUS_1 — Lacaton & Vassal Winter Garden / Deep Loggia check (when winter_garden_depth_m is present)
+    for r, t in typed:
+        if t == "balcony" and r.get("winter_garden_depth_m") is not None:
+            wgd = float(r["winter_garden_depth_m"])
+            req_wg = float(_p(rules, "LV_PLUS_1", "lacaton_winter_garden_min_depth_m"))
+            opt_wg = float(_p(rules, "LV_PLUS_1", "lacaton_winter_garden_optimal_depth_m"))
+            out.append(_res(
+                "PASS" if wgd >= req_wg else "WARN",
+                "עומק גינת חורף / לוג'יה — Lacaton & Vassal (LV_PLUS_1)",
+                "LV_PLUS_1",
+                f"עומק {wgd:.2f} מ' מול רף חדר-חוץ {req_wg:.2f} מ' (אופטימלי {opt_wg:.2f} מ' לפי Lacaton & Vassal Plus)."
+            ))
+
+    # 6. ETH_TYPO_1 — ETH Zürich Hallenwohnung & Raumhaltigkeit (when central_hall_width_m is present)
+    if apartment.get("central_hall_width_m") is not None:
+        chw = float(apartment["central_hall_width_m"])
+        req_chw = float(_p(rules, "ETH_TYPO_1", "eth_central_hall_min_width_m"))
+        out.append(_res(
+            "PASS" if chw >= req_chw else "WARN",
+            "דירת הול מרכזי — ETH Hallenwohnung (ETH_TYPO_1)",
+            "ETH_TYPO_1",
+            f"רוחב הול מרכזי {chw:.2f} מ' מול מינימום {req_chw:.2f} מ' לתפקוד כחלל שהייה ללא מסדרון מבוזבז (ETH Zürich)."
+        ))
+
+    # 7. SWISS_GK_1 — Swiss Grundrisskritik (Diagonal sightline / Durchwohnen / Schaltzimmer)
+    if apartment.get("diagonal_sightline_ratio") is not None:
+        dsr = float(apartment["diagonal_sightline_ratio"])
+        req_dsr = float(_p(rules, "SWISS_GK_1", "swiss_diagonal_sightline_min_multiplier"))
+        out.append(_res(
+            "PASS" if dsr >= req_dsr else "WARN",
+            "מבחן אלכסון ראשי — Swiss Grundrisskritik (SWISS_GK_1)",
+            "SWISS_GK_1",
+            f"יחס קו ראייה אלכסוני {dsr:.2f}× מול רף {req_dsr:.2f}× (Hochparterre Grundrissfibel)."
+        ))
+
+    # 8. TUD_HERTZ_1 — TU Delft Hertzberger (Kitchen counter upstand / habitable window sill)
+    if apartment.get("kitchen_counter_upstand_cm") is not None:
+        up = float(apartment["kitchen_counter_upstand_cm"])
+        req_up = float(_p(rules, "TUD_HERTZ_1", "hertzberger_counter_upstand_min_cm"))
+        out.append(_res(
+            "PASS" if up >= req_up else "WARN",
+            "הסתרת משטח מטבח חצי-פתוח — TU Delft Hertzberger (TUD_HERTZ_1)",
+            "TUD_HERTZ_1",
+            f"הגבהת דלפק {up:.0f} ס\"מ מול {req_up:.0f} ס\"מ להסתרת אי-סדר מקו הראייה של הסלון (Hertzberger)."
+        ))
+
+    # 9. IL_OREF_2025 — Home Front Command Amendment 163 (2025) Mamad internal wet room
+    for r, t in typed:
+        if t == "safe_room" and (r.get("wet_room_area_sqm") is not None or r.get("external_wall_plumbing") is not None):
+            w_area = float(r.get("wet_room_area_sqm") or 0)
+            max_bonus = float(_p(rules, "IL_OREF_2025", "oref_2025_mamad_wet_room_max_bonus_sqm"))
+            ext_plumb = bool(r.get("external_wall_plumbing", False))
+            issues = []
+            if w_area > max_bonus:
+                issues.append(f"שטח חדר רטוב בממ\"ד {w_area:.2f} > {max_bonus:.1f} מ\"ר מותר בתיקון 163")
+            if ext_plumb:
+                issues.append("מעבר צנרת בקיר חוץ של הממ\"ד אסור (חובה קיר פנימי בלבד)")
+            out.append(_res(
+                "WARN" if issues else "PASS",
+                "ממ\"ד וחדר רטוב — פקע\"ר תיקון 163 (IL_OREF_2025)",
+                "IL_OREF_2025",
+                "; ".join(issues) if issues else f"חדר רטוב בממ\"ד ({w_area:.1f} מ\"ר) עומד בתיקון 163 ובהנחיות פקע\"ר."
+            ))
+
+    # 10. IL_MOT_PARK — Israeli Ministry of Transport Parking Guidelines
+    parking = apartment.get("parking")
+    if isinstance(parking, dict):
+        sw = parking.get("stall_width_m")
+        adj_cols = int(parking.get("adjacent_columns_or_walls") or 0)
+        aw = parking.get("aisle_width_m")
+        p_issues = []
+        if sw is not None:
+            sw = float(sw)
+            if adj_cols >= 2:
+                req_sw = float(_p(rules, "IL_MOT_PARK", "mot_parking_stall_between_columns_min_width_m"))
+            elif adj_cols == 1:
+                req_sw = float(_p(rules, "IL_MOT_PARK", "mot_parking_stall_single_column_min_width_m"))
+            else:
+                req_sw = float(_p(rules, "IL_MOT_PARK", "mot_parking_stall_open_min_width_m"))
+            if sw < req_sw:
+                p_issues.append(f"רוחב תא חניה {sw:.2f} < {req_sw:.2f} מ' (עבור {adj_cols} עמודים/קירות צמודים)")
+        if aw is not None:
+            aw = float(aw)
+            req_aw = float(_p(rules, "IL_MOT_PARK", "mot_parking_aisle_90deg_min_width_m"))
+            if aw < req_aw:
+                p_issues.append(f"רוחב מיסעה {aw:.2f} < {req_aw:.2f} מ'")
+        if sw is not None or aw is not None:
+            out.append(_res(
+                "WARN" if p_issues else "PASS",
+                "גאומטריית חניה ומיסעה — משרד התחבורה (IL_MOT_PARK)",
+                "IL_MOT_PARK",
+                "; ".join(p_issues) + " (הנחיות משרד התחבורה)." if p_issues else "תא החניה והמיסעה עומדים בהנחיות משרד התחבורה."
+            ))
+
+    # 11. IL_IS1004_1142 — IS 1004 Acoustics & IS 1142 Railings
+    pw_db = apartment.get("party_wall_db")
+    bal_rail = apartment.get("balcony_railing_height_cm")
+    rail_gap = apartment.get("railing_gap_cm")
+    if pw_db is not None or bal_rail is not None or rail_gap is not None:
+        s_issues = []
+        if pw_db is not None and float(pw_db) < float(_p(rules, "IL_IS1004_1142", "is1004_party_wall_airborne_min_db")):
+            s_issues.append(f"בידוד קיר מפריד {pw_db} < 48 dB (ת\"י 1004)")
+        if bal_rail is not None and float(bal_rail) < float(_p(rules, "IL_IS1004_1142", "is1142_balcony_railing_min_height_cm")):
+            s_issues.append(f"גובה מעקה מרפסת {bal_rail} < 105 ס\"מ (ת\"י 1142)")
+        if rail_gap is not None and float(rail_gap) > float(_p(rules, "IL_IS1004_1142", "is1142_railing_max_gap_cm")):
+            s_issues.append(f"מרווח במעקה {rail_gap} > 10 ס\"מ (ת\"י 1142)")
+        out.append(_res(
+            "WARN" if s_issues else "PASS",
+            "אקוסטיקה ומעקים — ת\"י 1004 / ת\"י 1142 (IL_IS1004_1142)",
+            "IL_IS1004_1142",
+            "; ".join(s_issues) if s_issues else "עומד בדרישות ת\"י 1004 (אקוסטיקה) ות\"י 1142 (מעקים)."
+        ))
+
     return out
 
 

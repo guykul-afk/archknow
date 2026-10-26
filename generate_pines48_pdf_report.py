@@ -9,7 +9,7 @@ import os
 import shutil
 import subprocess
 
-OUTPUT_DIR = r"c:\Users\guyku\archknow\reports"
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "reports")
 SCRATCH_DIR = r"C:\Users\guyku\.gemini\antigravity\scratch\pines-48-3d"
 GDRIVE_BASE_DIR = r"G:\תיקיות אחסון שיתופי\פרויקטים שוטפים\פרויקטים בביצוע\פינס הבעשט"
 GDRIVE_MODEL_DIR = os.path.join(GDRIVE_BASE_DIR, "מודל")

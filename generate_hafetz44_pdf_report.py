@@ -10,7 +10,7 @@ import os
 import shutil
 import subprocess
 
-OUTPUT_DIR = r"c:\Users\guyku\archknow\reports"
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "reports")
 GDRIVE_DIR = r"G:\תיקיות אחסון שיתופי\פרויקטים שוטפים\פרויקטים בביצוע\חפץ חיים 44\מודל"
 
 HTML_PATH = os.path.join(OUTPUT_DIR, "hafetz44_architectural_quality_analysis.html")

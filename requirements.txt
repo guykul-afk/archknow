@@ -1,5 +1,8 @@
 flask
-ezdxf
+gunicorn
 shapely
 networkx
-aspose-cad
+ezdxf
+PyMuPDF
+scipy
+numpy

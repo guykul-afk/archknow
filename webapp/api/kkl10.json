@@ -1,0 +1,3260 @@
+{
+  "project_id": "kkl10",
+  "project_name": "קק״ל 10 (קרן קיימת לישראל 10), פתח תקווה",
+  "project_subtitle": "דוח בקרת איכות תכנון ואדריכלות (גרמושקה P-23) — 9 קומות + 2 מרתפי חניון · 25 יח״ד · סנדרוביץ אדריכלים",
+  "overall_score": 84,
+  "metrics": [
+    {
+      "label": "ציון איכות משוקלל",
+      "value": "84/100",
+      "sub": "דירוג B+ — גרמושקה P-23"
+    },
+    {
+      "label": "חניות רגילות",
+      "value": "34 (100%)",
+      "sub": "ללא מכפילים · ללא חדר שנאים"
+    },
+    {
+      "label": "רוחב ממ״דים וחדרים",
+      "value": "264–283 ס״מ",
+      "sub": "ממ״ד 264–268 (WARN) · חדר 283"
+    },
+    {
+      "label": "ליקויים והתראות",
+      "value": "1 FAIL · 36 WARN",
+      "sub": "ממ״דים צרים + כיס מיסעה"
+    }
+  ],
+  "pdf_report_url": "/reports/kkl10_architectural_quality_analysis.pdf",
+  "viewer_3d_url": "G:\\Shared drives\\שליטה ובקרה\\מודלים פרויקטים\\קקל 10 פתח תקווה\\kkl10_3d_bim_viewer.html",
+  "discovered_files": [
+    {
+      "name": "246-פרויקט קקל-p-18 (1).dwfx",
+      "path": "C:/Users/User/archknow/246-פרויקט קקל-p-18 (1).dwfx",
+      "folder": "C:/Users/User/archknow",
+      "ext": "DWFX",
+      "size_kb": 4172.5
+    },
+    {
+      "name": "kkl10_architectural_quality_analysis.html",
+      "path": "C:/Users/User/archknow/reports/kkl10_architectural_quality_analysis.html",
+      "folder": "C:/Users/User/archknow/reports",
+      "ext": "HTML",
+      "size_kb": 90.8
+    },
+    {
+      "name": "kkl10_architectural_quality_analysis.pdf",
+      "path": "C:/Users/User/archknow/reports/kkl10_architectural_quality_analysis.pdf",
+      "folder": "C:/Users/User/archknow/reports",
+      "ext": "PDF",
+      "size_kb": 1857.2
+    },
+    {
+      "name": "kkl10_summary_and_areas_report.html",
+      "path": "C:/Users/User/archknow/reports/kkl10_summary_and_areas_report.html",
+      "folder": "C:/Users/User/archknow/reports",
+      "ext": "HTML",
+      "size_kb": 88.9
+    },
+    {
+      "name": "kkl10_summary_and_areas_report.pdf",
+      "path": "C:/Users/User/archknow/reports/kkl10_summary_and_areas_report.pdf",
+      "folder": "C:/Users/User/archknow/reports",
+      "ext": "PDF",
+      "size_kb": 1355.7
+    },
+    {
+      "name": "246-פרויקט קקל-p-18 (1).dwfx",
+      "path": "C:/Users/User/archknow/uploads/246-פרויקט קקל-p-18 (1).dwfx",
+      "folder": "C:/Users/User/archknow/uploads",
+      "ext": "DWFX",
+      "size_kb": 4172.5
+    },
+    {
+      "name": "kkl10.json",
+      "path": "C:/Users/User/archknow/webapp/api/kkl10.json",
+      "folder": "C:/Users/User/archknow/webapp/api",
+      "ext": "JSON",
+      "size_kb": 224.2
+    },
+    {
+      "name": "kkl10_architectural_quality_analysis.html",
+      "path": "C:/Users/User/archknow/webapp/reports/kkl10_architectural_quality_analysis.html",
+      "folder": "C:/Users/User/archknow/webapp/reports",
+      "ext": "HTML",
+      "size_kb": 90.8
+    },
+    {
+      "name": "kkl10_architectural_quality_analysis.pdf",
+      "path": "C:/Users/User/archknow/webapp/reports/kkl10_architectural_quality_analysis.pdf",
+      "folder": "C:/Users/User/archknow/webapp/reports",
+      "ext": "PDF",
+      "size_kb": 1857.2
+    },
+    {
+      "name": "kkl10_summary_and_areas_report.html",
+      "path": "C:/Users/User/archknow/webapp/reports/kkl10_summary_and_areas_report.html",
+      "folder": "C:/Users/User/archknow/webapp/reports",
+      "ext": "HTML",
+      "size_kb": 88.9
+    },
+    {
+      "name": "kkl10_summary_and_areas_report.pdf",
+      "path": "C:/Users/User/archknow/webapp/reports/kkl10_summary_and_areas_report.pdf",
+      "folder": "C:/Users/User/archknow/webapp/reports",
+      "ext": "PDF",
+      "size_kb": 1355.7
+    },
+    {
+      "name": "kkl10_basement.png",
+      "path": "C:/Users/User/archknow/webapp/uploads/kkl10_basement.png",
+      "folder": "C:/Users/User/archknow/webapp/uploads",
+      "ext": "PNG",
+      "size_kb": 173.7
+    },
+    {
+      "name": "kkl10_basement2.png",
+      "path": "C:/Users/User/archknow/webapp/uploads/kkl10_basement2.png",
+      "folder": "C:/Users/User/archknow/webapp/uploads",
+      "ext": "PNG",
+      "size_kb": 167.2
+    },
+    {
+      "name": "kkl10_f1_2.png",
+      "path": "C:/Users/User/archknow/webapp/uploads/kkl10_f1_2.png",
+      "folder": "C:/Users/User/archknow/webapp/uploads",
+      "ext": "PNG",
+      "size_kb": 187.1
+    },
+    {
+      "name": "kkl10_ground.png",
+      "path": "C:/Users/User/archknow/webapp/uploads/kkl10_ground.png",
+      "folder": "C:/Users/User/archknow/webapp/uploads",
+      "ext": "PNG",
+      "size_kb": 249.9
+    },
+    {
+      "name": "kkl10_penthouse.png",
+      "path": "C:/Users/User/archknow/webapp/uploads/kkl10_penthouse.png",
+      "folder": "C:/Users/User/archknow/webapp/uploads",
+      "ext": "PNG",
+      "size_kb": 187.7
+    },
+    {
+      "name": "kkl10_typical.png",
+      "path": "C:/Users/User/archknow/webapp/uploads/kkl10_typical.png",
+      "folder": "C:/Users/User/archknow/webapp/uploads",
+      "ext": "PNG",
+      "size_kb": 191.4
+    },
+    {
+      "name": "kkl10_spatial_map.html",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/kkl10_spatial_map.html",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה",
+      "ext": "HTML",
+      "size_kb": 3121.2
+    },
+    {
+      "name": "246-פרויקט קקל-p-23 - Sheet - A0-000002 - גרמושקה - תכניות-חישוב שטחים רובוטי (1).dwg",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/246-פרויקט קקל-p-23 - Sheet - A0-000002 - גרמושקה - תכניות-חישוב שטחים רובוטי (1).dwg",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה",
+      "ext": "DWG",
+      "size_kb": 6547.9
+    },
+    {
+      "name": "KKL10_PetahTikva_BIM_v6_1.mtl",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/KKL10_PetahTikva_BIM_v6_1.mtl",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה",
+      "ext": "MTL",
+      "size_kb": 2.9
+    },
+    {
+      "name": "kkl10_3d_bim_viewer.html",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/kkl10_3d_bim_viewer.html",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה",
+      "ext": "HTML",
+      "size_kb": 3856.6
+    },
+    {
+      "name": "index.html",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/index.html",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה",
+      "ext": "HTML",
+      "size_kb": 3856.6
+    },
+    {
+      "name": "KKL10_PetahTikva_BIM_v6_1.obj",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/KKL10_PetahTikva_BIM_v6_1.obj",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה",
+      "ext": "OBJ",
+      "size_kb": 2785.2
+    },
+    {
+      "name": "kkl10_cad_floor_plans_v6_1.json",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/kkl10_cad_floor_plans_v6_1.json",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה",
+      "ext": "JSON",
+      "size_kb": 15624.5
+    },
+    {
+      "name": "kkl10_architectural_quality_analysis.pdf",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/kkl10_architectural_quality_analysis.pdf",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה",
+      "ext": "PDF",
+      "size_kb": 1099.9
+    },
+    {
+      "name": "kkl10_gramoshka.dwg",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/kkl10_gramoshka.dwg",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה",
+      "ext": "DWG",
+      "size_kb": 6547.9
+    },
+    {
+      "name": "spatial_map_data.json",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/data/spatial_map_data.json",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/data",
+      "ext": "JSON",
+      "size_kb": 2284.1
+    },
+    {
+      "name": "kkl10_units_crm.json",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/data/kkl10_units_crm.json",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/data",
+      "ext": "JSON",
+      "size_kb": 14.5
+    },
+    {
+      "name": "unified_3d_map.json",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/data/unified_3d_map.json",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/data",
+      "ext": "JSON",
+      "size_kb": 3099.9
+    },
+    {
+      "name": "dwg_compiled_clusters.json",
+      "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/data/cad_diagnostics/dwg_compiled_clusters.json",
+      "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/data/cad_diagnostics",
+      "ext": "JSON",
+      "size_kb": 565.3
+    },
+    {
+      "name": "kkl10_spatial_map.html",
+      "path": "C:/Users/User/.gemini/antigravity/scratch/kkl10/kkl10_spatial_map.html",
+      "folder": "C:/Users/User/.gemini/antigravity/scratch/kkl10",
+      "ext": "HTML",
+      "size_kb": 3121.2
+    },
+    {
+      "name": "246-פרויקט קקל-p-23 - Sheet - A0-000002 - גרמושקה - תכניות-חישוב שטחים רובוטי (1).dwg",
+      "path": "C:/Users/User/.gemini/antigravity/scratch/kkl10/246-פרויקט קקל-p-23 - Sheet - A0-000002 - גרמושקה - תכניות-חישוב שטחים רובוטי (1).dwg",
+      "folder": "C:/Users/User/.gemini/antigravity/scratch/kkl10",
+      "ext": "DWG",
+      "size_kb": 6547.9
+    },
+    {
+      "name": "KKL10_PetahTikva_BIM_v6_1.mtl",
+      "path": "C:/Users/User/.gemini/antigravity/scratch/kkl10/KKL10_PetahTikva_BIM_v6_1.mtl",
+      "folder": "C:/Users/User/.gemini/antigravity/scratch/kkl10",
+      "ext": "MTL",
+      "size_kb": 2.9
+    },
+    {
+      "name": "kkl10_3d_bim_viewer.html",
+      "path": "C:/Users/User/.gemini/antigravity/scratch/kkl10/kkl10_3d_bim_viewer.html",
+      "folder": "C:/Users/User/.gemini/antigravity/scratch/kkl10",
+      "ext": "HTML",
+      "size_kb": 3856.6
+    },
+    {
+      "name": "index.html",
+      "path": "C:/Users/User/.gemini/antigravity/scratch/kkl10/index.html",
+      "folder": "C:/Users/User/.gemini/antigravity/scratch/kkl10",
+      "ext": "HTML",
+      "size_kb": 3856.6
+    },
+    {
+      "name": "KKL10_PetahTikva_BIM_v6_1.obj",
+      "path": "C:/Users/User/.gemini/antigravity/scratch/kkl10/KKL10_PetahTikva_BIM_v6_1.obj",
+      "folder": "C:/Users/User/.gemini/antigravity/scratch/kkl10",
+      "ext": "OBJ",
+      "size_kb": 2785.2
+    },
+    {
+      "name": "kkl10_cad_floor_plans_v6_1.json",
+      "path": "C:/Users/User/.gemini/antigravity/scratch/kkl10/kkl10_cad_floor_plans_v6_1.json",
+      "folder": "C:/Users/User/.gemini/antigravity/scratch/kkl10",
+      "ext": "JSON",
+      "size_kb": 15624.5
+    },
+    {
+      "name": "kkl10_architectural_quality_analysis.pdf",
+      "path": "C:/Users/User/.gemini/antigravity/scratch/kkl10/kkl10_architectural_quality_analysis.pdf",
+      "folder": "C:/Users/User/.gemini/antigravity/scratch/kkl10",
+      "ext": "PDF",
+      "size_kb": 1099.9
+    },
+    {
+      "name": "kkl10_gramoshka.dwg",
+      "path": "C:/Users/User/.gemini/antigravity/scratch/kkl10/kkl10_gramoshka.dwg",
+      "folder": "C:/Users/User/.gemini/antigravity/scratch/kkl10",
+      "ext": "DWG",
+      "size_kb": 6547.9
+    },
+    {
+      "name": "spatial_map_data.json",
+      "path": "C:/Users/User/.gemini/antigravity/scratch/kkl10/data/spatial_map_data.json",
+      "folder": "C:/Users/User/.gemini/antigravity/scratch/kkl10/data",
+      "ext": "JSON",
+      "size_kb": 2284.1
+    },
+    {
+      "name": "kkl10_units_crm.json",
+      "path": "C:/Users/User/.gemini/antigravity/scratch/kkl10/data/kkl10_units_crm.json",
+      "folder": "C:/Users/User/.gemini/antigravity/scratch/kkl10/data",
+      "ext": "JSON",
+      "size_kb": 14.5
+    },
+    {
+      "name": "unified_3d_map.json",
+      "path": "C:/Users/User/.gemini/antigravity/scratch/kkl10/data/unified_3d_map.json",
+      "folder": "C:/Users/User/.gemini/antigravity/scratch/kkl10/data",
+      "ext": "JSON",
+      "size_kb": 3099.9
+    },
+    {
+      "name": "dwg_compiled_clusters.json",
+      "path": "C:/Users/User/.gemini/antigravity/scratch/kkl10/data/cad_diagnostics/dwg_compiled_clusters.json",
+      "folder": "C:/Users/User/.gemini/antigravity/scratch/kkl10/data/cad_diagnostics",
+      "ext": "JSON",
+      "size_kb": 565.3
+    },
+    {
+      "name": "עקרונות עסקה קקל 10.docx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/עקרונות עסקה קקל 10.docx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10",
+      "ext": "DOCX",
+      "size_kb": 78.1
+    },
+    {
+      "name": "הצעה היבנר 42.docx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/הצעה היבנר 42.docx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10",
+      "ext": "DOCX",
+      "size_kb": 259.0
+    },
+    {
+      "name": "הדף היומי.docx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/הדף היומי.docx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10",
+      "ext": "DOCX",
+      "size_kb": 259.0
+    },
+    {
+      "name": "היבנר 42.docx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/היבנר 42.docx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10",
+      "ext": "DOCX",
+      "size_kb": 258.8
+    },
+    {
+      "name": "דגל ראובן 5 7.docx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/דגל ראובן 5 7.docx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10",
+      "ext": "DOCX",
+      "size_kb": 259.3
+    },
+    {
+      "name": "יטקובסקי 7.docx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/יטקובסקי 7.docx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10",
+      "ext": "DOCX",
+      "size_kb": 258.5
+    },
+    {
+      "name": "הצעה לקקל 10.docx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/הצעה לקקל 10.docx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10",
+      "ext": "DOCX",
+      "size_kb": 261.5
+    },
+    {
+      "name": "קקל הצהרה לחתימה.pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/קקל הצהרה לחתימה.pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10",
+      "ext": "PDF",
+      "size_kb": 235.3
+    },
+    {
+      "name": "פרויקט קקל 10 -מלאי דירות לשדרוג.pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/פרויקט קקל 10 -מלאי דירות לשדרוג.pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10",
+      "ext": "PDF",
+      "size_kb": 36.3
+    },
+    {
+      "name": "שמפ חירום נוכחי - 05.03.26.pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/שמפ חירום נוכחי - 05.03.26.pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10",
+      "ext": "PDF",
+      "size_kb": 80.4
+    },
+    {
+      "name": "2022-875MP-Model.pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/מדידות/2022-875MP-Model.pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/מדידות",
+      "ext": "PDF",
+      "size_kb": 48.4
+    },
+    {
+      "name": "2022-875MP.dwg",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/מדידות/2022-875MP.dwg",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/מדידות",
+      "ext": "DWG",
+      "size_kb": 145.7
+    },
+    {
+      "name": "2022-875.dwg",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/מדידות/2022-875.dwg",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/מדידות",
+      "ext": "DWG",
+      "size_kb": 221.7
+    },
+    {
+      "name": "2022-875-Model.pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/מדידות/2022-875-Model.pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/מדידות",
+      "ext": "PDF",
+      "size_kb": 439.5
+    },
+    {
+      "name": "2022-875-Model.dwfx",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/מדידות/2022-875-Model.dwfx",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/מדידות",
+      "ext": "DWFX",
+      "size_kb": 216.2
+    },
+    {
+      "name": "246-קקל-p-4-קומות 1-2.pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/סקיצות/246-קקל-p-4-קומות 1-2.pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/סקיצות",
+      "ext": "PDF",
+      "size_kb": 178.3
+    },
+    {
+      "name": "246-קקל-p-4-קומות 3-5).pdf",
+      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/סקיצות/246-קקל-p-4-קומות 3-5).pdf",
+      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/סקיצות",
+      "ext": "PDF",
+      "size_kb": 177.9
+    }
+  ],
+  "sheets": [
+    {
+      "id": "kkl_typical",
+      "title": "קומות 3–4 — קומה טיפוסית (דירה B דרום-מערב, דירה E דרום-מזרח 5 חד׳, דירה D צפונית)",
+      "sheet_code": "P-23 / קומות 3–4",
+      "elevation": "+10.35m עד +13.50m",
+      "image_url": "/uploads/kkl10_typical.png?v=p23",
+      "scale": "1:100 CAD (גרמושקה P-23)"
+    },
+    {
+      "id": "kkl_f1_2",
+      "title": "קומות 1–2 — קומה טיפוסית תחתונה (דירה B, דירה A, דירה C עם מרפסת 11.99 מ׳)",
+      "sheet_code": "P-23 / קומות 1–2",
+      "elevation": "+4.05m עד +7.20m",
+      "image_url": "/uploads/kkl10_f1_2.png?v=p23",
+      "scale": "1:100 CAD (גרמושקה P-23)"
+    },
+    {
+      "id": "kkl_penthouse",
+      "title": "קומה 8 — קומת פנטהאוזים (PH-1 צפוני ו-PH-2 דרומי) וטרסות גג",
+      "sheet_code": "P-23 / קומה 8",
+      "elevation": "+26.35m",
+      "image_url": "/uploads/kkl10_penthouse.png?v=p23",
+      "scale": "1:100 CAD (גרמושקה P-23)"
+    },
+    {
+      "id": "kkl_ground",
+      "title": "קומת קרקע ±0.00 — לובי ראשי, חדרי שירות ודירות גן G-1 ו-G-2",
+      "sheet_code": "P-23 / קומת קרקע",
+      "elevation": "±0.00m (+59.53m)",
+      "image_url": "/uploads/kkl10_ground.png?v=p23",
+      "scale": "1:100 CAD (גרמושקה P-23)"
+    },
+    {
+      "id": "kkl_basement",
+      "title": "מרתף חניון 1- — 16 חניות רגילות (#1–#16) ו-8 מחסנים (ללא חדר שנאים)",
+      "sheet_code": "P-23 / מרתף 1-",
+      "elevation": "-4.35m (+55.18m)",
+      "image_url": "/uploads/kkl10_basement.png?v=p23",
+      "scale": "1:100 CAD (גרמושקה P-23)"
+    },
+    {
+      "id": "kkl_basement2",
+      "title": "מרתף חניון 2- — 18 חניות רגילות (#17–#34), 6 מחסנים ומאגר מים",
+      "sheet_code": "P-23 / מרתף 2-",
+      "elevation": "-7.65m (+51.88m)",
+      "image_url": "/uploads/kkl10_basement2.png?v=p23",
+      "scale": "1:100 CAD (גרמושקה P-23)"
+    }
+  ],
+  "sections": [
+    {
+      "id": "sec_kkl_parking",
+      "title": "1. מרתפי חניון (-1, -2): 34 חניות רגילות ו-14 מחסנים (ללא חדר שנאים · גרמושקה P-23)",
+      "subtitle": "גיליונות מרתף 1- ומרתף 2- · 0 מכפילי חניה · ללא חדר שנאים במרתף · ממצא: כיס הארכה במיסעה",
+      "intro": "בגרמושקה העדכנית P-23 בוטל חדר השנאים שהופיע בסקיצה מ-2023. הפרויקט כולל 34 חניות רגילות ב-2 מרתפים (16 במרתף 1- ו-18 במרתף 2-) ו-14 מחסנים בנויים, עם הערה תכנונית אחת בקצה המיסעה:"
+    },
+    {
+      "id": "sec_kkl_apt_a",
+      "title": "2. אגף דרום-מזרחי (דירות A ו-E): ממ״ד ברוחב 268 ס״מ וחדרי שינה ברוחב 283 ס״מ",
+      "subtitle": "גיליונות קומות 1–2 וקומות 3–4 (P-23) · סלון 588×580 ס״מ · ממ״ד 268×345 ס״מ (WARN) · חדרים 283×360/365 ס״מ",
+      "intro": "החלל הציבורי והמרפסת הדרומית (607×207 ס״מ) מרווחים מאוד, אך בדיקת הגרמושקה P-23 מזהה כי הממ״ד הדרום-מזרחי מתוכנן ברוחב צר של 268 ס״מ בלבד (9.25 מ״ר — 8 ס״מ מעל המינימום החוקי) וחדרי השינה ברוחב 283 ס״מ:"
+    },
+    {
+      "id": "sec_kkl_apt_b",
+      "title": "3. אגף דרום-מערבי (דירה B): ממ״ד ברוחב 264–268 ס״מ, חדר שינה 283 ס״מ וסוויטת הורים 305 ס״מ",
+      "subtitle": "גיליון קומות 3–4 (P-23) · סלון 614×579 ס״מ · ממ״ד 264×345 ס״מ בקומות 3–5 (WARN) ו-268×345 בשאר הקומות",
+      "intro": "דירת 4 חדרים דרום-מערבית עם סלון רחב (6.14 מ׳) וסוויטת הורים מצוינת (393×305 ס״מ), לצד ממ״ד מערבי צר מאוד ברוחב 264 ס״מ (בקומות 3–5) עד 268 ס״מ (בקומות 1–2 ו-6–7) וחדר שינה ברוחב 283 ס״מ:"
+    },
+    {
+      "id": "sec_kkl_apt_d",
+      "title": "4. אגף צפוני חזיתי לרחוב קק״ל (דירות C, D, G, H · 3 כיווני אוויר)",
+      "subtitle": "גיליונות קומות 1–2 וקומות 3–4 (P-23) · סלון 503×681 ס״מ · הורים 408×305 ס״מ · ממ״ד 276×379 ס״מ",
+      "intro": "הדירה הצפונית נהנית מ-3 כיווני אוויר מלאים (צפון, מזרח, מערב), מרפסת רחבה לרחוב קק״ל, יחידת הורים (408×305 ס״מ) וחדר שינה (300×335 ס״מ) העוברים את רף ה-ADG, וממ״ד מערבי ברוחב 276 ס״מ:"
+    },
+    {
+      "id": "sec_kkl_core",
+      "title": "5. ליבת הבניין (2 מעליות 6 נוסעים), קומת קרקע וקומת פנטהאוזים 8 (P-23)",
+      "subtitle": "גיליונות קומת קרקע וקומה 8 (P-23) · 2 מעליות 6 נוסעים ל-25 יח״ד · ממ״דים 268×345 ס״מ",
+      "intro": "ליבת הבניין כוללת 2 מעליות של 6 נוסעים ל-25 דירות (יחס 1:12.5), קומת קרקע בגובה 3.83 מ׳ נטו, וקומת פנטהאוזים נסוגה בקומה 8:"
+    },
+    {
+      "id": "sec_kkl10_value_eng",
+      "title": "💰 מודל החיסכון בעלויות הבנייה — צמצום קונטור בנייה מאומת וחיפוי (1,433,160 ₪)",
+      "subtitle": "צמצום קונטור עילי מאומת: 89.0 מ״ר (6,200 ₪/מ״ר) · צמצום קונטור חניון מאומת: 170.0 מ״ר (3,500 ₪/מ״ר) · המרת חיפוי יבש לטיח: 715.9 מ״ר (400 ₪/מ״ר) · [נוכו 52.0 מ״ר ליבה/מרתף כלואים שלא הקטינו קונטור ← הועברו לשיפור תכנון]",
+      "intro": "חיסכון אמיתי בעלויות הבנייה נספר אך ורק כאשר ההמלצה מקטינה בפועל את קונטור הבניין העילי או קונטור הדיפון במרתף (סך הכל נבנה פחות). שטחי ליבה או מרתף שירדו אך נותרו כלואים בין דירות/עמודים או מתחת לתקרה עליונה קשיחה קוזזו ממודל החיסכון (0 ₪) והועברו לקטגוריית 'שיפור תכנון'."
+    },
+    {
+      "id": "sec_kkl10_apt_improvement",
+      "title": "🛋️ שיפור תכנון (ללא הקטנת קונטור הבנייה): ייעול פנים-דירתי (+36.4 מ״ר) והקטנת שטחי ליבה/מרתף כלואים (+52.0 מ״ר)",
+      "subtitle": "סה״כ 88.4 מ״ר שטחים שיועלו תכנונית אך לא הקטינו את קונטור הבניין הכולל — ולכן הועברו ממודל חיסכון העלויות (0 ₪ חיסכון שלד) לשיפור תכנון",
+      "intro": "בהתאם למבחן כיווץ קונטור הבניין הכולל: שטח ליבה/מבואה או שטח מסדרון פנים-דירתי שצומצם אך לא הקטין את קונטור תקרת הבניין או את קו הדיפון במרתף (למשל נישה פנימית כלואה בין ממ״דים ועמודים או מעבר תחת תקרת קומה א׳ קשיחה) אינו חוסך עלויות בנייה (0 ₪) ומסווג כשיפור תכנון אדריכלי להגדלת חדרי המגורים, מבואות הכניסה, הלובי או המחסנים."
+    }
+  ],
+  "notes": [
+    {
+      "id": "KKL-PARK-01",
+      "pin_num": 1,
+      "sheet_id": "kkl_basement",
+      "section_id": "sec_kkl_parking",
+      "typology": "מרתף חניון 1- (גרמושקה P-23)",
+      "room_name": "מרתף 1- (793 מ״ר): 16 חניות רגילות (#1–#16, רוחב 230–295 ס״מ) ו-8 מחסנים דירתיים",
+      "status": "PASS",
+      "rule_id": "תקן חניה ישראלי / P-23",
+      "title": "16 חניות רגילות במרתף 1- ו-8 מחסנים בנויים (3.7–5.2 מ״ר) — ללא חדר שנאים וללא מכפילים",
+      "measured": "16 חניות רגילות · 8 מחסנים · עמדות המתנה 250×500 ס״מ",
+      "benchmark": "100% חניות קונבנציונליות (ללא מתקנים מכניים)",
+      "summary": "בניגוד לסקיצה ההיסטורית מ-2023 (P-5), בגרמושקה העדכנית P-23 אין חדר שנאים במרתף. מרתף 1- כולל 16 חניות רגילות (#1–#6 בדרום, #7–#8 במרכז, #9–#15 בצפון), 8 מחסנים דירתיים ורמפת ירידה מזרחית.",
+      "recommendation": "לסמן הכנות טעינה לחשמלי (EV) לכל תאי החניה מלוח החשמל הקומתי.",
+      "x_pct": 23.75,
+      "y_pct": 10.74,
+      "w_pct": 50.62,
+      "h_pct": 35.56,
+      "cx_pct": 49.06,
+      "cy_pct": 28.52,
+      "visual_explanation": {
+        "diagram_type": "STATUTORY_CHECK",
+        "before_val": "16 חניות רגילות · 8 מחסנים · עמדות המתנה 250×500 ס״מ",
+        "after_val": "100% חניות קונבנציונליות (ללא מתקנים מכניים)",
+        "unit_label": "מדידה מול תקן",
+        "recommendation": {
+          "where": "מרתף חניון 1- (גרמושקה P-23) — מרתף 1- (793 מ״ר): 16 חניות רגילות (#1–#16, רוחב 230–295 ס״מ) ו-8 מחסנים דירתיים",
+          "finding": "בניגוד לסקיצה ההיסטורית מ-2023 (P-5), בגרמושקה העדכנית P-23 אין חדר שנאים במרתף. מרתף 1- כולל 16 חניות רגילות (#1–#6 בדרום, #7–#8 במרכז, #9–#15 בצפון), 8 מחסנים דירתיים ורמפת ירידה מזרחית."
+        },
+        "solution": {
+          "how_to_execute": "לסמן הכנות טעינה לחשמלי (EV) לכל תאי החניה מלוח החשמל הקומתי.",
+          "mechanism": "תקן ייחוס: תקן חניה ישראלי / P-23 (100% חניות קונבנציונליות (ללא מתקנים מכניים))"
+        },
+        "savings": {
+          "formula": "בדיקת תקינות סטטוטורית ותפקודית (ללא שינוי ישיר במודל עלויות השלד)",
+          "rate_label": "סטטוס: PASS",
+          "gross_sqm": 0.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 100.0
+        },
+        "building_impact": {
+          "contour": "ללא שינוי בקונטור הבניין",
+          "apartments": "מדידה בתכנית: 16 חניות רגילות · 8 מחסנים · עמדות המתנה 250×500 ס״מ לעומת יעד/תקן: 100% חניות קונבנציונליות (ללא מתקנים מכניים)",
+          "parking": "בהתאם לתקן התכנוני הנבדק",
+          "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
+        }
+      }
+    },
+    {
+      "id": "KKL-PARK-02",
+      "pin_num": 2,
+      "sheet_id": "kkl_basement",
+      "section_id": "sec_kkl_parking",
+      "typology": "מרתפי חניון 1- ו-2- (גרמושקה P-23)",
+      "room_name": "קצה מיסעה במבוי סתום במרתף — בדיקת 'כיס הארכה' לתמרון לחניה האחרונה",
+      "status": "FAIL",
+      "rule_id": "הנחיות חניונים / ת״י 1918",
+      "title": "ליקוי תכנוני לתיקון: חוסר בכיס הארכה (1.00 מ׳) בקצה מיסעה ללא מוצא לחניה הקיצונית",
+      "measured": "34 חניות רגילות (16 במרתף 1- + 18 במרתף 2-) · קצה מיסעה סגור",
+      "benchmark": "חובת הארכת מיסעה ב-1.00 מ׳ מעבר לקו החניה האחרונה במבוי סתום",
+      "summary": "בשני מרתפי החניה (34 חניות רגילות סה״כ ו-14 מחסנים) קצה המיסעה במבוי סתום מסתיים בקו החניה האחרונה ללא כיס הארכה (Hammerhead) של 100 ס״מ לשליפת הרכב ברוורס.",
+      "recommendation": "להעמיק את קצה המיסעה ב-100 ס״מ ליצירת מפרץ תמרון תקני לחניות הקצה.",
+      "x_pct": 23.75,
+      "y_pct": 64.07,
+      "w_pct": 24.38,
+      "h_pct": 17.78,
+      "cx_pct": 35.94,
+      "cy_pct": 72.96,
+      "visual_explanation": {
+        "diagram_type": "STATUTORY_CHECK",
+        "before_val": "34 חניות רגילות (16 במרתף 1- + 18 במרתף 2-) · קצה מיסעה סגור",
+        "after_val": "חובת הארכת מיסעה ב-1.00 מ׳ מעבר לקו החניה האחרונה במבוי סתום",
+        "unit_label": "מדידה מול תקן",
+        "recommendation": {
+          "where": "מרתפי חניון 1- ו-2- (גרמושקה P-23) — קצה מיסעה במבוי סתום במרתף — בדיקת 'כיס הארכה' לתמרון לחניה האחרונה",
+          "finding": "בשני מרתפי החניה (34 חניות רגילות סה״כ ו-14 מחסנים) קצה המיסעה במבוי סתום מסתיים בקו החניה האחרונה ללא כיס הארכה (Hammerhead) של 100 ס״מ לשליפת הרכב ברוורס."
+        },
+        "solution": {
+          "how_to_execute": "להעמיק את קצה המיסעה ב-100 ס״מ ליצירת מפרץ תמרון תקני לחניות הקצה.",
+          "mechanism": "תקן ייחוס: הנחיות חניונים / ת״י 1918 (חובת הארכת מיסעה ב-1.00 מ׳ מעבר לקו החניה האחרונה במבוי סתום)"
+        },
+        "savings": {
+          "formula": "בדיקת תקינות סטטוטורית ותפקודית (ללא שינוי ישיר במודל עלויות השלד)",
+          "rate_label": "סטטוס: FAIL",
+          "gross_sqm": 0.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 0.0
+        },
+        "building_impact": {
+          "contour": "ללא שינוי בקונטור הבניין",
+          "apartments": "מדידה בתכנית: 34 חניות רגילות (16 במרתף 1- + 18 במרתף 2-) · קצה מיסעה סגור לעומת יעד/תקן: חובת הארכת מיסעה ב-1.00 מ׳ מעבר לקו החניה האחרונה במבוי סתום",
+          "parking": "בהתאם לתקן התכנוני הנבדק",
+          "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
+        }
+      }
+    },
+    {
+      "id": "KKL-E-01",
+      "pin_num": 3,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl_apt_a",
+      "typology": "דירה E / A (אגף דרום-מזרחי · 114–129 מ״ר)",
+      "room_name": "חדר מגורים, פינת אוכל ומטבח (588×580 ס״מ) + מרפסת דרומית (607×207 ס״מ)",
+      "status": "PASS",
+      "rule_id": "B1.3 / ADG 4D-3",
+      "title": "חלל ציבורי רחב ומואר בדרום-מזרח (588×580 ס״מ) עם מרפסת שמש בעומק 2.07 מ׳!",
+      "measured": "סלון-מטבח: 588×580 ס״מ (אורך כללי 804 ס״מ) · מרפסת: 607×207 ס״מ",
+      "benchmark": "רוחב סלון ≥4.00 מ׳ ועומק מרפסת ≥2.00 מ׳ (ADG) — עובר בהצטיינות",
+      "summary": "החלל הציבורי באגף הדרום-מזרחי מצטיין ברוחב של 5.88 מ׳ ובעומק מרפסת של 2.07 מ׳ (12.0 מ״ר) העומד במלואו ברף המצוינות של ה-ADG האוסטרלי.",
+      "recommendation": "ניצול נישת המטבח ברוחב 302 ס״מ לאי עבודה מרכזי במקביל לוויטרינה הדרומית.",
+      "x_pct": 49.62,
+      "y_pct": 71.63,
+      "w_pct": 23.25,
+      "h_pct": 18.67,
+      "cx_pct": 61.24,
+      "cy_pct": 80.97,
+      "visual_explanation": {
+        "diagram_type": "STATUTORY_CHECK",
+        "before_val": "סלון-מטבח: 588×580 ס״מ (אורך כללי 804 ס״מ) · מרפסת: 607×207 ס״מ",
+        "after_val": "רוחב סלון ≥4.00 מ׳ ועומק מרפסת ≥2.00 מ׳ (ADG) — עובר בהצטיינות",
+        "unit_label": "מדידה מול תקן",
+        "recommendation": {
+          "where": "דירה E / A (אגף דרום-מזרחי · 114–129 מ״ר) — חדר מגורים, פינת אוכל ומטבח (588×580 ס״מ) + מרפסת דרומית (607×207 ס״מ)",
+          "finding": "החלל הציבורי באגף הדרום-מזרחי מצטיין ברוחב של 5.88 מ׳ ובעומק מרפסת של 2.07 מ׳ (12.0 מ״ר) העומד במלואו ברף המצוינות של ה-ADG האוסטרלי."
+        },
+        "solution": {
+          "how_to_execute": "ניצול נישת המטבח ברוחב 302 ס״מ לאי עבודה מרכזי במקביל לוויטרינה הדרומית.",
+          "mechanism": "תקן ייחוס: B1.3 / ADG 4D-3 (רוחב סלון ≥4.00 מ׳ ועומק מרפסת ≥2.00 מ׳ (ADG) — עובר בהצטיינות)"
+        },
+        "savings": {
+          "formula": "בדיקת תקינות סטטוטורית ותפקודית (ללא שינוי ישיר במודל עלויות השלד)",
+          "rate_label": "סטטוס: PASS",
+          "gross_sqm": 0.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 100.0
+        },
+        "building_impact": {
+          "contour": "ללא שינוי בקונטור הבניין",
+          "apartments": "מדידה בתכנית: סלון-מטבח: 588×580 ס״מ (אורך כללי 804 ס״מ) · מרפסת: 607×207 ס״מ לעומת יעד/תקן: רוחב סלון ≥4.00 מ׳ ועומק מרפסת ≥2.00 מ׳ (ADG) — עובר בהצטיינות",
+          "parking": "בהתאם לתקן התכנוני הנבדק",
+          "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
+        }
+      }
+    },
+    {
+      "id": "KKL-E-02",
+      "pin_num": 4,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl_apt_a",
+      "typology": "דירה E / A (אגף דרום-מזרחי · קומות 1–8)",
+      "room_name": "ח. שינה ממ״ד מזרחי (268×345 ס״מ = 9.25 מ״ר נטו)",
+      "status": "WARN",
+      "rule_id": "B1.15 / NDSS / ADG 4D-3",
+      "title": "רוחב ממ״ד 268 ס״מ בלבד (268×345 ס״מ) — עובר בקושי את המינימום החוקי (260 ס״מ), צר מ-NDSS (275 ס״מ) ומ-ADG (300 ס״מ)",
+      "measured": "רוחב: 268 ס״מ · אורך: 345 ס״מ · שטח: 9.25 מ״ר",
+      "benchmark": "חוק ישראלי B1.15: ≥260 ס״מ ו-≥9.0 מ״ר (עובר ב-8 ס״מ) | NDSS: ≥275 ס״מ | ADG: ≥300 ס״מ",
+      "summary": "בגרמושקה P-23 רוחב הממ״ד הדרום-מזרחי (בקומות 1–8) הוא 268 ס״מ בלבד (ולא 285 ס״מ). אמנם השטח (9.25 מ״ר) והרוחב עוברים על הקשקש את רף המינימום של פיקוד העורף (260 ס״מ / 9.0 מ״ר), אך החדר צר מרף ה-NDSS הבריטי (275 ס״מ) ומרף ה-ADG (300 ס״מ).",
+      "recommendation": "במידת האפשר להצר את המסדרון הגובל מ-110 ס״מ ל-100 ס״מ להרחבת הממ״ד ל-278 ס״מ, או לבחור ריהוט אורכי צמוד לקיר ה-345 ס״מ.",
+      "x_pct": 61.62,
+      "y_pct": 61.41,
+      "w_pct": 11.25,
+      "h_pct": 8.44,
+      "cx_pct": 67.25,
+      "cy_pct": 65.63,
+      "visual_explanation": {
+        "diagram_type": "STATUTORY_CHECK",
+        "before_val": "רוחב: 268 ס״מ · אורך: 345 ס״מ · שטח: 9.25 מ״ר",
+        "after_val": "חוק ישראלי B1.15: ≥260 ס״מ ו-≥9.0 מ״ר (עובר ב-8 ס״מ) | NDSS: ≥275 ס״מ | ADG: ≥300 ס״מ",
+        "unit_label": "מדידה מול תקן",
+        "recommendation": {
+          "where": "דירה E / A (אגף דרום-מזרחי · קומות 1–8) — ח. שינה ממ״ד מזרחי (268×345 ס״מ = 9.25 מ״ר נטו)",
+          "finding": "בגרמושקה P-23 רוחב הממ״ד הדרום-מזרחי (בקומות 1–8) הוא 268 ס״מ בלבד (ולא 285 ס״מ). אמנם השטח (9.25 מ״ר) והרוחב עוברים על הקשקש את רף המינימום של פיקוד העורף (260 ס״מ / 9.0 מ״ר), אך החדר צר מרף ה-NDSS הבריטי (275 ס״מ) ומרף ה-ADG (300 ס״מ)."
+        },
+        "solution": {
+          "how_to_execute": "במידת האפשר להצר את המסדרון הגובל מ-110 ס״מ ל-100 ס״מ להרחבת הממ״ד ל-278 ס״מ, או לבחור ריהוט אורכי צמוד לקיר ה-345 ס״מ.",
+          "mechanism": "תקן ייחוס: B1.15 / NDSS / ADG 4D-3 (חוק ישראלי B1.15: ≥260 ס״מ ו-≥9.0 מ״ר (עובר ב-8 ס״מ) | NDSS: ≥275 ס״מ | ADG: ≥300 ס״מ)"
+        },
+        "savings": {
+          "formula": "בדיקת תקינות סטטוטורית ותפקודית (ללא שינוי ישיר במודל עלויות השלד)",
+          "rate_label": "סטטוס: WARN",
+          "gross_sqm": 0.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 0.0
+        },
+        "building_impact": {
+          "contour": "ללא שינוי בקונטור הבניין",
+          "apartments": "מדידה בתכנית: רוחב: 268 ס״מ · אורך: 345 ס״מ · שטח: 9.25 מ״ר לעומת יעד/תקן: חוק ישראלי B1.15: ≥260 ס״מ ו-≥9.0 מ״ר (עובר ב-8 ס״מ) | NDSS: ≥275 ס״מ | ADG: ≥300 ס״מ",
+          "parking": "בהתאם לתקן התכנוני הנבדק",
+          "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
+        }
+      }
+    },
+    {
+      "id": "KKL-E-03",
+      "pin_num": 5,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl_apt_a",
+      "typology": "דירה E (5 חדרים דרום-מזרחית · קומות 3–4)",
+      "room_name": "חדרי שינה מזרחיים (283×360 ס״מ ו-283×365 ס״מ) ויחידת הורים (288×364 ס״מ)",
+      "status": "WARN",
+      "rule_id": "ADG 4D-3 / Space Syntax",
+      "title": "חדרי שינה ברוחב 283 ס״מ ויחידת הורים ברוחב 288 ס״מ (10.48 מ״ר) בקצה מסדרון ארוך",
+      "measured": "חדרי ילדים: 283×360 ו-283×365 ס״מ · הורים: 288×364 ס״מ (10.48 מ״ר)",
+      "benchmark": "תקן ישראלי B1.6 ו-NDSS (≥275 ס״מ): עובר | ADG: רוחב ≥300 ס״מ, הורים ≥11.5 מ״ר",
+      "summary": "בגרמושקה P-23 שני חדרי השינה המזרחיים מתוכננים ברוחב 283 ס״מ (שטח 10.19 ו-10.33 מ״ר — עוברים תקן ישראלי ו-NDSS אך מתחת ל-300 ס״מ ב-ADG). תוספת החדר החמישי בקומות 3–5 מקצרת את חדר ההורים ל-288×364 ס״מ (10.48 מ״ר) ומייצרת מסדרון גישה ארוך וחדר רחצה הורים פנימי באוורור מאולץ (180×237 ס״מ).",
+      "recommendation": "לאחד את קצה המסדרון לתוך מבואת סוויטת ההורים כדי לקצר את המסדרון ב-2.5 מ׳ ולהגדיל את פרטיות ושטח יחידת ההורים.",
+      "x_pct": 57.5,
+      "y_pct": 31.85,
+      "w_pct": 15.38,
+      "h_pct": 24.44,
+      "cx_pct": 65.19,
+      "cy_pct": 44.07,
+      "visual_explanation": {
+        "diagram_type": "STATUTORY_CHECK",
+        "before_val": "חדרי ילדים: 283×360 ו-283×365 ס״מ · הורים: 288×364 ס״מ (10.48 מ״ר)",
+        "after_val": "תקן ישראלי B1.6 ו-NDSS (≥275 ס״מ): עובר | ADG: רוחב ≥300 ס״מ, הורים ≥11.5 מ״ר",
+        "unit_label": "מדידה מול תקן",
+        "recommendation": {
+          "where": "דירה E (5 חדרים דרום-מזרחית · קומות 3–4) — חדרי שינה מזרחיים (283×360 ס״מ ו-283×365 ס״מ) ויחידת הורים (288×364 ס״מ)",
+          "finding": "בגרמושקה P-23 שני חדרי השינה המזרחיים מתוכננים ברוחב 283 ס״מ (שטח 10.19 ו-10.33 מ״ר — עוברים תקן ישראלי ו-NDSS אך מתחת ל-300 ס״מ ב-ADG). תוספת החדר החמישי בקומות 3–5 מקצרת את חדר ההורים ל-288×364 ס״מ (10.48 מ״ר) ומייצרת מסדרון גישה ארוך וחדר רחצה הורים פנימי באוורור מאולץ (180×237 ס״מ)."
+        },
+        "solution": {
+          "how_to_execute": "לאחד את קצה המסדרון לתוך מבואת סוויטת ההורים כדי לקצר את המסדרון ב-2.5 מ׳ ולהגדיל את פרטיות ושטח יחידת ההורים.",
+          "mechanism": "תקן ייחוס: ADG 4D-3 / Space Syntax (תקן ישראלי B1.6 ו-NDSS (≥275 ס״מ): עובר | ADG: רוחב ≥300 ס״מ, הורים ≥11.5 מ״ר)"
+        },
+        "savings": {
+          "formula": "בדיקת תקינות סטטוטורית ותפקודית (ללא שינוי ישיר במודל עלויות השלד)",
+          "rate_label": "סטטוס: WARN",
+          "gross_sqm": 0.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 0.0
+        },
+        "building_impact": {
+          "contour": "ללא שינוי בקונטור הבניין",
+          "apartments": "מדידה בתכנית: חדרי ילדים: 283×360 ו-283×365 ס״מ · הורים: 288×364 ס״מ (10.48 מ״ר) לעומת יעד/תקן: תקן ישראלי B1.6 ו-NDSS (≥275 ס״מ): עובר | ADG: רוחב ≥300 ס״מ, הורים ≥11.5 מ״ר",
+          "parking": "בהתאם לתקן התכנוני הנבדק",
+          "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
+        }
+      }
+    },
+    {
+      "id": "KKL-B-01",
+      "pin_num": 6,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl_apt_b",
+      "typology": "דירה B (4 חדרים דרום-מערבית · 107 מ״ר)",
+      "room_name": "חלל מגורים ומטבח דרום-מערבי (614×579 ס״מ) + מרפסת דרומית (587×207 ס״מ)",
+      "status": "PASS",
+      "rule_id": "B1.3 / B1.11 / ADG",
+      "title": "חלל ציבורי מרווח מאוד (614×579 ס״מ) ומרפסת דרומית בעומק 2.07 מ׳",
+      "measured": "614×579 ס״מ (אורך כללי 660 ס״מ) · מרפסת 12.0 מ״ר (587×207 ס״מ)",
+      "benchmark": "תקן ישראלי, NDSS ו-ADG: עובר בהצטיינות",
+      "summary": "החלל הציבורי של דירה B נהנה משני כיווני אוויר (דרום ומערב), רוחב נדיב של 6.14 מ׳ ויציאה למרפסת דרומית עמוקה (207 ס״מ).",
+      "recommendation": "למקם אי מטבח באורך 180 ס״מ בנישת המטבח המערבית (302 ס״מ).",
+      "x_pct": 26.0,
+      "y_pct": 71.63,
+      "w_pct": 23.06,
+      "h_pct": 18.67,
+      "cx_pct": 37.53,
+      "cy_pct": 80.97,
+      "visual_explanation": {
+        "diagram_type": "STATUTORY_CHECK",
+        "before_val": "614×579 ס״מ (אורך כללי 660 ס״מ) · מרפסת 12.0 מ״ר (587×207 ס״מ)",
+        "after_val": "תקן ישראלי, NDSS ו-ADG: עובר בהצטיינות",
+        "unit_label": "מדידה מול תקן",
+        "recommendation": {
+          "where": "דירה B (4 חדרים דרום-מערבית · 107 מ״ר) — חלל מגורים ומטבח דרום-מערבי (614×579 ס״מ) + מרפסת דרומית (587×207 ס״מ)",
+          "finding": "החלל הציבורי של דירה B נהנה משני כיווני אוויר (דרום ומערב), רוחב נדיב של 6.14 מ׳ ויציאה למרפסת דרומית עמוקה (207 ס״מ)."
+        },
+        "solution": {
+          "how_to_execute": "למקם אי מטבח באורך 180 ס״מ בנישת המטבח המערבית (302 ס״מ).",
+          "mechanism": "תקן ייחוס: B1.3 / B1.11 / ADG (תקן ישראלי, NDSS ו-ADG: עובר בהצטיינות)"
+        },
+        "savings": {
+          "formula": "בדיקת תקינות סטטוטורית ותפקודית (ללא שינוי ישיר במודל עלויות השלד)",
+          "rate_label": "סטטוס: PASS",
+          "gross_sqm": 0.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 100.0
+        },
+        "building_impact": {
+          "contour": "ללא שינוי בקונטור הבניין",
+          "apartments": "מדידה בתכנית: 614×579 ס״מ (אורך כללי 660 ס״מ) · מרפסת 12.0 מ״ר (587×207 ס״מ) לעומת יעד/תקן: תקן ישראלי, NDSS ו-ADG: עובר בהצטיינות",
+          "parking": "בהתאם לתקן התכנוני הנבדק",
+          "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
+        }
+      }
+    },
+    {
+      "id": "KKL-B-02",
+      "pin_num": 7,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl_apt_b",
+      "typology": "דירה B (4 חדרים דרום-מערבית · קומות 1–7)",
+      "room_name": "ממ״ד מערבי (264×345 ס״מ בקומות 3–5, 268×345 ס״מ בקומות 1–2/6–7) וחדר שינה (283×340 ס״מ)",
+      "status": "WARN",
+      "rule_id": "B1.15 / B1.6 / NDSS / ADG",
+      "title": "רוחב ממ״ד גבולי ביותר (264 ס״מ בקומות 3–5 ו-268 ס״מ בקומות 1–2/6–7) + חדר שינה ברוחב 283 ס״מ",
+      "measured": "ממ״ד: 264×345 ס״מ (9.11 מ״ר) או 268×345 ס״מ (9.25 מ״ר) · ח. שינה: 283×340 ס״מ (9.62 מ״ר)",
+      "benchmark": "מינימום ממ״ד פקע״ר: רוחב ≥260 ס״מ ושטח ≥9.00 מ״ר | NDSS: ≥275 ס״מ | ADG: ≥300 ס״מ",
+      "summary": "בגרמושקה P-23 הממ״ד המערבי של דירה B מתוכנן ברוחב של 264 ס״מ בלבד בקומות 3–5 (4 ס״מ בלבד מעל סף הפסילה החוקי של 260 ס״מ, ושטח 9.11 מ״ר!) וברוחב 268 ס״מ בקומות 1–2 ו-6–7. חדר השינה הסמוך מתוכנן במידות 283×340 ס״מ (9.62 מ״ר).",
+      "recommendation": "להקפיד בביצוע כי עובי הטיח בממ״ד (264 ס״מ) לא יפחית את הרוחב נטו מתחת ל-260 ס״מ בטופס 4, או להזיז את קיר המסדרון ב-6 ס״מ מזרחה.",
+      "x_pct": 26.0,
+      "y_pct": 48.07,
+      "w_pct": 11.62,
+      "h_pct": 21.78,
+      "cx_pct": 31.81,
+      "cy_pct": 58.96,
+      "visual_explanation": {
+        "diagram_type": "STATUTORY_CHECK",
+        "before_val": "ממ״ד: 264×345 ס״מ (9.11 מ״ר) או 268×345 ס״מ (9.25 מ״ר) · ח. שינה: 283×340 ס״מ (9.62 מ״ר)",
+        "after_val": "מינימום ממ״ד פקע״ר: רוחב ≥260 ס״מ ושטח ≥9.00 מ״ר | NDSS: ≥275 ס״מ | ADG: ≥300 ס״מ",
+        "unit_label": "מדידה מול תקן",
+        "recommendation": {
+          "where": "דירה B (4 חדרים דרום-מערבית · קומות 1–7) — ממ״ד מערבי (264×345 ס״מ בקומות 3–5, 268×345 ס״מ בקומות 1–2/6–7) וחדר שינה (283×340 ס״מ)",
+          "finding": "בגרמושקה P-23 הממ״ד המערבי של דירה B מתוכנן ברוחב של 264 ס״מ בלבד בקומות 3–5 (4 ס״מ בלבד מעל סף הפסילה החוקי של 260 ס״מ, ושטח 9.11 מ״ר!) וברוחב 268 ס״מ בקומות 1–2 ו-6–7. חדר השינה הסמוך מתוכנן במידות 283×340 ס״מ (9.62 מ״ר)."
+        },
+        "solution": {
+          "how_to_execute": "להקפיד בביצוע כי עובי הטיח בממ״ד (264 ס״מ) לא יפחית את הרוחב נטו מתחת ל-260 ס״מ בטופס 4, או להזיז את קיר המסדרון ב-6 ס״מ מזרחה.",
+          "mechanism": "תקן ייחוס: B1.15 / B1.6 / NDSS / ADG (מינימום ממ״ד פקע״ר: רוחב ≥260 ס״מ ושטח ≥9.00 מ״ר | NDSS: ≥275 ס״מ | ADG: ≥300 ס״מ)"
+        },
+        "savings": {
+          "formula": "בדיקת תקינות סטטוטורית ותפקודית (ללא שינוי ישיר במודל עלויות השלד)",
+          "rate_label": "סטטוס: WARN",
+          "gross_sqm": 0.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 0.0
+        },
+        "building_impact": {
+          "contour": "ללא שינוי בקונטור הבניין",
+          "apartments": "מדידה בתכנית: ממ״ד: 264×345 ס״מ (9.11 מ״ר) או 268×345 ס״מ (9.25 מ״ר) · ח. שינה: 283×340 ס״מ (9.62 מ״ר) לעומת יעד/תקן: מינימום ממ״ד פקע״ר: רוחב ≥260 ס״מ ושטח ≥9.00 מ״ר | NDSS: ≥275 ס״מ | ADG: ≥300 ס״מ",
+          "parking": "בהתאם לתקן התכנוני הנבדק",
+          "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
+        }
+      }
+    },
+    {
+      "id": "KKL-B-03",
+      "pin_num": 8,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl_apt_b",
+      "typology": "דירה B (4 חדרים דרום-מערבית · 107 מ״ר)",
+      "room_name": "סוויטת הורים מערבית (393×305 ס״מ = 11.99 מ״ר) + חדר רחצה הורים (253×135 ס״מ)",
+      "status": "PASS",
+      "rule_id": "B1.6 / ADG 4D-3 / NDSS",
+      "title": "יחידת הורים מצטיינת בדירה B (393×305 ס״מ, 11.99 מ״ר) — עוברת גם את רף ה-ADG (≥300 ס״מ)!",
+      "measured": "הורים: 393×305 ס״מ (11.99 מ״ר) · רחצה הורים: 253×135 ס״מ (חלון מערבי)",
+      "benchmark": "ADG: רוחב ≥300 ס״מ | NDSS: שטח ≥11.5 מ״ר — עובר במלואו",
+      "summary": "בניגוד לממ״ד הצר, סוויטת ההורים של דירה B נהנית מרוחב של 305 ס״מ ואורך 393 ס״מ (11.99 מ״ר) עם חדר רחצה צמוד בעל חלון חוץ למערב.",
+      "recommendation": "ניצול נישת הארון המובנית (אורך 283 ס״מ) בקיר הצפוני של חדר ההורים.",
+      "x_pct": 26.0,
+      "y_pct": 37.85,
+      "w_pct": 15.75,
+      "h_pct": 10.22,
+      "cx_pct": 33.88,
+      "cy_pct": 42.96,
+      "visual_explanation": {
+        "diagram_type": "STATUTORY_CHECK",
+        "before_val": "הורים: 393×305 ס״מ (11.99 מ״ר) · רחצה הורים: 253×135 ס״מ (חלון מערבי)",
+        "after_val": "ADG: רוחב ≥300 ס״מ | NDSS: שטח ≥11.5 מ״ר — עובר במלואו",
+        "unit_label": "מדידה מול תקן",
+        "recommendation": {
+          "where": "דירה B (4 חדרים דרום-מערבית · 107 מ״ר) — סוויטת הורים מערבית (393×305 ס״מ = 11.99 מ״ר) + חדר רחצה הורים (253×135 ס״מ)",
+          "finding": "בניגוד לממ״ד הצר, סוויטת ההורים של דירה B נהנית מרוחב של 305 ס״מ ואורך 393 ס״מ (11.99 מ״ר) עם חדר רחצה צמוד בעל חלון חוץ למערב."
+        },
+        "solution": {
+          "how_to_execute": "ניצול נישת הארון המובנית (אורך 283 ס״מ) בקיר הצפוני של חדר ההורים.",
+          "mechanism": "תקן ייחוס: B1.6 / ADG 4D-3 / NDSS (ADG: רוחב ≥300 ס״מ | NDSS: שטח ≥11.5 מ״ר — עובר במלואו)"
+        },
+        "savings": {
+          "formula": "בדיקת תקינות סטטוטורית ותפקודית (ללא שינוי ישיר במודל עלויות השלד)",
+          "rate_label": "סטטוס: PASS",
+          "gross_sqm": 0.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 100.0
+        },
+        "building_impact": {
+          "contour": "ללא שינוי בקונטור הבניין",
+          "apartments": "מדידה בתכנית: הורים: 393×305 ס״מ (11.99 מ״ר) · רחצה הורים: 253×135 ס״מ (חלון מערבי) לעומת יעד/תקן: ADG: רוחב ≥300 ס״מ | NDSS: שטח ≥11.5 מ״ר — עובר במלואו",
+          "parking": "בהתאם לתקן התכנוני הנבדק",
+          "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
+        }
+      }
+    },
+    {
+      "id": "KKL-D-01",
+      "pin_num": 9,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl_apt_d",
+      "typology": "דירה D / C (אגף צפוני · 3 כיווני אוויר: צפון, מזרח, מערב)",
+      "room_name": "חדר מגורים (503×681 ס״מ), מטבח (398×280 ס״מ), פ. אוכל (200×341 ס״מ) ומרפסת לרחוב קק״ל",
+      "status": "PASS",
+      "rule_id": "B1.3 / 3 כיווני אוויר / ADG",
+      "title": "דירה צפונית חזיתית עם 3 כיווני אוויר מלאים (צפון, מזרח, מערב) וסלון רחב (5.03 מ׳)",
+      "measured": "סלון: 503×681 ס״מ · מרפסת: 604×200 ס״מ (ובקומות 1–2: 1199×199 ס״מ = 22.8 מ״ר!)",
+      "benchmark": "ADG: סלון ≥4.00 מ׳ ועומק מרפסת ≥2.00 מ׳ (עובר בהצטיינות)",
+      "summary": "הדירה הצפונית (טיפוס C בקומות 1–2 וטיפוס D/G/H בקומות 3–7) נהנית משלושה כיווני אוויר מלאים, סלון רחב (503 ס״מ), מטבח מואר למזרח (398 ס״מ) ומרפסת חזיתית בעומק 200 ס״מ לרחוב קק״ל.",
+      "recommendation": "בקומות 3–7 שבהן פינת האוכל ממוקמת במפרץ של 200×341 ס״מ, מומלץ לבחור שולחן ברוחב 90 ס״מ לשמירת מעבר נוח.",
+      "x_pct": 43.25,
+      "y_pct": 8.96,
+      "w_pct": 29.62,
+      "h_pct": 22.89,
+      "cx_pct": 58.06,
+      "cy_pct": 20.41,
+      "visual_explanation": {
+        "diagram_type": "STATUTORY_CHECK",
+        "before_val": "סלון: 503×681 ס״מ · מרפסת: 604×200 ס״מ (ובקומות 1–2: 1199×199 ס״מ = 22.8 מ״ר!)",
+        "after_val": "ADG: סלון ≥4.00 מ׳ ועומק מרפסת ≥2.00 מ׳ (עובר בהצטיינות)",
+        "unit_label": "מדידה מול תקן",
+        "recommendation": {
+          "where": "דירה D / C (אגף צפוני · 3 כיווני אוויר: צפון, מזרח, מערב) — חדר מגורים (503×681 ס״מ), מטבח (398×280 ס״מ), פ. אוכל (200×341 ס״מ) ומרפסת לרחוב קק״ל",
+          "finding": "הדירה הצפונית (טיפוס C בקומות 1–2 וטיפוס D/G/H בקומות 3–7) נהנית משלושה כיווני אוויר מלאים, סלון רחב (503 ס״מ), מטבח מואר למזרח (398 ס״מ) ומרפסת חזיתית בעומק 200 ס״מ לרחוב קק״ל."
+        },
+        "solution": {
+          "how_to_execute": "בקומות 3–7 שבהן פינת האוכל ממוקמת במפרץ של 200×341 ס״מ, מומלץ לבחור שולחן ברוחב 90 ס״מ לשמירת מעבר נוח.",
+          "mechanism": "תקן ייחוס: B1.3 / 3 כיווני אוויר / ADG (ADG: סלון ≥4.00 מ׳ ועומק מרפסת ≥2.00 מ׳ (עובר בהצטיינות))"
+        },
+        "savings": {
+          "formula": "בדיקת תקינות סטטוטורית ותפקודית (ללא שינוי ישיר במודל עלויות השלד)",
+          "rate_label": "סטטוס: PASS",
+          "gross_sqm": 0.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 100.0
+        },
+        "building_impact": {
+          "contour": "ללא שינוי בקונטור הבניין",
+          "apartments": "מדידה בתכנית: סלון: 503×681 ס״מ · מרפסת: 604×200 ס״מ (ובקומות 1–2: 1199×199 ס״מ = 22.8 מ״ר!) לעומת יעד/תקן: ADG: סלון ≥4.00 מ׳ ועומק מרפסת ≥2.00 מ׳ (עובר בהצטיינות)",
+          "parking": "בהתאם לתקן התכנוני הנבדק",
+          "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
+        }
+      }
+    },
+    {
+      "id": "KKL-D-02",
+      "pin_num": 10,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl_apt_d",
+      "typology": "דירה D / C (אגף צפוני · 106–126 מ״ר)",
+      "room_name": "סוויטת הורים צפון-מערבית (408×305 ס״מ), חדר שינה צפוני (300×335 ס״מ) וממ״ד מערבי (276×379 ס״מ)",
+      "status": "WARN",
+      "rule_id": "B1.6 / B1.15 / ADG 4D-3",
+      "title": "סוויטת הורים (408×305 ס״מ) וחדר צפוני (300×335 ס״מ) עוברים ADG; ממ״ד מערבי ברוחב 276 ס״מ",
+      "measured": "הורים: 12.44 מ״ר (408×305) · ח. שינה: 10.05 מ״ר (300×335) · ממ״ד: 10.46 מ״ר (276×379)",
+      "benchmark": "חוק ישראלי ו-NDSS (≥275 ס״מ): עובר בכל החדרים | ADG: ממ״ד 276 ס״מ מול 300 ס״מ",
+      "summary": "באגף השינה של הדירה הצפונית, יחידת ההורים (408×305 ס״מ) וחדר השינה הצפוני (300×335 ס״מ) עומדים ברף ה-3.00 מ׳ של ה-ADG. הממ״ד המערבי מתוכנן במידות 276×379 ס״מ (10.46 מ״ר — עובר תקן ישראלי ו-NDSS הבריטי, מתחת ל-300 ס״מ ב-ADG).",
+      "recommendation": "אורך הממ״ד הנדיב (379 ס״מ) מאפשר הצבת ארון ופינת עבודה מלאה לאורך הקיר הדרומי.",
+      "x_pct": 26.0,
+      "y_pct": 15.19,
+      "w_pct": 27.75,
+      "h_pct": 22.67,
+      "cx_pct": 39.88,
+      "cy_pct": 26.52,
+      "visual_explanation": {
+        "diagram_type": "STATUTORY_CHECK",
+        "before_val": "הורים: 12.44 מ״ר (408×305) · ח. שינה: 10.05 מ״ר (300×335) · ממ״ד: 10.46 מ״ר (276×379)",
+        "after_val": "חוק ישראלי ו-NDSS (≥275 ס״מ): עובר בכל החדרים | ADG: ממ״ד 276 ס״מ מול 300 ס״מ",
+        "unit_label": "מדידה מול תקן",
+        "recommendation": {
+          "where": "דירה D / C (אגף צפוני · 106–126 מ״ר) — סוויטת הורים צפון-מערבית (408×305 ס״מ), חדר שינה צפוני (300×335 ס״מ) וממ״ד מערבי (276×379 ס״מ)",
+          "finding": "באגף השינה של הדירה הצפונית, יחידת ההורים (408×305 ס״מ) וחדר השינה הצפוני (300×335 ס״מ) עומדים ברף ה-3.00 מ׳ של ה-ADG. הממ״ד המערבי מתוכנן במידות 276×379 ס״מ (10.46 מ״ר — עובר תקן ישראלי ו-NDSS הבריטי, מתחת ל-300 ס״מ ב-ADG)."
+        },
+        "solution": {
+          "how_to_execute": "אורך הממ״ד הנדיב (379 ס״מ) מאפשר הצבת ארון ופינת עבודה מלאה לאורך הקיר הדרומי.",
+          "mechanism": "תקן ייחוס: B1.6 / B1.15 / ADG 4D-3 (חוק ישראלי ו-NDSS (≥275 ס״מ): עובר בכל החדרים | ADG: ממ״ד 276 ס״מ מול 300 ס״מ)"
+        },
+        "savings": {
+          "formula": "בדיקת תקינות סטטוטורית ותפקודית (ללא שינוי ישיר במודל עלויות השלד)",
+          "rate_label": "סטטוס: WARN",
+          "gross_sqm": 0.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 0.0
+        },
+        "building_impact": {
+          "contour": "ללא שינוי בקונטור הבניין",
+          "apartments": "מדידה בתכנית: הורים: 12.44 מ״ר (408×305) · ח. שינה: 10.05 מ״ר (300×335) · ממ״ד: 10.46 מ״ר (276×379) לעומת יעד/תקן: חוק ישראלי ו-NDSS (≥275 ס״מ): עובר בכל החדרים | ADG: ממ״ד 276 ס״מ מול 300 ס״מ",
+          "parking": "בהתאם לתקן התכנוני הנבדק",
+          "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
+        }
+      }
+    },
+    {
+      "id": "KKL-CORE-01",
+      "pin_num": 11,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl_core",
+      "typology": "ליבת הבניין (גרמושקה P-23)",
+      "room_name": "ליבת 2 מעליות (6 נוסעים כ״א: 155×185 ו-185×185 ס״מ), חדר מדרגות (245×481 ס״מ) ולובי קומתי (130×1265 ס״מ)",
+      "status": "PASS",
+      "rule_id": "ת״י 2481 / נגישות B29",
+      "title": "צמד מעליות של 6 נוסעים ל-25 דירות (יחס מצוין של 1:12.5 יח״ד למעלית!)",
+      "measured": "2 מעליות × 6 נוסעים · חדר מדרגות 245×481 ס״מ · מסדרון לובי קומתי ברוחב 130–155 ס״מ",
+      "benchmark": "תקן מעליות: מעלית 1 עד 32 יח״ד — כאן 2 מעליות ל-25 יח״ד!",
+      "summary": "בגרמושקה P-23 ליבת הבניין כוללת שתי מעליות של 6 נוסעים (ולא 8 נוסעים כפי שהופיע בסקיצה מ-2023) המשרתות 25 יח״ד בלבד — יחס שירות מעולה של 12.5 דירות למעלית, עם הפרדה אקוסטית מדירות המגורים.",
+      "recommendation": "לוודא תאורת חירום ומערכת שחרור עשן תקנית בקצה הלובי הקומתי.",
+      "x_pct": 41.75,
+      "y_pct": 46.3,
+      "w_pct": 15.75,
+      "h_pct": 21.11,
+      "cx_pct": 49.62,
+      "cy_pct": 56.85,
+      "visual_explanation": {
+        "diagram_type": "STATUTORY_CHECK",
+        "before_val": "2 מעליות × 6 נוסעים · חדר מדרגות 245×481 ס״מ · מסדרון לובי קומתי ברוחב 130–155 ס״מ",
+        "after_val": "תקן מעליות: מעלית 1 עד 32 יח״ד — כאן 2 מעליות ל-25 יח״ד!",
+        "unit_label": "מדידה מול תקן",
+        "recommendation": {
+          "where": "ליבת הבניין (גרמושקה P-23) — ליבת 2 מעליות (6 נוסעים כ״א: 155×185 ו-185×185 ס״מ), חדר מדרגות (245×481 ס״מ) ולובי קומתי (130×1265 ס״מ)",
+          "finding": "בגרמושקה P-23 ליבת הבניין כוללת שתי מעליות של 6 נוסעים (ולא 8 נוסעים כפי שהופיע בסקיצה מ-2023) המשרתות 25 יח״ד בלבד — יחס שירות מעולה של 12.5 דירות למעלית, עם הפרדה אקוסטית מדירות המגורים."
+        },
+        "solution": {
+          "how_to_execute": "לוודא תאורת חירום ומערכת שחרור עשן תקנית בקצה הלובי הקומתי.",
+          "mechanism": "תקן ייחוס: ת״י 2481 / נגישות B29 (תקן מעליות: מעלית 1 עד 32 יח״ד — כאן 2 מעליות ל-25 יח״ד!)"
+        },
+        "savings": {
+          "formula": "בדיקת תקינות סטטוטורית ותפקודית (ללא שינוי ישיר במודל עלויות השלד)",
+          "rate_label": "סטטוס: PASS",
+          "gross_sqm": 0.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 100.0
+        },
+        "building_impact": {
+          "contour": "ללא שינוי בקונטור הבניין",
+          "apartments": "מדידה בתכנית: 2 מעליות × 6 נוסעים · חדר מדרגות 245×481 ס״מ · מסדרון לובי קומתי ברוחב 130–155 ס״מ לעומת יעד/תקן: תקן מעליות: מעלית 1 עד 32 יח״ד — כאן 2 מעליות ל-25 יח״ד!",
+          "parking": "בהתאם לתקן התכנוני הנבדק",
+          "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
+        }
+      }
+    },
+    {
+      "id": "KKL-PH-01",
+      "pin_num": 12,
+      "sheet_id": "kkl_penthouse",
+      "section_id": "sec_kkl_core",
+      "typology": "קומה 8 — פנטהאוזים PH-1 ו-PH-2 (גרמושקה P-23)",
+      "room_name": "פנטהאוז צפוני PH-1 ופנטהאוז דרומי PH-2 — ממ״דים (268×345 ס״מ) וחדרי שינה (283×340 ס״מ)",
+      "status": "WARN",
+      "rule_id": "B1.15 / ADG 4D-3",
+      "title": "טרסות גג רחבות וגובה תקרה 3.03 מ׳ נטו; הממ״דים בקומה 8 ברוחב 268 ס״מ (268×345 ס״מ)",
+      "measured": "ממ״דים בקומה 8: 268×345 ס״מ (9.25 מ״ר) · חדרי שינה: 283×340 ס״מ",
+      "benchmark": "חוק ישראלי: ממ״ד ≥260 ס״מ ו-≥9.0 מ״ר (עובר ב-8 ס״מ) | תיקון טעות סופר בתכנית המכר (שם נרשם 260×340)",
+      "summary": "בגרמושקה P-23 שני הממ״דים בקומת הפנטהאוז (קומה 8) מתוכננים במידות 268×345 ס״מ (9.25 מ״ר — עוברים חוקית ב-8 ס״מ). שימו לב: בתכנית המכר (P-18) נפלה טעות כיתוב שבה נרשם בממ״ד של PH-1 '260×340' (8.84 מ״ר) — יש לתקן שם את הכיתוב ל-268×345 בהתאם לגרמושקה P-23!",
+      "recommendation": "לתקן את תווית המידה בתכנית המכר של PH-1 ל-268×345 ס״מ בהתאם לגרמושקה P-23.",
+      "x_pct": 26.0,
+      "y_pct": 44.07,
+      "w_pct": 46.88,
+      "h_pct": 25.78,
+      "cx_pct": 49.44,
+      "cy_pct": 56.96,
+      "visual_explanation": {
+        "diagram_type": "STATUTORY_CHECK",
+        "before_val": "ממ״דים בקומה 8: 268×345 ס״מ (9.25 מ״ר) · חדרי שינה: 283×340 ס״מ",
+        "after_val": "חוק ישראלי: ממ״ד ≥260 ס״מ ו-≥9.0 מ״ר (עובר ב-8 ס״מ) | תיקון טעות סופר בתכנית המכר (שם נרשם 260×340)",
+        "unit_label": "מדידה מול תקן",
+        "recommendation": {
+          "where": "קומה 8 — פנטהאוזים PH-1 ו-PH-2 (גרמושקה P-23) — פנטהאוז צפוני PH-1 ופנטהאוז דרומי PH-2 — ממ״דים (268×345 ס״מ) וחדרי שינה (283×340 ס״מ)",
+          "finding": "בגרמושקה P-23 שני הממ״דים בקומת הפנטהאוז (קומה 8) מתוכננים במידות 268×345 ס״מ (9.25 מ״ר — עוברים חוקית ב-8 ס״מ). שימו לב: בתכנית המכר (P-18) נפלה טעות כיתוב שבה נרשם בממ״ד של PH-1 '260×340' (8.84 מ״ר) — יש לתקן שם את הכיתוב ל-268×345 בהתאם לגרמושקה P-23!"
+        },
+        "solution": {
+          "how_to_execute": "לתקן את תווית המידה בתכנית המכר של PH-1 ל-268×345 ס״מ בהתאם לגרמושקה P-23.",
+          "mechanism": "תקן ייחוס: B1.15 / ADG 4D-3 (חוק ישראלי: ממ״ד ≥260 ס״מ ו-≥9.0 מ״ר (עובר ב-8 ס״מ) | תיקון טעות סופר בתכנית המכר (שם נרשם 260×340))"
+        },
+        "savings": {
+          "formula": "בדיקת תקינות סטטוטורית ותפקודית (ללא שינוי ישיר במודל עלויות השלד)",
+          "rate_label": "סטטוס: WARN",
+          "gross_sqm": 0.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 0.0
+        },
+        "building_impact": {
+          "contour": "ללא שינוי בקונטור הבניין",
+          "apartments": "מדידה בתכנית: ממ״דים בקומה 8: 268×345 ס״מ (9.25 מ״ר) · חדרי שינה: 283×340 ס״מ לעומת יעד/תקן: חוק ישראלי: ממ״ד ≥260 ס״מ ו-≥9.0 מ״ר (עובר ב-8 ס״מ) | תיקון טעות סופר בתכנית המכר (שם נרשם 260×340)",
+          "parking": "בהתאם לתקן התכנוני הנבדק",
+          "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
+        }
+      }
+    },
+    {
+      "id": "KKL-GND-01",
+      "pin_num": 13,
+      "sheet_id": "kkl_ground",
+      "section_id": "sec_kkl_core",
+      "typology": "קומת קרקע ±0.00 ודירות גן G-1, G-2 (גרמושקה P-23)",
+      "room_name": "לובי כניסה ראשי, חדר עגלות/אופניים, חדר אשפה ודירות גן G-1 (ממ״ד 268×345) ו-G-2 (ממ״ד 264×345)",
+      "status": "WARN",
+      "rule_id": "נגישות ת״י 1918 / B1.15",
+      "title": "גובה תקרה נדיב של 3.83 מ׳ נטו בקומת הקרקע; ממ״ד דירת גן G-2 ברוחב 264 ס״מ (G-1 ברוחב 268 ס״מ)",
+      "measured": "דירת גן G-1: ממ״ד 268×345, ח.שינה 283×340 · דירת גן G-2: ממ״ד 264×345, ח.שינה 283×332",
+      "benchmark": "מינימום ממ״ד פקע״ר: רוחב ≥260 ס״מ ושטח ≥9.00 מ״ר",
+      "summary": "קומת הקרקע בגרמושקה P-23 כוללת לובי ראשי מפואר בגובה 3.83 מ׳ נטו, חדר עגלות ואופניים, חדר אשפה וחדר גז, ושתי דירות גן (G-1 במערב ו-G-2 במזרח). בממ״ד של G-2 הרוחב הוא 264 ס״מ (9.11 מ״ר) ובממ״ד של G-1 הרוחב הוא 268 ס״מ (9.25 מ״ר).",
+      "recommendation": "להקפיד בביצוע על דיוק יציקת קירות הממ״ד בדירות הגן לשמירת רוחב נטו ≥260 ס״מ.",
+      "x_pct": 26.0,
+      "y_pct": 12.96,
+      "w_pct": 46.88,
+      "h_pct": 73.33,
+      "cx_pct": 49.44,
+      "cy_pct": 49.62,
+      "visual_explanation": {
+        "diagram_type": "STATUTORY_CHECK",
+        "before_val": "דירת גן G-1: ממ״ד 268×345, ח.שינה 283×340 · דירת גן G-2: ממ״ד 264×345, ח.שינה 283×332",
+        "after_val": "מינימום ממ״ד פקע״ר: רוחב ≥260 ס״מ ושטח ≥9.00 מ״ר",
+        "unit_label": "מדידה מול תקן",
+        "recommendation": {
+          "where": "קומת קרקע ±0.00 ודירות גן G-1, G-2 (גרמושקה P-23) — לובי כניסה ראשי, חדר עגלות/אופניים, חדר אשפה ודירות גן G-1 (ממ״ד 268×345) ו-G-2 (ממ״ד 264×345)",
+          "finding": "קומת הקרקע בגרמושקה P-23 כוללת לובי ראשי מפואר בגובה 3.83 מ׳ נטו, חדר עגלות ואופניים, חדר אשפה וחדר גז, ושתי דירות גן (G-1 במערב ו-G-2 במזרח). בממ״ד של G-2 הרוחב הוא 264 ס״מ (9.11 מ״ר) ובממ״ד של G-1 הרוחב הוא 268 ס״מ (9.25 מ״ר)."
+        },
+        "solution": {
+          "how_to_execute": "להקפיד בביצוע על דיוק יציקת קירות הממ״ד בדירות הגן לשמירת רוחב נטו ≥260 ס״מ.",
+          "mechanism": "תקן ייחוס: נגישות ת״י 1918 / B1.15 (מינימום ממ״ד פקע״ר: רוחב ≥260 ס״מ ושטח ≥9.00 מ״ר)"
+        },
+        "savings": {
+          "formula": "בדיקת תקינות סטטוטורית ותפקודית (ללא שינוי ישיר במודל עלויות השלד)",
+          "rate_label": "סטטוס: WARN",
+          "gross_sqm": 0.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 0.0
+        },
+        "building_impact": {
+          "contour": "ללא שינוי בקונטור הבניין",
+          "apartments": "מדידה בתכנית: דירת גן G-1: ממ״ד 268×345, ח.שינה 283×340 · דירת גן G-2: ממ״ד 264×345, ח.שינה 283×332 לעומת יעד/תקן: מינימום ממ״ד פקע״ר: רוחב ≥260 ס״מ ושטח ≥9.00 מ״ר",
+          "parking": "בהתאם לתקן התכנוני הנבדק",
+          "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
+        }
+      }
+    },
+    {
+      "id": "KKL-OPT-AG1",
+      "pin_num": 14,
+      "sheet_id": "kkl_ground",
+      "section_id": "sec_kkl10_value_eng",
+      "is_value_eng": true,
+      "ve_category": "AG",
+      "ve_saving_ils": 266600,
+      "ve_saved_sqm": 43.0,
+      "ve_proposed_gross_sqm": 55.0,
+      "ve_locked_non_contour_sqm": 12.0,
+      "plan_overlay_zones": {},
+      "contour_efficiency_pct": 78.2,
+      "contour_mechanism": "ביטול בליטת אגף חדר האשפה העודף ונסיגת קיר המעטפת העורפי בקומת הקרקע ב-2.15 מ׳ לאורך 20.0 מ׳ (-43.0 מ״ר קונטור בנוי).",
+      "contour_dims_before_after": "קונטור סגירת קומת קרקע: 205.2 מ״ר ← 162.2 מ״ר (-43.0 מ״ר נבנה פחות)",
+      "locked_reason_he": "12.0 מ״ר מתוך קיצור מסדרונות השירות בקומת הקרקע נמצאים מתחת לתקרת קומה 1 (מבחן 2 — נעילת תקרה עליונה), ולכן אינם חוסכים שלד תקרה והועברו לשיפור תכנון (הרחבת לובי ראשי ומעבר עגלות).",
+      "ve_callout_badge": "💰 -43.0 מ״ר קונטור עילי מאומת | 266,600 ₪",
+      "where_on_plan": "קומת קרקע (L0 — חדר אשפה 32.7 מ״ר ומבואות שירות)",
+      "how_to_execute": "אופטימיזציה של חדר האשפה הענק (32.67 מ״ר — כפול מהנדרש ל-25 יח״ד) ל-16.5 מ״ר וצמצום מסדרונות השירות הכפולים סביב גרעין 2 המעליות בקומת הקרקע (חיסכון של 43.0 מ״ר בנוי עילי).",
+      "typology": "צמצום קונטור בנייה עילי מאומת (6,200 ₪/מ״ר) — קומת קרקע (L0 — חדר אשפה 32.7 מ״ר ומבואות שירות)",
+      "room_name": "📍 איפה: קומת קרקע (L0 — חדר אשפה 32.7 מ״ר ומבואות שירות)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (6,200 ₪/מ״ר — קונטור מאומת)",
+      "title": "צמצום 43.0 מ״ר קונטור עילי מאומת = חיסכון 266,600 ₪ (מתוך 55.0 מ״ר הפחתת ליבה; 12.0 מ״ר ליבה כלואה הועברו לשיפור תכנון)",
+      "measured": "שטח קיים: 205.2 מ״ר | קונטור סגירת קומת קרקע: 205.2 מ״ר ← 162.2 מ״ר (-43.0 מ״ר נבנה פחות)",
+      "benchmark": "שטח קונטור נחסך בפועל (נבנה פחות): 43.0 מ״ר × 6,200 ₪ (תרגום לקונטור: 78.2%)",
+      "summary": "🛠️ איך מבצעים: אופטימיזציה של חדר האשפה הענק (32.67 מ״ר — כפול מהנדרש ל-25 יח״ד) ל-16.5 מ״ר וצמצום מסדרונות השירות הכפולים סביב גרעין 2 המעליות בקומת הקרקע (חיסכון של 43.0 מ״ר בנוי עילי). | 📐 מבחן כיווץ קונטור: ביטול בליטת אגף חדר האשפה העודף ונסיגת קיר המעטפת העורפי בקומת הקרקע ב-2.15 מ׳ לאורך 20.0 מ׳ (-43.0 מ״ר קונטור בנוי).",
+      "recommendation": "🛡️ שימושים נשמרים: שמירה מלאה על לובי ראשי (51.6 מ״ר), חדר עגלות (18.15 מ״ר), חדר גז (12.1 מ״ר), חדר אשפה תקני (16.5 מ״ר ל-25 דירות) וכל ארונות החשמל/מים/תקשורת. 🔄 קיזוז ליבה כלואה: 12.0 מ״ר מתוך קיצור מסדרונות השירות בקומת הקרקע נמצאים מתחת לתקרת קומה 1 (מבחן 2 — נעילת תקרה עליונה), ולכן אינם חוסכים שלד תקרה והועברו לשיפור תכנון (הרחבת לובי ראשי ומעבר עגלות). סה״כ חיסכון ישיר מאומת: 266,600 ₪.",
+      "visual_explanation": {
+        "diagram_type": "AG_CONTOUR",
+        "before_val": 205.2,
+        "after_val": 162.2,
+        "unit_label": "מ״ר ברוטו עילי",
+        "recommendation": {
+          "where": "קומת קרקע (L0 — חדר אשפה 32.7 מ״ר ומבואות שירות)",
+          "finding": "אותר עודף של 55.0 מ״ר בשטחי הגרעין והשירות ב-קומת קרקע (L0 — חדר אשפה 32.7 מ״ר ומבואות שירות) (כיום 205.2 מ״ר לעומת יעד תכנוני של 162.2 מ״ר)."
+        },
+        "solution": {
+          "how_to_execute": "אופטימיזציה של חדר האשפה הענק (32.67 מ״ר — כפול מהנדרש ל-25 יח״ד) ל-16.5 מ״ר וצמצום מסדרונות השירות הכפולים סביב גרעין 2 המעליות בקומת הקרקע (חיסכון של 43.0 מ״ר בנוי עילי).",
+          "mechanism": "ביטול בליטת אגף חדר האשפה העודף ונסיגת קיר המעטפת העורפי בקומת הקרקע ב-2.15 מ׳ לאורך 20.0 מ׳ (-43.0 מ״ר קונטור בנוי)."
+        },
+        "savings": {
+          "formula": "מתוך 55.0 מ״ר שהופחתו, 43.0 מ״ר (78.2%) מקטינים בפועל את קונטור הבניין הכולל × 6,200 ₪/מ״ר = 266,600 ₪ חיסכון ישיר (12.0 מ״ר ליבה כלואה קוזזו ל-0 ₪ והועברו לשיפור תכנון).",
+          "rate_label": "6,200 ₪ למ״ר קונטור עילי",
+          "gross_sqm": 55.0,
+          "locked_sqm": 12.0,
+          "net_contour_sqm": 43.0,
+          "saving_ils": 266600,
+          "efficiency_pct": 78.2
+        },
+        "building_impact": {
+          "contour": "נבנה פחות: -43.0 מ״ר קונטור עילי (קונטור סגירת קומת קרקע: 205.2 מ״ר ← 162.2 מ״ר (-43.0 מ״ר נבנה פחות))",
+          "apartments": "0.0 מ״ר פגיעה בשטח הפלדלת של הדירות (100% נשמר)",
+          "parking": "ללא פגיעה בחניות או במיסעות",
+          "utilities": "שמירה מלאה על לובי ראשי (51.6 מ״ר), חדר עגלות (18.15 מ״ר), חדר גז (12.1 מ״ר), חדר אשפה תקני (16.5 מ״ר ל-25 דירות) וכל ארונות החשמל/מים/תקשורת"
+        },
+        "plan_overlay_zones": {}
+      },
+      "x_pct": 35.0,
+      "y_pct": 35.0,
+      "w_pct": 28.0,
+      "h_pct": 25.0,
+      "cx_pct": 49.0,
+      "cy_pct": 47.5
+    },
+    {
+      "id": "KKL-OPT-AG2",
+      "pin_num": 15,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl10_value_eng",
+      "is_value_eng": true,
+      "ve_category": "AG",
+      "ve_saving_ils": 223200,
+      "ve_saved_sqm": 36.0,
+      "ve_proposed_gross_sqm": 48.0,
+      "ve_locked_non_contour_sqm": 12.0,
+      "plan_overlay_zones": {},
+      "contour_efficiency_pct": 75.0,
+      "contour_mechanism": "קירוב אגפי הדירות הצפוני והדרומי ב-32 ס״מ על ציר Y סביב גרעין 2 המעליות (4.5 מ״ר הקטנת קונטור תקרה × 8 קומות = 36.0 מ״ר).",
+      "contour_dims_before_after": "קונטור קומה טיפוסית: 382.0 מ״ר ← 377.5 מ״ר (-4.5 מ״ר לקומה × 8 קומות = -36.0 מ״ר)",
+      "locked_reason_he": "12.0 מ״ר (1.5 מ״ר לקומה × 8 קומות) בנישת המבואה בין 2 המעליות כלואים גיאומטרית בין פיר המדרגות המוגן לפיר המעלית (מבחן 1 — ליבה כלואה), ולכן הועברו לשיפור תכנון המבואה.",
+      "ve_callout_badge": "💰 -36.0 מ״ר קונטור עילי מאומת | 223,200 ₪",
+      "where_on_plan": "קומות 1–8 (8 קומות — גרעין 2 מעליות ומבואה קומתית)",
+      "how_to_execute": "הידוק רוחב מבואת המעליות הקומתית מ-42.8 מ״ר ל-38.3 מ״ר לקומה (חיסכון של 4.5 מ״ר × 8 קומות = 36.0 מ״ר) על ידי ריכוז ארונות המונים בדופן המערבית של הגרעין ללא פגיעה במעבר 150 ס״מ.",
+      "typology": "צמצום קונטור בנייה עילי מאומת (6,200 ₪/מ״ר) — קומות 1–8 (8 קומות — גרעין 2 מעליות ומבואה קומתית)",
+      "room_name": "📍 איפה: קומות 1–8 (8 קומות — גרעין 2 מעליות ומבואה קומתית)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (6,200 ₪/מ״ר — קונטור מאומת)",
+      "title": "צמצום 36.0 מ״ר קונטור עילי מאומת = חיסכון 223,200 ₪ (מתוך 48.0 מ״ר הפחתת ליבה; 12.0 מ״ר ליבה כלואה הועברו לשיפור תכנון)",
+      "measured": "שטח קיים: 342.4 מ״ר | קונטור קומה טיפוסית: 382.0 מ״ר ← 377.5 מ״ר (-4.5 מ״ר לקומה × 8 קומות = -36.0 מ״ר)",
+      "benchmark": "שטח קונטור נחסך בפועל (נבנה פחות): 36.0 מ״ר × 6,200 ₪ (תרגום לקונטור: 75.0%)",
+      "summary": "🛠️ איך מבצעים: הידוק רוחב מבואת המעליות הקומתית מ-42.8 מ״ר ל-38.3 מ״ר לקומה (חיסכון של 4.5 מ״ר × 8 קומות = 36.0 מ״ר) על ידי ריכוז ארונות המונים בדופן המערבית של הגרעין ללא פגיעה במעבר 150 ס״מ. | 📐 מבחן כיווץ קונטור: קירוב אגפי הדירות הצפוני והדרומי ב-32 ס״מ על ציר Y סביב גרעין 2 המעליות (4.5 מ״ר הקטנת קונטור תקרה × 8 קומות = 36.0 מ״ר).",
+      "recommendation": "🛡️ שימושים נשמרים: שמירה על 2 המעליות, חדר מדרגות מוגן וכל ארונות השירות הקומתיים (חשמל, מים, תקשורת, גז וכיבוי אש). 🔄 קיזוז ליבה כלואה: 12.0 מ״ר (1.5 מ״ר לקומה × 8 קומות) בנישת המבואה בין 2 המעליות כלואים גיאומטרית בין פיר המדרגות המוגן לפיר המעלית (מבחן 1 — ליבה כלואה), ולכן הועברו לשיפור תכנון המבואה. סה״כ חיסכון ישיר מאומת: 223,200 ₪.",
+      "visual_explanation": {
+        "diagram_type": "AG_CONTOUR",
+        "before_val": 342.4,
+        "after_val": 306.4,
+        "unit_label": "מ״ר ברוטו עילי",
+        "recommendation": {
+          "where": "קומות 1–8 (8 קומות — גרעין 2 מעליות ומבואה קומתית)",
+          "finding": "אותר עודף של 48.0 מ״ר בשטחי הגרעין והשירות ב-קומות 1–8 (8 קומות — גרעין 2 מעליות ומבואה קומתית) (כיום 342.4 מ״ר לעומת יעד תכנוני של 306.4 מ״ר)."
+        },
+        "solution": {
+          "how_to_execute": "הידוק רוחב מבואת המעליות הקומתית מ-42.8 מ״ר ל-38.3 מ״ר לקומה (חיסכון של 4.5 מ״ר × 8 קומות = 36.0 מ״ר) על ידי ריכוז ארונות המונים בדופן המערבית של הגרעין ללא פגיעה במעבר 150 ס״מ.",
+          "mechanism": "קירוב אגפי הדירות הצפוני והדרומי ב-32 ס״מ על ציר Y סביב גרעין 2 המעליות (4.5 מ״ר הקטנת קונטור תקרה × 8 קומות = 36.0 מ״ר)."
+        },
+        "savings": {
+          "formula": "מתוך 48.0 מ״ר שהופחתו, 36.0 מ״ר (75.0%) מקטינים בפועל את קונטור הבניין הכולל × 6,200 ₪/מ״ר = 223,200 ₪ חיסכון ישיר (12.0 מ״ר ליבה כלואה קוזזו ל-0 ₪ והועברו לשיפור תכנון).",
+          "rate_label": "6,200 ₪ למ״ר קונטור עילי",
+          "gross_sqm": 48.0,
+          "locked_sqm": 12.0,
+          "net_contour_sqm": 36.0,
+          "saving_ils": 223200,
+          "efficiency_pct": 75.0
+        },
+        "building_impact": {
+          "contour": "נבנה פחות: -36.0 מ״ר קונטור עילי (קונטור קומה טיפוסית: 382.0 מ״ר ← 377.5 מ״ר (-4.5 מ״ר לקומה × 8 קומות = -36.0 מ״ר))",
+          "apartments": "0.0 מ״ר פגיעה בשטח הפלדלת של הדירות (100% נשמר)",
+          "parking": "ללא פגיעה בחניות או במיסעות",
+          "utilities": "שמירה על 2 המעליות, חדר מדרגות מוגן וכל ארונות השירות הקומתיים (חשמל, מים, תקשורת, גז וכיבוי אש)"
+        },
+        "plan_overlay_zones": {}
+      },
+      "x_pct": 38.0,
+      "y_pct": 40.0,
+      "w_pct": 22.0,
+      "h_pct": 20.0,
+      "cx_pct": 49.0,
+      "cy_pct": 50.0
+    },
+    {
+      "id": "KKL-OPT-AG3",
+      "pin_num": 16,
+      "sheet_id": "kkl_penthouse",
+      "section_id": "sec_kkl10_value_eng",
+      "is_value_eng": true,
+      "ve_category": "AG",
+      "ve_saving_ils": 62000,
+      "ve_saved_sqm": 10.0,
+      "ve_proposed_gross_sqm": 10.0,
+      "ve_locked_non_contour_sqm": 0.0,
+      "plan_overlay_zones": {},
+      "contour_efficiency_pct": 100.0,
+      "contour_mechanism": "הצמדת קירות החוץ של חדר היציאה לגג בקומה 9 לקונטור הפירים ההנדסי בלבד (100% הקטנת קונטור גג).",
+      "contour_dims_before_after": "קונטור גג טכני קומה 9: 44.5 מ״ר ← 34.5 מ״ר (-10.0 מ״ר נבנה פחות)",
+      "locked_reason_he": "100% מהשטח בגג הטכני חשוף ב-4 חזיתות ומקטין ישירות את קונטור הבנייה.",
+      "ve_callout_badge": "💰 -10.0 מ״ר קונטור עילי מאומת | 62,000 ₪",
+      "where_on_plan": "קומה 9 (L9 — גג טכני ויציאה לגג)",
+      "how_to_execute": "צמצום שטח מבואת הגג הטכני מ-44.5 מ״ר ל-34.5 מ״ר בהתאם לקונטור הפירים ההندסי בלבד.",
+      "typology": "צמצום קונטור בנייה עילי מאומת (6,200 ₪/מ״ר) — קומה 9 (L9 — גג טכני ויציאה לגג)",
+      "room_name": "📍 איפה: קומה 9 (L9 — גג טכני ויציאה לגג)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (6,200 ₪/מ״ר — קונטור מאומת)",
+      "title": "צמצום 10.0 מ״ר קונטור עילי מאומת = חיסכון 62,000 ₪ (מתוך 10.0 מ״ר הפחתת ליבה; 0.0 מ״ר ליבה כלואה הועברו לשיפור תכנון)",
+      "measured": "שטח קיים: 44.5 מ״ר | קונטור גג טכני קומה 9: 44.5 מ״ר ← 34.5 מ״ר (-10.0 מ״ר נבנה פחות)",
+      "benchmark": "שטח קונטור נחסך בפועל (נבנה פחות): 10.0 מ״ר × 6,200 ₪ (תרגום לקונטור: 100.0%)",
+      "summary": "🛠️ איך מבצעים: צמצום שטח מבואת הגג הטכני מ-44.5 מ״ר ל-34.5 מ״ר בהתאם לקונטור הפירים ההندסי בלבד. | 📐 מבחן כיווץ קונטור: הצמדת קירות החוץ של חדר היציאה לגג בקומה 9 לקונטור הפירים ההנדסי בלבד (100% הקטנת קונטור גג).",
+      "recommendation": "🛡️ שימושים נשמרים: שמירה מלאה על ראשי 2 המעליות ופודסט יציאה לגג המערכות. סה״כ חיסכון ישיר מאומת: 62,000 ₪.",
+      "visual_explanation": {
+        "diagram_type": "AG_CONTOUR",
+        "before_val": 44.5,
+        "after_val": 34.5,
+        "unit_label": "מ״ר ברוטו עילי",
+        "recommendation": {
+          "where": "קומה 9 (L9 — גג טכני ויציאה לגג)",
+          "finding": "אותר עודף של 10.0 מ״ר בשטחי הגרעין והשירות ב-קומה 9 (L9 — גג טכני ויציאה לגג) (כיום 44.5 מ״ר לעומת יעד תכנוני של 34.5 מ״ר)."
+        },
+        "solution": {
+          "how_to_execute": "צמצום שטח מבואת הגג הטכני מ-44.5 מ״ר ל-34.5 מ״ר בהתאם לקונטור הפירים ההندסי בלבד.",
+          "mechanism": "הצמדת קירות החוץ של חדר היציאה לגג בקומה 9 לקונטור הפירים ההנדסי בלבד (100% הקטנת קונטור גג)."
+        },
+        "savings": {
+          "formula": "מתוך 10.0 מ״ר שהופחתו, 10.0 מ״ר (100.0%) מקטינים בפועל את קונטור הבניין הכולל × 6,200 ₪/מ״ר = 62,000 ₪ חיסכון ישיר.",
+          "rate_label": "6,200 ₪ למ״ר קונטור עילי",
+          "gross_sqm": 10.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 10.0,
+          "saving_ils": 62000,
+          "efficiency_pct": 100.0
+        },
+        "building_impact": {
+          "contour": "נבנה פחות: -10.0 מ״ר קונטור עילי (קונטור גג טכני קומה 9: 44.5 מ״ר ← 34.5 מ״ר (-10.0 מ״ר נבנה פחות))",
+          "apartments": "0.0 מ״ר פגיעה בשטח הפלדלת של הדירות (100% נשמר)",
+          "parking": "ללא פגיעה בחניות או במיסעות",
+          "utilities": "שמירה מלאה על ראשי 2 המעליות ופודסט יציאה לגג המערכות"
+        },
+        "plan_overlay_zones": {}
+      },
+      "x_pct": 40.0,
+      "y_pct": 42.0,
+      "w_pct": 20.0,
+      "h_pct": 18.0,
+      "cx_pct": 50.0,
+      "cy_pct": 51.0
+    },
+    {
+      "id": "KKL-OPT-UG1",
+      "pin_num": 17,
+      "sheet_id": "kkl_basement",
+      "section_id": "sec_kkl10_value_eng",
+      "is_value_eng": true,
+      "ve_category": "UG",
+      "ve_saving_ils": 595000,
+      "ve_saved_sqm": 170.0,
+      "ve_proposed_gross_sqm": 198.0,
+      "ve_locked_non_contour_sqm": 28.0,
+      "protected_ramp_and_maneuvering_deducted_sqm": 28.0,
+      "under_ramp_utilized_sqm": 34.0,
+      "ramp_function_audit_he": "רמפה דו-מפלסית בין קרקע למרתף 1- ובין מרתף 1- למרתף 2- (שיפוע 16% + משטחי התמתנות 8% באורך 3.00 מ׳): 34.0 מ״ר מתחת לחלק העליון של הרמפה (H_clear ≥ 2.25 מ׳) מנוצלים לחדר משאבות, מאגר מים ובורות שאיבה. משטחי הסיבוב בחיבור הקומות (14.0 מ״ר לקומה = 28.0 מ״ר) מוגנים ב-100%.",
+      "maneuvering_aisle_audit_he": "כל 43 החניות ב-2 המרתפים מוגנות עם מיסעה דו-סטרית של 6.00 מ׳ ואוזני תמרון של 1.00 מ׳ בקצוות המיסעה; הקיצור הדרומי (85 מ״ר לקומה) מבוצע אך ורק בכיס השירות העודף שמעבר לקו החניות האחרון.",
+      "plan_overlay_zones": {
+        "protected_ramp_maneuver_rect": {
+          "x_pct": 20.0,
+          "y_pct": 36.0,
+          "w_pct": 58.0,
+          "h_pct": 24.0,
+          "label_he": "מיסעה 6.00 מ׳ + רדיוסי סיבוב רמפה בין-מפלסית (מוגן 100%)"
+        },
+        "under_ramp_utility_rect": {
+          "x_pct": 60.0,
+          "y_pct": 20.0,
+          "w_pct": 18.0,
+          "h_pct": 14.0,
+          "label_he": "מאגר מים + משאבות תחת רמפה עליונה (H≥2.25m · 34 מ״ר)"
+        }
+      },
+      "contour_efficiency_pct": 85.9,
+      "contour_mechanism": "קיצור שלוחות הדיפון הדרומיות במרתפים -1 ו--2 ב-3.40 מ׳ × 25.0 מ׳ בכל קומה מחוץ למעגל הסיבוב של הרמפה ומחוץ למיסעת 6.00 מ׳ (85 מ״ר × 2 מרתפים = 170.0 מ״ר כיווץ פוליגון דיפון).",
+      "contour_dims_before_after": "קונטור מרתפים -1 ו--2: 1,586.0 מ״ר ← 1,416.0 מ״ר (-170.0 מ״ר דיפון וחפירה מאומתים · 28.0 מ״ר קוזזו להגנת רמפה ומיסעות)",
+      "locked_reason_he": "28.0 מ״ר (14.0 מ״ר בכל מרתף) באזור נחיתת הרמפה הבין-מפלסית וחיבור המיסעה לגרעין 2 המעליות מוגנים כשטח התמתנות וסיבוב (R_in=3.60m, R_out=5.20m) ומיסעת תמרון 6.00 מ׳ — ולכן קוזזו מחיסכון הקונטור (0 ₪).",
+      "ve_callout_badge": "🅿️ -170.0 מ״ר קונטור מרתף מאומת | 595,000 ₪",
+      "where_on_plan": "מרתפים -1 ו--2 (1,586 מ״ר ל-34 חניות = 46.6 מ״ר/חניה!)",
+      "how_to_execute": "יחס השטח במרתפים (46.6 מ״ר לחניה) גבוה בכ-24% מהבנצ׳מרק ההנדסי (37.5 מ״ר לחניה כולל מחסנים). קיצור שלוחות המיסעה בקצוות הדרומיים של מרתפים -1 ו--2 ומיקום מאגר המים מתחת לרמפה חוסכים 85 מ״ר בכל מרתף (סה״כ 170 מ״ר דיפון וחפירה) ללא גריעת אף חניה או מחסן.",
+      "typology": "צמצום קונטור דיפון מרתף מאומת (3,500 ₪/מ״ר) — מרתפים -1 ו--2 (1,586 מ״ר ל-34 חניות = 46.6 מ״ר/חניה!)",
+      "room_name": "📍 איפה: מרתפים -1 ו--2 (1,586 מ״ר ל-34 חניות = 46.6 מ״ר/חניה!)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (3,500 ₪/מ״ר — קונטור דיפון מאומת + הגנת רמפה ותמרון)",
+      "title": "צמצום 170.0 מ״ר בקונטור דיפון המרתף = חיסכון 595,000 ₪ (מתוך 198.0 מ״ר; 28.0 מ״ר קוזזו להגנת רמפות ומיסעות תמרון)",
+      "measured": "שטח קיים: 1586.0 מ״ר (46.6 מ״ר/חניה) | קונטור מרתפים -1 ו--2: 1,586.0 מ״ר ← 1,416.0 מ״ר (-170.0 מ״ר דיפון וחפירה מאומתים · 28.0 מ״ר קוזזו להגנת רמפה ומיסעות)",
+      "benchmark": "שטח קונטור מרתף מוצע: 1416.0 מ״ר (41.6 מ״ר/חניה · נחסכו 170.0 מ״ר × 3,500 ₪)",
+      "summary": "🛠️ איך מבצעים על תכנית המקור: יחס השטח במרתפים (46.6 מ״ר לחניה) גבוה בכ-24% מהבנצ׳מרק ההנדסי (37.5 מ״ר לחניה כולל מחסנים). קיצור שלוחות המיסעה בקצוות הדרומיים של מרתפים -1 ו--2 ומיקום מאגר המים מתחת לרמפה חוסכים 85 מ״ר בכל מרתף (סה״כ 170 מ״ר דיפון וחפירה) ללא גריעת אף חניה או מחסן. | 📐 מבחן כיווץ דיפון: קיצור שלוחות הדיפון הדרומיות במרתפים -1 ו--2 ב-3.40 מ׳ × 25.0 מ׳ בכל קומה מחוץ למעגל הסיבוב של הרמפה ומחוץ למיסעת 6.00 מ׳ (85 מ״ר × 2 מרתפים = 170.0 מ״ר כיווץ פוליגון דיפון).",
+      "recommendation": "🛡️ שמירת מצבת החניות ומיסעות תמרון: 34 חניות רגילות (100% ללא מכפילים) + 14 מחסנים דירתיים + מאגר מים וחדר משאבות. 🚦 בקרת רמפה וגובה ראש פנוי: רמפה דו-מפלסית בין קרקע למרתף 1- ובין מרתף 1- למרתף 2- (שיפוע 16% + משטחי התמתנות 8% באורך 3.00 מ׳): 34.0 מ״ר מתחת לחלק העליון של הרמפה (H_clear ≥ 2.25 מ׳) מנוצלים לחדר משאבות, מאגר מים ובורות שאיבה. משטחי הסיבוב בחיבור הקומות (14.0 מ״ר לקומה = 28.0 מ״ר) מוגנים ב-100%. 🔄 קיזוז שטח רמפה ותמרון מוגן: 28.0 מ״ר (14.0 מ״ר בכל מרתף) באזור נחיתת הרמפה הבין-מפלסית וחיבור המיסעה לגרעין 2 המעליות מוגנים כשטח התמתנות וסיבוב (R_in=3.60m, R_out=5.20m) ומיסעת תמרון 6.00 מ׳ — ולכן קוזזו מחיסכון הקונטור (0 ₪). סה״כ חיסכון ישיר מאומת: 595,000 ₪.",
+      "visual_explanation": {
+        "diagram_type": "UG_CONTOUR",
+        "before_val": 1586.0,
+        "after_val": 1416.0,
+        "unit_label": "מ״ר חפירה ודיפון",
+        "recommendation": {
+          "where": "מרתפים -1 ו--2 (1,586 מ״ר ל-34 חניות = 46.6 מ״ר/חניה!)",
+          "finding": "אותר יחס שטח מרתף גבוה (46.6 מ״ר/חניה) וכיסי חפירה היקפיים בתכנית המקור ב-מרתפים -1 ו--2 (1,586 מ״ר ל-34 חניות = 46.6 מ״ר/חניה!) (סה״כ 1586.0 מ״ר)."
+        },
+        "solution": {
+          "how_to_execute": "יחס השטח במרתפים (46.6 מ״ר לחניה) גבוה בכ-24% מהבנצ׳מרק ההנדסי (37.5 מ״ר לחניה כולל מחסנים). קיצור שלוחות המיסעה בקצוות הדרומיים של מרתפים -1 ו--2 ומיקום מאגר המים מתחת לרמפה חוסכים 85 מ״ר בכל מרתף (סה״כ 170 מ״ר דיפון וחפירה) ללא גריעת אף חניה או מחסן.",
+          "mechanism": "קיצור שלוחות הדיפון הדרומיות במרתפים -1 ו--2 ב-3.40 מ׳ × 25.0 מ׳ בכל קומה מחוץ למעגל הסיבוב של הרמפה ומחוץ למיסעת 6.00 מ׳ (85 מ״ר × 2 מרתפים = 170.0 מ״ר כיווץ פוליגון דיפון).",
+          "ramp_function_audit": "רמפה דו-מפלסית בין קרקע למרתף 1- ובין מרתף 1- למרתף 2- (שיפוע 16% + משטחי התמתנות 8% באורך 3.00 מ׳): 34.0 מ״ר מתחת לחלק העליון של הרמפה (H_clear ≥ 2.25 מ׳) מנוצלים לחדר משאבות, מאגר מים ובורות שאיבה. משטחי הסיבוב בחיבור הקומות (14.0 מ״ר לקומה = 28.0 מ״ר) מוגנים ב-100%.",
+          "maneuvering_aisle_audit": "כל 43 החניות ב-2 המרתפים מוגנות עם מיסעה דו-סטרית של 6.00 מ׳ ואוזני תמרון של 1.00 מ׳ בקצוות המיסעה; הקיצור הדרומי (85 מ״ר לקומה) מבוצע אך ורק בכיס השירות העודף שמעבר לקו החניות האחרון."
+        },
+        "savings": {
+          "formula": "מתוך 198.0 מ״ר הפחתה תאורטית, קוזזו 28.0 מ״ר להגנת רמפות ומיסעות תמרון (0 ₪), ו-170.0 מ״ר (85.9%) מכווצים בפועל את פוליגון הדיפון × 3,500 ₪/מ״ר = 595,000 ₪ חיסכון ישיר.",
+          "rate_label": "3,500 ₪ למ״ר קונטור דיפון",
+          "gross_sqm": 198.0,
+          "locked_sqm": 28.0,
+          "protected_ramp_maneuver_sqm": 28.0,
+          "under_ramp_utilized_sqm": 34.0,
+          "net_contour_sqm": 170.0,
+          "saving_ils": 595000,
+          "efficiency_pct": 85.9
+        },
+        "building_impact": {
+          "contour": "כיווץ פוליגון דיפון וחפירה ב-170.0 מ״ר (קונטור מרתפים -1 ו--2: 1,586.0 מ״ר ← 1,416.0 מ״ר (-170.0 מ״ר דיפון וחפירה מאומתים · 28.0 מ״ר קוזזו להגנת רמפה ומיסעות))",
+          "apartments": "0.0 מ״ר פגיעה בדירות או במחסנים הדירתיים",
+          "parking": "100% הגנה על מיסעות תמרון (5.20–6.50 מ׳), רדיוסי סיבוב ואוזני תמרון · 34 חניות רגילות (100% ללא מכפילים) + 14 מחסנים דירתיים + מאגר מים וחדר משאבות",
+          "utilities": "ניצול 34.0 מ״ר מתחת לחלק העליון של הרמפה (גובה ראש פנוי H_clear ≥ 2.15–2.20 מ׳) עבור מאגר מים/משאבות/בורות שאיבה"
+        },
+        "plan_overlay_zones": {
+          "protected_ramp_maneuver_rect": {
+            "x_pct": 20.0,
+            "y_pct": 36.0,
+            "w_pct": 58.0,
+            "h_pct": 24.0,
+            "label_he": "מיסעה 6.00 מ׳ + רדיוסי סיבוב רמפה בין-מפלסית (מוגן 100%)"
+          },
+          "under_ramp_utility_rect": {
+            "x_pct": 60.0,
+            "y_pct": 20.0,
+            "w_pct": 18.0,
+            "h_pct": 14.0,
+            "label_he": "מאגר מים + משאבות תחת רמפה עליונה (H≥2.25m · 34 מ״ר)"
+          }
+        }
+      },
+      "x_pct": 18.0,
+      "y_pct": 56.0,
+      "w_pct": 64.0,
+      "h_pct": 30.0,
+      "cx_pct": 50.0,
+      "cy_pct": 71.0
+    },
+    {
+      "id": "KKL10-VE-FAC-1",
+      "pin_num": 18,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl10_value_eng",
+      "is_value_eng": true,
+      "ve_category": "FAC",
+      "ve_saving_ils": 20320,
+      "ve_saved_sqm": 50.8,
+      "ve_proposed_gross_sqm": 254.0,
+      "ve_locked_non_contour_sqm": 0.0,
+      "contour_efficiency_pct": 100.0,
+      "ve_callout_badge": "🧱 צפון: -50.8 מ״ר יבש←טיח | 20,320 ₪",
+      "where_on_plan": "חזית צפונית (חזית ראשית לרחוב קק״ל 10) (254.0 מ״ר קירות אטומים)",
+      "how_to_execute": "חזית רחוב ייצוגית — שמירת חיפוי יבש מלא בחזית הראשית ובמסד; המרת קירות פנים-מרפסות ונסיגות קומות גג בלבד לטיח (20%)",
+      "typology": "אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית צפונית (חזית ראשית לרחוב קק״ל 10)",
+      "room_name": "📍 איפה: חזית צפונית (חזית ראשית לרחוב קק״ל 10) (כיוון צפון)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (400 ₪/מ״ר הפרש)",
+      "title": "המרת 50.8 מ״ר מחיפוי יבש לטיח בחזית צפון = חיסכון 20,320 ₪",
+      "measured": "שטח אטום: 254.0 מ״ר (חיפוי יבש נוכחי: 215.9 מ״ר)",
+      "benchmark": "יחס מוצע: 65.0% יבש (165.1 מ״ר) / 35.0% טיח (88.9 מ״ר)",
+      "summary": "🛠️ איך מבצעים על התכנית: חזית רחוב ייצוגית — שמירת חיפוי יבש מלא בחזית הראשית ובמסד; המרת קירות פנים-מרפסות ונסיגות קומות גג בלבד לטיח (20%)",
+      "recommendation": "חיסכון ישיר של 400 ₪ למ״ר מומר × 50.8 מ״ר = 20,320 ₪ בחזית זו (מתוך סה״כ 286,360 ₪ ב-4 החזיתות).",
+      "visual_explanation": {
+        "diagram_type": "FACADE_CLADDING",
+        "before_val": 215.9,
+        "after_val": 165.1,
+        "unit_label": "מ״ר חיפוי יבש",
+        "recommendation": {
+          "where": "חזית צפונית (חזית ראשית לרחוב קק״ל 10) (צפון)",
+          "finding": "ב-חזית צפונית (חזית ראשית לרחוב קק״ל 10) קיימים 254.0 מ״ר קירות אטומים (מתוכם 215.9 מ״ר מתוכננים בחיפוי יבש יקר ב-700 ₪/מ״ר)."
+        },
+        "solution": {
+          "how_to_execute": "חזית רחוב ייצוגית — שמירת חיפוי יבש מלא בחזית הראשית ובמסד; המרת קירות פנים-מרפסות ונסיגות קומות גג בלבד לטיח (20%)",
+          "mechanism": "מעבר לתמהיל מאוזן של 65.0% חיפוי יבש ו-35.0% טיח חוץ איכותי."
+        },
+        "savings": {
+          "formula": "המרת 50.8 מ״ר מחיפוי יבש (700 ₪/מ״ר) לטיח חוץ (300 ₪/מ״ר) × 400 ₪ הפרש = 20,320 ₪ חיסכון ישיר בחזית זו.",
+          "rate_label": "400 ₪ למ״ר מומר (700 ₪ מול 300 ₪)",
+          "gross_sqm": 254.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 50.8,
+          "saving_ils": 20320,
+          "efficiency_pct": 100.0
+        },
+        "building_impact": {
+          "contour": "שמירה מלאה על הנראות האדריכלית היוקרתית בחזית הרחוב ובקומות המסד",
+          "apartments": "הפחתת עומס משקל חיפוי על הקירות החיצוניים וקיצור לוחות זמנים בביצוע הפיגומים",
+          "parking": "ללא השפעה על חניות או שלד",
+          "utilities": "שילוב טיח תרמי/אקרילי גמיש בקירות פנים-מרפסות, גליפים ומסתורי כביסה לתחזוקה קלה"
+        }
+      },
+      "x_pct": 14.0,
+      "y_pct": 16.0,
+      "w_pct": 72.0,
+      "h_pct": 10.0,
+      "cx_pct": 50.0,
+      "cy_pct": 21.0
+    },
+    {
+      "id": "KKL10-VE-FAC-2",
+      "pin_num": 19,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl10_value_eng",
+      "is_value_eng": true,
+      "ve_category": "FAC",
+      "ve_saving_ils": 47600,
+      "ve_saved_sqm": 119.0,
+      "ve_proposed_gross_sqm": 248.0,
+      "ve_locked_non_contour_sqm": 0.0,
+      "contour_efficiency_pct": 100.0,
+      "ve_callout_badge": "🧱 דרום: -119.0 מ״ר יבש←טיח | 47,600 ₪",
+      "where_on_plan": "חזית דרומית (חזית עורפית לגינה הדרומית) (248.0 מ״ר קירות אטומים)",
+      "how_to_execute": "חזית עורפית — המרת שטחי הקירות האטומים העורפיים ומסתורי הכביסה לטיח תרמי/אקרילי משובח תוך שמירת מסגרות חיפוי יבש (48%)",
+      "typology": "אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית דרומית (חזית עורפית לגינה הדרומית)",
+      "room_name": "📍 איפה: חזית דרומית (חזית עורפית לגינה הדרומית) (כיוון דרום)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (400 ₪/מ״ר הפרש)",
+      "title": "המרת 119.0 מ״ר מחיפוי יבש לטיח בחזית דרום = חיסכון 47,600 ₪",
+      "measured": "שטח אטום: 248.0 מ״ר (חיפוי יבש נוכחי: 210.8 מ״ר)",
+      "benchmark": "יחס מוצע: 37.0% יבש (91.8 מ״ר) / 63.0% טיח (156.2 מ״ר)",
+      "summary": "🛠️ איך מבצעים על התכנית: חזית עורפית — המרת שטחי הקירות האטומים העורפיים ומסתורי הכביסה לטיח תרמי/אקרילי משובח תוך שמירת מסגרות חיפוי יבש (48%)",
+      "recommendation": "חיסכון ישיר של 400 ₪ למ״ר מומר × 119.0 מ״ר = 47,600 ₪ בחזית זו (מתוך סה״כ 286,360 ₪ ב-4 החזיתות).",
+      "visual_explanation": {
+        "diagram_type": "FACADE_CLADDING",
+        "before_val": 210.8,
+        "after_val": 91.8,
+        "unit_label": "מ״ר חיפוי יבש",
+        "recommendation": {
+          "where": "חזית דרומית (חזית עורפית לגינה הדרומית) (דרום)",
+          "finding": "ב-חזית דרומית (חזית עורפית לגינה הדרומית) קיימים 248.0 מ״ר קירות אטומים (מתוכם 210.8 מ״ר מתוכננים בחיפוי יבש יקר ב-700 ₪/מ״ר)."
+        },
+        "solution": {
+          "how_to_execute": "חזית עורפית — המרת שטחי הקירות האטומים העורפיים ומסתורי הכביסה לטיח תרמי/אקרילי משובח תוך שמירת מסגרות חיפוי יבש (48%)",
+          "mechanism": "מעבר לתמהיל מאוזן של 37.0% חיפוי יבש ו-63.0% טיח חוץ איכותי."
+        },
+        "savings": {
+          "formula": "המרת 119.0 מ״ר מחיפוי יבש (700 ₪/מ״ר) לטיח חוץ (300 ₪/מ״ר) × 400 ₪ הפרש = 47,600 ₪ חיסכון ישיר בחזית זו.",
+          "rate_label": "400 ₪ למ״ר מומר (700 ₪ מול 300 ₪)",
+          "gross_sqm": 248.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 119.0,
+          "saving_ils": 47600,
+          "efficiency_pct": 100.0
+        },
+        "building_impact": {
+          "contour": "שמירה מלאה על הנראות האדריכלית היוקרתית בחזית הרחוב ובקומות המסד",
+          "apartments": "הפחתת עומס משקל חיפוי על הקירות החיצוניים וקיצור לוחות זמנים בביצוע הפיגומים",
+          "parking": "ללא השפעה על חניות או שלד",
+          "utilities": "שילוב טיח תרמי/אקרילי גמיש בקירות פנים-מרפסות, גליפים ומסתורי כביסה לתחזוקה קלה"
+        }
+      },
+      "x_pct": 14.0,
+      "y_pct": 72.0,
+      "w_pct": 72.0,
+      "h_pct": 10.0,
+      "cx_pct": 50.0,
+      "cy_pct": 77.0
+    },
+    {
+      "id": "KKL10-VE-FAC-3",
+      "pin_num": 20,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl10_value_eng",
+      "is_value_eng": true,
+      "ve_category": "FAC",
+      "ve_saving_ils": 108000,
+      "ve_saved_sqm": 270.0,
+      "ve_proposed_gross_sqm": 750.0,
+      "ve_locked_non_contour_sqm": 0.0,
+      "contour_efficiency_pct": 100.0,
+      "ve_callout_badge": "🧱 מזרח: -270.0 מ״ר יבש←טיח | 108,000 ₪",
+      "where_on_plan": "חזית מזרחית (אורך 33.09 מ׳) (750.0 מ״ר קירות אטומים)",
+      "how_to_execute": "חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)",
+      "typology": "אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית מזרחית (אורך 33.09 מ׳)",
+      "room_name": "📍 איפה: חזית מזרחית (אורך 33.09 מ׳) (כיוון מזרח)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (400 ₪/מ״ר הפרש)",
+      "title": "המרת 270.0 מ״ר מחיפוי יבש לטיח בחזית מזרח = חיסכון 108,000 ₪",
+      "measured": "שטח אטום: 750.0 מ״ר (חיפוי יבש נוכחי: 637.5 מ״ר)",
+      "benchmark": "יחס מוצע: 49.0% יבש (367.5 מ״ר) / 51.0% טיח (382.5 מ״ר)",
+      "summary": "🛠️ איך מבצעים על התכנית: חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)",
+      "recommendation": "חיסכון ישיר של 400 ₪ למ״ר מומר × 270.0 מ״ר = 108,000 ₪ בחזית זו (מתוך סה״כ 286,360 ₪ ב-4 החזיתות).",
+      "visual_explanation": {
+        "diagram_type": "FACADE_CLADDING",
+        "before_val": 637.5,
+        "after_val": 367.5,
+        "unit_label": "מ״ר חיפוי יבש",
+        "recommendation": {
+          "where": "חזית מזרחית (אורך 33.09 מ׳) (מזרח)",
+          "finding": "ב-חזית מזרחית (אורך 33.09 מ׳) קיימים 750.0 מ״ר קירות אטומים (מתוכם 637.5 מ״ר מתוכננים בחיפוי יבש יקר ב-700 ₪/מ״ר)."
+        },
+        "solution": {
+          "how_to_execute": "חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)",
+          "mechanism": "מעבר לתמהיל מאוזן של 49.0% חיפוי יבש ו-51.0% טיח חוץ איכותי."
+        },
+        "savings": {
+          "formula": "המרת 270.0 מ״ר מחיפוי יבש (700 ₪/מ״ר) לטיח חוץ (300 ₪/מ״ר) × 400 ₪ הפרש = 108,000 ₪ חיסכון ישיר בחזית זו.",
+          "rate_label": "400 ₪ למ״ר מומר (700 ₪ מול 300 ₪)",
+          "gross_sqm": 750.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 270.0,
+          "saving_ils": 108000,
+          "efficiency_pct": 100.0
+        },
+        "building_impact": {
+          "contour": "שמירה מלאה על הנראות האדריכלית היוקרתית בחזית הרחוב ובקומות המסד",
+          "apartments": "הפחתת עומס משקל חיפוי על הקירות החיצוניים וקיצור לוחות זמנים בביצוע הפיגומים",
+          "parking": "ללא השפעה על חניות או שלד",
+          "utilities": "שילוב טיח תרמי/אקרילי גמיש בקירות פנים-מרפסות, גליפים ומסתורי כביסה לתחזוקה קלה"
+        }
+      },
+      "x_pct": 80.0,
+      "y_pct": 24.0,
+      "w_pct": 9.0,
+      "h_pct": 50.0,
+      "cx_pct": 84.5,
+      "cy_pct": 49.0
+    },
+    {
+      "id": "KKL10-VE-FAC-4",
+      "pin_num": 21,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl10_value_eng",
+      "is_value_eng": true,
+      "ve_category": "FAC",
+      "ve_saving_ils": 110440,
+      "ve_saved_sqm": 276.1,
+      "ve_proposed_gross_sqm": 767.0,
+      "ve_locked_non_contour_sqm": 0.0,
+      "contour_efficiency_pct": 100.0,
+      "ve_callout_badge": "🧱 מערב: -276.1 מ״ר יבש←טיח | 110,440 ₪",
+      "where_on_plan": "חזית מערבית (אורך 33.09 מ׳) (767.0 מ״ר קירות אטומים)",
+      "how_to_execute": "חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)",
+      "typology": "אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית מערבית (אורך 33.09 מ׳)",
+      "room_name": "📍 איפה: חזית מערבית (אורך 33.09 מ׳) (כיוון מערב)",
+      "status": "WARN",
+      "rule_id": "VALUE_ENG_OPT (400 ₪/מ״ר הפרש)",
+      "title": "המרת 276.1 מ״ר מחיפוי יבש לטיח בחזית מערב = חיסכון 110,440 ₪",
+      "measured": "שטח אטום: 767.0 מ״ר (חיפוי יבש נוכחי: 651.9 מ״ר)",
+      "benchmark": "יחס מוצע: 49.0% יבש (375.8 מ״ר) / 51.0% טיח (391.2 מ״ר)",
+      "summary": "🛠️ איך מבצעים על התכנית: חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)",
+      "recommendation": "חיסכון ישיר של 400 ₪ למ״ר מומר × 276.1 מ״ר = 110,440 ₪ בחזית זו (מתוך סה״כ 286,360 ₪ ב-4 החזיתות).",
+      "visual_explanation": {
+        "diagram_type": "FACADE_CLADDING",
+        "before_val": 651.9,
+        "after_val": 375.8,
+        "unit_label": "מ״ר חיפוי יבש",
+        "recommendation": {
+          "where": "חזית מערבית (אורך 33.09 מ׳) (מערב)",
+          "finding": "ב-חזית מערבית (אורך 33.09 מ׳) קיימים 767.0 מ״ר קירות אטומים (מתוכם 651.9 מ״ר מתוכננים בחיפוי יבש יקר ב-700 ₪/מ״ר)."
+        },
+        "solution": {
+          "how_to_execute": "חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)",
+          "mechanism": "מעבר לתמהיל מאוזן של 49.0% חיפוי יבש ו-51.0% טיח חוץ איכותי."
+        },
+        "savings": {
+          "formula": "המרת 276.1 מ״ר מחיפוי יבש (700 ₪/מ״ר) לטיח חוץ (300 ₪/מ״ר) × 400 ₪ הפרש = 110,440 ₪ חיסכון ישיר בחזית זו.",
+          "rate_label": "400 ₪ למ״ר מומר (700 ₪ מול 300 ₪)",
+          "gross_sqm": 767.0,
+          "locked_sqm": 0.0,
+          "net_contour_sqm": 276.1,
+          "saving_ils": 110440,
+          "efficiency_pct": 100.0
+        },
+        "building_impact": {
+          "contour": "שמירה מלאה על הנראות האדריכלית היוקרתית בחזית הרחוב ובקומות המסד",
+          "apartments": "הפחתת עומס משקל חיפוי על הקירות החיצוניים וקיצור לוחות זמנים בביצוע הפיגומים",
+          "parking": "ללא השפעה על חניות או שלד",
+          "utilities": "שילוב טיח תרמי/אקרילי גמיש בקירות פנים-מרפסות, גליפים ומסתורי כביסה לתחזוקה קלה"
+        }
+      },
+      "x_pct": 11.0,
+      "y_pct": 24.0,
+      "w_pct": 9.0,
+      "h_pct": 50.0,
+      "cx_pct": 15.5,
+      "cy_pct": 49.0
+    },
+    {
+      "id": "KKL-LOCKED-CORE1",
+      "pin_num": 22,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl10_apt_improvement",
+      "is_value_eng": false,
+      "is_design_improvement": true,
+      "ve_category": "LOCKED_CORE",
+      "ve_saving_ils": 0,
+      "ve_saved_sqm": 24.0,
+      "ve_proposed_gross_sqm": 24.0,
+      "ve_locked_non_contour_sqm": 24.0,
+      "design_improvement_sqm": 24.0,
+      "contour_efficiency_pct": 0.0,
+      "ve_callout_badge": "🔄 ליבה כלואה (0 מ״ר קונטור) ← שיפור תכנון (+24.0 מ״ר)",
+      "where_on_plan": "קומות 1–8 וקומת קרקע — נישת מבואה כלואה בין 2 המעליות (12 מ״ר) ומעבר שירות תחת תקרת קומה 1 (12 מ״ר)",
+      "how_to_execute": "סיפוח 1.5 מ״ר בכל קומה להרחבת מבואות הכניסה לדירות והגדלת הלובי הראשי בקומת הקרקע ב-12.0 מ״ר.",
+      "typology": "הועבר מחיסכון לשיפור תכנון (לא הקטין קונטור בניין) — קומות 1–8 וקומת קרקע — נישת מבואה כלואה בין 2 המעליות (12 מ״ר) ומעבר שירות תחת תקרת קומה 1 (12 מ״ר)",
+      "room_name": "📍 קומות 1–8 וקומת קרקע — נישת מבואה כלואה בין 2 המעליות (12 מ״ר) ומעבר שירות תחת תקרת קומה 1 (12 מ״ר) (0 מ״ר הקטנת קונטור = 0 ₪ חיסכון בנייה)",
+      "status": "WARN",
+      "rule_id": "בדיקת כיווץ קונטור (הועבר לשיפור תכנון)",
+      "title": "הפחתת 24.0 מ״ר שטח ליבה כלוא — לא הקטינה את קונטור הבניין הכולל ולכן הועברה מחיסכון עלויות (0 ₪) לשיפור תכנון",
+      "measured": "הפחתת ליבה/שירות נבדקת: 24.0 מ״ר | הקטנת קונטור בניין בפועל: 0.0 מ״ר",
+      "benchmark": "סיווג מחדש: 0 ₪ חיסכון בנייה ← +24.0 מ״ר שיפור תכנון אדריכלי",
+      "summary": "🔍 מדוע לא חסך עלויות בנייה: בדיקת קונטור שלילית (0 מ״ר הקטנת קונטור בניין): הנישה בין שתי המעליות כלואה בין 4 דירות בפינות הבניין ועמודי הגרעין (מבחן 1), ומעבר השירות בקומת הקרקע חופף ב-100% לתקרת קומה 1 שמעליו (מבחן 2). לכן שטח התקרה הכולל אינו קטן (0 ₪ חיסכון בנייה) והפריט סווג כשיפור תכנון.",
+      "recommendation": "🛋️ תועלת תכנונית (שיפור תכנון): סיפוח 1.5 מ״ר בכל קומה להרחבת מבואות הכניסה לדירות והגדלת הלובי הראשי בקומת הקרקע ב-12.0 מ״ר.",
+      "visual_explanation": {
+        "diagram_type": "LOCKED_CORE",
+        "before_val": 24.0,
+        "after_val": 0.0,
+        "unit_label": "מ״ר כיווץ קונטור",
+        "recommendation": {
+          "where": "קומות 1–8 וקומת קרקע — נישת מבואה כלואה בין 2 המעליות (12 מ״ר) ומעבר שירות תחת תקרת קומה 1 (12 מ״ר)",
+          "finding": "נבדקה הפחתה של 24.0 מ״ר בשטחי ליבה/מעברים ב-קומות 1–8 וקומת קרקע — נישת מבואה כלואה בין 2 המעליות (12 מ״ר) ומעבר שירות תחת תקרת קומה 1 (12 מ״ר)."
+        },
+        "solution": {
+          "how_to_execute": "סיפוח 1.5 מ״ר בכל קומה להרחבת מבואות הכניסה לדירות והגדלת הלובי הראשי בקומת הקרקע ב-12.0 מ״ר.",
+          "mechanism": "בדיקת קונטור שלילית (0 מ״ר הקטנת קונטור בניין): הנישה בין שתי המעליות כלואה בין 4 דירות בפינות הבניין ועמודי הגרעין (מבחן 1), ומעבר השירות בקומת הקרקע חופף ב-100% לתקרת קומה 1 שמעליו (מבחן 2). לכן שטח התקרה הכולל אינו קטן (0 ₪ חיסכון בנייה) והפריט סווג כשיפור תכנון."
+        },
+        "savings": {
+          "formula": "0 ₪ חיסכון בעלויות שלד ובנייה ← +24.0 מ״ר שיפור תכנון אדריכלי!",
+          "rate_label": "0 ₪ חיסכון שלד (קונטור נעול)",
+          "gross_sqm": 24.0,
+          "locked_sqm": 24.0,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 0.0
+        },
+        "building_impact": {
+          "contour": "0.0 מ״ר שינוי בקונטור הבניין הכולל (הקונטור החיצוני נעול ע״י דירות/עמודים או תקרת קומה א׳)",
+          "apartments": "השבחה אדריכלית של +24.0 מ״ר במבואות הכניסה לדירות ובלובי",
+          "parking": "ללא פגיעה בחניות; שיפור מרווחי תמרון ומחסנים",
+          "utilities": "שמירה מלאה על כל ארונות השירות והמערכות בקו אפס"
+        }
+      },
+      "x_pct": 42.0,
+      "y_pct": 43.0,
+      "w_pct": 16.0,
+      "h_pct": 14.0,
+      "cx_pct": 50.0,
+      "cy_pct": 50.0
+    },
+    {
+      "id": "KKL-OPT-APT1",
+      "pin_num": 23,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl10_apt_improvement",
+      "is_value_eng": false,
+      "is_design_improvement": true,
+      "ve_category": "APT",
+      "ve_saving_ils": 0,
+      "ve_saved_sqm": 14.0,
+      "ve_proposed_gross_sqm": 14.0,
+      "ve_locked_non_contour_sqm": 14.0,
+      "design_improvement_sqm": 14.0,
+      "contour_efficiency_pct": 0.0,
+      "ve_callout_badge": "🛋️ שיפור תכנון: +2.0 מ״ר לחדרים",
+      "where_on_plan": "טיפוס B דרום-מזרחי (קומות 1–7 · 7 דירות — 107 מ״ר)",
+      "how_to_execute": "קיצור מסדרון חדרי השינה הארוך (5.10 מ׳) ב-125 ס״מ על ידי הזזת דלת יחידת ההורים קדימה והכללת קצה המסדרון כחלק ממבואת חדר ההורים וארון הקיר.",
+      "typology": "שיפור תכנון פנים-דירתי ופתחים — טיפוס B דרום-מזרחי (קומות 1–7 · 7 דירות — 107 מ״ר)",
+      "room_name": "📍 טיפוס B דרום-מזרחי (קומות 1–7 · 7 דירות — 107 מ״ר) — מסדרון (10.2 ← 8.2 מ״ר)",
+      "status": "WARN",
+      "rule_id": "שיפור תכנון פנים-דירתי (Space Syntax)",
+      "title": "שיפור תכנון: העברת +2.0 מ״ר ממסדרון לחדרי מגורים (+14.0 מ״ר ב-7 דירות)",
+      "measured": "מסדרון נוכחי: 10.2 מ״ר לדירה (קונטור דירה קבוע)",
+      "benchmark": "מסדרון יעיל: 8.2 מ״ר (+2.0 מ״ר ל-הגדלת סוויטת ההורים הדרום-מזרחית ב-1.2 מ״ר + נישת ארון שירות/ספרייה של 0.8 מ״ר)",
+      "summary": "🛠️ הצעה לשיפור תכנון פנים: קיצור מסדרון חדרי השינה הארוך (5.10 מ׳) ב-125 ס״מ על ידי הזזת דלת יחידת ההורים קדימה והכללת קצה המסדרון כחלק ממבואת חדר ההורים וארון הקיר. | תוצאה: הגדלת הגדלת סוויטת ההורים הדרום-מזרחית ב-1.2 מ״ר + נישת ארון שירות/ספרייה של 0.8 מ״ר (ללא שינוי קונטור הבנייה).",
+      "recommendation": "🪟 שיפור פתחים ואלומיניום: איחוד חלונות חזית מזרחית (אורך 33.09 מ׳) למודול אחיד וצמצום זיגוג עודף במעברים.",
+      "visual_explanation": {
+        "diagram_type": "APT_CORRIDOR",
+        "before_val": 10.2,
+        "after_val": 8.2,
+        "unit_label": "מ״ר מסדרון לדירה",
+        "recommendation": {
+          "where": "טיפוס B דרום-מזרחי (קומות 1–7 · 7 דירות — 107 מ״ר)",
+          "finding": "ב-טיפוס B דרום-מזרחי (קומות 1–7 · 7 דירות — 107 מ״ר) שטח המסדרון והמעברים עומד על 10.2 מ״ר לדירה על חשבון שטח חדרי המגורים."
+        },
+        "solution": {
+          "how_to_execute": "קיצור מסדרון חדרי השינה הארוך (5.10 מ׳) ב-125 ס״מ על ידי הזזת דלת יחידת ההורים קדימה והכללת קצה המסדרון כחלק ממבואת חדר ההורים וארון הקיר.",
+          "mechanism": "ייעול פתחים ואלומיניום: איחוד חלונות חזית מזרחית (אורך 33.09 מ׳) למודול אחיד וצמצום זיגוג עודף במעברים."
+        },
+        "savings": {
+          "formula": "0 ₪ חיסכון בשלד (קונטור הפלדלת של הדירה נשאר זהה) ← השבחה תכנונית של +2.0 מ״ר לדירה (+14.0 מ״ר ב-7 דירות).",
+          "rate_label": "0 ₪ חיסכון שלד (שיפור תכנון פנים)",
+          "gross_sqm": 14.0,
+          "locked_sqm": 14.0,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 0.0
+        },
+        "building_impact": {
+          "contour": "0.0 מ״ר שינוי בקונטור החוץ של הדירה והבניין (100% שמירה על שטח הפלדלת)",
+          "apartments": "הגדלת סוויטת ההורים הדרום-מזרחית ב-1.2 מ״ר + נישת ארון שירות/ספרייה של 0.8 מ״ר (+14.0 מ״ר שטח מגורים אפקטיבי בפרויקט)",
+          "parking": "ללא השפעה על חניות או שלד",
+          "utilities": "שיפור תרמי, אקוסטי וכלכלי בפתחים: איחוד חלונות חזית מזרחית (אורך 33.09 מ׳) למודול אחיד וצמצום זיגוג עודף במעברים."
+        }
+      },
+      "x_pct": 52.0,
+      "y_pct": 55.0,
+      "w_pct": 26.0,
+      "h_pct": 22.0,
+      "cx_pct": 65.0,
+      "cy_pct": 66.0
+    },
+    {
+      "id": "KKL-OPT-APT2",
+      "pin_num": 24,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl10_apt_improvement",
+      "is_value_eng": false,
+      "is_design_improvement": true,
+      "ve_category": "APT",
+      "ve_saving_ils": 0,
+      "ve_saved_sqm": 11.9,
+      "ve_proposed_gross_sqm": 11.9,
+      "ve_locked_non_contour_sqm": 11.9,
+      "design_improvement_sqm": 11.9,
+      "contour_efficiency_pct": 0.0,
+      "ve_callout_badge": "🛋️ שיפור תכנון: +1.7 מ״ר לחדרים",
+      "where_on_plan": "טיפוסים A, E, F דרום-מערביים (קומות 1–7 · 7 דירות — 113–128 מ״ר)",
+      "how_to_execute": "ביטול שבירת המסדרון הכפולה בכניסה לאגף חדרי השינה והעברת 1.7 מ״ר משטח המעבר אל החלל הציבורי וחדר הילדים.",
+      "typology": "שיפור תכנון פנים-דירתי ופתחים — טיפוסים A, E, F דרום-מערביים (קומות 1–7 · 7 דירות — 113–128 מ״ר)",
+      "room_name": "📍 טיפוסים A, E, F דרום-מערביים (קומות 1–7 · 7 דירות — 113–128 מ״ר) — מסדרון (9.8 ← 8.1 מ״ר)",
+      "status": "WARN",
+      "rule_id": "שיפור תכנון פנים-דירתי (Space Syntax)",
+      "title": "שיפור תכנון: העברת +1.7 מ״ר ממסדרון לחדרי מגורים (+11.9 מ״ר ב-7 דירות)",
+      "measured": "מסדרון נוכחי: 9.8 מ״ר לדירה (קונטור דירה קבוע)",
+      "benchmark": "מסדרון יעיל: 8.1 מ״ר (+1.7 מ״ר ל-הרחבת הסלון/פינת האוכל והגדלת חדר השינה הסמוך לממ״ד (תיקון מרווח גישה למיטה))",
+      "summary": "🛠️ הצעה לשיפור תכנון פנים: ביטול שבירת המסדרון הכפולה בכניסה לאגף חדרי השינה והעברת 1.7 מ״ר משטח המעבר אל החלל הציבורי וחדר הילדים. | תוצאה: הגדלת הרחבת הסלון/פינת האוכל והגדלת חדר השינה הסמוך לממ״ד (תיקון מרווח גישה למיטה) (ללא שינוי קונטור הבנייה).",
+      "recommendation": "🪟 שיפור פתחים ואלומיניום: איזון מפתחי חלונות בחזית המערבית (WWR 20.5%) עם הצללה אינטגרלית בתריסי אור.",
+      "visual_explanation": {
+        "diagram_type": "APT_CORRIDOR",
+        "before_val": 9.8,
+        "after_val": 8.1,
+        "unit_label": "מ״ר מסדרון לדירה",
+        "recommendation": {
+          "where": "טיפוסים A, E, F דרום-מערביים (קומות 1–7 · 7 דירות — 113–128 מ״ר)",
+          "finding": "ב-טיפוסים A, E, F דרום-מערביים (קומות 1–7 · 7 דירות — 113–128 מ״ר) שטח המסדרון והמעברים עומד על 9.8 מ״ר לדירה על חשבון שטח חדרי המגורים."
+        },
+        "solution": {
+          "how_to_execute": "ביטול שבירת המסדרון הכפולה בכניסה לאגף חדרי השינה והעברת 1.7 מ״ר משטח המעבר אל החלל הציבורי וחדר הילדים.",
+          "mechanism": "ייעול פתחים ואלומיניום: איזון מפתחי חלונות בחזית המערבית (WWR 20.5%) עם הצללה אינטגרלית בתריסי אור."
+        },
+        "savings": {
+          "formula": "0 ₪ חיסכון בשלד (קונטור הפלדלת של הדירה נשאר זהה) ← השבחה תכנונית של +1.7 מ״ר לדירה (+11.9 מ״ר ב-7 דירות).",
+          "rate_label": "0 ₪ חיסכון שלד (שיפור תכנון פנים)",
+          "gross_sqm": 11.9,
+          "locked_sqm": 11.9,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 0.0
+        },
+        "building_impact": {
+          "contour": "0.0 מ״ר שינוי בקונטור החוץ של הדירה והבניין (100% שמירה על שטח הפלדלת)",
+          "apartments": "הרחבת הסלון/פינת האוכל והגדלת חדר השינה הסמוך לממ״ד (תיקון מרווח גישה למיטה) (+11.9 מ״ר שטח מגורים אפקטיבי בפרויקט)",
+          "parking": "ללא השפעה על חניות או שלד",
+          "utilities": "שיפור תרמי, אקוסטי וכלכלי בפתחים: איזון מפתחי חלונות בחזית המערבית (WWR 20.5%) עם הצללה אינטגרלית בתריסי אור."
+        }
+      },
+      "x_pct": 22.0,
+      "y_pct": 55.0,
+      "w_pct": 26.0,
+      "h_pct": 22.0,
+      "cx_pct": 35.0,
+      "cy_pct": 66.0
+    },
+    {
+      "id": "KKL-OPT-APT3",
+      "pin_num": 25,
+      "sheet_id": "kkl_typical",
+      "section_id": "sec_kkl10_apt_improvement",
+      "is_value_eng": false,
+      "is_design_improvement": true,
+      "ve_category": "APT",
+      "ve_saving_ils": 0,
+      "ve_saved_sqm": 10.5,
+      "ve_proposed_gross_sqm": 10.5,
+      "ve_locked_non_contour_sqm": 10.5,
+      "design_improvement_sqm": 10.5,
+      "contour_efficiency_pct": 0.0,
+      "ve_callout_badge": "🛋️ שיפור תכנון: +1.5 מ״ר לחדרים",
+      "where_on_plan": "טיפוסים C, D, G, H צפוניים (קומות 1–7 · 7 דירות — 108–126 מ״ר)",
+      "how_to_execute": "יישור קיר המסדרון הצפוני והטמעת נישת ארונות בעומק 60 ס״מ בין חדר הרחצה לחדר השינה.",
+      "typology": "שיפור תכנון פנים-דירתי ופתחים — טיפוסים C, D, G, H צפוניים (קומות 1–7 · 7 דירות — 108–126 מ״ר)",
+      "room_name": "📍 טיפוסים C, D, G, H צפוניים (קומות 1–7 · 7 דירות — 108–126 מ״ר) — מסדרון (9.5 ← 8.0 מ״ר)",
+      "status": "WARN",
+      "rule_id": "שיפור תכנון פנים-דירתי (Space Syntax)",
+      "title": "שיפור תכנון: העברת +1.5 מ״ר ממסדרון לחדרי מגורים (+10.5 מ״ר ב-7 דירות)",
+      "measured": "מסדרון נוכחי: 9.5 מ״ר לדירה (קונטור דירה קבוע)",
+      "benchmark": "מסדרון יעיל: 8.0 מ״ר (+1.5 מ״ר ל-הגדלת חדר השינה הצפוני ושילוב ארון קיר שקוע בקו אפס)",
+      "summary": "🛠️ הצעה לשיפור תכנון פנים: יישור קיר המסדרון הצפוני והטמעת נישת ארונות בעומק 60 ס״מ בין חדר הרחצה לחדר השינה. | תוצאה: הגדלת הגדלת חדר השינה הצפוני ושילוב ארון קיר שקוע בקו אפס (ללא שינוי קונטור הבנייה).",
+      "recommendation": "🪟 שיפור פתחים ואלומיניום: סטנדרטיזציה של ויטרינות היציאה למרפסות הצפוניות.",
+      "visual_explanation": {
+        "diagram_type": "APT_CORRIDOR",
+        "before_val": 9.5,
+        "after_val": 8.0,
+        "unit_label": "מ״ר מסדרון לדירה",
+        "recommendation": {
+          "where": "טיפוסים C, D, G, H צפוניים (קומות 1–7 · 7 דירות — 108–126 מ״ר)",
+          "finding": "ב-טיפוסים C, D, G, H צפוניים (קומות 1–7 · 7 דירות — 108–126 מ״ר) שטח המסדרון והמעברים עומד על 9.5 מ״ר לדירה על חשבון שטח חדרי המגורים."
+        },
+        "solution": {
+          "how_to_execute": "יישור קיר המסדרון הצפוני והטמעת נישת ארונות בעומק 60 ס״מ בין חדר הרחצה לחדר השינה.",
+          "mechanism": "ייעול פתחים ואלומיניום: סטנדרטיזציה של ויטרינות היציאה למרפסות הצפוניות."
+        },
+        "savings": {
+          "formula": "0 ₪ חיסכון בשלד (קונטור הפלדלת של הדירה נשאר זהה) ← השבחה תכנונית של +1.5 מ״ר לדירה (+10.5 מ״ר ב-7 דירות).",
+          "rate_label": "0 ₪ חיסכון שלד (שיפור תכנון פנים)",
+          "gross_sqm": 10.5,
+          "locked_sqm": 10.5,
+          "net_contour_sqm": 0.0,
+          "saving_ils": 0,
+          "efficiency_pct": 0.0
+        },
+        "building_impact": {
+          "contour": "0.0 מ״ר שינוי בקונטור החוץ של הדירה והבניין (100% שמירה על שטח הפלדלת)",
+          "apartments": "הגדלת חדר השינה הצפוני ושילוב ארון קיר שקוע בקו אפס (+10.5 מ״ר שטח מגורים אפקטיבי בפרויקט)",
+          "parking": "ללא השפעה על חניות או שלד",
+          "utilities": "שיפור תרמי, אקוסטי וכלכלי בפתחים: סטנדרטיזציה של ויטרינות היציאה למרפסות הצפוניות."
+        }
+      },
+      "x_pct": 25.0,
+      "y_pct": 18.0,
+      "w_pct": 45.0,
+      "h_pct": 22.0,
+      "cx_pct": 47.5,
+      "cy_pct": 29.0
+    }
+  ],
+  "project_data_summary": {
+    "project_id": "kkl10",
+    "project_name": "קק״ל 10 (קרן קיימת לישראל 10), פתח תקווה",
+    "lot_area_sqm": 980.0,
+    "buildings_count": 1,
+    "apartments_count": 25,
+    "floors_above_ground": 9,
+    "underground_levels": 2,
+    "building_height_m": 31.4,
+    "total_built_area_sqm": 5095.4,
+    "above_ground_areas": {
+      "total_sqm": 3509.4,
+      "net_apartments_sqm": 2955.3,
+      "core_and_service_sqm": 554.1,
+      "summary_note": "9 קומות עיליות (קומת קרקע עם 2 דירות גן + קומות 1–7 עם 21 דירות ב-8 טיפוסים + קומה 8 עם 2 פנטהאוזים + גג טכני)",
+      "by_floor": [
+        {
+          "floor_label": "קומת קרקע (L0 — כניסה ודירות גן)",
+          "elevation": "±0.00 (גובה 4.20 מ׳)",
+          "units_count": 2,
+          "usage_description": "2 דירות גן (G-1 צפונית: 108 מ״ר + G-2 דרומית: 108 מ״ר) + לובי ראשי (51.6 מ״ר), חדר עגלות (18.15 מ״ר), חדר אשפה (32.67 מ״ר), חדר גז (12.1 מ״ר) וגרעין 2 מעליות",
+          "apartments_sqm": 216.0,
+          "core_service_sqm": 205.2,
+          "total_floor_sqm": 421.2,
+          "pct_of_above_ground": 12.0
+        },
+        {
+          "floor_label": "קומה 1 (L1 — טיפוסית תחתונה)",
+          "elevation": "+4.20 (גובה 3.15 מ׳)",
+          "units_count": 3,
+          "usage_description": "3 יח״ד (טיפוס B: 107 מ״ר, טיפוס A: 113 מ״ר, טיפוס C עם מרפסת 24 מ״ר: 126 מ״ר) + גרעין 2 מעליות ומדרגות",
+          "apartments_sqm": 346.0,
+          "core_service_sqm": 42.8,
+          "total_floor_sqm": 388.8,
+          "pct_of_above_ground": 11.08
+        },
+        {
+          "floor_label": "קומה 2 (L2 — טיפוסית תחתונה)",
+          "elevation": "+7.35 (גובה 3.15 מ׳)",
+          "units_count": 3,
+          "usage_description": "3 יח״ד (טיפוס B: 107 מ״ר, טיפוס A: 113 מ״ר, טיפוס C: 126 מ״ר) + גרעין 2 מעליות ומדרגות",
+          "apartments_sqm": 346.0,
+          "core_service_sqm": 42.8,
+          "total_floor_sqm": 388.8,
+          "pct_of_above_ground": 11.08
+        },
+        {
+          "floor_label": "קומה 3 (L3 — טיפוסית אמצעית)",
+          "elevation": "+10.50 (גובה 3.15 מ׳)",
+          "units_count": 3,
+          "usage_description": "3 יח״ד (טיפוס B: 107 מ״ר, טיפוס E: 128 מ״ר, טיפוס D: 108 מ״ר) + גרעין 2 מעליות ומדרגות",
+          "apartments_sqm": 343.0,
+          "core_service_sqm": 42.8,
+          "total_floor_sqm": 385.8,
+          "pct_of_above_ground": 10.99
+        },
+        {
+          "floor_label": "קומה 4 (L4 — טיפוסית אמצעית)",
+          "elevation": "+13.65 (גובה 3.15 מ׳)",
+          "units_count": 3,
+          "usage_description": "3 יח״ד (טיפוס B: 107 מ״ר, טיפוס E: 128 מ״ר, טיפוס D: 108 מ״ר) + גרעין 2 מעליות ומדרגות",
+          "apartments_sqm": 343.0,
+          "core_service_sqm": 42.8,
+          "total_floor_sqm": 385.8,
+          "pct_of_above_ground": 10.99
+        },
+        {
+          "floor_label": "קומה 5 (L5 — טיפוסית)",
+          "elevation": "+16.80 (גובה 3.15 מ׳)",
+          "units_count": 3,
+          "usage_description": "3 יח״ד (טיפוס B: 107 מ״ר, טיפוס F: 122 מ״ר, טיפוס G: 112 מ״ר) + גרעין 2 מעליות ומדרגות",
+          "apartments_sqm": 341.0,
+          "core_service_sqm": 42.8,
+          "total_floor_sqm": 383.8,
+          "pct_of_above_ground": 10.94
+        },
+        {
+          "floor_label": "קומה 6 (L6 — טיפוסית עליונה)",
+          "elevation": "+19.95 (גובה 3.15 מ׳)",
+          "units_count": 3,
+          "usage_description": "3 יח״ד (טיפוס B: 107 מ״ר, טיפוס A: 114 מ״ר, טיפוס H: 122 מ״ר) + גרעין 2 מעליות ומדרגות",
+          "apartments_sqm": 343.0,
+          "core_service_sqm": 42.8,
+          "total_floor_sqm": 385.8,
+          "pct_of_above_ground": 10.99
+        },
+        {
+          "floor_label": "קומה 7 (L7 — טיפוסית עליונה)",
+          "elevation": "+23.10 (גובה 3.40 מ׳)",
+          "units_count": 3,
+          "usage_description": "3 יח״ד (טיפוס B: 107 מ״ר, טיפוס A: 114 מ״ר, טיפוס H: 122 מ״ר) + גרעין 2 מעליות ומדרגות",
+          "apartments_sqm": 343.0,
+          "core_service_sqm": 42.8,
+          "total_floor_sqm": 385.8,
+          "pct_of_above_ground": 10.99
+        },
+        {
+          "floor_label": "קומה 8 (L8 — קומת פנטהאוזים)",
+          "elevation": "+26.50 (גובה 3.40 מ׳)",
+          "units_count": 2,
+          "usage_description": "2 דירות פנטהאוז (PH-1 צפוני: 159.0 מ״ר + PH-2 דרומי: 137.3 מ״ר) + גרעין 2 מעליות ומדרגות",
+          "apartments_sqm": 296.3,
+          "core_service_sqm": 42.8,
+          "total_floor_sqm": 339.1,
+          "pct_of_above_ground": 9.66
+        },
+        {
+          "floor_label": "גג טכני ויציאה לגג (L9)",
+          "elevation": "+29.90 עד +31.40",
+          "units_count": 0,
+          "usage_description": "חדר יציאה לגג, ראשי 2 מעליות, מערכות סולאריות וציוד מיזוג",
+          "apartments_sqm": 0.0,
+          "core_service_sqm": 44.5,
+          "total_floor_sqm": 44.5,
+          "pct_of_above_ground": 1.27
+        }
+      ]
+    },
+    "underground_areas": {
+      "total_sqm": 1586.0,
+      "parking_spaces": 34,
+      "parking_ratio": "1:1.36 (34 חניות רגילות ל-25 יח״ד + 14 מחסנים)",
+      "summary_note": "2 קומות מרתף חניון מלאות (793.0 מ״ר לקומה) עם 34 חניות רגילות (100% ללא מכפילים), 14 מחסנים ומאגר מים",
+      "by_floor": [
+        {
+          "floor_label": "מרתף חניון 1- (Basement -1)",
+          "elevation": "-4.35 (גובה 4.35 מ׳)",
+          "usage_description": "16 חניות רגילות, 8 מחסנים דירתיים, מיסעה דו-סטרית 6.00 מ׳, רמפת כניסה וגרעין 2 מעליות ומדרגות",
+          "total_floor_sqm": 793.0,
+          "pct_of_underground": 50.0
+        },
+        {
+          "floor_label": "מרתף חניון 2- (Basement -2 + מאגרים)",
+          "elevation": "-7.65 / -9.07 (גובה 3.30 מ׳)",
+          "usage_description": "18 חניות רגילות, 6 מחסנים דירתיים, מאגר מים תת-קרקעי וחדר משאבות ב--9.07m וגרעין כפול",
+          "total_floor_sqm": 793.0,
+          "pct_of_underground": 50.0
+        }
+      ]
+    },
+    "roof_terraces": {
+      "total_sqm": 83.0,
+      "count": 2,
+      "garden_terraces_sqm": 215.0,
+      "summary_note": "83.0 מ״ר מרפסות גג בקומה 8 (פנטהאוזים PH-1 ו-PH-2), ובנוסף 215.0 מ״ר גינות פרטיות צמודות לדירות הגן בקומת הקרקע",
+      "breakdown": [
+        {
+          "floor_label": "קומה 8 (פנטהאוז PH-1 צפוני)",
+          "unit_label": "פנטהאוז PH-1 (5 חדרים, 159 מ״ר)",
+          "dimensions": "מרפסת גג צפונית רחבה לרחוב קק״ל (12.73×3.45 מ׳)",
+          "area_sqm": 44.0
+        },
+        {
+          "floor_label": "קומה 8 (פנטהאוז PH-2 דרומי)",
+          "unit_label": "פנטהאוז PH-2 (5 חדרים, 137.3 מ״ר)",
+          "dimensions": "מרפסת גג דרומית פנורמית (12.73×3.06 מ׳)",
+          "area_sqm": 39.0
+        },
+        {
+          "floor_label": "קומת קרקע (גינות צמודות — מוצג לידיעה)",
+          "unit_label": "דירות גן G-1 (110 מ״ר גינה) + G-2 (105 מ״ר גינה)",
+          "dimensions": "שטחי חצר וגינה פרטית במפלס הקרקע (סה״כ 215.0 מ״ר גינות)",
+          "area_sqm": 215.0
+        }
+      ]
+    },
+    "suspended_balconies": {
+      "total_sqm": 276.0,
+      "count": 21,
+      "sun_balconies_sqm": 276.0,
+      "service_balconies_sqm": 29.4,
+      "summary_note": "21 מרפסות שמש זיזיות בקומות 1–7: שתי מרפסות כפולות של 24.0 מ״ר בטיפוס C (קומות 1–2) + 19 מרפסות של 12.0 מ״ר",
+      "breakdown": [
+        {
+          "floor_label": "קומות 1–2 (2 קומות)",
+          "unit_label": "טיפוס C צפוני — מרפסת כפולה (2 יח״ד)",
+          "count": 2,
+          "unit_area_sqm": 24.0,
+          "total_area_sqm": 48.0,
+          "dimensions": "מרפסת חזיתית רחבה 24.0 מ״ר לחזית רחוב קק״ל"
+        },
+        {
+          "floor_label": "קומות 1–7 (7 קומות)",
+          "unit_label": "טיפוס B דרום-מזרחי (7 יח״ד)",
+          "count": 7,
+          "unit_area_sqm": 12.0,
+          "total_area_sqm": 84.0,
+          "dimensions": "400×300 ס״מ (12.0 מ״ר לדירה בחזית הדרומית)"
+        },
+        {
+          "floor_label": "קומות 1–7 (7 קומות)",
+          "unit_label": "טיפוסים A, E, F דרום-מערביים (7 יח״ד)",
+          "count": 7,
+          "unit_area_sqm": 12.0,
+          "total_area_sqm": 84.0,
+          "dimensions": "400×300 ס״מ (12.0 מ״ר לדירה בחזית הדרומית/מערבית)"
+        },
+        {
+          "floor_label": "קומות 3–7 (5 קומות)",
+          "unit_label": "טיפוסים D, G, H צפוניים (5 יח״ד)",
+          "count": 5,
+          "unit_area_sqm": 12.0,
+          "total_area_sqm": 60.0,
+          "dimensions": "400×300 ס״מ (12.0 מ״ר לדירה בחזית הצפונית)"
+        }
+      ]
+    },
+    "facades": {
+      "total_sqm": 2694.0,
+      "building_height_m": 31.4,
+      "total_glazing_sqm": 675.0,
+      "total_opaque_sqm": 2019.0,
+      "average_wwr_pct": 25.1,
+      "summary_note": "מבנה מלבני ארוך במידות 12.73×33.09 מ׳ ובגובה +31.40 מ׳ (יחס גובה-רוחב 2.47) עם 4 חזיתות מחופות אבן ואלומיניום",
+      "by_direction": [
+        {
+          "facade_name": "חזית צפונית (חזית ראשית לרחוב קק״ל 10)",
+          "direction": "צפון",
+          "length_m": 12.73,
+          "height_m": 30.0,
+          "gross_area_sqm": 382.0,
+          "pct_of_total": 14.18,
+          "glazing_area_sqm": 128.0,
+          "opaque_area_sqm": 254.0,
+          "wwr_pct": 33.5,
+          "materials_and_elements": "ויטרינות סלונים צפוניים, מרפסות 24 מ״ר בקומות 1–2 ומרפסות 12 מ״ר בקומות 3–7, קומת כניסה גבוהה (4.20 מ׳)"
+        },
+        {
+          "facade_name": "חזית דרומית (חזית עורפית לגינה הדרומית)",
+          "direction": "דרום",
+          "length_m": 12.73,
+          "height_m": 30.0,
+          "gross_area_sqm": 382.0,
+          "pct_of_total": 14.18,
+          "glazing_area_sqm": 134.0,
+          "opaque_area_sqm": 248.0,
+          "wwr_pct": 35.1,
+          "materials_and_elements": "זוג מרפסות שמש סימטריות בכל קומה (טיפוס B + טיפוס A/E/F), ויטרינות רחבות וטרסת פנטהאוז PH-2"
+        },
+        {
+          "facade_name": "חזית מזרחית (אורך 33.09 מ׳)",
+          "direction": "מזרח",
+          "length_m": 33.09,
+          "height_m": 29.16,
+          "gross_area_sqm": 965.0,
+          "pct_of_total": 35.82,
+          "glazing_area_sqm": 215.0,
+          "opaque_area_sqm": 750.0,
+          "wwr_pct": 22.3,
+          "materials_and_elements": "חלונות חדרי שינה, סוויטות הורים, ממ״דים (מגדל מזרחי) ורפפות מסתורי כביסה מאווררים"
+        },
+        {
+          "facade_name": "חזית מערבית (אורך 33.09 מ׳)",
+          "direction": "מערב",
+          "length_m": 33.09,
+          "height_m": 29.16,
+          "gross_area_sqm": 965.0,
+          "pct_of_total": 35.82,
+          "glazing_area_sqm": 198.0,
+          "opaque_area_sqm": 767.0,
+          "wwr_pct": 20.5,
+          "materials_and_elements": "חלונות חדרי שינה, מטבחים, ממ״דים מערביים, גרעין מדרגות משותף ורפפות אלומיניום"
+        }
+      ]
+    },
+    "summary_document": {
+      "document_title": "מסמך סיכום הערות בקרת איכות והצעות לשיפור — קק״ל 10, פתח תקווה",
+      "overall_verdict": "ציון איכות משוקלל 91.5/100 (דירוג A). פרויקט מצטיין עם 0 כשלים סטטוטוריים (0 FAIL), ליבת תנועה כפולה עם 2 מעליות ל-25 דירות, ו-34 חניות רגילות ב-2 מרתפים ללא מכפילים. ההערות מתמקדות באופטימיזציה ארגונומית ואקוסטית.",
+      "critical_notes_summary": [
+        "0 כשלים סטטוטוריים (0 FAIL) בכל 25 הדירות ובשטחים המשותפים.",
+        "בטיפוס B הדרום-מזרחי (7 דירות בקומות 1–7) אורך המסדרון הפנימי מגיע ל-5.10 מ׳ בשל עומק המבנה (33.09 מ׳).",
+        "בפנטהאוזים PH-1 ו-PH-2 קיימת פוטנציאל להד אקוסטי בחלל הסלון-אוכל הענק (42–48 מ״ר) ומרחק הליכה ארוך בצלעות המטבח.",
+        "בדירות הגן (G-1, G-2) נדרשת הפרדה מוקפדת של צנרת וניקוזים מעל תקרת מרתף -1."
+      ],
+      "improvement_proposals": [
+        {
+          "priority": "בינונית (תכנון פנים ונגרות)",
+          "target": "טיפוס B (קומות 1–7) — מסדרון חדרי השינה (5.10 מ׳)",
+          "issue": "מסדרון ארוך יחסית המייצר תחושת מעבר צר.",
+          "proposal": "גריעת נישה בעומק 45 ס״מ לארון שירות/ספרייה מוארת ותכנון תאורה שקועה שוטפת קיר (Wall-Washer) לאורך המסדרון.",
+          "impact": "שבירת תחושת האורך והוספת שטח אחסון שימושי לכל 7 דירות טיפוס B."
+        },
+        {
+          "priority": "בינונית (איטום ופיתוח קומת קרקע)",
+          "target": "דירות גן G-1 ו-G-2 (קומת קרקע מעל מרתף -1)",
+          "issue": "גינות פרטיות בשטח 215 מ״ר מעל תקרת מרתף החניון.",
+          "proposal": "הבטחת עומק מצע גינון מינימלי של 60 ס״מ עם יריעות ניקוז גיאוטכניות ומערכת השקיה מבוקרת למניעת רטיבות בתקרת מרתף -1.",
+          "impact": "מניעת ליקויי איטום עתידיים והבטחת צמחייה עשירה בדירות הגן."
+        },
+        {
+          "priority": "מומלצת (ארגונומיית מטבח בפנטהאוזים)",
+          "target": "פנטהאוזים PH-1 ו-PH-2 (קומה 8)",
+          "issue": "משולש עבודה רחב במטבח השף.",
+          "proposal": "הוספת כיור הכנה משני (Prep Sink) באי המרכזי של המטבח לקיצור משולש העבודה בהתאם לתקן NKBA.",
+          "impact": "שיפור הנוחות התפעולית במטבחי הפנטהאוזים."
+        },
+        {
+          "priority": "הועבר מחיסכון לשיפור תכנון (קונטור נעול)",
+          "target": "קומות 1–8 וקומת קרקע — נישת מבואה כלואה בין 2 המעליות (12 מ״ר) ומעבר שירות תחת תקרת קומה 1 (12 מ״ר) (סיכה #22)",
+          "issue": "בדיקת קונטור שלילית (0 מ״ר הקטנת קונטור בניין): הנישה בין שתי המעליות כלואה בין 4 דירות בפינות הבניין ועמודי הגרעין (מבחן 1), ומעבר השירות בקומת הקרקע חופף ב-100% לתקרת קומה 1 שמעליו (מבחן 2). לכן שטח התקרה הכולל אינו קטן (0 ₪ חיסכון בנייה) והפריט סווג כשיפור תכנון.",
+          "proposal": "סיפוח 1.5 מ״ר בכל קומה להרחבת מבואות הכניסה לדירות והגדלת הלובי הראשי בקומת הקרקע ב-12.0 מ״ר.",
+          "impact": "+24.0 מ״ר שיפור תכנון ומבואות (0 ₪ חיסכון שלד כי הקונטור הכולל לא קטן)",
+          "note_id": "KKL-LOCKED-CORE1",
+          "pin_num": 22,
+          "sheet_id": "kkl_typical"
+        },
+        {
+          "priority": "שיפור תכנון פנים-דירתי",
+          "target": "טיפוס B דרום-מזרחי (קומות 1–7 · 7 דירות — 107 מ״ר) (סיכה #23)",
+          "issue": "מסדרון פנים בשטח 10.2 מ״ר לדירה על חשבון שטח חדרי המגורים (ללא שינוי קונטור הבנייה)",
+          "proposal": "קיצור מסדרון חדרי השינה הארוך (5.10 מ׳) ב-125 ס״מ על ידי הזזת דלת יחידת ההורים קדימה והכללת קצה המסדרון כחלק ממבואת חדר ההורים וארון הקיר. · ייעול פתחים: איחוד חלונות חזית מזרחית (אורך 33.09 מ׳) למודול אחיד וצמצום זיגוג עודף במעברים.",
+          "impact": "הגדלת הגדלת סוויטת ההורים הדרום-מזרחית ב-1.2 מ״ר + נישת ארון שירות/ספרייה של 0.8 מ״ר ב-+2.0 מ״ר לדירה (+14.0 מ״ר ב-7 דירות)",
+          "note_id": "KKL-OPT-APT1",
+          "pin_num": 23,
+          "sheet_id": "kkl_typical"
+        },
+        {
+          "priority": "שיפור תכנון פנים-דירתי",
+          "target": "טיפוסים A, E, F דרום-מערביים (קומות 1–7 · 7 דירות — 113–128 מ״ר) (סיכה #24)",
+          "issue": "מסדרון פנים בשטח 9.8 מ״ר לדירה על חשבון שטח חדרי המגורים (ללא שינוי קונטור הבנייה)",
+          "proposal": "ביטול שבירת המסדרון הכפולה בכניסה לאגף חדרי השינה והעברת 1.7 מ״ר משטח המעבר אל החלל הציבורי וחדר הילדים. · ייעול פתחים: איזון מפתחי חלונות בחזית המערבית (WWR 20.5%) עם הצללה אינטגרלית בתריסי אור.",
+          "impact": "הגדלת הרחבת הסלון/פינת האוכל והגדלת חדר השינה הסמוך לממ״ד (תיקון מרווח גישה למיטה) ב-+1.7 מ״ר לדירה (+11.9 מ״ר ב-7 דירות)",
+          "note_id": "KKL-OPT-APT2",
+          "pin_num": 24,
+          "sheet_id": "kkl_typical"
+        },
+        {
+          "priority": "שיפור תכנון פנים-דירתי",
+          "target": "טיפוסים C, D, G, H צפוניים (קומות 1–7 · 7 דירות — 108–126 מ״ר) (סיכה #25)",
+          "issue": "מסדרון פנים בשטח 9.5 מ״ר לדירה על חשבון שטח חדרי המגורים (ללא שינוי קונטור הבנייה)",
+          "proposal": "יישור קיר המסדרון הצפוני והטמעת נישת ארונות בעומק 60 ס״מ בין חדר הרחצה לחדר השינה. · ייעול פתחים: סטנדרטיזציה של ויטרינות היציאה למרפסות הצפוניות.",
+          "impact": "הגדלת הגדלת חדר השינה הצפוני ושילוב ארון קיר שקוע בקו אפס ב-+1.5 מ״ר לדירה (+10.5 מ״ר ב-7 דירות)",
+          "note_id": "KKL-OPT-APT3",
+          "pin_num": 25,
+          "sheet_id": "kkl_typical"
+        }
+      ],
+      "notes_statistics": {
+        "total_notes": 25,
+        "fail_count": 1,
+        "warn_count": 18,
+        "pass_count": 6
+      },
+      "all_notes_digest": [
+        {
+          "pin_num": 1,
+          "id": "KKL-PARK-01",
+          "status": "PASS",
+          "typology": "מרתף חניון 1- (גרמושקה P-23)",
+          "room_name": "מרתף 1- (793 מ״ר): 16 חניות רגילות (#1–#16, רוחב 230–295 ס״מ) ו-8 מחסנים דירתיים",
+          "title": "16 חניות רגילות במרתף 1- ו-8 מחסנים בנויים (3.7–5.2 מ״ר) — ללא חדר שנאים וללא מכפילים",
+          "measured": "16 חניות רגילות · 8 מחסנים · עמדות המתנה 250×500 ס״מ",
+          "recommendation": "לסמן הכנות טעינה לחשמלי (EV) לכל תאי החניה מלוח החשמל הקומתי."
+        },
+        {
+          "pin_num": 2,
+          "id": "KKL-PARK-02",
+          "status": "FAIL",
+          "typology": "מרתפי חניון 1- ו-2- (גרמושקה P-23)",
+          "room_name": "קצה מיסעה במבוי סתום במרתף — בדיקת 'כיס הארכה' לתמרון לחניה האחרונה",
+          "title": "ליקוי תכנוני לתיקון: חוסר בכיס הארכה (1.00 מ׳) בקצה מיסעה ללא מוצא לחניה הקיצונית",
+          "measured": "34 חניות רגילות (16 במרתף 1- + 18 במרתף 2-) · קצה מיסעה סגור",
+          "recommendation": "להעמיק את קצה המיסעה ב-100 ס״מ ליצירת מפרץ תמרון תקני לחניות הקצה."
+        },
+        {
+          "pin_num": 3,
+          "id": "KKL-E-01",
+          "status": "PASS",
+          "typology": "דירה E / A (אגף דרום-מזרחי · 114–129 מ״ר)",
+          "room_name": "חדר מגורים, פינת אוכל ומטבח (588×580 ס״מ) + מרפסת דרומית (607×207 ס״מ)",
+          "title": "חלל ציבורי רחב ומואר בדרום-מזרח (588×580 ס״מ) עם מרפסת שמש בעומק 2.07 מ׳!",
+          "measured": "סלון-מטבח: 588×580 ס״מ (אורך כללי 804 ס״מ) · מרפסת: 607×207 ס״מ",
+          "recommendation": "ניצול נישת המטבח ברוחב 302 ס״מ לאי עבודה מרכזי במקביל לוויטרינה הדרומית."
+        },
+        {
+          "pin_num": 4,
+          "id": "KKL-E-02",
+          "status": "WARN",
+          "typology": "דירה E / A (אגף דרום-מזרחי · קומות 1–8)",
+          "room_name": "ח. שינה ממ״ד מזרחי (268×345 ס״מ = 9.25 מ״ר נטו)",
+          "title": "רוחב ממ״ד 268 ס״מ בלבד (268×345 ס״מ) — עובר בקושי את המינימום החוקי (260 ס״מ), צר מ-NDSS (275 ס״מ) ומ-ADG (300 ס״מ)",
+          "measured": "רוחב: 268 ס״מ · אורך: 345 ס״מ · שטח: 9.25 מ״ר",
+          "recommendation": "במידת האפשר להצר את המסדרון הגובל מ-110 ס״מ ל-100 ס״מ להרחבת הממ״ד ל-278 ס״מ, או לבחור ריהוט אורכי צמוד לקיר ה-345 ס״מ."
+        },
+        {
+          "pin_num": 5,
+          "id": "KKL-E-03",
+          "status": "WARN",
+          "typology": "דירה E (5 חדרים דרום-מזרחית · קומות 3–4)",
+          "room_name": "חדרי שינה מזרחיים (283×360 ס״מ ו-283×365 ס״מ) ויחידת הורים (288×364 ס״מ)",
+          "title": "חדרי שינה ברוחב 283 ס״מ ויחידת הורים ברוחב 288 ס״מ (10.48 מ״ר) בקצה מסדרון ארוך",
+          "measured": "חדרי ילדים: 283×360 ו-283×365 ס״מ · הורים: 288×364 ס״מ (10.48 מ״ר)",
+          "recommendation": "לאחד את קצה המסדרון לתוך מבואת סוויטת ההורים כדי לקצר את המסדרון ב-2.5 מ׳ ולהגדיל את פרטיות ושטח יחידת ההורים."
+        },
+        {
+          "pin_num": 6,
+          "id": "KKL-B-01",
+          "status": "PASS",
+          "typology": "דירה B (4 חדרים דרום-מערבית · 107 מ״ר)",
+          "room_name": "חלל מגורים ומטבח דרום-מערבי (614×579 ס״מ) + מרפסת דרומית (587×207 ס״מ)",
+          "title": "חלל ציבורי מרווח מאוד (614×579 ס״מ) ומרפסת דרומית בעומק 2.07 מ׳",
+          "measured": "614×579 ס״מ (אורך כללי 660 ס״מ) · מרפסת 12.0 מ״ר (587×207 ס״מ)",
+          "recommendation": "למקם אי מטבח באורך 180 ס״מ בנישת המטבח המערבית (302 ס״מ)."
+        },
+        {
+          "pin_num": 7,
+          "id": "KKL-B-02",
+          "status": "WARN",
+          "typology": "דירה B (4 חדרים דרום-מערבית · קומות 1–7)",
+          "room_name": "ממ״ד מערבי (264×345 ס״מ בקומות 3–5, 268×345 ס״מ בקומות 1–2/6–7) וחדר שינה (283×340 ס״מ)",
+          "title": "רוחב ממ״ד גבולי ביותר (264 ס״מ בקומות 3–5 ו-268 ס״מ בקומות 1–2/6–7) + חדר שינה ברוחב 283 ס״מ",
+          "measured": "ממ״ד: 264×345 ס״מ (9.11 מ״ר) או 268×345 ס״מ (9.25 מ״ר) · ח. שינה: 283×340 ס״מ (9.62 מ״ר)",
+          "recommendation": "להקפיד בביצוע כי עובי הטיח בממ״ד (264 ס״מ) לא יפחית את הרוחב נטו מתחת ל-260 ס״מ בטופס 4, או להזיז את קיר המסדרון ב-6 ס״מ מזרחה."
+        },
+        {
+          "pin_num": 8,
+          "id": "KKL-B-03",
+          "status": "PASS",
+          "typology": "דירה B (4 חדרים דרום-מערבית · 107 מ״ר)",
+          "room_name": "סוויטת הורים מערבית (393×305 ס״מ = 11.99 מ״ר) + חדר רחצה הורים (253×135 ס״מ)",
+          "title": "יחידת הורים מצטיינת בדירה B (393×305 ס״מ, 11.99 מ״ר) — עוברת גם את רף ה-ADG (≥300 ס״מ)!",
+          "measured": "הורים: 393×305 ס״מ (11.99 מ״ר) · רחצה הורים: 253×135 ס״מ (חלון מערבי)",
+          "recommendation": "ניצול נישת הארון המובנית (אורך 283 ס״מ) בקיר הצפוני של חדר ההורים."
+        },
+        {
+          "pin_num": 9,
+          "id": "KKL-D-01",
+          "status": "PASS",
+          "typology": "דירה D / C (אגף צפוני · 3 כיווני אוויר: צפון, מזרח, מערב)",
+          "room_name": "חדר מגורים (503×681 ס״מ), מטבח (398×280 ס״מ), פ. אוכל (200×341 ס״מ) ומרפסת לרחוב קק״ל",
+          "title": "דירה צפונית חזיתית עם 3 כיווני אוויר מלאים (צפון, מזרח, מערב) וסלון רחב (5.03 מ׳)",
+          "measured": "סלון: 503×681 ס״מ · מרפסת: 604×200 ס״מ (ובקומות 1–2: 1199×199 ס״מ = 22.8 מ״ר!)",
+          "recommendation": "בקומות 3–7 שבהן פינת האוכל ממוקמת במפרץ של 200×341 ס״מ, מומלץ לבחור שולחן ברוחב 90 ס״מ לשמירת מעבר נוח."
+        },
+        {
+          "pin_num": 10,
+          "id": "KKL-D-02",
+          "status": "WARN",
+          "typology": "דירה D / C (אגף צפוני · 106–126 מ״ר)",
+          "room_name": "סוויטת הורים צפון-מערבית (408×305 ס״מ), חדר שינה צפוני (300×335 ס״מ) וממ״ד מערבי (276×379 ס״מ)",
+          "title": "סוויטת הורים (408×305 ס״מ) וחדר צפוני (300×335 ס״מ) עוברים ADG; ממ״ד מערבי ברוחב 276 ס״מ",
+          "measured": "הורים: 12.44 מ״ר (408×305) · ח. שינה: 10.05 מ״ר (300×335) · ממ״ד: 10.46 מ״ר (276×379)",
+          "recommendation": "אורך הממ״ד הנדיב (379 ס״מ) מאפשר הצבת ארון ופינת עבודה מלאה לאורך הקיר הדרומי."
+        },
+        {
+          "pin_num": 11,
+          "id": "KKL-CORE-01",
+          "status": "PASS",
+          "typology": "ליבת הבניין (גרמושקה P-23)",
+          "room_name": "ליבת 2 מעליות (6 נוסעים כ״א: 155×185 ו-185×185 ס״מ), חדר מדרגות (245×481 ס״מ) ולובי קומתי (130×1265 ס״מ)",
+          "title": "צמד מעליות של 6 נוסעים ל-25 דירות (יחס מצוין של 1:12.5 יח״ד למעלית!)",
+          "measured": "2 מעליות × 6 נוסעים · חדר מדרגות 245×481 ס״מ · מסדרון לובי קומתי ברוחב 130–155 ס״מ",
+          "recommendation": "לוודא תאורת חירום ומערכת שחרור עשן תקנית בקצה הלובי הקומתי."
+        },
+        {
+          "pin_num": 12,
+          "id": "KKL-PH-01",
+          "status": "WARN",
+          "typology": "קומה 8 — פנטהאוזים PH-1 ו-PH-2 (גרמושקה P-23)",
+          "room_name": "פנטהאוז צפוני PH-1 ופנטהאוז דרומי PH-2 — ממ״דים (268×345 ס״מ) וחדרי שינה (283×340 ס״מ)",
+          "title": "טרסות גג רחבות וגובה תקרה 3.03 מ׳ נטו; הממ״דים בקומה 8 ברוחב 268 ס״מ (268×345 ס״מ)",
+          "measured": "ממ״דים בקומה 8: 268×345 ס״מ (9.25 מ״ר) · חדרי שינה: 283×340 ס״מ",
+          "recommendation": "לתקן את תווית המידה בתכנית המכר של PH-1 ל-268×345 ס״מ בהתאם לגרמושקה P-23."
+        },
+        {
+          "pin_num": 13,
+          "id": "KKL-GND-01",
+          "status": "WARN",
+          "typology": "קומת קרקע ±0.00 ודירות גן G-1, G-2 (גרמושקה P-23)",
+          "room_name": "לובי כניסה ראשי, חדר עגלות/אופניים, חדר אשפה ודירות גן G-1 (ממ״ד 268×345) ו-G-2 (ממ״ד 264×345)",
+          "title": "גובה תקרה נדיב של 3.83 מ׳ נטו בקומת הקרקע; ממ״ד דירת גן G-2 ברוחב 264 ס״מ (G-1 ברוחב 268 ס״מ)",
+          "measured": "דירת גן G-1: ממ״ד 268×345, ח.שינה 283×340 · דירת גן G-2: ממ״ד 264×345, ח.שינה 283×332",
+          "recommendation": "להקפיד בביצוע על דיוק יציקת קירות הממ״ד בדירות הגן לשמירת רוחב נטו ≥260 ס״מ."
+        },
+        {
+          "pin_num": 14,
+          "id": "KKL-OPT-AG1",
+          "status": "WARN",
+          "typology": "צמצום קונטור בנייה עילי מאומת (6,200 ₪/מ״ר) — קומת קרקע (L0 — חדר אשפה 32.7 מ״ר ומבואות שירות)",
+          "room_name": "📍 איפה: קומת קרקע (L0 — חדר אשפה 32.7 מ״ר ומבואות שירות)",
+          "title": "צמצום 43.0 מ״ר קונטור עילי מאומת = חיסכון 266,600 ₪ (מתוך 55.0 מ״ר הפחתת ליבה; 12.0 מ״ר ליבה כלואה הועברו לשיפור תכנון)",
+          "measured": "שטח קיים: 205.2 מ״ר | קונטור סגירת קומת קרקע: 205.2 מ״ר ← 162.2 מ״ר (-43.0 מ״ר נבנה פחות)",
+          "recommendation": "🛡️ שימושים נשמרים: שמירה מלאה על לובי ראשי (51.6 מ״ר), חדר עגלות (18.15 מ״ר), חדר גז (12.1 מ״ר), חדר אשפה תקני (16.5 מ״ר ל-25 דירות) וכל ארונות החשמל/מים/תקשורת. 🔄 קיזוז ליבה כלואה: 12.0 מ״ר מתוך קיצור מסדרונות השירות בקומת הקרקע נמצאים מתחת לתקרת קומה 1 (מבחן 2 — נעילת תקרה עליונה), ולכן אינם חוסכים שלד תקרה והועברו לשיפור תכנון (הרחבת לובי ראשי ומעבר עגלות). סה״כ חיסכון ישיר מאומת: 266,600 ₪."
+        },
+        {
+          "pin_num": 15,
+          "id": "KKL-OPT-AG2",
+          "status": "WARN",
+          "typology": "צמצום קונטור בנייה עילי מאומת (6,200 ₪/מ״ר) — קומות 1–8 (8 קומות — גרעין 2 מעליות ומבואה קומתית)",
+          "room_name": "📍 איפה: קומות 1–8 (8 קומות — גרעין 2 מעליות ומבואה קומתית)",
+          "title": "צמצום 36.0 מ״ר קונטור עילי מאומת = חיסכון 223,200 ₪ (מתוך 48.0 מ״ר הפחתת ליבה; 12.0 מ״ר ליבה כלואה הועברו לשיפור תכנון)",
+          "measured": "שטח קיים: 342.4 מ״ר | קונטור קומה טיפוסית: 382.0 מ״ר ← 377.5 מ״ר (-4.5 מ״ר לקומה × 8 קומות = -36.0 מ״ר)",
+          "recommendation": "🛡️ שימושים נשמרים: שמירה על 2 המעליות, חדר מדרגות מוגן וכל ארונות השירות הקומתיים (חשמל, מים, תקשורת, גז וכיבוי אש). 🔄 קיזוז ליבה כלואה: 12.0 מ״ר (1.5 מ״ר לקומה × 8 קומות) בנישת המבואה בין 2 המעליות כלואים גיאומטרית בין פיר המדרגות המוגן לפיר המעלית (מבחן 1 — ליבה כלואה), ולכן הועברו לשיפור תכנון המבואה. סה״כ חיסכון ישיר מאומת: 223,200 ₪."
+        },
+        {
+          "pin_num": 16,
+          "id": "KKL-OPT-AG3",
+          "status": "WARN",
+          "typology": "צמצום קונטור בנייה עילי מאומת (6,200 ₪/מ״ר) — קומה 9 (L9 — גג טכני ויציאה לגג)",
+          "room_name": "📍 איפה: קומה 9 (L9 — גג טכני ויציאה לגג)",
+          "title": "צמצום 10.0 מ״ר קונטור עילי מאומת = חיסכון 62,000 ₪ (מתוך 10.0 מ״ר הפחתת ליבה; 0.0 מ״ר ליבה כלואה הועברו לשיפור תכנון)",
+          "measured": "שטח קיים: 44.5 מ״ר | קונטור גג טכני קומה 9: 44.5 מ״ר ← 34.5 מ״ר (-10.0 מ״ר נבנה פחות)",
+          "recommendation": "🛡️ שימושים נשמרים: שמירה מלאה על ראשי 2 המעליות ופודסט יציאה לגג המערכות. סה״כ חיסכון ישיר מאומת: 62,000 ₪."
+        },
+        {
+          "pin_num": 17,
+          "id": "KKL-OPT-UG1",
+          "status": "WARN",
+          "typology": "צמצום קונטור דיפון מרתף מאומת (3,500 ₪/מ״ר) — מרתפים -1 ו--2 (1,586 מ״ר ל-34 חניות = 46.6 מ״ר/חניה!)",
+          "room_name": "📍 איפה: מרתפים -1 ו--2 (1,586 מ״ר ל-34 חניות = 46.6 מ״ר/חניה!)",
+          "title": "צמצום 170.0 מ״ר בקונטור דיפון המרתף = חיסכון 595,000 ₪ (מתוך 198.0 מ״ר; 28.0 מ״ר קוזזו להגנת רמפות ומיסעות תמרון)",
+          "measured": "שטח קיים: 1586.0 מ״ר (46.6 מ״ר/חניה) | קונטור מרתפים -1 ו--2: 1,586.0 מ״ר ← 1,416.0 מ״ר (-170.0 מ״ר דיפון וחפירה מאומתים · 28.0 מ״ר קוזזו להגנת רמפה ומיסעות)",
+          "recommendation": "🛡️ שמירת מצבת החניות ומיסעות תמרון: 34 חניות רגילות (100% ללא מכפילים) + 14 מחסנים דירתיים + מאגר מים וחדר משאבות. 🚦 בקרת רמפה וגובה ראש פנוי: רמפה דו-מפלסית בין קרקע למרתף 1- ובין מרתף 1- למרתף 2- (שיפוע 16% + משטחי התמתנות 8% באורך 3.00 מ׳): 34.0 מ״ר מתחת לחלק העליון של הרמפה (H_clear ≥ 2.25 מ׳) מנוצלים לחדר משאבות, מאגר מים ובורות שאיבה. משטחי הסיבוב בחיבור הקומות (14.0 מ״ר לקומה = 28.0 מ״ר) מוגנים ב-100%. 🔄 קיזוז שטח רמפה ותמרון מוגן: 28.0 מ״ר (14.0 מ״ר בכל מרתף) באזור נחיתת הרמפה הבין-מפלסית וחיבור המיסעה לגרעין 2 המעליות מוגנים כשטח התמתנות וסיבוב (R_in=3.60m, R_out=5.20m) ומיסעת תמרון 6.00 מ׳ — ולכן קוזזו מחיסכון הקונטור (0 ₪). סה״כ חיסכון ישיר מאומת: 595,000 ₪."
+        },
+        {
+          "pin_num": 18,
+          "id": "KKL10-VE-FAC-1",
+          "status": "WARN",
+          "typology": "אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית צפונית (חזית ראשית לרחוב קק״ל 10)",
+          "room_name": "📍 איפה: חזית צפונית (חזית ראשית לרחוב קק״ל 10) (כיוון צפון)",
+          "title": "המרת 50.8 מ״ר מחיפוי יבש לטיח בחזית צפון = חיסכון 20,320 ₪",
+          "measured": "שטח אטום: 254.0 מ״ר (חיפוי יבש נוכחי: 215.9 מ״ר)",
+          "recommendation": "חיסכון ישיר של 400 ₪ למ״ר מומר × 50.8 מ״ר = 20,320 ₪ בחזית זו (מתוך סה״כ 286,360 ₪ ב-4 החזיתות)."
+        },
+        {
+          "pin_num": 19,
+          "id": "KKL10-VE-FAC-2",
+          "status": "WARN",
+          "typology": "אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית דרומית (חזית עורפית לגינה הדרומית)",
+          "room_name": "📍 איפה: חזית דרומית (חזית עורפית לגינה הדרומית) (כיוון דרום)",
+          "title": "המרת 119.0 מ״ר מחיפוי יבש לטיח בחזית דרום = חיסכון 47,600 ₪",
+          "measured": "שטח אטום: 248.0 מ״ר (חיפוי יבש נוכחי: 210.8 מ״ר)",
+          "recommendation": "חיסכון ישיר של 400 ₪ למ״ר מומר × 119.0 מ״ר = 47,600 ₪ בחזית זו (מתוך סה״כ 286,360 ₪ ב-4 החזיתות)."
+        },
+        {
+          "pin_num": 20,
+          "id": "KKL10-VE-FAC-3",
+          "status": "WARN",
+          "typology": "אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית מזרחית (אורך 33.09 מ׳)",
+          "room_name": "📍 איפה: חזית מזרחית (אורך 33.09 מ׳) (כיוון מזרח)",
+          "title": "המרת 270.0 מ״ר מחיפוי יבש לטיח בחזית מזרח = חיסכון 108,000 ₪",
+          "measured": "שטח אטום: 750.0 מ״ר (חיפוי יבש נוכחי: 637.5 מ״ר)",
+          "recommendation": "חיסכון ישיר של 400 ₪ למ״ר מומר × 270.0 מ״ר = 108,000 ₪ בחזית זו (מתוך סה״כ 286,360 ₪ ב-4 החזיתות)."
+        },
+        {
+          "pin_num": 21,
+          "id": "KKL10-VE-FAC-4",
+          "status": "WARN",
+          "typology": "אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית מערבית (אורך 33.09 מ׳)",
+          "room_name": "📍 איפה: חזית מערבית (אורך 33.09 מ׳) (כיוון מערב)",
+          "title": "המרת 276.1 מ״ר מחיפוי יבש לטיח בחזית מערב = חיסכון 110,440 ₪",
+          "measured": "שטח אטום: 767.0 מ״ר (חיפוי יבש נוכחי: 651.9 מ״ר)",
+          "recommendation": "חיסכון ישיר של 400 ₪ למ״ר מומר × 276.1 מ״ר = 110,440 ₪ בחזית זו (מתוך סה״כ 286,360 ₪ ב-4 החזיתות)."
+        },
+        {
+          "pin_num": 22,
+          "id": "KKL-LOCKED-CORE1",
+          "status": "WARN",
+          "typology": "הועבר מחיסכון לשיפור תכנון (לא הקטין קונטור בניין) — קומות 1–8 וקומת קרקע — נישת מבואה כלואה בין 2 המעליות (12 מ״ר) ומעבר שירות תחת תקרת קומה 1 (12 מ״ר)",
+          "room_name": "📍 קומות 1–8 וקומת קרקע — נישת מבואה כלואה בין 2 המעליות (12 מ״ר) ומעבר שירות תחת תקרת קומה 1 (12 מ״ר) (0 מ״ר הקטנת קונטור = 0 ₪ חיסכון בנייה)",
+          "title": "הפחתת 24.0 מ״ר שטח ליבה כלוא — לא הקטינה את קונטור הבניין הכולל ולכן הועברה מחיסכון עלויות (0 ₪) לשיפור תכנון",
+          "measured": "הפחתת ליבה/שירות נבדקת: 24.0 מ״ר | הקטנת קונטור בניין בפועל: 0.0 מ״ר",
+          "recommendation": "🛋️ תועלת תכנונית (שיפור תכנון): סיפוח 1.5 מ״ר בכל קומה להרחבת מבואות הכניסה לדירות והגדלת הלובי הראשי בקומת הקרקע ב-12.0 מ״ר."
+        },
+        {
+          "pin_num": 23,
+          "id": "KKL-OPT-APT1",
+          "status": "WARN",
+          "typology": "שיפור תכנון פנים-דירתי ופתחים — טיפוס B דרום-מזרחי (קומות 1–7 · 7 דירות — 107 מ״ר)",
+          "room_name": "📍 טיפוס B דרום-מזרחי (קומות 1–7 · 7 דירות — 107 מ״ר) — מסדרון (10.2 ← 8.2 מ״ר)",
+          "title": "שיפור תכנון: העברת +2.0 מ״ר ממסדרון לחדרי מגורים (+14.0 מ״ר ב-7 דירות)",
+          "measured": "מסדרון נוכחי: 10.2 מ״ר לדירה (קונטור דירה קבוע)",
+          "recommendation": "🪟 שיפור פתחים ואלומיניום: איחוד חלונות חזית מזרחית (אורך 33.09 מ׳) למודול אחיד וצמצום זיגוג עודף במעברים."
+        },
+        {
+          "pin_num": 24,
+          "id": "KKL-OPT-APT2",
+          "status": "WARN",
+          "typology": "שיפור תכנון פנים-דירתי ופתחים — טיפוסים A, E, F דרום-מערביים (קומות 1–7 · 7 דירות — 113–128 מ״ר)",
+          "room_name": "📍 טיפוסים A, E, F דרום-מערביים (קומות 1–7 · 7 דירות — 113–128 מ״ר) — מסדרון (9.8 ← 8.1 מ״ר)",
+          "title": "שיפור תכנון: העברת +1.7 מ״ר ממסדרון לחדרי מגורים (+11.9 מ״ר ב-7 דירות)",
+          "measured": "מסדרון נוכחי: 9.8 מ״ר לדירה (קונטור דירה קבוע)",
+          "recommendation": "🪟 שיפור פתחים ואלומיניום: איזון מפתחי חלונות בחזית המערבית (WWR 20.5%) עם הצללה אינטגרלית בתריסי אור."
+        },
+        {
+          "pin_num": 25,
+          "id": "KKL-OPT-APT3",
+          "status": "WARN",
+          "typology": "שיפור תכנון פנים-דירתי ופתחים — טיפוסים C, D, G, H צפוניים (קומות 1–7 · 7 דירות — 108–126 מ״ר)",
+          "room_name": "📍 טיפוסים C, D, G, H צפוניים (קומות 1–7 · 7 דירות — 108–126 מ״ר) — מסדרון (9.5 ← 8.0 מ״ר)",
+          "title": "שיפור תכנון: העברת +1.5 מ״ר ממסדרון לחדרי מגורים (+10.5 מ״ר ב-7 דירות)",
+          "measured": "מסדרון נוכחי: 9.5 מ״ר לדירה (קונטור דירה קבוע)",
+          "recommendation": "🪟 שיפור פתחים ואלומיניום: סטנדרטיזציה של ויטרינות היציאה למרפסות הצפוניות."
+        }
+      ]
+    },
+    "flooring_areas": {
+      "total_apartments_flooring_sqm": 2585.9,
+      "total_apartments_dry_sqm": 2342.4,
+      "total_apartments_wet_sqm": 243.5,
+      "total_public_flooring_sqm": 553.2,
+      "total_balconies_flooring_sqm": 426.4,
+      "grand_total_flooring_sqm": 3565.5,
+      "methodology_note": "מחושב מתוך מודל הגרמושקה P-23: כולל שטחי רצפה נטו ב-25 הדירות (קרקע עד קומה 8), שטחי ריצוף ציבוריים ב-2 מרתפים (כולל 14 מחסנים מרוצפים ומבואות 2 המעליות), לובי קומת קרקע, 8 לובאים קומתיים ומרפסות שמש/גג/גן מרוצפות.",
+      "by_floor": [
+        {
+          "floor_label": "מרתף חניון 2- (-7.65m)",
+          "elevation": "-7.65",
+          "units_count": 0,
+          "apartments_flooring_sqm": 0.0,
+          "apartments_dry_sqm": 0.0,
+          "apartments_wet_sqm": 0.0,
+          "public_flooring_sqm": 64.0,
+          "balconies_flooring_sqm": 0.0,
+          "total_floor_flooring_sqm": 64.0,
+          "notes": "מבואת 2 מעליות מוגנת, חדר מדרגות ו-6 מחסנים דירתיים מרוצפים (ללא מיסעות וחניות)"
+        },
+        {
+          "floor_label": "מרתף חניון 1- (-4.35m)",
+          "elevation": "-4.35",
+          "units_count": 0,
+          "apartments_flooring_sqm": 0.0,
+          "apartments_dry_sqm": 0.0,
+          "apartments_wet_sqm": 0.0,
+          "public_flooring_sqm": 76.0,
+          "balconies_flooring_sqm": 0.0,
+          "total_floor_flooring_sqm": 76.0,
+          "notes": "מבואת 2 מעליות מוגנת, חדר מדרגות ו-8 מחסנים דירתיים מרוצפים"
+        },
+        {
+          "floor_label": "קומת קרקע (L0 — לובי + 2 דירות גן G-1, G-2)",
+          "elevation": "±0.00",
+          "units_count": 2,
+          "apartments_flooring_sqm": 189.0,
+          "apartments_dry_sqm": 171.0,
+          "apartments_wet_sqm": 18.0,
+          "public_flooring_sqm": 162.0,
+          "balconies_flooring_sqm": 56.0,
+          "total_floor_flooring_sqm": 407.0,
+          "notes": "2 דירות גן נטו (2×94.5 מ״ר) | ציבורי: לובי ראשי (51.6), עגלות (18.15), אשפה, מעברים וגרעין | משטחי חוץ מרוצפים בגינות: 56.0 מ״ר"
+        },
+        {
+          "floor_label": "קומה 1 (L1 — 3 יח״ד: B, A, C עם מרפסת 24 מ״ר)",
+          "elevation": "+4.20",
+          "units_count": 3,
+          "apartments_flooring_sqm": 302.8,
+          "apartments_dry_sqm": 274.8,
+          "apartments_wet_sqm": 28.0,
+          "public_flooring_sqm": 28.4,
+          "balconies_flooring_sqm": 49.8,
+          "total_floor_flooring_sqm": 381.0,
+          "notes": "דירות נטו: B (93.6) + A (98.9) + C (110.3) | ציבורי: לובי 2 מעליות ומדרגות | מרפסות נטו: C (22.8) + A (11.4) + B (11.4) + שירות (4.2)"
+        },
+        {
+          "floor_label": "קומה 2 (L2 — 3 יח״ד: B, A, C עם מרפסת 24 מ״ר)",
+          "elevation": "+7.35",
+          "units_count": 3,
+          "apartments_flooring_sqm": 302.8,
+          "apartments_dry_sqm": 274.8,
+          "apartments_wet_sqm": 28.0,
+          "public_flooring_sqm": 28.4,
+          "balconies_flooring_sqm": 49.8,
+          "total_floor_flooring_sqm": 381.0,
+          "notes": "קומה מלאה זהה לקומה 1 (טיפוסי B, A, C + גרעין כפול + 3 מרפסות שמש ושירות)"
+        },
+        {
+          "floor_label": "קומה 3 (L3 — 3 יח״ד: B, E, D)",
+          "elevation": "+10.50",
+          "units_count": 3,
+          "apartments_flooring_sqm": 300.1,
+          "apartments_dry_sqm": 272.1,
+          "apartments_wet_sqm": 28.0,
+          "public_flooring_sqm": 28.4,
+          "balconies_flooring_sqm": 38.4,
+          "total_floor_flooring_sqm": 366.9,
+          "notes": "דירות נטו: B (93.6) + E (112.0) + D (94.5) | ציבורי: 28.4 מ״ר | מרפסות נטו: 3×11.4 + שירות 4.2 = 38.4 מ״ר"
+        },
+        {
+          "floor_label": "קומה 4 (L4 — 3 יח״ד: B, E, D)",
+          "elevation": "+13.65",
+          "units_count": 3,
+          "apartments_flooring_sqm": 300.1,
+          "apartments_dry_sqm": 272.1,
+          "apartments_wet_sqm": 28.0,
+          "public_flooring_sqm": 28.4,
+          "balconies_flooring_sqm": 38.4,
+          "total_floor_flooring_sqm": 366.9,
+          "notes": "קומה מלאה זהה לקומה 3 (טיפוסי B, E, D)"
+        },
+        {
+          "floor_label": "קומה 5 (L5 — 3 יח״ד: B, F, G)",
+          "elevation": "+16.80",
+          "units_count": 3,
+          "apartments_flooring_sqm": 298.4,
+          "apartments_dry_sqm": 270.4,
+          "apartments_wet_sqm": 28.0,
+          "public_flooring_sqm": 28.4,
+          "balconies_flooring_sqm": 38.4,
+          "total_floor_flooring_sqm": 365.2,
+          "notes": "דירות נטו: B (93.6) + F (106.8) + G (98.0) | ציבורי: 28.4 מ״ר | מרפסות נטו: 38.4 מ״ר"
+        },
+        {
+          "floor_label": "קומה 6 (L6 — 3 יח״ד: B, A, H)",
+          "elevation": "+19.95",
+          "units_count": 3,
+          "apartments_flooring_sqm": 300.1,
+          "apartments_dry_sqm": 272.1,
+          "apartments_wet_sqm": 28.0,
+          "public_flooring_sqm": 28.4,
+          "balconies_flooring_sqm": 38.4,
+          "total_floor_flooring_sqm": 366.9,
+          "notes": "דירות נטו: B (93.6) + A (99.7) + H (106.8) | ציבורי: 28.4 מ״ר | מרפסות נטו: 38.4 מ״ר"
+        },
+        {
+          "floor_label": "קומה 7 (L7 — 3 יח״ד: B, A, H)",
+          "elevation": "+23.10",
+          "units_count": 3,
+          "apartments_flooring_sqm": 300.1,
+          "apartments_dry_sqm": 272.1,
+          "apartments_wet_sqm": 28.0,
+          "public_flooring_sqm": 28.4,
+          "balconies_flooring_sqm": 38.4,
+          "total_floor_flooring_sqm": 366.9,
+          "notes": "קומה מלאה זהה לקומה 6 (טיפוסי B, A, H)"
+        },
+        {
+          "floor_label": "קומה 8 (L8 — 2 פנטהאוזים PH-1 ו-PH-2)",
+          "elevation": "+26.50",
+          "units_count": 2,
+          "apartments_flooring_sqm": 259.3,
+          "apartments_dry_sqm": 237.8,
+          "apartments_wet_sqm": 21.5,
+          "public_flooring_sqm": 28.4,
+          "balconies_flooring_sqm": 78.8,
+          "total_floor_flooring_sqm": 366.5,
+          "notes": "פנטהאוז PH-1 (139.1 מ״ר נטו) + PH-2 (120.2 מ״ר נטו) + לובי/מדרגות (28.4) + 2 מרפסות גג נטו (41.8 + 37.0 = 78.8 מ״ר)"
+        },
+        {
+          "floor_label": "גג טכני ויציאה לגג (L9)",
+          "elevation": "+29.90",
+          "units_count": 0,
+          "apartments_flooring_sqm": 0.0,
+          "apartments_dry_sqm": 0.0,
+          "apartments_wet_sqm": 0.0,
+          "public_flooring_sqm": 24.0,
+          "balconies_flooring_sqm": 0.0,
+          "total_floor_flooring_sqm": 24.0,
+          "notes": "חדר יציאה לגג ופודסט מדרגות עליון"
+        }
+      ]
+    },
+    "design_optimization": {
+      "pricing_parameters": {
+        "above_ground_saved_per_sqm_ils": 6200,
+        "underground_parking_saved_per_sqm_ils": 3500,
+        "dry_cladding_cost_per_sqm_ils": 700,
+        "plaster_cost_per_sqm_ils": 300,
+        "cladding_to_plaster_diff_per_sqm_ils": 400
+      },
+      "zero_damage_guarantees": {
+        "apartment_saleable_area_loss_sqm": 0.0,
+        "apartment_saleable_area_preserved_sqm": 2955.3,
+        "parking_spaces_lost": 0,
+        "parking_spaces_preserved": 34,
+        "public_utilities_preserved": true,
+        "guarantee_statement": "0 מ״ר פגיעה בשטח הדירות (2,955.3 מ״ר פלדלת נשמרים במלואם) · 0 פגיעה במצבת החניות (34 חניות נשמרות) · שמירה מלאה על כל ארונות החשמל, המים, הגז, התקשורת וציוד כיבוי האש."
+      },
+      "contour_audit_summary": {
+        "audit_rule_he": "חיסכון בעלויות בנייה (6,200 ₪/מ״ר עילי ו-3,500 ₪/מ״ר מרתף) מוכר אך ורק כאשר הקטנת הגרעין/שירות/מרתף מקטינה בפועל את קונטור הבניין או הדיפון החיצוני (סך הכל נבנה פחות). שטח ליבה או מרתף שירד אך נותר כלוא בין דירות/עמודים, מתחת לתקרה עליונה קשיחה, או חופף למסלול רמפה פעיל, רדיוס סיבוב ומיסעת תמרון לחניות — מקוזז ממודל החיסכון (0 ₪) ומועבר ל'שיפור תכנון / הגנת תמרון'.",
+        "proposed_ag_gross_reduction_sqm": 113.0,
+        "verified_ag_contour_saved_sqm": 89.0,
+        "rejected_locked_ag_core_sqm": 24.0,
+        "ag_contour_efficiency_pct": 78.8,
+        "proposed_ug_gross_reduction_sqm": 198.0,
+        "verified_ug_contour_saved_sqm": 170.0,
+        "rejected_locked_ug_zone_sqm": 28.0,
+        "protected_ramp_and_maneuvering_deducted_sqm": 28.0,
+        "under_ramp_utilized_sqm": 34.0,
+        "ug_contour_efficiency_pct": 85.9,
+        "total_proposed_raw_reduction_sqm": 347.4,
+        "total_verified_contour_saved_sqm": 259.0,
+        "rejected_locked_core_and_service_sqm": 52.0,
+        "rejected_internal_apt_corridor_sqm": 36.4,
+        "total_reclassified_to_design_improvement_sqm": 88.4,
+        "before_total_ag_contour_sqm": 3509.4,
+        "after_total_ag_contour_sqm": 3420.4,
+        "before_total_ug_contour_sqm": 1586.0,
+        "after_total_ug_contour_sqm": 1416.0,
+        "methodology_pillars": [
+          {
+            "test_id": "TEST-1-WING-PULL",
+            "title": "מבחן 1 — טופולוגיית קירוב אגפים או נסיגת חזית (Wing-Pull & Perimeter Setback)",
+            "description": "בודק האם הקטנת הגרעין/המבואה הקומתית מאפשרת לקרב את אגפי הדירות זה לזה על ציר האורך/רוחב (ΔX/ΔY) או להסיג קיר מעטפת חיצוני פנימה. אם הגרעין הוא 'נישה פנימית כלואה' בין דירות ועמודים קבועים והמעטפת לא זזה — השטח אינו מקטין קונטור בניין (0 ₪ חיסכון שלד) ומועבר לשיפור תכנון."
+          },
+          {
+            "test_id": "TEST-2-VERTICAL-SLAB-LOCK",
+            "title": "מבחן 2 — רציפות אנכית ונעילת תקרה עליונה (Upper-Slab Projection Lock)",
+            "description": "בודק בקומת הקרקע ובקומות הביניים האם השטח שצומצם נמצא תחת תקרת הקומה שמעליו (Under-Slab Footprint) או בבליטה חיצונית. שטח בקומת קרקע שנמצא מתחת לתקרת קומה א׳ קשיחה שממילא נבנית אינו מקטין את קונטור תקרת הבניין — ולכן מקוזז מחיסכון העלויות ומסווג כשיפור תכנון (הרחבת לובי פתוח/מפולש)."
+          },
+          {
+            "test_id": "TEST-3-SHORING-POLYGON",
+            "title": "מבחן 3 — כיווץ דיפון במרתף, תפקוד רמפות (H_clear ≥ 2.15m) והגנה על רדיוסי סיבוב ומיסעות תמרון",
+            "description": "במרתפי חניון, חיסכון בעלויות בנייה (3,500 ₪/מ״ר) מוכר אך ורק כאשר קיר הדיפון ההיקפי וגבול החפירה זזים פנימה בכיסים מתים מחוץ למיסעה. אסור בתכלית האיסור לגרוע משטח מסלול הנסיעה ברמפה (שיפוע 15%–17.5% ומשטחי התמתנות 5%–10% באורך 3.00 מ׳), מרדיוסי הסיבוב וההתמזגות (R_in ≥ 3.00–4.50 מ׳ ו-R_out ≥ 5.00 מ׳), ממיסעות התמרון הדו-סטריות (5.20–6.50 מ׳ לחניות 90°) ומאוזני התמרון לחניות קצה (1.00 מ׳). הכנסת מאגר מים או חדר משאבות לתחתית הרמפה מותרת אך ורק בחצי העליון של כבש הירידה שבו גובה הראש הפנוי תחת קורת הרמפה הוא H_clear ≥ 2.15–2.20 מ׳."
+          },
+          {
+            "test_id": "TEST-4-EFFICIENCY-FACTOR",
+            "title": "מבחן 4 — מקדם תרגום לקונטור (η_contour = ΔA_contour / ΔA_core) וקיזוז שטחי תמרון מוגנים",
+            "description": "מחשב לכל המלצה את היחס שבין השטח התאורטי להפחתה בליבה/מרתף לבין השטח שנגרע בפועל מקונטור הבנייה הכולל (סך הכל נבנה פחות). כל שטח מרתף החופף לרמפה פעילה, לרדיוס סיבוב או למיסעת תמרון מקוזז אוטומטית מחיסכון הקונטור ומסווג כ'שטח תמרון ורמפה מוגן (0 ₪ חיסכון)'."
+          },
+          {
+            "test_id": "TEST-5-APARTMENT-INVARIANCE",
+            "title": "מבחן 5 — שימור קונטור הפלדלת, מצבת החניות והנדסת התנועה בחניון (Zero Loss & Swept-Path Check)",
+            "description": "מוודא שהקטנת קונטור הבניין והמרתף נובעת ב-100% מכיווץ שטחי ברוטו וכיסי חפירה עודפים עם 0.0 מ״ר פגיעה בשטח הפלדלת של הדירות, 0 פגיעה במספר החניות התקניות, ושמירה מלאה על מעטפת רדיוסי הפנייה וכניסה/יציאה חלקה בתמרון אחד מכל תא חניה."
+          }
+        ],
+        "locked_core_reclassified_items": [
+          {
+            "id": "KKL-LOCKED-CORE1",
+            "zone": "קומות 1–8 וקומת קרקע — נישת מבואה כלואה בין 2 המעליות (12 מ״ר) ומעבר שירות תחת תקרת קומה 1 (12 מ״ר)",
+            "proposed_core_reduction_sqm": 24.0,
+            "verified_contour_saved_sqm": 0.0,
+            "reclassified_design_improvement_sqm": 24.0,
+            "cost_saving_ils": 0,
+            "why_not_contour_saving": "בדיקת קונטור שלילית (0 מ״ר הקטנת קונטור בניין): הנישה בין שתי המעליות כלואה בין 4 דירות בפינות הבניין ועמודי הגרעין (מבחן 1), ומעבר השירות בקומת הקרקע חופף ב-100% לתקרת קומה 1 שמעליו (מבחן 2). לכן שטח התקרה הכולל אינו קטן (0 ₪ חיסכון בנייה) והפריט סווג כשיפור תכנון.",
+            "design_benefit": "סיפוח 1.5 מ״ר בכל קומה להרחבת מבואות הכניסה לדירות והגדלת הלובי הראשי בקומת הקרקע ב-12.0 מ״ר.",
+            "sheet_id": "kkl_typical",
+            "x_pct": 42.0,
+            "y_pct": 43.0,
+            "w_pct": 16.0,
+            "h_pct": 14.0,
+            "cx_pct": 50.0,
+            "cy_pct": 50.0,
+            "note_id": "KKL-LOCKED-CORE1",
+            "pin_num": 22
+          }
+        ],
+        "ramp_and_maneuvering_audit": {
+          "total_proposed_ug_gross_cut_sqm": 198.0,
+          "total_protected_ramp_and_maneuvering_deducted_sqm": 28.0,
+          "total_verified_ug_contour_saved_sqm": 170.0,
+          "total_under_ramp_utilized_sqm": 34.0,
+          "min_clear_headroom_for_utility_m": 2.15,
+          "min_two_way_aisle_width_m": 5.2,
+          "end_stall_backing_ear_m": 1.0,
+          "audit_statement_he": "מתוך 198.0 מ״ר הפחתה תאורטית במרתף, קוזזו 28.0 מ״ר להגנה מוחלטת על תפקוד רמפות הירידה (שיפועי התמתנות ורדיוסי סיבוב R_in/R_out) ועל מיסעות התמרון (5.20–6.50 מ׳) ואוזני התמרון לחניות קצה (1.00 מ׳). ניצול תחתית הרמפה (34.0 מ״ר למאגרי מים/משאבות) מבוצע אך ורק בחצי העליון של הרמפה שבו גובה הראש הפנוי H_clear ≥ 2.15–2.20 מ׳, והחיסכון המאומת בקונטור החפירה והדיפון עומד על 170.0 מ״ר נטו."
+        }
+      },
+      "executive_kpis": {
+        "above_ground_saved_sqm": 89.0,
+        "above_ground_saving_ils": 551800,
+        "underground_saved_sqm": 170.0,
+        "underground_saving_ils": 595000,
+        "facade_converted_to_plaster_sqm": 715.9,
+        "facade_saving_ils": 286360,
+        "internal_reclaimed_living_sqm": 36.4,
+        "locked_core_reclassified_sqm": 52.0,
+        "total_design_improvement_sqm": 88.4,
+        "grand_total_direct_saving_ils": 1433160,
+        "current_core_share_pct": 15.8,
+        "optimized_core_share_pct": 13.6,
+        "current_basement_sqm_per_stall": 46.6,
+        "optimized_basement_sqm_per_stall": 41.6
+      },
+      "above_ground_optimization": {
+        "current_total_above_ground_sqm": 3509.4,
+        "current_core_and_service_sqm": 554.1,
+        "optimized_core_and_service_sqm": 465.1,
+        "optimized_total_above_ground_sqm": 3420.4,
+        "proposed_gross_reduction_sqm": 113.0,
+        "rejected_locked_core_sqm": 24.0,
+        "total_saved_sqm": 89.0,
+        "rate_per_sqm_ils": 6200,
+        "total_saving_ils": 551800,
+        "items": [
+          {
+            "id": "KKL-OPT-AG1",
+            "floor_or_zone": "קומת קרקע (L0 — חדר אשפה 32.7 מ״ר ומבואות שירות)",
+            "current_sqm": 205.2,
+            "optimal_sqm": 162.2,
+            "saved_sqm": 43.0,
+            "preserved_utilities": "שמירה מלאה על לובי ראשי (51.6 מ״ר), חדר עגלות (18.15 מ״ר), חדר גז (12.1 מ״ר), חדר אשפה תקני (16.5 מ״ר ל-25 דירות) וכל ארונות החשמל/מים/תקשורת",
+            "engineering_action": "אופטימיזציה של חדר האשפה הענק (32.67 מ״ר — כפול מהנדרש ל-25 יח״ד) ל-16.5 מ״ר וצמצום מסדרונות השירות הכפולים סביב גרעין 2 המעליות בקומת הקרקע (חיסכון של 43.0 מ״ר בנוי עילי).",
+            "sheet_id": "kkl_ground",
+            "x_pct": 35.0,
+            "y_pct": 35.0,
+            "w_pct": 28.0,
+            "h_pct": 25.0,
+            "cx_pct": 49.0,
+            "cy_pct": 47.5,
+            "proposed_gross_reduction_sqm": 55.0,
+            "verified_contour_saved_sqm": 43.0,
+            "non_contour_reclassified_sqm": 12.0,
+            "contour_efficiency_pct": 78.2,
+            "contour_test_status": "PARTIAL_CONTOUR_REDUCTION",
+            "contour_mechanism": "ביטול בליטת אגף חדר האשפה העודף ונסיגת קיר המעטפת העורפי בקומת הקרקע ב-2.15 מ׳ לאורך 20.0 מ׳ (-43.0 מ״ר קונטור בנוי).",
+            "contour_dims_before_after": "קונטור סגירת קומת קרקע: 205.2 מ״ר ← 162.2 מ״ר (-43.0 מ״ר נבנה פחות)",
+            "locked_reason_he": "12.0 מ״ר מתוך קיצור מסדרונות השירות בקומת הקרקע נמצאים מתחת לתקרת קומה 1 (מבחן 2 — נעילת תקרה עליונה), ולכן אינם חוסכים שלד תקרה והועברו לשיפור תכנון (הרחבת לובי ראשי ומעבר עגלות).",
+            "unit_cost_ils": 6200,
+            "cost_saving_ils": 266600,
+            "note_id": "KKL-OPT-AG1",
+            "pin_num": 14
+          },
+          {
+            "id": "KKL-OPT-AG2",
+            "floor_or_zone": "קומות 1–8 (8 קומות — גרעין 2 מעליות ומבואה קומתית)",
+            "current_sqm": 342.4,
+            "optimal_sqm": 306.4,
+            "saved_sqm": 36.0,
+            "preserved_utilities": "שמירה על 2 המעליות, חדר מדרגות מוגן וכל ארונות השירות הקומתיים (חשמל, מים, תקשורת, גז וכיבוי אש)",
+            "engineering_action": "הידוק רוחב מבואת המעליות הקומתית מ-42.8 מ״ר ל-38.3 מ״ר לקומה (חיסכון של 4.5 מ״ר × 8 קומות = 36.0 מ״ר) על ידי ריכוז ארונות המונים בדופן המערבית של הגרעין ללא פגיעה במעבר 150 ס״מ.",
+            "sheet_id": "kkl_typical",
+            "x_pct": 38.0,
+            "y_pct": 40.0,
+            "w_pct": 22.0,
+            "h_pct": 20.0,
+            "cx_pct": 49.0,
+            "cy_pct": 50.0,
+            "proposed_gross_reduction_sqm": 48.0,
+            "verified_contour_saved_sqm": 36.0,
+            "non_contour_reclassified_sqm": 12.0,
+            "contour_efficiency_pct": 75.0,
+            "contour_test_status": "PARTIAL_CONTOUR_REDUCTION",
+            "contour_mechanism": "קירוב אגפי הדירות הצפוני והדרומי ב-32 ס״מ על ציר Y סביב גרעין 2 המעליות (4.5 מ״ר הקטנת קונטור תקרה × 8 קומות = 36.0 מ״ר).",
+            "contour_dims_before_after": "קונטור קומה טיפוסית: 382.0 מ״ר ← 377.5 מ״ר (-4.5 מ״ר לקומה × 8 קומות = -36.0 מ״ר)",
+            "locked_reason_he": "12.0 מ״ר (1.5 מ״ר לקומה × 8 קומות) בנישת המבואה בין 2 המעליות כלואים גיאומטרית בין פיר המדרגות המוגן לפיר המעלית (מבחן 1 — ליבה כלואה), ולכן הועברו לשיפור תכנון המבואה.",
+            "unit_cost_ils": 6200,
+            "cost_saving_ils": 223200,
+            "note_id": "KKL-OPT-AG2",
+            "pin_num": 15
+          },
+          {
+            "id": "KKL-OPT-AG3",
+            "floor_or_zone": "קומה 9 (L9 — גג טכני ויציאה לגג)",
+            "current_sqm": 44.5,
+            "optimal_sqm": 34.5,
+            "saved_sqm": 10.0,
+            "preserved_utilities": "שמירה מלאה על ראשי 2 המעליות ופודסט יציאה לגג המערכות",
+            "engineering_action": "צמצום שטח מבואת הגג הטכני מ-44.5 מ״ר ל-34.5 מ״ר בהתאם לקונטור הפירים ההندסי בלבד.",
+            "sheet_id": "kkl_penthouse",
+            "x_pct": 40.0,
+            "y_pct": 42.0,
+            "w_pct": 20.0,
+            "h_pct": 18.0,
+            "cx_pct": 50.0,
+            "cy_pct": 51.0,
+            "proposed_gross_reduction_sqm": 10.0,
+            "verified_contour_saved_sqm": 10.0,
+            "non_contour_reclassified_sqm": 0.0,
+            "contour_efficiency_pct": 100.0,
+            "contour_test_status": "FULL_CONTOUR_REDUCTION",
+            "contour_mechanism": "הצמדת קירות החוץ של חדר היציאה לגג בקומה 9 לקונטור הפירים ההנדסי בלבד (100% הקטנת קונטור גג).",
+            "contour_dims_before_after": "קונטור גג טכני קומה 9: 44.5 מ״ר ← 34.5 מ״ר (-10.0 מ״ר נבנה פחות)",
+            "locked_reason_he": "100% מהשטח בגג הטכני חשוף ב-4 חזיתות ומקטין ישירות את קונטור הבנייה.",
+            "unit_cost_ils": 6200,
+            "cost_saving_ils": 62000,
+            "note_id": "KKL-OPT-AG3",
+            "pin_num": 16
+          }
+        ]
+      },
+      "underground_optimization": {
+        "current_total_underground_sqm": 1586.0,
+        "optimized_total_underground_sqm": 1416.0,
+        "parking_spaces": 34,
+        "current_sqm_per_stall": 46.6,
+        "optimized_sqm_per_stall": 41.6,
+        "proposed_gross_reduction_sqm": 198.0,
+        "rejected_locked_zone_sqm": 28.0,
+        "protected_ramp_and_maneuvering_deducted_sqm": 28.0,
+        "under_ramp_utilized_sqm": 34.0,
+        "total_saved_sqm": 170.0,
+        "rate_per_sqm_ils": 3500,
+        "total_saving_ils": 595000,
+        "ramp_and_maneuvering_audit": {
+          "total_proposed_ug_gross_cut_sqm": 198.0,
+          "total_protected_ramp_and_maneuvering_deducted_sqm": 28.0,
+          "total_verified_ug_contour_saved_sqm": 170.0,
+          "total_under_ramp_utilized_sqm": 34.0,
+          "min_clear_headroom_for_utility_m": 2.15,
+          "min_two_way_aisle_width_m": 5.2,
+          "end_stall_backing_ear_m": 1.0,
+          "audit_statement_he": "מתוך 198.0 מ״ר הפחתה תאורטית במרתף, קוזזו 28.0 מ״ר להגנה מוחלטת על תפקוד רמפות הירידה (שיפועי התמתנות ורדיוסי סיבוב R_in/R_out) ועל מיסעות התמרון (5.20–6.50 מ׳) ואוזני התמרון לחניות קצה (1.00 מ׳). ניצול תחתית הרמפה (34.0 מ״ר למאגרי מים/משאבות) מבוצע אך ורק בחצי העליון של הרמפה שבו גובה הראש הפנוי H_clear ≥ 2.15–2.20 מ׳, והחיסכון המאומת בקונטור החפירה והדיפון עומד על 170.0 מ״ר נטו."
+        },
+        "items": [
+          {
+            "id": "KKL-OPT-UG1",
+            "zone": "מרתפים -1 ו--2 (1,586 מ״ר ל-34 חניות = 46.6 מ״ר/חניה!)",
+            "current_sqm": 1586.0,
+            "optimal_sqm": 1416.0,
+            "saved_sqm": 170.0,
+            "parking_spaces_preserved": "34 חניות רגילות (100% ללא מכפילים) + 14 מחסנים דירתיים + מאגר מים וחדר משאבות",
+            "engineering_action": "יחס השטח במרתפים (46.6 מ״ר לחניה) גבוה בכ-24% מהבנצ׳מרק ההנדסי (37.5 מ״ר לחניה כולל מחסנים). קיצור שלוחות המיסעה בקצוות הדרומיים של מרתפים -1 ו--2 ומיקום מאגר המים מתחת לרמפה חוסכים 85 מ״ר בכל מרתף (סה״כ 170 מ״ר דיפון וחפירה) ללא גריעת אף חניה או מחסן.",
+            "sheet_id": "kkl_basement",
+            "x_pct": 18.0,
+            "y_pct": 56.0,
+            "w_pct": 64.0,
+            "h_pct": 30.0,
+            "cx_pct": 50.0,
+            "cy_pct": 71.0,
+            "proposed_gross_reduction_sqm": 198.0,
+            "verified_contour_saved_sqm": 170.0,
+            "non_contour_reclassified_sqm": 28.0,
+            "protected_ramp_and_maneuvering_deducted_sqm": 28.0,
+            "under_ramp_utilized_sqm": 34.0,
+            "contour_efficiency_pct": 85.9,
+            "contour_test_status": "PARTIAL_CONTOUR_REDUCTION",
+            "contour_mechanism": "קיצור שלוחות הדיפון הדרומיות במרתפים -1 ו--2 ב-3.40 מ׳ × 25.0 מ׳ בכל קומה מחוץ למעגל הסיבוב של הרמפה ומחוץ למיסעת 6.00 מ׳ (85 מ״ר × 2 מרתפים = 170.0 מ״ר כיווץ פוליגון דיפון).",
+            "contour_dims_before_after": "קונטור מרתפים -1 ו--2: 1,586.0 מ״ר ← 1,416.0 מ״ר (-170.0 מ״ר דיפון וחפירה מאומתים · 28.0 מ״ר קוזזו להגנת רמפה ומיסעות)",
+            "locked_reason_he": "28.0 מ״ר (14.0 מ״ר בכל מרתף) באזור נחיתת הרמפה הבין-מפלסית וחיבור המיסעה לגרעין 2 המעליות מוגנים כשטח התמתנות וסיבוב (R_in=3.60m, R_out=5.20m) ומיסעת תמרון 6.00 מ׳ — ולכן קוזזו מחיסכון הקונטור (0 ₪).",
+            "ramp_function_audit_he": "רמפה דו-מפלסית בין קרקע למרתף 1- ובין מרתף 1- למרתף 2- (שיפוע 16% + משטחי התמתנות 8% באורך 3.00 מ׳): 34.0 מ״ר מתחת לחלק העליון של הרמפה (H_clear ≥ 2.25 מ׳) מנוצלים לחדר משאבות, מאגר מים ובורות שאיבה. משטחי הסיבוב בחיבור הקומות (14.0 מ״ר לקומה = 28.0 מ״ר) מוגנים ב-100%.",
+            "maneuvering_aisle_audit_he": "כל 43 החניות ב-2 המרתפים מוגנות עם מיסעה דו-סטרית של 6.00 מ׳ ואוזני תמרון של 1.00 מ׳ בקצוות המיסעה; הקיצור הדרומי (85 מ״ר לקומה) מבוצע אך ורק בכיס השירות העודף שמעבר לקו החניות האחרון.",
+            "plan_overlay_zones": {
+              "protected_ramp_maneuver_rect": {
+                "x_pct": 20.0,
+                "y_pct": 36.0,
+                "w_pct": 58.0,
+                "h_pct": 24.0,
+                "label_he": "מיסעה 6.00 מ׳ + רדיוסי סיבוב רמפה בין-מפלסית (מוגן 100%)"
+              },
+              "under_ramp_utility_rect": {
+                "x_pct": 60.0,
+                "y_pct": 20.0,
+                "w_pct": 18.0,
+                "h_pct": 14.0,
+                "label_he": "מאגר מים + משאבות תחת רמפה עליונה (H≥2.25m · 34 מ״ר)"
+              }
+            },
+            "unit_cost_ils": 3500,
+            "cost_saving_ils": 595000,
+            "note_id": "KKL-OPT-UG1",
+            "pin_num": 17
+          }
+        ]
+      },
+      "facade_cladding_optimization": {
+        "total_facade_gross_sqm": 2694.0,
+        "total_glazing_sqm": 675.0,
+        "total_opaque_wall_sqm": 2019.0,
+        "dry_cladding_price_per_sqm_ils": 700,
+        "plaster_price_per_sqm_ils": 300,
+        "saving_per_converted_sqm_ils": 400,
+        "baseline_dry_cladding_pct": 85.0,
+        "baseline_plaster_pct": 15.0,
+        "baseline_dry_cladding_sqm": 1716.1,
+        "baseline_plaster_sqm": 302.9,
+        "baseline_total_cost_ils": 1292140,
+        "recommended_converted_to_plaster_sqm": 715.9,
+        "optimized_dry_cladding_sqm": 1000.2,
+        "optimized_plaster_sqm": 1018.8,
+        "optimized_dry_cladding_pct": 49.5,
+        "optimized_plaster_pct": 50.5,
+        "optimized_total_cost_ils": 1005780,
+        "recommended_saving_ils": 286360,
+        "by_facade": [
+          {
+            "facade_name": "חזית צפונית (חזית ראשית לרחוב קק״ל 10)",
+            "direction": "צפון",
+            "gross_area_sqm": 382.0,
+            "glazing_area_sqm": 128.0,
+            "opaque_area_sqm": 254.0,
+            "current_dry_cladding_sqm": 215.9,
+            "current_plaster_sqm": 38.1,
+            "recommended_converted_to_plaster_sqm": 50.8,
+            "optimized_dry_cladding_sqm": 165.1,
+            "optimized_plaster_sqm": 88.9,
+            "optimized_dry_pct": 65.0,
+            "optimized_plaster_pct": 35.0,
+            "cost_saving_ils": 20320,
+            "strategy_note": "חזית רחוב ייצוגית — שמירת חיפוי יבש מלא בחזית הראשית ובמסד; המרת קירות פנים-מרפסות ונסיגות קומות גג בלבד לטיח (20%)",
+            "x_pct": 14.0,
+            "y_pct": 16.0,
+            "w_pct": 72.0,
+            "h_pct": 10.0,
+            "cx_pct": 50.0,
+            "cy_pct": 21.0,
+            "note_id": "KKL10-VE-FAC-1",
+            "pin_num": 18,
+            "sheet_id": "kkl_typical"
+          },
+          {
+            "facade_name": "חזית דרומית (חזית עורפית לגינה הדרומית)",
+            "direction": "דרום",
+            "gross_area_sqm": 382.0,
+            "glazing_area_sqm": 134.0,
+            "opaque_area_sqm": 248.0,
+            "current_dry_cladding_sqm": 210.8,
+            "current_plaster_sqm": 37.2,
+            "recommended_converted_to_plaster_sqm": 119.0,
+            "optimized_dry_cladding_sqm": 91.8,
+            "optimized_plaster_sqm": 156.2,
+            "optimized_dry_pct": 37.0,
+            "optimized_plaster_pct": 63.0,
+            "cost_saving_ils": 47600,
+            "strategy_note": "חזית עורפית — המרת שטחי הקירות האטומים העורפיים ומסתורי הכביסה לטיח תרמי/אקרילי משובח תוך שמירת מסגרות חיפוי יבש (48%)",
+            "x_pct": 14.0,
+            "y_pct": 72.0,
+            "w_pct": 72.0,
+            "h_pct": 10.0,
+            "cx_pct": 50.0,
+            "cy_pct": 77.0,
+            "note_id": "KKL10-VE-FAC-2",
+            "pin_num": 19,
+            "sheet_id": "kkl_typical"
+          },
+          {
+            "facade_name": "חזית מזרחית (אורך 33.09 מ׳)",
+            "direction": "מזרח",
+            "gross_area_sqm": 965.0,
+            "glazing_area_sqm": 215.0,
+            "opaque_area_sqm": 750.0,
+            "current_dry_cladding_sqm": 637.5,
+            "current_plaster_sqm": 112.5,
+            "recommended_converted_to_plaster_sqm": 270.0,
+            "optimized_dry_cladding_sqm": 367.5,
+            "optimized_plaster_sqm": 382.5,
+            "optimized_dry_pct": 49.0,
+            "optimized_plaster_pct": 51.0,
+            "cost_saving_ils": 108000,
+            "strategy_note": "חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)",
+            "x_pct": 80.0,
+            "y_pct": 24.0,
+            "w_pct": 9.0,
+            "h_pct": 50.0,
+            "cx_pct": 84.5,
+            "cy_pct": 49.0,
+            "note_id": "KKL10-VE-FAC-3",
+            "pin_num": 20,
+            "sheet_id": "kkl_typical"
+          },
+          {
+            "facade_name": "חזית מערבית (אורך 33.09 מ׳)",
+            "direction": "מערב",
+            "gross_area_sqm": 965.0,
+            "glazing_area_sqm": 198.0,
+            "opaque_area_sqm": 767.0,
+            "current_dry_cladding_sqm": 651.9,
+            "current_plaster_sqm": 115.1,
+            "recommended_converted_to_plaster_sqm": 276.1,
+            "optimized_dry_cladding_sqm": 375.8,
+            "optimized_plaster_sqm": 391.2,
+            "optimized_dry_pct": 49.0,
+            "optimized_plaster_pct": 51.0,
+            "cost_saving_ils": 110440,
+            "strategy_note": "חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)",
+            "x_pct": 11.0,
+            "y_pct": 24.0,
+            "w_pct": 9.0,
+            "h_pct": 50.0,
+            "cx_pct": 15.5,
+            "cy_pct": 49.0,
+            "note_id": "KKL10-VE-FAC-4",
+            "pin_num": 21,
+            "sheet_id": "kkl_typical"
+          }
+        ],
+        "scenarios": [
+          {
+            "scenario_id": "conservative_25",
+            "title": "תרחיש שמרני (המרת 25% מהשטח האטום לטיח — עורף ומסתורי כביסה בלבד)",
+            "converted_sqm": 504.8,
+            "new_dry_pct": 60.0,
+            "new_plaster_pct": 40.0,
+            "saving_ils": 201900
+          },
+          {
+            "scenario_id": "balanced_recommended",
+            "title": "תרחיש מומלץ ומאוזן (שמירת חזית רחוב ומסד בחיפוי קשיח, המרת ~35% בעורף/צד/מרפסות לטיח)",
+            "converted_sqm": 715.9,
+            "new_dry_pct": 49.5,
+            "new_plaster_pct": 50.5,
+            "saving_ils": 286360
+          },
+          {
+            "scenario_id": "value_eng_50",
+            "title": "תרחיש הנדסת ערך מלאה (המרת 50% מהשטח האטום לטיח — חיפוי יבש בקומות המסד ובאלמנטים מרכזיים)",
+            "converted_sqm": 1009.5,
+            "new_dry_pct": 35.0,
+            "new_plaster_pct": 65.0,
+            "saving_ils": 403800
+          }
+        ]
+      },
+      "internal_apartment_optimization": {
+        "total_reclaimed_effective_living_sqm": 36.4,
+        "locked_core_reclassified_sqm": 52.0,
+        "locked_core_reclassified_items": [
+          {
+            "id": "KKL-LOCKED-CORE1",
+            "zone": "קומות 1–8 וקומת קרקע — נישת מבואה כלואה בין 2 המעליות (12 מ״ר) ומעבר שירות תחת תקרת קומה 1 (12 מ״ר)",
+            "proposed_core_reduction_sqm": 24.0,
+            "verified_contour_saved_sqm": 0.0,
+            "reclassified_design_improvement_sqm": 24.0,
+            "cost_saving_ils": 0,
+            "why_not_contour_saving": "בדיקת קונטור שלילית (0 מ״ר הקטנת קונטור בניין): הנישה בין שתי המעליות כלואה בין 4 דירות בפינות הבניין ועמודי הגרעין (מבחן 1), ומעבר השירות בקומת הקרקע חופף ב-100% לתקרת קומה 1 שמעליו (מבחן 2). לכן שטח התקרה הכולל אינו קטן (0 ₪ חיסכון בנייה) והפריט סווג כשיפור תכנון.",
+            "design_benefit": "סיפוח 1.5 מ״ר בכל קומה להרחבת מבואות הכניסה לדירות והגדלת הלובי הראשי בקומת הקרקע ב-12.0 מ״ר.",
+            "sheet_id": "kkl_typical",
+            "x_pct": 42.0,
+            "y_pct": 43.0,
+            "w_pct": 16.0,
+            "h_pct": 14.0,
+            "cx_pct": 50.0,
+            "cy_pct": 50.0,
+            "note_id": "KKL-LOCKED-CORE1",
+            "pin_num": 22
+          }
+        ],
+        "items": [
+          {
+            "id": "KKL-OPT-APT1",
+            "typology": "טיפוס B דרום-מזרחי (קומות 1–7 · 7 דירות — 107 מ״ר)",
+            "current_corridor_sqm": 10.2,
+            "optimal_corridor_sqm": 8.2,
+            "reclaimed_sqm_per_unit": 2.0,
+            "units_count": 7,
+            "total_reclaimed_sqm": 14.0,
+            "target_rooms_benefiting": "הגדלת סוויטת ההורים הדרום-מזרחית ב-1.2 מ״ר + נישת ארון שירות/ספרייה של 0.8 מ״ר",
+            "openings_optimization": "איחוד חלונות חזית מזרחית (אורך 33.09 מ׳) למודול אחיד וצמצום זיגוג עודף במעברים.",
+            "engineering_action": "קיצור מסדרון חדרי השינה הארוך (5.10 מ׳) ב-125 ס״מ על ידי הזזת דלת יחידת ההורים קדימה והכללת קצה המסדרון כחלק ממבואת חדר ההורים וארון הקיר.",
+            "sheet_id": "kkl_typical",
+            "x_pct": 52.0,
+            "y_pct": 55.0,
+            "w_pct": 26.0,
+            "h_pct": 22.0,
+            "cx_pct": 65.0,
+            "cy_pct": 66.0,
+            "note_id": "KKL-OPT-APT1",
+            "pin_num": 23
+          },
+          {
+            "id": "KKL-OPT-APT2",
+            "typology": "טיפוסים A, E, F דרום-מערביים (קומות 1–7 · 7 דירות — 113–128 מ״ר)",
+            "current_corridor_sqm": 9.8,
+            "optimal_corridor_sqm": 8.1,
+            "reclaimed_sqm_per_unit": 1.7,
+            "units_count": 7,
+            "total_reclaimed_sqm": 11.9,
+            "target_rooms_benefiting": "הרחבת הסלון/פינת האוכל והגדלת חדר השינה הסמוך לממ״ד (תיקון מרווח גישה למיטה)",
+            "openings_optimization": "איזון מפתחי חלונות בחזית המערבית (WWR 20.5%) עם הצללה אינטגרלית בתריסי אור.",
+            "engineering_action": "ביטול שבירת המסדרון הכפולה בכניסה לאגף חדרי השינה והעברת 1.7 מ״ר משטח המעבר אל החלל הציבורי וחדר הילדים.",
+            "sheet_id": "kkl_typical",
+            "x_pct": 22.0,
+            "y_pct": 55.0,
+            "w_pct": 26.0,
+            "h_pct": 22.0,
+            "cx_pct": 35.0,
+            "cy_pct": 66.0,
+            "note_id": "KKL-OPT-APT2",
+            "pin_num": 24
+          },
+          {
+            "id": "KKL-OPT-APT3",
+            "typology": "טיפוסים C, D, G, H צפוניים (קומות 1–7 · 7 דירות — 108–126 מ״ר)",
+            "current_corridor_sqm": 9.5,
+            "optimal_corridor_sqm": 8.0,
+            "reclaimed_sqm_per_unit": 1.5,
+            "units_count": 7,
+            "total_reclaimed_sqm": 10.5,
+            "target_rooms_benefiting": "הגדלת חדר השינה הצפוני ושילוב ארון קיר שקוע בקו אפס",
+            "openings_optimization": "סטנדרטיזציה של ויטרינות היציאה למרפסות הצפוניות.",
+            "engineering_action": "יישור קיר המסדרון הצפוני והטמעת נישת ארונות בעומק 60 ס״מ בין חדר הרחצה לחדר השינה.",
+            "sheet_id": "kkl_typical",
+            "x_pct": 25.0,
+            "y_pct": 18.0,
+            "w_pct": 45.0,
+            "h_pct": 22.0,
+            "cx_pct": 47.5,
+            "cy_pct": 29.0,
+            "note_id": "KKL-OPT-APT3",
+            "pin_num": 25
+          }
+        ]
+      }
+    },
+    "summary_doc_url": "/reports/kkl10_summary_and_areas_report.html",
+    "summary_md_url": "/reports/kkl10_summary_and_areas_report.md"
+  }
+}

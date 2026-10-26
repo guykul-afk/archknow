@@ -22,6 +22,9 @@ def test_new_rule_files_loaded():
     for rid in [
         "WBS_NDSS_ADG", "NKBA_KB", "APL_HOUSING", "SPACE_SYNTAX_SAGA",
         "IS1918_ACCESS", "SOURCES_REGISTRY", "DAYLIGHT_VENT_IEQ", "USABILITY_FURNISH_HQI",
+        "ACADEMIC_ARCH_COMPENDIUM", "ETH_TYPO_1", "ETSAB_CC_1", "TUD_HERTZ_1",
+        "SWISS_GK_1", "LV_PLUS_1", "JPN_SB_1", "FAM_VERT_1",
+        "IL_OREF_2025", "IL_MOCH_PROG", "IL_MOT_PARK", "IL_IS1004_1142",
     ]:
         assert rid in ids, f"{rid} not loaded from okf_rules"
 
@@ -268,7 +271,45 @@ def test_qualitative_prompt_includes_new_compendia():
     prompt = build_prompt(PINES_C, "okf_rules")
     assert "DAYLIGHT_VENT_IEQ" in prompt
     assert "USABILITY_FURNISH_HQI" in prompt
+    assert "ACADEMIC_ARCH_COMPENDIUM" in prompt
+    assert "ETSAB_CC_1" in prompt
+    assert "IL_MOCH_PROG" in prompt
     assert "(Missing knowledge files:" not in prompt
+
+
+def test_academic_and_new_standards_checks():
+    apt = {
+        "net_area_sqm": 82.0,
+        "central_hall_width_m": 2.40,
+        "diagonal_sightline_ratio": 1.20,
+        "kitchen_counter_upstand_cm": 10,
+        "genkan_depth_m": 0.85,
+        "party_wall_db": 45,
+        "balcony_railing_height_cm": 100,
+        "railing_gap_cm": 12,
+        "parking": {"stall_width_m": 2.40, "adjacent_columns_or_walls": 1, "aisle_width_m": 5.10},
+        "rooms": [
+            {"id": "LIV", "type": "living_room", "name": "סלון", "area_sqm": 20.0},
+            {"id": "B1", "type": "bedroom", "name": "חדר הורים", "area_sqm": 14.5, "width_cm": 285},
+            {"id": "B2", "type": "bedroom", "name": "חדר ילדים", "area_sqm": 8.4, "width_cm": 270},
+            {"id": "MMD", "type": "safe_room", "name": "ממד", "area_sqm": 9.2, "width_cm": 280, "wet_room_area_sqm": 3.5, "external_wall_plumbing": True},
+            {"id": "BTH", "type": "bathroom", "name": "חדר רחצה יחיד", "area_sqm": 4.0},
+            {"id": "BAL", "type": "balcony", "name": "מרפסת", "area_sqm": 10.0, "depth_m": 2.0, "winter_garden_depth_m": 2.2},
+        ],
+    }
+    res = run_advanced_checks(apt, RULES)
+    assert by_element(res, "ETSAB_CC_1")[0]["status"] == "WARN"
+    assert by_element(res, "IL_MOCH_PROG")[0]["status"] == "WARN"
+    assert by_element(res, "FAM_VERT_1")[0]["status"] == "WARN"
+    assert by_element(res, "San-ten Bunri (JPN_SB_1)")[0]["status"] == "WARN"
+    assert by_element(res, "Genkan (JPN_SB_1)")[0]["status"] == "WARN"
+    assert by_element(res, "LV_PLUS_1")[0]["status"] == "WARN"
+    assert by_element(res, "ETH_TYPO_1")[0]["status"] == "WARN"
+    assert by_element(res, "SWISS_GK_1")[0]["status"] == "WARN"
+    assert by_element(res, "TUD_HERTZ_1")[0]["status"] == "WARN"
+    assert by_element(res, "IL_OREF_2025")[0]["status"] == "WARN"
+    assert by_element(res, "IL_MOT_PARK")[0]["status"] == "WARN"
+    assert by_element(res, "IL_IS1004_1142")[0]["status"] == "WARN"
 
 
 if __name__ == "__main__":

@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>מסמך סיכום הערות בקרת איכות והצעות לשיפור על תכניות המקור — פאירברג 3, פתח תקווה</title>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4 portrait; margin: 12mm; }
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    body { font-family: 'Assistant', 'Heebo', sans-serif; color: #0f172a; line-height: 1.4; font-size: 9.5pt; margin: 0; padding: 20px; background: #f8fafc; }
+    .page-container { max-width: 1100px; margin: 0 auto; background: #ffffff; padding: 28px 32px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .header-banner { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); color: #fff; padding: 18px 22px; border-radius: 10px; margin-bottom: 16px; border-right: 6px solid #38bdf8; display: flex; justify-content: space-between; align-items: center; }
+    .header-banner h1 { font-family: 'Heebo', sans-serif; font-size: 18pt; margin: 0 0 4px 0; }
+    .header-subtitle { font-size: 10.5pt; color: #bae6fd; }
+    .print-btn { background: #38bdf8; color: #0f172a; border: none; padding: 8px 16px; border-radius: 6px; font-family: 'Heebo', sans-serif; font-weight: 800; cursor: pointer; font-size: 10pt; }
+    @media print { body { background: #fff; padding: 0; } .page-container { box-shadow: none; padding: 0; } .print-btn { display: none; } }
+    h2 { font-family: 'Heebo', sans-serif; font-size: 12.5pt; font-weight: 800; color: #0f172a; background: #f1f5f9; border-right: 4px solid #2563eb; padding: 6px 10px; border-radius: 4px; margin: 16px 0 8px 0; }
+    h3 { font-family: 'Heebo', sans-serif; font-size: 10.5pt; font-weight: 800; color: #1e3a8a; margin: 12px 0 6px 0; }
+    .scorecard-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 14px; }
+    .score-card { background: #f8fafc; border: 1px solid #cbd5e1; border-top: 3px solid #2563eb; border-radius: 8px; padding: 8px 10px; text-align: center; }
+    .score-title { font-size: 8.5pt; font-weight: 700; color: #475569; }
+    .score-val { font-family: 'Heebo', sans-serif; font-weight: 900; color: #0f172a; margin: 2px 0; }
+    .score-sub { font-size: 7.5pt; color: #1d4ed8; font-weight: 600; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 8.5pt; }
+    th { background: #1e293b; color: #fff; font-weight: 700; text-align: right; padding: 6px 8px; border: 1px solid #1e293b; }
+    td { padding: 5px 8px; border: 1px solid #cbd5e1; vertical-align: top; }
+    tr:nth-child(even) td { background: #f8fafc; }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <div class="header-banner">
+      <div>
+        <h1>מסמך סיכום הערות בקרת איכות והצעות לשיפור על תכניות המקור — פאירברג 3, פתח תקווה</h1>
+        <div class="header-subtitle">דוח בקרת איכות תכנון, אימות BIM 1:1 והנדסת ערך (v2.8) — 10 קומות + 2 מרתפים · 18 יח״ד · אלישע רובין אדריכלים · א. קולסקי</div>
+      </div>
+      <button class="print-btn" onclick="window.print()">🖨️ הדפס / שמור כ-PDF</button>
+    </div>
+
+    
+<!-- ARCHICHECK_SUMMARY_AND_AREAS_HTML_START -->
+  
+  <h2>📐 נתוני פרויקט כמותיים: שטחי בנייה (עילי ותת-קרקעי לפי קומות), מרפסות גג, מרפסות תלויות ושטחי חזיתות</h2>
+
+  <div class="scorecard-grid" style="grid-template-columns: repeat(6, 1fr); margin-bottom: 12px;">
+    <div class="score-card primary">
+      <div class="score-title">סך שטחי בנייה עיליים</div>
+      <div class="score-val" style="font-size:14pt;">2,366.6 מ"ר</div>
+      <div class="score-sub">דירות: 1,752.8 | ליבה: 613.8 מ"ר</div>
+    </div>
+    <div class="score-card">
+      <div class="score-title">סך בנייה תת-קרקעית</div>
+      <div class="score-val" style="font-size:14pt;color:#0284c7;">1,096 מ"ר</div>
+      <div class="score-sub">19 חניות · סה"כ בנוי: 3,462.6 מ"ר</div>
+    </div>
+    <div class="score-card">
+      <div class="score-title">סך מרפסות גג ותלויות</div>
+      <div class="score-val" style="font-size:14pt;color:#0f766e;">277 מ"ר</div>
+      <div class="score-sub">גג: 85 | תלויות: 192 מ"ר</div>
+    </div>
+    <div class="score-card">
+      <div class="score-title">סך שטחי חזיתות החוץ</div>
+      <div class="score-val" style="font-size:14pt;color:#7c3aed;">2,380 מ"ר</div>
+      <div class="score-sub">פתחים: 520 מ"ר (21.8%)</div>
+    </div>
+    <div class="score-card">
+      <div class="score-title">סך ריצוף דירות (נטו)</div>
+      <div class="score-val" style="font-size:14pt;color:#1e3a8a;">1,542.4 מ"ר</div>
+      <div class="score-sub">יבש: 1,394.4 | רטוב: 148 מ"ר</div>
+    </div>
+    <div class="score-card">
+      <div class="score-title">סך ריצוף ציבורי ומרפסות</div>
+      <div class="score-val" style="font-size:14pt;color:#15803d;">412 מ"ר</div>
+      <div class="score-sub">מרפסות: 316 | סה"כ: 2,270.4 מ"ר</div>
+    </div>
+  </div>
+
+  <h3>א. סך שטחי בנייה עיליים — סך הכל וחלוקה לקומות (2,366.6 מ"ר)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:16%;">קומה</th>
+        <th style="width:12%;">מפלס וגובה</th>
+        <th style="width:6%;text-align:center;">יח"ד</th>
+        <th style="width:32%;">פירוט שימושים ויחידות דיור בקומה</th>
+        <th style="width:9%;text-align:center;">שטח דירות</th>
+        <th style="width:9%;text-align:center;">ליבה ושירות</th>
+        <th style="width:9%;text-align:center;">סה"כ קומה</th>
+        <th style="width:7%;text-align:center;">% עילי</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td><strong>קומת קרקע (0.00 — לובי, מועדון דיירים וחדרי שירות)</strong></td>
+          <td>±0.00</td>
+          <td style="text-align:center;">0</td>
+          <td>לובי כניסה ראשי, מועדון דיירים, חדר אופניים ועגלות, חדר אשפה, מאגר מים וחדר גז</td>
+          <td style="text-align:center;">0 מ"ר</td>
+          <td style="text-align:center;">265 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">265 מ"ר</td>
+          <td style="text-align:center;">11.2%</td>
+        </tr><tr>
+          <td><strong>קומה 1 (טיפוסית — דירה #1 מערב 105.5, דירה #2 מזרח 85.5)</strong></td>
+          <td>+3.50</td>
+          <td style="text-align:center;">2</td>
+          <td>2 דירות 4 חדרים (3 כיווני אוויר כ״א) + גרעין מדרגות ומעלית</td>
+          <td style="text-align:center;">191 מ"ר</td>
+          <td style="text-align:center;">31 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">222 מ"ר</td>
+          <td style="text-align:center;">9.38%</td>
+        </tr><tr>
+          <td><strong>קומה 2 (טיפוסית — דירה #3 מערב, דירה #4 מזרח)</strong></td>
+          <td>+6.65</td>
+          <td style="text-align:center;">2</td>
+          <td>2 דירות 4 חדרים + גרעין קומתי</td>
+          <td style="text-align:center;">191 מ"ר</td>
+          <td style="text-align:center;">31 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">222 מ"ר</td>
+          <td style="text-align:center;">9.38%</td>
+        </tr><tr>
+          <td><strong>קומה 3 (טיפוסית — דירה #5 מערב, דירה #6 מזרח)</strong></td>
+          <td>+9.80</td>
+          <td style="text-align:center;">2</td>
+          <td>2 דירות 4 חדרים + גרעין קומתי</td>
+          <td style="text-align:center;">191 מ"ר</td>
+          <td style="text-align:center;">31 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">222 מ"ר</td>
+          <td style="text-align:center;">9.38%</td>
+        </tr><tr>
+          <td><strong>קומה 4 (טיפוסית — דירה #7 מערב, דירה #8 מזרח)</strong></td>
+          <td>+12.95</td>
+          <td style="text-align:center;">2</td>
+          <td>2 דירות 4 חדרים + גרעין קומתי</td>
+          <td style="text-align:center;">191 מ"ר</td>
+          <td style="text-align:center;">31 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">222 מ"ר</td>
+          <td style="text-align:center;">9.38%</td>
+        </tr><tr>
+          <td><strong>קומה 5 (טיפוסית — דירה #9 מערב, דירה #10 מזרח)</strong></td>
+          <td>+16.10</td>
+          <td style="text-align:center;">2</td>
+          <td>2 דירות 4 חדרים + גרעין קומתי</td>
+          <td style="text-align:center;">191 מ"ר</td>
+          <td style="text-align:center;">31 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">222 מ"ר</td>
+          <td style="text-align:center;">9.38%</td>
+        </tr><tr>
+          <td><strong>קומה 6 (טיפוסית — דירה #11 מערב, דירה #12 מזרח)</strong></td>
+          <td>+19.25</td>
+          <td style="text-align:center;">2</td>
+          <td>2 דירות 4 חדרים + גרעין קומתי</td>
+          <td style="text-align:center;">191 מ"ר</td>
+          <td style="text-align:center;">31 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">222 מ"ר</td>
+          <td style="text-align:center;">9.38%</td>
+        </tr><tr>
+          <td><strong>קומה 7 (טיפוסית — דירה #13 מערב, דירה #14 מזרח)</strong></td>
+          <td>+22.40</td>
+          <td style="text-align:center;">2</td>
+          <td>2 דירות 4 חדרים + גרעין קומתי</td>
+          <td style="text-align:center;">191 מ"ר</td>
+          <td style="text-align:center;">31 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">222 מ"ר</td>
+          <td style="text-align:center;">9.38%</td>
+        </tr><tr>
+          <td><strong>קומה 8 (דירה #15 מערב, דירה #16 מזרח + פרגולות)</strong></td>
+          <td>+25.55</td>
+          <td style="text-align:center;">2</td>
+          <td>2 דירות 4 חדרים + פרגולות אלומיניום דרומיות + גרעין</td>
+          <td style="text-align:center;">191 מ"ר</td>
+          <td style="text-align:center;">31 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">222 מ"ר</td>
+          <td style="text-align:center;">9.38%</td>
+        </tr><tr>
+          <td><strong>קומה 9 (מפלס תחתון דופלקס-פנטהאוזים #17 ו-#18)</strong></td>
+          <td>+28.87</td>
+          <td style="text-align:center;">2</td>
+          <td>מפלס מגורים תחתון דופלקס מערבי #17 (63.57 מ״ר) ומזרחי #18 (52.45 מ״ר) + מרפסות גג</td>
+          <td style="text-align:center;">116 מ"ר</td>
+          <td style="text-align:center;">32.8 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">148.8 מ"ר</td>
+          <td style="text-align:center;">6.29%</td>
+        </tr><tr>
+          <td><strong>קומה 10 (מפלס עליון דופלקס-פנטהאוזים #17 ו-#18)</strong></td>
+          <td>+32.02</td>
+          <td style="text-align:center;">0</td>
+          <td>מפלס חדרי שינה עליון דופלקס #17 (57.70 מ״ר) ודופלקס #18 (51.13 מ״ר) + גרעין</td>
+          <td style="text-align:center;">108.8 מ"ר</td>
+          <td style="text-align:center;">30 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">138.8 מ"ר</td>
+          <td style="text-align:center;">5.86%</td>
+        </tr><tr>
+          <td><strong>גג עליון ויציאה לגג (+35.17m)</strong></td>
+          <td>+35.17</td>
+          <td style="text-align:center;">0</td>
+          <td>חדר יציאה לגג, פיר מעלית ומערכות קולטי שמש</td>
+          <td style="text-align:center;">0 מ"ר</td>
+          <td style="text-align:center;">38 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">38 מ"ר</td>
+          <td style="text-align:center;">1.61%</td>
+        </tr>
+      <tr style="background:#dbeafe;font-weight:800;">
+        <td colspan="2"><strong>סה"כ שטחי בנייה עיליים</strong></td>
+        <td style="text-align:center;"><strong>18</strong></td>
+        <td><strong>סך כל הקומות העיליות (11 קומות + גג טכני)</strong></td>
+        <td style="text-align:center;"><strong>1,752.8 מ"ר</strong></td>
+        <td style="text-align:center;"><strong>613.8 מ"ר</strong></td>
+        <td style="text-align:center;color:#1e3a8a;"><strong>2,366.6 מ"ר</strong></td>
+        <td style="text-align:center;"><strong>100%</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>ב. סך שטחי בנייה תת-קרקעיים (1,096 מ"ר)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:18%;">קומת מרתף</th>
+        <th style="width:14%;">מפלס וגובה</th>
+        <th style="width:46%;">פירוט חניות, מיסעות, רמפות, מחסנים וחדרים טכניים</th>
+        <th style="width:12%;text-align:center;">שטח קומה</th>
+        <th style="width:10%;text-align:center;">% תת-קרקעי</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td><strong>מרתף 1- (חניון עליון · מפלס -4.80m)</strong></td>
+          <td>-4.80</td>
+          <td>8 חניות רגילות (#1–#8), רמפה דו-שיפועית (12.5%–15%), מיסעה וגרעין מדרגות/מעלית</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">548 מ"ר</td>
+          <td style="text-align:center;">50.0%</td>
+        </tr><tr>
+          <td><strong>מרתף 2- (חניון תחתון · מפלס -7.80m)</strong></td>
+          <td>-7.80</td>
+          <td>11 חניות רגילות (#9–#19 כולל חניית נכה P17), בורות שאיבה וגרעין מדרגות/מעלית</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">548 מ"ר</td>
+          <td style="text-align:center;">50.0%</td>
+        </tr>
+      <tr style="background:#dbeafe;font-weight:800;">
+        <td colspan="3"><strong>סה"כ שטחי בנייה תת-קרקעיים (19 חניות · 1:1.06)</strong></td>
+        <td style="text-align:center;color:#1e3a8a;"><strong>1,096 מ"ר</strong></td>
+        <td style="text-align:center;"><strong>100%</strong></td>
+      </tr>
+      <tr style="background:#bfdbfe;font-weight:900;">
+        <td colspan="3"><strong>סה"כ שטח בנוי כולל בפרויקט (עילי + תת-קרקעי)</strong></td>
+        <td colspan="2" style="text-align:center;color:#1e3a8a;"><strong>3,462.6 מ"ר</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>ג. סך שטחי מרפסות גג (85 מ"ר) ומרפסות תלויות (192 מ"ר)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:22%;">קומה (מרפסות גג)</th>
+        <th style="width:28%;">שיוך דירה / טיפוס</th>
+        <th style="width:36%;">מידות ופירוט הנדסי</th>
+        <th style="width:14%;text-align:center;">שטח במ"ר</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td><strong>קומות 9–10 (דופלקס-פנטהאוז מערבי #17)</strong></td>
+          <td>מרפסת גג היקפית ק׳ 9 (43.30 מ״ר) + מרפסת שקועה ק׳ 10 (2.85 מ״ר)</td>
+          <td>טרסת גג בצורת L דרום-מערב + מרפסת סוויטה עליונה</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">46.15 מ"ר</td>
+        </tr><tr>
+          <td><strong>קומות 9–10 (דופלקס-פנטהאוז מזרחי #18)</strong></td>
+          <td>מרפסת גג היקפית ק׳ 9 (36.40 מ״ר) + מרפסת שקועה ק׳ 10 (2.40 מ״ר)</td>
+          <td>טרסת גג בצורת L דרום-מזרח + מרפסת עליונה</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">38.8 מ"ר</td>
+        </tr>
+      <tr style="background:#dbeafe;font-weight:800;">
+        <td colspan="3"><strong>סה"כ שטחי מרפסות גג (4 מרפסות גג)</strong></td>
+        <td style="text-align:center;color:#1e3a8a;"><strong>85 מ"ר</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:18%;">קומות (מרפסות תלויות)</th>
+        <th style="width:24%;">טיפוס דירה</th>
+        <th style="width:10%;text-align:center;">כמות</th>
+        <th style="width:12%;text-align:center;">שטח יחידה</th>
+        <th style="width:22%;">מידות ועומק</th>
+        <th style="width:14%;text-align:center;">סה"כ שטח</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td><strong>קומות 1–8 (אגף מערבי — דירות אי-זוגיות #1..#15)</strong></td>
+          <td>מרפסת שמש דרומית מערבית</td>
+          <td style="text-align:center;">8</td>
+          <td style="text-align:center;">12 מ"ר</td>
+          <td>750×160 ס״מ (כולל פרגולה בקומה 8)</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">96 מ"ר</td>
+        </tr><tr>
+          <td><strong>קומות 1–8 (אגף מזרחי — דירות זוגיות #2..#16)</strong></td>
+          <td>מרפסת שמש דרומית מזרחית</td>
+          <td style="text-align:center;">8</td>
+          <td style="text-align:center;">12 מ"ר</td>
+          <td>750×160 ס״מ (כולל פרגולה בקומה 8)</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">96 מ"ר</td>
+        </tr>
+      <tr style="background:#dbeafe;font-weight:800;">
+        <td colspan="5"><strong>סה"כ שטחי מרפסות תלויות / זיזיות (16 מרפסות)</strong></td>
+        <td style="text-align:center;color:#1e3a8a;"><strong>192 מ"ר</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>ד. סך שטחי חזיתות בחלוקה לחזיתות השונות (2,380 מ"ר)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:20%;">שם החזית והפניה</th>
+        <th style="width:6%;text-align:center;">כיוון</th>
+        <th style="width:8%;text-align:center;">אורך</th>
+        <th style="width:8%;text-align:center;">גובה</th>
+        <th style="width:10%;text-align:center;">שטח חזית</th>
+        <th style="width:7%;text-align:center;">%</th>
+        <th style="width:12%;text-align:center;">זיגוג ופתחים</th>
+        <th style="width:10%;text-align:center;">קירות/חיפוי</th>
+        <th style="width:19%;">חומרי גמר ואלמנטים</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td><strong>חזית דרומית (חזית ראשית לרחוב פאירברג 3)</strong></td>
+          <td style="text-align:center;">דרום</td>
+          <td style="text-align:center;">26.25 מ'</td>
+          <td style="text-align:center;">34.86 מ'</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">915 מ"ר</td>
+          <td style="text-align:center;">38.45%</td>
+          <td style="text-align:center;">235 מ"ר (25.7%)</td>
+          <td style="text-align:center;">680 מ"ר</td>
+          <td>מרפסות שמש דרומיות (7.50×1.60 מ׳), ויטרינות סלונים רחבות, מסגרות דו-קומתיות כהות וחיפוי אבן נסורה לבנה</td>
+        </tr><tr>
+          <td><strong>חזית צפונית (חזית עורפית)</strong></td>
+          <td style="text-align:center;">צפון</td>
+          <td style="text-align:center;">26.25 מ'</td>
+          <td style="text-align:center;">34.86 מ'</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">915 מ"ר</td>
+          <td style="text-align:center;">38.45%</td>
+          <td style="text-align:center;">165 מ"ר (18.0%)</td>
+          <td style="text-align:center;">750 מ"ר</td>
+          <td>חלונות ממ״דים, חדרי שינה צפוניים, חלונות חדר מדרגות מרכזי ורפפות מסתור כביסה צפון-מערבי</td>
+        </tr><tr>
+          <td><strong>חזית מערבית (חזית צד)</strong></td>
+          <td style="text-align:center;">מערב</td>
+          <td style="text-align:center;">8.4 מ'</td>
+          <td style="text-align:center;">32.74 מ'</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">275 מ"ר</td>
+          <td style="text-align:center;">11.55%</td>
+          <td style="text-align:center;">62 מ"ר (22.5%)</td>
+          <td style="text-align:center;">213 מ"ר</td>
+          <td>חלונות סוויטת הורים מערבית, חדר רחצה הורים ומרפסת גג מערבית בקומה 9</td>
+        </tr><tr>
+          <td><strong>חזית מזרחית (חזית צד)</strong></td>
+          <td style="text-align:center;">מזרח</td>
+          <td style="text-align:center;">8.4 מ'</td>
+          <td style="text-align:center;">32.74 מ'</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">275 מ"ר</td>
+          <td style="text-align:center;">11.55%</td>
+          <td style="text-align:center;">58 מ"ר (21.1%)</td>
+          <td style="text-align:center;">217 מ"ר</td>
+          <td>חלונות חדר שינה צפון-מזרחי, רפפות מסתור כביסה מזרחי ומרפסת גג מזרחית בקומה 9</td>
+        </tr>
+      <tr style="background:#dbeafe;font-weight:800;">
+        <td colspan="4"><strong>סה"כ שטחי חזיתות החוץ (4 חזיתות המבנה)</strong></td>
+        <td style="text-align:center;color:#1e3a8a;"><strong>2,380 מ"ר</strong></td>
+        <td style="text-align:center;"><strong>100%</strong></td>
+        <td style="text-align:center;"><strong>520 מ"ר (21.8%)</strong></td>
+        <td style="text-align:center;"><strong>1,860 מ"ר</strong></td>
+        <td><strong>מעטפת מלאה</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>ה. שטחי ריצוף נטו (קומות מלאות — דירות / ציבורי / מרפסות לפי קומות · סה"כ: 2,270.4 מ"ר)</h3>
+  <p style="font-size:8.5pt;color:#334155;margin:2px 0 6px 0;"></p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:15%;">קומה (קומה מלאה)</th>
+        <th style="width:9%;text-align:center;">מפלס</th>
+        <th style="width:5%;text-align:center;">יח"ד</th>
+        <th style="width:9%;text-align:center;">ריצוף דירות (יבש)</th>
+        <th style="width:9%;text-align:center;">ריצוף דירות (רטוב)</th>
+        <th style="width:10%;text-align:center;">סה"כ ריצוף דירות</th>
+        <th style="width:9%;text-align:center;">ריצוף ציבורי</th>
+        <th style="width:9%;text-align:center;">ריצוף מרפסות</th>
+        <th style="width:10%;text-align:center;">סה"כ ריצוף בקומה</th>
+        <th style="width:15%;">פירוט והערות ריצוף</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td><strong>מרתפים -1 ו--2 (מבואות מעלית ומדרגות)</strong></td>
+          <td style="text-align:center;">-4.80 / -7.80</td>
+          <td style="text-align:center;">0</td>
+          <td style="text-align:center;">0 מ"ר</td>
+          <td style="text-align:center;">0 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">0 מ"ר</td>
+          <td style="text-align:center;font-weight:700;color:#0f766e;">44 מ"ר</td>
+          <td style="text-align:center;font-weight:700;color:#b45309;">0 מ"ר</td>
+          <td style="text-align:center;font-weight:900;color:#0f172a;background:#f1f5f9;">44 מ"ר</td>
+          <td>מבואות מעלית מוגנות וחדרי מדרגות ב-2 מרתפי החניון (ללא מיסעות ו-19 החניות בבטון מוחלק)</td>
+        </tr><tr>
+          <td><strong>קומת קרקע (0.00 — לובי, מועדון דיירים ושירות)</strong></td>
+          <td style="text-align:center;">±0.00</td>
+          <td style="text-align:center;">0</td>
+          <td style="text-align:center;">0 מ"ר</td>
+          <td style="text-align:center;">0 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">0 מ"ר</td>
+          <td style="text-align:center;font-weight:700;color:#0f766e;">156 מ"ר</td>
+          <td style="text-align:center;font-weight:700;color:#b45309;">0 מ"ר</td>
+          <td style="text-align:center;font-weight:900;color:#0f172a;background:#f1f5f9;">156 מ"ר</td>
+          <td>לובי כניסה ראשי, מועדון דיירים, חדר אופניים ועגלות, מעברים ומדרגות</td>
+        </tr><tr>
+          <td><strong>קומות 1–8 (8 קומות טיפוסיות — 16 דירות 4 חדרים)</strong></td>
+          <td style="text-align:center;">+3.50 עד +25.55</td>
+          <td style="text-align:center;">16</td>
+          <td style="text-align:center;">1,216 מ"ר</td>
+          <td style="text-align:center;">128 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">1,344 מ"ר</td>
+          <td style="text-align:center;font-weight:700;color:#0f766e;">160 מ"ר</td>
+          <td style="text-align:center;font-weight:700;color:#b45309;">231 מ"ר</td>
+          <td style="text-align:center;font-weight:900;color:#0f172a;background:#f1f5f9;">1,735 מ"ר</td>
+          <td>168.0 מ״ר ריצוף דירות נטו לקומה (92.5 מערב + 75.5 מזרח) × 8 | 20.0 מ״ר ציבורי לקומה × 8 | מרפסות שמש + כביסה</td>
+        </tr><tr>
+          <td><strong>קומות 9–10 (דופלקס-פנטהאוזים #17 ו-#18 + גג)</strong></td>
+          <td style="text-align:center;">+28.87 עד +35.17</td>
+          <td style="text-align:center;">2</td>
+          <td style="text-align:center;">178.4 מ"ר</td>
+          <td style="text-align:center;">20 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">198.4 מ"ר</td>
+          <td style="text-align:center;font-weight:700;color:#0f766e;">52 מ"ר</td>
+          <td style="text-align:center;font-weight:700;color:#b45309;">85 מ"ר</td>
+          <td style="text-align:center;font-weight:900;color:#0f172a;background:#f1f5f9;">335.4 מ"ר</td>
+          <td>דופלקס #17 (106.8 מ״ר נטו) + דופלקס #18 (91.6 מ״ר נטו) | מבואות ק׳ 9–10 ויציאה לגג (52.0) | מרפסות גג (85.0)</td>
+        </tr>
+      <tr style="background:#dbeafe;font-weight:900;">
+        <td colspan="2"><strong>סה"כ שטחי ריצוף בפרויקט</strong></td>
+        <td style="text-align:center;"><strong>18</strong></td>
+        <td style="text-align:center;"><strong>1,394.4 מ"ר</strong></td>
+        <td style="text-align:center;"><strong>148 מ"ר</strong></td>
+        <td style="text-align:center;color:#1e3a8a;"><strong>1,542.4 מ"ר</strong></td>
+        <td style="text-align:center;color:#0f766e;"><strong>412 מ"ר</strong></td>
+        <td style="text-align:center;color:#b45309;"><strong>316 מ"ר</strong></td>
+        <td style="text-align:center;color:#0f172a;background:#bfdbfe;"><strong>2,270.4 מ"ר</strong></td>
+        <td><strong>דירות + ציבורי + מרפסות</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>📋 מסמך סיכום הערות בקרת איכות והצעות לשיפור התכנון</h2>
+  <div class="alert-box alert-info" style="background:#eff6ff;border:1px solid #93c5fd;border-right:4px solid #2563eb;padding:9px 12px;border-radius:6px;margin-bottom:10px;">
+    <strong>סיכום מנהלים:</strong> ציון איכות משוקלל 91.2/100 (דירוג A — מצוין). בניין בוטיק בן 10 קומות + 2 מרתפי חניון ו-18 יח״ד המתאפיין ב-0 כשלים סטטוטוריים (0 FAIL), רציפות אנכית מלאה של הגרעין (IoU=1.000), 3 כיווני אוויר לכל דירה ו-19 חניות קונבנציונליות רגילות. פוטנציאל הנדסת הערך מתמקד בהעברת מאגר המים מקומת הקרקע לתחתית החלק העליון של הרמפה במרתף 1- (H_clear≥2.20m), כיווץ כיסי דיפון מתים מחוץ לרדיוסי הסיבוב R=369/R500 במרתפים 1- ו-2-, והשבחת המסדרונות לטובת חדרי השינה.
+    <ul style="margin:6px 0 0 0;padding-right:18px;">
+      <li>0 כשלים סטטוטוריים (0 FAIL) בכל בדיקות המנוע ו-100% הצלחה ב-5 מבחני ה-Zero-Trust BIM.</li><li>בדירה 2 בתכנית המקור (85.53 מ״ר) רוחב סוויטת ההורים הוא 280–295 ס״מ (עובר תקן ישראלי ו-NDSS, חסרים ס״מ ספורים לרף המצוינות של ADG 300 ס״מ).</li><li>בדירה 1 בתכנית המקור (105.46 מ״ר) חדר הארונות הקטן וזנב המסדרון (880 ס״מ) גוזלים שטח מעבר שניתן לצרף לחדר השינה ולסוויטת ההורים.</li><li>בקומת הקרקע מאגר המים וחדר המשאבות תופסים 28 מ״ר שטח עילי יקר שניתן למקם מתחת לחלק העליון של הרמפה הצפון-מזרחית במרתף 1- (H_clear≥2.20m).</li>
+    </ul>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:5%;text-align:center;">#</th>
+        <th style="width:14%;">רמת עדיפות</th>
+        <th style="width:20%;">מוקד / קומה / דירה</th>
+        <th style="width:21%;">תיאור ההערה / הליקוי</th>
+        <th style="width:25%;">הצעה הנדסית ואדריכלית לשיפור</th>
+        <th style="width:15%;">השפעה ותועלת</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td style="text-align:center;font-weight:800;">#1</td>
+          <td><strong>גבוהה (הנדסת ערך וחיסכון בעלויות בנייה — 592,900 ₪ בקרקע ובמרתפים)</strong></td>
+          <td><strong>קומת קרקע (±0.00m) ומרתפי חניון 1- ו-2- בתכניות המקור</strong></td>
+          <td>מיקום מאגר המים בקומת הקרקע (יקר בבנייה עילית) וכיסי חפירה מתים בדרום-מזרח מרתף 1- (מדרום לרדיוס R=369) ובדרום-מרכז מרתף 2- (בין חניה #12 לחניה #13 מחוץ לקשת R500).</td>
+          <td style="color:#1e3a8a;font-weight:700;">העברת מאגר המים וחדר המשאבות מתחת לחלק העליון של הרמפה הצפון-מזרחית במרתף 1- (גובה ראש פנוי H_clear≥2.20m), גיזום הכיס הדרום-מזרחי במרתף 1- ונסיגת הדיפון הדרומי-מרכזי במרתף 2- תוך הגנה של 100% על חניות #13–#17 ורדיוסי הסיבוב R=369/R400-R500.</td>
+          <td>חיסכון ישיר מאומת של 42 מ״ר עילי (260,400 ₪) + 95 מ״ר תת-קרקעי (332,500 ₪) ללא גריעת אף חניה מתוך 19 החניות וללא פגיעה במיסעות התמרון.</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#2</td>
+          <td><strong>בינונית (השבחת פנים דירה 2 בתכנית המקור · 8 דירות)</strong></td>
+          <td><strong>דירה 2 בתכנית המקור — סוויטת הורים דרום-מערבית (340×280/295 ס״מ)</strong></td>
+          <td>רוחב חדר ההורים 280–295 ס״מ קרוב לרף ה-ADG (300 ס״מ) בעוד קצה המסדרון (625 ס״מ) גוזל 1.4 מ״ר.</td>
+          <td style="color:#1e3a8a;font-weight:700;">קיצור קצה המסדרון ב-95 ס״מ והזזת דלת סוויטת ההורים לקו חדר הרחצה.</td>
+          <td>הגדלת סוויטת ההורים ב-1.4 מ״ר והרחבתה ל-312 ס״מ (עמידה מלאה ב-ADG!).</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#3</td>
+          <td><strong>בינונית (השבחת פנים דירה 1 בתכנית המקור · 8 דירות)</strong></td>
+          <td><strong>דירה 1 בתכנית המקור — חדר ארונות ומסדרון חדרי שינה (880 ס״מ)</strong></td>
+          <td>מחיצות חדר הארונות הקטן וזנב המסדרון תופסים 1.8 מ״ר שטח מעבר כפול.</td>
+          <td style="color:#1e3a8a;font-weight:700;">שילוב ארון קיר אינטגרלי באורך 3.60 מ׳ בסוויטת ההורים וקיצור זנב המסדרון ב-105 ס״מ.</td>
+          <td>תוספת של 1.8 מ״ר שטח אפקטיבי לחדר השינה הצפוני ולסוויטת ההורים בכל 8 הדירות.</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#4</td>
+          <td><strong>הועבר מחיסכון לשיפור תכנון (קונטור נעול)</strong></td>
+          <td><strong>קומות 1–8 וקומת קרקע — נישת מבואה דרומית כלואה בין עמודי הגרעין (9.6 מ״ר) ומעבר שירות תחת תקרת קומה א׳ (10.0 מ״ר) (סיכה #17)</strong></td>
+          <td>בדיקת קונטור שלילית (0 מ״ר הקטנת קונטור בניין): צמצום נישת המבואה הדרומית (1.2 מ״ר × 8 קומות = 9.6 מ״ר) נמצא בין עמודי השלד וקירות הממ״ד ללא יכולת להסיג את קו החזית הדרומית (מבחן 1), וצמצום מעבר השירות בקומת הקרקע (10.0 מ״ר) נמצא מתחת לתקרת דירה #2 בקומה א׳ שממילא ניצוקה (מבחן 2). לכן 19.6 מ״ר אלו אינם מקטינים את שטח הבנייה הכולל (0 ₪ חיסכון) והועברו לשיפור תכנון!</td>
+          <td style="color:#1e3a8a;font-weight:700;">העברת 1.2 מ״ר בכל קומה להרחבת מבואת הכניסה לדירות והגדלת הלובי הראשי וחדר העגלות בקומת הקרקע ב-10.0 מ״ר.</td>
+          <td>+19.6 מ״ר שיפור תכנון ומבואות (0 ₪ חיסכון שלד כי הקונטור הכולל לא קטן)</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#5</td>
+          <td><strong>שיפור תכנון פנים-דירתי</strong></td>
+          <td><strong>דירה 1 בתכנית המקור (אגף ימני/מזרחי בתכנית · 8 דירות של 4 חדרים — 105.46 מ״ר) (סיכה #18)</strong></td>
+          <td>מסדרון פנים בשטח 9.8 מ״ר לדירה על חשבון שטח חדרי המגורים (ללא שינוי קונטור הבנייה)</td>
+          <td style="color:#1e3a8a;font-weight:700;">קיצור זנב המסדרון הפנימי (אורך 880 ס״מ בתכנית המקור) ב-105 ס״מ ויישור מבואת חדרי השינה — השבחה של 1.8 מ״ר שטח מגורים אפקטיבי בכל אחת מ-8 הדירות (14.4 מ״ר סה״כ). · ייעול פתחים: איחוד מפתחי חלונות חדרי השינה למודול אחיד של 140×150 ס״מ עם זיגוג Low-E ואקוסטיקה 40dB.</td>
+          <td>הגדלת הגדלת חדר השינה הצפוני (מרוחב 2.80 מ׳ ל-2.98 מ׳) + הרחבת סוויטת ההורים והסלון (650×420 ס״מ) ב-+1.8 מ״ר לדירה (+14.4 מ״ר ב-8 דירות)</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#6</td>
+          <td><strong>שיפור תכנון פנים-דירתי</strong></td>
+          <td><strong>דירה 2 בתכנית המקור (אגף שמאלי/מערבי בתכנית · 8 דירות של 4 חדרים — 85.53 מ״ר) (סיכה #19)</strong></td>
+          <td>מסדרון פנים בשטח 7.9 מ״ר לדירה על חשבון שטח חדרי המגורים (ללא שינוי קונטור הבנייה)</td>
+          <td style="color:#1e3a8a;font-weight:700;">קיצור קצה המסדרון של דירה 2 (625 ס״מ בתכנית המקור) ב-95 ס״מ והזזת דלת סוויטת ההורים קדימה לקו חדר הרחצה — העברת 1.4 מ״ר נטו משטח המעבר אל תוך חדר ההורים (11.2 מ״ר ב-8 דירות). · ייעול פתחים: סטנדרטיזציה של ויטרינת המרפסת הדרומית וחלונות החזית הצדדית.</td>
+          <td>הגדלת הרחבת סוויטת ההורים הדרום-מערבית (340×280 ס״מ בתכנית המקור) מרוחב 2.80–2.95 מ׳ ל-3.12 מ׳ (עמידה מלאה ב-ADG ≥3.00 מ׳!) ב-+1.4 מ״ר לדירה (+11.2 מ״ר ב-8 דירות)</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#7</td>
+          <td><strong>שיפור תכנון פנים-דירתי</strong></td>
+          <td><strong>דופלקס-פנטהאוזים #17 ו-#18 (קומות 9–10 בתכנית המקור · 2 דירות — 121.3 ו-103.6 מ״ר) (סיכה #20)</strong></td>
+          <td>מסדרון פנים בשטח 11.5 מ״ר לדירה על חשבון שטח חדרי המגורים (ללא שינוי קונטור הבנייה)</td>
+          <td style="color:#1e3a8a;font-weight:700;">הידוק גלריית המעבר העליונה בקומה 10 והעברת 2.1 מ״ר לכל דופלקס לטובת סוויטת ההורים הראשית. · ייעול פתחים: איזון מפתחי הוויטרינות הפנורמיות בקומה 9 (מרפסות 1300×200/300 ס״מ) עם פרגולות ההצללה הדרומיות לחיסכון בעלויות האלומיניום ושיפור הבידוד התרמי.</td>
+          <td>הגדלת הגדלת סוויטות ההורים הראשיות בקומה 10 ופינת העבודה/גלריה ב-+2.1 מ״ר לדירה (+4.2 מ״ר ב-2 דירות)</td>
+        </tr>
+    </tbody>
+  </table>
+
+  <h3>🛋️ שיפור תכנון (ללא הקטנת קונטור הבנייה): ייעול פנים-דירתי ושטחי ליבה כלואים שהועברו מחיסכון עלויות</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:22%;">טיפוס דירה / מוקד ליבה כלוא</th>
+        <th style="width:10%;text-align:center;">מצב נוכחי</th>
+        <th style="width:10%;text-align:center;">מצב יעיל / קונטור</th>
+        <th style="width:11%;text-align:center;">תוספת / חיסכון</th>
+        <th style="width:13%;text-align:center;">סה"כ שטח שיפור תכנון</th>
+        <th style="width:34%;">פירוט הנדסי (מדוע לא הקטין קונטור ומהו שיפור התכנון)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#eff6ff;">
+          <td><strong>🔄 ליבה כלואה: קומות 1–8 וקומת קרקע — נישת מבואה דרומית כלואה בין עמודי הגרעין (9.6 מ״ר) ומעבר שירות תחת תקרת קומה א׳ (10.0 מ״ר)</strong></td>
+          <td style="text-align:center;">הפחתת 19.6 מ"ר</td>
+          <td style="text-align:center;color:#dc2626;font-weight:800;">0.0 מ"ר קונטור</td>
+          <td style="text-align:center;font-weight:800;color:#64748b;">0 ₪</td>
+          <td style="text-align:center;font-weight:900;color:#1e3a8a;background:#dbeafe;">+19.6 מ"ר שיפור תכנון</td>
+          <td><strong>למה לא הקטין קונטור:</strong> בדיקת קונטור שלילית (0 מ״ר הקטנת קונטור בניין): צמצום נישת המבואה הדרומית (1.2 מ״ר × 8 קומות = 9.6 מ״ר) נמצא בין עמודי השלד וקירות הממ״ד ללא יכולת להסיג את קו החזית הדרומית (מבחן 1), וצמצום מעבר השירות בקומת הקרקע (10.0 מ״ר) נמצא מתחת לתקרת דירה #2 בקומה א׳ שממילא ניצוקה (מבחן 2). לכן 19.6 מ״ר אלו אינם מקטינים את שטח הבנייה הכולל (0 ₪ חיסכון) והועברו לשיפור תכנון!<br/><strong>שיפור תכנון:</strong> העברת 1.2 מ״ר בכל קומה להרחבת מבואת הכניסה לדירות והגדלת הלובי הראשי וחדר העגלות בקומת הקרקע ב-10.0 מ״ר.</td>
+        </tr><tr>
+          <td><strong>🛋️ פנים-דירתי: דירה 1 בתכנית המקור (אגף ימני/מזרחי בתכנית · 8 דירות של 4 חדרים — 105.46 מ״ר)</strong></td>
+          <td style="text-align:center;">מסדרון 9.8 מ"ר</td>
+          <td style="text-align:center;">מסדרון 8 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">+1.8 מ"ר לדירה</td>
+          <td style="text-align:center;font-weight:900;color:#1e3a8a;background:#dbeafe;">+14.4 מ"ר (8 דירות)</td>
+          <td><strong>הגדלת חדרים:</strong> הגדלת חדר השינה הצפוני (מרוחב 2.80 מ׳ ל-2.98 מ׳) + הרחבת סוויטת ההורים והסלון (650×420 ס״מ)<br/><strong>פתחים:</strong> איחוד מפתחי חלונות חדרי השינה למודול אחיד של 140×150 ס״מ עם זיגוג Low-E ואקוסטיקה 40dB.</td>
+        </tr><tr>
+          <td><strong>🛋️ פנים-דירתי: דירה 2 בתכנית המקור (אגף שמאלי/מערבי בתכנית · 8 דירות של 4 חדרים — 85.53 מ״ר)</strong></td>
+          <td style="text-align:center;">מסדרון 7.9 מ"ר</td>
+          <td style="text-align:center;">מסדרון 6.5 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">+1.4 מ"ר לדירה</td>
+          <td style="text-align:center;font-weight:900;color:#1e3a8a;background:#dbeafe;">+11.2 מ"ר (8 דירות)</td>
+          <td><strong>הגדלת חדרים:</strong> הרחבת סוויטת ההורים הדרום-מערבית (340×280 ס״מ בתכנית המקור) מרוחב 2.80–2.95 מ׳ ל-3.12 מ׳ (עמידה מלאה ב-ADG ≥3.00 מ׳!)<br/><strong>פתחים:</strong> סטנדרטיזציה של ויטרינת המרפסת הדרומית וחלונות החזית הצדדית.</td>
+        </tr><tr>
+          <td><strong>🛋️ פנים-דירתי: דופלקס-פנטהאוזים #17 ו-#18 (קומות 9–10 בתכנית המקור · 2 דירות — 121.3 ו-103.6 מ״ר)</strong></td>
+          <td style="text-align:center;">מסדרון 11.5 מ"ר</td>
+          <td style="text-align:center;">מסדרון 9.4 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#1e3a8a;">+2.1 מ"ר לדירה</td>
+          <td style="text-align:center;font-weight:900;color:#1e3a8a;background:#dbeafe;">+4.2 מ"ר (2 דירות)</td>
+          <td><strong>הגדלת חדרים:</strong> הגדלת סוויטות ההורים הראשיות בקומה 10 ופינת העבודה/גלריה<br/><strong>פתחים:</strong> איזון מפתחי הוויטרינות הפנורמיות בקומה 9 (מרפסות 1300×200/300 ס״מ) עם פרגולות ההצללה הדרומיות לחיסכון בעלויות האלומיניום ושיפור הבידוד התרמי.</td>
+        </tr>
+    </tbody>
+  </table>
+
+  <h2>💰 מודל החיסכון בעלויות הבנייה — צמצום קונטור בנייה מאומת וחיפוי (סה"כ חיסכון ישיר: 1,101,220 ₪)</h2>
+  <div class="alert-box alert-info" style="background:#f0fdf4;border:1px solid #86efac;border-right:4px solid #16a34a;padding:9px 12px;border-radius:6px;margin-bottom:10px;color:#14532d;">
+    <strong>📐 מנגנון בקרת כיווץ קונטור הבניין (Contour Shrinkage Audit):</strong> חיסכון בעלויות בנייה (6,200 ₪/מ״ר עילי ו-3,500 ₪/מ״ר מרתף) מוכר אך ורק כאשר הקטנת הגרעין/שירות/מרתף מקטינה בפועל את קונטור הבניין או הדיפון החיצוני (סך הכל נבנה פחות). שטח ליבה או מרתף שירד אך נותר כלוא בין דירות/עמודים, מתחת לתקרה עליונה קשיחה, או חופף למסלול רמפה פעיל, רדיוס סיבוב ומיסעת תמרון לחניות — מקוזז ממודל החיסכון (0 ₪) ומועבר ל'שיפור תכנון / הגנת תמרון'. · 0 מ״ר פגיעה בשטח הדירות (1,752.8 מ״ר פלדלת נשמרים במלואם) · 0 פגיעה במצבת החניות (19 חניות נשמרות) · שמירה מלאה על כל ארונות החשמל, המים, הגז, התקשורת וציוד כיבוי האש.
+  </div>
+
+  <div class="scorecard-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 12px;">
+    <div class="score-card" style="border-top-color:#16a34a;background:#f0fdf4;">
+      <div class="score-title">סה"כ חיסכון כספי ישיר בבנייה</div>
+      <div class="score-val" style="font-size:13.5pt;color:#15803d;">1,101,220 ₪</div>
+      <div class="score-sub">אך ורק מקונטור שנבנה פחות + חיפוי</div>
+    </div>
+    <div class="score-card" style="border-top-color:#2563eb;">
+      <div class="score-title">צמצום קונטור עילי מאומת (6,200 ₪/מ"ר)</div>
+      <div class="score-val" style="font-size:13pt;color:#1e3a8a;">508,400 ₪</div>
+      <div class="score-sub">נבנה פחות: 82 מ"ר (נוכו 19.6 מ"ר כלואים)</div>
+    </div>
+    <div class="score-card" style="border-top-color:#0284c7;">
+      <div class="score-title">צמצום קונטור חניון מאומת (3,500 ₪/מ"ר)</div>
+      <div class="score-val" style="font-size:13pt;color:#0284c7;">332,500 ₪</div>
+      <div class="score-sub">נבנה פחות: 95 מ"ר (נוכו 48 מ"ר כלואים)</div>
+    </div>
+    <div class="score-card" style="border-top-color:#d97706;">
+      <div class="score-title">חיפוי יבש מול טיח (400 ₪/מ"ר)</div>
+      <div class="score-val" style="font-size:13pt;color:#b45309;">260,320 ₪</div>
+      <div class="score-sub">המרת 650.8 מ"ר לטיח</div>
+    </div>
+  </div>
+
+  <h3>א. צמצום קונטור בנייה עילי מאומת (6,200 ₪ למ"ר קונטור נחסך — בניכוי ליבה כלואה שהועברה לשיפור תכנון)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:18%;">קומה / מוקד</th>
+        <th style="width:8%;text-align:center;">שטח נוכחי</th>
+        <th style="width:9%;text-align:center;">הפחתה גולמית</th>
+        <th style="width:10%;text-align:center;">כלוא (0 ₪ ← שיפור תכנון)</th>
+        <th style="width:10%;text-align:center;">קונטור נחסך (נבנה פחות)</th>
+        <th style="width:12%;text-align:center;">חיסכון כספי (₪)</th>
+        <th style="width:33%;">פעולה הנדסית, הוכחת כיווץ קונטור ושימושים נשמרים</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td><strong>קומת קרקע (±0.00m — העברת מאגר מים לתחתית החלק העליון של הרמפה במרתף 1- והידוק מעברי שירות)</strong></td>
+          <td style="text-align:center;">265 מ"ר</td>
+          <td style="text-align:center;">52 מ"ר</td>
+          <td style="text-align:center;color:#1d4ed8;font-weight:700;">10 מ"ר (0 ₪)</td>
+          <td style="text-align:center;font-weight:800;color:#15803d;background:#ecfdf5;">42 מ"ר</td>
+          <td style="text-align:center;font-weight:900;color:#15803d;background:#dcfce7;">260,400 ₪</td>
+          <td>
+            <div>העברת מאגר המים וחדר המשאבות (28 מ״ר בקומת הקרקע) אל החלל התחתון מתחת לחלק העליון של כבש הרמפה הצפון-מזרחית במרתף 1- (שם גובה הראש הפנוי H_clear = 2.20–3.15 מ׳ ≥ 2.15 מ׳), ואיחוד מסדרון השירות העורפי בין חדר האשפה למועדון הדיירים (חיסכון מאומת של 42.0 מ״ר בנוי עילי).</div>
+            <div style="font-size:8pt;color:#0f766e;margin-top:2px;font-weight:700;">📐 כיווץ קונטור: פינוי מאגר המים וחדר המשאבות בקומת הקרקע אל תחתית החלק העליון של הרמפה הצפון-מזרחית במרתף 1- (שם גובה הראש הפנוי H_clear = 2.20–3.15 מ׳) ונסיגת קיר המעטפת של חדרי השירות בקומת הקרקע (רוחב בניין 25.89 מ׳ בתכנית הקרקע: -42.0 מ״ר קונטור בנוי).</div>
+            <div style="font-size:8pt;color:#475569;margin-top:2px;">🛡️ שמירה מלאה על לובי כניסה ראשי, מועדון דיירים, חדר אופניים ועגלות, חדר אשפה ודחסנית, חדר גז ולוח חח״י וכל ארונות המונים</div>
+          </td>
+        </tr><tr>
+          <td><strong>קומות 1–8 (8 קומות — הידוק גרעין ומבואה קומתית ל-2 דירות בקומה בתכנית המקור)</strong></td>
+          <td style="text-align:center;">248 מ"ר</td>
+          <td style="text-align:center;">37.6 מ"ר</td>
+          <td style="text-align:center;color:#1d4ed8;font-weight:700;">9.6 מ"ר (0 ₪)</td>
+          <td style="text-align:center;font-weight:800;color:#15803d;background:#ecfdf5;">28 מ"ר</td>
+          <td style="text-align:center;font-weight:900;color:#15803d;background:#dcfce7;">173,600 ₪</td>
+          <td>
+            <div>בקומה טיפוסית של 2 דירות בלבד (דירה 1 מזרחית ודירה 2 מערבית בתכנית המקור), הידוק מבואת הקומה מ-31.0 מ״ר ל-27.5 מ״ר לקומה (חיסכון של 3.5 מ״ר × 8 קומות = 28.0 מ״ר) על ידי קירוב אגפי הדירות ב-25 ס״מ על ציר האורך והטמעת ארונות המונים בקו אפס בדופן הגרעין.</div>
+            <div style="font-size:8pt;color:#0f766e;margin-top:2px;font-weight:700;">📐 כיווץ קונטור: בקומה טיפוסית של 2 דירות בתכנית המקור (דירה 1 מזרחית ודירה 2 מערבית, מידות חוץ 2620×840 ס״מ + מרפסות דרומיות 750×160 ס״מ), קירוב שני אגפי הדירות על ציר X והידוק קיר הגרעין הצפוני (3.5 מ״ר הקטנת קונטור תקרה × 8 קומות = 28.0 מ״ר).</div>
+            <div style="font-size:8pt;color:#475569;margin-top:2px;">🛡️ שמירה מלאה על חדר מדרגות מוגן (3.50×3.50 מ׳), פיר מעלית (1.75×1.80 מ׳) וכל ארונות החשמל, המים, התקשורת וכיבוי האש הקומתיים</div>
+          </td>
+        </tr><tr>
+          <td><strong>קומות 9–10 וגג עליון (+28.87m עד +35.17m — מבואת דופלקסים ויציאה לגג)</strong></td>
+          <td style="text-align:center;">100.8 מ"ר</td>
+          <td style="text-align:center;">12 מ"ר</td>
+          <td style="text-align:center;color:#1d4ed8;font-weight:700;">0 מ"ר (0 ₪)</td>
+          <td style="text-align:center;font-weight:800;color:#15803d;background:#ecfdf5;">12 מ"ר</td>
+          <td style="text-align:center;font-weight:900;color:#15803d;background:#dcfce7;">74,400 ₪</td>
+          <td>
+            <div>צמצום מבואת הגלריה המשותפת בקומה 10 (שבה הכניסה הראשית לדופלקסים היא מקומה 9) והתאמת חדר היציאה לגג לקונטור הפירים ההנדסי בלבד (חיסכון של 12.0 מ״ר בנוי עילי).</div>
+            <div style="font-size:8pt;color:#0f766e;margin-top:2px;font-weight:700;">📐 כיווץ קונטור: נסיגת מעטפת חדר היציאה לגג ומבואת הגלריה בקומה 10 לקו הפירים ההנדסי (100% הקטנת קונטור גג עליון).</div>
+            <div style="font-size:8pt;color:#475569;margin-top:2px;">🛡️ שמירה על יציאה תקנית לגג, גישה למערכות קולטי השמש ופיר המעלית העליון</div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <h3>ב. צמצום קונטור מרתף חניון תת-קרקעי מאומת (3,500 ₪ למ"ר קונטור דיפון נחסך — 100% שמירה על מצבת החניות)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:18%;">מוקד במרתף</th>
+        <th style="width:11%;text-align:center;">שטח נוכחי</th>
+        <th style="width:9%;text-align:center;">הפחתה גולמית</th>
+        <th style="width:10%;text-align:center;">כלוא בין חניות (0 ₪)</th>
+        <th style="width:10%;text-align:center;">קונטור דיפון נחסך</th>
+        <th style="width:12%;text-align:center;">חיסכון כספי (₪)</th>
+        <th style="width:30%;">פתרון הנדסי, כיווץ פוליגון דיפון ושמירת חניות</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td><strong>מרתף 1- (-4.80m — ניצול תחתית רמפה עליונה H≥2.20m וגיזום כיס דרום-מזרחי מחוץ לרדיוס R=369)</strong></td>
+          <td style="text-align:center;">548 מ"ר (57.7 מ"ר/חניה)</td>
+          <td style="text-align:center;">67 מ"ר</td>
+          <td style="text-align:center;color:#1d4ed8;font-weight:700;">22 מ"ר (0 ₪)</td>
+          <td style="text-align:center;font-weight:800;color:#15803d;background:#ecfdf5;">45 מ"ר</td>
+          <td style="text-align:center;font-weight:900;color:#15803d;background:#dcfce7;">157,500 ₪</td>
+          <td>
+            <div>בתכנית המקור של מרתף 1-, הרמפה יורדת בצפון-מזרח (15% לאורך 19.00 מ׳), מתמתנת (5% ו-7.5% לאורך 3.00 מ׳) ומסתובבת במזרח ברדיוס R=350–369 ס״מ לירידה למרתף 2- לצד חניות #7–#8 ומיסעה של 6.50 מ׳. שטח מסלול הרמפה, משטח הסיבוב R=369 והמיסעה (22.0 מ״ר) מוגנים ב-100% ואסורים לגריעה; החיסכון המאומת (45.0 מ״ר) מושג ע״י הכנסת מאגר המים וחדר המשאבות מתחת לחלק העליון של הרמפה הצפון-מזרחית (גובה ראש פנוי H_clear = 2.20–3.15 מ׳) ונסיגת קיר הדיפון בכיס הדרום-מזרחי המת (מדרום לרדיוס R=369 וממזרח לחניה #6).</div>
+            <div style="font-size:8pt;color:#0f766e;margin-top:2px;font-weight:700;">📐 כיווץ דיפון: הכנסת מאגר המים וחדר המשאבות (28.0 מ״ר) מתחת לחלק העליון של הרמפה הצפון-מזרחית (H_clear = 2.20–3.15 מ׳) וגיזום קו הדיפון בכיס הדרום-מזרחי המת מחוץ לרדיוס הסיבוב R=369 ומחוץ למיסעה 6.50 מ׳ (-45.0 מ״ר קונטור דיפון מאומת).</div>
+            <div style="font-size:8pt;color:#475569;margin-top:2px;">🅿️ 8 חניות רגילות במרתף 1- (#1–#8 בתכנית המקור) + רמפה דו-שיפועית (15% / 7.5% / R=350-369) + מיסעה 5.90–6.50 מ׳ + אוזן תמרון 1.00 מ׳ לחניה #4</div>
+          </td>
+        </tr><tr>
+          <td><strong>מרתף 2- (-7.80m — גריעת רצועת דיפון דרומית-מרכזית מתה בין חניה #12 ל-#13 מחוץ לרדיוס R500 ושמירת אגף מזרחי #13–#17)</strong></td>
+          <td style="text-align:center;">548 מ"ר (57.7 מ"ר/חניה)</td>
+          <td style="text-align:center;">76 מ"ר</td>
+          <td style="text-align:center;color:#1d4ed8;font-weight:700;">26 מ"ר (0 ₪)</td>
+          <td style="text-align:center;font-weight:800;color:#15803d;background:#ecfdf5;">50 מ"ר</td>
+          <td style="text-align:center;font-weight:900;color:#15803d;background:#dcfce7;">175,000 ₪</td>
+          <td>
+            <div>בדיקת תכנית המקור של מרתף 2- מוכיחה כי באגף המזרחי ממוקמות חניות #15, #16, #17 (צפון-מזרח) וחניות #13, #14 (דרום-מזרח) וביניהן מיסעה של 5.20–5.50 מ׳ ומשטח יציאה מהרמפה ברדיוס R400/R500 (רוחב 4.20 מ׳) — ולכן 26.0 מ״ר באגף המזרחי מוגנים לחלוטין כשטח תמרון ורמפה ואסורים לגריעה! החיסכון המאומת בקונטור הדיפון (50.0 מ״ר) מושג ע״י נסיגת קיר הדיפון הדרומי-מרכזי ב-32.0 מ״ר ברצועה המתה שבין חניה #12 לחניה #13 (מדרום לחניות #19–#18 ומחוץ לקשת החיצונית R500 של הרמפה) + 18.0 מ״ר ניצול תחתית החלק העליון של הרמפה הצפונית (H_clear ≥ 2.15 מ׳) לבורות שאיבה ומפריד שומנים.</div>
+            <div style="font-size:8pt;color:#0f766e;margin-top:2px;font-weight:700;">📐 כיווץ דיפון: שמירה מלאה על האגף המזרחי במרתף 2- (חניות #13–#17, מיסעה 5.20–5.50 מ׳ ויציאת רמפה R400/R500), והשגת 50.0 מ״ר כיווץ קונטור מאומת ע״י נסיגת קיר הדיפון הדרומי-מרכזי ב-32.0 מ״ר ברצועה המתה שבין חניה #12 לחניה #13 (מחוץ לקשת R500) + 18.0 מ״ר ניצול תחתית הרמפה הצפונית העליונה (H_clear ≥ 2.15 מ׳).</div>
+            <div style="font-size:8pt;color:#475569;margin-top:2px;">🅿️ 11 חניות רגילות במרתף 2- (#9–#19 בתכנית המקור: כולל חניות מזרחיות #13–#17, חניית נכה #17 ברוחב 437 ס״מ, מיסעה 5.20–5.50 מ׳ ורדיוס סיבוב רמפה R400/R500 במפלס 45.10)</div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <h3>ג. אופטימיזציית חזיתות — יחס חיפוי קשיח/יבש (700 ₪/מ"ר) מול טיח חוץ (300 ₪/מ"ר · חיסכון 400 ₪/מ"ר)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:18%;">חזית וכיוון</th>
+        <th style="width:10%;text-align:center;">שטח אטום</th>
+        <th style="width:11%;text-align:center;">יבש נוכחי (85%)</th>
+        <th style="width:11%;text-align:center;">המרה לטיח</th>
+        <th style="width:14%;text-align:center;">תמהיל מומלץ</th>
+        <th style="width:12%;text-align:center;">חיסכון כספי</th>
+        <th style="width:24%;">אסטרטגיה אדריכלית</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td><strong>חזית דרומית (חזית ראשית לרחוב פאירברג 3)</strong></td>
+          <td style="text-align:center;">680 מ"ר</td>
+          <td style="text-align:center;">578 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#0284c7;">136 מ"ר</td>
+          <td style="text-align:center;">65.0% יבש / 35.0% טיח</td>
+          <td style="text-align:center;font-weight:900;color:#15803d;background:#dcfce7;">54,400 ₪</td>
+          <td>חזית רחוב ייצוגית — שמירת חיפוי יבש מלא בחזית הראשית ובמסד; המרת קירות פנים-מרפסות ונסיגות קומות גג בלבד לטיח (20%)</td>
+        </tr><tr>
+          <td><strong>חזית צפונית (חזית עורפית)</strong></td>
+          <td style="text-align:center;">750 מ"ר</td>
+          <td style="text-align:center;">637.5 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#0284c7;">360 מ"ר</td>
+          <td style="text-align:center;">37.0% יבש / 63.0% טיח</td>
+          <td style="text-align:center;font-weight:900;color:#15803d;background:#dcfce7;">144,000 ₪</td>
+          <td>חזית עורפית — המרת שטחי הקירות האטומים העורפיים ומסתורי הכביסה לטיח תרמי/אקרילי משובח תוך שמירת מסגרות חיפוי יבש (48%)</td>
+        </tr><tr>
+          <td><strong>חזית מערבית (חזית צד)</strong></td>
+          <td style="text-align:center;">213 מ"ר</td>
+          <td style="text-align:center;">181 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#0284c7;">76.7 מ"ר</td>
+          <td style="text-align:center;">49.0% יבש / 51.0% טיח</td>
+          <td style="text-align:center;font-weight:900;color:#15803d;background:#dcfce7;">30,680 ₪</td>
+          <td>חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)</td>
+        </tr><tr>
+          <td><strong>חזית מזרחית (חזית צד)</strong></td>
+          <td style="text-align:center;">217 מ"ר</td>
+          <td style="text-align:center;">184.4 מ"ר</td>
+          <td style="text-align:center;font-weight:800;color:#0284c7;">78.1 מ"ר</td>
+          <td style="text-align:center;">49.0% יבש / 51.0% טיח</td>
+          <td style="text-align:center;font-weight:900;color:#15803d;background:#dcfce7;">31,240 ₪</td>
+          <td>חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)</td>
+        </tr>
+    </tbody>
+  </table>
+<!-- ARCHICHECK_SUMMARY_AND_AREAS_HTML_END -->
+
+
+    <h2>📌 נספח: ריכוז כל הערות הבדיקה הפרטניות במודל (20 הערות)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:5%;">סיכה</th>
+          <th style="width:7%;">סטטוס</th>
+          <th style="width:10%;">תקן</th>
+          <th style="width:16%;">טיפוס / קומה</th>
+          <th style="width:16%;">חלל / אזור</th>
+          <th style="width:18%;">כותרת הממצא</th>
+          <th style="width:12%;">מדידה בתכנית</th>
+          <th style="width:16%;">המלצה לשיפור</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align:center;font-weight:800;">#1</td>
+          <td style="text-align:center;"><strong>PASS</strong></td>
+          <td>ADG 4D-3 / B1.3</td>
+          <td>דירה 1 בתכנית המקור (אגף ימני/מזרחי · 8 דירות של 4 חדרים · 105.46+12 מ״ר)</td>
+          <td><strong>סלון ופינת אוכל דרומית (650×420 ס״מ = 27.30 מ״ר) + מרפסת שמש (750×160 ס״מ)</strong></td>
+          <td>חלל ציבורי רחב ומואר במיוחד (רוחב 4.20 מ׳ — עובר ADG!) עם ויטרינה דרומית רחבה ליציאה למרפסת 12 מ״ר</td>
+          <td>סלון-אוכל: 650×420 ס״מ (רוחב 4.20 מ׳) · מרפסת: 12.00 מ״ר (750×160 ס״מ)</td>
+          <td style="color:#1e3a8a;">לשמר את מסילת הוויטרינה השקועה (Zero-Threshold) בין הסלון למרפסת הדרומית.</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#2</td>
+          <td style="text-align:center;"><strong>PASS</strong></td>
+          <td>ADG 4D-3 / NDSS</td>
+          <td>דירה 1 בתכנית המקור (4 חדרים · 105.46 מ״ר)</td>
+          <td><strong>סוויטת הורים דרום-מזרחית (350×360 ס״מ), חדר ארונות וחדר רחצה הורים מאוורר טבעית</strong></td>
+          <td>סוויטת הורים מרווחת ברוחב 3.50 מ׳ (מעל רף ADG 3.00 מ׳) עם חדר רחצה מאוורר טבעית</td>
+          <td>הורים: 350×360 ס״מ + חדר ארונות + רחצה הורים (150×245 ס״מ)</td>
+          <td style="color:#1e3a8a;">במסגרת ייעול התכנון הפנימי ניתן להחליף את מחיצת חדר הארונות הקטן בארון קיר נגרות באורך 3.60 מ׳ ולהגדיל את שטח החדר הפתוח.</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#3</td>
+          <td style="text-align:center;"><strong>WARN</strong></td>
+          <td>פקע״ר / ADG 4D-3</td>
+          <td>דירה 1 בתכנית המקור (4 חדרים · 105.46 מ״ר)</td>
+          <td><strong>ממ״ד צפון-מזרחי (350×280 ס״מ = 9.80 מ״ר) וחדר שינה צפוני (370×280 ס״מ = 10.36 מ״ר)</strong></td>
+          <td>ממ״ד וחדר שינה צפוני עוברים תקנות בנייה, פקע״ר ו-NDSS (9.8 ו-10.36 מ״ר); רוחב 2.80 מ׳ מתחת לרף ADG (3.00 מ׳)</td>
+          <td>ממ״ד: 9.80 מ״ר (רוחב 2.80 מ׳) · חדר שינה צפוני: 10.36 מ״ר (רוחב 2.80 מ׳)</td>
+          <td style="color:#1e3a8a;">קיצור זנב המסדרון של דירה 1 והסטת קיר חדר השינה הצפוני ב-18 ס״מ דרומה.</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#4</td>
+          <td style="text-align:center;"><strong>PASS</strong></td>
+          <td>ADG 4D-3 / NKBA</td>
+          <td>דירה 2 בתכנית המקור (אגף שמאלי/מערבי · 8 דירות של 4 חדרים · 85.53+12 מ״ר)</td>
+          <td><strong>סלון ופינת אוכל (625×370/410 ס״מ = 24.80 מ״ר), מטבח עם אי ומרפסת דרומית (12.0 מ״ר)</strong></td>
+          <td>תכנון מצוין לדירת 4 חדרים קומפקטית (85.5 מ״ר): סלון רחב ו-3 כיווני אוויר מלאים (דרום, מערב, צפון)</td>
+          <td>סלון: 24.80 מ״ר (625×370/410 ס״מ) · מטבח: 8.65 מ״ר · מרפסת: 12.00 מ״ר</td>
+          <td style="color:#1e3a8a;">לשמור על רוחב מעבר 105 ס״מ סביב אי המטבח.</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#5</td>
+          <td style="text-align:center;"><strong>WARN</strong></td>
+          <td>ADG 4D-3 / B1.6</td>
+          <td>דירה 2 בתכנית המקור (4 חדרים · 85.53 מ״ר)</td>
+          <td><strong>סוויטת הורים דרום-מערבית (340×280/295 ס״מ) וחדר שינה צפון-מערבי (350×280 ס״מ)</strong></td>
+          <td>סוויטת הורים (340×280/295 ס״מ) וחדר שינה צפון-מערבי (350×280 ס״מ) עוברים חוקית ו-NDSS; רוחב מתחת לרף ADG (3.00 מ׳)</td>
+          <td>הורים: 340×280/295 ס״מ · ח.שינה צפון-מערבי: 350×280 ס״מ · ממ״ד: 365×265 ס״מ</td>
+          <td style="color:#1e3a8a;">הזזת דלת סוויטת ההורים של דירה 2 ב-95 ס״מ לכיוון המבואה תגדיל את הסוויטה ב-1.4 מ״ר ותאפשר הרחבתה ל-3.12 מ׳.</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#6</td>
+          <td style="text-align:center;"><strong>PASS</strong></td>
+          <td>ADG 4E / Zero-Trust BIM</td>
+          <td>קומות 9–10 בתכנית המקור — דופלקס-פנטהאוזים #17 (121.27+46.15 מ״ר) ו-#18 (103.58+38.80 מ״ר)</td>
+          <td><strong>מפלס אירוח תחתון (קומה 9) + מרפסות גג דרומיות והיקפיות (1300×200/300 ס״מ)</strong></td>
+          <td>דופלקס-פנטהאוזים מרהיבים עם טרסות גג רחבות ב-3 כיווני אוויר ופרגולות אלומיניום דרומיות</td>
+          <td>דופלקס #17: 121.27 מ״ר + 46.15 מ״ר מרפסות · דופלקס #18: 103.58 מ״ר + 38.80 מ״ר מרפסות</td>
+          <td style="color:#1e3a8a;">שילוב זיגוג Low-E בוויטרינות הפנורמיות של קומה 9 לאיזון עומס החום הדרומי והמערבי.</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#7</td>
+          <td style="text-align:center;"><strong>PASS</strong></td>
+          <td>IL_MOT_PARK / ת״י 1918</td>
+          <td>מרתפי חניון 1- (-4.80m) ו-2- (-7.80m) וקומת קרקע (±0.00m) בתכנית המקור</td>
+          <td><strong>19 חניות קונבנציונליות רגילות (8 במרתף 1- #1–#8 + 11 במרתף 2- #9–#19), רמפה דו-שיפועית (15%/7.5% וסיבוב R=369 / R400-R500) ומיסעות 5.20–6.50 מ׳</strong></td>
+          <td>19 חניות רגילות מלאות ל-18 דירות (יחס 1:1.06 ללא מכפילים!) עם הגנה של 100% על רדיוסי סיבוב הרמפה (R369/R500) ומיסעות התמרון</td>
+          <td>19 חניות רגילות (כולל חניית נכה #17 ברוחב 437 ס״מ) · מיסעות 5.20–6.50 מ׳ · אוזני תמרון 100 ס״מ</td>
+          <td style="color:#1e3a8a;">העברת מאגר המים וחדר המשאבות מתחת לחלק העליון של הרמפה הצפון-מזרחית במרתף 1- (H_clear ≥ 2.20 מ׳), גיזום הכיס הדרום-מזרחי המת במרתף 1- (מדרום ל-R=369) ונסיגת הדיפון הדרומי-מרכזי במרתף 2- בין חניה #12 לחניה #13 מחוץ לקשת R500 (חיסכון מאומת של 332,500 ₪ במרתפים + 260,400 ₪ בקרקע!).</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#8</td>
+          <td style="text-align:center;"><strong>WARN</strong></td>
+          <td>VALUE_ENG_OPT (6,200 ₪/מ״ר — קונטור מאומת)</td>
+          <td>צמצום קונטור בנייה עילי מאומת (6,200 ₪/מ״ר) — קומת קרקע (±0.00m — העברת מאגר מים לתחתית החלק העליון של הרמפה במרתף 1- והידוק מעברי שירות)</td>
+          <td><strong>📍 איפה: קומת קרקע (±0.00m — העברת מאגר מים לתחתית החלק העליון של הרמפה במרתף 1- והידוק מעברי שירות)</strong></td>
+          <td>צמצום 42.0 מ״ר קונטור עילי מאומת = חיסכון 260,400 ₪ (מתוך 52.0 מ״ר הפחתת ליבה; 10.0 מ״ר ליבה כלואה הועברו לשיפור תכנון)</td>
+          <td>שטח קיים: 265.0 מ״ר | קונטור בנוי קומת קרקע: 265.0 מ״ר ← 223.0 מ״ר (-42.0 מ״ר נבנה פחות)</td>
+          <td style="color:#1e3a8a;">🛡️ שימושים נשמרים: שמירה מלאה על לובי כניסה ראשי, מועדון דיירים, חדר אופניים ועגלות, חדר אשפה ודחסנית, חדר גז ולוח חח״י וכל ארונות המונים. 🔄 קיזוז ליבה כלואה: 10.0 מ״ר מתוך קיצור מעבר השירות הפנימי בין הלובי (770×430) לחדר האופניים (540×350) נמצאים מתחת לתקרת דירה #2 בקומה א׳ (מבחן 2 — נעילת תקרה עליונה), ולכן אינם מקטינים את קונטור התקרה והועברו לשיפור תכנון הלובי. סה״כ חיסכון ישיר מאומת: 260,400 ₪.</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#9</td>
+          <td style="text-align:center;"><strong>WARN</strong></td>
+          <td>VALUE_ENG_OPT (6,200 ₪/מ״ר — קונטור מאומת)</td>
+          <td>צמצום קונטור בנייה עילי מאומת (6,200 ₪/מ״ר) — קומות 1–8 (8 קומות — הידוק גרעין ומבואה קומתית ל-2 דירות בקומה בתכנית המקור)</td>
+          <td><strong>📍 איפה: קומות 1–8 (8 קומות — הידוק גרעין ומבואה קומתית ל-2 דירות בקומה בתכנית המקור)</strong></td>
+          <td>צמצום 28.0 מ״ר קונטור עילי מאומת = חיסכון 173,600 ₪ (מתוך 37.6 מ״ר הפחתת ליבה; 9.6 מ״ר ליבה כלואה הועברו לשיפור תכנון)</td>
+          <td>שטח קיים: 248.0 מ״ר | קונטור קומה טיפוסית (26.20×8.40 מ׳ + מרפסות): 375.2 מ״ר ברוטו ← 371.7 מ״ר (-3.5 מ״ר × 8 קומות = -28.0 מ״ר)</td>
+          <td style="color:#1e3a8a;">🛡️ שימושים נשמרים: שמירה מלאה על חדר מדרגות מוגן (3.50×3.50 מ׳), פיר מעלית (1.75×1.80 מ׳) וכל ארונות החשמל, המים, התקשורת וכיבוי האש הקומתיים. 🔄 קיזוז ליבה כלואה: 9.6 מ״ר (1.2 מ״ר לקומה × 8 קומות) בנישת מבואת המעלית הדרומית (175×180 + מדרגות 365×160) כלואים בין שני עמודי הגרעין וקירות הממ״ד (מבחן 1 — ליבה כלואה ללא תזוזת חזית), ולכן קוזזו ממודל החיסכון (0 ₪) והועברו לשיפור תכנון. סה״כ חיסכון ישיר מאומת: 173,600 ₪.</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#10</td>
+          <td style="text-align:center;"><strong>WARN</strong></td>
+          <td>VALUE_ENG_OPT (6,200 ₪/מ״ר — קונטור מאומת)</td>
+          <td>צמצום קונטור בנייה עילי מאומת (6,200 ₪/מ״ר) — קומות 9–10 וגג עליון (+28.87m עד +35.17m — מבואת דופלקסים ויציאה לגג)</td>
+          <td><strong>📍 איפה: קומות 9–10 וגג עליון (+28.87m עד +35.17m — מבואת דופלקסים ויציאה לגג)</strong></td>
+          <td>צמצום 12.0 מ״ר קונטור עילי מאומת = חיסכון 74,400 ₪ (מתוך 12.0 מ״ר הפחתת ליבה; 0.0 מ״ר ליבה כלואה הועברו לשיפור תכנון)</td>
+          <td>שטח קיים: 100.8 מ״ר | קונטור קומות 9–10 וגג: 100.8 מ״ר ← 88.8 מ״ר (-12.0 מ״ר נבנה פחות)</td>
+          <td style="color:#1e3a8a;">🛡️ שימושים נשמרים: שמירה על יציאה תקנית לגג, גישה למערכות קולטי השמש ופיר המעלית העליון. סה״כ חיסכון ישיר מאומת: 74,400 ₪.</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#11</td>
+          <td style="text-align:center;"><strong>WARN</strong></td>
+          <td>VALUE_ENG_OPT (3,500 ₪/מ״ר — קונטור דיפון מאומת + הגנת רמפה ותמרון + העתקת חנייה)</td>
+          <td>צמצום קונטור דיפון מרתף מאומת (3,500 ₪/מ״ר) — מרתף 1- (-4.80m — ניצול תחתית רמפה עליונה H≥2.20m וגיזום כיס דרום-מזרחי מחוץ לרדיוס R=369)</td>
+          <td><strong>📍 איפה: מרתף 1- (-4.80m — ניצול תחתית רמפה עליונה H≥2.20m וגיזום כיס דרום-מזרחי מחוץ לרדיוס R=369)</strong></td>
+          <td>צמצום 45.0 מ״ר בקונטור דיפון המרתף = חיסכון 157,500 ₪ (מתוך 67.0 מ״ר; 22.0 מ״ר קוזזו להגנת רמפות ומיסעות תמרון)</td>
+          <td>שטח קיים: 548.0 מ״ר (57.7 מ״ר/חניה) | קונטור דיפון מרתף 1-: 548.0 מ״ר ← 503.0 מ״ר (-45.0 מ״ר חפירה ודיפון מאומתים · 22.0 מ״ר קוזזו להגנת רמפה R=369 ומיסעה 6.50 מ׳)</td>
+          <td style="color:#1e3a8a;">🛡️ שמירת מצבת החניות ומיסעות תמרון: 8 חניות רגילות במרתף 1- (#1–#8 בתכנית המקור) + רמפה דו-שיפועית (15% / 7.5% / R=350-369) + מיסעה 5.90–6.50 מ׳ + אוזן תמרון 1.00 מ׳ לחניה #4. 🔄🅿️ העתקת חנייה למקום חלופי מאומת: בדיקת העתקת חנייה ומציאת מקום חלופי (מרתף 1-): נסיגת קיר הדיפון בכיס הדרום-מזרחי (45.0 מ״ר) נוגעת בדופן המזרחית של חניה #6. העברת המערכות הטכניות (28.0 מ״ר) אל מתחת לחלק העליון של הרמפה הצפון-מזרחית (H_clear ≥ 2.20m) וציפוף רצועת השירות הדרומית מפנים מפרץ חלופי תקני שלתוכו מוסטת חניה #6 ב-1.80 מ׳ מערבה (במידות 2.55×5.00 מ׳ מול מיסעה של 5.90–6.50 מ׳) — 8 מתוך 8 חניות נשמרות במלואן. 🚦 בקרת רמפה וגובה ראש פנוי: בתכנית המקור של מרתף 1- (מפלס 48.10 / -4.80m): כבש הרמפה העליון לאורך הדופן הצפונית יורד בשיפוע 15% (אורך 19.00 מ׳, רוחב 3.10 מ׳) ומתמתן ב-7.5% (3.00 מ׳) ו-5% (3.00 מ׳) לפני סיבוב פרסה מזרחי ברדיוס R=350–369 ס״מ להמשך ירידה למרתף 2-. רק מתחת ל-9.0 המטרים העליונים של הרמפה בצפון-מזרח קיים גובה ראש פנוי H_clear = 2.20–3.15 מ׳ המתאים לחדר משאבות ומאגר מים (28.0 מ״ר). משטח הסיבוב המזרחי R=369 והחצי התחתון של הרמפה (H_clear < 1.80 מ׳) מוגנים לחלוטין. 🔄 קיזוז שטח רמפה ותמרון מוגן: 22.0 מ״ר באגף המזרחי של מרתף 1- חופפים למסלול הסיבוב וההתמתנות של הרמפה היורדת למרתף 2- (שיפועים 5% ו-7.5% באורך 3.00 מ׳ ורדיוס R=350–369 ס״מ) ולמיסעת התמרון (רוחב 6.50 מ׳ מול חניות #7–#8) — ולכן מוגנים ב-100% ואסורים לגריעה (קוזזו מחיסכון הקונטור — 0 ₪). סה״כ חיסכון ישיר מאומת: 157,500 ₪.</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#12</td>
+          <td style="text-align:center;"><strong>WARN</strong></td>
+          <td>VALUE_ENG_OPT (3,500 ₪/מ״ר — קונטור דיפון מאומת + הגנת רמפה ותמרון + העתקת חנייה)</td>
+          <td>צמצום קונטור דיפון מרתף מאומת (3,500 ₪/מ״ר) — מרתף 2- (-7.80m — גריעת רצועת דיפון דרומית-מרכזית מתה בין חניה #12 ל-#13 מחוץ לרדיוס R500 ושמירת אגף מזרחי #13–#17)</td>
+          <td><strong>📍 איפה: מרתף 2- (-7.80m — גריעת רצועת דיפון דרומית-מרכזית מתה בין חניה #12 ל-#13 מחוץ לרדיוס R500 ושמירת אגף מזרחי #13–#17)</strong></td>
+          <td>צמצום 50.0 מ״ר בקונטור דיפון המרתף = חיסכון 175,000 ₪ (מתוך 76.0 מ״ר; 26.0 מ״ר קוזזו להגנת רמפות ומיסעות תמרון)</td>
+          <td>שטח קיים: 548.0 מ״ר (57.7 מ״ר/חניה) | קונטור דיפון מרתף 2-: 548.0 מ״ר ← 498.0 מ״ר (-50.0 מ״ר חפירה בעומק -7.80 מ׳ · 26.0 מ״ר באגף המזרחי קוזזו להגנת חניות #13–#17 ורדיוס R400/R500)</td>
+          <td style="color:#1e3a8a;">🛡️ שמירת מצבת החניות ומיסעות תמרון: 11 חניות רגילות במרתף 2- (#9–#19 בתכנית המקור: כולל חניות מזרחיות #13–#17, חניית נכה #17 ברוחב 437 ס״מ, מיסעה 5.20–5.50 מ׳ ורדיוס סיבוב רמפה R400/R500 במפלס 45.10). 🔄🅿️ העתקת חנייה למקום חלופי מאומת: בדיקת העתקת חנייה ומציאת מקום חלופי (מרתף 2-): כדי לאפשר את נסיגת קיר הדיפון הדרומי-מרכזי ב-32.0 מ״ר (בין חניה #12 לחניה #13) מבלי לפגוע באגף המזרחי (#13–#17), מועברים בורות השאיבה ומפריד השומנים (18.0 מ״ר) אל מתחת לחלק הצפוני העליון של הרמפה (H_clear ≥ 2.15m). המפרץ שהתפנה בצמוד לגרעין קולט את חניה #18 במידות תקניות 2.60×5.00 מ׳ ומול מיסעה של 5.50–5.90 מ׳ (11/11 חניות במרתף 2- נשמרות במלואן). 🚦 בקרת רמפה וגובה ראש פנוי: בתכנית המקור של מרתף 2- (מפלס 45.10 / -7.80m): הרמפה יורדת לאורך הדופן הצפונית בשיפוע 15% (אורך 10.67 מ׳) ומתמתנת ב-7.5% (3.00 מ׳) לפני עיקול R400/R500 (רוחב 4.20 מ׳) אל המיסעה המזרחית. גריעה של קצה המרתף המזרחי הייתה חוסמת לחלוטין את יציאת הרמפה ואת חניות #13–#17! לכן רדיוס R400/R500 והמיסעה המזרחית מוגנים ב-100%, וניצול תחתית הרמפה (18.0 מ״ר לבורות שאיבה ומפריד שומנים) מבוצע מתחת לחלק הצפוני העליון של הרמפה (H_clear ≥ 2.15 מ׳). 🔄 קיזוז שטח רמפה ותמרון מוגן: 26.0 מ״ר באגף המזרחי של מרתף 2- מהווים את משטח היציאה מהרמפה (רדיוס R400/R500 ברוחב 420 ס״מ במפלס 45.10) ואת מיסעת התמרון (5.20–5.50 מ׳) המשרתת את חניות #15, #16, #17 (נכה) בצפון-מזרח ואת חניות #13, #14 בדרום-מזרח — ולכן אסורים לגריעה וקוזזו מחיסכון הקונטור (0 ₪)! סה״כ חיסכון ישיר מאומת: 175,000 ₪.</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#13</td>
+          <td style="text-align:center;"><strong>WARN</strong></td>
+          <td>VALUE_ENG_OPT (400 ₪/מ״ר הפרש)</td>
+          <td>אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית דרומית (חזית ראשית לרחוב פאירברג 3)</td>
+          <td><strong>📍 איפה: חזית דרומית (חזית ראשית לרחוב פאירברג 3) (כיוון דרום)</strong></td>
+          <td>המרת 136.0 מ״ר מחיפוי יבש לטיח בחזית דרום = חיסכון 54,400 ₪</td>
+          <td>שטח אטום: 680.0 מ״ר (חיפוי יבש נוכחי: 578.0 מ״ר)</td>
+          <td style="color:#1e3a8a;">חיסכון ישיר של 400 ₪ למ״ר מומר × 136.0 מ״ר = 54,400 ₪ בחזית זו (מתוך סה״כ 260,320 ₪ ב-4 החזיתות).</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#14</td>
+          <td style="text-align:center;"><strong>WARN</strong></td>
+          <td>VALUE_ENG_OPT (400 ₪/מ״ר הפרש)</td>
+          <td>אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית צפונית (חזית עורפית)</td>
+          <td><strong>📍 איפה: חזית צפונית (חזית עורפית) (כיוון צפון)</strong></td>
+          <td>המרת 360.0 מ״ר מחיפוי יבש לטיח בחזית צפון = חיסכון 144,000 ₪</td>
+          <td>שטח אטום: 750.0 מ״ר (חיפוי יבש נוכחי: 637.5 מ״ר)</td>
+          <td style="color:#1e3a8a;">חיסכון ישיר של 400 ₪ למ״ר מומר × 360.0 מ״ר = 144,000 ₪ בחזית זו (מתוך סה״כ 260,320 ₪ ב-4 החזיתות).</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#15</td>
+          <td style="text-align:center;"><strong>WARN</strong></td>
+          <td>VALUE_ENG_OPT (400 ₪/מ״ר הפרש)</td>
+          <td>אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית מערבית (חזית צד)</td>
+          <td><strong>📍 איפה: חזית מערבית (חזית צד) (כיוון מערב)</strong></td>
+          <td>המרת 76.7 מ״ר מחיפוי יבש לטיח בחזית מערב = חיסכון 30,680 ₪</td>
+          <td>שטח אטום: 213.0 מ״ר (חיפוי יבש נוכחי: 181.0 מ״ר)</td>
+          <td style="color:#1e3a8a;">חיסכון ישיר של 400 ₪ למ״ר מומר × 76.7 מ״ר = 30,680 ₪ בחזית זו (מתוך סה״כ 260,320 ₪ ב-4 החזיתות).</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#16</td>
+          <td style="text-align:center;"><strong>WARN</strong></td>
+          <td>VALUE_ENG_OPT (400 ₪/מ״ר הפרש)</td>
+          <td>אופטימיזציית חיפוי קשיח (700 ₪) מול טיח (300 ₪) — חזית מזרחית (חזית צד)</td>
+          <td><strong>📍 איפה: חזית מזרחית (חזית צד) (כיוון מזרח)</strong></td>
+          <td>המרת 78.1 מ״ר מחיפוי יבש לטיח בחזית מזרח = חיסכון 31,240 ₪</td>
+          <td>שטח אטום: 217.0 מ״ר (חיפוי יבש נוכחי: 184.4 מ״ר)</td>
+          <td style="color:#1e3a8a;">חיסכון ישיר של 400 ₪ למ״ר מומר × 78.1 מ״ר = 31,240 ₪ בחזית זו (מתוך סה״כ 260,320 ₪ ב-4 החזיתות).</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#17</td>
+          <td style="text-align:center;"><strong>WARN</strong></td>
+          <td>בדיקת כיווץ קונטור (הועבר לשיפור תכנון)</td>
+          <td>הועבר מחיסכון לשיפור תכנון (לא הקטין קונטור בניין) — קומות 1–8 וקומת קרקע — נישת מבואה דרומית כלואה בין עמודי הגרעין (9.6 מ״ר) ומעבר שירות תחת תקרת קומה א׳ (10.0 מ״ר)</td>
+          <td><strong>📍 קומות 1–8 וקומת קרקע — נישת מבואה דרומית כלואה בין עמודי הגרעין (9.6 מ״ר) ומעבר שירות תחת תקרת קומה א׳ (10.0 מ״ר) (0 מ״ר הקטנת קונטור = 0 ₪ חיסכון בנייה)</strong></td>
+          <td>הפחתת 19.6 מ״ר שטח ליבה כלוא — לא הקטינה את קונטור הבניין הכולל ולכן הועברה מחיסכון עלויות (0 ₪) לשיפור תכנון</td>
+          <td>הפחתת ליבה/שירות נבדקת: 19.6 מ״ר | הקטנת קונטור בניין בפועל: 0.0 מ״ר</td>
+          <td style="color:#1e3a8a;">🛋️ תועלת תכנונית (שיפור תכנון): העברת 1.2 מ״ר בכל קומה להרחבת מבואת הכניסה לדירות והגדלת הלובי הראשי וחדר העגלות בקומת הקרקע ב-10.0 מ״ר.</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#18</td>
+          <td style="text-align:center;"><strong>WARN</strong></td>
+          <td>שיפור תכנון פנים-דירתי (Space Syntax)</td>
+          <td>שיפור תכנון פנים-דירתי ופתחים — דירה 1 בתכנית המקור (אגף ימני/מזרחי בתכנית · 8 דירות של 4 חדרים — 105.46 מ״ר)</td>
+          <td><strong>📍 דירה 1 בתכנית המקור (אגף ימני/מזרחי בתכנית · 8 דירות של 4 חדרים — 105.46 מ״ר) — מסדרון (9.8 ← 8.0 מ״ר)</strong></td>
+          <td>שיפור תכנון: העברת +1.8 מ״ר ממסדרון לחדרי מגורים (+14.4 מ״ר ב-8 דירות)</td>
+          <td>מסדרון נוכחי: 9.8 מ״ר לדירה (קונטור דירה קבוע)</td>
+          <td style="color:#1e3a8a;">🪟 שיפור פתחים ואלומיניום: איחוד מפתחי חלונות חדרי השינה למודול אחיד של 140×150 ס״מ עם זיגוג Low-E ואקוסטיקה 40dB.</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#19</td>
+          <td style="text-align:center;"><strong>WARN</strong></td>
+          <td>שיפור תכנון פנים-דירתי (Space Syntax)</td>
+          <td>שיפור תכנון פנים-דירתי ופתחים — דירה 2 בתכנית המקור (אגף שמאלי/מערבי בתכנית · 8 דירות של 4 חדרים — 85.53 מ״ר)</td>
+          <td><strong>📍 דירה 2 בתכנית המקור (אגף שמאלי/מערבי בתכנית · 8 דירות של 4 חדרים — 85.53 מ״ר) — מסדרון (7.9 ← 6.5 מ״ר)</strong></td>
+          <td>שיפור תכנון: העברת +1.4 מ״ר ממסדרון לחדרי מגורים (+11.2 מ״ר ב-8 דירות)</td>
+          <td>מסדרון נוכחי: 7.9 מ״ר לדירה (קונטור דירה קבוע)</td>
+          <td style="color:#1e3a8a;">🪟 שיפור פתחים ואלומיניום: סטנדרטיזציה של ויטרינת המרפסת הדרומית וחלונות החזית הצדדית.</td>
+        </tr><tr>
+          <td style="text-align:center;font-weight:800;">#20</td>
+          <td style="text-align:center;"><strong>WARN</strong></td>
+          <td>שיפור תכנון פנים-דירתי (Space Syntax)</td>
+          <td>שיפור תכנון פנים-דירתי ופתחים — דופלקס-פנטהאוזים #17 ו-#18 (קומות 9–10 בתכנית המקור · 2 דירות — 121.3 ו-103.6 מ״ר)</td>
+          <td><strong>📍 דופלקס-פנטהאוזים #17 ו-#18 (קומות 9–10 בתכנית המקור · 2 דירות — 121.3 ו-103.6 מ״ר) — מסדרון (11.5 ← 9.4 מ״ר)</strong></td>
+          <td>שיפור תכנון: העברת +2.1 מ״ר ממסדרון לחדרי מגורים (+4.2 מ״ר ב-2 דירות)</td>
+          <td>מסדרון נוכחי: 11.5 מ״ר לדירה (קונטור דירה קבוע)</td>
+          <td style="color:#1e3a8a;">🪟 שיפור פתחים ואלומיניום: איזון מפתחי הוויטרינות הפנורמיות בקומה 9 (מרפסות 1300×200/300 ס״מ) עם פרגולות ההצללה הדרומיות לחיסכון בעלויות האלומיניום ושיפור הבידוד התרמי.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

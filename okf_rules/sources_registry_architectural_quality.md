@@ -20,18 +20,18 @@ type: knowledge_registry
 | מקור | גוף | סטטוס | קובץ בבסיס הידע / הערה |
 | :--- | :--- | :---: | :--- |
 | תקנות התכנון והבנייה (בקשה להיתר, תנאיו ואגרות), התשע"ו-2016 | מדינת ישראל | 🟡 | `ISRAEL_2026`, `CHECKLIST_ISRAEL_INT`, `B1.*` |
-| הנחיות פיקוד העורף לתכנון ממ"ד (כולל תיקון חדר רטוב 2025) | פקע"ר | 🟡 | `B1.15` במנוע (9.0 מ"ר / 2.60 מ'); לאמת מול המהדורה העדכנית |
+| הנחיות פיקוד העורף לתכנון ממ"ד (כולל תיקון 163 לחדר רטוב 2025) | פקע"ר / כנסת ישראל | ✅ | `B1.15`, `ACADEMIC_ARCH_COMPENDIUM` (9.0 מ"ר נטו + עד 3.0 מ"ר חדר רטוב פנימי) |
 | ת"י 1918 — נגישות הסביבה הבנויה (כל החלקים) | מכון התקנים | 🟡 | `IS1918_ACCESS` — מבנה בלבד, ערכי ייחוס בינלאומיים |
 | ת"י 5281 — בנייה בת-קיימא (בנייני מגורים + מדריכים טכניים) | מכון התקנים / המשרד להגנת הסביבה | ✅ | `DAYLIGHT_VENT_IEQ`, `CHECKLIST_ISRAEL_INT` — פרקי אור יום, אוורור ובריאות ורווחה |
 | ת"י 6210 — אוורור בנייני מגורים | מכון התקנים | 🟡 | `DAYLIGHT_VENT_IEQ` — עקרונות אוורור חדרים רטובים ומטבחים |
 | ת"י 1045 — בידוד תרמי של בניינים | מכון התקנים | ⬜ | ערכי התנגדות תרמית לפי אזורי אקלים |
-| ת"י 1004 — אקוסטיקה בבניינים (חלקים 1–4) | מכון התקנים | 🟡 | `USABILITY_FURNISH_HQI`, `CHECKLIST_ISRAEL_INT` — עקרונות חיץ אקוסטי; ערכי dB מלאים להשלמה |
-| ת"י 1142 — מעקים ומסעדים | מכון התקנים | ⬜ | גובה מעקה ומרווחים |
-| אוגדן הנחיות לעבודות תכנון (פרק בינוי ופרוגרמות דיור) | משרד הבינוי והשיכון | 🟡 | פרוגרמות שטחים ומידות מומלצות (`gov.il`) |
+| ת"י 1004 — אקוסטיקה בבניינים (חלקים 1–4) | מכון התקנים | ✅ | `USABILITY_FURNISH_HQI`, `ACADEMIC_ARCH_COMPENDIUM` ($\ge 48\text{ dB}$ בקיר מפריד) |
+| ת"י 1142 — מעקים ומסעדים | מכון התקנים | ✅ | `ACADEMIC_ARCH_COMPENDIUM` (גובה מרפסת $\ge 105\text{ cm}$, מדרגות $\ge 90\text{ cm}$, מרווח $\le 10\text{ cm}$) |
+| אוגדן הנחיות לעבודות תכנון (פרק בינוי ופרוגרמות דיור) | משרד הבינוי והשיכון | ✅ | `ACADEMIC_ARCH_COMPENDIUM` (חדר רגיל $\ge 9\text{ m}^2 / 2.80\text{ m}$, הורים $\ge 11\text{ m}^2 / 2.90\text{ m}$) |
 | כלי המדידה "שכונה 360°" (גרסה 2.0) | משרד הבינוי והשיכון / המועצה לבנייה ירוקה | 🟡 | ממשק בניין-סביבה, מיקרו-אקלים, רוחות והצללה |
 | המדריך לתכנון בתי דיור לגיל הזהב | משרד הבינוי והשיכון | ⬜ | רלוונטי ל-Aging in Place |
 | תדריך ארצי לתמהיל יחידות דיור | מינהל התכנון | ⬜ | ברמת תוכנית / שכונה |
-| הנחיות לתכנון חניונים וחניית נכים | משרד התחבורה | ⬜ | רוחב תאים (2.40 מ' + תוספת ליד עמוד/קיר), רדיוסי סיבוב וחניית נכים |
+| הנחיות לתכנון חניונים וחניית נכים (פרק ד') | משרד התחבורה | ✅ | `ACADEMIC_ARCH_COMPENDIUM` (רוחב תא $2.40\text{ m}$, ליד עמוד $2.65\text{–}2.90\text{ m}$, מיסעה $5.50\text{–}6.00\text{ m}$) |
 | הנחיות מרחביות — ועדה מקומית תל אביב-יפו | עיריית ת"א-יפו | ⬜ | דוגמה להנחיות מרחביות מכוח סעיף 145ד' |
 
 ## ב. מסגרות איכות דיור, שימושיות וקיימות בינלאומיות
@@ -49,6 +49,9 @@ type: knowledge_registry
 | Building for a Healthy Life (2020) | Homes England / NHS England | ⬜ | 12 שיקולים ברמת שכונה ורחוב |
 | Davos Baukultur Quality System (2021) | Swiss Federal Office of Culture | 🟡 | 8 קריטריונים — משמש כמסגרת ב-`qualitative_analyzer.py` |
 | Active Design Guidelines & Fitwel Standard | NYC DDC / Center for Active Design | 🟡 | עידוד תנועה, מדרגות מוארות ואחסון אופניים/עגלות |
+| *Growing Up: Planning for Children in New Vertical Communities* (2020) | City of Toronto | ✅ | `ACADEMIC_ARCH_COMPENDIUM` — שטחי דירות משפחתיות (87/100 מ"ר), מבואת כניסה וכביסה |
+| *High-Density Housing for Families with Children Guidelines* | City of Vancouver | ✅ | `ACADEMIC_ARCH_COMPENDIUM` — אחסון ציוד גדול ($\ge 5.7\text{ m}^3$), קשר עין הורי וחדר רחצה משפחתי |
+| Japanese *San-ten Bunri* (三点分離) & *Genkan* Standards | JASS / Japan Housing | ✅ | `ACADEMIC_ARCH_COMPENDIUM` — הפרדה משולשת של חלל רטוב (WC, כיור, מקלחת) ומבואת כניסה |
 
 ## ג. תאורה, אוורור, אקלים פנים וביופיליה (Daylight, Ventilation & IEQ)
 
@@ -75,14 +78,19 @@ type: knowledge_registry
 | EN 81-70 — Accessibility to lifts | 🟡 | `IS1918_ACCESS` (תא מעלית) |
 | Julius Panero & Martin Zelnik, *Human Dimension & Interior Space* (1979) | ⬜ | אנתרופומטריה לפי אחוזונים |
 
-## ה. תיאוריה אדריכלית וקאנון
+## ה. תיאוריה אדריכלית, בתי ספר לאדריכלות, מגזינים ואדריכלים מובילים
 
 | מקור | סטטוס | קובץ |
 | :--- | :---: | :--- |
 | Christopher Alexander et al., *A Pattern Language* (1977) | ✅ | `APL_HOUSING` (29 תבניות) |
 | Bill Hillier & Julienne Hanson, *The Social Logic of Space* (1984) | ✅ | `SPACE_SYNTAX_SAGA` |
 | N. John Habraken, *Supports: An Alternative to Mass Housing* (1961/1972) | ✅ | עקרון Support/Infill ב-`USABILITY_FURNISH_HQI` וב-`qualitative_analyzer.py` |
-| Bernard Leupen, *Frame and Generic Space* (2006) | 🟡 | גמישות ו-Polyvalence (`USABILITY_FURNISH_HQI`) |
+| Dietmar Eberle & Susanne Schmid (ETH Zürich), *Raumhaltigkeit* & *Hallenwohnung* | ✅ | `ACADEMIC_ARCH_COMPENDIUM` — ריבוד קונצנטרי, עומק מבנה ודירת הול מרכזי |
+| Xavier Monteys & Pere Fuertes (ETSAB *Habitar*), *Casa Collage* & MAIO (Anna Puigjaner) | ✅ | `ACADEMIC_ARCH_COMPENDIUM` — חדרים גנריים שווי-גודל ($3.60 \times 3.60\text{ m}$), קירות מרוהטים |
+| Herman Hertzberger & Bernard Leupen (TU Delft), *Lessons for Students* & *Polyvalence* | ✅ | `ACADEMIC_ARCH_COMPENDIUM`, `USABILITY_FURNISH_HQI` — אזור הסף (*In-Between*), מטבח חצי-פתוח |
+| Oliver Heckmann & Friederike Schneider, *Floor Plan Manual Housing* (Birkhäuser) | ✅ | `ACADEMIC_ARCH_COMPENDIUM` — טיפולוגיות תוכנית ומערכות תנועה |
+| Edition Hochparterre & *Werk, Bauen + Wohnen*, *Grundrissfibel* (Swiss Competitions) | ✅ | `ACADEMIC_ARCH_COMPENDIUM` — *Durchwohnen*, *Schaltzimmer*, מבחן האלכסון הראשי |
+| Lacaton & Vassal (Pritzker 2021) & Frédéric Druot, *Plus* (Winter Gardens & Loggias) | ✅ | `ACADEMIC_ARCH_COMPENDIUM` — גינת חורף אקלימית בעומק $3.00\text{–}3.80\text{ m}$ ונגישות מכל חדר |
 | Francis D.K. Ching, *Architecture: Form, Space, and Order* | 🟡 | יחסי מסלול-חלל (`SS-5`) |
 | Steen Eiler Rasmussen, *Experiencing Architecture* (1959) | ⬜ | תפיסה חושית של חלל |
 | Juhani Pallasmaa, *The Eyes of the Skin* (1996) | ⬜ | פנומנולוגיה |

@@ -1,6 +1,10 @@
 import os
 import shutil
-import aspose.cad as cad
+
+try:
+    import aspose.cad as cad
+except ImportError:
+    cad = None
 
 def convert_to_dxf(input_path, output_dxf_path, output_png_path=None):
     """

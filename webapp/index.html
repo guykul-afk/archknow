@@ -1,176 +1,382 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArchiCheck - AI Plan Analyzer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Rubik:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArchiCheck AI — סביבת ביקורת תכנון ואופטימיזציה אדריכלית</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=5.0" />
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">
-            <span class="highlight">Archi</span>Check
+  <!-- TOP UNIFIED COMMAND BAR (56–64px Clean Professional CAD Header) -->
+  <header class="top-command-bar">
+    <div class="brand-area">
+      <div class="brand-logo">🏛️</div>
+      <div>
+        <div class="brand-title">ArchiCheck <span class="brand-ver">Review Workspace v5.0</span></div>
+        <div class="brand-sub" id="hdr-breadcrumb-sub">חפץ חיים 44 · סביבת החלטות תכנוניות ובקרת קונטור</div>
+      </div>
+    </div>
+
+    <!-- Project Search & Selector -->
+    <form id="project-search-form" class="search-form" autocomplete="off">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          id="project-query-input"
+          class="project-query-input"
+          placeholder="חפש פרויקט (חפץ חיים 44, פינס 48, קק״ל 10, יטקובסקי 7, קטרוני 37–39, פאירברג 3)..."
+          value="חפץ חיים 44"
+        />
+        <button type="submit" id="btn-run-analysis" class="btn-analyze">
+          טען תכנית
+        </button>
+      </div>
+    </form>
+
+    <!-- Quick Project Chips & Primary Workspace Actions -->
+    <div class="quick-actions-area">
+      <div class="quick-chips" id="project-quick-chips">
+        <button type="button" class="proj-chip active" data-query="חפץ חיים 44">חפץ חיים 44</button>
+        <button type="button" class="proj-chip" data-query="פינס 48">פינס 48</button>
+        <button type="button" class="proj-chip" data-query="קק״ל 10">קק״ל 10</button>
+        <button type="button" class="proj-chip" data-query="יטקובסקי 7">יטקובסקי 7</button>
+        <button type="button" class="proj-chip" data-query="קטרוני 37–39">קטרוני 37–39</button>
+        <button type="button" class="proj-chip" data-query="פאירברג 3">פאירברג 3</button>
+      </div>
+
+      <div class="header-tools">
+        <button type="button" id="btn-open-value-eng-modal" class="btn-tool btn-value-eng" title="מרכז החיסכון בעלויות הבנייה וסימולטור קונטור">
+          💰 חיסכון מאומת <span id="hdr-ve-total-badge" class="hdr-ve-pill">...</span>
+        </button>
+
+        <button type="button" id="btn-open-summary-modal" class="btn-tool btn-summary-areas" title="טבלאות שטחים, מרפסות, חזיתות וריצוף">
+          📊 טבלאות שטחים
+        </button>
+
+        <button type="button" id="btn-export-decisions" class="btn-tool" title="ייצוא דוח החלטות תמציתי לממצאים שסומנו לטיפול/אושרו">
+          📥 דוח החלטות (<span id="hdr-decisions-count">0</span>)
+        </button>
+
+        <div class="tools-dropdown-wrap">
+          <button type="button" id="btn-toggle-more-menu" class="btn-tool btn-more-tools" title="כלי דוחות, קבצי מקור, 3D והעלאת תכנית">
+            ⚙️ כלים ומקורות ▾
+          </button>
+          <div id="more-tools-dropdown" class="more-tools-dropdown hidden">
+            <a id="btn-open-3d-viewer" href="#" target="_blank" class="dropdown-item hidden">
+              🧊 צופה מודל 3D BIM אינטראקטיבי
+            </a>
+            <a id="btn-open-summary-doc" href="#" target="_blank" class="dropdown-item hidden">
+              📋 מסמך סיכום מלא להדפסה
+            </a>
+            <a id="btn-open-pdf-report" href="#" target="_blank" class="dropdown-item hidden">
+              📄 דוח בקרת איכות PDF מלא
+            </a>
+            <button type="button" id="btn-toggle-files" class="dropdown-item">
+              📂 קבצי מקור שאותרו (<span id="files-count-badge">0</span>)
+            </button>
+            <label for="file-upload-input" class="dropdown-item">
+              ➕ העלאת קובץ תכנית חדש (DWG/DXF/PDF)
+              <input type="file" id="file-upload-input" accept=".dxf,.dwg,.dwf,.dwfx,.pdf" hidden />
+            </label>
+            <a href="/api/docs" target="_blank" class="dropdown-item">
+              🤖 ממשק API / Swagger
+            </a>
+          </div>
         </div>
-        <div class="project-info">Project: <span class="project-name">Urban Residence V.2</span></div>
-        <div class="user-profile">
-            <div class="avatar"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- DISCOVERED FILES DRAWER -->
+  <section id="discovered-files-drawer" class="files-drawer hidden">
+    <div class="files-drawer-header">
+      <div>
+        <strong>📂 מקורות מידע וקבצים שאותרו בתיקיות המערכת ובכונן השיתופי:</strong>
+        <span id="files-drawer-subtitle" class="files-drawer-sub"></span>
+      </div>
+      <button type="button" id="btn-close-files-drawer" class="btn-close-drawer">✕ סגור</button>
+    </div>
+    <div id="discovered-files-list" class="discovered-files-grid"></div>
+  </section>
+
+  <!-- MAIN 3-ZONE ARCHITECTURAL REVIEW WORKSPACE -->
+  <!-- Zone 1 (Right, 330px): Compact Level-1 Findings List & Task Modes -->
+  <!-- Zone 2 (Center, Flex): Interactive Plan Canvas -->
+  <!-- Zone 3 (Left, 380px when open, Closed by default): Level-2 & Level-3 Inspector Drawer -->
+  <main id="split-workspace" class="split-workspace">
+    <!-- ZONE 1 (RIGHT): COMPACT PRIORITIZED FINDINGS & WORK MODES -->
+    <aside class="doc-panel" id="doc-panel">
+      <div class="doc-panel-header">
+        <div class="doc-proj-badge-row">
+          <div class="status-pill-group">
+            <span class="status-dot-online"></span>
+            <span class="doc-live-pill">ניתוח הושלם</span>
+          </div>
+          <button type="button" id="btn-collapse-doc-panel" class="btn-panel-collapse" title="הסתר רשימת ממצאים להגדלת השרטוט">
+            הסתר רשימה ◂
+          </button>
         </div>
-    </nav>
 
-    <main class="container">
-        <!-- Right Column: Quantitative Rules & Qualitative Insights -->
-        <section class="column glass-panel" id="analysis-section">
-            <h2 class="section-title">Quantitative Rules</h2>
-            <p class="section-subtitle">׳‘׳“׳™׳§׳” ׳׳•׳˜׳•׳׳˜׳™׳× ׳׳•׳ ׳׳“׳“׳™ ׳”-OKF</p>
-            
-            <div id="checklist-container" class="checklist-container" style="overflow-y: auto; margin-bottom: 20px; max-height: 250px;">
-                <div class="placeholder-state">׳”׳׳×׳ ׳׳”׳¢׳׳׳× ׳©׳¨׳˜׳•׳˜...</div>
-                <!-- Items injected via JS -->
+        <h1 id="doc-project-title" class="doc-project-title">טוען פרויקט...</h1>
+        <p id="doc-project-subtitle" class="doc-project-subtitle"></p>
+
+        <!-- Clean Executive Summary Strip (Score + Actionable Counts Only — No Engine Noise) -->
+        <div id="doc-metrics-grid" class="doc-metrics-grid"></div>
+
+        <!-- 4 TASK-ORIENTED WORK MODES (סקירה · ממצאים · אופטימיזציה · השוואה) -->
+        <div class="work-modes-bar" id="work-modes-bar" role="tablist">
+          <button type="button" class="work-mode-tab" data-mode="OVERVIEW" title="תמונת מצב, סיכונים מרכזיים והחלטות מתכנן">
+            סקירה
+          </button>
+          <button type="button" class="work-mode-tab active" data-mode="FINDINGS" title="רשימת הממצאים המלאה מסודרת לפי עדיפות">
+            ממצאים (<span id="count-all">0</span>)
+          </button>
+          <button type="button" class="work-mode-tab" data-mode="OPTIMIZATION" title="מוקדי חיסכון מאומתים בקונטור ושיפורי תכנון">
+            אופטימיזציה (<span id="count-opt">0</span>)
+          </button>
+          <button type="button" class="work-mode-tab" data-mode="COMPARE" title="השוואת שטחים ומצב קיים מול מוצע">
+            השוואה
+          </button>
+        </div>
+
+        <!-- Secondary Sub-Filter Pills (Shown in Findings/Optimization Modes) -->
+        <div class="doc-filter-bar" id="doc-subfilter-bar">
+          <button type="button" class="filter-btn active" data-filter="ALL">
+            הכל
+          </button>
+          <button type="button" class="filter-btn filter-warn-fail" data-filter="ISSUES" title="ליקויים ואזהרות המחייבים בדיקה הנדסית">
+            לבדיקה (<span id="count-issues">0</span>)
+          </button>
+          <button type="button" class="filter-btn filter-ve" data-filter="VE" title="חיסכון כספי מאומת מהקטנת קונטור / חיפוי">
+            חיסכון (<span id="count-ve">0</span>)
+          </button>
+          <button type="button" class="filter-btn filter-imp" data-filter="DESIGN_IMP" title="שיפורי תכנון ושטחים כלואים (0 ₪ שלד)">
+            שיפור תכנון (<span id="count-imp">0</span>)
+          </button>
+          <button type="button" class="filter-btn filter-pass" data-filter="PASS" title="בדיקות תקינות שאומתו בתכנית">
+            תקין (<span id="count-pass">0</span>)
+          </button>
+        </div>
+      </div>
+
+      <!-- Scrollable List Container (Renders Level-1 Compact Cards OR Mode Views) -->
+      <div id="doc-scroll-container" class="doc-scroll-container">
+        <div id="doc-sections-root" class="doc-sections-root"></div>
+      </div>
+    </aside>
+
+    <!-- ZONE 2 (CENTER) & ZONE 3 (LEFT INSPECTOR DRAWER) -->
+    <section class="visual-panel" id="visual-panel">
+      <!-- Clean Top Plan Toolbar -->
+      <div class="visual-toolbar">
+        <div class="toolbar-right-group">
+          <button type="button" id="btn-expand-doc-panel" class="ctrl-btn btn-expand-panel hidden" title="הצג רשימת ממצאים מימין">
+            📋 רשימת ממצאים ▸
+          </button>
+          <!-- Floor / Sheet Selector Tabs -->
+          <div class="sheet-tabs" id="sheet-tabs-container"></div>
+        </div>
+
+        <!-- Layer Controls, Focus Mode & Zoom Controls -->
+        <div class="canvas-controls">
+          <!-- Engineering Layer Selector -->
+          <div class="layer-pills-group" role="group" aria-label="שכבות הנדסיות על השרטוט">
+            <button type="button" id="btn-toggle-all-pins" class="ctrl-btn active" title="הצג/הסתר סיכות ממצאים על השרטוט">
+              📌 ממצאים
+            </button>
+            <button type="button" id="btn-toggle-ve-plan-mode" class="ctrl-btn ctrl-btn-ve" title="הדגש שכבת קונטור לפני/אחרי ומוקדי חיסכון">
+              📐 שכבת קונטור וחיסכון
+            </button>
+          </div>
+
+          <!-- Legend Popover -->
+          <div class="legend-popover-wrap">
+            <button type="button" id="btn-toggle-legend" class="ctrl-btn" title="מקרא סימונים ושכבות הנדסיות">
+              🗺️ מקרא ▾
+            </button>
+            <div id="legend-popover-box" class="legend-popover-box hidden">
+              <div class="legend-pop-title">מקרא שכבות וסיווג ממצאים</div>
+              <div class="legend-item"><i class="dot dot-fail"></i> טעות ודאית / ליקוי סטטוטורי (אדום)</div>
+              <div class="legend-item"><i class="dot dot-warn"></i> דורש בדיקה הנדסית / אזור מוגן (כתום)</div>
+              <div class="legend-item"><i class="dot dot-ve"></i> הזדמנות חיסכון מאומתת בקונטור (ירוק)</div>
+              <div class="legend-item"><i class="dot dot-imp"></i> שיפור תכנון פנים-דירתי / ליבה כלואה (כחול)</div>
+              <div class="legend-item"><i class="dot dot-reloc"></i> מפרץ חנייה חלופי מאומת (טורקיז)</div>
+              <div class="legend-item"><i class="dot dot-pass"></i> ממצא תקין שאומת (אפור/ירוק)</div>
+            </div>
+          </div>
+
+          <!-- Zoom Controls -->
+          <div class="zoom-group">
+            <button type="button" id="btn-zoom-out" class="ctrl-btn" title="הקטן שרטוט (-)">－</button>
+            <span id="zoom-level-label" class="zoom-label">100%</span>
+            <button type="button" id="btn-zoom-in" class="ctrl-btn" title="הגדל שרטוט (+)">＋</button>
+            <button type="button" id="btn-zoom-reset" class="ctrl-btn" title="איפוס זום ומרכוז השרטוט">1:1</button>
+          </div>
+
+          <!-- Focus Mode (One-click maximize drawing) -->
+          <button type="button" id="btn-focus-mode" class="ctrl-btn" title="מקסם את השרטוט והסתר פאנלים צדדיים (קיצור מקלדת: F)">
+            ⛶ Focus Mode
+          </button>
+
+          <button type="button" id="btn-toggle-side-dock" class="ctrl-btn" title="פתח/סגור חלונית ניתוח לממצא נבחר">
+            חלונית ניתוח
+          </button>
+        </div>
+      </div>
+
+      <!-- Optional On-Plan Savings Quick Bar (Shown only when Contour/Savings Layer is active) -->
+      <div id="ve-plan-bar" class="ve-plan-bar hidden">
+        <div class="ve-plan-bar-header">
+          <span class="ve-plan-bar-badge" id="ve-plan-bar-total">שכבת בקרת קונטור וחיסכון</span>
+          <button type="button" id="btn-open-ve-center-from-bar" class="btn-ve-bar-hub">טבלאות וסימולטור מלא ◂</button>
+        </div>
+        <div id="ve-plan-hotspots-list" class="ve-plan-hotspots-list"></div>
+      </div>
+
+      <!-- Main Plan Body: Center Drawing Stage + Left Inspector Drawer (Closed by Default!) -->
+      <div id="plan-body-layout" class="plan-body-layout dock-collapsed">
+        <!-- Interactive Architectural Plan Stage -->
+        <div id="plan-viewport" class="plan-viewport">
+          <div id="plan-stage" class="plan-stage">
+            <div id="plan-image-wrapper" class="plan-image-wrapper">
+              <img id="plan-image" class="plan-image" src="/uploads/hafetz44_ground.png" alt="תכנית אדריכלית" draggable="false" />
+              <svg id="plan-svg-overlay" class="plan-svg-overlay" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+              <div id="plan-pins-layer" class="plan-pins-layer"></div>
+            </div>
+          </div>
+
+          <!-- Minimalist Bottom Status Bar on Plan -->
+          <div class="plan-bottom-hud">
+            <div class="hud-right">
+              <span id="hud-sheet-badge" class="hud-sheet-badge">גיליון</span>
+              <span id="hud-active-note-text" class="hud-active-note-text">בחר ממצא מהרשימה או לחץ על סיכה בשרטוט לפתיחת ניתוח ופתרון</span>
+            </div>
+            <div class="hud-left">
+              <span>⌨️ חצים ⇅: מעבר בין ממצאים · F: מצב מיקוד · Esc: סגירת חלונית</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ZONE 3 (LEFT): LEVEL-2 & LEVEL-3 ANALYSIS DRAWER (360–400px when open, Closed initially) -->
+        <aside id="plan-side-dock" class="plan-side-dock" aria-label="חלונית ניתוח ממצא נבחר">
+          <div class="side-dock-top-nav">
+            <div class="side-dock-caption">ממצא נבחר</div>
+            <div class="side-dock-step-btns">
+              <button type="button" id="btn-prev-note" class="btn-step-note" title="ממצא קודם (חץ למעלה)">▲</button>
+              <span id="side-dock-counter" class="side-dock-counter">1/1</span>
+              <button type="button" id="btn-next-note" class="btn-step-note" title="ממצא הבא (חץ למטה)">▼</button>
+              <button type="button" id="btn-center-on-plan" class="btn-step-note" title="מרכז ומקד בשרטוט">🎯</button>
+              <button type="button" id="btn-close-side-dock" class="btn-step-note btn-close-dock" title="סגור חלונית (Esc)">✕</button>
+            </div>
+          </div>
+
+          <!-- Single-Object Level 2 (Details & Value) + Level 3 (On-demand Evidence) Card -->
+          <div id="plan-floating-card" class="plan-floating-card hidden">
+            <div class="floating-card-header">
+              <span id="fc-pin-badge" class="fc-pin-badge">#1</span>
+              <span id="fc-status-badge" class="fc-status-badge">לבדיקה</span>
+              <span id="fc-rule-badge" class="fc-rule-badge"></span>
+            </div>
+            <div id="fc-room-name" class="fc-room-name"></div>
+            <h2 id="fc-title" class="fc-title"></h2>
+
+            <!-- LEVEL 2A: Prominent Before vs. After / Target Comparison Numbers -->
+            <div class="fc-metrics-row">
+              <div class="fc-metric-box metric-current">
+                <span class="fc-metric-label" id="fc-lbl-measured">מצב קיים בתכנית</span>
+                <strong id="fc-measured" class="fc-metric-big"></strong>
+              </div>
+              <div class="fc-metric-box metric-target">
+                <span class="fc-metric-label" id="fc-lbl-benchmark">יעד / חלופה מומלצת</span>
+                <strong id="fc-benchmark" class="fc-metric-big"></strong>
+              </div>
             </div>
 
-            <!-- Vector Dimensions partitioned by type -->
-            <div id="vector-dimensions-container" class="vector-dimensions-container hidden" style="margin-bottom: 20px;">
-                <h3 style="font-size: 16px; margin-bottom: 10px; color: var(--text-main); font-family: 'Rubik', sans-serif;">׳׳™׳“׳•׳× ׳•׳©׳˜׳—׳™׳ ׳•׳§׳˜׳•׳¨׳™׳™׳</h3>
-                
-                <!-- ׳—׳“׳¨׳™׳ -->
-                <div class="room-group" id="group-rooms-container" style="margin-bottom: 15px;">
-                    <h4 style="font-size: 13px; color: var(--accent-blue); margin-bottom: 5px; font-weight: 600;">׳—׳“׳¨׳™׳</h4>
-                    <table class="dimensions-table" style="width: 100%; border-collapse: collapse; text-align: right; font-size: 13px;">
-                        <thead>
-                            <tr style="border-bottom: 1px solid var(--panel-border); color: var(--text-muted);">
-                                <th style="padding: 6px 8px;">׳©׳</th>
-                                <th style="padding: 6px 8px;">׳©׳˜׳— (׳"׳¨)</th>
-                                <th style="padding: 6px 8px;">׳¨׳•׳—׳‘ (׳¡"׳)</th>
-                                <th style="padding: 6px 8px;">׳׳•׳¨׳ (׳¡"׳)</th>
-                            </tr>
-                        </thead>
-                        <tbody id="rooms-table-body"></tbody>
-                    </table>
-                </div>
+            <!-- LEVEL 2B: 4 Value Decision Dimensions + Action Recommendation + Level 3 Evidence Drawer -->
+            <div id="fc-four-pillars-box" class="fc-four-pillars-box"></div>
 
-                <!-- ׳׳˜׳‘׳— -->
-                <div class="room-group" id="group-kitchen-container" style="margin-bottom: 15px;">
-                    <h4 style="font-size: 13px; color: var(--accent-blue); margin-bottom: 5px; font-weight: 600;">׳׳˜׳‘׳—</h4>
-                    <table class="dimensions-table" style="width: 100%; border-collapse: collapse; text-align: right; font-size: 13px;">
-                        <thead>
-                            <tr style="border-bottom: 1px solid var(--panel-border); color: var(--text-muted);">
-                                <th style="padding: 6px 8px;">׳©׳</th>
-                                <th style="padding: 6px 8px;">׳©׳˜׳— (׳"׳¨)</th>
-                                <th style="padding: 6px 8px;">׳¨׳•׳—׳‘ (׳¡"׳)</th>
-                                <th style="padding: 6px 8px;">׳׳•׳¨׳ (׳¡"׳)</th>
-                            </tr>
-                        </thead>
-                        <tbody id="kitchen-table-body"></tbody>
-                    </table>
-                </div>
+            <!-- LEVEL 2C: Visual Schematic Before/After Diagram -->
+            <div id="fc-visual-diagram-box" class="fc-visual-diagram-box"></div>
 
-                <!-- ׳׳¡׳“׳¨׳•׳ ׳•׳× -->
-                <div class="room-group" id="group-corridors-container" style="margin-bottom: 15px;">
-                    <h4 style="font-size: 13px; color: var(--accent-blue); margin-bottom: 5px; font-weight: 600;">׳׳¡׳“׳¨׳•׳ ׳•׳×</h4>
-                    <table class="dimensions-table" style="width: 100%; border-collapse: collapse; text-align: right; font-size: 13px;">
-                        <thead>
-                            <tr style="border-bottom: 1px solid var(--panel-border); color: var(--text-muted);">
-                                <th style="padding: 6px 8px;">׳©׳</th>
-                                <th style="padding: 6px 8px;">׳©׳˜׳— (׳"׳¨)</th>
-                                <th style="padding: 6px 8px;">׳¨׳•׳—׳‘ (׳¡"׳)</th>
-                                <th style="padding: 6px 8px;">׳׳•׳¨׳ (׳¡"׳)</th>
-                            </tr>
-                        </thead>
-                        <tbody id="corridors-table-body"></tbody>
-                    </table>
-                </div>
-
-                <!-- ׳׳¨׳₪׳¡׳•׳× -->
-                <div class="room-group" id="group-balconies-container" style="margin-bottom: 15px;">
-                    <h4 style="font-size: 13px; color: var(--accent-blue); margin-bottom: 5px; font-weight: 600;">׳׳¨׳₪׳¡׳•׳×</h4>
-                    <table class="dimensions-table" style="width: 100%; border-collapse: collapse; text-align: right; font-size: 13px;">
-                        <thead>
-                            <tr style="border-bottom: 1px solid var(--panel-border); color: var(--text-muted);">
-                                <th style="padding: 6px 8px;">׳©׳</th>
-                                <th style="padding: 6px 8px;">׳©׳˜׳— (׳"׳¨)</th>
-                                <th style="padding: 6px 8px;">׳¨׳•׳—׳‘ (׳¡"׳)</th>
-                                <th style="padding: 6px 8px;">׳׳•׳¨׳ (׳¡"׳)</th>
-                            </tr>
-                        </thead>
-                        <tbody id="balconies-table-body"></tbody>
-                    </table>
-                </div>
-
-                <!-- ׳—׳“׳¨׳™ ׳¨׳—׳¦׳” ׳•׳©׳™׳¨׳•׳×׳™׳ -->
-                <div class="room-group" id="group-bathrooms-container" style="margin-bottom: 15px;">
-                    <h4 style="font-size: 13px; color: var(--accent-blue); margin-bottom: 5px; font-weight: 600;">׳—׳“׳¨׳™ ׳¨׳—׳¦׳” ׳•׳©׳™׳¨׳•׳×׳™׳</h4>
-                    <table class="dimensions-table" style="width: 100%; border-collapse: collapse; text-align: right; font-size: 13px;">
-                        <thead>
-                            <tr style="border-bottom: 1px solid var(--panel-border); color: var(--text-muted);">
-                                <th style="padding: 6px 8px;">׳©׳</th>
-                                <th style="padding: 6px 8px;">׳©׳˜׳— (׳"׳¨)</th>
-                                <th style="padding: 6px 8px;">׳¨׳•׳—׳‘ (׳¡"׳)</th>
-                                <th style="padding: 6px 8px;">׳׳•׳¨׳ (׳¡"׳)</th>
-                            </tr>
-                        </thead>
-                        <tbody id="bathrooms-table-body"></tbody>
-                    </table>
-                </div>
+            <!-- Legacy hidden elements for backward compatibility -->
+            <p id="fc-summary" class="fc-summary hidden"></p>
+            <div id="fc-ve-where-how-box" class="fc-ve-where-how-box hidden">
+              <div class="fc-ve-saving-banner" id="fc-ve-saving-banner"></div>
+              <div id="fc-ve-where"></div>
+              <div id="fc-ve-how"></div>
             </div>
-
-            <!-- Divider -->
-            <hr style="border: 0; border-top: 1px solid var(--panel-border); margin: 20px 0;">
-
-            <!-- AI Qualitative Insights -->
-            <h2 class="section-title">AI Qualitative Insights</h2>
-            <p class="section-subtitle">׳ ׳™׳×׳•׳— ׳׳“׳¨׳™׳›׳׳™ ׳—׳›׳ ׳׳‘׳•׳¡׳¡ Topology</p>
-            
-            <div id="ai-insights-container" class="ai-insights-container" style="overflow-y: auto; max-height: 250px; padding-right: 5px;">
-                <div class="placeholder-state">׳”׳׳×׳ ׳׳”׳¢׳׳׳× ׳©׳¨׳˜׳•׳˜...</div>
-                <!-- Content injected via JS -->
+            <div id="fc-rec-box" class="fc-rec-box hidden">
+              <span id="fc-recommendation"></span>
             </div>
-        </section>
+          </div>
+        </aside>
+      </div>
 
-        <!-- Left Column: Blueprint/Upload Area -->
-        <section class="column glass-panel" id="blueprint-section">
-            <h2 class="section-title">Blueprint Analysis</h2>
-            
-            <div id="upload-zone" class="upload-zone" style="position: relative;">
-                <input type="file" id="file-input" style="display: none;" accept=".dxf,.dwg,.dwf,.dwfx,.pdf">
-                <div class="upload-icon">נ“„</div>
-                <p>׳’׳¨׳•׳¨ ׳׳›׳׳ ׳§׳•׳‘׳¥ ׳©׳¨׳˜׳•׳˜ (DXF/DWG/DWF/DWFX/PDF) ׳׳• ׳׳—׳¥ ׳׳‘׳—׳™׳¨׳”</p>
-                <button id="btn-analyze" class="btn-primary" style="display: none; position: relative; z-index: 10;">׳”׳¨׳¥ ׳׳ ׳•׳¢ ׳׳ ׳׳™׳–׳”</button>
-            </div>
-            
-            <div id="project-navigator" class="project-navigator hidden" style="display: none !important;">
-                <label>׳‘׳—׳¨ ׳§׳•׳׳”:</label>
-                <select id="floor-select" class="form-select"></select>
-                <label>׳‘׳—׳¨ ׳“׳™׳¨׳”:</label>
-                <select id="apt-select" class="form-select"></select>
-            </div>
+      <!-- Loading Overlay -->
+      <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <div id="loading-title" class="loading-title">טוען סביבת עבודה אדריכלית...</div>
+        <div class="loading-sub">מנתח תכניות, שכבות קונטור וממצאים הנדסיים</div>
+      </div>
+    </section>
+  </main>
 
-            <div id="blueprint-viewer" class="blueprint-viewer hidden" style="position: relative; display: flex; align-items: center; justify-content: center;">
-                <div style="position: relative; max-width: 100%; max-height: 100%;">
-                    <img id="blueprint-img" style="max-width: 100%; max-height: 100%; display: block; object-fit: contain;" />
-                    <svg id="blueprint-polygons" class="blueprint-polygons" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
-                    <div id="blueprint-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;"></div>
-                </div>
-            </div>
+  <!-- SUMMARY DOCUMENT & QUANTITATIVE PROJECT DATA MODAL -->
+  <div id="summary-areas-modal" class="summary-modal-backdrop hidden">
+    <div class="summary-modal-dialog">
+      <div class="summary-modal-header">
+        <div>
+          <span class="doc-live-pill">ריכוז נתונים כמותיים וסיכום ממצאים</span>
+          <h2 id="summary-modal-title" class="summary-modal-title">נתוני שטחים, מרפסות, חזיתות וריצוף</h2>
+        </div>
+        <div class="summary-modal-actions">
+          <a id="summary-modal-print-link" href="#" target="_blank" class="btn-tool btn-pdf" style="text-decoration:none;">
+            🖨️ גרסת הדפסה מלאה
+          </a>
+          <button type="button" id="btn-close-summary-modal" class="btn-close-drawer">✕ סגור</button>
+        </div>
+      </div>
+      <div id="summary-modal-body" class="summary-modal-body"></div>
+    </div>
+  </div>
 
-            <!-- Smart PDF extraction: the analysis database built from the plan -->
-            <div id="extraction-panel" class="extraction-panel hidden">
-                <div class="extraction-header">
-                    <h3>׳ ׳×׳•׳ ׳™ ׳—׳™׳׳•׳¥ ׳׳”׳×׳›׳ ׳™׳×</h3>
-                    <label class="toggle"><input type="checkbox" id="toggle-polygons" checked> ׳”׳¦׳’ ׳’׳‘׳•׳׳•׳× ׳—׳׳׳™׳</label>
-                </div>
-                <div id="extraction-meta" class="extraction-meta"></div>
-                <h4 class="extraction-subtitle">׳‘׳§׳¨׳× ׳׳™׳›׳•׳× ׳”׳—׳™׳׳•׳¥</h4>
-                <div id="extraction-qa" class="checklist-container"></div>
-                <div id="extraction-warnings" class="extraction-warnings"></div>
-            </div>
-        </section>
-    </main>
+  <!-- UNIFIED COST SAVINGS COMMAND CENTER MODAL -->
+  <div id="value-eng-modal" class="summary-modal-backdrop hidden">
+    <div class="summary-modal-dialog ve-command-center-dialog">
+      <div class="summary-modal-header ve-command-center-header">
+        <div>
+          <span class="doc-live-pill" style="background:#dcfce7;color:#065f46;border-color:#6ee7b7;">מרכז החיסכון בעלויות הבנייה ובקרת כיווץ קונטור</span>
+          <h2 id="value-eng-modal-title" class="summary-modal-title">מרכז החיסכון בעלויות הבנייה</h2>
+        </div>
+        <div class="summary-modal-actions">
+          <button type="button" id="btn-close-value-eng-modal" class="btn-close-drawer">✕ סגור חלון</button>
+        </div>
+      </div>
+      <div id="value-eng-modal-body" class="summary-modal-body ve-command-center-body"></div>
+    </div>
+  </div>
 
-    <!-- Firebase SDK (Compat Version) -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
-    <script src="app.js?v=4"></script>
+  <!-- EXPORT SELECTED DECISIONS BRIEF MODAL -->
+  <div id="decisions-export-modal" class="summary-modal-backdrop hidden">
+    <div class="summary-modal-dialog" style="max-width:860px;">
+      <div class="summary-modal-header">
+        <div>
+          <span class="doc-live-pill">סיכום החלטות מתכנן</span>
+          <h2 id="decisions-modal-title" class="summary-modal-title">דוח ממצאים שנבחרו לטיפול ומעקב ביצוע</h2>
+        </div>
+        <div class="summary-modal-actions">
+          <button type="button" id="btn-print-decisions" class="btn-tool btn-pdf">🖨️ הדפס / שמור PDF</button>
+          <button type="button" id="btn-close-decisions-modal" class="btn-close-drawer">✕ סגור</button>
+        </div>
+      </div>
+      <div id="decisions-modal-body" class="summary-modal-body"></div>
+    </div>
+  </div>
+
+  <script src="app.js?v=5.0"></script>
 </body>
 </html>

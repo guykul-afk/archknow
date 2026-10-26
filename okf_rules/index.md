@@ -15,6 +15,22 @@ title: Architectural & Accessibility Knowledge Base Index
 - **[SPACE_SYNTAX_SAGA](space_syntax_saga_metrics.md)**: Space Syntax (עומק, אינטגרציה), יעילות תוכנית (יחס מסדרונות, מלבניות) ומדדי קירוב לגמישות SAGA
 - **[IS1918_ACCESS](israel_accessibility_is1918_housing.md)**: נגישות דירות — מסגרת ת"י 1918 ומידות ייחוס בינלאומיות (סטטוס: לאימות)
 - **[SOURCES_REGISTRY](sources_registry_architectural_quality.md)**: מרשם מקורות המופת והמקורות הרשמיים וסטטוס שילובם בבסיס הידע
+- **[DAYLIGHT_VENT_IEQ](daylight_ventilation_ieq_standards.md)**: תאורה טבעית, מבט החוצה, אוורור טבעי ואיכות סביבה פנים (EN 17037, BR 209, CIBSE AM10/TM59, WELL v2, ת"י 5281, ביופיליה)
+- **[USABILITY_FURNISH_HQI](spatial_usability_furnishability_hqi.md)**: שימושיות מרחבית, יכולת ריהוט, איזון פרוגרמטי ועמידות לאורך החיים (Boverket, Byggforsk, HQI, Lifetime Homes, DIN 18040-2, SIA 500, EU Level(s), CBE POE)
+- **[ACADEMIC_ARCH_COMPENDIUM](academic_typology_architects_compendium.md)**: קומפנדיום אקדמיה, אדריכלים מובילים, מגזינים ותקינה משלימה (ETH Zürich, ETSAB Habitar, Birkhäuser/Hochparterre, Lacaton & Vassal, Toronto/Vancouver Family, San-ten Bunri, תקינה ישראלית 2025–2026)
+
+## Academic Schools, Magazines, Leading Architects & New Standards (Cataloged OKF Rules)
+- **[ETH_TYPO_1](eth_raumhaltigkeit_hallenwohnung.md)**: ETH Zürich (Dietmar Eberle & Susanne Schmid) — *Raumhaltigkeit* (ריבוד קונצנטרי) ו-*Hallenwohnung* (דירת הול מרכזי)
+- **[ETSAB_CC_1](etsab_casa_collage_equal_rooms.md)**: ETSAB Barcelona (*Habitar*) & MAIO — *Casa Collage* וחדרים גנריים שווי-גודל ($3.60 \times 3.60\text{ m}$)
+- **[TUD_HERTZ_1](tudelft_hertzberger_thresholds.md)**: TU Delft (Herman Hertzberger) — מרחב הסף (*In-Between*), מטבח חצי-פתוח ואדן חלון כרהיט
+- **[SWISS_GK_1](swiss_grundrisskritik_competitions.md)**: *Hochparterre Grundrissfibel* & Birkhäuser *Floor Plan Manual Housing* — *Durchwohnen*, *Schaltzimmer* ומבחן האלכסון הראשי
+- **[LV_PLUS_1](lacaton_vassal_plus_winter_garden.md)**: Lacaton & Vassal (Pritzker 2021) — *Plus*, גינות חורף ולוג'יות עמוקות ($3.00\text{–}3.80\text{ m}$)
+- **[JPN_SB_1](japan_santen_bunri_genkan.md)**: ארגונומיה יפנית — *San-ten Bunri* (הפרדה משולשת של החלל הרטוב) ומבואת *Genkan*
+- **[FAM_VERT_1](family_vertical_toronto_vancouver.md)**: Toronto *Growing Up* & Vancouver *High-Density Housing for Families with Children* ($87/100\text{ m}^2$, אחסון $5.7\text{ m}^3$, כביסה, קשר עין הורי)
+- **[IL_OREF_2025](israel_oref_2025_mamad_wet_room.md)**: הנחיות פיקוד העורף ותיקון 163 לחוק התכנון והבנייה (2025) — ממ"ד ($9.0\text{ m}^2$) ותוספת חדר רטוב פנימי (עד $3.0\text{ m}^2$)
+- **[IL_MOCH_PROG](israel_moch_housing_program.md)**: אוגדן הנחיות משרד הבינוי והשיכון — פרוגרמת דירה ומידות חדרים מומלצות ($9.0\text{ m}^2 / 2.80\text{ m}$, הורים $11.0\text{ m}^2 / 2.90\text{ m}$)
+- **[IL_MOT_PARK](israel_mot_parking_guidelines.md)**: הנחיות משרד התחבורה לתכנון חניונים (פרק ד') וחניית נכים ($2.40\text{ m}$ תא חופשי, $2.65\text{–}2.90\text{ m}$ ליד עמוד, מיסעה $5.50\text{–}6.00\text{ m}$)
+- **[IL_IS1004_1142](israel_is1004_acoustics_is1142_railings.md)**: ת"י 1004 (בידוד אקוסטי $\ge 48\text{ dB}$) ות"י 1142 (בטיחות מעקים $\ge 105/90\text{ cm}$, מרווח $\le 10\text{ cm}$)
 
 ## Technical Performance Regulations
 - **[A10](a10_overall_perception_of_acoustic_privacy_a.md)**: Overall perception of acoustic privacy and comfort in the ap...

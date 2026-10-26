@@ -1,0 +1,100 @@
+{
+  "projects": [
+    {
+      "id": "pines48",
+      "name": "פינס 48 פינת הבעל שם טוב, פתח תקווה",
+      "short_name": "פינס 48",
+      "subtitle": "מבנה מגורים בן 8 קומות + מרתף חניון (17 יח״ד · תמ״א 38/2 · יצחק קולסקי)",
+      "score": "89 / 100",
+      "status_summary": "153 עוברים · 49 התראות איכות · 0 כישלונות חוקיים",
+      "keywords": [
+        "פינס",
+        "pines",
+        "הבעשט",
+        "2011-299"
+      ],
+      "pdf_report_url": "/reports/pines48_architectural_quality_analysis.pdf"
+    },
+    {
+      "id": "kkl10",
+      "name": "קק״ל 10 (קרן קיימת לישראל 10), פתח תקווה",
+      "short_name": "קק״ל 10",
+      "subtitle": "מבנה מגורים בן 9 קומות + 2 מרתפי חניון (25 יח״ד · גרמושקה P-23 · סנדרוביץ אדריכלים)",
+      "score": "84 / 100",
+      "status_summary": "118 עוברים · 36 התראות (כולל ממ״דים 264–268 ס״מ) · 1 ליקוי מיסעה",
+      "keywords": [
+        "קקל",
+        "קק\"ל",
+        "kkl",
+        "246-",
+        "2022-875"
+      ],
+      "pdf_report_url": "/reports/kkl10_architectural_quality_analysis.pdf"
+    },
+    {
+      "id": "hafetz44",
+      "name": "חפץ חיים 44, פתח תקווה",
+      "short_name": "חפץ חיים 44",
+      "subtitle": "מבנה מגורים בן 9 קומות + מרתף חניון (17 יח״ד · א.ב. דרגן אדריכלים · יצחק קולסקי)",
+      "score": "89.8 / 100",
+      "status_summary": "270 עוברים · 58 התראות איכות · 0 כישלונות חוקיים",
+      "keywords": [
+        "חפץ",
+        "חיים",
+        "hafetz",
+        "chafetz",
+        "44"
+      ],
+      "pdf_report_url": "/reports/hafetz44_architectural_quality_analysis.pdf"
+    },
+    {
+      "id": "yatkovski7",
+      "name": "יטקובסקי אחים 7 (7א), פתח תקווה",
+      "short_name": "יטקובסקי 7",
+      "subtitle": "בניין בוטיק בן 7 קומות + מרתף חניון (11 יח״ד · א.ב. דרגן אדריכלים · יצחק קולסקי)",
+      "score": "91.4 / 100",
+      "status_summary": "351 עוברים · 40 התראות איכות · 0 כישלונות חוקיים",
+      "keywords": [
+        "יטקובסקי",
+        "yatkovski",
+        "7א",
+        "אחים יטקובסקי"
+      ],
+      "pdf_report_url": "/reports/yatkovski7_architectural_quality_analysis.pdf"
+    },
+    {
+      "id": "kitroni37",
+      "name": "הרב קיטרוני 37–39, פתח תקווה",
+      "short_name": "קטרוני 37–39",
+      "subtitle": "קומפלקס 2 בניינים בני 9 קומות + מרתף משותף (63 יח״ד · אילת קורן אדריכלים · יצחק קולסקי)",
+      "score": "86.8 / 100",
+      "status_summary": "410 עוברים · 57 התראות איכות · 0 כישלונות חוקיים",
+      "keywords": [
+        "קיטרוני",
+        "קטרוני",
+        "kitroni",
+        "37-39",
+        "37"
+      ],
+      "pdf_report_url": "/reports/kitroni37_architectural_quality_analysis.pdf"
+    },
+    {
+      "id": "feierberg3",
+      "name": "פאירברג 3, פתח תקווה (גוש 6387, חלקה 193)",
+      "short_name": "פאירברג 3",
+      "subtitle": "בניין בוטיק בן 10 קומות + 2 מרתפי חניון (18 יח״ד · אלישע רובין אדריכלים · א. קולסקי)",
+      "score": "91.2 / 100",
+      "status_summary": "284 עוברים · 26 התראות איכות · 0 כישלונות חוקיים · מודל 3D BIM 1:1",
+      "keywords": [
+        "פאירברג",
+        "פאיירברג",
+        "פיארברג",
+        "feierberg",
+        "fairberg",
+        "6387",
+        "193"
+      ],
+      "pdf_report_url": "/reports/feierberg3_architectural_quality_analysis.pdf"
+    }
+  ]
+}
