@@ -82,3 +82,9 @@
    - בעת כתיבת או עדכון קובצי קוד דרך פייתון ב-Windows, חובה לציין `encoding="utf-8", newline="\n"` ב-`open()` או ב-`Path.write_text()`, כדי למנוע המרה שקטה ל-CRLF (`\r\n`) שמכשילה עריכות רב-שורתיות עתידיות.
 3. **הימנעות ממרכאות מוברחות (`\"`) בפקודות `python -c` ב-PowerShell:**
    - PowerShell 5.1 מפשיט מרכאות פנימיות מוברחות בתוך `python -c "..."` וגורם לשגיאות תחביר ב-f-strings. למשימות סקריפט יש להשתמש במרכאות בודדות או להריץ קובץ `.py` מתיקיית `scratch/`.
+
+### שלב 3: סנכרון אוטומטי ל-Firebase Static Hosting (`webapp/models/<pid>/`) ומניעת שגיאת 404 בענן
+- **הכלל:** נתיבי Flask ב-[`server.py`](file:///c:/Users/User/archknow/server.py) (`/models/<project_id>/...`) פועלים רק בשרת פייתון מקומי (`localhost:5000`) ואינם קיימים ב-Firebase Hosting (`https://archknow-guy-2026.web.app`), שמשרת רק קבצים סטטיים מתוך תיקיית `webapp/`.
+- **יישום חובה:**
+  1. הסקריפט [`export_static_data.py`](file:///c:/Users/User/archknow/export_static_data.py) מסנכרן אוטומטית את קובצי ה-HTML של המודלים התלת-ממדיים מהתיקייה המרכזית `G:\Shared drives\שליטה ובקרה\מודלים פרויקטים` אל `webapp/models/<project_id>/` ומזריק לתוכם את `<script src="/audit_3d_overlay.js?v=5.3"></script>`.
+  2. בקובץ [`firebase.json`](file:///c:/Users/User/archknow/firebase.json) חובה להגדיר מפורשות `"site": "archknow-guy-2026"` תחת `"hosting"`, ולפני קריאה ל-`firebase_deploy` ב-MCP יש לקרוא ל-`firebase_get_project` כדי לרענן את אסימון ה-OAuth ולאמת שהכתובת `https://archknow-guy-2026.web.app/models/hafetz44/hafetz44_3d_model.html` מחזירה `HTTP 200`.
