@@ -68,7 +68,28 @@
       "path": "C:/Users/User/archknow/webapp/api/hafetz44.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 293.3
+      "size_kb": 288.0
+    },
+    {
+      "name": "hafetz44_3d_bim_viewer.html",
+      "path": "C:/Users/User/archknow/webapp/models/hafetz44/hafetz44_3d_bim_viewer.html",
+      "folder": "C:/Users/User/archknow/webapp/models/hafetz44",
+      "ext": "HTML",
+      "size_kb": 6254.5
+    },
+    {
+      "name": "hafetz44_3d_model.html",
+      "path": "C:/Users/User/archknow/webapp/models/hafetz44/hafetz44_3d_model.html",
+      "folder": "C:/Users/User/archknow/webapp/models/hafetz44",
+      "ext": "HTML",
+      "size_kb": 6254.5
+    },
+    {
+      "name": "hafetz44_spatial_map.html",
+      "path": "C:/Users/User/archknow/webapp/models/hafetz44/hafetz44_spatial_map.html",
+      "folder": "C:/Users/User/archknow/webapp/models/hafetz44",
+      "ext": "HTML",
+      "size_kb": 22.6
     },
     {
       "name": "hafetz44_architectural_quality_analysis.html",
@@ -426,27 +447,6 @@
       "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/סלומון - התחדשות עירונית/הסכמים, ליווי וביטוח/הסכם תמא וליווי/הסכם מול הדיירים הנוכחיים",
       "ext": "PDF",
       "size_kb": 27124.9
-    },
-    {
-      "name": "פרוטוקול אסיפה כללית - מורשי חתימה.docx",
-      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/סלומון - התחדשות עירונית/הסכמים, ליווי וביטוח/הסכם תמא וליווי/הסכם מול הדיירים הנוכחיים/פרוטוקול אסיפה כללית - מורשי חתימה.docx",
-      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/סלומון - התחדשות עירונית/הסכמים, ליווי וביטוח/הסכם תמא וליווי/הסכם מול הדיירים הנוכחיים",
-      "ext": "DOCX",
-      "size_kb": 24.9
-    },
-    {
-      "name": "טיוטת חוזה התחדשות עירונית - סלומון 11 ו-13.docx",
-      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/סלומון - התחדשות עירונית/הסכמים, ליווי וביטוח/הסכם תמא וליווי/הסכם מול הדיירים הנוכחיים/גרסאות ישנות/טיוטת חוזה התחדשות עירונית - סלומון 11 ו-13.docx",
-      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/סלומון - התחדשות עירונית/הסכמים, ליווי וביטוח/הסכם תמא וליווי/הסכם מול הדיירים הנוכחיים/גרסאות ישנות",
-      "ext": "DOCX",
-      "size_kb": 149.5
-    },
-    {
-      "name": "סלומון לאחר התייחסות להערות גץ שהתקבלו.docx",
-      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/סלומון - התחדשות עירונית/הסכמים, ליווי וביטוח/הסכם תמא וליווי/הסכם מול הדיירים הנוכחיים/גרסאות ישנות/סלומון לאחר התייחסות להערות גץ שהתקבלו.docx",
-      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/סלומון - התחדשות עירונית/הסכמים, ליווי וביטוח/הסכם תמא וליווי/הסכם מול הדיירים הנוכחיים/גרסאות ישנות",
-      "ext": "DOCX",
-      "size_kb": 166.5
     }
   ],
   "sheets": [

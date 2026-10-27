@@ -86,15 +86,22 @@ def serve_central_3d_model_file(project_id, filename):
         with open(full_path, "r", encoding="utf-8") as f:
             html_content = f.read()
 
+        if "<!-- ARCHICHECK_3D_OVERLAY_START -->" in html_content and "<!-- ARCHICHECK_3D_OVERLAY_END -->" in html_content:
+            s_idx = html_content.index("<!-- ARCHICHECK_3D_OVERLAY_START -->")
+            e_idx = html_content.index("<!-- ARCHICHECK_3D_OVERLAY_END -->") + len("<!-- ARCHICHECK_3D_OVERLAY_END -->")
+            html_content = html_content[:s_idx] + html_content[e_idx:]
+
         overlay_snippet = (
-            f'\n  <script>window.__ARCHICHECK_PROJECT_ID__ = "{project_id}";</script>\n'
-            f'  <script src="/audit_3d_overlay.js?v=5.2"></script>\n'
+            f'\n<!-- ARCHICHECK_3D_OVERLAY_START -->\n'
+            f'<script>window.__ARCHICHECK_PROJECT_ID__ = "{project_id}";</script>\n'
+            f'<script src="/audit_3d_overlay.js?v=5.4"></script>\n'
+            f'<!-- ARCHICHECK_3D_OVERLAY_END -->\n'
         )
-        if "audit_3d_overlay.js" not in html_content:
-            if "</body>" in html_content:
-                html_content = html_content.replace("</body>", overlay_snippet + "</body>", 1)
-            else:
-                html_content += overlay_snippet
+        last_body_idx = html_content.rfind("</body>")
+        if last_body_idx != -1:
+            html_content = html_content[:last_body_idx] + overlay_snippet + html_content[last_body_idx:]
+        else:
+            html_content += overlay_snippet
         return Response(html_content, mimetype="text/html; charset=utf-8")
 
     return send_from_directory(project_dir, filename)

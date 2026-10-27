@@ -82,7 +82,21 @@
       "path": "C:/Users/User/archknow/webapp/api/pines48.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 338.9
+      "size_kb": 333.2
+    },
+    {
+      "name": "pines48_3d_model.html",
+      "path": "C:/Users/User/archknow/webapp/models/pines48/pines48_3d_model.html",
+      "folder": "C:/Users/User/archknow/webapp/models/pines48",
+      "ext": "HTML",
+      "size_kb": 6214.5
+    },
+    {
+      "name": "pines48_spatial_map.html",
+      "path": "C:/Users/User/archknow/webapp/models/pines48/pines48_spatial_map.html",
+      "folder": "C:/Users/User/archknow/webapp/models/pines48",
+      "ext": "HTML",
+      "size_kb": 2154.9
     },
     {
       "name": "pines48_architectural_quality_analysis.html",
@@ -433,20 +447,6 @@
       "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פינס הבעשט/תבע/תכניות עבודה",
       "ext": "PDF",
       "size_kb": 435.4
-    },
-    {
-      "name": "קולסקי - דיווח מס רכישה.pdf",
-      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פינס הבעשט/מיסוי/דיווח עסקה/קולסקי - דיווח מס רכישה.pdf",
-      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פינס הבעשט/מיסוי/דיווח עסקה",
-      "ext": "PDF",
-      "size_kb": 646.7
-    },
-    {
-      "name": "תחשיב שירותי בניה - הבעשט.xlsx",
-      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פינס הבעשט/תחשיבי מס/תחשיב שירותי בניה - הבעשט.xlsx",
-      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פינס הבעשט/תחשיבי מס",
-      "ext": "XLSX",
-      "size_kb": 13.1
     }
   ],
   "sheets": [

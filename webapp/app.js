@@ -3099,7 +3099,7 @@
     if (!currentProject || !model3dIframe) return;
     const baseUrl = currentProject._resolved_3d_url || (currentProject.project_id ? `/models/${currentProject.project_id}` : null);
     if (!baseUrl) return;
-    const targetSrc = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}embed=1`;
+    const targetSrc = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}embed=1&v=6.2`;
     if (forceReload || loaded3dProjectUrl !== targetSrc) {
       loaded3dProjectUrl = targetSrc;
       model3dIframe.src = targetSrc;
@@ -3130,6 +3130,15 @@
 
     if (currentViewMode !== '2d') {
       ensure3dModelLoaded(false);
+      [80, 260, 600].forEach((delay) => {
+        setTimeout(() => {
+          try {
+            if (model3dIframe && model3dIframe.contentWindow) {
+              model3dIframe.contentWindow.dispatchEvent(new Event('resize'));
+            }
+          } catch (e) {}
+        }, delay);
+      });
       setTimeout(() => {
         if (activeNoteId) {
           postMessageTo3D({ type: 'ARCHICHECK_SELECT_NOTE', noteId: activeNoteId });

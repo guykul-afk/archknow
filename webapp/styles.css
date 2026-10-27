@@ -5117,3 +5117,76 @@ body.top-bar-collapsed .top-command-bar {
   color: #0f172a !important;
   border-bottom: 1px solid #cbd5e1 !important;
 }
+
+
+/* =========================================================================
+   3D & SPLIT VIEWPORT FULL-HEIGHT GUARANTEE (CRITICAL FIX)
+   Prevents #model-3d-stage / #model-3d-iframe from collapsing to 0px height
+   when #plan-stage (2D image) is hidden in 3D mode.
+   ========================================================================= */
+.visual-panel {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  min-height: 0 !important;
+}
+
+.plan-body-layout {
+  flex: 1 1 auto !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  grid-template-rows: minmax(0, 1fr) !important;
+}
+
+.plan-viewport {
+  height: 100% !important;
+  min-height: 0 !important;
+}
+
+.plan-viewport.vmode-3d {
+  padding: 0 !important;
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+}
+
+.plan-viewport.vmode-3d #model-3d-stage {
+  display: flex !important;
+  flex: 1 1 100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 540px !important;
+}
+
+.plan-viewport.vmode-split {
+  padding: 0 !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  grid-template-rows: minmax(0, 1fr) !important;
+  align-items: stretch !important;
+  height: 100% !important;
+}
+
+.plan-viewport.vmode-split #plan-stage {
+  display: flex !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  border-left: 2px solid #cbd5e1 !important;
+}
+
+.plan-viewport.vmode-split #model-3d-stage {
+  display: flex !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 540px !important;
+}
+
+#model-3d-iframe {
+  flex: 1 1 100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 540px !important;
+  border: none !important;
+  display: block !important;
+}

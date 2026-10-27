@@ -146,7 +146,28 @@
       "path": "C:/Users/User/archknow/webapp/api/feierberg3.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 291.2
+      "size_kb": 286.7
+    },
+    {
+      "name": "feierberg3_3d_bim_viewer.html",
+      "path": "C:/Users/User/archknow/webapp/models/feierberg3/feierberg3_3d_bim_viewer.html",
+      "folder": "C:/Users/User/archknow/webapp/models/feierberg3",
+      "ext": "HTML",
+      "size_kb": 6719.2
+    },
+    {
+      "name": "feierberg3_3d_model.html",
+      "path": "C:/Users/User/archknow/webapp/models/feierberg3/feierberg3_3d_model.html",
+      "folder": "C:/Users/User/archknow/webapp/models/feierberg3",
+      "ext": "HTML",
+      "size_kb": 6719.2
+    },
+    {
+      "name": "feierberg3_spatial_map.html",
+      "path": "C:/Users/User/archknow/webapp/models/feierberg3/feierberg3_spatial_map.html",
+      "folder": "C:/Users/User/archknow/webapp/models/feierberg3",
+      "ext": "HTML",
+      "size_kb": 2229.6
     },
     {
       "name": "feierberg3_architectural_quality_analysis.html",
@@ -427,27 +448,6 @@
       "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה",
       "ext": "DOCX",
       "size_kb": 168.5
-    },
-    {
-      "name": "דואר Kuleski.co.il - פאירברג.pdf",
-      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/דואר Kuleski.co.il - פאירברג.pdf",
-      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה",
-      "ext": "PDF",
-      "size_kb": 138.4
-    },
-    {
-      "name": "תנועות בחשבון - גפני.pdf",
-      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/תנועות בחשבון - גפני.pdf",
-      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה",
-      "ext": "PDF",
-      "size_kb": 492.6
-    },
-    {
-      "name": "טיוטת הסכם תמא פאירברג 3 פתח תקוה -  24.8.23.docx",
-      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/טויוטת/טיוטת הסכם תמא פאירברג 3 פתח תקוה -  24.8.23.docx",
-      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/פאירברג 3/הסכם קומבינציה/טויוטת",
-      "ext": "DOCX",
-      "size_kb": 185.7
     }
   ],
   "sheets": [

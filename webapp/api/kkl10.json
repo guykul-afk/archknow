@@ -75,7 +75,21 @@
       "path": "C:/Users/User/archknow/webapp/api/kkl10.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 279.5
+      "size_kb": 274.9
+    },
+    {
+      "name": "kkl10_3d_bim_viewer.html",
+      "path": "C:/Users/User/archknow/webapp/models/kkl10/kkl10_3d_bim_viewer.html",
+      "folder": "C:/Users/User/archknow/webapp/models/kkl10",
+      "ext": "HTML",
+      "size_kb": 3853.7
+    },
+    {
+      "name": "kkl10_spatial_map.html",
+      "path": "C:/Users/User/archknow/webapp/models/kkl10/kkl10_spatial_map.html",
+      "folder": "C:/Users/User/archknow/webapp/models/kkl10",
+      "ext": "HTML",
+      "size_kb": 3121.2
     },
     {
       "name": "kkl10_architectural_quality_analysis.html",
@@ -433,20 +447,6 @@
       "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/מדידות",
       "ext": "DWFX",
       "size_kb": 216.2
-    },
-    {
-      "name": "246-קקל-p-4-קומות 1-2.pdf",
-      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/סקיצות/246-קקל-p-4-קומות 1-2.pdf",
-      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/סקיצות",
-      "ext": "PDF",
-      "size_kb": 178.3
-    },
-    {
-      "name": "246-קקל-p-4-קומות 3-5).pdf",
-      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/סקיצות/246-קקל-p-4-קומות 3-5).pdf",
-      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קקל 10/סקיצות",
-      "ext": "PDF",
-      "size_kb": 177.9
     }
   ],
   "sheets": [

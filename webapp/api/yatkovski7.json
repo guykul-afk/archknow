@@ -103,7 +103,28 @@
       "path": "C:/Users/User/archknow/webapp/api/yatkovski7.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 230.2
+      "size_kb": 225.9
+    },
+    {
+      "name": "yatkovski7_3d_bim_viewer.html",
+      "path": "C:/Users/User/archknow/webapp/models/yatkovski7/yatkovski7_3d_bim_viewer.html",
+      "folder": "C:/Users/User/archknow/webapp/models/yatkovski7",
+      "ext": "HTML",
+      "size_kb": 6643.6
+    },
+    {
+      "name": "yatkovski7_3d_model.html",
+      "path": "C:/Users/User/archknow/webapp/models/yatkovski7/yatkovski7_3d_model.html",
+      "folder": "C:/Users/User/archknow/webapp/models/yatkovski7",
+      "ext": "HTML",
+      "size_kb": 6643.6
+    },
+    {
+      "name": "yatkovski7_spatial_map.html",
+      "path": "C:/Users/User/archknow/webapp/models/yatkovski7/yatkovski7_spatial_map.html",
+      "folder": "C:/Users/User/archknow/webapp/models/yatkovski7",
+      "ext": "HTML",
+      "size_kb": 2178.8
     },
     {
       "name": "yatkovski7_architectural_quality_analysis.html",
@@ -426,27 +447,6 @@
       "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/יטקובסקי 7/כספים, רכש וקבלני משנה/הצעות מחיר והסכמי יועצים",
       "ext": "PDF",
       "size_kb": 182.0
-    },
-    {
-      "name": "הצעת מחיר מדידה ומבאת - חלקה 470 - 01-06-2023.pdf",
-      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/יטקובסקי 7/כספים, רכש וקבלני משנה/הצעות מחיר והסכמי יועצים/הצעת מחיר מדידה ומבאת - חלקה 470 - 01-06-2023.pdf",
-      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/יטקובסקי 7/כספים, רכש וקבלני משנה/הצעות מחיר והסכמי יועצים",
-      "ext": "PDF",
-      "size_kb": 151.3
-    },
-    {
-      "name": "הצעת מחיר מבאת - חלקה 470 - 01-06-2023.pdf",
-      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/יטקובסקי 7/כספים, רכש וקבלני משנה/הצעות מחיר והסכמי יועצים/הצעת מחיר מבאת - חלקה 470 - 01-06-2023.pdf",
-      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/יטקובסקי 7/כספים, רכש וקבלני משנה/הצעות מחיר והסכמי יועצים",
-      "ext": "PDF",
-      "size_kb": 151.3
-    },
-    {
-      "name": "2025-09-16 - 08-084338.pdf",
-      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/יטקובסקי 7/כספים, רכש וקבלני משנה/חשבונות וקבלות/2025-09-16 - 08-084338.pdf",
-      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/יטקובסקי 7/כספים, רכש וקבלני משנה/חשבונות וקבלות",
-      "ext": "PDF",
-      "size_kb": 208.0
     }
   ],
   "sheets": [

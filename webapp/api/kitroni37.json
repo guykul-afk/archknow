@@ -75,7 +75,21 @@
       "path": "C:/Users/User/archknow/webapp/api/kitroni37.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 244.8
+      "size_kb": 240.7
+    },
+    {
+      "name": "kitroni37_39_3d_model.html",
+      "path": "C:/Users/User/archknow/webapp/models/kitroni37/kitroni37_39_3d_model.html",
+      "folder": "C:/Users/User/archknow/webapp/models/kitroni37",
+      "ext": "HTML",
+      "size_kb": 5255.6
+    },
+    {
+      "name": "kitroni37_39_spatial_map.html",
+      "path": "C:/Users/User/archknow/webapp/models/kitroni37/kitroni37_39_spatial_map.html",
+      "folder": "C:/Users/User/archknow/webapp/models/kitroni37",
+      "ext": "HTML",
+      "size_kb": 2307.6
     },
     {
       "name": "kitroni37_architectural_quality_analysis.html",
@@ -433,20 +447,6 @@
       "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קטרוני 37-39/הסכמי מכר, ליווי וביטוח/הסכם ליווי/תעודות זהות",
       "ext": "JPG",
       "size_kb": 2333.0
-    },
-    {
-      "name": "רותי זמיר - ת.ז + ספח.jpg",
-      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קטרוני 37-39/הסכמי מכר, ליווי וביטוח/הסכם ליווי/תעודות זהות/רותי זמיר - ת.ז + ספח.jpg",
-      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קטרוני 37-39/הסכמי מכר, ליווי וביטוח/הסכם ליווי/תעודות זהות",
-      "ext": "JPG",
-      "size_kb": 115.8
-    },
-    {
-      "name": "לין קורזינר - ספח.jpg",
-      "path": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קטרוני 37-39/הסכמי מכר, ליווי וביטוח/הסכם ליווי/תעודות זהות/לין קורזינר - ספח.jpg",
-      "folder": "G:/Shared drives/פרויקטים שוטפים/פרויקטים בביצוע/קטרוני 37-39/הסכמי מכר, ליווי וביטוח/הסכם ליווי/תעודות זהות",
-      "ext": "JPG",
-      "size_kb": 313.8
     }
   ],
   "sheets": [

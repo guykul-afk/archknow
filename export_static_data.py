@@ -58,12 +58,12 @@ for cfg in PROJECTS_CONFIG:
         if fn.endswith('.js') and not fn.startswith('hafetz44_audit_'):
             shutil.copy2(os.path.join(src_dir, fn), os.path.join(dst_dir, fn))
 
-    # Sync HTML viewers and ensure runtime overlay script is injected
+    # Sync HTML viewers and ensure runtime overlay script is injected before the LAST </body>
     html_files = set(filter(None, [cfg.get('primary_viewer'), cfg.get('bim_viewer'), cfg.get('spatial_map')]))
     overlay_block = (
         f'\n<!-- ARCHICHECK_3D_OVERLAY_START -->\n'
         f'<script>window.__ARCHICHECK_PROJECT_ID__ = "{pid}";</script>\n'
-        f'<script src="/audit_3d_overlay.js?v=5.3"></script>\n'
+        f'<script src="/audit_3d_overlay.js?v=5.4"></script>\n'
         f'<!-- ARCHICHECK_3D_OVERLAY_END -->\n'
     )
     for html_fn in html_files:
@@ -72,12 +72,14 @@ for cfg in PROJECTS_CONFIG:
             continue
         with open(src_html, 'r', encoding='utf-8', errors='replace') as fh:
             html_content = fh.read()
-        if '<!-- ARCHICHECK_3D_OVERLAY_START -->' in html_content:
+        while '<!-- ARCHICHECK_3D_OVERLAY_START -->' in html_content and '<!-- ARCHICHECK_3D_OVERLAY_END -->' in html_content:
             s_idx = html_content.index('<!-- ARCHICHECK_3D_OVERLAY_START -->')
             e_idx = html_content.index('<!-- ARCHICHECK_3D_OVERLAY_END -->') + len('<!-- ARCHICHECK_3D_OVERLAY_END -->')
-            html_content = html_content[:s_idx] + overlay_block.strip() + html_content[e_idx:]
-        elif '</body>' in html_content:
-            html_content = html_content.replace('</body>', overlay_block + '</body>', 1)
+            html_content = html_content[:s_idx] + html_content[e_idx:]
+
+        last_body_idx = html_content.rfind('</body>')
+        if last_body_idx != -1:
+            html_content = html_content[:last_body_idx] + overlay_block + html_content[last_body_idx:]
         else:
             html_content += overlay_block
 
