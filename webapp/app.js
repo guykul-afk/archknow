@@ -39,6 +39,9 @@
   const btnToggleLegend = document.getElementById('btn-toggle-legend');
   const legendPopoverBox = document.getElementById('legend-popover-box');
 
+  const topCommandBar = document.getElementById('top-command-bar');
+  const btnCollapseTopBar = document.getElementById('btn-collapse-top-bar');
+  const btnExpandTopBar = document.getElementById('btn-expand-top-bar');
   const splitWorkspaceEl = document.getElementById('split-workspace');
   const btnCollapseDocPanel = document.getElementById('btn-collapse-doc-panel');
   const btnExpandDocPanel = document.getElementById('btn-expand-doc-panel');
@@ -115,6 +118,13 @@
   const fcRecommendation = document.getElementById('fc-recommendation');
 
   const hudSheetBadge = document.getElementById('hud-sheet-badge');
+  const model3dStage = document.getElementById('model-3d-stage');
+  const model3dIframe = document.getElementById('model-3d-iframe');
+  const btnHdrToggle3d = document.getElementById('btn-hdr-toggle-3d');
+  const vmodeBtns = document.querySelectorAll('#view-mode-switcher .vmode-btn');
+  const zoomControlsGroup = document.getElementById('zoom-controls-group');
+  let currentViewMode = '2d'; // '2d' | '3d' | 'split'
+  let loaded3dProjectUrl = null;
   const hudActiveNoteText = document.getElementById('hud-active-note-text');
   const loadingOverlay = document.getElementById('loading-overlay');
   const loadingTitle = document.getElementById('loading-title');
@@ -171,7 +181,7 @@
   const DECISION_LABELS = {
     TODO: { label: 'לטיפול', cls: 'dec-todo' },
     VERIFIED: { label: 'נבדק', cls: 'dec-verified' },
-    APPROVED: { label: 'אושר לביצוע', cls: 'dec-approved' },
+    APPROVED: { label: 'אושר', cls: 'dec-approved' },
     REJECTED: { label: 'נדחה', cls: 'dec-rejected' },
   };
 
@@ -184,9 +194,9 @@
   let dragStartY = 0;
 
   const STATUS_LABELS = {
-    PASS: 'תקין (מאומת)',
-    WARN: 'דורש בדיקה הנדסית',
-    FAIL: 'ליקוי סטטוטורי / שגיאה',
+    PASS: 'תקין',
+    WARN: 'לבדיקה',
+    FAIL: 'ליקוי',
   };
 
   // =========================================================================
@@ -287,15 +297,23 @@
     }
 
     // 3D BIM Viewer Button
+    const resolved3dUrl = (data.viewer_3d_url && data.viewer_3d_url.startsWith('/'))
+      ? data.viewer_3d_url
+      : (data.project_id ? `/models/${data.project_id}` : null);
+    data._resolved_3d_url = resolved3dUrl;
+    if (currentViewMode !== '2d') {
+      ensure3dModelLoaded(true);
+    } else {
+      loaded3dProjectUrl = null;
+    }
     if (btnOpen3dViewer) {
-      if (data.viewer_3d_url && data.viewer_3d_url.startsWith('/')) {
-        btnOpen3dViewer.href = data.viewer_3d_url;
+      if (resolved3dUrl) {
+        btnOpen3dViewer.href = resolved3dUrl;
         btnOpen3dViewer.classList.remove('hidden');
       } else {
         btnOpen3dViewer.classList.add('hidden');
       }
     }
-
     // Summary & Quantitative Data Document Button + Unified Header Savings Badge
     const pds = data.project_data_summary;
     const optKpis = (pds && pds.design_optimization && pds.design_optimization.executive_kpis) || {};
@@ -331,15 +349,15 @@
       <div class="exec-score-strip">
         <div class="exec-score-main">
           <span class="exec-score-num">${overallScore}</span>
-          <span class="exec-score-lbl">ציון איכות / 100</span>
+          <span class="exec-score-lbl">ציון</span>
         </div>
         <div class="exec-score-divider"></div>
         <div class="exec-score-summary">
-          <div class="exec-summary-top"><strong>${notes.length} ממצאים בתכנית</strong></div>
           <div class="exec-summary-sub">
-            <span class="sub-dot-risk">${issuesCount} לבדיקה</span> ·
-            <span class="sub-dot-ve">${veCount} חיסכון</span> ·
-            <span class="sub-dot-imp">${impCount} שיפור</span>
+            <span>${issuesCount} לבדיקה</span> ·
+            <span>${veCount} חיסכון</span> ·
+            <span>${impCount} שיפור</span> ·
+            <span>${passCount} תקין</span>
           </div>
         </div>
       </div>
@@ -348,7 +366,7 @@
     // Discovered files across folders
     const files = data.discovered_files || [];
     filesCountBadge.textContent = files.length;
-    filesDrawerSubtitle.textContent = `נמצאו ${files.length} קבצים רלוונטיים עבור "${data.project_name}"`;
+    filesDrawerSubtitle.textContent = `(${files.length})`;
     filesListGrid.innerHTML = '';
 
     files.forEach((f) => {
@@ -400,7 +418,7 @@
 
     // Update top header breadcrumb
     if (hdrBreadcrumbSub) {
-      hdrBreadcrumbSub.textContent = `${currentProject.project_name || ''} / ${sheet.title} · ניתוח הושלם`;
+      hdrBreadcrumbSub.textContent = `${currentProject.project_name || ''} · ${sheet.title}`;
     }
 
     // Update active tab button
@@ -414,6 +432,7 @@
     }
 
     hudSheetBadge.textContent = `${sheet.title} (${sheet.sheet_code || ''})`;
+    postMessageTo3D({ type: 'ARCHICHECK_SELECT_SHEET', sheetId: sheetId });
     renderVisualPlanAnnotations();
 
     if (!options.keepNote) {
@@ -437,29 +456,20 @@
     const optKpis = opt.executive_kpis || {};
     const ca = opt.contour_audit_summary || {};
     if (vePlanBarTotal) {
-      vePlanBarTotal.innerHTML = `💰 חיסכון מאומת: <strong>${fmtNum(optKpis.grand_total_direct_saving_ils)} ₪</strong> (-${fmtNum(ca.total_verified_contour_saved_sqm)} מ״ר קונטור) · 🛋️ שיפור תכנון: <strong>+${fmtNum(ca.total_reclassified_to_design_improvement_sqm)} מ״ר</strong>`;
+      vePlanBarTotal.innerHTML = `חיסכון: <strong>${fmtNum(optKpis.grand_total_direct_saving_ils)} ₪</strong> (-${fmtNum(ca.total_verified_contour_saved_sqm)} מ״ר)`;
     }
 
     vePlanHotspotsList.innerHTML = '';
-    const catIcons = { AG: '🏢', UG: '🅿️', FAC: '🧱', LOCKED_CORE: '🔄', APT: '🛋️' };
 
     notes.forEach((n) => {
       const chip = document.createElement('button');
       chip.type = 'button';
-      const isImp = Boolean(n.is_design_improvement);
-      chip.className = `ve-hotspot-chip ve-cat-${n.ve_category || 'AG'} ${n.id === activeNoteId ? 'active' : ''}`;
-      if (isImp && n.id !== activeNoteId) {
-        chip.style.borderColor = '#60a5fa';
-        chip.style.background = 'rgba(30, 58, 138, 0.85)';
-      }
+      chip.className = `ve-hotspot-chip ${n.id === activeNoteId ? 'active' : ''}`;
       chip.dataset.noteId = n.id;
       chip.dataset.sheetId = n.sheet_id;
-      const icon = catIcons[n.ve_category] || '💰';
-      const shTitle = (sheetsMap[n.sheet_id] || '').replace('תכנית ', '');
       chip.innerHTML = `
-        <span class="ve-chip-pin" style="${isImp && n.id !== activeNoteId ? 'background:#2563eb;' : ''}">#${n.pin_num}</span>
-        <span>${icon} ${n.ve_callout_badge || n.measured}</span>
-        <span class="ve-chip-sheet">${shTitle}</span>
+        <span class="ve-chip-pin">#${n.pin_num}</span>
+        <span>${n.room_name}</span>
       `;
       chip.title = `איפה: ${n.where_on_plan || n.room_name}\nאיך: ${n.how_to_execute || n.recommendation}`;
       chip.addEventListener('click', () => {
@@ -1481,85 +1491,58 @@
       : '';
 
     return `
-      <!-- LEVEL 2: Problem Summary & Recommended Engineering Action -->
       <div class="l2-finding-summary-box">
-        <div class="l2-sec-label">מה הממצא בתכנית?</div>
         <div class="l2-sec-text">${rec.finding || note.summary}</div>
-
-        <div class="l2-sec-label" style="margin-top:10px;">מה מומלץ לעשות? (דרך פעולה הנדסית)</div>
         <div class="l2-action-box">
           ${sol.how_to_execute || note.how_to_execute || note.recommendation}
         </div>
       </div>
 
-      <!-- LEVEL 2: 4 Value Decision Dimensions Grid -->
-      <div class="l2-value-metrics-grid">
-        <div class="l2-val-card">
-          <span class="l2-val-lbl">השפעה כספית</span>
-          <strong class="l2-val-txt ${isVe ? 'txt-ve' : isDesignImp ? 'txt-imp' : ''}">${finImpactText}</strong>
-        </div>
-        <div class="l2-val-card">
-          <span class="l2-val-lbl">השפעה תכנונית</span>
-          <strong class="l2-val-txt">${planImpactText}</strong>
-        </div>
-        <div class="l2-val-card">
-          <span class="l2-val-lbl">ישימות ביצוע</span>
-          <strong class="l2-val-txt">${feasibilityText}</strong>
-        </div>
-        <div class="l2-val-card">
-          <span class="l2-val-lbl">ודאות ומקור נתון</span>
-          <strong class="l2-val-txt">${certaintyText}</strong>
-        </div>
-      </div>
-
-      <!-- LEVEL 2: Architect Decision Workflow Bar (Saved to localStorage) -->
       <div class="l2-decision-workflow-box">
-        <span class="l2-dec-caption">סטטוס החלטת מתכנן:</span>
         <div class="l2-dec-buttons">
           <button type="button" class="btn-dec-state ${currentDecision === 'TODO' ? 'active dec-todo' : ''}" data-dec="TODO" data-note-id="${note.id}">לטיפול</button>
           <button type="button" class="btn-dec-state ${currentDecision === 'VERIFIED' ? 'active dec-verified' : ''}" data-dec="VERIFIED" data-note-id="${note.id}">נבדק</button>
-          <button type="button" class="btn-dec-state ${currentDecision === 'APPROVED' ? 'active dec-approved' : ''}" data-dec="APPROVED" data-note-id="${note.id}">אושר לביצוע</button>
+          <button type="button" class="btn-dec-state ${currentDecision === 'APPROVED' ? 'active dec-approved' : ''}" data-dec="APPROVED" data-note-id="${note.id}">אושר</button>
           <button type="button" class="btn-dec-state ${currentDecision === 'REJECTED' ? 'active dec-rejected' : ''}" data-dec="REJECTED" data-note-id="${note.id}">נדחה</button>
         </div>
       </div>
 
-      <!-- LEVEL 3: Full Engineering Evidence, Calculations & Constraints (Opened on Demand) -->
       <details class="l3-evidence-drawer">
         <summary class="l3-evidence-summary">
-          <span>🔬 רמה 3 — הצג תחשיב מלא, ראיות הנדסיות ואילוצים</span>
+          <span>פירוט נוסף ותחשיב</span>
           <span class="l3-chevron">▾</span>
         </summary>
         <div class="l3-evidence-body">
+          <div class="l2-value-metrics-grid">
+            <div class="l2-val-card">
+              <span class="l2-val-lbl">השפעה כספית</span>
+              <strong class="l2-val-txt">${finImpactText}</strong>
+            </div>
+            <div class="l2-val-card">
+              <span class="l2-val-lbl">השפעה תכנונית</span>
+              <strong class="l2-val-txt">${planImpactText}</strong>
+            </div>
+            <div class="l2-val-card">
+              <span class="l2-val-lbl">ישימות</span>
+              <strong class="l2-val-txt">${feasibilityText}</strong>
+            </div>
+            <div class="l2-val-card">
+              <span class="l2-val-lbl">מקור נתון</span>
+              <strong class="l2-val-txt">${certaintyText}</strong>
+            </div>
+          </div>
+
           <div class="l3-block">
-            <div class="l3-block-title">נוסחת החישוב ומקור המדידה (${sav.rate_label || note.rule_id})</div>
+            <div class="l3-block-title">תחשיב (${sav.rate_label || note.rule_id})</div>
             <div>${sav.formula || note.measured}</div>
-            ${sol.mechanism ? `<div style="margin-top:4px;color:#1e40af;font-weight:600;">📐 מנגנון גיאומטרי: ${sol.mechanism}</div>` : ''}
             ${waterfallHtml}
           </div>
 
           ${parkingRelocBoxHtml}
           ${rampAndManeuverBoxHtml}
 
-          <div class="l3-block" style="margin-top:8px;">
-            <div class="l3-block-title">בקרת אי-פגיעה במערכות הבניין</div>
-            <div class="fc-impact-matrix-grid">
-              <div class="fc-impact-cell">
-                <span class="ic-lbl imp-tag">קונטור ונפח</span>
-                <span class="ic-val imp-val">${imp.contour || 'ללא שינוי בקונטור'}</span>
-              </div>
-              <div class="fc-impact-cell">
-                <span class="ic-lbl imp-tag">שטח דירות</span>
-                <span class="ic-val imp-val">${imp.apartments || '0% פגיעה בדירות'}</span>
-              </div>
-              <div class="fc-impact-cell">
-                <span class="ic-lbl imp-tag">חניות ותנועה</span>
-                <span class="ic-val imp-val">${imp.parking || '100% שמירת חניות'}</span>
-              </div>
-              <div class="fc-impact-cell">
-                <span class="ic-lbl imp-tag">מערכות ובטיחות</span>
-                <span class="ic-val imp-val">${imp.utilities || 'עמידה מלאה בתקן'}</span>
-              </div>
-            </div>
+          <div style="margin-top:8px;">
+            ${buildBeforeAfterSvgDiagram(note)}
           </div>
         </div>
       </details>
@@ -2221,26 +2204,24 @@
 
     wrap.innerHTML = `
       <div class="ov-section-card">
-        <div class="ov-card-title">תמונת מצב תכנונית וכלכלית</div>
-        <p class="ov-verdict-txt">${sdoc.overall_verdict || 'התכנית נבדקה מול תקני התכנון והבנייה ומודל כיווץ קונטור.'}</p>
         <div class="ov-kpi-pair">
-          <div class="ov-kpi-box ov-kpi-green" id="ov-open-ve">
-            <span class="ov-kpi-lbl">פוטנציאל חיסכון מאומת</span>
+          <div class="ov-kpi-box" id="ov-open-ve">
+            <span class="ov-kpi-lbl">חיסכון</span>
             <strong class="ov-kpi-val">${fmtNum(optKpis.grand_total_direct_saving_ils)} ₪</strong>
-            <span class="ov-kpi-sub">-${fmtNum(contourAudit.total_verified_contour_saved_sqm)} מ״ר קונטור שנבנה פחות ◂</span>
+            <span class="ov-kpi-sub">-${fmtNum(contourAudit.total_verified_contour_saved_sqm)} מ״ר קונטור</span>
           </div>
-          <div class="ov-kpi-box ov-kpi-blue" id="ov-open-areas">
-            <span class="ov-kpi-lbl">שיפור תכנון (0 ₪ שלד)</span>
+          <div class="ov-kpi-box" id="ov-open-areas">
+            <span class="ov-kpi-lbl">שיפור תכנון</span>
             <strong class="ov-kpi-val">+${fmtNum(optKpis.total_design_improvement_sqm)} מ״ר</strong>
-            <span class="ov-kpi-sub">הגדלת חדרים מליבה ומסדרונות ◂</span>
+            <span class="ov-kpi-sub">שטחי פנים וחדרים</span>
           </div>
         </div>
       </div>
 
       <div class="ov-section-card">
         <div class="ov-card-header-row">
-          <span class="ov-card-title">מוקדים מרכזיים המחייבים החלטת מתכנן</span>
-          <button type="button" class="btn-link-Action" id="ov-show-all-findings">הצג הכל (${notes.length}) ◂</button>
+          <span class="ov-card-title">ממצאים מרכזיים</span>
+          <button type="button" class="btn-link-Action" id="ov-show-all-findings">הכל (${notes.length}) ◂</button>
         </div>
         <div class="ov-priority-list" id="ov-priority-list"></div>
       </div>
@@ -2282,51 +2263,51 @@
 
     wrap.innerHTML = `
       <div class="ov-section-card">
-        <div class="ov-card-title">השוואת שטחים ועלויות: תכנית קיימת מול חלופה מומלצת</div>
+        <div class="ov-card-title">קיים מול מומלץ</div>
         <table class="compact-compare-table">
           <thead>
             <tr>
-              <th>רכיב בבניין</th>
-              <th>קיים בתכנית</th>
-              <th>חלופה מומלצת</th>
-              <th>הפרש / חיסכון</th>
+              <th>רכיב</th>
+              <th>קיים</th>
+              <th>מומלץ</th>
+              <th>הפרש</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>קונטור עילי ברוטו</strong></td>
+              <td><strong>קונטור עילי</strong></td>
               <td>${fmtNum(agOpt.current_total_above_ground_sqm || ag.total_sqm)} מ״ר</td>
               <td>${fmtNum(agOpt.optimized_total_above_ground_sqm || ag.total_sqm)} מ״ר</td>
-              <td class="td-green">-${fmtNum(agOpt.total_saved_sqm)} מ״ר (${fmtNum(agOpt.total_saving_ils)} ₪)</td>
+              <td>-${fmtNum(agOpt.total_saved_sqm)} מ״ר</td>
             </tr>
             <tr>
-              <td><strong>קונטור דיפון מרתף</strong></td>
+              <td><strong>קונטור מרתף</strong></td>
               <td>${fmtNum(ugOpt.current_total_underground_sqm || ug.total_sqm)} מ״ר</td>
               <td>${fmtNum(ugOpt.optimized_total_underground_sqm || ug.total_sqm)} מ״ר</td>
-              <td class="td-green">-${fmtNum(ugOpt.total_saved_sqm)} מ״ר (${fmtNum(ugOpt.total_saving_ils)} ₪)</td>
+              <td>-${fmtNum(ugOpt.total_saved_sqm)} מ״ר</td>
             </tr>
             <tr>
-              <td><strong>שטח דירות (פלדלת)</strong></td>
+              <td><strong>שטח דירות</strong></td>
               <td>${fmtNum(ag.net_apartments_sqm)} מ״ר</td>
               <td>${fmtNum(ag.net_apartments_sqm)} מ״ר</td>
-              <td class="td-blue">0% פגיעה בשטח המכיר</td>
+              <td>ללא שינוי</td>
             </tr>
             <tr>
-              <td><strong>חיפוי יבש בחזיתות</strong></td>
+              <td><strong>חיפוי יבש</strong></td>
               <td>${fmtNum(facOpt.baseline_dry_cladding_sqm)} מ״ר</td>
               <td>${fmtNum(facOpt.optimized_dry_cladding_sqm)} מ״ר</td>
-              <td class="td-green">חיסכון ${fmtNum(facOpt.recommended_saving_ils)} ₪</td>
+              <td>-${fmtNum(facOpt.recommended_saving_ils)} ₪</td>
             </tr>
           </tbody>
         </table>
         <div style="display:flex;gap:6px;margin-top:10px;">
-          <button type="button" class="btn-locate-on-plan" id="cmp-btn-open-ve" style="flex:1;">סימולטור חיסכון מלא</button>
-          <button type="button" class="btn-locate-on-plan" id="cmp-btn-open-areas" style="flex:1;background:#2563eb;border-color:#60a5fa;">טבלאות שטחים מלאות</button>
+          <button type="button" class="btn-locate-on-plan" id="cmp-btn-open-ve" style="flex:1;">פירוט חיסכון</button>
+          <button type="button" class="btn-locate-on-plan" id="cmp-btn-open-areas" style="flex:1;">טבלאות שטחים</button>
         </div>
       </div>
 
       <div class="ov-section-card">
-        <div class="ov-card-title">בחר מוקד להשוואת לפני/אחרי על גבי השרטוט (${veNotes.length})</div>
+        <div class="ov-card-title">מוקדים להשוואה (${veNotes.length})</div>
         <div id="cmp-notes-list"></div>
       </div>
     `;
@@ -2379,17 +2360,15 @@
     card.innerHTML = `
       <div class="note-top-row">
         <div class="note-badges-right">
-          <span class="note-pin-circle status-${note.status} ${isVe ? 'pin-circle-ve' : ''} ${isDesignImp ? 'pin-circle-imp' : ''}">#${note.pin_num}</span>
-          <span class="note-status-pill status-${note.status} ${isVe ? 'pill-ve' : ''} ${isDesignImp ? 'pill-imp' : ''}">${pillLabel}</span>
-          ${decObj ? `<span class="note-dec-badge ${decObj.cls}">${decObj.label}</span>` : ''}
+          <span class="note-pin-circle">#${note.pin_num}</span>
+          <span class="note-room-tag">${note.room_name}</span>
         </div>
-        <span class="note-expand-hint">ממצא #${note.pin_num} ◂</span>
+        ${decObj ? `<span class="note-dec-badge ${decObj.cls}">${decObj.label}</span>` : ''}
       </div>
       <h3 class="note-title">${note.title}</h3>
-      <div class="note-room-tag">${shortSub}</div>
+      <div class="note-meta-line">${note.measured}</div>
     `;
 
-    // Gentle hover preview on current sheet only (never switches sheets or opens drawers on hover!)
     card.addEventListener('mouseenter', () => {
       if (note.sheet_id === currentSheetId) {
         hoveredNoteId = note.id;
@@ -2403,7 +2382,6 @@
       }
     });
 
-    // Click selects the finding, centers & zooms the drawing, and opens the Left Analysis Drawer (Level 2 & 3)
     card.addEventListener('click', () => {
       highlightNote(note.id, { scrollDoc: false, switchSheet: true, openDock: true, zoomTo: true });
     });
@@ -2424,12 +2402,6 @@
       return;
     }
 
-    // Inject the Clean 2-Card Executive Hub Strip at the top
-    const summaryMasterEl = buildInlineSummaryAndAreasElement(data);
-    if (summaryMasterEl) {
-      docSectionsRoot.appendChild(summaryMasterEl);
-    }
-
     const sections = data.sections || [];
     const notes = data.notes || [];
 
@@ -2446,10 +2418,7 @@
       const secSummary = document.createElement('summary');
       secSummary.className = 'doc-section-summary';
       secSummary.innerHTML = `
-        <div>
-          <div class="doc-section-title">${sec.title}</div>
-          ${sec.subtitle ? `<div class="doc-section-sub">${sec.subtitle}</div>` : ''}
-        </div>
+        <div class="doc-section-title">${sec.title}</div>
         <div class="doc-section-summary-left">
           <span class="doc-sec-count-pill">${secNotes.length}</span>
           <span class="doc-sec-chevron">▾</span>
@@ -2517,6 +2486,7 @@
     if (options.zoomTo) {
       setTimeout(() => {
         panAndZoomToNoteOnPlan(note);
+        postMessageTo3D({ type: 'ARCHICHECK_SELECT_NOTE', noteId: note.id });
       }, sheetWillChange ? 90 : 10);
     }
 
@@ -2557,11 +2527,11 @@
     // 6. Populate the Left Analysis Drawer (Level 2 & Level 3)
     const isVe = Boolean(note.is_value_eng);
     const isDesignImp = Boolean(note.is_design_improvement);
-    fcPinBadge.textContent = `ממצא #${note.pin_num}`;
+    fcPinBadge.textContent = `#${note.pin_num}`;
     fcStatusBadge.textContent = isVe
-      ? `חיסכון מאומת בקונטור`
+      ? 'חיסכון'
       : isDesignImp
-        ? `הזדמנות לשיפור תכנון`
+        ? 'שיפור'
         : (STATUS_LABELS[note.status] || note.status);
     fcStatusBadge.className = `fc-status-badge status-${note.status} ${isVe ? 'status-VE' : ''} ${isDesignImp ? 'status-IMP' : ''}`;
     fcRuleBadge.textContent = note.rule_id || '';
@@ -2573,7 +2543,6 @@
     fcSummary.classList.add('hidden');
     fcRecommendation.textContent = note.recommendation;
 
-    // Populate Level 2 & Level 3 Analysis Content + Wire Decision Buttons
     if (fcFourPillarsBox) {
       fcFourPillarsBox.innerHTML = buildFourPillarsSideDockHtml(note);
       fcFourPillarsBox.querySelectorAll('.btn-dec-state').forEach((btn) => {
@@ -2586,9 +2555,8 @@
       });
     }
 
-    // Populate Visual Before/After SVG Schematic Diagram
     if (fcVisualDiagramBox) {
-      fcVisualDiagramBox.innerHTML = buildBeforeAfterSvgDiagram(note);
+      fcVisualDiagramBox.classList.add('hidden');
     }
 
     if (fcVeWhereHowBox) {
@@ -2601,6 +2569,9 @@
 
     // 7. Update Minimalist Bottom HUD Bar
     hudActiveNoteText.textContent = `ממצא #${note.pin_num} · ${note.room_name} — ${note.title}`;
+    if (!options.from3D) {
+      postMessageTo3D({ type: 'ARCHICHECK_SELECT_NOTE', noteId: note.id });
+    }
   }
 
   function stepNote(direction) {
@@ -2683,7 +2654,7 @@
   btnToggleAllPins.addEventListener('click', () => {
     showAllPins = !showAllPins;
     btnToggleAllPins.classList.toggle('active', showAllPins);
-    btnToggleAllPins.textContent = showAllPins ? '📌 ממצאים' : '🎯 ממצא פעיל בלבד';
+    btnToggleAllPins.textContent = showAllPins ? 'סיכות' : 'פעיל בלבד';
     renderVisualPlanAnnotations();
   });
 
@@ -2775,8 +2746,29 @@
       const note = (currentProject.notes || []).find((n) => n.id === activeNoteId);
       if (note) {
         panAndZoomToNoteOnPlan(note);
+        postMessageTo3D({ type: 'ARCHICHECK_SELECT_NOTE', noteId: note.id });
       }
     });
+  }
+
+  // Collapsible Top Bar Toggle
+  function toggleTopBar(forceShow) {
+    const isCollapsed = document.body.classList.contains('top-bar-collapsed');
+    const shouldShow = forceShow !== undefined ? forceShow : isCollapsed;
+    document.body.classList.toggle('top-bar-collapsed', !shouldShow);
+    if (topCommandBar) {
+      topCommandBar.classList.toggle('hidden', !shouldShow);
+    }
+    if (btnExpandTopBar) {
+      btnExpandTopBar.classList.toggle('hidden', shouldShow);
+    }
+  }
+
+  if (btnCollapseTopBar) {
+    btnCollapseTopBar.addEventListener('click', () => toggleTopBar(false));
+  }
+  if (btnExpandTopBar) {
+    btnExpandTopBar.addEventListener('click', () => toggleTopBar(true));
   }
 
   // Focus Mode Toggle (One-Click Maximize Drawing Stage)
@@ -2784,15 +2776,17 @@
     isFocusMode = forceVal !== undefined ? forceVal : !isFocusMode;
     if (btnFocusMode) {
       btnFocusMode.classList.toggle('active', isFocusMode);
-      btnFocusMode.textContent = isFocusMode ? '⛶ צא ממצב מיקוד' : '⛶ Focus Mode';
+      btnFocusMode.textContent = isFocusMode ? 'יציאה ממיקוד' : 'מיקוד';
     }
     if (isFocusMode) {
       if (splitWorkspaceEl) splitWorkspaceEl.classList.add('doc-collapsed');
       if (btnExpandDocPanel) btnExpandDocPanel.classList.remove('hidden');
       toggleSideDock(false);
+      toggleTopBar(false);
     } else {
       if (splitWorkspaceEl) splitWorkspaceEl.classList.remove('doc-collapsed');
       if (btnExpandDocPanel) btnExpandDocPanel.classList.add('hidden');
+      toggleTopBar(true);
     }
   }
 
@@ -3086,6 +3080,105 @@
     } finally {
       loadingOverlay.classList.add('hidden');
       fileUploadInput.value = '';
+    }
+  });
+
+  // =========================================================================
+  // 7. SYNCHRONIZED 2D / 3D BIM / SPLIT VIEW CONTROLLER
+  // =========================================================================
+  function postMessageTo3D(payload) {
+    if (!model3dIframe || !model3dIframe.contentWindow || currentViewMode === '2d') return;
+    try {
+      model3dIframe.contentWindow.postMessage(payload, '*');
+    } catch (err) {
+      // ignore cross-frame race conditions
+    }
+  }
+
+  function ensure3dModelLoaded(forceReload = false) {
+    if (!currentProject || !model3dIframe) return;
+    const baseUrl = currentProject._resolved_3d_url || (currentProject.project_id ? `/models/${currentProject.project_id}` : null);
+    if (!baseUrl) return;
+    const targetSrc = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}embed=1`;
+    if (forceReload || loaded3dProjectUrl !== targetSrc) {
+      loaded3dProjectUrl = targetSrc;
+      model3dIframe.src = targetSrc;
+    }
+  }
+
+  function setViewMode(mode) {
+    currentViewMode = mode || '2d';
+    if (planViewport) {
+      planViewport.classList.remove('vmode-2d', 'vmode-3d', 'vmode-split');
+      planViewport.classList.add(`vmode-${currentViewMode}`);
+    }
+    if (model3dStage) {
+      model3dStage.classList.toggle('hidden', currentViewMode === '2d');
+    }
+    if (zoomControlsGroup) {
+      zoomControlsGroup.classList.toggle('hidden', currentViewMode === '3d');
+    }
+    vmodeBtns.forEach((btn) => {
+      btn.classList.toggle('active', btn.getAttribute('data-vmode') === currentViewMode);
+    });
+    if (btnHdrToggle3d) {
+      btnHdrToggle3d.classList.toggle('active', currentViewMode !== '2d');
+      btnHdrToggle3d.innerHTML = currentViewMode === '2d'
+        ? '🧊 מודל 3D חי'
+        : (currentViewMode === '3d' ? '📐 חזור ל-2D / מפוצל' : '🌓 תצוגה מפוצלת 2D+3D');
+    }
+
+    if (currentViewMode !== '2d') {
+      ensure3dModelLoaded(false);
+      setTimeout(() => {
+        if (activeNoteId) {
+          postMessageTo3D({ type: 'ARCHICHECK_SELECT_NOTE', noteId: activeNoteId });
+        } else if (currentSheetId) {
+          postMessageTo3D({ type: 'ARCHICHECK_SELECT_SHEET', sheetId: currentSheetId });
+        }
+      }, 250);
+    }
+  }
+
+  vmodeBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      setViewMode(btn.getAttribute('data-vmode') || '2d');
+    });
+  });
+
+  if (btnHdrToggle3d) {
+    btnHdrToggle3d.addEventListener('click', () => {
+      if (currentViewMode === '2d') setViewMode('3d');
+      else if (currentViewMode === '3d') setViewMode('split');
+      else setViewMode('2d');
+    });
+  }
+
+  window.addEventListener('message', (event) => {
+    const msg = event.data;
+    if (!msg || typeof msg !== 'object') return;
+    if (msg.type === 'ARCHICHECK_3D_PIN_CLICKED' && msg.noteId) {
+      highlightNote(msg.noteId, {
+        scrollDoc: true,
+        switchSheet: true,
+        openDock: true,
+        zoomTo: true,
+        from3D: true,
+      });
+    } else if (msg.type === 'ARCHICHECK_3D_READY') {
+      if (activeNoteId) {
+        postMessageTo3D({ type: 'ARCHICHECK_SELECT_NOTE', noteId: activeNoteId });
+      } else if (currentSheetId) {
+        postMessageTo3D({ type: 'ARCHICHECK_SELECT_SHEET', sheetId: currentSheetId });
+      }
+    }
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+    if (e.key === '3' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault();
+      setViewMode(currentViewMode === '3d' ? 'split' : '3d');
     }
   });
 

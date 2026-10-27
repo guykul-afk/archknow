@@ -26,7 +26,7 @@
     }
   ],
   "pdf_report_url": "/reports/hafetz44_architectural_quality_analysis.pdf",
-  "viewer_3d_url": "G:\\Shared drives\\שליטה ובקרה\\מודלים פרויקטים\\חפץ חיים 44 פתח תקווה\\hafetz44_3d_model.html",
+  "viewer_3d_url": "/models/hafetz44/hafetz44_3d_model.html",
   "discovered_files": [
     {
       "name": "hafetz44_project_sample.json",
@@ -564,6 +564,45 @@
           "parking": "בהתאם לתקן התכנוני הנבדק",
           "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
         }
+      },
+      "spatial_3d": {
+        "floor_id": "f4",
+        "slice_mode": "single",
+        "bbox_3d": [
+          -13.1,
+          0.2,
+          -6.55,
+          3.96,
+          12.98,
+          15.65
+        ],
+        "extra_boxes_3d": [
+          [
+            -15.35,
+            -4.9,
+            -13.1,
+            3.96,
+            12.98,
+            14.15
+          ]
+        ],
+        "pin_3d": [
+          -10.2,
+          14.85,
+          2.2
+        ],
+        "camera": {
+          "target": [
+            -10.5,
+            13.8,
+            1.8
+          ],
+          "radius": 18.5,
+          "phi": 0.6,
+          "theta": -2.15
+        },
+        "callout_he": "✓ סלון ופינת אוכל מערביים (33.3 מ״ר) + מרפסת שמש (13.6 מ״ר · 3 כיווני אוויר)",
+        "category_3d": "PASS"
       }
     },
     {
@@ -614,6 +653,35 @@
           "parking": "בהתאם לתקן התכנוני הנבדק",
           "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
         }
+      },
+      "spatial_3d": {
+        "floor_id": "f4",
+        "slice_mode": "single",
+        "bbox_3d": [
+          -1.05,
+          -4.33,
+          2.25,
+          -0.33,
+          12.98,
+          15.65
+        ],
+        "pin_3d": [
+          0.6,
+          14.85,
+          -2.33
+        ],
+        "camera": {
+          "target": [
+            0.6,
+            13.8,
+            -2.33
+          ],
+          "radius": 14.0,
+          "phi": 0.54,
+          "theta": -1.57
+        },
+        "callout_he": "✓ ממ״ד מערבי תקני: 10.20 מ״ר נטו (קירות בטון 25–30 ס״מ + חלון הדף דריי-קיפ)",
+        "category_3d": "PASS"
       }
     },
     {
@@ -664,6 +732,36 @@
           "parking": "בהתאם לתקן התכנוני הנבדק",
           "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
         }
+      },
+      "spatial_3d": {
+        "floor_id": "f4",
+        "slice_mode": "single",
+        "bbox_3d": [
+          -13.1,
+          -3.35,
+          -10.11,
+          -0.35,
+          12.98,
+          15.65
+        ],
+        "pin_3d": [
+          -11.6,
+          14.85,
+          -1.85
+        ],
+        "camera": {
+          "target": [
+            -11.6,
+            13.7,
+            -2.1
+          ],
+          "radius": 13.5,
+          "phi": 0.5,
+          "theta": -2.35
+        },
+        "callout_he": "⚠️ יחידת הורים מערבית: רוחב 299 ס״מ (מעבר 52 ס״מ לצד מיטה) ← סיבוב מיטה + דלת כיס",
+        "category_3d": "WARN",
+        "before_after_scene": "west_master_suite"
       }
     },
     {
@@ -714,6 +812,35 @@
           "parking": "בהתאם לתקן התכנוני הנבדק",
           "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
         }
+      },
+      "spatial_3d": {
+        "floor_id": "f4",
+        "slice_mode": "single",
+        "bbox_3d": [
+          -6.4,
+          1.18,
+          -3.38,
+          3.96,
+          12.98,
+          15.65
+        ],
+        "pin_3d": [
+          -4.9,
+          14.85,
+          2.6
+        ],
+        "camera": {
+          "target": [
+            -4.9,
+            13.7,
+            2.5
+          ],
+          "radius": 13.5,
+          "phi": 0.55,
+          "theta": 1.85
+        },
+        "callout_he": "✓ מטבח מערבי (332×262 ס״מ) + דלפק חצי-אי ונישת מקרר",
+        "category_3d": "PASS"
       }
     },
     {
@@ -764,6 +891,36 @@
           "parking": "בהתאם לתקן התכנוני הנבדק",
           "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
         }
+      },
+      "spatial_3d": {
+        "floor_id": "f4",
+        "slice_mode": "single",
+        "bbox_3d": [
+          -10.1,
+          -1.42,
+          -3.5,
+          -0.52,
+          12.98,
+          15.45
+        ],
+        "pin_3d": [
+          -6.8,
+          14.8,
+          -0.97
+        ],
+        "camera": {
+          "target": [
+            -6.8,
+            13.6,
+            -1.0
+          ],
+          "radius": 13.0,
+          "phi": 0.45,
+          "theta": 1.57
+        },
+        "callout_he": "❌ ליקוי סטטוטורי (FAIL): רוחב מסדרון 90 ס״מ לאורך 5.45 מ׳ (נדרש ≥100 ס״מ) ← הזזת מחיצה ב-10 ס״מ",
+        "category_3d": "FAIL",
+        "before_after_scene": "west_corridor_fix"
       }
     },
     {
@@ -814,6 +971,45 @@
           "parking": "בהתאם לתקן התכנוני הנבדק",
           "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
         }
+      },
+      "spatial_3d": {
+        "floor_id": "f4",
+        "slice_mode": "single",
+        "bbox_3d": [
+          5.66,
+          0.2,
+          14.1,
+          3.96,
+          12.98,
+          15.65
+        ],
+        "extra_boxes_3d": [
+          [
+            14.1,
+            -4.9,
+            16.35,
+            3.96,
+            12.98,
+            14.15
+          ]
+        ],
+        "pin_3d": [
+          10.2,
+          14.85,
+          2.2
+        ],
+        "camera": {
+          "target": [
+            10.5,
+            13.8,
+            1.8
+          ],
+          "radius": 18.5,
+          "phi": 0.6,
+          "theta": 0.85
+        },
+        "callout_he": "✓ חלל ציבורי דירה מזרחית (38.2 מ״ר) + מרפסת שמש (13.6 מ״ר) לרחוב חפץ חיים",
+        "category_3d": "PASS"
       }
     },
     {
@@ -864,6 +1060,36 @@
           "parking": "בהתאם לתקן התכנוני הנבדק",
           "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
         }
+      },
+      "spatial_3d": {
+        "floor_id": "f4",
+        "slice_mode": "single",
+        "bbox_3d": [
+          5.45,
+          -1.55,
+          10.95,
+          -0.35,
+          12.98,
+          15.45
+        ],
+        "pin_3d": [
+          8.2,
+          14.8,
+          -0.95
+        ],
+        "camera": {
+          "target": [
+            8.2,
+            13.6,
+            -1.1
+          ],
+          "radius": 13.5,
+          "phi": 0.48,
+          "theta": 1.4
+        },
+        "callout_he": "⚠️ צומת 3 דלתות במסדרון המזרחי + דלת שירות החוסמת 50% מארון המסדרון",
+        "category_3d": "WARN",
+        "before_after_scene": "east_corridor_doors"
       }
     },
     {
@@ -914,6 +1140,46 @@
           "parking": "בהתאם לתקן התכנוני הנבדק",
           "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
         }
+      },
+      "spatial_3d": {
+        "floor_id": "f9",
+        "slice_mode": "single",
+        "bbox_3d": [
+          4.25,
+          1.4,
+          9.3,
+          3.98,
+          28.73,
+          31.3
+        ],
+        "extra_boxes_3d": [
+          [
+            -9.95,
+            -4.94,
+            -3.8,
+            -1.48,
+            28.73,
+            31.3
+          ]
+        ],
+        "pin_3d": [
+          7.25,
+          30.5,
+          2.85
+        ],
+        "camera": {
+          "target": [
+            6.8,
+            29.5,
+            2.4
+          ],
+          "radius": 14.5,
+          "phi": 0.52,
+          "theta": 1.15
+        },
+        "callout_he": "⚠️ פנטהאוז: מרווח 96 ס״מ באי המטבח + חדרי שינה ברוחב 260 ס״מ ← הזזת אי ב-24 ס״מ (ל-120 ס״מ)",
+        "category_3d": "WARN",
+        "before_after_scene": "penthouse_island_fix"
       }
     },
     {
@@ -964,6 +1230,36 @@
           "parking": "בהתאם לתקן התכנוני הנבדק",
           "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
         }
+      },
+      "spatial_3d": {
+        "floor_id": "kar",
+        "slice_mode": "single",
+        "bbox_3d": [
+          -1.5,
+          -5.18,
+          6.6,
+          0.2,
+          0.03,
+          3.1
+        ],
+        "pin_3d": [
+          2.55,
+          2.25,
+          -2.5
+        ],
+        "camera": {
+          "target": [
+            2.55,
+            1.2,
+            -2.0
+          ],
+          "radius": 19.0,
+          "phi": 0.56,
+          "theta": -1.25
+        },
+        "callout_he": "⚠️ קומת קרקע: כפילות חדר עגלות (10.6 מ״ר) וחדר שירות (12.2 מ״ר) לצד מבואת הלובי",
+        "category_3d": "WARN",
+        "before_after_scene": "ground_contour_recess"
       }
     },
     {
@@ -1014,6 +1310,36 @@
           "parking": "בהתאם לתקן התכנוני הנבדק",
           "utilities": "עמידה בדרישות חוק התכנון והבנייה, פיקוד העורף ותקני האיכות הבינלאומיים"
         }
+      },
+      "spatial_3d": {
+        "floor_id": "mar",
+        "slice_mode": "single",
+        "bbox_3d": [
+          -17.72,
+          -9.2,
+          18.51,
+          9.05,
+          -5.08,
+          -2.3
+        ],
+        "pin_3d": [
+          0.0,
+          -3.1,
+          0.0
+        ],
+        "camera": {
+          "target": [
+            0.0,
+            -4.5,
+            0.0
+          ],
+          "radius": 34.0,
+          "phi": 0.54,
+          "theta": 1.35
+        },
+        "callout_he": "⚠️ מרתף חניון (-5.10): 19 חניות רגילות, רמפה תלת-זרועית ופינת תמרון דרום-מערבית",
+        "category_3d": "WARN",
+        "before_after_scene": "basement_ve_full"
       }
     },
     {
@@ -1079,7 +1405,37 @@
       "w_pct": 30.0,
       "h_pct": 26.0,
       "cx_pct": 50.0,
-      "cy_pct": 48.0
+      "cy_pct": 48.0,
+      "spatial_3d": {
+        "floor_id": "kar",
+        "slice_mode": "single",
+        "bbox_3d": [
+          0.8,
+          -5.18,
+          7.8,
+          -0.4,
+          0.03,
+          3.15
+        ],
+        "pin_3d": [
+          4.3,
+          2.4,
+          -2.8
+        ],
+        "camera": {
+          "target": [
+            3.8,
+            1.4,
+            -2.4
+          ],
+          "radius": 18.5,
+          "phi": 0.56,
+          "theta": -1.1
+        },
+        "callout_he": "💰 חיסכון מאומת 198,400 ₪: נסיגת קונטור קומת קרקע ב-32 מ״ר (9 מ״ר לובי כלואים תחת קומה א׳)",
+        "category_3d": "VE_AG",
+        "before_after_scene": "ground_contour_recess"
+      }
     },
     {
       "id": "H44-OPT-AG2",
@@ -1144,7 +1500,37 @@
       "w_pct": 14.0,
       "h_pct": 22.0,
       "cx_pct": 50.0,
-      "cy_pct": 33.0
+      "cy_pct": 33.0,
+      "spatial_3d": {
+        "floor_id": "f4",
+        "slice_mode": "single",
+        "bbox_3d": [
+          -2.2,
+          -2.5,
+          2.8,
+          1.2,
+          12.98,
+          15.7
+        ],
+        "pin_3d": [
+          0.3,
+          14.9,
+          -0.65
+        ],
+        "camera": {
+          "target": [
+            0.3,
+            13.8,
+            -0.65
+          ],
+          "radius": 15.5,
+          "phi": 0.52,
+          "theta": 1.57
+        },
+        "callout_he": "💰 חיסכון מאומת 148,800 ₪: הידוק מבואת מעליות ופירים ב-3.0 מ״ר/קומה × 8 קומות (24 מ״ר)",
+        "category_3d": "VE_AG",
+        "before_after_scene": "typical_core_tighten"
+      }
     },
     {
       "id": "H44-OPT-UG1",
@@ -1303,7 +1689,47 @@
       "w_pct": 35.5,
       "h_pct": 11.3,
       "cx_pct": 25.0,
-      "cy_pct": 74.0
+      "cy_pct": 74.0,
+      "spatial_3d": {
+        "floor_id": "mar",
+        "slice_mode": "single",
+        "bbox_3d": [
+          -17.72,
+          5.9,
+          -2.22,
+          9.05,
+          -5.08,
+          -2.25
+        ],
+        "extra_boxes_3d": [
+          [
+            -17.72,
+            -9.05,
+            -17.17,
+            5.9,
+            -5.08,
+            -2.25
+          ]
+        ],
+        "pin_3d": [
+          -10.0,
+          -3.0,
+          7.45
+        ],
+        "camera": {
+          "target": [
+            -5.5,
+            -4.4,
+            3.2
+          ],
+          "radius": 27.5,
+          "phi": 0.5,
+          "theta": 1.78
+        },
+        "callout_he": "💰 חיסכון מאומת 203,000 ₪: קיצוץ 58 מ״ר דיפון (משאבות תחת רמפה דרומית H≥2.15m + העתקת חניה #16)",
+        "category_3d": "VE_UG",
+        "before_after_scene": "basement_ve_full"
+      }
     },
     {
       "id": "HAFETZ44-VE-FAC-1",
@@ -1363,7 +1789,37 @@
       "w_pct": 9.0,
       "h_pct": 50.0,
       "cx_pct": 84.5,
-      "cy_pct": 49.0
+      "cy_pct": 49.0,
+      "spatial_3d": {
+        "floor_id": "all",
+        "slice_mode": "cumulative",
+        "bbox_3d": [
+          14.1,
+          -5.18,
+          16.36,
+          4.22,
+          3.5,
+          31.6
+        ],
+        "pin_3d": [
+          16.6,
+          18.0,
+          -0.5
+        ],
+        "camera": {
+          "target": [
+            12.0,
+            16.5,
+            0.0
+          ],
+          "radius": 42.0,
+          "phi": 1.05,
+          "theta": 0.15
+        },
+        "callout_he": "🏛️ חזית מזרחית (רחוב חפץ חיים): שימור 88 מ״ר חיפוי HPL לבן בעמודוני המרפסות (0 ₪ פגיעה בחזית הרחוב)",
+        "category_3d": "VE_FAC_KEEP",
+        "before_after_scene": "facade_cladding_east"
+      }
     },
     {
       "id": "HAFETZ44-VE-FAC-2",
@@ -1423,7 +1879,37 @@
       "w_pct": 9.0,
       "h_pct": 50.0,
       "cx_pct": 15.5,
-      "cy_pct": 49.0
+      "cy_pct": 49.0,
+      "spatial_3d": {
+        "floor_id": "all",
+        "slice_mode": "cumulative",
+        "bbox_3d": [
+          -15.36,
+          -5.18,
+          -13.1,
+          4.22,
+          3.5,
+          31.6
+        ],
+        "pin_3d": [
+          -15.6,
+          18.0,
+          -0.5
+        ],
+        "camera": {
+          "target": [
+            -11.5,
+            16.5,
+            0.0
+          ],
+          "radius": 42.0,
+          "phi": 1.05,
+          "theta": 3.0
+        },
+        "callout_he": "💰 חזית אחורית מערבית: חיסכון 34,400 ₪ (המרת 86 מ״ר HPL בעמודוני מרפסות לטיח אקרילי גמיש)",
+        "category_3d": "VE_FAC_SAVE",
+        "before_after_scene": "facade_cladding_west"
+      }
     },
     {
       "id": "HAFETZ44-VE-FAC-3",
@@ -1483,7 +1969,37 @@
       "w_pct": 72.0,
       "h_pct": 10.0,
       "cx_pct": 50.0,
-      "cy_pct": 21.0
+      "cy_pct": 21.0,
+      "spatial_3d": {
+        "floor_id": "all",
+        "slice_mode": "cumulative",
+        "bbox_3d": [
+          -13.36,
+          -5.45,
+          14.36,
+          -4.85,
+          3.5,
+          31.6
+        ],
+        "pin_3d": [
+          0.5,
+          18.0,
+          -5.65
+        ],
+        "camera": {
+          "target": [
+            0.5,
+            16.5,
+            -4.0
+          ],
+          "radius": 44.0,
+          "phi": 1.02,
+          "theta": -1.57
+        },
+        "callout_he": "💰 חזית צד צפונית: חיסכון 66,400 ₪ (המרת 166 מ״ר רצועות מסגור HPL אנכיות לטיח אקרילי)",
+        "category_3d": "VE_FAC_SAVE",
+        "before_after_scene": "facade_cladding_north"
+      }
     },
     {
       "id": "HAFETZ44-VE-FAC-4",
@@ -1543,7 +2059,37 @@
       "w_pct": 72.0,
       "h_pct": 10.0,
       "cx_pct": 50.0,
-      "cy_pct": 77.0
+      "cy_pct": 77.0,
+      "spatial_3d": {
+        "floor_id": "all",
+        "slice_mode": "cumulative",
+        "bbox_3d": [
+          -13.36,
+          4.0,
+          14.36,
+          5.3,
+          3.5,
+          31.6
+        ],
+        "pin_3d": [
+          0.5,
+          18.0,
+          5.55
+        ],
+        "camera": {
+          "target": [
+            0.5,
+            16.5,
+            4.0
+          ],
+          "radius": 44.0,
+          "phi": 1.02,
+          "theta": 1.57
+        },
+        "callout_he": "💰 חזית צד דרומית: חיסכון 73,600 ₪ (המרת 184 מ״ר רצועות HPL סביב חלונות וקיר מדרגות לטיח)",
+        "category_3d": "VE_FAC_SAVE",
+        "before_after_scene": "facade_cladding_south"
+      }
     },
     {
       "id": "H44-LOCKED-CORE1",
@@ -1605,7 +2151,37 @@
       "w_pct": 11.0,
       "h_pct": 15.0,
       "cx_pct": 50.5,
-      "cy_pct": 39.5
+      "cy_pct": 39.5,
+      "spatial_3d": {
+        "floor_id": "mar",
+        "slice_mode": "single",
+        "bbox_3d": [
+          -5.5,
+          -4.33,
+          -1.05,
+          -0.33,
+          -5.08,
+          -2.25
+        ],
+        "pin_3d": [
+          -3.25,
+          -3.0,
+          -2.33
+        ],
+        "camera": {
+          "target": [
+            -3.25,
+            -4.3,
+            -2.33
+          ],
+          "radius": 19.0,
+          "phi": 0.5,
+          "theta": -1.65
+        },
+        "callout_he": "🔄 ליבה כלואה בקירות ממ״ד יורדים (12 מ״ר · 0 ₪ שלד): הסבת חדר המשאבות הישן ל-3 מחסני דיירים (~180,000 ₪ ערך)",
+        "category_3d": "LOCKED_CORE",
+        "before_after_scene": "basement_ve_full"
+      }
     },
     {
       "id": "H44-OPT-APT1",
@@ -1667,7 +2243,37 @@
       "w_pct": 32.0,
       "h_pct": 45.0,
       "cx_pct": 28.0,
-      "cy_pct": 47.5
+      "cy_pct": 47.5,
+      "spatial_3d": {
+        "floor_id": "f4",
+        "slice_mode": "single",
+        "bbox_3d": [
+          -11.45,
+          -4.95,
+          -3.5,
+          -0.45,
+          12.98,
+          15.65
+        ],
+        "pin_3d": [
+          -9.8,
+          14.85,
+          -3.6
+        ],
+        "camera": {
+          "target": [
+            -9.2,
+            13.7,
+            -2.5
+          ],
+          "radius": 15.0,
+          "phi": 0.48,
+          "theta": -2.1
+        },
+        "callout_he": "🛋️ שיפור תכנון דירה מערבית (+2.6 מ״ר לדירה): ביטול קירות חדר ארונות צפוף + הרחבת מסדרון ל-100 ס״מ",
+        "category_3d": "APT_IMP",
+        "before_after_scene": "west_corridor_fix"
+      }
     },
     {
       "id": "H44-OPT-APT2",
@@ -1729,7 +2335,37 @@
       "w_pct": 32.0,
       "h_pct": 45.0,
       "cx_pct": 70.0,
-      "cy_pct": 47.5
+      "cy_pct": 47.5,
+      "spatial_3d": {
+        "floor_id": "f4",
+        "slice_mode": "single",
+        "bbox_3d": [
+          1.8,
+          -0.45,
+          5.65,
+          1.55,
+          12.98,
+          15.65
+        ],
+        "pin_3d": [
+          3.75,
+          14.85,
+          0.55
+        ],
+        "camera": {
+          "target": [
+            3.75,
+            13.7,
+            0.55
+          ],
+          "radius": 13.5,
+          "phi": 0.5,
+          "theta": 1.35
+        },
+        "callout_he": "🛋️ שיפור תכנון דירה מזרחית (+1.5 מ״ר לדירה): סיפוח נישת המבואה הקומתית למבואת כניסה וארון מעילים",
+        "category_3d": "APT_IMP",
+        "before_after_scene": "typical_core_tighten"
+      }
     }
   ],
   "project_data_summary": {
@@ -3228,5 +3864,6 @@
     },
     "summary_doc_url": "/reports/hafetz44_summary_and_areas_report.html",
     "summary_md_url": "/reports/hafetz44_summary_and_areas_report.md"
-  }
+  },
+  "central_model_path": "G:\\Shared drives\\שליטה ובקרה\\מודלים פרויקטים\\חפץ חיים 44 פתח תקווה\\hafetz44_3d_model.html"
 }

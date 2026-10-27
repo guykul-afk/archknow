@@ -3542,4 +3542,10 @@ def enrich_project_payload(payload):
     except Exception:
         pass
 
+    try:
+        from spatial_3d_mapper import enrich_payload_with_3d_spatial_data
+        payload = enrich_payload_with_3d_spatial_data(payload)
+    except Exception:
+        pass
+
     return payload

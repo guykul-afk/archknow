@@ -4034,3 +4034,1086 @@ html, body {
 
 
 
+
+/* =========================================================================
+   SYNCHRONIZED 2D / 3D BIM / SPLIT VIEW STAGE (v5.2)
+   ========================================================================= */
+.btn-3d-toggle {
+  background: linear-gradient(135deg, #1d4ed8 0%, #0f172a 100%);
+  color: #ffffff !important;
+  border-color: #60a5fa !important;
+  box-shadow: 0 2px 8px rgba(29, 78, 216, 0.35);
+}
+.btn-3d-toggle:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1e293b 100%);
+}
+.btn-3d-toggle.active {
+  background: linear-gradient(135deg, #059669 0%, #065f46 100%);
+  border-color: #fde047 !important;
+  box-shadow: 0 0 0 2px #fde047;
+}
+
+.view-mode-switcher {
+  display: inline-flex;
+  align-items: center;
+  background: #0f172a;
+  padding: 3px;
+  border-radius: 9px;
+  border: 1px solid #334155;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.vmode-btn {
+  background: transparent;
+  color: #cbd5e1;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.vmode-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+.vmode-btn.active {
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.45);
+}
+
+.model-3d-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  background: #0f172a;
+  overflow: hidden;
+}
+
+.model-3d-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.plan-viewport.vmode-3d #plan-stage {
+  display: none !important;
+}
+.plan-viewport.vmode-3d #model-3d-stage {
+  display: block !important;
+  width: 100%;
+  height: 100%;
+}
+
+.plan-viewport.vmode-split {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+.plan-viewport.vmode-split #plan-stage {
+  display: flex !important;
+  width: 100%;
+  height: 100%;
+  border-left: 2px solid #1e293b;
+}
+.plan-viewport.vmode-split #model-3d-stage {
+  display: block !important;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* =========================================================================
+   V6.0 MINIMALIST MONOCHROME CAD DESIGN SYSTEM
+   Clean White/Slate Surfaces · Minimal Colors · Collapsible Top Bar
+   ========================================================================= */
+:root {
+  --bg-app: #f8fafc;
+  --bg-panel: #ffffff;
+  --bg-canvas: #eef2f6;
+  --text-main: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border-light: #e2e8f0;
+  --border-med: #cbd5e1;
+  --primary: #0f172a;
+  --primary-hover: #1e293b;
+}
+
+/* 1. Collapsible Minimalist Top Bar */
+.top-command-bar {
+  min-height: 48px;
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  box-shadow: none !important;
+  padding: 6px 16px !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
+body.top-bar-collapsed .top-command-bar {
+  display: none !important;
+}
+
+.brand-area {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.brand-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.3px;
+}
+
+.brand-sep {
+  color: #cbd5e1;
+  font-weight: 400;
+}
+
+.brand-sub {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.top-bar-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  justify-content: center;
+  min-width: 0;
+}
+
+.quick-chips {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.proj-chip {
+  background: transparent !important;
+  color: #475569 !important;
+  border: 1px solid transparent !important;
+  border-radius: 6px !important;
+  padding: 4px 9px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+}
+
+.proj-chip:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.proj-chip.active {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
+}
+
+.search-form {
+  flex: 0 1 200px;
+  min-width: 140px;
+  max-width: 210px;
+}
+
+.search-input-wrap {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  padding: 2px 3px 2px 8px !important;
+  box-shadow: none !important;
+}
+
+.search-input-wrap:focus-within {
+  background: #ffffff !important;
+  border-color: #94a3b8 !important;
+  box-shadow: none !important;
+}
+
+.project-query-input {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  padding: 3px 4px !important;
+}
+
+.btn-analyze {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
+  padding: 4px 10px !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+.btn-analyze:hover {
+  background: #334155 !important;
+  transform: none !important;
+}
+
+.header-tools {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: nowrap;
+}
+
+.btn-tool,
+.btn-summary-areas,
+.btn-value-eng {
+  background: #ffffff !important;
+  color: #334155 !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  padding: 5px 10px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+.btn-tool:hover {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+  transform: none !important;
+}
+
+.hdr-ve-pill {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  padding: 0 6px !important;
+  margin-right: 4px !important;
+}
+
+.btn-collapse-topbar,
+.btn-expand-topbar {
+  background: #f8fafc !important;
+  color: #475569 !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+.more-tools-dropdown {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) !important;
+}
+
+.dropdown-item {
+  color: #334155 !important;
+  font-weight: 500 !important;
+}
+
+.dropdown-item:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.files-drawer {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08) !important;
+}
+
+.files-drawer-header {
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.files-drawer-sub {
+  color: #64748b !important;
+}
+
+.file-item-card {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.file-name-text {
+  color: #0f172a !important;
+}
+
+.file-ext-badge {
+  background: #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+.btn-close-drawer {
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+/* 2. Right Panel (Zone 1) — Clean Minimalist List & Monochrome Filters */
+.doc-panel {
+  border-left: 1px solid #e2e8f0 !important;
+  box-shadow: none !important;
+}
+
+.doc-panel-header {
+  padding: 12px 14px 10px 14px !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.doc-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.doc-project-title {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  margin-bottom: 0 !important;
+}
+
+.btn-panel-collapse {
+  background: transparent !important;
+  color: #64748b !important;
+  border: 1px solid #e2e8f0 !important;
+  font-weight: 600 !important;
+}
+
+.exec-score-strip {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  padding: 6px 10px !important;
+  gap: 10px !important;
+}
+
+.exec-score-main {
+  min-width: 48px !important;
+}
+
+.exec-score-num {
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+}
+
+.exec-score-lbl {
+  font-size: 10px !important;
+  color: #64748b !important;
+}
+
+.exec-score-divider {
+  height: 24px !important;
+  background: #e2e8f0 !important;
+}
+
+.exec-summary-sub {
+  font-size: 11.5px !important;
+  color: #475569 !important;
+  margin-top: 0 !important;
+}
+
+/* Work Mode Tabs — Monochrome */
+.work-modes-bar {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  padding: 3px !important;
+}
+
+.work-mode-tab {
+  color: #64748b !important;
+  font-weight: 600 !important;
+  font-size: 11.5px !important;
+  padding: 5px 4px !important;
+}
+
+.work-mode-tab.active {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Sub-filter Buttons — Monochrome (No green/blue/amber button backgrounds) */
+.filter-btn,
+.filter-btn.filter-ve,
+.filter-btn.filter-imp,
+.filter-btn.filter-warn-fail,
+.filter-btn.filter-pass {
+  background: #ffffff !important;
+  color: #475569 !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  padding: 4px 6px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+}
+
+.filter-btn:hover {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+.filter-btn.active,
+.filter-btn.filter-ve.active,
+.filter-btn.filter-imp.active {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border-color: #0f172a !important;
+  font-weight: 600 !important;
+}
+
+/* Section Accordions — Clean Neutral */
+.doc-scroll-container {
+  padding: 10px 12px 24px 12px !important;
+  background: #f8fafc !important;
+}
+
+.doc-section-accordion {
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  margin-bottom: 8px !important;
+  background: #ffffff !important;
+}
+
+.doc-section-summary {
+  background: #ffffff !important;
+  border-right: none !important;
+  padding: 8px 12px !important;
+}
+
+.doc-section-summary:hover {
+  background: #f8fafc !important;
+}
+
+.doc-section-title {
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  margin-bottom: 0 !important;
+}
+
+.doc-sec-count-pill {
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+  font-weight: 600 !important;
+  font-size: 11px !important;
+}
+
+.doc-section-notes-list {
+  padding: 6px 8px !important;
+  background: #f8fafc !important;
+  border-top: 1px solid #f1f5f9 !important;
+}
+
+/* Level-1 Finding Cards — Clean White Text Boxes with Subtle Gray Accent */
+.doc-note-card,
+.doc-note-card.card-ve,
+.doc-note-card.card-imp,
+.doc-note-card.status-FAIL,
+.doc-note-card.status-WARN,
+.doc-note-card.status-PASS {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-right: 3px solid #cbd5e1 !important;
+  border-radius: 6px !important;
+  padding: 9px 11px !important;
+  margin-bottom: 6px !important;
+  box-shadow: none !important;
+}
+
+.doc-note-card.status-FAIL { border-right-color: #64748b !important; }
+.doc-note-card.status-WARN { border-right-color: #94a3b8 !important; }
+.doc-note-card.card-ve { border-right-color: #475569 !important; }
+.doc-note-card.card-imp { border-right-color: #94a3b8 !important; }
+
+.doc-note-card:hover {
+  background: #ffffff !important;
+  border-color: #94a3b8 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+}
+
+.doc-note-card.active {
+  background: #f8fafc !important;
+  border-color: #0f172a !important;
+  border-right: 3px solid #0f172a !important;
+  box-shadow: none !important;
+}
+
+.note-pin-circle,
+.note-pin-circle.status-PASS,
+.note-pin-circle.status-WARN,
+.note-pin-circle.status-FAIL,
+.note-pin-circle.pin-circle-ve,
+.note-pin-circle.pin-circle-imp {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  min-width: 22px !important;
+  height: 20px !important;
+  padding: 0 5px !important;
+  border-radius: 4px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+
+.doc-note-card.active .note-pin-circle {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border-color: #0f172a !important;
+}
+
+.doc-note-card .note-room-tag {
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  color: #475569 !important;
+  margin-bottom: 0 !important;
+}
+
+.doc-note-card .note-title {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #0f172a !important;
+  margin: 4px 0 2px 0 !important;
+  line-height: 1.35 !important;
+}
+
+.note-meta-line {
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+.note-dec-badge,
+.note-dec-badge.dec-todo,
+.note-dec-badge.dec-verified,
+.note-dec-badge.dec-approved,
+.note-dec-badge.dec-rejected {
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+  border: 1px solid #cbd5e1 !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  padding: 1px 6px !important;
+  border-radius: 4px !important;
+}
+
+/* 3. Visual Plan Toolbar & Pins — Clean Monochrome CAD Look */
+.visual-toolbar {
+  min-height: 42px !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  box-shadow: none !important;
+  padding: 4px 12px !important;
+}
+
+.sheet-tab-btn {
+  background: transparent !important;
+  color: #475569 !important;
+  border: 1px solid transparent !important;
+  border-radius: 6px !important;
+  padding: 5px 10px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+.sheet-tab-btn:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.sheet-tab-btn.active {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border-color: #0f172a !important;
+  box-shadow: none !important;
+}
+
+.sheet-tab-count {
+  background: rgba(148, 163, 184, 0.2) !important;
+  font-size: 10.5px !important;
+}
+
+.ctrl-btn,
+.ctrl-btn-ve {
+  background: #ffffff !important;
+  color: #334155 !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  padding: 4px 9px !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+.ctrl-btn:hover,
+.ctrl-btn-ve:hover {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+.ctrl-btn.active,
+.ctrl-btn-ve.active {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border-color: #0f172a !important;
+  box-shadow: none !important;
+}
+
+.view-mode-switcher {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  padding: 2px !important;
+}
+
+.vmode-btn {
+  color: #475569 !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 3px 8px !important;
+  border-radius: 4px !important;
+}
+
+.vmode-btn.active {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* On-Plan VE Quick Bar — Neutral Light Strip */
+.ve-plan-bar {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  padding: 5px 12px !important;
+}
+
+.ve-plan-bar-badge {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+.btn-ve-bar-hub {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.ve-hotspot-chip {
+  background: #ffffff !important;
+  color: #334155 !important;
+  border: 1px solid #cbd5e1 !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+.ve-hotspot-chip:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #94a3b8 !important;
+}
+
+.ve-hotspot-chip.active {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border-color: #0f172a !important;
+  box-shadow: none !important;
+}
+
+.ve-chip-pin {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.ve-hotspot-chip.active .ve-chip-pin {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+/* Plan Viewport & Clean Minimalist Pins */
+.plan-viewport {
+  background: #eef2f6 !important;
+  padding: 16px !important;
+}
+
+.plan-image-wrapper {
+  border-radius: 6px !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08), 0 0 0 1px #cbd5e1 !important;
+}
+
+.plan-pin,
+.plan-pin.pin-PASS,
+.plan-pin.pin-WARN,
+.plan-pin.pin-FAIL,
+.plan-pin.pin-VE,
+.plan-pin.pin-IMP {
+  background: #1e293b !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  width: 25px !important;
+  height: 25px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25) !important;
+}
+
+.plan-pin:hover,
+.plan-pin.active-pin {
+  background: #0f172a !important;
+  border-color: #ffffff !important;
+  transform: translate(-50%, -50%) scale(1.28) !important;
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.22), 0 4px 12px rgba(15, 23, 42, 0.35) !important;
+  animation: none !important;
+}
+
+/* 4. Left Inspector Drawer (Zone 3) — Ultra-Clean Monochrome Text Boxes */
+.plan-side-dock {
+  background: #ffffff !important;
+  border-right: 1px solid #e2e8f0 !important;
+  padding: 12px !important;
+  box-shadow: none !important;
+}
+
+.side-dock-top-nav {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-right: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  padding: 6px 10px !important;
+}
+
+.side-dock-badges {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fc-pin-badge {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
+  padding: 2px 7px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+
+.fc-status-badge,
+.fc-status-badge.status-PASS,
+.fc-status-badge.status-WARN,
+.fc-status-badge.status-FAIL,
+.fc-status-badge.status-VE,
+.fc-status-badge.status-IMP {
+  background: #ffffff !important;
+  color: #475569 !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 4px !important;
+  padding: 1px 7px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+}
+
+.btn-step-note {
+  background: #ffffff !important;
+  color: #334155 !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+.btn-step-note:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #94a3b8 !important;
+}
+
+.plan-floating-card {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 4px 2px !important;
+  box-shadow: none !important;
+}
+
+.fc-room-name {
+  color: #64748b !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  margin-bottom: 3px !important;
+}
+
+.fc-title {
+  color: #0f172a !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  margin-bottom: 12px !important;
+}
+
+.fc-metric-box,
+.fc-metric-box.metric-current,
+.fc-metric-box.metric-target {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  padding: 9px 11px !important;
+}
+
+.fc-metric-label {
+  color: #64748b !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+}
+
+.fc-metric-big,
+.fc-metric-box.metric-target .fc-metric-big {
+  color: #0f172a !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+
+.l2-finding-summary-box {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  padding: 11px !important;
+  margin-bottom: 10px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.l2-sec-text {
+  font-size: 13px !important;
+  color: #334155 !important;
+  line-height: 1.48 !important;
+}
+
+.l2-action-box {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-right: 2px solid #0f172a !important;
+  border-radius: 4px !important;
+  padding: 8px 10px !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+}
+
+.l2-decision-workflow-box {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin-bottom: 10px !important;
+}
+
+.btn-dec-state {
+  background: #ffffff !important;
+  color: #475569 !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  padding: 6px 4px !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+}
+
+.btn-dec-state:hover {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+.btn-dec-state.active,
+.btn-dec-state.active.dec-todo,
+.btn-dec-state.active.dec-verified,
+.btn-dec-state.active.dec-approved,
+.btn-dec-state.active.dec-rejected {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border-color: #0f172a !important;
+}
+
+/* On-Demand Extra Details Drawer */
+.l3-evidence-drawer {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  margin-bottom: 8px !important;
+}
+
+.l3-evidence-summary {
+  color: #475569 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 8px 11px !important;
+}
+
+.l3-evidence-summary:hover {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+.l3-evidence-body {
+  background: #ffffff !important;
+  border-top: 1px solid #e2e8f0 !important;
+  padding: 10px 11px !important;
+}
+
+.l2-val-card {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+}
+
+.l2-val-txt,
+.l2-val-txt.txt-ve,
+.l2-val-txt.txt-imp {
+  color: #0f172a !important;
+  font-weight: 600 !important;
+}
+
+.plan-floating-card .fc-ramp-audit-box,
+.plan-floating-card .fc-parking-reloc-box {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-right: 2px solid #64748b !important;
+  color: #334155 !important;
+}
+
+.plan-floating-card .fc-ramp-audit-title,
+.plan-floating-card .fc-parking-reloc-title {
+  color: #0f172a !important;
+}
+
+/* Overview & Compare Cards — Monochrome */
+.ov-kpi-box,
+.ov-kpi-green,
+.ov-kpi-blue {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.ov-kpi-val,
+.ov-kpi-green .ov-kpi-val,
+.ov-kpi-blue .ov-kpi-val {
+  color: #0f172a !important;
+}
+
+.btn-locate-on-plan {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border: 1px solid #0f172a !important;
+  box-shadow: none !important;
+}
+
+.btn-locate-on-plan:hover {
+  background: #334155 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Modals — Clean Light Monochrome Header & Cards */
+.summary-modal-header,
+.ve-command-center-header {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  padding: 14px 20px !important;
+}
+
+.summary-modal-title {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  margin-top: 0 !important;
+}
+
+.modal-kpi-box {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-top: 2px solid #0f172a !important;
+  box-shadow: none !important;
+}
+
+.modal-kpi-box .k-title,
+.modal-kpi-box .k-desc {
+  color: #64748b !important;
+}
+
+.modal-kpi-box .k-num {
+  color: #0f172a !important;
+}
+
+.ve-hub-tab-btn.active,
+.areas-tab-btn.active {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border-color: #0f172a !important;
+  box-shadow: none !important;
+}
+
+.ve-visual-flow-board,
+.ve-simulator-box {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: none !important;
+}
+
+.ve-flow-title,
+.ve-sim-title,
+.ve-bldg-compare-card h4 {
+  color: #0f172a !important;
+}
+
+.ve-bldg-compare-card,
+.ve-sim-control-card {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.ve-bar-lbl,
+.ve-sim-control-card label {
+  color: #334155 !important;
+}
+
+.ve-bar-track {
+  background: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
+}
+
+.modal-data-table th {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+  border-bottom: 1px solid #cbd5e1 !important;
+}

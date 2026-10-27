@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, send_from_directory, jsonify, request
+from flask import Flask, send_from_directory, jsonify, request, Response, redirect
 import json
 import hashlib
 import os
 from validation_engine import run_validation, load_okf_rules
 from project_analyzer_service import get_projects_catalog, analyze_project_by_query
+from sync_3d_models import CENTRAL_MODELS_ROOT, PROJECTS_CONFIG
 from api_v1 import api_v1
+
+MODELS_BY_ID = {p["id"]: p for p in PROJECTS_CONFIG}
 
 app = Flask(__name__, static_folder='webapp')
 app.json.ensure_ascii = False  # Ensure clean UTF-8 Hebrew in JSON responses
@@ -19,7 +22,6 @@ os.makedirs(REPORTS_FOLDER, exist_ok=True)
 
 @app.route('/api/docs')
 def serve_docs_redirect():
-    from flask import redirect
     return redirect('/api/v1/docs')
 
 
@@ -43,6 +45,59 @@ def serve_index():
 @app.route('/reports/<path:filename>')
 def serve_reports(filename):
     return send_from_directory(REPORTS_FOLDER, filename)
+
+
+@app.route('/models/<project_id>')
+@app.route('/models/<project_id>/')
+def serve_central_3d_model_root(project_id):
+    """
+    Zero-Copy Central 3D Model Redirector:
+    Redirects /models/<project_id> to /models/<project_id>/<primary_viewer> so all
+    relative assets (*.glb, *.obj, data/*.json) inside the central folder resolve cleanly.
+    """
+    cfg = MODELS_BY_ID.get(project_id)
+    if not cfg:
+        return jsonify({"error": f"Unknown 3D model project_id: {project_id}"}), 404
+    viewer_file = cfg.get("primary_viewer") or cfg.get("bim_viewer")
+    qs = request.query_string.decode("utf-8")
+    target = f"/models/{project_id}/{viewer_file}"
+    if qs:
+        target = f"{target}?{qs}"
+    return redirect(target)
+
+
+@app.route('/models/<project_id>/<path:filename>')
+def serve_central_3d_model_file(project_id, filename):
+    """
+    Zero-Copy Central 3D Model Server & Runtime Overlay Injector:
+    Serves 3D model HTML/GLB/OBJ/JSON directly from G:\\Shared drives\\שליטה ובקרה\\מודלים פרויקטים\\<folder_name>
+    without duplicating files into the workspace, and injects the ArchiCheck 3D Audit & VE Overlay script at runtime.
+    """
+    cfg = MODELS_BY_ID.get(project_id)
+    if not cfg:
+        return jsonify({"error": f"Unknown 3D model project_id: {project_id}"}), 404
+
+    project_dir = os.path.join(CENTRAL_MODELS_ROOT, cfg["folder_name"])
+    full_path = os.path.join(project_dir, filename)
+    if not os.path.isfile(full_path):
+        return jsonify({"error": f"Model asset not found in central repository: {filename}"}), 404
+
+    if filename.lower().endswith(".html"):
+        with open(full_path, "r", encoding="utf-8") as f:
+            html_content = f.read()
+
+        overlay_snippet = (
+            f'\n  <script>window.__ARCHICHECK_PROJECT_ID__ = "{project_id}";</script>\n'
+            f'  <script src="/audit_3d_overlay.js?v=5.2"></script>\n'
+        )
+        if "audit_3d_overlay.js" not in html_content:
+            if "</body>" in html_content:
+                html_content = html_content.replace("</body>", overlay_snippet + "</body>", 1)
+            else:
+                html_content += overlay_snippet
+        return Response(html_content, mimetype="text/html; charset=utf-8")
+
+    return send_from_directory(project_dir, filename)
 
 
 @app.route('/api/projects', methods=['GET'])
