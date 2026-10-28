@@ -101,7 +101,7 @@ def serve_central_3d_model_file(project_id, filename):
         overlay_snippet = (
             f'\n<!-- ARCHICHECK_3D_OVERLAY_START -->\n'
             f'<script>window.__ARCHICHECK_PROJECT_ID__ = "{project_id}";</script>\n'
-            f'<script src="/audit_3d_overlay.js?v=6.4"></script>\n'
+            f'<script src="/audit_3d_overlay.js?v=6.5"></script>\n'
             f'<!-- ARCHICHECK_3D_OVERLAY_END -->\n'
         )
         last_body_idx = html_content.rfind("</body>")

@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=6.4" />
+  <link rel="stylesheet" href="styles.css?v=6.5" />
 </head>
 <body>
   <!-- COLLAPSIBLE MINIMALIST TOP BAR -->
@@ -254,7 +254,7 @@
             מיקוד
           </button>
 
-          <button type="button" id="btn-toggle-side-dock" class="ctrl-btn" title="חלונית פרטים">
+          <button type="button" id="btn-toggle-side-dock" class="ctrl-btn hidden" title="חלונית פרטים">
             פרטים
           </button>
         </div>
@@ -291,8 +291,8 @@
           </div>
         </div>
 
-        <!-- ZONE 3 (LEFT): MINIMALIST SINGLE-OBJECT INSPECTOR DRAWER -->
-        <aside id="plan-side-dock" class="plan-side-dock" aria-label="פרטי ממצא">
+        <!-- ZONE 3 (LEFT): HIDDEN LEGACY INSPECTOR DRAWER (All details now expand inline in the Right Panel) -->
+        <aside id="plan-side-dock" class="plan-side-dock hidden" aria-label="פרטי ממצא" hidden>
           <div class="side-dock-top-nav">
             <div class="side-dock-badges">
               <span id="fc-pin-badge" class="fc-pin-badge">#1</span>
@@ -395,6 +395,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=6.4"></script>
+  <script src="app.js?v=6.5"></script>
 </body>
 </html>

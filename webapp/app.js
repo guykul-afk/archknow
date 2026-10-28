@@ -331,6 +331,12 @@
         data = await staticResp.json();
       }
 
+      if (data && Array.isArray(data.notes)) {
+        data.notes = data.notes.filter(
+          (n) => !String(n.id || '').endsWith('-3D-SYNC') && !String(n.rule_id || '').includes('3D_BIM_FULL_AUDIT')
+        );
+      }
+
       currentProject = data;
       activeNoteId = null;
       userExplicitlySelectedNote = false;
@@ -2594,6 +2600,50 @@
     return wrap;
   }
 
+  function buildInlineNoteDetailsHtml(note) {
+    return `
+      <div class="fc-metrics-row" style="margin-top:8px;">
+        <div class="fc-metric-box metric-current">
+          <span class="fc-metric-label">קיים</span>
+          <strong class="fc-metric-big">${note.measured || ''}</strong>
+        </div>
+        <div class="fc-metric-box metric-target">
+          <span class="fc-metric-label">יעד / מומלץ</span>
+          <strong class="fc-metric-big">${note.benchmark || ''}</strong>
+        </div>
+      </div>
+      ${buildFourPillarsSideDockHtml(note)}
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:6px;">
+        <button type="button" class="ctrl-btn btn-inline-center-plan" style="flex:1;justify-content:center;" title="מרכז ממצא בשרטוט ובמודל התלת-ממדי">
+          🎯 מרכז בשרטוט / מודל 3D
+        </button>
+      </div>
+    `;
+  }
+
+  function wireInlineExpandedEvents(containerEl, note) {
+    if (!containerEl || !note) return;
+    containerEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+    containerEl.querySelectorAll('.btn-dec-state').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const decVal = btn.getAttribute('data-dec');
+        setNoteDecision(note.id, decVal);
+        renderDocumentSections(currentProject);
+      });
+    });
+    const centerBtn = containerEl.querySelector('.btn-inline-center-plan');
+    if (centerBtn) {
+      centerBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        panAndZoomToNoteOnPlan(note);
+        postMessageTo3D({ type: 'ARCHICHECK_SELECT_NOTE', noteId: note.id });
+      });
+    }
+  }
+
   function createLevel1NoteCard(note) {
     const card = document.createElement('article');
     const isVe = Boolean(note.is_value_eng);
@@ -2633,7 +2683,15 @@
       </div>
       <h3 class="note-title">${note.title}</h3>
       <div class="note-meta-line">${note.measured}</div>
+      <div class="note-inline-expanded ${isActive ? '' : 'hidden'}">
+        ${isActive ? buildInlineNoteDetailsHtml(note) : ''}
+      </div>
     `;
+
+    const expandedBox = card.querySelector('.note-inline-expanded');
+    if (isActive && expandedBox) {
+      wireInlineExpandedEvents(expandedBox, note);
+    }
 
     card.addEventListener('mouseenter', () => {
       if (note.sheet_id === currentSheetId) {
@@ -2649,7 +2707,7 @@
     });
 
     card.addEventListener('click', () => {
-      highlightNote(note.id, { scrollDoc: false, switchSheet: true, openDock: true, zoomTo: true });
+      highlightNote(note.id, { scrollDoc: false, switchSheet: true, openDock: false, zoomTo: true });
     });
 
     return card;
@@ -2768,7 +2826,7 @@
     updateStageTransform();
   }
 
-  function highlightNote(noteId, options = { scrollDoc: false, switchSheet: true, openDock: true, zoomTo: false }) {
+  function highlightNote(noteId, options = { scrollDoc: false, switchSheet: true, openDock: false, zoomTo: false }) {
     if (!currentProject || !noteId) return;
     const allNotes = currentProject.notes || [];
     const note = allNotes.find((n) => n.id === noteId);
@@ -2785,9 +2843,22 @@
       selectSheet(note.sheet_id, { keepNote: true });
     }
 
-    // 2. Open the Left Inspector Drawer when a finding is clicked
-    if (options.openDock !== false) {
-      toggleSideDock(true);
+    // 2. Left Inspector Drawer is permanently disabled — all details expand inline in the Right Panel (#doc-panel)
+    toggleSideDock(false);
+
+    // If selected from a 2D/3D pin and the note card is not currently rendered in the Right Panel, switch to its tab
+    if (options.scrollDoc && !document.querySelector(`.doc-note-card[data-note-id="${noteId}"]`)) {
+      if (note.is_value_eng) {
+        currentVeCategory = 'ALL';
+        veCatBtns.forEach((b) => b.classList.toggle('active', b.dataset.veCat === 'ALL'));
+        switchWorkMode('OPTIMIZATION');
+      } else {
+        currentPolarity = 'ALL';
+        currentCategory = 'ALL';
+        polarityBtns.forEach((b) => b.classList.toggle('active', b.dataset.polarity === 'ALL'));
+        catFilterBtns.forEach((b) => b.classList.toggle('active', b.dataset.category === 'ALL'));
+        switchWorkMode('FINDINGS', { preserveSubfilters: true });
+      }
     }
 
     // 3. Center and zoom to the finding's coordinates on the plan if requested
@@ -2798,19 +2869,21 @@
       }, sheetWillChange ? 90 : 10);
     }
 
-    // Update step-through counter in the Side Dock
-    const visibleNotes = allNotes.filter((n) => matchesFilter(n));
-    const currentIdx = visibleNotes.findIndex((n) => n.id === noteId);
-    if (sideDockCounter) {
-      sideDockCounter.textContent = currentIdx >= 0
-        ? `${currentIdx + 1} / ${visibleNotes.length}`
-        : `#${note.pin_num}`;
-    }
-
-    // 4. Update active state in the Right-Hand Level-1 List
+    // 4. Update active state and inline expanded details inside the Right-Hand Panel (#doc-panel)
     document.querySelectorAll('.doc-note-card').forEach((card) => {
       const isMatch = card.dataset.noteId === noteId;
       card.classList.toggle('active', isMatch);
+      const expBox = card.querySelector('.note-inline-expanded');
+      if (expBox) {
+        if (isMatch) {
+          expBox.innerHTML = buildInlineNoteDetailsHtml(note);
+          expBox.classList.remove('hidden');
+          wireInlineExpandedEvents(expBox, note);
+        } else {
+          expBox.classList.add('hidden');
+          expBox.innerHTML = '';
+        }
+      }
       if (isMatch && options.scrollDoc) {
         const parentDetails = card.closest('.doc-section-accordion');
         if (parentDetails && !parentDetails.hasAttribute('open')) {
@@ -2832,49 +2905,7 @@
       }
     });
 
-    // 6. Populate the Left Analysis Drawer (Level 2 & Level 3)
-    const isVe = Boolean(note.is_value_eng);
-    const isDesignImp = Boolean(note.is_design_improvement);
-    const clsInfo = classifySystemNote(note);
-    fcPinBadge.textContent = `#${note.pin_num}`;
-    fcStatusBadge.textContent = isVe
-      ? 'חיסכון'
-      : `${clsInfo.polarityHe} · ${clsInfo.categoryHe}`;
-    fcStatusBadge.className = `fc-status-badge status-${note.status} ${isVe ? 'status-VE' : ''} ${isDesignImp ? 'status-IMP' : ''}`;
-    fcRuleBadge.textContent = note.rule_id || '';
-    fcRoomName.textContent = `${note.typology} · ${note.room_name}`;
-    fcTitle.textContent = note.title;
-    fcMeasured.textContent = note.measured;
-    fcBenchmark.textContent = note.benchmark;
-    fcSummary.textContent = note.summary;
-    fcSummary.classList.add('hidden');
-    fcRecommendation.textContent = note.recommendation;
-
-    if (fcFourPillarsBox) {
-      fcFourPillarsBox.innerHTML = buildFourPillarsSideDockHtml(note);
-      fcFourPillarsBox.querySelectorAll('.btn-dec-state').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const decVal = btn.getAttribute('data-dec');
-          setNoteDecision(note.id, decVal);
-          highlightNote(note.id, { scrollDoc: false, switchSheet: false, openDock: true, zoomTo: false });
-          renderDocumentSections(currentProject);
-        });
-      });
-    }
-
-    if (fcVisualDiagramBox) {
-      fcVisualDiagramBox.classList.add('hidden');
-    }
-
-    if (fcVeWhereHowBox) {
-      fcVeWhereHowBox.classList.add('hidden');
-    }
-
-    floatingCard.classList.remove('hidden');
-    floatingCard.style.left = '';
-    floatingCard.style.top = '';
-
-    // 7. Update Minimalist Bottom HUD Bar
+    // 6. Update Minimalist Bottom HUD Bar & 3D selection
     hudActiveNoteText.textContent = `ממצא #${note.pin_num} · ${note.room_name} — ${note.title}`;
     if (!options.from3D) {
       postMessageTo3D({ type: 'ARCHICHECK_SELECT_NOTE', noteId: note.id });
@@ -3264,14 +3295,14 @@
     });
   }
 
-  // Collapsible Left Side Inspector Dock Toggle
-  function toggleSideDock(forceShow) {
-    if (!planBodyLayoutEl) return;
-    const isCollapsed = planBodyLayoutEl.classList.contains('dock-collapsed');
-    const shouldShow = forceShow !== undefined ? forceShow : isCollapsed;
-    planBodyLayoutEl.classList.toggle('dock-collapsed', !shouldShow);
+  // Left Side Inspector Dock is permanently disabled (only Right Panel #doc-panel is used)
+  function toggleSideDock() {
+    if (planBodyLayoutEl) {
+      planBodyLayoutEl.classList.add('dock-collapsed');
+    }
     if (btnToggleSideDock) {
-      btnToggleSideDock.classList.toggle('active', shouldShow);
+      btnToggleSideDock.classList.remove('active');
+      btnToggleSideDock.classList.add('hidden');
     }
   }
 
@@ -3425,7 +3456,7 @@
     if (!currentProject || !model3dIframe) return;
     const baseUrl = currentProject._resolved_3d_url || (currentProject.project_id ? `/models/${currentProject.project_id}` : null);
     if (!baseUrl) return;
-    const targetSrc = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}embed=1&v=6.3`;
+    const targetSrc = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}embed=1&v=6.5`;
     if (forceReload || loaded3dProjectUrl !== targetSrc) {
       loaded3dProjectUrl = targetSrc;
       model3dIframe.src = targetSrc;
@@ -3504,6 +3535,11 @@
       const resData = await resp.json();
       const updatedPayload = resData.payload || currentProject;
       if (updatedPayload) {
+        if (Array.isArray(updatedPayload.notes)) {
+          updatedPayload.notes = updatedPayload.notes.filter(
+            (n) => !String(n.id || '').endsWith('-3D-SYNC') && !String(n.rule_id || '').includes('3D_BIM_FULL_AUDIT')
+          );
+        }
         currentProject = updatedPayload;
         renderProjectHeaderAndFiles(updatedPayload);
         renderSheetTabs(updatedPayload);
@@ -3548,6 +3584,11 @@
         postMessageTo3D({ type: 'ARCHICHECK_SELECT_NOTE', noteId: activeNoteId });
       }
     } else if (msg.type === 'ARCHICHECK_3D_REAUDITED' && msg.payload) {
+      if (Array.isArray(msg.payload.notes)) {
+        msg.payload.notes = msg.payload.notes.filter(
+          (n) => !String(n.id || '').endsWith('-3D-SYNC') && !String(n.rule_id || '').includes('3D_BIM_FULL_AUDIT')
+        );
+      }
       currentProject = msg.payload;
       renderProjectHeaderAndFiles(msg.payload);
       renderSheetTabs(msg.payload);

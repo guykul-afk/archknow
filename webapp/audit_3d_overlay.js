@@ -239,28 +239,9 @@
         z-index: 23;
       }
 
-      /* Floating ArchiCheck 3D Control Dock */
+      /* Floating ArchiCheck 3D Control Dock — hidden to prevent duplicate text box next to findings panel */
       #archicheck-3d-hud {
-        position: absolute;
-        top: 60px;
-        left: 12px;
-        z-index: 32;
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-        width: 320px;
-        max-width: calc(100vw - 24px);
-        background: rgba(15, 23, 42, 0.94);
-        color: #f8fafc;
-        border: 1px solid rgba(148, 163, 184, 0.45);
-        border-radius: 13px;
-        padding: 10px 12px;
-        font-family: 'Heebo', system-ui, sans-serif;
-        box-shadow: 0 14px 32px rgba(15, 23, 42, 0.38);
-        backdrop-filter: blur(12px);
-      }
-      #archicheck-3d-hud.hud-minimized .hud-body-content {
-        display: none;
+        display: none !important;
       }
       .ac3d-hdr {
         display: flex;
@@ -584,6 +565,25 @@
         });
         frag.appendChild(furnQuickBtn);
 
+        // Compact Before/After Toggle Button in Top Bar (replaces floating left HUD box)
+        const baQuickBtn = document.createElement('button');
+        baQuickBtn.type = 'button';
+        baQuickBtn.id = 'arch-btn-ba-mode';
+        baQuickBtn.className = 'arch-nav-btn active';
+        baQuickBtn.style.background = '#059669';
+        baQuickBtn.style.borderColor = '#047857';
+        baQuickBtn.style.color = '#ffffff';
+        baQuickBtn.title = 'החלף בין מצב מוצע (VE + תיקון) לבין מצב קיים בתכנית';
+        baQuickBtn.textContent = '🟢 מצב מוצע (VE)';
+        baQuickBtn.addEventListener('click', () => {
+          const nextMode = !isProposedMode;
+          setBeforeAfterMode(nextMode);
+          baQuickBtn.textContent = nextMode ? '🟢 מצב מוצע (VE)' : '🔴 מצב קיים';
+          baQuickBtn.style.background = nextMode ? '#059669' : '#dc2626';
+          baQuickBtn.style.borderColor = nextMode ? '#047857' : '#b91c1c';
+        });
+        frag.appendChild(baQuickBtn);
+
         viewBtnsContainer.insertBefore(frag, viewBtnsContainer.firstChild);
       }
     }
@@ -842,24 +842,24 @@
       }
 
       // -----------------------------------------------------------------------
-      // SCENE B: WEST APARTMENT CORRIDOR (90cm -> 100cm) & WALK-IN CLOSET (+2.6m²)
+      // SCENE B: WEST APARTMENT CORRIDOR (100/105cm -> UNIFORM 105cm) & WALK-IN CLOSET (+2.6m²)
       // -----------------------------------------------------------------------
       else if (sceneKey === 'west_corridor_fix') {
         const zF = 12.95;
         if (!isProposedMode) {
-          // BEFORE: Red 90cm Corridor Failure + Cramped 160x165cm Walk-In Closet Walls
-          beforeAfterGroup.add(makeOverlayBox(-10.10, -1.42, -3.50, -0.52, zF + 0.03, zF + 2.45, 0xdc2626, 0.48, 0xfca5a5));
+          // BEFORE: 100/105cm Corridor (7.11m long) with 90cm door-frame pinch + Cramped 160x165cm Walk-In Closet Walls
+          beforeAfterGroup.add(makeOverlayBox(-9.79, -1.38, -1.25, -0.33, zF + 0.03, zF + 2.45, 0xd97706, 0.42, 0xfde047));
           beforeAfterGroup.add(makeOverlayBox(-11.35, -4.95, -9.65, -3.38, zF + 0.03, zF + 2.45, 0xf59e0b, 0.42, 0xfde047));
-          addDynamic3DLabel(-6.80, zF + 2.65, -0.97, '🔴 מצב קיים (FAIL): רוחב מסדרון 90 ס״מ לאורך 5.45 מ׳ (נדרש ≥100 ס״מ)', '#f87171', 'rgba(153, 27, 27, 0.94)');
+          addDynamic3DLabel(-6.80, zF + 2.65, -0.85, '🟠 מצב קיים (WARN): רוחב מסדרון 100/105 ס״מ (תקין ≥100) לאורך 7.11 מ׳ + היצרות משקוף 90 ס״מ', '#fbbf24', 'rgba(146, 64, 14, 0.94)');
           addDynamic3DLabel(-10.50, zF + 2.65, -4.15, '🟠 חדר ארונות צפוף (160×165 ס״מ · מעבר 45 ס״מ בלבד)', '#fbbf24');
         } else {
-          // AFTER: Widened 100cm Corridor (Partition shifted 10cm North) + 3.80m Flush Wardrobe (+2.6 sqm)
-          beforeAfterGroup.add(makeOverlayBox(-10.10, -1.52, -3.50, -0.52, zF + 0.03, zF + 2.45, 0x10b981, 0.45, 0x6ee7b7));
-          // Shifted new partition wall in glowing green
-          beforeAfterGroup.add(makeOverlayBox(-10.10, -1.62, -3.50, -1.52, zF + 0.03, zF + 2.60, 0x059669, 0.85, 0xffffff));
+          // AFTER: Uniform 105cm Corridor (shortened tail & aligned partition) + 3.80m Flush Wardrobe (+2.6 sqm)
+          beforeAfterGroup.add(makeOverlayBox(-8.50, -1.38, -1.25, -0.33, zF + 0.03, zF + 2.45, 0x10b981, 0.45, 0x6ee7b7));
+          // Aligned partition wall in glowing green
+          beforeAfterGroup.add(makeOverlayBox(-8.50, -1.48, -1.25, -1.38, zF + 0.03, zF + 2.60, 0x059669, 0.85, 0xffffff));
           // New 3.80m Flush Wardrobe along North/East wall freeing +2.6 sqm
           beforeAfterGroup.add(makeOverlayBox(-11.40, -4.95, -9.60, -4.35, zF + 0.03, zF + 2.40, 0x0284c7, 0.72, 0x7dd3fc));
-          addDynamic3DLabel(-6.80, zF + 2.75, -1.02, '🟢 מצב מוצע: מסדרון הורחב ל-100 ס״מ תקני (הזזת מחיצה ב-10 ס״מ)', '#34d399', 'rgba(6, 95, 70, 0.94)');
+          addDynamic3DLabel(-6.80, zF + 2.75, -0.85, '🟢 מצב מוצע: יישור מסדרון ל-105 ס״מ אחיד וקיצור זנב המסדרון ב-1.30 מ׳', '#34d399', 'rgba(6, 95, 70, 0.94)');
           addDynamic3DLabel(-10.50, zF + 2.75, -4.45, '🛋️ ביטול קירות חדר ארונות ← ארון קיר 3.80 מ׳ (+2.6 מ״ר נטו לחדרים!)', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
         }
       }
@@ -990,7 +990,10 @@
 
       buildHafetz44FacadeCladdingLayer();
 
-      const notes = data.notes || [];
+      const notes = (data.notes || []).filter(
+        (n) => !String(n.id || '').endsWith('-3D-SYNC') && !String(n.rule_id || '').includes('3D_BIM_FULL_AUDIT')
+      );
+      data.notes = notes;
       notes.forEach((note) => {
         const s3d = note.spatial_3d;
         if (!s3d || !s3d.bbox_3d) return;

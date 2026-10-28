@@ -5600,3 +5600,67 @@ body.top-bar-collapsed .top-command-bar {
   color: #475569;
 }
 
+/* =========================================================================
+   SINGLE RIGHT-PANEL TEXT ARCHITECTURE (NO LEFT INSPECTOR DRAWER)
+   Cancels the left text drawer (#plan-side-dock) and expands finding details
+   inline inside the Right Panel (#doc-panel) card.
+   ========================================================================= */
+#plan-side-dock,
+#btn-toggle-side-dock {
+  display: none !important;
+}
+
+.plan-body-layout,
+.plan-body-layout.dock-collapsed {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.split-workspace {
+  grid-template-columns: minmax(340px, 31%) minmax(0, 1fr) !important;
+}
+
+.split-workspace.doc-collapsed {
+  grid-template-columns: 0px minmax(0, 1fr) !important;
+}
+
+.note-inline-expanded {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #e2e8f0;
+  cursor: default;
+}
+
+.note-inline-expanded.hidden {
+  display: none !important;
+}
+
+.note-inline-expanded .fc-metrics-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.note-inline-expanded .fc-metric-box {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  padding: 7px 9px !important;
+}
+
+.note-inline-expanded .fc-metric-label {
+  display: block;
+  color: #64748b !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  margin-bottom: 2px;
+}
+
+.note-inline-expanded .fc-metric-big {
+  color: #0f172a !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  line-height: 1.3;
+}
+
+

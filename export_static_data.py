@@ -63,7 +63,7 @@ for cfg in PROJECTS_CONFIG:
     overlay_block = (
         f'\n<!-- ARCHICHECK_3D_OVERLAY_START -->\n'
         f'<script>window.__ARCHICHECK_PROJECT_ID__ = "{pid}";</script>\n'
-        f'<script src="/audit_3d_overlay.js?v=6.3"></script>\n'
+        f'<script src="/audit_3d_overlay.js?v=6.5"></script>\n'
         f'<!-- ARCHICHECK_3D_OVERLAY_END -->\n'
     )
     for html_fn in html_files:
