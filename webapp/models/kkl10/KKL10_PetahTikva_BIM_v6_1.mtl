@@ -1,0 +1,177 @@
+# MTL file for KKL 10 BIM Model v6.1
+
+newmtl Mat_A_Glazing
+Ka 0.5800 0.8000 0.9400
+Kd 0.5800 0.8000 0.9400
+Ks 0.2000 0.2000 0.2000
+d 0.5500
+illum 2
+
+newmtl Mat_A_GlassRailing
+Ka 0.6800 0.8600 0.9600
+Kd 0.6800 0.8600 0.9600
+Ks 0.2000 0.2000 0.2000
+d 0.4200
+illum 2
+
+newmtl Mat_A_FrostedDivider
+Ka 0.8500 0.9200 0.9500
+Kd 0.8500 0.9200 0.9500
+Ks 0.2000 0.2000 0.2000
+d 0.8200
+illum 2
+
+newmtl Mat_A_AluMullion
+Ka 0.1800 0.2000 0.2300
+Kd 0.1800 0.2000 0.2300
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_B_WhiteEuropanel
+Ka 0.9600 0.9600 0.9500
+Kd 0.9600 0.9600 0.9500
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_C_DarkCladding
+Ka 0.2600 0.2700 0.3000
+Kd 0.2600 0.2700 0.3000
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_C_LightGrayInfill
+Ka 0.4600 0.4800 0.5000
+Kd 0.4600 0.4800 0.5000
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_D_AluLouver
+Ka 0.3600 0.3800 0.4100
+Kd 0.3600 0.3800 0.4100
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_E_LightStucco
+Ka 0.9200 0.9000 0.8600
+Kd 0.9200 0.9000 0.8600
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_F_PergolaAlu
+Ka 0.2800 0.3000 0.3400
+Kd 0.2800 0.3000 0.3400
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_G_EntranceCanopy
+Ka 0.7600 0.7800 0.8000
+Kd 0.7600 0.7800 0.8000
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_Int_10cm_Partition
+Ka 0.9500 0.9100 0.8200
+Kd 0.9500 0.9100 0.8200
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_Int_20cm_AcousticWall
+Ka 0.7800 0.7400 0.6800
+Kd 0.7800 0.7400 0.6800
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_Int_Mamad_25cm_Concrete
+Ka 0.6800 0.3800 0.7800
+Kd 0.6800 0.3800 0.7800
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_Core_ShearWall
+Ka 0.5600 0.5000 0.6600
+Kd 0.5600 0.5000 0.6600
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_Door_Frame_Wood
+Ka 0.5800 0.3600 0.1800
+Kd 0.5800 0.3600 0.1800
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_Light_Wood_Cabinet
+Ka 0.8700 0.7200 0.4900
+Kd 0.8700 0.7200 0.4900
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_Staircase_Steps
+Ka 0.8500 0.8300 0.7800
+Kd 0.8500 0.8300 0.7800
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_Apartment_Floor_Tile
+Ka 0.9400 0.9300 0.9000
+Kd 0.9400 0.9300 0.9000
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_Lobby_Corridor_Floor
+Ka 0.8200 0.8100 0.7900
+Kd 0.8200 0.8100 0.7900
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_SubterraneanStructuralBlue
+Ka 0.2400 0.3400 0.7800
+Kd 0.2400 0.3400 0.7800
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_SubterraneanInteriorWall
+Ka 0.7200 0.7300 0.7500
+Kd 0.7200 0.7300 0.7500
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_ParkingRampSlab
+Ka 0.3000 0.4200 0.8500
+Kd 0.3000 0.4200 0.8500
+Ks 0.2000 0.2000 0.2000
+d 1.0000
+illum 2
+
+newmtl Mat_SitePermeable
+Ka 0.2600 0.4400 0.3000
+Kd 0.2600 0.4400 0.3000
+Ks 0.2000 0.2000 0.2000
+d 0.2800
+illum 2
+
+newmtl Mat_KKLStreet
+Ka 0.2200 0.2300 0.2500
+Kd 0.2200 0.2300 0.2500
+Ks 0.2000 0.2000 0.2000
+d 0.4500
+illum 2
+

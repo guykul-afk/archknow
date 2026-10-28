@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>דוח בקרת איכות תכנון ואדריכלות — הרב קיטרוני 37–39, פתח תקווה</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Heebo:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 13mm 12mm 13mm 12mm;
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    body {
+      font-family: 'Assistant', 'Heebo', 'Segoe UI', Arial, sans-serif;
+      font-size: 9.2pt;
+      line-height: 1.44;
+      color: #0f172a;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+    h1, h2, h3 {
+      font-family: 'Heebo', sans-serif;
+      margin-top: 0;
+      color: #0f172a;
+    }
+    h2 {
+      font-size: 12pt;
+      font-weight: 800;
+      border-bottom: 2px solid #2563eb;
+      padding-bottom: 4px;
+      margin-top: 14px;
+      margin-bottom: 8px;
+      color: #1e293b;
+    }
+    .header-banner {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #0284c7 100%);
+      color: #ffffff;
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+    .header-banner h1 {
+      color: #ffffff;
+      margin: 0 0 4px 0;
+      font-size: 19pt;
+      font-weight: 900;
+    }
+    .header-subtitle {
+      font-size: 10.2pt;
+      font-weight: 600;
+      color: #93c5fd;
+      margin-bottom: 10px;
+    }
+    .header-meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      font-size: 8.2pt;
+      background: rgba(15, 23, 42, 0.45);
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+    .header-meta-item strong {
+      color: #fde047;
+      display: block;
+      font-size: 7.8pt;
+    }
+    .scorecard-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .score-card {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 10px;
+      text-align: center;
+    }
+    .score-card.primary {
+      background: #eff6ff;
+      border-color: #3b82f6;
+    }
+    .score-title {
+      font-size: 8pt;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 2px;
+    }
+    .score-val {
+      font-family: 'Heebo', sans-serif;
+      font-size: 20pt;
+      font-weight: 900;
+      color: #1e3a8a;
+      line-height: 1;
+    }
+    .score-sub {
+      font-size: 7.8pt;
+      color: #059669;
+      font-weight: 700;
+      margin-top: 3px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.1pt;
+      margin-bottom: 10px;
+      page-break-inside: avoid;
+    }
+    th, td {
+      padding: 5px 7px;
+      text-align: right;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: middle;
+    }
+    th {
+      background-color: #f1f5f9;
+      color: #1e293b;
+      font-weight: 700;
+      font-family: 'Heebo', sans-serif;
+      border-top: 1px solid #cbd5e1;
+      border-bottom: 2px solid #94a3b8;
+    }
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 7.2pt;
+      font-weight: 800;
+      font-family: 'Heebo', sans-serif;
+    }
+    .badge-pass { background-color: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+    .badge-warn { background-color: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+    .badge-info { background-color: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+    .section-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 9px 12px;
+      margin-bottom: 10px;
+      page-break-inside: avoid;
+    }
+    .alert-box {
+      border-radius: 6px;
+      padding: 8px 11px;
+      margin: 8px 0;
+      font-size: 8.4pt;
+      background-color: #eff6ff;
+      border-right: 4px solid #3b82f6;
+      color: #1e40af;
+    }
+    .recommendations-list {
+      counter-reset: rec-counter;
+      list-style: none;
+      padding: 0;
+      margin: 6px 0;
+    }
+    .recommendations-list li {
+      position: relative;
+      padding-right: 28px;
+      margin-bottom: 7px;
+    }
+    .recommendations-list li::before {
+      counter-increment: rec-counter;
+      content: counter(rec-counter);
+      position: absolute;
+      right: 0;
+      top: 1px;
+      width: 20px;
+      height: 20px;
+      background: #1e3a8a;
+      color: #fde047;
+      font-weight: 800;
+      font-size: 8pt;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .rec-title { font-weight: 800; color: #1e293b; font-size: 8.8pt; }
+    .rec-desc { color: #475569; font-size: 8pt; }
+    .footer-bar {
+      margin-top: 12px;
+      border-top: 1px solid #cbd5e1;
+      padding-top: 6px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 7.5pt;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-banner">
+    <h1>דוח בקרת איכות תכנון ואדריכלות מלא (v2.1)</h1>
+    <div class="header-subtitle">פרויקט הרב קיטרוני 37–39, פתח תקווה — ניתוח הנדסי, תאורה, אוורור ושימושיות (Zero-Trust White-Box Audit)</div>
+    <div class="header-meta">
+      <div class="header-meta-item">
+        <strong>יזם וקבלן מבצע:</strong>
+        יצחק קולסקי חברה לבניה והשקעות בע"מ
+      </div>
+      <div class="header-meta-item">
+        <strong>אדריכלות:</strong>
+        אילת קורן אדריכלים
+      </div>
+      <div class="header-meta-item">
+        <strong>היקף וגוש/חלקה:</strong>
+        63 יח"ד · 2 בניינים (9 קומות) · גוש 6375 חלקות 237–238
+      </div>
+      <div class="header-meta-item">
+        <strong>מנוע בקרה ותקינה:</strong>
+        archknow v2.1 (467 בדיקות דטרמיניסטיות)
+      </div>
+    </div>
+  </div>
+
+  <div class="scorecard-grid">
+    <div class="score-card primary">
+      <div class="score-title">ציון איכות אדריכלית משוקלל</div>
+      <div class="score-val">86.8<span style="font-size:11pt;color:#64748b;">/100</span></div>
+      <div class="score-sub">דירוג A- · קומפלקס דו-בנייני מצטיין</div>
+    </div>
+    <div class="score-card">
+      <div class="score-title">בדיקות מנוע דטרמיניסטי</div>
+      <div class="score-val" style="color:#059669;">410<span style="font-size:11pt;color:#64748b;">/467</span></div>
+      <div class="score-sub">87.8% PASS · 0 כשלים חוקיים (FAIL)</div>
+    </div>
+    <div class="score-card">
+      <div class="score-title">כיווני אוויר ואור יום</div>
+      <div class="score-val" style="color:#0284c7;">2–4</div>
+      <div class="score-sub">100% דירות פינתיות או פנטהאוזים!</div>
+    </div>
+    <div class="score-card">
+      <div class="score-title">היקף ביצוע וחניה</div>
+      <div class="score-val" style="color:#7c3aed;">63 יח"ד</div>
+      <div class="score-sub">41 יזם + 22 בעלים · 63 חניות (1:1.0)</div>
+    </div>
+  </div>
+
+  <div class="alert-box">
+    <strong>תמצית מנהלים:</strong> פרויקט <strong>הרב קיטרוני 37–39</strong> (63 יח"ד בשני בניינים בני 9 קומות מעל מרתף חניון משותף) משיג ציון איכות גבוה של <strong>86.8/100 (0 כשלי סף חוקיים מתוך 467 בדיקות)</strong>. נקודות החוזק הבולטות כוללות <strong>סלונים רחבים במיוחד בדירות 3 ו-4 חדרים (625×390 ס"מ ו-624×384 ס"מ)</strong>, <strong>סוויטת הורים יוצאת דופן בטיפוס SE (355×414 ס"מ = 14.70 מ"ר)</strong>, מרפסות שמש עמוקות של <strong>190–195 ס"מ</strong> בכל הדירות הטיפוסיות, ו<strong>פנטהאוזים בקומות 8–9 עם סלונים פנורמיים (405×896 ס"מ) וטרסות גג של עד 82.66 מ"ר</strong>.
+  </div>
+
+  <h2>📊 1. מטריצת ציוני איכות והשוואה לפרויקטי החברה</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 28%;">קטגוריית הערכה ותקינה</th>
+        <th style="width: 6%; text-align: center;">משקל</th>
+        <th style="width: 11%; text-align: center;">קטרוני 37–39</th>
+        <th style="width: 9%; text-align: center;">פינס 48</th>
+        <th style="width: 9%; text-align: center;">קק״ל 10</th>
+        <th style="width: 9%; text-align: center;">חפץ חיים 44</th>
+        <th style="width: 8%; text-align: center;">סטטוס</th>
+        <th style="width: 20%;">ממצא מרכזי מבוסס BIM</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. חקיקה ותקנות הבנייה (ישראל 2026)</strong></td>
+        <td style="text-align: center;">20%</td>
+        <td style="text-align: center; font-weight: 800; color: #1e3a8a;">96 / 100</td>
+        <td style="text-align: center;">94</td>
+        <td style="text-align: center;">96</td>
+        <td style="text-align: center;">97</td>
+        <td style="text-align: center;"><span class="badge badge-pass">PASS</span></td>
+        <td>0 כשלי סף; כל הממ"דים 9.11–10.72 מ"ר נטו; גובה 2.85–3.05 מ'.</td>
+      </tr>
+      <tr>
+        <td><strong>2. אור יום, מבט ואוורור (EN 17037 / CIBSE)</strong></td>
+        <td style="text-align: center;">18%</td>
+        <td style="text-align: center; font-weight: 800; color: #1e3a8a;">88 / 100</td>
+        <td style="text-align: center;">71</td>
+        <td style="text-align: center;">87</td>
+        <td style="text-align: center;">95</td>
+        <td style="text-align: center;"><span class="badge badge-info">טוב מאוד</span></td>
+        <td>2 כיווני אוויר פינתיים מלאים בקומות 1–7; 3–4 כיוונים בקומות 8–9.</td>
+      </tr>
+      <tr>
+        <td><strong>3. מדדי רווחה ופרופורציות (NDSS / ADG / HQI)</strong></td>
+        <td style="text-align: center;">16%</td>
+        <td style="text-align: center; font-weight: 800; color: #1e3a8a;">84 / 100</td>
+        <td style="text-align: center;">68</td>
+        <td style="text-align: center;">84</td>
+        <td style="text-align: center;">90</td>
+        <td style="text-align: center;"><span class="badge badge-info">טוב מאוד</span></td>
+        <td>סוויטת הורים SE מצטיינת (355×414 ס"מ); התראת רוחב ב-NW/SW (278–286 ס"מ).</td>
+      </tr>
+      <tr>
+        <td><strong>4. שימושיות, ריהוט וגמישות (Boverket / DIN)</strong></td>
+        <td style="text-align: center;">14%</td>
+        <td style="text-align: center; font-weight: 800; color: #1e3a8a;">82 / 100</td>
+        <td style="text-align: center;">70</td>
+        <td style="text-align: center;">80</td>
+        <td style="text-align: center;">84</td>
+        <td style="text-align: center;"><span class="badge badge-info">טוב מאוד</span></td>
+        <td>68%–78% מחיצות פריקות; סלונים רחבים 625×390 ס"מ בטיפוסי NE/SW.</td>
+      </tr>
+      <tr>
+        <td><strong>5. ארגונומיה, מטבחים ורחצה (NKBA / Neufert)</strong></td>
+        <td style="text-align: center;">12%</td>
+        <td style="text-align: center; font-weight: 800; color: #1e3a8a;">85 / 100</td>
+        <td style="text-align: center;">74</td>
+        <td style="text-align: center;">85</td>
+        <td style="text-align: center;">86</td>
+        <td style="text-align: center;"><span class="badge badge-info">טוב מאוד</span></td>
+        <td>מטבחים מרווחים (414×250 עד 504×315 ס"מ); מרפסות בעומק 190–195 ס"מ.</td>
+      </tr>
+      <tr>
+        <td><strong>6. תחביר המרחב ופרטיות (Space Syntax / SAGA)</strong></td>
+        <td style="text-align: center;">10%</td>
+        <td style="text-align: center; font-weight: 800; color: #1e3a8a;">83 / 100</td>
+        <td style="text-align: center;">74</td>
+        <td style="text-align: center;">82</td>
+        <td style="text-align: center;">85</td>
+        <td style="text-align: center;"><span class="badge badge-info">טוב מאוד</span></td>
+        <td>הפרדה ברורה בין יום ללילה (מסדרון 105 ס"מ); כניסה ישירה לסלון.</td>
+      </tr>
+      <tr>
+        <td><strong>7. מיגון ובטיחות אש (פיקוד העורף / ת"י)</strong></td>
+        <td style="text-align: center;">5%</td>
+        <td style="text-align: center; font-weight: 800; color: #1e3a8a;">97 / 100</td>
+        <td style="text-align: center;">95</td>
+        <td style="text-align: center;">97</td>
+        <td style="text-align: center;">98</td>
+        <td style="text-align: center;"><span class="badge badge-pass">PASS</span></td>
+        <td>ממ"דים 9.11–10.72 מ"ר ברוחב 271–285 ס"מ; 2 מדרגות מוגנות בכל בניין.</td>
+      </tr>
+      <tr>
+        <td><strong>8. תנועה, חניה וממשק עירוני (קרקע ומרתף)</strong></td>
+        <td style="text-align: center;">5%</td>
+        <td style="text-align: center; font-weight: 800; color: #1e3a8a;">88 / 100</td>
+        <td style="text-align: center;">76</td>
+        <td style="text-align: center;">86</td>
+        <td style="text-align: center;">93</td>
+        <td style="text-align: center;"><span class="badge badge-info">טוב מאוד</span></td>
+        <td>מרתף חניון משותף לשני הבניינים (63 חניות, יחס 1:1.0) ושני לובאים מרווחים.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>🏢 2. ניתוח מפורט לפי טיפוסי הדירות (63 יח"ד · בניינים 37 ו-39)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>טיפוס דירה</th>
+        <th>בניין ודירות</th>
+        <th>שטח פלדלת + מרפסת</th>
+        <th>כיווני אוויר</th>
+        <th>מידות חללים עיקריים (ס"מ)</th>
+        <th>בדיקות מנוע (PASS/WARN/FAIL)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>טיפוס NW (5 חד')</strong></td>
+        <td>בניין 37 (#1,5,9,13,17,21,25)</td>
+        <td>118.2–121.0 + 12 מ"ר</td>
+        <td>N / W (2)</td>
+        <td>סלון 414×408 · מטבח 414×250 · מרפסת 600×190 · הורים 286×370 · ממ"ד 271×372 · חדרים 300×294</td>
+        <td><strong>89 PASS</strong> · 13 WARN · <span class="badge badge-pass">0 FAIL</span></td>
+      </tr>
+      <tr>
+        <td><strong>טיפוס NE (3 חד')</strong></td>
+        <td>בניין 37 (#2,6,10,14,18,22)</td>
+        <td>80.0 + 14 מ"ר</td>
+        <td>N / E (2)</td>
+        <td>סלון רחב 625×390 · מטבח 235×304 · מרפסת 657×190 · הורים 358×304 · ממ"ד 271×377</td>
+        <td><strong>76 PASS</strong> · 9 WARN · <span class="badge badge-pass">0 FAIL</span></td>
+      </tr>
+      <tr>
+        <td><strong>טיפוסי SE / SW (4 חד')</strong></td>
+        <td>בניין 37 (#3,4,7,8,11,12,15,16,19,20,23,24)</td>
+        <td>101.0–103.0 + 12 מ"ר</td>
+        <td>S / E או S / W (2)</td>
+        <td>סלון 624×384 / 403×374 · מטבח 452×238 · הורים SE 355×414 (14.7 מ"ר!) · ח.שינה 368×302 · ממ"ד 281×332</td>
+        <td><strong>81 PASS</strong> · 13 WARN · <span class="badge badge-pass">0 FAIL</span></td>
+      </tr>
+      <tr>
+        <td><strong>בניין 39 טיפוסיות (3–5 חד')</strong></td>
+        <td>בניין 39 קומות 1–7 (#1–#28)</td>
+        <td>76.5–121.0 + 12–14 מ"ר</td>
+        <td>W / E / S (2–3)</td>
+        <td>סלון 580×360 / 436×348 · מטבח 330×248 · מרפסת 617×195 · הורים 323×320 / 298×355 · ממ"ד 285×328</td>
+        <td><strong>81 PASS</strong> · 13 WARN · <span class="badge badge-pass">0 FAIL</span></td>
+      </tr>
+      <tr>
+        <td><strong>פנטהאוזים קומות 8–9</strong></td>
+        <td>בניין 37 (#26–#30) + בניין 39 (#29–#33)</td>
+        <td>132–155 + 35–108 מ"ר גג</td>
+        <td>N / S / E / W (3–4)</td>
+        <td>סלון 405×896 / 425×846 · מטבח שף 504×315 · מרפסות גג 599×1380 + 285×901 · הורים 356×382</td>
+        <td><strong>85 PASS</strong> · 9 WARN · <span class="badge badge-pass">0 FAIL</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>🔧 3. המלצות הנדסיות ותכנוניות ליישום בתוכניות העבודה והמכר</h2>
+  <div class="section-card">
+    <ol class="recommendations-list">
+      <li>
+        <div class="rec-title">סיבוב העמדת המיטה בחדרי ההורים של טיפוסי NW ו-SW בבניין 37 (286×370 ס"מ ו-278×393 ס"מ)</div>
+        <div class="rec-desc">רוחב החדר (2.78–2.86 מ') עומד בתקנות הבנייה (≥2.60 מ') וב-NDSS (≥2.75 מ'), אך נמוך מרף ה-3.00 מ' של ADG. מיקום ארון הבגדים על הקיר הקצר וגב המיטה על הקיר הארוך (370–393 ס"מ) יגדיל את מעברי הצד מ-68 ס"מ ל-115 ס"מ (עובר DIN 18040-2).</div>
+      </li>
+      <li>
+        <div class="rec-title">חלוקת מעגלי תאורה דו-אזורית בחללי הסלון-אוכל העמוקים של הפנטהאוזים בקומה 9 (405×896 ס"מ)</div>
+        <div class="rec-desc">עומק החלל הציבורי (8.46–8.96 מ') חוצה את רף חדירת האור החד-צדדי של ADG 4D-2 (7.62 מ'). מומלץ להגדיר בתוכנית החשמל הדלקה נפרדת ועצמאית לאזור פינת האוכל הפנימי.</div>
+      </li>
+      <li>
+        <div class="rec-title">הוספת אלמנט מבואה / משרבייה בכניסה לדירות הטיפוסיות (Space Syntax SS-3)</div>
+        <div class="rec-desc">דלת הכניסה נפתחת ישירות אל חלל הסלון ללא מבואה סגורה. שילוב מחיצת נגרות/משרבייה ברוחב 80–90 ס"מ יעניק פרטיות ויזואלית מלאה מהמבואה הקומתית.</div>
+      </li>
+      <li>
+        <div class="rec-title">דלת הזזה לכיס (Pocket Door) בחדרי רחצה הורים (155×220 ס"מ) והתאמת ציר אסלה ל-45 ס"מ</div>
+        <div class="rec-desc">שחרור מרווח הכניסה בחדר רחצה הורים ועמידה מלאה בהמלצת הארגונומיה של NKBA לציר אסלה (45–46 ס"מ מקיר צד).</div>
+      </li>
+    </ol>
+  </div>
+
+  <div class="footer-bar">
+    <div><strong>archknow v2.1</strong> · מערכת ביקורת איכות אדריכלית, תאורה, אוורור, שימושיות ותקנים בינלאומיים</div>
+    <div>פרויקט הרב קיטרוני 37–39, פתח תקווה · יצחק קולסקי חברה לבניה והשקעות בע"מ · אוקטובר 2026</div>
+  </div>
+
+</body>
+</html>

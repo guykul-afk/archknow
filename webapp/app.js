@@ -324,7 +324,7 @@
         else if (['קקל', 'קק"ל', 'קק״ל', 'kkl', '10'].some((k) => q_low.includes(k))) staticFile = 'kkl10.json';
         else if (['פינס', 'pines', '48'].some((k) => q_low.includes(k))) staticFile = 'pines48.json';
 
-        const staticResp = await fetch(`/api/${staticFile}`);
+        const staticResp = await fetch(`/api/${staticFile}?v=6.9`, { cache: 'no-store' });
         if (!staticResp.ok) {
           throw new Error(`שגיאת שרת (${staticResp.status})`);
         }
@@ -1916,7 +1916,32 @@
     const baseAgSaved = Number(kpis.above_ground_saved_sqm || 0);
     const baseUgSaved = Number(kpis.underground_saved_sqm || 0);
     const totalOpaque = Number(facOpt.total_opaque_wall_sqm || 1000);
-    const recConvPct = totalOpaque > 0 ? Math.round((Number(kpis.facade_converted_to_plaster_sqm || 0) / totalOpaque) * 100) : 35;
+    const facDirItems = facOpt.by_facade || [];
+    let mainFacadesSqm = Number(facOpt.main_facades_opaque_sqm || 0);
+    let sideFacadesSqm = Number(facOpt.side_and_rear_facades_opaque_sqm || 0);
+    if (!mainFacadesSqm && !sideFacadesSqm && facDirItems.length > 0) {
+      facDirItems.forEach((f) => {
+        const opq = Number(f.opaque_area_sqm || 0);
+        const fn = String(f.facade_name || '');
+        const isMain = fn.includes('ראשית') || (fn.includes('רחוב') && !fn.includes('עורפית') && !fn.includes('צד'));
+        if (isMain) mainFacadesSqm += opq;
+        else sideFacadesSqm += opq;
+      });
+    }
+    const presetPlasterPct = Number(
+      facOpt.preset_plaster_pct ||
+        (totalOpaque > 0 && sideFacadesSqm > 0
+          ? Math.max(1, Math.min(100, Math.round((sideFacadesSqm / totalOpaque) * 100)))
+          : Math.max(1, Math.min(100, Math.round(Number(facOpt.optimized_plaster_pct || 75)))))
+    );
+    const presetDryPct = 100 - presetPlasterPct;
+    const presetPlasterSqm = Math.round(totalOpaque * (presetPlasterPct / 100.0) * 10) / 10;
+    const presetDrySqm = Math.round((totalOpaque - presetPlasterSqm) * 10) / 10;
+    const presetFacSavingIls = Math.round(presetPlasterSqm * 400);
+    const presetGrandTotalIls = Math.round(baseAgSaved * 6200) + Math.round(baseUgSaved * 3500) + presetFacSavingIls;
+    const presetSplitText =
+      facOpt.preset_split_rule_he ||
+      `פריסט פרויקט: חזיתות עיקריות חיפוי יבש (${presetDryPct}% = ${fmtNum(Math.round(mainFacadesSqm || presetDrySqm))} מ״ר) · חזיתות צד טיח (${presetPlasterPct}% = ${fmtNum(Math.round(sideFacadesSqm || presetPlasterSqm))} מ״ר)`;
 
     const agBeforeSqm = Number(agOpt.current_total_above_ground_sqm || 1);
     const agAfterSqm = Number(agOpt.optimized_total_above_ground_sqm || agBeforeSqm);
@@ -2043,11 +2068,11 @@
         <div class="ve-simulator-box">
           <div class="ve-sim-header">
             <div>
-              <div class="ve-sim-title">🧮 סימולטור חיסכון אינטראקטיבי — צמצום קונטור בנייה מאומת ויחס חיפוי יבש/טיח</div>
-              <div style="font-size:12px;color:#94a3b8;margin-top:2px;">הזז את המחוונים כדי לבחון תרחישי צמצום קונטור עילי (6,200 ₪/מ״ר), קונטור חניון (3,500 ₪/מ״ר) והמרת חיפוי יבש לטיח (700 ₪ לעומת 300 ₪ למ״ר)</div>
+              <div class="ve-sim-title">🧮 סימולטור חיסכון אינטראקטיבי — צמצום קונטור בנייה מאומת ויחס טיח / חיפוי יבש (1%–100%)</div>
+              <div style="font-size:12px;color:#94a3b8;margin-top:2px;">הזז את המחוונים (1%–100%) · ${presetSplitText}</div>
             </div>
             <div class="ve-sim-total-pill" id="ve-sim-live-total">
-              סה״כ חיסכון בסימולציה: ${fmtNum(kpis.grand_total_direct_saving_ils)} ₪
+              סה״כ חיסכון בסימולציה: ${fmtNum(presetGrandTotalIls)} ₪
             </div>
           </div>
 
@@ -2072,11 +2097,14 @@
 
             <div class="ve-sim-control-card">
               <label>
-                <span>🧱 % המרה מחיפוי יבש לטיח (מתוך ${fmtNum(totalOpaque)} מ״ר אטום):</span>
-                <strong id="sim-lbl-fac-pct">${recConvPct}% (${fmtNum(kpis.facade_converted_to_plaster_sqm)} מ״ר)</strong>
+                <span>🧱 % טיח / חיפוי יבש (מתוך ${fmtNum(totalOpaque)} מ״ר אטום · 1%–100%):</span>
+                <strong id="sim-lbl-fac-pct">${presetPlasterPct}% טיח (${fmtNum(presetPlasterSqm)} מ״ר) / ${presetDryPct}% חיפוי יבש (${fmtNum(presetDrySqm)} מ״ר)</strong>
               </label>
-              <input type="range" id="sim-range-fac-pct" min="0" max="75" step="1" value="${recConvPct}" />
-              <div class="sim-sub-val" id="sim-val-fac-ils">חיסכון חזיתות (400 ₪/מ״ר): ${fmtNum(kpis.facade_saving_ils)} ₪</div>
+              <input type="range" id="sim-range-fac-pct" min="1" max="100" step="1" value="${presetPlasterPct}" />
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:4px;">
+                <div class="sim-sub-val" id="sim-val-fac-ils">חיסכון חזיתות (400 ₪/מ״ר טיח מול יבש): ${fmtNum(presetFacSavingIls)} ₪</div>
+                <button type="button" id="btn-reset-fac-preset" class="ctrl-btn" style="font-size:10.5px;padding:2px 7px;" title="${presetSplitText}">פריסט: עיקריות יבש (${presetDryPct}%) / צד טיח (${presetPlasterPct}%)</button>
+              </div>
             </div>
           </div>
         </div>
@@ -2308,15 +2336,18 @@
     const rangeAg = valueEngModalBody.querySelector('#sim-range-ag-sqm');
     const rangeUg = valueEngModalBody.querySelector('#sim-range-ug-sqm');
     const rangeFac = valueEngModalBody.querySelector('#sim-range-fac-pct');
+    const btnResetFacPreset = valueEngModalBody.querySelector('#btn-reset-fac-preset');
 
     function updateLiveSimulation() {
       const agSqm = Number(rangeAg ? rangeAg.value : baseAgSaved);
       const ugSqm = Number(rangeUg ? rangeUg.value : baseUgSaved);
-      const facPct = Number(rangeFac ? rangeFac.value : recConvPct);
+      const facPct = Math.max(1, Math.min(100, Number(rangeFac ? rangeFac.value : presetPlasterPct)));
+      const dryPct = 100 - facPct;
 
       const agIls = Math.round(agSqm * 6200);
       const ugIls = Math.round(ugSqm * 3500);
       const facConvSqm = Math.round(totalOpaque * (facPct / 100.0) * 10) / 10;
+      const facDrySqm = Math.round((totalOpaque - facConvSqm) * 10) / 10;
       const facIls = Math.round(facConvSqm * 400);
       const grandTotalIls = agIls + ugIls + facIls;
 
@@ -2332,14 +2363,20 @@
       if (valAg) valAg.textContent = `חיסכון עילי: ${fmtNum(agIls)} ₪`;
       if (lblUg) lblUg.textContent = `${fmtNum(ugSqm)} מ״ר`;
       if (valUg) valUg.textContent = `חיסכון חניון: ${fmtNum(ugIls)} ₪`;
-      if (lblFac) lblFac.textContent = `${facPct}% (${fmtNum(facConvSqm)} מ״ר)`;
-      if (valFac) valFac.textContent = `חיסכון חזיתות (400 ₪/מ״ר): ${fmtNum(facIls)} ₪`;
+      if (lblFac) lblFac.textContent = `${facPct}% טיח (${fmtNum(facConvSqm)} מ״ר) / ${dryPct}% חיפוי יבש (${fmtNum(facDrySqm)} מ״ר)`;
+      if (valFac) valFac.textContent = `חיסכון חזיתות (400 ₪/מ״ר טיח מול יבש): ${fmtNum(facIls)} ₪`;
       if (liveTot) liveTot.textContent = `סה״כ חיסכון בסימולציה: ${fmtNum(grandTotalIls)} ₪`;
     }
 
     if (rangeAg) rangeAg.addEventListener('input', updateLiveSimulation);
     if (rangeUg) rangeUg.addEventListener('input', updateLiveSimulation);
     if (rangeFac) rangeFac.addEventListener('input', updateLiveSimulation);
+    if (btnResetFacPreset && rangeFac) {
+      btnResetFacPreset.addEventListener('click', () => {
+        rangeFac.value = String(presetPlasterPct);
+        updateLiveSimulation();
+      });
+    }
 
     // Wire up "הצג איפה ואיך על התכנית" buttons inside the modal tables and cards
     valueEngModalBody.querySelectorAll('.btn-locate-on-plan').forEach((btn) => {

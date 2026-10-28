@@ -1,0 +1,138 @@
+{
+  "proj": "Feierberg 3, Petah Tikva (Gush 6387, Helka 193)",
+  "validation_report": {
+    "1_vertical_continuity": "PASSED (Core Stairwell X=[-3.475, 0.425], Z=[-4.20, -0.20] & Elevator Shaft X=[2.225, 4.375], Z=[-4.20, -2.00] continuous from Basement -2 -7.80m to Roof +35.17m; IoU = 1.000)",
+    "2_z_axis_checksum": "PASSED (-7.80 + 3.00 = -4.80; -4.80 + 4.80 = 0.00; 0.00 + 3.50 = +3.50; +3.50 + 7*3.15 = +25.55; +25.55 + 3.32 = +28.87; +28.87 + 3.15 = +32.02; +32.02 + 3.15 = +35.17; +35.17 + 2.33 = +37.50m; Cumulative Z Error = 0.00m)",
+    "3_site_boundaries": "PASSED (Lot 548 sqm, 33.50m x 16.40m; Basements -1/-2 0.00m setback; Floors 1-8 26.25m x 8.40m with 3.60m side & 4.00m N/S setbacks; Floors 9-10 23.25m x 6.40m with 4.00m side setbacks)",
+    "4_topology_and_clash": "PASSED (Morphological filter p.buffer(-0.22).is_empty verified; Elevator 1.75x1.80m & Stairwell 3.50x3.60m hollow; zero diagonal floor triangulation artifacts)",
+    "5_orthographic_reprojection": "PASSED (All 4 elevations South/North/East/West and Sections A-A/B-B matched 1:1 including 2-story C-frames, Floor 8 pergolas, and dark charcoal Penthouse Floors 9-10 crown)"
+  },
+  "site": {
+    "lot_polygon": [
+      [
+        -16.75,
+        -8.2
+      ],
+      [
+        16.75,
+        -8.2
+      ],
+      [
+        16.75,
+        8.2
+      ],
+      [
+        -16.75,
+        8.2
+      ]
+    ],
+    "setbacks": {
+      "south_street": 4.0,
+      "north_rear": 4.0,
+      "west_side_typ": 3.6,
+      "east_side_typ": 3.6,
+      "side_penthouse": 4.0,
+      "basement": 0.0
+    },
+    "street": {
+      "name": "רחוב פיארברג 3, פתח תקווה",
+      "side": "South (+Z)",
+      "azimuth_deg": 17.4
+    }
+  },
+  "levels": [
+    {
+      "id": "L_B2",
+      "name": "קומת מרתף 2- (חניון תחתון)",
+      "elev": -7.8,
+      "h": 3.0,
+      "slab": 0.4
+    },
+    {
+      "id": "L_B1",
+      "name": "קומת מרתף 1- (חניון עליון)",
+      "elev": -4.8,
+      "h": 4.8,
+      "slab": 0.3
+    },
+    {
+      "id": "L_0",
+      "name": "קומת קרקע (לובי ופיתוח)",
+      "elev": 0.0,
+      "h": 3.5,
+      "slab": 0.25
+    },
+    {
+      "id": "L_TYP_1_7",
+      "name": "קומות א'-ז' (קומות טיפוסיות 1-7)",
+      "elev": 3.5,
+      "h": 3.15,
+      "slab": 0.2,
+      "repeat": 7
+    },
+    {
+      "id": "L_8",
+      "name": "קומה ח' (קומה 8 + פרגולות)",
+      "elev": 25.55,
+      "h": 3.32,
+      "slab": 0.22
+    },
+    {
+      "id": "L_9",
+      "name": "קומה ט' (דופלקס פנטהאוז תחתון)",
+      "elev": 28.87,
+      "h": 3.15,
+      "slab": 0.2
+    },
+    {
+      "id": "L_10",
+      "name": "קומה י' (דופלקס פנטהאוז עליון)",
+      "elev": 32.02,
+      "h": 3.15,
+      "slab": 0.2
+    },
+    {
+      "id": "L_ROOF",
+      "name": "גג עליון ויציאה לגג",
+      "elev": 35.17,
+      "h": 2.33,
+      "slab": 0.2
+    }
+  ],
+  "core": {
+    "stairwell": {
+      "outer": [
+        -3.475,
+        -4.2,
+        0.425,
+        -0.2
+      ],
+      "inner": [
+        -3.275,
+        -4.0,
+        0.225,
+        -0.4
+      ]
+    },
+    "elevator": {
+      "outer": [
+        2.225,
+        -4.2,
+        4.375,
+        -2.0
+      ],
+      "inner": [
+        2.425,
+        -4.0,
+        4.175,
+        -2.2
+      ],
+      "door": [
+        2.9,
+        -2.2,
+        3.8,
+        -2.0
+      ]
+    }
+  }
+}

@@ -12,7 +12,7 @@
  *    findings directly in 3D space (1:1 metric CAD coordinates).
  * 2. Provides Interactive "Before (מצב קיים) ↔ After (מצב מוצע)" 3D geometric overlays
  *    for Hafetz Haim 44 (Basement 3-arm ramp headroom H_clear, 58m² shoring cut,
- *    Stall #16 relocation, Mamad drop-walls 3 storage rooms, West corridor 90->100cm,
+ *    Stall #16 relocation, Mamad drop-walls 3 storage rooms, West corridor 100/105->105cm uniform,
  *    Walk-in closet cancellation, Penthouse 96->120cm island shift, Ground 32m² recess,
  *    and 4-Facade 524m² HPL vs. Plaster material breakdown).
  * 3. Bi-directional postMessage sync with ArchiCheck Web UI (2D Plan + Inspector Drawer).
@@ -38,9 +38,135 @@
   waitForHostScene(initAudit3DOverlay);
 
   function initAudit3DOverlay() {
-    // 1. Inject Styles for 3D Audit Pins, HUD & Before/After Controls
+    // =========================================================================
+    // 0. CLEAN ARCHITECTURAL PLANNING MODE (STRIP MARKETING / GIS / CATALOG)
+    // =========================================================================
+    function enforceCleanArchitecturalScene() {
+      try {
+        if (typeof gmapsVisible !== 'undefined') gmapsVisible = false;
+        if (typeof gisMapPlanesGroup !== 'undefined' && gisMapPlanesGroup) {
+          gisMapPlanesGroup.visible = false;
+        }
+        if (typeof gisRadiiVisible !== 'undefined') gisRadiiVisible = false;
+        if (typeof gisRingsGroup !== 'undefined' && gisRingsGroup) {
+          gisRingsGroup.visible = false;
+        }
+        if (typeof gisPoisVisible !== 'undefined') gisPoisVisible = false;
+        if (typeof gisPoisGroup !== 'undefined' && gisPoisGroup) {
+          gisPoisGroup.visible = false;
+        }
+        if (typeof units3DVisible !== 'undefined') units3DVisible = false;
+        if (typeof units3DGroup !== 'undefined' && units3DGroup) {
+          units3DGroup.visible = false;
+        }
+        if (typeof showLabels !== 'undefined') showLabels = false;
+        if (typeof isNightMode !== 'undefined' && isNightMode && typeof nightLightsGroup !== 'undefined') {
+          isNightMode = false;
+          nightLightsGroup.visible = false;
+        }
+        if (typeof scene !== 'undefined' && scene && scene.background && typeof scene.background.setHex === 'function') {
+          scene.background.setHex(0xeef2f6);
+        }
+      } catch (e) {}
+    }
+
+    enforceCleanArchitecturalScene();
+
+    // Add a clean architectural studio metric CAD grid at ground level (y = -0.15)
+    let archGroundGrid = null;
+    try {
+      archGroundGrid = new THREE.GridHelper(68, 68, 0x94a3b8, 0xdbe3ec);
+      archGroundGrid.position.set(0.5, -0.15, 0.0);
+      if (archGroundGrid.material) {
+        archGroundGrid.material.transparent = true;
+        archGroundGrid.material.opacity = 0.55;
+      }
+      scene.add(archGroundGrid);
+    } catch (e) {}
+
+    // Focus camera directly on the building in clean architectural view and sync WebGL canvas size
+    if (typeof activatePreset === 'function') {
+      try {
+        activatePreset('iso_east');
+        if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
+          camState.spherical.radius = 44.0;
+          camState.spherical.phi = 1.02;
+          camState.target.set(0.5, 13.5, 0.0);
+          updateCameraFromOrbit();
+        }
+      } catch (e) {}
+    }
+    enforceCleanArchitecturalScene();
+
+    const triggerHostResize = () => {
+      try { window.dispatchEvent(new Event('resize')); } catch (e) {}
+    };
+    triggerHostResize();
+    setTimeout(triggerHostResize, 120);
+    setTimeout(triggerHostResize, 450);
+    if (typeof ResizeObserver !== 'undefined' && document.body) {
+      const ro = new ResizeObserver(() => triggerHostResize());
+      ro.observe(document.body);
+    }
+
+    // 1. Inject Styles for Clean Architectural Mode, 3D Audit Pins, HUD & Before/After Controls
     const styleEl = document.createElement('style');
     styleEl.textContent = `
+      /* Hide all marketing, GIS, radii, POIs, and apartment sales catalog UI elements */
+      #gis-labels-container,
+      #gis-active-card,
+      #units-labels-container,
+      #unit-sales-card,
+      #labels-container,
+      #drawer-units,
+      #drawer-apartments,
+      #drawer-gis,
+      #btn-top-gis-map,
+      #btn-top-units-3d,
+      #btn-top-radii,
+      #btn-top-pois,
+      #btn-top-night,
+      #btn-gmaps,
+      [data-drawer="drawer-units"],
+      [data-drawer="drawer-apartments"],
+      [data-drawer="drawer-gis"] {
+        display: none !important;
+      }
+
+      /* Architectural Toolbar Buttons in .top-header */
+      .arch-nav-btn {
+        border: 1px solid #cbd5e1;
+        background: #ffffff;
+        color: #1e293b;
+        border-radius: 7px;
+        padding: 4px 9px;
+        font-family: 'Heebo', system-ui, sans-serif;
+        font-size: 11.5px;
+        font-weight: 800;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: all 0.14s ease;
+        white-space: nowrap;
+      }
+      .arch-nav-btn:hover {
+        background: #f1f5f9;
+        border-color: #94a3b8;
+      }
+      .arch-nav-btn.active {
+        background: #1e3a8a;
+        color: #ffffff;
+        border-color: #1d4ed8;
+        box-shadow: 0 2px 6px rgba(30, 58, 138, 0.25);
+      }
+      .arch-nav-sep {
+        width: 1px;
+        height: 18px;
+        background: #cbd5e1;
+        margin: 0 2px;
+      }
+
       #audit-3d-pins-container {
         position: absolute;
         inset: 0;
@@ -88,7 +214,7 @@
         z-index: 60 !important;
       }
       .audit-3d-pin.dimmed-pin {
-        opacity: 0.42;
+        opacity: 0.45;
       }
       .audit-pin-FAIL { background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); }
       .audit-pin-WARN { background: linear-gradient(135deg, #d97706 0%, #b45309 100%); }
@@ -106,35 +232,16 @@
         font-size: 11px;
         font-weight: 800;
         color: #ffffff;
-        background: rgba(15, 23, 42, 0.88);
+        background: rgba(15, 23, 42, 0.90);
         border: 1.5px solid #38bdf8;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
         white-space: nowrap;
         z-index: 23;
       }
 
-      /* Floating ArchiCheck 3D Control Dock */
+      /* Floating ArchiCheck 3D Control Dock — hidden to prevent duplicate text box next to findings panel */
       #archicheck-3d-hud {
-        position: absolute;
-        top: 66px;
-        left: 14px;
-        z-index: 32;
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-        width: 345px;
-        max-width: calc(100vw - 28px);
-        background: rgba(15, 23, 42, 0.93);
-        color: #f8fafc;
-        border: 1px solid rgba(148, 163, 184, 0.45);
-        border-radius: 14px;
-        padding: 11px 13px;
-        font-family: 'Heebo', system-ui, sans-serif;
-        box-shadow: 0 16px 36px rgba(15, 23, 42, 0.40);
-        backdrop-filter: blur(12px);
-      }
-      #archicheck-3d-hud.hud-minimized .hud-body-content {
-        display: none;
+        display: none !important;
       }
       .ac3d-hdr {
         display: flex;
@@ -143,7 +250,7 @@
         gap: 8px;
       }
       .ac3d-title {
-        font-size: 12.5px;
+        font-size: 12px;
         font-weight: 900;
         color: #fde047;
         display: flex;
@@ -153,17 +260,17 @@
       .ac3d-btn-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 5px;
+        gap: 4px;
       }
       .ac3d-chip {
         flex: 1;
-        min-width: 60px;
+        min-width: 54px;
         border: 1px solid #475569;
         background: #1e293b;
         color: #e2e8f0;
         border-radius: 7px;
-        padding: 4px 7px;
-        font-size: 11px;
+        padding: 4px 6px;
+        font-size: 10.5px;
         font-weight: 700;
         cursor: pointer;
         text-align: center;
@@ -187,8 +294,8 @@
       .ac3d-ba-btn {
         border: none;
         border-radius: 6px;
-        padding: 6px 8px;
-        font-size: 11.5px;
+        padding: 5px 7px;
+        font-size: 11px;
         font-weight: 800;
         cursor: pointer;
         color: #94a3b8;
@@ -209,29 +316,326 @@
         background: rgba(30, 41, 59, 0.95);
         border: 1px solid #38bdf8;
         border-radius: 9px;
-        padding: 8px 10px;
-        font-size: 11.5px;
-        line-height: 1.4;
+        padding: 7px 9px;
+        font-size: 11px;
+        line-height: 1.38;
+      }
+      .top-header {
+        top: 8px !important;
+        right: 10px !important;
+        left: 10px !important;
+        padding: 6px 12px !important;
+        border-radius: 12px !important;
       }
       body.archicheck-embedded .bottom-right-sections {
         bottom: 10px;
         right: 10px;
-        width: 270px;
+        width: 265px;
         padding: 8px 10px;
       }
-      body.archicheck-embedded .top-header {
-        top: 8px;
-        right: 10px;
-        left: 10px;
-        padding: 5px 10px;
-      }
       body.archicheck-embedded #archicheck-3d-hud {
-        top: 58px;
+        top: 56px;
         left: 10px;
-        width: 315px;
+        width: 300px;
       }
     `;
     document.head.appendChild(styleEl);
+
+    // Transform the Host Top Header & Settings Drawer into a Clean Architectural Planning Interface
+    function adaptHostInterfaceForPlanningAnalysis() {
+      // 1. Update header subtitle from marketing portal to architectural planning analysis
+      const headerEl = document.querySelector('header.top-header');
+      if (headerEl) {
+        const badgeSpans = headerEl.querySelectorAll('span');
+        badgeSpans.forEach((sp) => {
+          if (sp.textContent && (sp.textContent.includes('שיווק') || sp.textContent.includes('דרגן'))) {
+            sp.textContent = '📐 סביבת ניתוח אדריכלי, בקרת תכנון והנדסת ערך (BIM 1:50)';
+            sp.style.background = '#eff6ff';
+            sp.style.borderColor = '#93c5fd';
+            sp.style.color = '#1e3a8a';
+          }
+        });
+      }
+
+      // 2. Clean up #drawer-settings (hide marketing finish packages, keep BIM layers & CAD controls)
+      const drawerSettings = document.getElementById('drawer-settings');
+      if (drawerSettings) {
+        const titleSpan = drawerSettings.querySelector('.flex-between span');
+        if (titleSpan) titleSpan.textContent = '🧱 שכבות BIM, שרטוט CAD והגדרות מודל תכנוני';
+        const pkgButtons = document.getElementById('interior-pkg-buttons');
+        if (pkgButtons) {
+          const pkgBox = pkgButtons.closest('.section-box');
+          if (pkgBox) pkgBox.style.display = 'none';
+        }
+      }
+
+      // 3. Rebuild #view-buttons into a clean Architectural Planning & Floor Cut Bar
+      const viewBtnsContainer = document.getElementById('view-buttons');
+      const measureBtn = document.getElementById('btn-top-measure');
+      const settingsBtn = document.querySelector('[data-drawer="drawer-settings"]');
+
+      if (viewBtnsContainer) {
+        // Keep measureBtn and settingsBtn in DOM but detach temporarily
+        if (measureBtn) {
+          measureBtn.className = 'arch-nav-btn';
+          measureBtn.innerHTML = '📏 מדידה';
+        }
+        if (settingsBtn) {
+          settingsBtn.className = 'arch-nav-btn';
+          settingsBtn.innerHTML = '<span>🧱 שכבות BIM</span><span style="font-size:10px;">▾</span>';
+        }
+
+        // Hide all existing marketing buttons inside #view-buttons
+        Array.from(viewBtnsContainer.children).forEach((ch) => {
+          if (ch !== measureBtn && ch !== settingsBtn) {
+            ch.style.display = 'none';
+          }
+        });
+
+        // Create dedicated Architectural Planning Floor & Projection buttons
+        const archButtons = [
+          {
+            id: 'arch-btn-all',
+            label: '🏢 מבנה שלם',
+            title: 'תצוגת מבנה שלם בתלת-ממד (איזומטריה)',
+            active: true,
+            onClick: () => {
+              if (typeof selectFloor === 'function') selectFloor('all');
+              if (typeof activatePreset === 'function') activatePreset('iso_east');
+              if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
+                camState.spherical.radius = 44.0;
+                camState.spherical.phi = 1.02;
+                camState.target.set(0.5, 13.5, 0.0);
+                updateCameraFromOrbit();
+              }
+              enforceCleanArchitecturalScene();
+              syncArchFloorBtns('all');
+            }
+          },
+          {
+            id: 'arch-btn-mar',
+            label: projectId === 'feierberg3' ? '🅿️ מרתפים (1-/2-)' : '🅿️ מרתף (-5.10)',
+            title: 'חתך קומת מרתף חניון, רמפה היקפית ודיפון',
+            onClick: () => {
+              const bsmFlr = resolveHostFloorId('basement1');
+              if (typeof setOrthoMode === 'function') setOrthoMode(false);
+              if (typeof setSliceMode === 'function') setSliceMode('single');
+              if (typeof selectFloor === 'function') selectFloor(bsmFlr);
+              if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
+                camState.target.set(-2.0, -4.5, 1.5);
+                camState.spherical.radius = 34.0;
+                camState.spherical.phi = 0.52;
+                camState.spherical.theta = 1.25;
+                updateCameraFromOrbit();
+              }
+              renderBeforeAfterScene3D('basement_ve_full');
+              enforceCleanArchitecturalScene();
+              syncArchFloorBtns(bsmFlr);
+              syncAuditVisibility();
+            }
+          },
+          {
+            id: 'arch-btn-kar',
+            label: '🏛️ קרקע (±0.00)',
+            title: 'חתך קומת קרקע, לובי, פיתוח מגרש וחניות עיליות',
+            onClick: () => {
+              if (typeof setOrthoMode === 'function') setOrthoMode(false);
+              if (typeof setSliceMode === 'function') setSliceMode('single');
+              if (typeof selectFloor === 'function') selectFloor('kar');
+              if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
+                camState.target.set(1.5, 0.5, 0.0);
+                camState.spherical.radius = 34.0;
+                camState.spherical.phi = 0.56;
+                camState.spherical.theta = 1.22;
+                updateCameraFromOrbit();
+              }
+              renderBeforeAfterScene3D('ground_contour_recess');
+              enforceCleanArchitecturalScene();
+              syncArchFloorBtns('kar');
+              syncAuditVisibility();
+            }
+          },
+          {
+            id: 'arch-btn-f4',
+            label: '📐 קומה טיפוסית (ק׳ 1–8)',
+            title: 'חתך קומה טיפוסית (2 דירות טיפוסיות בקומה)',
+            onClick: () => {
+              if (typeof setOrthoMode === 'function') setOrthoMode(false);
+              if (typeof setSliceMode === 'function') setSliceMode('single');
+              if (typeof selectFloor === 'function') selectFloor('f4');
+              if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
+                camState.target.set(-1.0, 13.5, -0.5);
+                camState.spherical.radius = 28.0;
+                camState.spherical.phi = 0.50;
+                camState.spherical.theta = 1.45;
+                updateCameraFromOrbit();
+              }
+              renderBeforeAfterScene3D(projectId === 'feierberg3' ? 'fb3_apt1_corridor_fix' : 'west_corridor_fix');
+              enforceCleanArchitecturalScene();
+              syncArchFloorBtns('f4');
+              syncAuditVisibility();
+            }
+          },
+          {
+            id: 'arch-btn-f9',
+            label: projectId === 'feierberg3' ? '👑 פנטהאוז (ק׳ 9–10)' : '👑 פנטהאוז (ק׳ 9)',
+            title: 'חתך קומת פנטהאוז ומרפסות גג',
+            onClick: () => {
+              const phFlr = resolveHostFloorId('penthouse');
+              if (typeof setOrthoMode === 'function') setOrthoMode(false);
+              if (typeof setSliceMode === 'function') setSliceMode('single');
+              if (typeof selectFloor === 'function') selectFloor(phFlr);
+              if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
+                camState.target.set(0.5, 29.2, 0.0);
+                camState.spherical.radius = 28.0;
+                camState.spherical.phi = 0.52;
+                camState.spherical.theta = 1.35;
+                updateCameraFromOrbit();
+              }
+              renderBeforeAfterScene3D('penthouse_island_fix');
+              enforceCleanArchitecturalScene();
+              syncArchFloorBtns(phFlr);
+              syncAuditVisibility();
+            }
+          }
+        ];
+
+        const frag = document.createDocumentFragment();
+        archButtons.forEach((cfg) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.id = cfg.id;
+          b.className = 'arch-nav-btn arch-floor-quick' + (cfg.active ? ' active' : '');
+          b.title = cfg.title;
+          b.textContent = cfg.label;
+          b.addEventListener('click', cfg.onClick);
+          frag.appendChild(b);
+        });
+
+        const sep1 = document.createElement('span');
+        sep1.className = 'arch-nav-sep';
+        frag.appendChild(sep1);
+
+        // Top-Down 1:50 Orthographic Plan Button
+        const orthoQuickBtn = document.createElement('button');
+        orthoQuickBtn.type = 'button';
+        orthoQuickBtn.id = 'arch-btn-ortho-top';
+        orthoQuickBtn.className = 'arch-nav-btn';
+        orthoQuickBtn.title = 'מעבר בין מבט-על אורתוגרפי דו-ממדי (1:50) לבין מבט תלת-ממדי (פרספקטיבה)';
+        orthoQuickBtn.textContent = '📐 היטל 1:50';
+        orthoQuickBtn.addEventListener('click', () => {
+          if (typeof isOrtho !== 'undefined' && typeof setOrthoMode === 'function') {
+            const nextOrtho = !isOrtho;
+            if (nextOrtho) {
+              if (typeof currentFloorId !== 'undefined' && currentFloorId === 'all') {
+                if (typeof setSliceMode === 'function') setSliceMode('single');
+                if (typeof selectFloor === 'function') selectFloor('f4');
+                syncArchFloorBtns('f4');
+              }
+              if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
+                camState.spherical.theta = -Math.PI / 2;
+                camState.spherical.phi = 0.03;
+                camState.spherical.radius = 32.0;
+                updateCameraFromOrbit();
+              }
+              setOrthoMode(true);
+            } else {
+              setOrthoMode(false);
+              if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
+                camState.spherical.phi = 0.56;
+                camState.spherical.theta = 1.25;
+                updateCameraFromOrbit();
+              }
+            }
+            orthoQuickBtn.classList.toggle('active', nextOrtho);
+          }
+        });
+        frag.appendChild(orthoQuickBtn);
+
+        // Toggle 3D Furniture Button (so architect can inspect bare CAD walls vs furnished rooms)
+        let furnVis = true;
+        const furnQuickBtn = document.createElement('button');
+        furnQuickBtn.type = 'button';
+        furnQuickBtn.id = 'arch-btn-furn';
+        furnQuickBtn.className = 'arch-nav-btn active';
+        furnQuickBtn.title = 'הצג/הסתר ריהוט פנים תלת-ממדי לצפייה נקייה בקירות ובשרטוט ה-CAD';
+        furnQuickBtn.textContent = '🛋️ ריהוט 3D';
+        furnQuickBtn.addEventListener('click', () => {
+          furnVis = !furnVis;
+          if (typeof toggleLayer === 'function') toggleLayer('furn3d', furnVis);
+          furnQuickBtn.classList.toggle('active', furnVis);
+        });
+        frag.appendChild(furnQuickBtn);
+
+        // Compact Before/After Toggle Button in Top Bar (replaces floating left HUD box)
+        const baQuickBtn = document.createElement('button');
+        baQuickBtn.type = 'button';
+        baQuickBtn.id = 'arch-btn-ba-mode';
+        baQuickBtn.className = 'arch-nav-btn active';
+        baQuickBtn.style.background = '#059669';
+        baQuickBtn.style.borderColor = '#047857';
+        baQuickBtn.style.color = '#ffffff';
+        baQuickBtn.title = 'החלף בין מצב מוצע (VE + תיקון) לבין מצב קיים בתכנית';
+        baQuickBtn.textContent = '🟢 מצב מוצע (VE)';
+        baQuickBtn.addEventListener('click', () => {
+          const nextMode = !isProposedMode;
+          setBeforeAfterMode(nextMode);
+          baQuickBtn.textContent = nextMode ? '🟢 מצב מוצע (VE)' : '🔴 מצב קיים';
+          baQuickBtn.style.background = nextMode ? '#059669' : '#dc2626';
+          baQuickBtn.style.borderColor = nextMode ? '#047857' : '#b91c1c';
+        });
+        frag.appendChild(baQuickBtn);
+
+        viewBtnsContainer.insertBefore(frag, viewBtnsContainer.firstChild);
+      }
+    }
+
+    function resolveHostFloorId(roleOrSheet) {
+      const s = String(roleOrSheet || '').toLowerCase();
+      const hostFloors = (typeof FLOORS !== 'undefined' && Array.isArray(FLOORS)) ? FLOORS.map((f) => f.id) : [];
+      if (s.includes('basement2') || s === 'b2') {
+        return hostFloors.includes('b2') ? 'b2' : (hostFloors.includes('mar') ? 'mar' : 'b1');
+      }
+      if (s.includes('basement') || s === 'mar' || s === 'b1') {
+        return hostFloors.includes('b1') ? 'b1' : 'mar';
+      }
+      if (s.includes('ground') || s === 'kar') {
+        return 'kar';
+      }
+      if (s.includes('floor10') || s === 'f10') {
+        return hostFloors.includes('f10') ? 'f10' : (hostFloors.includes('f9') ? 'f9' : 'f6');
+      }
+      if (s.includes('penthouse') || s.includes('floor9') || s === 'f9' || s.includes('f6') || s.includes('f7')) {
+        if (hostFloors.includes('f9')) return 'f9';
+        if (hostFloors.includes('f6')) return 'f6';
+        return 'f9';
+      }
+      if (s.includes('roof') || s === 'gag') {
+        return hostFloors.includes('gag') ? 'gag' : 'f9';
+      }
+      return 'f4';
+    }
+
+    function syncArchFloorBtns(floorId) {
+      const mapId = {
+        all: 'arch-btn-all',
+        mar: 'arch-btn-mar', b1: 'arch-btn-mar', b2: 'arch-btn-mar',
+        kar: 'arch-btn-kar',
+        f1: 'arch-btn-f4', f2: 'arch-btn-f4', f3: 'arch-btn-f4', f4: 'arch-btn-f4',
+        f5: 'arch-btn-f4', f6: (projectId === 'yatkovski7' ? 'arch-btn-f9' : 'arch-btn-f4'),
+        f7: 'arch-btn-f4', f8: 'arch-btn-f4',
+        f9: 'arch-btn-f9', f10: 'arch-btn-f9', gag: 'arch-btn-f9'
+      };
+      const targetBtnId = mapId[floorId] || '';
+      document.querySelectorAll('.arch-floor-quick').forEach((b) => {
+        b.classList.toggle('active', b.id === targetBtnId);
+      });
+      if (archGroundGrid) {
+        archGroundGrid.visible = !['mar', 'b1', 'b2'].includes(floorId);
+      }
+    }
+
+    adaptHostInterfaceForPlanningAnalysis();
 
     if (isEmbedded) {
       document.body.classList.add('archicheck-embedded');
@@ -241,10 +645,6 @@
       if (secPanel && !secPanel.classList.contains('collapsed')) {
         secPanel.classList.add('collapsed');
         if (secBtn) secBtn.textContent = '+ פתח חתכים';
-      }
-      // Switch initial camera from distant 480m aerial to close architectural 3D building view
-      if (typeof activatePreset === 'function') {
-        activatePreset('iso_east');
       }
     }
 
@@ -281,6 +681,10 @@
         <div id="ac3d-active-callout" class="ac3d-active-callout">
           <div style="font-weight:800;color:#fde047;margin-bottom:2px;">בחר סיכה במודל או ממצא ברשימה</div>
           <div style="color:#cbd5e1;font-size:11px;">המודל יחתוך אוטומטית לקומה הרלוונטית ויציג את נפח הבדיקה והשינוי המוצע בתלת-ממד.</div>
+        </div>
+        <div id="ac3d-model-sync-bar" style="display:flex;align-items:center;justify-content:space-between;gap:6px;padding:5px 8px;border-radius:7px;background:rgba(15,23,42,0.88);border:1px solid #334155;font-size:10.5px;color:#cbd5e1;">
+          <span id="ac3d-sync-status-lbl" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">🧊 מודל 3D בסיסי מנוטר...</span>
+          <button type="button" id="ac3d-btn-reaudit" class="ac3d-chip" style="flex:0;min-width:auto;padding:2px 7px;border-color:#38bdf8;color:#38bdf8;" title="בדוק אם מודל ה-3D הבסיסי שונה והרץ בדיקה תכנונית מלאה חדשה">🔄 בדוק/בקר</button>
         </div>
       </div>
     `;
@@ -404,7 +808,7 @@
     }
 
     // =========================================================================
-    // 5. HAFETZ HAIM 44 — INTERACTIVE BEFORE / AFTER 3D ENGINEERING SCENES
+    // 5. HAFETZ HAIM 44 & FEIERBERG 3 — INTERACTIVE BEFORE / AFTER 3D SCENES
     // =========================================================================
     function renderBeforeAfterScene3D(sceneKey) {
       while (beforeAfterGroup.children.length > 0) {
@@ -413,18 +817,76 @@
       clearDynamic3DLabels();
       facadeCladdingGroup.visible = false;
 
-      if (projectId !== 'hafetz44' || !sceneKey) return;
+      if (!sceneKey) return;
 
       // -----------------------------------------------------------------------
-      // SCENE A: BASEMENT 3-ARM RAMP, UNDER-RAMP PUMPS, -58m² SHORING & STALL #16
+      // FEIERBERG 3 SCENE A: APT 1 CORRIDOR (PROTECTED IN FRONT OF GENERAL BATHROOM)
+      // -----------------------------------------------------------------------
+      if (sceneKey === 'fb3_apt1_corridor_fix') {
+        const zF = 12.95;
+        if (!isProposedMode) {
+          beforeAfterGroup.add(makeOverlayBox(-10.95, -1.35, -1.80, 0.45, zF + 0.03, zF + 2.45, 0xd97706, 0.40, 0xfde047));
+          beforeAfterGroup.add(makeOverlayBox(-6.35, -4.00, -3.50, -0.30, zF + 0.03, zF + 2.40, 0xf59e0b, 0.30, 0xfde047));
+          addDynamic3DLabel(-6.35, zF + 2.65, -0.45, '🟠 מצב קיים: מסדרון באורך 880 ס״מ × 100 ס״מ המוביל לאמבטיה הכללית (210×185) ולחדרי השינה', '#fbbf24', 'rgba(146, 64, 14, 0.94)');
+          addDynamic3DLabel(-4.92, zF + 2.50, -2.15, '🟠 חדר שינה #1 צפוני: 370×280 ס״מ (10.36 מ״ר)', '#fbbf24');
+        } else {
+          // AFTER: Corridor in front of General Bathroom & Northern Bedroom is 100% PROTECTED (0cm narrowing/blocking!)
+          beforeAfterGroup.add(makeOverlayBox(-9.90, -1.35, -1.80, -0.25, zF + 0.03, zF + 2.45, 0x10b981, 0.42, 0x6ee7b7));
+          // Reclaimed West end beyond General Bathroom door (+1.1 sqm into Master Suite + Z-wardrobe niche in internal partition)
+          beforeAfterGroup.add(makeOverlayBox(-10.95, -1.35, -9.90, 0.45, zF + 0.05, zF + 2.55, 0x0284c7, 0.72, 0x7dd3fc));
+          addDynamic3DLabel(-5.85, zF + 2.75, -0.80, '🛡️ מבחן 8: המסדרון מול האמבטיה הכללית והחדר הצפוני נשמר ב-100% ללא הצרה או חסימת דלת!', '#34d399', 'rgba(6, 95, 70, 0.94)');
+          addDynamic3DLabel(-8.20, zF + 2.75, -1.65, '🛋️ נישת ארון קו-אפס במחיצה הפנימית + קיצור קצה המסדרון מעבר לדלת האמבטיה (+1.1 מ״ר לדירה)', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
+        }
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // FEIERBERG 3 SCENE B: APT 2 CORRIDOR (625x105cm -> -95cm & +1.4m² TO MASTER SUITE)
+      // -----------------------------------------------------------------------
+      if (sceneKey === 'fb3_apt2_corridor_fix') {
+        const zF = 12.95;
+        if (!isProposedMode) {
+          beforeAfterGroup.add(makeOverlayBox(4.35, -1.35, 10.15, 0.45, zF + 0.03, zF + 2.45, 0xd97706, 0.40, 0xfde047));
+          beforeAfterGroup.add(makeOverlayBox(9.80, -4.00, 12.75, -0.30, zF + 0.03, zF + 2.40, 0xf59e0b, 0.30, 0xfde047));
+          addDynamic3DLabel(7.25, zF + 2.65, -0.45, '🟠 מצב קיים: מסדרון דירה 2 באורך 625 ס״מ × 105 ס״מ (6.56 מ״ר)', '#fbbf24', 'rgba(146, 64, 14, 0.94)');
+          addDynamic3DLabel(11.25, zF + 2.50, -2.15, '🟠 חדר שינה הורים מזרחי: רוחב 295 ס״מ', '#fbbf24');
+        } else {
+          beforeAfterGroup.add(makeOverlayBox(4.35, -1.35, 9.20, -0.30, zF + 0.03, zF + 2.45, 0x10b981, 0.42, 0x6ee7b7));
+          beforeAfterGroup.add(makeOverlayBox(9.20, -1.35, 10.15, 0.45, zF + 0.05, zF + 2.55, 0x0284c7, 0.75, 0x7dd3fc));
+          addDynamic3DLabel(6.80, zF + 2.75, -0.80, '🟢 מצב מוצע: קיצור 95 ס״מ מקצה המסדרון המזרחי והזזת דלת כניסה ליחידת ההורים', '#34d399', 'rgba(6, 95, 70, 0.94)');
+          addDynamic3DLabel(10.60, zF + 2.75, -1.65, '🛋️ סיפוח +1.4 מ״ר ליחידת ההורים (הרחבה ל-3.12 מ׳ · +11.2 מ״ר ב-8 קומות)', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
+        }
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // FEIERBERG 3 SCENE C: FLOOR 10 DUPLEX GALLERY CORRIDOR (+2.1m² PER DUPLEX)
+      // -----------------------------------------------------------------------
+      if (sceneKey === 'fb3_f10_gallery_fix') {
+        const zF = 32.02;
+        if (!isProposedMode) {
+          beforeAfterGroup.add(makeOverlayBox(-6.50, -1.60, 6.50, 1.40, zF + 0.03, zF + 2.45, 0xd97706, 0.40, 0xfde047));
+          addDynamic3DLabel(0.0, zF + 2.65, -0.10, '🟠 מצב קיים: מסדרון גלריה היקפי כפול סביב חלל המדרגות הפנימי בקומה 10', '#fbbf24', 'rgba(146, 64, 14, 0.94)');
+        } else {
+          beforeAfterGroup.add(makeOverlayBox(-5.20, -1.20, 5.20, 0.95, zF + 0.03, zF + 2.45, 0x10b981, 0.42, 0x6ee7b7));
+          beforeAfterGroup.add(makeOverlayBox(-6.50, -1.60, -5.20, 1.40, zF + 0.05, zF + 2.55, 0x0284c7, 0.72, 0x7dd3fc));
+          beforeAfterGroup.add(makeOverlayBox(5.20, -1.60, 6.50, 1.40, zF + 0.05, zF + 2.55, 0x0284c7, 0.72, 0x7dd3fc));
+          addDynamic3DLabel(0.0, zF + 2.75, -0.10, '🛋️ מצב מוצע: קיצור מסדרון הגלריה וסיפוח +2.1 מ״ר לכל סוויטת הורים (+4.2 מ״ר בדופלקסים)', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
+        }
+        return;
+      }
+
+      if (projectId !== 'hafetz44') return;
+
+      // -----------------------------------------------------------------------
+      // SCENE A: BASEMENT 3-ARM RAMP, UNDER-RAMP PUMPS (EAST OF STALL #17), 0 STALLS MOVED (#7–#19 IN PLACE!)
       // -----------------------------------------------------------------------
       if (sceneKey === 'basement_ve_full') {
-        // 1. 3-Arm Sloped Perimeter Ramp Visualization (Protected Trajectory)
-        // South Upper Ramp Arm descending West->East (H_clear = 2.15m..3.55m beneath it!)
-        const rampSouth = makeOverlayBox(-11.90, 5.45, 13.50, 8.60, -2.10, -1.75, 0x64748b, 0.30, 0x94a3b8);
+        // 1. South Upper Ramp Arm descending West->East starting at X = -4.80 (+45.52 -> +44.48, East of Stall #17!)
+        const rampSouth = makeOverlayBox(-4.80, 5.85, 13.50, 8.85, -2.10, -1.75, 0x64748b, 0.30, 0x94a3b8);
         rampSouth.rotation.z = -0.095; // ~10-15% slope descending Eastward
         beforeAfterGroup.add(rampSouth);
-        addDynamic3DLabel(1.0, -1.20, 7.0, '🛣️ זרוע דרומית עליונה של הרמפה (שיפוע 10%–15%) · מוגנת ב-100%', '#94a3b8');
+        addDynamic3DLabel(4.2, -1.20, 7.3, '🛣️ זרוע דרומית עליונה של הרמפה (+45.52←+44.48 ממזרח לחניה #17) · מוגנת 100%', '#94a3b8');
 
         // 2. Mamad Drop-Walls in Central Core Island (H44-LOCKED-CORE1: 12 sqm -> 3 Tenant Storages)
         beforeAfterGroup.add(makeOverlayBox(-5.50, -4.33, -1.05, -0.33, -5.08, -2.25, 0x0284c7, 0.34, 0x38bdf8));
@@ -433,59 +895,45 @@
           [-4.02, -2.54].forEach(divX => {
             beforeAfterGroup.add(makeOverlayBox(divX - 0.06, -4.33, divX + 0.06, -0.33, -5.08, -2.30, 0x38bdf8, 0.75, 0xffffff));
           });
-          addDynamic3DLabel(-3.25, -2.05, -2.33, '🔄 ליבה כלואה בקירות ממ״ד יורדים: 3 מחסני דיירים (4 מ״ר × 3 = ~180,000 ₪)', '#38bdf8', 'rgba(3, 105, 161, 0.92)');
+          addDynamic3DLabel(-3.25, -2.05, -2.33, '🔄 ליבה כלואה בקירות ממ״ד יורדים: 3 מחסני דיירים חדשים (4 מ״ר × 3 = ~180,000 ₪)', '#38bdf8', 'rgba(3, 105, 161, 0.92)');
         } else {
           addDynamic3DLabel(-3.25, -2.05, -2.33, '📍 מצב קיים: תאי משאבות כלואים בקירות ממ״ד יורדים (12 מ״ר)', '#f59e0b');
         }
 
         if (!isProposedMode) {
-          // BEFORE MODE: Original SW Shoring Pocket (48 sqm) + West Strip (10 sqm) + Old Stall #16
-          beforeAfterGroup.add(makeOverlayBox(-17.72, 5.90, -2.22, 9.05, -5.08, -2.25, 0xdc2626, 0.38, 0xfca5a5));
-          beforeAfterGroup.add(makeOverlayBox(-17.72, -9.05, -17.17, 5.90, -5.08, -2.25, 0xdc2626, 0.38, 0xfca5a5));
-          // Old Stall #16 in SW corner
-          beforeAfterGroup.add(makeOverlayBox(-16.80, 3.80, -14.15, 8.80, -5.05, -4.20, 0xf59e0b, 0.55, 0xfde047));
-          addDynamic3DLabel(-10.0, -1.90, 7.50, '🔴 מצב קיים: כיס דיפון דרום-מערבי (48 מ״ר) + רצועה מערבית (10 מ״ר) + חניה #16', '#f87171', 'rgba(153, 27, 27, 0.92)');
+          // BEFORE MODE: Stalls #11-#16 & #17 in SW Wing + Old Pump Rooms in Mamad Core
+          beforeAfterGroup.add(makeOverlayBox(-17.15, 4.80, -12.15, 7.60, -5.05, -4.20, 0xf59e0b, 0.50, 0xfde047));
+          beforeAfterGroup.add(makeOverlayBox(-9.90, 3.85, -4.90, 8.85, -5.05, -4.20, 0xf59e0b, 0.50, 0xfde047));
+          addDynamic3DLabel(-11.5, -1.90, 6.20, '🟠 מצב קיים: כל 13 החניות (#7–#19 כולל #16 ו-#17) במקומן המקורי בתכנית A-1000', '#fbbf24', 'rgba(146, 64, 14, 0.92)');
         } else {
           // AFTER (PROPOSED VE) MODE:
-          // A. Relocated Pump & Ventilation Rooms (32 sqm) under South Upper Ramp Soffit (H_clear >= 2.15m)
-          beforeAfterGroup.add(makeOverlayBox(-11.50, 5.60, -1.50, 8.55, -5.08, -2.75, 0x10b981, 0.48, 0x6ee7b7));
-          addDynamic3DLabel(-6.50, -3.20, 7.10, '🟢 חדרי משאבות ואוורור מתחת לרמפה העליונה (32 מ״ר · גובה ראש פנוי H=2.15–3.55m)', '#34d399', 'rgba(6, 95, 70, 0.94)');
+          // A. Relocated Pump & Ventilation Rooms (20 sqm) strictly under South Upper Ramp (+45.52..+44.48, East of Stall #17!)
+          beforeAfterGroup.add(makeOverlayBox(-4.80, 5.95, 4.20, 8.85, -5.08, -2.75, 0x10b981, 0.52, 0x6ee7b7));
+          addDynamic3DLabel(-0.30, -3.10, 7.40, '🟢 משאבות ואוורור (20 מ״ר) תחת רמפה דרומית ממזרח לחניה #17 (H=2.15–3.10m · 0 פגיעה ב-#17!)', '#34d399', 'rgba(6, 95, 70, 0.94)');
 
-          // B. Retracted Shoring Wall (-58 sqm = 203,000 ILS Verified Saving!)
-          beforeAfterGroup.add(makeOverlayBox(-17.72, 5.90, -2.22, 9.05, -5.08, -2.25, 0x059669, 0.18, 0xfde047));
-          // New Shoring Wall line at Y = +5.90
-          beforeAfterGroup.add(makeOverlayBox(-17.17, 5.75, -2.22, 6.02, -5.08, -2.20, 0x10b981, 0.85, 0xffffff));
-          beforeAfterGroup.add(make3DArrow(-10.0, 8.95, -3.5, -10.0, 6.05, -3.5, 0x10b981));
-          beforeAfterGroup.add(make3DArrow(-14.5, 8.95, -3.5, -14.5, 6.05, -3.5, 0x10b981));
-          addDynamic3DLabel(-11.50, -1.80, 7.80, '💰 קיצוץ 58 מ״ר קונטור דיפון וחפירה = חיסכון מאומת 203,000 ₪!', '#fde047', 'rgba(4, 120, 87, 0.95)');
-
-          // C. Relocated Stall #16 (2.65 x 5.00m) on East face of Central Island facing 5.55m East Aisle
-          beforeAfterGroup.add(makeOverlayBox(1.80, -4.80, 4.45, 0.20, -5.05, -3.60, 0x06b6d4, 0.62, 0x67e8f9));
-          beforeAfterGroup.add(make3DArrow(-15.0, 6.20, -4.2, 3.10, -2.30, -4.2, 0x38bdf8));
-          addDynamic3DLabel(3.15, -3.10, -2.30, '🚗 חניה #16 חלופית מאומתת (2.65×5.00 מ׳) בגישה ישירה ממיסעה 5.55 מ׳ (0 אובדן חניות)', '#67e8f9', 'rgba(14, 116, 144, 0.95)');
+          // B. Protected Stalls #11–#19 (0 stalls relocated — 100% preserved in exact original coordinates!)
+          beforeAfterGroup.add(makeOverlayBox(-17.15, 4.80, -12.15, 7.60, -5.05, -4.15, 0x06b6d4, 0.55, 0x67e8f9));
+          beforeAfterGroup.add(makeOverlayBox(-9.90, 3.85, -4.90, 8.85, -5.05, -4.15, 0x06b6d4, 0.55, 0x67e8f9));
+          addDynamic3DLabel(-10.50, -3.30, 6.40, '🛡️ מבחן 9: 0 הזזת חניות! כל 13 החניות (#7–#19 כולל #11–#16 ו-#17) נשמרות ב-100% במקומן המקורי (אין להזיז חניה שמגדילה קונטור כללי!)', '#67e8f9', 'rgba(14, 116, 144, 0.95)');
         }
       }
 
       // -----------------------------------------------------------------------
-      // SCENE B: WEST APARTMENT CORRIDOR (90cm -> 100cm) & WALK-IN CLOSET (+2.6m²)
+      // SCENE B: WEST APARTMENT CORRIDOR (100/105cm -> UNIFORM 105cm) & WALK-IN CLOSET (+1.8m²)
       // -----------------------------------------------------------------------
       else if (sceneKey === 'west_corridor_fix') {
         const zF = 12.95;
         if (!isProposedMode) {
-          // BEFORE: Red 90cm Corridor Failure + Cramped 160x165cm Walk-In Closet Walls
-          beforeAfterGroup.add(makeOverlayBox(-10.10, -1.42, -3.50, -0.52, zF + 0.03, zF + 2.45, 0xdc2626, 0.48, 0xfca5a5));
+          beforeAfterGroup.add(makeOverlayBox(-9.79, -1.38, -1.25, -0.33, zF + 0.03, zF + 2.45, 0xd97706, 0.42, 0xfde047));
           beforeAfterGroup.add(makeOverlayBox(-11.35, -4.95, -9.65, -3.38, zF + 0.03, zF + 2.45, 0xf59e0b, 0.42, 0xfde047));
-          addDynamic3DLabel(-6.80, zF + 2.65, -0.97, '🔴 מצב קיים (FAIL): רוחב מסדרון 90 ס״מ לאורך 5.45 מ׳ (נדרש ≥100 ס״מ)', '#f87171', 'rgba(153, 27, 27, 0.94)');
+          addDynamic3DLabel(-6.80, zF + 2.65, -0.85, '🟠 מצב קיים (WARN): רוחב מסדרון 100/105 ס״מ (תקין ≥100) לאורך 7.11 מ׳ + היצרות משקוף 90 ס״מ', '#fbbf24', 'rgba(146, 64, 14, 0.94)');
           addDynamic3DLabel(-10.50, zF + 2.65, -4.15, '🟠 חדר ארונות צפוף (160×165 ס״מ · מעבר 45 ס״מ בלבד)', '#fbbf24');
         } else {
-          // AFTER: Widened 100cm Corridor (Partition shifted 10cm North) + 3.80m Flush Wardrobe (+2.6 sqm)
-          beforeAfterGroup.add(makeOverlayBox(-10.10, -1.52, -3.50, -0.52, zF + 0.03, zF + 2.45, 0x10b981, 0.45, 0x6ee7b7));
-          // Shifted new partition wall in glowing green
-          beforeAfterGroup.add(makeOverlayBox(-10.10, -1.62, -3.50, -1.52, zF + 0.03, zF + 2.60, 0x059669, 0.85, 0xffffff));
-          // New 3.80m Flush Wardrobe along North/East wall freeing +2.6 sqm
+          // AFTER: Uniform 105cm Corridor (100% preserved in front of General Bathroom!) + 3.80m Flush Wardrobe (+1.8 sqm)
+          beforeAfterGroup.add(makeOverlayBox(-9.79, -1.38, -1.25, -0.33, zF + 0.03, zF + 2.45, 0x10b981, 0.45, 0x6ee7b7));
           beforeAfterGroup.add(makeOverlayBox(-11.40, -4.95, -9.60, -4.35, zF + 0.03, zF + 2.40, 0x0284c7, 0.72, 0x7dd3fc));
-          addDynamic3DLabel(-6.80, zF + 2.75, -1.02, '🟢 מצב מוצע: מסדרון הורחב ל-100 ס״מ תקני (הזזת מחיצה ב-10 ס״מ)', '#34d399', 'rgba(6, 95, 70, 0.94)');
-          addDynamic3DLabel(-10.50, zF + 2.75, -4.45, '🛋️ ביטול קירות חדר ארונות ← ארון קיר 3.80 מ׳ (+2.6 מ״ר נטו לחדרים!)', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
+          addDynamic3DLabel(-6.80, zF + 2.75, -0.85, '🟢 מצב מוצע: יישור משקוף מסדרון ל-105 ס״מ אחיד (ללא קיצור מול דלת האמבטיה הכללית — מבחן 8!)', '#34d399', 'rgba(6, 95, 70, 0.94)');
+          addDynamic3DLabel(-10.50, zF + 2.75, -4.45, '🛋️ ביטול קירות חדר ארונות ← ארון קיר 3.80 מ׳ (+1.8 מ״ר נטו לחדר ההורים!)', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
         }
       }
 
@@ -506,67 +954,140 @@
       }
 
       // -----------------------------------------------------------------------
-      // SCENE D: EAST APARTMENT CORRIDOR 3-DOOR CLASH
+      // SCENE D1: EAST NORTHERN BEDROOM (279x348cm -> 5cm DOOR SHIFT FOR 60cm WARDROBE, 0 CORRIDOR ENCROACHMENT!)
       // -----------------------------------------------------------------------
-      else if (sceneKey === 'east_corridor_doors') {
+      else if (sceneKey === 'east_north_bedroom_fix') {
         const zF = 12.95;
         if (!isProposedMode) {
-          beforeAfterGroup.add(makeOverlayBox(5.45, -1.55, 8.20, -0.35, zF + 0.03, zF + 2.20, 0xd97706, 0.45, 0xfde047));
-          addDynamic3DLabel(6.85, zF + 2.45, -0.95, '🟠 מצב קיים: התנגשות 3 דלתות + דלת שירות חוסמת 50% מארון המסדרון', '#fbbf24');
+          beforeAfterGroup.add(makeOverlayBox(8.05, -4.95, 10.88, -1.48, zF + 0.03, zF + 2.40, 0xd97706, 0.42, 0xfde047));
+          addDynamic3DLabel(9.45, zF + 2.55, -3.20, '🟠 מצב קיים: חדר צפוני (279×348 ס״מ = 9.71 מ״ר) · נישת ארון של 55 ס״מ ליד משקוף הדלת', '#fbbf24', 'rgba(146, 64, 14, 0.94)');
         } else {
-          beforeAfterGroup.add(makeOverlayBox(5.45, -1.55, 8.20, -0.35, zF + 0.03, zF + 2.20, 0x10b981, 0.40, 0x6ee7b7));
-          addDynamic3DLabel(6.85, zF + 2.45, -0.95, '🟢 מצב מוצע: דלת הזזה/היפוך ציר בחדר שירות ← 100% נגישות לארון המסדרון', '#34d399', 'rgba(6, 95, 70, 0.94)');
+          beforeAfterGroup.add(makeOverlayBox(8.05, -4.95, 10.88, -1.48, zF + 0.03, zF + 2.40, 0x10b981, 0.36, 0x6ee7b7));
+          // Full 60cm deep Wardrobe along South entry wall [9.35..10.85, -2.08..-1.48] INSIDE the bedroom (0 corridor encroachment!)
+          beforeAfterGroup.add(makeOverlayBox(9.35, -2.08, 10.85, -1.48, zF + 0.05, zF + 2.35, 0x0284c7, 0.78, 0x7dd3fc));
+          addDynamic3DLabel(9.45, zF + 2.60, -3.20, '🛡️ מבחן 8: לא ניתן להגדיל את החדר על חשבון המסדרון (חוסם את הכניסה לאמבטיה הכללית!) · הזזת דלת ב-5 ס״מ בלבד לארון 60 ס״מ', '#34d399', 'rgba(6, 95, 70, 0.94)');
         }
       }
 
       // -----------------------------------------------------------------------
-      // SCENE E: PENTHOUSE FLOOR 9 (ISLAND 96cm -> 120cm & BEDROOMS 260cm -> 275cm)
+      // SCENE D2: EAST APARTMENT CORRIDOR (416x105cm — 100% PROTECTED FOR GENERAL BATHROOM ENTRANCE!)
+      // -----------------------------------------------------------------------
+      else if (sceneKey === 'east_corridor_doors' || sceneKey === 'east_corridor_apt_fix') {
+        const zF = 12.95;
+        if (!isProposedMode) {
+          beforeAfterGroup.add(makeOverlayBox(5.45, -1.55, 10.95, -0.35, zF + 0.03, zF + 2.20, 0xd97706, 0.45, 0xfde047));
+          beforeAfterGroup.add(makeOverlayBox(10.95, -4.95, 12.45, -3.35, zF + 0.03, zF + 2.20, 0xf59e0b, 0.40, 0xfde047));
+          addDynamic3DLabel(8.20, zF + 2.45, -0.95, '🟠 מצב קיים: מסדרון מזרחי (416×105 ס״מ) המשרת את דלת האמבטיה הכללית (238×170) + דלת כנף בח. שירות (238×93)', '#fbbf24');
+        } else {
+          // Full 416x105cm Corridor preserved 100% (0cm shortening, 0cm narrowing so General Bathroom door is 100% clear!)
+          beforeAfterGroup.add(makeOverlayBox(5.45, -1.55, 10.95, -0.35, zF + 0.03, zF + 2.20, 0x10b981, 0.40, 0x6ee7b7));
+          // Pocket Door between General Bathroom (238x170) and Service Room (238x93) + Z-wardrobe replacing walk-in closet partitions (149x158) inside Master Suite
+          beforeAfterGroup.add(makeOverlayBox(6.40, -3.35, 7.20, -3.20, zF + 0.05, zF + 2.15, 0x06b6d4, 0.85, 0xffffff));
+          beforeAfterGroup.add(makeOverlayBox(10.95, -4.95, 12.45, -4.35, zF + 0.05, zF + 2.35, 0x0284c7, 0.75, 0x7dd3fc));
+          addDynamic3DLabel(8.20, zF + 2.55, -0.95, '🛡️ מבחן 8: 0 ס״מ קיצור מסדרון (416×105 נשמר ב-100% להגנת הכניסה לאמבטיה הכללית 238×170!) + דלת כיס בח. שירות וארון קו-אפס בהורים (+0.9 מ״ר)', '#34d399', 'rgba(6, 95, 70, 0.94)');
+        }
+      }
+
+      // -----------------------------------------------------------------------
+      // SCENE E1: PENTHOUSE FLOOR 9 CHEF KITCHEN ISLAND (96cm -> 120cm)
       // -----------------------------------------------------------------------
       else if (sceneKey === 'penthouse_island_fix') {
         const zF = 28.70;
         if (!isProposedMode) {
           // 96cm gap between Island (Y=2.42) and South Counter (Y=3.38)
           beforeAfterGroup.add(makeOverlayBox(6.06, 2.42, 8.49, 3.38, zF + 0.03, zF + 1.10, 0xdc2626, 0.52, 0xfca5a5));
-          addDynamic3DLabel(7.25, zF + 1.55, 2.90, '🔴 מצב קיים: מעבר 96 ס״מ בלבד בין אי המטבח לארונות (נדרש 110–120 ס״מ)', '#f87171', 'rgba(153, 27, 27, 0.94)');
+          addDynamic3DLabel(7.25, zF + 1.55, 2.90, '🔴 מצב קיים במטבח הפנטהאוז (510×420): מעבר 96 ס״מ בלבד בין האי לשיש הדרומי (מומלץ 120 ס״מ)', '#f87171', 'rgba(153, 27, 27, 0.94)');
         } else {
           // Shifted Island 24cm North (Y = 1.28..2.18) leaving 120cm green clearance (Y = 2.18..3.38)
           beforeAfterGroup.add(makeOverlayBox(6.06, 1.28, 8.49, 2.18, zF + 0.05, zF + 0.96, 0x059669, 0.72, 0xffffff));
           beforeAfterGroup.add(makeOverlayBox(6.06, 2.18, 8.49, 3.38, zF + 0.03, zF + 0.45, 0x10b981, 0.38, 0x6ee7b7));
           beforeAfterGroup.add(make3DArrow(7.25, 2.42, zF + 1.05, 7.25, 2.18, zF + 1.05, 0x10b981));
-          addDynamic3DLabel(7.25, zF + 1.65, 2.40, '🟢 מצב מוצע: הזזת אי המטבח 24 ס״מ צפונה ← מעבר מרווח 120 ס״מ ✓', '#34d399', 'rgba(6, 95, 70, 0.94)');
+          addDynamic3DLabel(7.25, zF + 1.65, 2.40, '🟢 מצב מוצע במטבח: הזזת אי המטבח 24 ס״מ צפונה ← מעבר עבודה מרווח של 120 ס״מ ✓', '#34d399', 'rgba(6, 95, 70, 0.94)');
         }
       }
 
       // -----------------------------------------------------------------------
-      // SCENE F: GROUND FLOOR CONTOUR RECESS (-32m² = 198,400 ILS vs. 9m² LOCKED LOBBY)
+      // SCENE E2: PENTHOUSE FLOOR 9 BEDROOMS WING EXPANSION (EXACT SPATIAL LOCATION)
+      // -----------------------------------------------------------------------
+      else if (sceneKey === 'penthouse_bedrooms_fix') {
+        const zF = 28.70;
+        if (!isProposedMode) {
+          // SW Bedroom (280x423cm at X=-9.95..-7.15, Y=-0.25..3.98) — width 280cm (<300cm ADG)
+          beforeAfterGroup.add(makeOverlayBox(-9.95, -0.25, -7.15, 3.98, zF + 0.03, zF + 2.45, 0xd97706, 0.48, 0xfde047));
+          // NW Bedrooms 1 & 2 (306x344cm each at X=-9.95..-6.85 and X=-6.75..-3.69, Y=-4.94..-1.48)
+          beforeAfterGroup.add(makeOverlayBox(-9.95, -4.94, -6.85, -1.48, zF + 0.03, zF + 2.35, 0x0284c7, 0.30, 0x38bdf8));
+          beforeAfterGroup.add(makeOverlayBox(-6.75, -4.94, -3.69, -1.48, zF + 0.03, zF + 2.35, 0x0284c7, 0.30, 0x38bdf8));
+          // Penthouse Mamad (335x271cm at X=-1.05..2.25, Y=-4.33..-1.62)
+          beforeAfterGroup.add(makeOverlayBox(-1.05, -4.33, 2.25, -1.62, zF + 0.03, zF + 2.35, 0xf59e0b, 0.35, 0xfde047));
+          addDynamic3DLabel(-8.55, zF + 2.65, 2.10, '🟠 מצב קיים: חדר דרום-מערבי ברוחב 280 ס״מ (280×423 ס״מ — מתחת לרף 300 ס״מ של ADG)', '#fbbf24', 'rgba(146, 64, 14, 0.94)');
+          addDynamic3DLabel(-6.80, zF + 2.55, -3.20, 'ℹ️ חדרים צפון-מערביים: 306×344 ס״מ כ״א · ממ״ד צפוני: 335×271 ס״מ', '#38bdf8');
+        } else {
+          // Expanded SW Bedroom: 300x423cm (X=-9.95..-6.95, Y=-0.25..3.98) + 20cm expansion strip [-7.15..-6.95]
+          beforeAfterGroup.add(makeOverlayBox(-9.95, -0.25, -6.95, 3.98, zF + 0.03, zF + 2.45, 0x10b981, 0.42, 0x6ee7b7));
+          beforeAfterGroup.add(makeOverlayBox(-7.15, -0.25, -6.95, 3.98, zF + 0.05, zF + 2.55, 0x059669, 0.85, 0xffffff));
+          beforeAfterGroup.add(make3DArrow(-7.15, 1.85, zF + 1.25, -6.85, 1.85, zF + 1.25, 0x10b981));
+          // Master Bedroom remains generous at 315x423cm (X=-6.95..-3.70, Y=-0.25..3.98) + Walk-in Closet (160x210) & Bath (160x204)
+          beforeAfterGroup.add(makeOverlayBox(-6.95, -0.25, -3.70, 3.98, zF + 0.03, zF + 2.35, 0x0284c7, 0.28, 0x7dd3fc));
+          // NW Bedrooms 1 & 2 with recessed flush wardrobe niches along corridor
+          beforeAfterGroup.add(makeOverlayBox(-9.95, -2.08, -6.85, -1.48, zF + 0.05, zF + 2.35, 0x06b6d4, 0.65, 0xffffff));
+          beforeAfterGroup.add(makeOverlayBox(-6.75, -2.08, -3.69, -1.48, zF + 0.05, zF + 2.35, 0x06b6d4, 0.65, 0xffffff));
+          addDynamic3DLabel(-8.45, zF + 2.70, 2.10, '🟢 מצב מוצע: הרחבת החדר הדרום-מערבי ב-20 ס״מ ל-300×423 ס״מ (12.69 מ״ר — עובר ADG!) · חדר הורים 315×423 ס״מ', '#34d399', 'rgba(6, 95, 70, 0.94)');
+          addDynamic3DLabel(-6.80, zF + 2.60, -2.00, '🛋️ נישות ארונות 60 ס״מ בחדרים הצפון-מערביים (306×344 ס״מ)', '#67e8f9', 'rgba(14, 116, 144, 0.94)');
+        }
+      }
+
+      // -----------------------------------------------------------------------
+      // SCENE F: GROUND FLOOR PROTRUDING VENTILATION BOXES (-12m² = 74,400 ILS) & PROTECTED LOBBY/SERVICE ROOMS
       // -----------------------------------------------------------------------
       else if (sceneKey === 'ground_contour_recess') {
         const zF = 0.00;
-        // 9.0 sqm Locked Lobby trapped under Floor 1 slab (Vertical Slab Lock)
-        beforeAfterGroup.add(makeOverlayBox(-1.20, -1.80, 2.20, 0.80, zF + 0.05, zF + 3.10, 0x0284c7, 0.32, 0x38bdf8));
-        addDynamic3DLabel(0.50, zF + 1.80, -0.50, '🔒 9.0 מ״ר לובי כלואים תחת תקרת קומה 1 (0 ₪ חיסכון שלד ← הרחבת מבואה)', '#38bdf8');
+        // 100% Protected Main Lobby (974x413) & Service Rooms under Floor 1 Slab & Mamad Drop-Walls (حדר דיירים 260x408, חדר עגלות 305x400, אשפה 330x355)
+        beforeAfterGroup.add(makeOverlayBox(2.35, -0.12, 13.80, 3.95, zF + 0.04, zF + 3.05, 0x0284c7, 0.22, 0x38bdf8));
+        beforeAfterGroup.add(makeOverlayBox(-1.05, -4.43, 8.60, -0.33, zF + 0.04, zF + 3.05, 0x0284c7, 0.22, 0x38bdf8));
+        addDynamic3DLabel(6.50, zF + 2.30, 1.80, '🛡️ מוגן 100% תחת תקרת קומה 1 וקירות ממ״ד: לובי ראשי (974×413), חדר דיירים (260×408), עגלות (305×400) ואשפה (330×355)', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
 
         if (!isProposedMode) {
-          beforeAfterGroup.add(makeOverlayBox(1.50, -5.18, 7.80, -0.50, zF + 0.05, zF + 3.15, 0xdc2626, 0.40, 0xfca5a5));
-          addDynamic3DLabel(4.65, zF + 2.40, -2.85, '🔴 מצב קיים: כפילות חדר עגלות (10.6 מ״ר) + חדר שירות (12.2 מ״ר) ובליטת מעטפת', '#f87171');
+          // Protruding East Parking Ventilation Box (530x228cm) & West Parking Ventilation Box (150x441cm)
+          beforeAfterGroup.add(makeOverlayBox(8.60, -4.90, 13.90, -2.62, zF + 0.05, zF + 3.15, 0xdc2626, 0.48, 0xfca5a5));
+          beforeAfterGroup.add(makeOverlayBox(-4.25, -5.18, -2.75, -0.77, zF + 0.05, zF + 3.15, 0xdc2626, 0.48, 0xfca5a5));
+          addDynamic3DLabel(11.10, zF + 2.65, -3.80, '🔴 מצב קיים: תאי אוורור חניון בנויים ובולטים (530×228 ס״מ במזרח ו-150×441 ס״מ במערב = 18.7 מ״ר)', '#f87171', 'rgba(153, 27, 27, 0.94)');
         } else {
-          beforeAfterGroup.add(makeOverlayBox(1.50, -5.18, 7.80, -0.50, zF + 0.05, zF + 3.15, 0x10b981, 0.25, 0xfde047));
-          // Retracted Ground Floor Exterior Wall
-          beforeAfterGroup.add(makeOverlayBox(1.50, -2.20, 7.80, -1.95, zF + 0.05, zF + 3.15, 0x059669, 0.85, 0xffffff));
-          beforeAfterGroup.add(make3DArrow(4.65, -5.10, zF + 1.5, 4.65, -2.25, zF + 1.5, 0x10b981));
-          addDynamic3DLabel(4.65, zF + 2.50, -2.85, '💰 נסיגת מעטפת קומת קרקע (-32 מ״ר מאומתים) = חיסכון 198,400 ₪!', '#fde047', 'rgba(4, 120, 87, 0.95)');
+          // Flush Louver Ventilation Strips saving 12.0 sqm (74,400 ILS) without touching Lobby or Service Rooms
+          beforeAfterGroup.add(makeOverlayBox(8.60, -3.50, 13.90, -2.62, zF + 0.05, zF + 3.15, 0x10b981, 0.55, 0xfde047));
+          beforeAfterGroup.add(makeOverlayBox(-3.55, -5.18, -2.75, -0.77, zF + 0.05, zF + 3.15, 0x10b981, 0.55, 0xfde047));
+          beforeAfterGroup.add(make3DArrow(11.10, -4.85, zF + 1.5, 11.10, -3.50, zF + 1.5, 0x10b981));
+          addDynamic3DLabel(11.10, zF + 2.75, -3.50, '💰 הידוק תאי אוורור החניון החיצוניים לרפפות שקועות (-12.0 מ״ר מאומתים = 74,400 ₪ · 0 פגיעה בלובי ובחדרי השירות!)', '#fde047', 'rgba(4, 120, 87, 0.95)');
         }
       }
 
       // -----------------------------------------------------------------------
-      // SCENE G: TYPICAL FLOOR CORE TIGHTENING (-24m² = 148,800 ILS) & EAST FOYER (+1.5m²)
+      // SCENE G1: TYPICAL FLOOR LOBBY (651x142cm) & 2 STORAGES (120x351cm) — 100% PROTECTED (0m² LOBBY CUT!)
       // -----------------------------------------------------------------------
-      else if (sceneKey === 'typical_core_tighten') {
+      else if (sceneKey === 'typical_lobby_protected') {
         const zF = 12.95;
-        beforeAfterGroup.add(makeOverlayBox(-2.20, -2.50, 1.80, 1.10, zF + 0.04, zF + 2.65, 0x8b5cf6, 0.38, 0xc4b5fd));
-        beforeAfterGroup.add(makeOverlayBox(1.80, -0.45, 5.65, 1.55, zF + 0.04, zF + 2.65, 0x06b6d4, 0.45, 0x67e8f9));
-        addDynamic3DLabel(-0.20, zF + 2.80, -0.70, '💰 הידוק גרעין ופירים: -3.0 מ״ר/קומה × 8 קומות = חיסכון 148,800 ₪', '#c4b5fd', 'rgba(91, 33, 182, 0.94)');
-        addDynamic3DLabel(3.75, zF + 2.30, 0.55, '🛋️ סיפוח +1.5 מ״ר למבואת כניסה וארון מעילים בדירה המזרחית', '#67e8f9', 'rgba(14, 116, 144, 0.94)');
+        // Floor Elevator Lobby (651x142cm)
+        beforeAfterGroup.add(makeOverlayBox(-1.05, -0.33, 5.46, 1.48, zF + 0.04, zF + 2.60, 0x10b981, 0.38, 0x6ee7b7));
+        // West & East Apartment Storage Rooms (מחסן 120x351cm)
+        beforeAfterGroup.add(makeOverlayBox(-3.16, 1.48, -1.96, 4.99, zF + 0.04, zF + 2.60, 0x0284c7, 0.42, 0x7dd3fc));
+        beforeAfterGroup.add(makeOverlayBox(2.50, 1.48, 3.70, 4.99, zF + 0.04, zF + 2.60, 0x0284c7, 0.42, 0x7dd3fc));
+        addDynamic3DLabel(0.80, zF + 2.80, 0.25, '🛡️ לובי קומתי בוטיק (651×142 ס״מ): מוגן ב-100% אדריכלית, מרחבית ועיצובית — 0 מ״ר קיטון לובי!', '#34d399', 'rgba(6, 95, 70, 0.95)');
+        addDynamic3DLabel(0.25, zF + 2.65, 3.25, '📦 2 מחסנים דירתיים קומתיים (120×351 ס״מ מערב ומזרח) + גרעין מדרגות ומעלית נעולים', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
+      }
+
+      // -----------------------------------------------------------------------
+      // SCENE G2: ROOFTOP MECHANICAL & SOLAR SCREEN TIGHTENING (+31.85m, -14m² = 86,800 ILS)
+      // -----------------------------------------------------------------------
+      else if (sceneKey === 'roof_tech_tighten') {
+        const zF = 31.85;
+        if (!isProposedMode) {
+          beforeAfterGroup.add(makeOverlayBox(-8.60, -4.50, -1.50, 1.50, zF + 0.04, zF + 1.35, 0xdc2626, 0.42, 0xfca5a5));
+          beforeAfterGroup.add(makeOverlayBox(2.40, -4.50, 8.20, 1.50, zF + 0.04, zF + 1.35, 0xdc2626, 0.42, 0xfca5a5));
+          addDynamic3DLabel(0.30, zF + 1.85, -1.50, '🔴 מצב קיים בגג העליון (+31.85m): מסתור דודי שמש ומעבים רחב (864×338 ו-705×338 ס״מ = 53.0 מ״ר)', '#f87171', 'rgba(153, 27, 27, 0.94)');
+        } else {
+          beforeAfterGroup.add(makeOverlayBox(-7.40, -3.60, -1.80, 0.90, zF + 0.04, zF + 1.35, 0x10b981, 0.48, 0xfde047));
+          beforeAfterGroup.add(makeOverlayBox(2.60, -3.60, 7.20, 0.90, zF + 0.04, zF + 1.35, 0x10b981, 0.48, 0xfde047));
+          addDynamic3DLabel(0.30, zF + 1.85, -1.50, '💰 הידוק מסתור המערכות בגג העליון לקונטור המערכות בלבד (-14.0 מ״ר = 86,800 ₪ · 0 פגיעה בלובי הקומתי!)', '#fde047', 'rgba(4, 120, 87, 0.95)');
+        }
       }
 
       // -----------------------------------------------------------------------
@@ -595,7 +1116,7 @@
       if (auditFilter === 'ISSUES') return (note.status === 'FAIL' || note.status === 'WARN') && !note.is_value_eng && !note.is_design_improvement;
       if (auditFilter === 'VE') return Boolean(note.is_value_eng || note.is_design_improvement);
       if (auditFilter === 'FAC') return note.ve_category === 'FAC';
-      if (auditFilter === 'BSM') return s3d.floor_id === 'mar' || note.sheet_id.includes('basement');
+      if (auditFilter === 'BSM') return ['mar', 'b1', 'b2'].includes(s3d.floor_id) || String(note.sheet_id || '').includes('basement');
       return true;
     }
 
@@ -615,7 +1136,10 @@
 
       buildHafetz44FacadeCladdingLayer();
 
-      const notes = data.notes || [];
+      const notes = (data.notes || []).filter(
+        (n) => !String(n.id || '').endsWith('-3D-SYNC') && !String(n.rule_id || '').includes('3D_BIM_FULL_AUDIT')
+      );
+      data.notes = notes;
       notes.forEach((note) => {
         const s3d = note.spatial_3d;
         if (!s3d || !s3d.bbox_3d) return;
@@ -645,14 +1169,7 @@
         pinEl.innerHTML = `<span>${styleMeta.icon}</span><span>${shortBadge}</span>`;
         pinEl.title = s3d.callout_he || `#${note.pin_num}: ${note.title}`;
 
-        pinEl.addEventListener('click', (e) => {
-          e.stopPropagation();
-          selectAuditNote3D(note.id, { flyTo: true, notifyParent: true });
-        });
-
-        pinsContainer.appendChild(pinEl);
-
-        auditPinItems.push({
+        const pinItemObj = {
           note,
           s3d,
           pinEl,
@@ -660,7 +1177,24 @@
           extraMeshes,
           pos3D: new THREE.Vector3(px, pyElev, pz),
           floorId: s3d.floor_id || 'all',
+          isHovered: false,
+        };
+
+        pinEl.addEventListener('mouseenter', () => {
+          pinItemObj.isHovered = true;
+          syncAuditVisibility();
         });
+        pinEl.addEventListener('mouseleave', () => {
+          pinItemObj.isHovered = false;
+          syncAuditVisibility();
+        });
+        pinEl.addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectAuditNote3D(note.id, { flyTo: true, notifyParent: true });
+        });
+
+        pinsContainer.appendChild(pinEl);
+        auditPinItems.push(pinItemObj);
       });
 
       syncAuditVisibility();
@@ -669,24 +1203,28 @@
     function syncAuditVisibility() {
       audit3DGroup.visible = auditPinsVisible;
       const hasActive = Boolean(activeAuditNoteId);
+      const curFlr = (typeof currentFloorId !== 'undefined') ? currentFloorId : 'all';
 
       auditPinItems.forEach((item) => {
         const filterOk = matchesAudit3DFilter(item.note);
-        const floorOk = (typeof currentFloorId === 'undefined' || currentFloorId === 'all' || item.floorId === 'all' || item.floorId === currentFloorId);
+        const floorOk = (curFlr === 'all')
+          ? true
+          : (item.floorId === curFlr || (item.floorId === 'all' && auditFilter === 'FAC'));
         const isVis = auditPinsVisible && filterOk && floorOk;
         const isTarget = item.note.id === activeAuditNoteId;
+        const showVolume = auditPinsVisible && (isTarget || item.isHovered || (auditFilter === 'FAC' && item.note.ve_category === 'FAC'));
 
-        item.boxGrp.visible = isVis || isTarget;
-        item.extraMeshes.forEach((em) => { em.visible = isVis || isTarget; });
+        item.boxGrp.visible = showVolume;
+        item.extraMeshes.forEach((em) => { em.visible = showVolume; });
 
         if (item.boxGrp.userData.mesh) {
           item.boxGrp.userData.mesh.material.opacity = isTarget
-            ? 0.48
-            : (hasActive ? item.boxGrp.userData.baseOpacity * 0.45 : item.boxGrp.userData.baseOpacity);
+            ? 0.45
+            : (item.isHovered ? 0.36 : item.boxGrp.userData.baseOpacity);
         }
 
         item.pinEl.classList.toggle('active-pin', isTarget);
-        item.pinEl.classList.toggle('dimmed-pin', hasActive && !isTarget);
+        item.pinEl.classList.toggle('dimmed-pin', hasActive && !isTarget && !item.isHovered);
         item.pinEl.dataset.allowed = (isVis || isTarget) ? '1' : '0';
         if (!isVis && !isTarget) {
           item.pinEl.style.display = 'none';
@@ -711,6 +1249,8 @@
         }
         if (typeof setOrthoMode === 'function') {
           setOrthoMode(false);
+          const orthoQuickBtn = document.getElementById('arch-btn-ortho-top');
+          if (orthoQuickBtn) orthoQuickBtn.classList.remove('active');
         }
 
         const targetFloor = s3d.floor_id || 'f4';
@@ -722,6 +1262,8 @@
         if (typeof selectFloor === 'function') {
           selectFloor(targetFloor);
         }
+        syncArchFloorBtns(targetFloor);
+        enforceCleanArchitecturalScene();
 
         // 2. Smooth Camera Orbit Positioning
         if (s3d.camera && typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
@@ -814,13 +1356,17 @@
         document.querySelectorAll('#ac3d-filter-row [data-acfilter]').forEach((b) => b.classList.toggle('active', b === btn));
         if (auditFilter === 'FAC') {
           if (typeof selectFloor === 'function') selectFloor('all');
+          syncArchFloorBtns('all');
           facadeCladdingGroup.visible = true;
           if (typeof activatePreset === 'function') activatePreset('iso_east');
         } else if (auditFilter === 'BSM') {
+          const bsmFlr = resolveHostFloorId('basement');
           if (typeof setSliceMode === 'function') setSliceMode('single');
-          if (typeof selectFloor === 'function') selectFloor('mar');
-          renderBeforeAfterScene3D('basement_ve_full');
+          if (typeof selectFloor === 'function') selectFloor(bsmFlr);
+          syncArchFloorBtns(bsmFlr);
+          if (projectId === 'hafetz44') renderBeforeAfterScene3D('basement_ve_full');
         }
+        enforceCleanArchitecturalScene();
         syncAuditVisibility();
       });
     });
@@ -840,23 +1386,23 @@
       } else if (msg.type === 'ARCHICHECK_SELECT_SHEET' && msg.sheetId) {
         const sid = msg.sheetId.toLowerCase();
         if (typeof setSliceMode === 'function' && typeof selectFloor === 'function') {
-          if (sid.includes('basement')) {
-            setSliceMode('single');
-            selectFloor('mar');
-            renderBeforeAfterScene3D('basement_ve_full');
-          } else if (sid.includes('ground')) {
-            setSliceMode('single');
-            selectFloor('kar');
-            renderBeforeAfterScene3D('ground_contour_recess');
-          } else if (sid.includes('penthouse')) {
-            setSliceMode('single');
-            selectFloor('f9');
-            renderBeforeAfterScene3D('penthouse_island_fix');
-          } else if (sid.includes('typical')) {
-            setSliceMode('single');
-            selectFloor('f4');
-            renderBeforeAfterScene3D('west_corridor_fix');
+          const targetFlr = resolveHostFloorId(sid);
+          setSliceMode('single');
+          selectFloor(targetFlr);
+          syncArchFloorBtns(targetFlr);
+          if (projectId === 'hafetz44') {
+            if (sid.includes('basement')) renderBeforeAfterScene3D('basement_ve_full');
+            else if (sid.includes('ground')) renderBeforeAfterScene3D('ground_contour_recess');
+            else if (sid.includes('penthouse')) renderBeforeAfterScene3D('penthouse_island_fix');
+            else if (sid.includes('typical')) renderBeforeAfterScene3D('west_corridor_fix');
+          } else if (projectId === 'feierberg3') {
+            if (sid.includes('typical')) renderBeforeAfterScene3D('fb3_apt1_corridor_fix');
+            else if (sid.includes('floor10')) renderBeforeAfterScene3D('fb3_f10_gallery_fix');
+            else renderBeforeAfterScene3D(null);
+          } else {
+            renderBeforeAfterScene3D(null);
           }
+          enforceCleanArchitecturalScene();
           syncAuditVisibility();
         }
       } else if (msg.type === 'ARCHICHECK_SET_BA_MODE') {
@@ -898,10 +1444,25 @@
       });
     }
 
-    // Project 3D Audit Pin Badges every frame
+    // Project 3D Audit Pin Badges every frame & enforce clean architectural scene state
     const clipHeightRef = () => (typeof clipPlane !== 'undefined' ? clipPlane.constant : 999);
     function updateAuditPinsProjection() {
       requestAnimationFrame(updateAuditPinsProjection);
+      if (typeof gisMapPlanesGroup !== 'undefined' && gisMapPlanesGroup && gisMapPlanesGroup.visible) {
+        gisMapPlanesGroup.visible = false;
+      }
+      if (typeof gisRingsGroup !== 'undefined' && gisRingsGroup && gisRingsGroup.visible) {
+        gisRingsGroup.visible = false;
+      }
+      if (typeof gisPoisGroup !== 'undefined' && gisPoisGroup && gisPoisGroup.visible) {
+        gisPoisGroup.visible = false;
+      }
+      if (typeof units3DGroup !== 'undefined' && units3DGroup && units3DGroup.visible) {
+        units3DGroup.visible = false;
+      }
+      if (archGroundGrid && typeof currentFloorId !== 'undefined') {
+        archGroundGrid.visible = !['mar', 'b1', 'b2'].includes(currentFloorId);
+      }
       if (typeof activeCam === 'undefined' || !auditPinsVisible) return;
       if (typeof camState !== 'undefined' && camState.walkMode) {
         auditPinItems.forEach((it) => { it.pinEl.style.display = 'none'; });
@@ -954,8 +1515,23 @@
     updateAuditPinsProjection();
 
     // 8. Fetch the Project Analysis JSON (or use offline embedded data for file:// mode) and Build the 3D Overlay
+    function updateHudSyncStatus(data) {
+      const lbl = document.getElementById('ac3d-sync-status-lbl');
+      if (!lbl || !data) return;
+      const st = data.model_3d_sync_status || (data.project_data_summary && data.project_data_summary.model_3d_sync_status) || {};
+      const hShort = st.base_model_hash_short ? st.base_model_hash_short.slice(0, 8) : 'מאומת';
+      const rev = st.audit_revision || 1;
+      if (st.was_updated_and_reaudited) {
+        lbl.innerHTML = `<strong style="color:#4ade80;">🟢 מודל עודכן (סבב #${rev})</strong> · <code>#${hShort}</code>`;
+      } else {
+        lbl.innerHTML = `🧊 מודל 3D מאומת · <code>#${hShort}</code> · סבב #${rev}`;
+      }
+      lbl.title = st.status_message_he || '';
+    }
+
     function applyAuditData(data) {
       if (data && data.notes) {
+        updateHudSyncStatus(data);
         buildAuditPinsAndVolumes(data);
         if (window.parent && window.parent !== window) {
           window.parent.postMessage({ type: 'ARCHICHECK_3D_READY', projectId }, '*');
@@ -963,16 +1539,46 @@
       }
     }
 
+    const btnReaudit3d = document.getElementById('ac3d-btn-reaudit');
+    if (btnReaudit3d) {
+      btnReaudit3d.addEventListener('click', () => {
+        const lbl = document.getElementById('ac3d-sync-status-lbl');
+        if (lbl) lbl.textContent = '⏳ בודק שינויים במודל ה-3D ומריץ בקרה תכנונית מלאה...';
+        fetch('/api/check_3d_models', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ project: projectId, force: true }),
+        })
+          .then((r) => r.json())
+          .then((res) => {
+            if (res && res.payload) {
+              applyAuditData(res.payload);
+              if (window.parent && window.parent !== window) {
+                window.parent.postMessage({ type: 'ARCHICHECK_3D_REAUDITED', payload: res.payload }, '*');
+              }
+            }
+          })
+          .catch(() => {
+            if (lbl) lbl.textContent = '⚠️ מצב לא מקוון — נתוני בקרה מקומיים פעילים';
+          });
+      });
+    }
+
     if (window.location.protocol === 'file:' && window.__ARCHICHECK_EMBEDDED_DATA__) {
       applyAuditData(window.__ARCHICHECK_EMBEDDED_DATA__);
     } else {
-      fetch(`/api/${projectId}.json`)
-        .then((r) => (r.ok ? r.json() : fetch(`/api/analyze_project?q=${encodeURIComponent(projectId)}`).then((r2) => r2.json())))
+      fetch(`/api/analyze_project?q=${encodeURIComponent(projectId)}`)
+        .then((r) => (r.ok ? r.json() : fetch(`/api/${projectId}.json`).then((r2) => r2.json())))
         .then((data) => applyAuditData(data))
         .catch(() => {
-          if (window.__ARCHICHECK_EMBEDDED_DATA__) {
-            applyAuditData(window.__ARCHICHECK_EMBEDDED_DATA__);
-          }
+          fetch(`/api/${projectId}.json`)
+            .then((r) => r.json())
+            .then((data) => applyAuditData(data))
+            .catch(() => {
+              if (window.__ARCHICHECK_EMBEDDED_DATA__) {
+                applyAuditData(window.__ARCHICHECK_EMBEDDED_DATA__);
+              }
+            });
         });
     }
   }

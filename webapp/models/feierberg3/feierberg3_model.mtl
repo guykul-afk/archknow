@@ -1,0 +1,36 @@
+# Feierberg 3 Petah Tikva - MTL Library
+newmtl ext_white
+Kd 0.970 0.970 0.960
+d 1.00
+
+newmtl charcoal_crown
+Kd 0.200 0.220 0.250
+d 1.00
+
+newmtl int_wall
+Kd 0.950 0.950 0.940
+d 1.00
+
+newmtl bronze_portal
+Kd 0.450 0.360 0.290
+d 1.00
+
+newmtl shutter_box
+Kd 0.240 0.250 0.270
+d 1.00
+
+newmtl slab_floor
+Kd 0.880 0.900 0.920
+d 1.00
+
+newmtl glass_blue
+Kd 0.550 0.760 0.960
+d 0.48
+
+newmtl alu_dark
+Kd 0.110 0.130 0.160
+d 1.00
+
+newmtl oak_furn
+Kd 0.760 0.590 0.400
+d 1.00

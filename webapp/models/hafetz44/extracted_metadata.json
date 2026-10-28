@@ -1,0 +1,108 @@
+{
+  "metadata_version": "2.0-kitroni",
+  "project_name": "חפץ חיים 44 פתח תקווה - גרמושקה ג9 (קולסקי / סטודיו אורכה)",
+  "total_sheets_analyzed": 2,
+  "datum_discovery": {
+    "datum_abs_m": 47.90,
+    "datum_expression": "±0.00 = +47.90",
+    "gush": "6396",
+    "helka": "85 (85-1, 85-2, 85-3)",
+    "lot_area_sqm": 1067,
+    "calculated_lot_area_sqm": 712,
+    "scale": "1:100"
+  },
+  "sheets": [
+    {
+      "source_file": "hafetz44_g9_part1.pdf",
+      "page_num": 1,
+      "sheet_classification": "floors_and_tables",
+      "detected_floor_range": "basement_-1, ground_0, typical_1_to_8, penthouse_9, upper_roof, stair_roof",
+      "scale": "1:100",
+      "detected_rules_and_notes": [
+        "בקע 2.10",
+        "ק.ע. 2.10",
+        "uk=1.05 h=1.25 (חלונות חדרים וממ\"ד)",
+        "uk=0.40 h=1.25 / ויטרינות מרפסות",
+        "מעקה זכוכית ופרגולות אלומיניום בחזיתות",
+        "אין החדרת עוגנים בגבול המגרש"
+      ],
+      "detected_elevation_markers": [
+        "-5.10=42.80",
+        "-0.60=47.30",
+        "±0.00=47.90",
+        "+3.50",
+        "+6.65",
+        "+9.80",
+        "+12.95",
+        "+16.10",
+        "+19.25",
+        "+22.40",
+        "+25.55",
+        "+28.70",
+        "+31.85",
+        "+32.95",
+        "+34.55"
+      ],
+      "detected_materials": [
+        "טיח חוץ לבן",
+        "בטון מזוין ממ\"ד וגרעין 25-30 ס\"מ",
+        "קירות דיפון מרתף 30-50 ס\"מ",
+        "מעקה זכוכית 1.05-1.10 מ'",
+        "פרגולת אלומיניום קלה"
+      ],
+      "detected_spaces_and_cores": [
+        "פיר מעלית (1.70x1.85 מ')",
+        "חדר מדרגות מרכזי (רוחב 3.38 מ')",
+        "ממ\"ד צפוני-מערבי (3.35x4.00 מ')",
+        "ממ\"ד צפוני-מזרחי (2.95x4.00 מ')",
+        "לובי כניסה ראשי (+0.00)",
+        "חדר דיירים / עגלות / אופניים / אשפה (-0.60)",
+        "מרתף חניה 1- (19 חניות + מאגר ומשאבות)"
+      ],
+      "crop_images": {
+        "thumbnail": "hafetz44_g9_part1/hafetz44_g9_part1_p1_thumb.jpg",
+        "typical_floor": "smart/crop_typical_floor.jpg",
+        "penthouse_floor": "smart/crop_penthouse_floor.jpg",
+        "basement_floor": "smart/crop_basement_floor.jpg",
+        "ground_floor": "smart/crop_ground_floor.jpg",
+        "roof_floors": "smart/crop_roof_floors.jpg"
+      }
+    },
+    {
+      "source_file": "hafetz44_g9_part2.pdf",
+      "page_num": 1,
+      "sheet_classification": "site_sections_and_elevations",
+      "detected_floor_range": "sections_AA_BB_and_4_elevations",
+      "scale": "1:100",
+      "detected_rules_and_notes": [
+        "קו בניין קדמי מזרחי (רחוב חפץ חיים): 5.00 מ'",
+        "קו בניין אחורי מערבי (שצ\"פ): 6.00 מ'",
+        "קו בניין צדי צפוני ודרומי: 4.00 מ'",
+        "רמפת ירידה למרתף בשיפוע 10%-15%-11%-5.5% ממפלס 0.00 עד -5.10"
+      ],
+      "detected_elevation_markers": [
+        "-5.10=42.80",
+        "±0.00=47.90",
+        "+3.50",
+        "+6.65",
+        "+9.80",
+        "+12.95",
+        "+16.10",
+        "+19.25",
+        "+22.40",
+        "+25.55",
+        "+28.70",
+        "+31.85",
+        "+32.95",
+        "+34.55"
+      ],
+      "crop_images": {
+        "thumbnail": "hafetz44_g9_part2/hafetz44_g9_part2_p1_thumb.jpg",
+        "title_strip": "smart/p2_title_strip.jpg",
+        "section_aa_ruler": "smart/crop_section_aa_ruler.jpg",
+        "sections_elev_ruler": "smart/p2_sections_elev_ruler.jpg",
+        "facades": "smart/p2_facades.jpg"
+      }
+    }
+  ]
+}

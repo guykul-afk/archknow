@@ -1,0 +1,44 @@
+# Yatkovski 7 Petah Tikva - MTL Library
+newmtl ext_white
+Kd 0.990 0.990 1.000
+d 1.00
+
+newmtl int_wall
+Kd 0.970 0.980 0.990
+d 1.00
+
+newmtl bronze_portal
+Kd 0.550 0.400 0.330
+d 1.00
+
+newmtl shutter_box
+Kd 0.250 0.250 0.270
+d 1.00
+
+newmtl slab_floor
+Kd 0.890 0.910 0.940
+d 1.00
+
+newmtl wood_deck
+Kd 0.890 0.910 0.940
+d 1.00
+
+newmtl glass_blue
+Kd 0.580 0.770 0.990
+d 0.50
+
+newmtl alu_dark
+Kd 0.070 0.090 0.150
+d 1.00
+
+newmtl oak_furn
+Kd 0.780 0.620 0.420
+d 1.00
+
+newmtl boucle_sofa
+Kd 0.970 0.950 0.920
+d 1.00
+
+newmtl calacatta
+Kd 0.980 0.970 0.950
+d 1.00

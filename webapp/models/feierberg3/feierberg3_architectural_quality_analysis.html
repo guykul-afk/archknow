@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>ניתוח איכות אדריכלית ואימות BIM — פאירברג 3, פתח תקווה</title>
+  <style>
+    body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #f8fafc; color: #0f172a; margin: 0; padding: 32px; }
+    .container { max-width: 1080px; margin: 0 auto; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 16px; padding: 28px; box-shadow: 0 10px 30px rgba(15,23,42,0.08); }
+    h1 { margin-top: 0; color: #1e3a8a; font-size: 24px; }
+    h2 { color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-top: 26px; font-size: 18px; }
+    .badge-pass { background: #dcfce7; color: #166534; border: 1px solid #86efac; padding: 3px 10px; border-radius: 999px; font-weight: 800; font-size: 12px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13.5px; }
+    th, td { border: 1px solid #cbd5e1; padding: 10px 12px; text-align: right; }
+    th { background: #f1f5f9; font-weight: 800; }
+    .btn { display: inline-block; background: #2563eb; color: #ffffff; text-decoration: none; padding: 10px 18px; border-radius: 10px; font-weight: 800; margin-left: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <div>
+        <h1>דו"ח אימות אדריכלי והנדסי 1:1 (BIM & CRM QA) — פאירברג 3, פתח תקווה</h1>
+        <div style="color:#475569;font-weight:600;">גוש 6387 · חלקה 193 · א. קולסקי · אלישע רובין אדריכלים · 18 יח"ד · 14 מפלסים</div>
+      </div>
+      <span class="badge-pass">✓ כל 5 מבחני ה-BIM עברו בהצלחה (100%)</span>
+    </div>
+
+    <div style="margin-top:18px;">
+      <a class="btn" href="index.html">🏢 פתח פורטל 3D BIM & CRM מלא</a>
+      <a class="btn" style="background:#059669;" href="feierberg3_spatial_map.html">🗺️ פתח מפת GIS מרחבית (28 מוקדים)</a>
+    </div>
+
+    <h2>1. תוצאות מבחני Zero-Trust BIM</h2>
+    <table>
+      <thead>
+        <tr><th>מבחן הנדסי</th><th>מדד נדרש</th><th>תוצאה בפועל</th><th>סטטוס</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1. רציפות אנכית של הגרעין (מדרגות ומעלית)</td><td>IoU ≥ 0.95</td><td>IoU = 1.000 ממרתף 2- (-7.80m) עד הגג (+35.17m)</td><td><span class="badge-pass">PASSED</span></td></tr>
+        <tr><td>2. סכום גבהים אנכי (Z-Axis Checksum)</td><td>שגיאה 0.00m</td><td>-7.80m עד +37.50m ב-14 מפלסים מדויקים (שגיאה 0.00m)</td><td><span class="badge-pass">PASSED</span></td></tr>
+        <tr><td>3. קווי בניין וגבולות חלקה 193</td><td>ללא חריגה</td><td>מגרש 33.50×16.40 מ' (548 מ"ר), נסיגות קומות 1–8 וקומות 9–10</td><td><span class="badge-pass">PASSED</span></td></tr>
+        <tr><td>4. טופולוגיית קירות וחללים חלולים</td><td>אפס קוביות אטומות</td><td>קירות דקים בלבד (10–30 ס"מ), פיר מעלית וחדר מדרגות חלולים</td><td><span class="badge-pass">PASSED</span></td></tr>
+        <tr><td>5. הצלבת 4 חזיתות וחתכים א-א / ב-ב</td><td>100% התאמה</td><td>מרפסות דרומיות, מסגרות דו-קומתיות, מסתורי כביסה ופרגולות ק' 8–9</td><td><span class="badge-pass">PASSED</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

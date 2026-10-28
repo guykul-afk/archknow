@@ -1,0 +1,115 @@
+# Pines 48, Petah Tikva - Architectural CAD Materials (Exterior + Interior)
+
+newmtl mat_D_white_plaster
+Kd 0.9550 0.9480 0.9300
+Ka 0.1910 0.1896 0.1860
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_B_gray_plaster
+Kd 0.3800 0.3950 0.4150
+Ka 0.0760 0.0790 0.0830
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_C_white_louvers
+Kd 0.9100 0.9250 0.9400
+Ka 0.1820 0.1850 0.1880
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_A_iron_railing
+Kd 0.1500 0.1650 0.1850
+Ka 0.0300 0.0330 0.0370
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_interior_wall
+Kd 0.9680 0.9610 0.9410
+Ka 0.1936 0.1922 0.1882
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_core_concrete
+Kd 0.9680 0.9610 0.9410
+Ka 0.1936 0.1922 0.1882
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_interior_partition
+Kd 0.9680 0.9610 0.9410
+Ka 0.1936 0.1922 0.1882
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_interior_wood_fixtures
+Kd 0.7200 0.5600 0.4000
+Ka 0.1440 0.1120 0.0800
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_window_glass
+Kd 0.2100 0.3750 0.5250
+Ka 0.0420 0.0750 0.1050
+Ks 0.1500 0.1500 0.1500
+d 0.7500
+
+newmtl mat_alu_frame
+Kd 0.1950 0.2100 0.2300
+Ka 0.0390 0.0420 0.0460
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_concrete_curb
+Kd 0.8550 0.8480 0.8300
+Ka 0.1710 0.1696 0.1660
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_terrace_tile
+Kd 0.8350 0.8150 0.7850
+Ka 0.1670 0.1630 0.1570
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_solar_panel
+Kd 0.1100 0.1650 0.2750
+Ka 0.0220 0.0330 0.0550
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_site_ground
+Kd 0.8250 0.8100 0.7850
+Ka 0.1650 0.1620 0.1570
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_road_asphalt
+Kd 0.2400 0.2500 0.2650
+Ka 0.0480 0.0500 0.0530
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_landscape_green
+Kd 0.3300 0.4900 0.3100
+Ka 0.0660 0.0980 0.0620
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_cad_setback
+Kd 0.8600 0.1900 0.1800
+Ka 0.1720 0.0380 0.0360
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_cad_furniture_2d
+Kd 0.1450 0.3880 0.9220
+Ka 0.0290 0.0776 0.1844
+Ks 0.1500 0.1500 0.1500
+d 1.0000
+
+newmtl mat_cad_fixtures_2d
+Kd 0.7060 0.3250 0.0350
+Ka 0.1412 0.0650 0.0070
+Ks 0.1500 0.1500 0.1500
+d 1.0000

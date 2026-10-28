@@ -55,15 +55,23 @@ for cfg in PROJECTS_CONFIG:
 
     # Copy any required companion JS files (e.g., kkl10_threejs_bim_v6_1.js)
     for fn in os.listdir(src_dir):
-        if fn.endswith('.js') and not fn.startswith('hafetz44_audit_'):
+        if fn.endswith('.js') and not fn.startswith('hafetz44_audit_') and fn != 'audit_3d_overlay.js':
             shutil.copy2(os.path.join(src_dir, fn), os.path.join(dst_dir, fn))
+
+    # Ensure fresh audit_3d_overlay.js in both dst_dir and src_dir
+    if os.path.isfile('webapp/audit_3d_overlay.js'):
+        shutil.copy2('webapp/audit_3d_overlay.js', os.path.join(dst_dir, 'audit_3d_overlay.js'))
+        try:
+            shutil.copy2('webapp/audit_3d_overlay.js', os.path.join(src_dir, 'audit_3d_overlay.js'))
+        except Exception:
+            pass
 
     # Sync HTML viewers and ensure runtime overlay script is injected before the LAST </body>
     html_files = set(filter(None, [cfg.get('primary_viewer'), cfg.get('bim_viewer'), cfg.get('spatial_map')]))
     overlay_block = (
         f'\n<!-- ARCHICHECK_3D_OVERLAY_START -->\n'
         f'<script>window.__ARCHICHECK_PROJECT_ID__ = "{pid}";</script>\n'
-        f'<script src="/audit_3d_overlay.js?v=6.6"></script>\n'
+        f'<script src="/audit_3d_overlay.js?v=6.8"></script>\n'
         f'<!-- ARCHICHECK_3D_OVERLAY_END -->\n'
     )
     for html_fn in html_files:
@@ -105,19 +113,30 @@ for cfg in PROJECTS_CONFIG:
 
     # If Hafetz Haim 44 has offline standalone overlay in central folder, keep it in sync
     if pid == 'hafetz44':
-        standalone_path = os.path.join(src_dir, 'hafetz44_audit_3d_standalone.js')
         if os.path.isdir(src_dir):
             with open('webapp/api/hafetz44.json', 'r', encoding='utf-8') as jf:
                 h44_json_str = jf.read()
             with open('webapp/audit_3d_overlay.js', 'r', encoding='utf-8') as of:
                 ov_js_str = of.read()
+            preload_payload = (
+                f'window.__ARCHICHECK_PROJECT_ID__ = "hafetz44";\n'
+                f'window.__ARCHICHECK_EMBEDDED_DATA__ = {h44_json_str};\n'
+            )
             standalone_payload = (
                 f'window.__ARCHICHECK_PROJECT_ID__ = "hafetz44";\n'
                 f'window.__ARCHICHECK_EMBEDDED_DATA__ = {h44_json_str};\n'
                 f'{ov_js_str}\n'
             )
-            with open(standalone_path, 'w', encoding='utf-8', newline='\n') as sf:
-                sf.write(standalone_payload)
-            print(f'Updated standalone offline overlay: {standalone_path}')
+            for target_folder in (src_dir, dst_dir):
+                try:
+                    preload_path = os.path.join(target_folder, 'hafetz44_audit_preload.js')
+                    with open(preload_path, 'w', encoding='utf-8', newline='\n') as pf:
+                        pf.write(preload_payload)
+                    standalone_path = os.path.join(target_folder, 'hafetz44_audit_3d_standalone.js')
+                    with open(standalone_path, 'w', encoding='utf-8', newline='\n') as sf:
+                        sf.write(standalone_payload)
+                    print(f'Updated preload & standalone offline overlays in: {target_folder}')
+                except Exception as ex:
+                    print(f'Notice: Could not update standalone overlays in {target_folder}: {ex}')
 
 print('Static export complete!')
