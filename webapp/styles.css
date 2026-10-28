@@ -5190,3 +5190,413 @@ body.top-bar-collapsed .top-command-bar {
   border: none !important;
   display: block !important;
 }
+
+/* =========================================================================
+   RIGHT SIDEBAR: TWO-TIER SYSTEM FILTERING (שלילי / חיובי + קטגוריה),
+   SEPARATE SAVINGS TAB (חיסכון), AND CONCISE VERBAL REVIEW (סקירה)
+   ========================================================================= */
+.doc-filter-stack {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  padding: 8px 12px !important;
+  background: #f8fafc !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.doc-filter-stack.hidden,
+.ve-subfilter-bar.hidden {
+  display: none !important;
+}
+
+.polarity-filter-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.polarity-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px 8px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.polarity-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.polarity-btn.active {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+.polarity-btn.polarity-neg.active {
+  background: #dc2626;
+  color: #ffffff;
+  border-color: #b91c1c;
+}
+
+.polarity-btn.polarity-pos.active {
+  background: #059669;
+  color: #ffffff;
+  border-color: #047857;
+}
+
+.polarity-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.polarity-dot.neg {
+  background: #ef4444;
+}
+
+.polarity-dot.pos {
+  background: #10b981;
+}
+
+.polarity-btn.active .polarity-dot {
+  background: #ffffff;
+}
+
+.category-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.cat-filter-btn,
+.ve-cat-btn {
+  flex: 1 1 auto;
+  padding: 5px 8px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #334155;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.14s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.cat-filter-btn:hover,
+.ve-cat-btn:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.cat-filter-btn.active,
+.ve-cat-btn.active {
+  background: #1e293b;
+  color: #ffffff;
+  border-color: #1e293b;
+  font-weight: 700;
+}
+
+.ve-subfilter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 8px 12px;
+  background: #ecfdf5;
+  border-bottom: 1px solid #a7f3d0;
+}
+
+/* Note Card Polarity & Category Badges */
+.note-badges-left {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.note-polarity-pill,
+.note-cat-pill,
+.note-ve-pill {
+  font-family: 'Heebo', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.note-polarity-pill.pol-neg {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.note-polarity-pill.pol-pos {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.note-cat-pill.cat-standard {
+  background: #fff7ed;
+  color: #9a3412;
+  border: 1px solid #fed7aa;
+}
+
+.note-cat-pill.cat-arch_quality {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.note-cat-pill.cat-interior_tip {
+  background: #f5f3ff;
+  color: #6d28d9;
+  border: 1px solid #ddd6fe;
+}
+
+.note-ve-pill {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+}
+
+/* Savings Tab Summary Card */
+.ve-tab-summary-card {
+  margin: 10px 12px 4px;
+  padding: 11px 13px;
+  background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+  border: 1px solid #6ee7b7;
+  border-radius: 9px;
+}
+
+.ve-tab-summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ve-tab-summary-lbl {
+  font-size: 11px;
+  font-weight: 700;
+  color: #065f46;
+}
+
+.ve-tab-summary-val {
+  font-size: 19px;
+  font-weight: 900;
+  color: #047857;
+  line-height: 1.2;
+}
+
+.ve-tab-summary-sub {
+  font-size: 11px;
+  color: #065f46;
+  margin-top: 2px;
+}
+
+.doc-empty-filter-state {
+  padding: 24px 16px;
+  text-align: center;
+  font-size: 12.5px;
+  color: #64748b;
+}
+
+/* Concise Verbal Review ("סקירה") Styles */
+.ov-verbal-hero {
+  border-right: 3.5px solid #0f172a !important;
+}
+
+.ov-score-pill {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+  background: #f1f5f9;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+}
+
+.ov-verbal-lead {
+  margin: 6px 0 10px;
+  font-size: 12.3px;
+  line-height: 1.52;
+  color: #1e293b;
+}
+
+.ov-polarity-summary-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ov-pol-chip {
+  flex: 1 1 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px 8px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+.ov-pol-chip.ov-pol-neg {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #991b1b;
+}
+
+.ov-pol-chip.ov-pol-pos {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #065f46;
+}
+
+.ov-pol-chip.ov-pol-ve {
+  background: #f0fdf4;
+  border-color: #86efac;
+  color: #166534;
+}
+
+.ov-pol-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+}
+
+.ov-pol-dot.neg {
+  background: #ef4444;
+}
+
+.ov-pol-dot.pos {
+  background: #10b981;
+}
+
+.ov-verbal-negative {
+  border-right: 3.5px solid #dc2626 !important;
+}
+
+.ov-verbal-positive {
+  border-right: 3.5px solid #059669 !important;
+}
+
+.ov-verbal-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.ov-verbal-cat-block {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 7px;
+  padding: 7px 9px;
+}
+
+.ov-verbal-cat-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+
+.ov-verbal-cat-title {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.ov-filter-jump-btn {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  padding: 2px 7px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+}
+
+.ov-filter-jump-btn:hover {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+.ov-verbal-bullet-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ov-verbal-bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 4px 6px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: #334155;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.ov-verbal-bullet:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.ov-bullet-pin {
+  font-family: 'Heebo', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  background: #0f172a;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 1px 5px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.ov-bullet-body strong {
+  color: #0f172a;
+}
+
+.ov-bullet-body em {
+  font-style: normal;
+  color: #475569;
+}
+

@@ -100,3 +100,7 @@
   1. **נטרול מוחלט של שכבות השיווק וה-GIS בעלייה ובכל פריים (`enforceCleanArchitecturalScene`):** כיבוי `gmapsVisible = false`, `gisMapPlanesGroup.visible = false`, `gisRadiiVisible = false`, `gisRingsGroup.visible = false`, `gisPoisVisible = false`, `gisPoisGroup.visible = false`, `units3DVisible = false`, `units3DGroup.visible = false`, `showLabels = false`, והצבת משטח רשת קואורדינטות אדריכלי נקי (`THREE.GridHelper` בגובה `-0.15m`) על רקע סטודיו בהיר (`#eef2f6`).
   2. **התאמת סרגל הכלים העליון לניתוח תכנוני (`adaptHostInterfaceForPlanningAnalysis`):** הסתרת כל כפתורי ומגירות השיווק/מחירון/מוקדי סביבה, והחלפתם בכפתורי חתך תכנוניים ישירים (`🏢 מבנה שלם`, `🅿️ מרתף (-5.10)`, `🏛️ קרקע (±0.00)`, `📐 קומה טיפוסית (ק׳ 1–8)`, `👑 פנטהאוז (ק׳ 9)`, `📐 היטל 1:50`, `🛋️ ריהוט 3D`, `📏 מדידה`, `🧱 שכבות BIM`).
   3. **מניעת הצגת תיבות Wireframe של חזיתות שלמות (`floorId === 'all'`) בעת חתך קומה בודדת:** תיבות נפח תלת-ממדיות (`boxGrp`) מוצגות רק עבור הממצא הנבחר (`isTarget`) או המורחף (`isHovered`), וממצאי חזיתות (`floorId === 'all'`) מוצגים רק במבט מבנה שלם (`currentFloorId === 'all'`) או בסינון `חזיתות HPL`, כך שחתך קומה פנימי נשאר נקי לחלוטין מקווי מתאר חוצים.
+
+* **2026-10-28 | [DOM:General] Untitled Lesson:** **Cue:** When performing tasks in this domain → **Lesson:** Not specified *(Evidence: Not specified → Not specified | Confidence: high)*
+
+* **2026-10-28 | [DOM:General] Untitled Lesson:** **Cue:** When performing tasks in this domain → **Lesson:** Not specified *(Evidence: Not specified → Not specified | Confidence: high)*

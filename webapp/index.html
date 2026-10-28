@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=6.3" />
+  <link rel="stylesheet" href="styles.css?v=6.4" />
 </head>
 <body>
   <!-- COLLAPSIBLE MINIMALIST TOP BAR -->
@@ -54,6 +54,10 @@
 
         <button type="button" id="btn-open-summary-modal" class="btn-tool" title="טבלאות שטחים">
           שטחים
+        </button>
+
+        <button type="button" id="btn-check-3d-update" class="btn-tool" title="בדיקת שינוי או עדכון במודל ה-3D הבסיסי והרצת בדיקה תכנונית מלאה חדשה">
+          🔄 בדיקת מודל 3D <span id="hdr-3d-sync-badge" class="hdr-ve-pill">מאומת</span>
         </button>
 
         <button type="button" id="btn-export-decisions" class="btn-tool" title="דוח החלטות">
@@ -122,38 +126,67 @@
         <!-- Minimalist Score & Count Strip -->
         <div id="doc-metrics-grid" class="doc-metrics-grid"></div>
 
-        <!-- 4 Work Modes -->
+        <!-- 4 Work Modes: סקירה | הערות מערכת | חיסכון (מופרד) | השוואה -->
         <div class="work-modes-bar" id="work-modes-bar" role="tablist">
-          <button type="button" class="work-mode-tab" data-mode="OVERVIEW">
+          <button type="button" class="work-mode-tab" data-mode="OVERVIEW" title="סקירה מילולית מתומצתת של בדיקת התכנון">
             סקירה
           </button>
-          <button type="button" class="work-mode-tab active" data-mode="FINDINGS">
-            ממצאים (<span id="count-all">0</span>)
+          <button type="button" class="work-mode-tab active" data-mode="FINDINGS" title="הערות מערכת מסוננות לפי שלילי/חיובי ותתי-קטגוריות">
+            הערות מערכת (<span id="count-all">0</span>)
           </button>
-          <button type="button" class="work-mode-tab" data-mode="OPTIMIZATION">
+          <button type="button" class="work-mode-tab" data-mode="OPTIMIZATION" title="טאב נפרד לחיסכון בעלויות הבנייה ובקרת קונטור">
             חיסכון (<span id="count-opt">0</span>)
           </button>
-          <button type="button" class="work-mode-tab" data-mode="COMPARE">
+          <button type="button" class="work-mode-tab" data-mode="COMPARE" title="השוואת מצב קיים מול מוצע">
             השוואה
           </button>
         </div>
 
-        <!-- Clean Monochrome Sub-Filters -->
-        <div class="doc-filter-bar" id="doc-subfilter-bar">
-          <button type="button" class="filter-btn active" data-filter="ALL">
-            הכל
+        <!-- Two-Tier System Notes Filters (Shown in FINDINGS mode) -->
+        <div class="doc-filter-stack" id="doc-subfilter-bar">
+          <!-- Tier 1: Polarity (הכל / שלילי / חיובי) -->
+          <div class="doc-filter-bar polarity-filter-row" id="polarity-filter-row">
+            <button type="button" class="polarity-btn active" data-polarity="ALL">
+              הכל (<span id="count-pol-all">0</span>)
+            </button>
+            <button type="button" class="polarity-btn polarity-neg" data-polarity="NEGATIVE">
+              שלילי (<span id="count-pol-neg">0</span>)
+            </button>
+            <button type="button" class="polarity-btn polarity-pos" data-polarity="POSITIVE">
+              חיובי (<span id="count-pol-pos">0</span>)
+            </button>
+          </div>
+
+          <!-- Tier 2: Category within Polarity (הכל / תקן / איכות תכנון אדריכלי / טיפ עיצוב פנים) -->
+          <div class="doc-filter-bar category-filter-row" id="category-filter-row">
+            <button type="button" class="cat-filter-btn active" data-category="ALL">
+              הכל (<span id="count-cat-all">0</span>)
+            </button>
+            <button type="button" class="cat-filter-btn" data-category="STANDARD">
+              תקן (<span id="count-cat-std">0</span>)
+            </button>
+            <button type="button" class="cat-filter-btn" data-category="ARCH_QUALITY">
+              איכות תכנון אדריכלי (<span id="count-cat-arch">0</span>)
+            </button>
+            <button type="button" class="cat-filter-btn" data-category="INTERIOR_TIP">
+              טיפ עיצוב פנים (<span id="count-cat-tip">0</span>)
+            </button>
+          </div>
+        </div>
+
+        <!-- Dedicated Savings Sub-Filters (Shown only in separated חיסכון OPTIMIZATION tab) -->
+        <div class="doc-filter-bar ve-subfilter-bar hidden" id="ve-subfilter-bar">
+          <button type="button" class="ve-cat-btn active" data-ve-cat="ALL">
+            הכל (<span id="count-ve-all">0</span>)
           </button>
-          <button type="button" class="filter-btn" data-filter="ISSUES">
-            לבדיקה (<span id="count-issues">0</span>)
+          <button type="button" class="ve-cat-btn" data-ve-cat="AG">
+            קונטור עילי (<span id="count-ve-ag">0</span>)
           </button>
-          <button type="button" class="filter-btn" data-filter="VE">
-            חיסכון (<span id="count-ve">0</span>)
+          <button type="button" class="ve-cat-btn" data-ve-cat="UG">
+            קונטור מרתף (<span id="count-ve-ug">0</span>)
           </button>
-          <button type="button" class="filter-btn" data-filter="DESIGN_IMP">
-            שיפור (<span id="count-imp">0</span>)
-          </button>
-          <button type="button" class="filter-btn" data-filter="PASS">
-            תקין (<span id="count-pass">0</span>)
+          <button type="button" class="ve-cat-btn" data-ve-cat="FAC">
+            חזיתות (<span id="count-ve-fac">0</span>)
           </button>
         </div>
       </div>
@@ -362,6 +395,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=6.3"></script>
+  <script src="app.js?v=6.4"></script>
 </body>
 </html>

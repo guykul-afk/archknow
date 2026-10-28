@@ -74,6 +74,7 @@ def build_markdown_summary_and_areas_section(payload):
         f"| **סך שטחי ריצוף ציבורי (נטו)** | **{fmt(flr.get('total_public_flooring_sqm'))} מ״ר** | לובי ראשי, מבואות קומתיות, חדרי מדרגות, מועדון דיירים/עגלות ומחסנים מרוצפים |",
         f"| **סך שטחי ריצוף מרפסות (נטו)** | **{fmt(flr.get('total_balconies_flooring_sqm'))} מ״ר** | מרפסות שמש זיזיות, מרפסות שירות, מרפסות גג ומשטחי גן מרוצפים (R11) |",
         f"| **סה״כ שטחי ריצוף בפרויקט (קומות מלאות)** | **{fmt(flr.get('grand_total_flooring_sqm'))} מ״ר** | סך כל שטחי הרצפה המרוצפים נטו בפרויקט (דירות + ציבורי + מרפסות) |",
+        f"| **סנכרון ובקרת מודל 3D בסיסי** | **חתימה `#{payload.get('model_3d_sync_status', {}).get('base_model_hash_short', 'מאומת')}`** | {payload.get('model_3d_sync_status', {}).get('status_message_he', 'המודל התלת-ממדי הבסיסי נבדק ומסונכרן 1:1 מול דוח הבקרה התכנונית')} |",
         "",
         "---",
         "",

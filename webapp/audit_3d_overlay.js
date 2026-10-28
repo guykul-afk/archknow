@@ -653,6 +653,10 @@
           <div style="font-weight:800;color:#fde047;margin-bottom:2px;">בחר סיכה במודל או ממצא ברשימה</div>
           <div style="color:#cbd5e1;font-size:11px;">המודל יחתוך אוטומטית לקומה הרלוונטית ויציג את נפח הבדיקה והשינוי המוצע בתלת-ממד.</div>
         </div>
+        <div id="ac3d-model-sync-bar" style="display:flex;align-items:center;justify-content:space-between;gap:6px;padding:5px 8px;border-radius:7px;background:rgba(15,23,42,0.88);border:1px solid #334155;font-size:10.5px;color:#cbd5e1;">
+          <span id="ac3d-sync-status-lbl" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">🧊 מודל 3D בסיסי מנוטר...</span>
+          <button type="button" id="ac3d-btn-reaudit" class="ac3d-chip" style="flex:0;min-width:auto;padding:2px 7px;border-color:#38bdf8;color:#38bdf8;" title="בדוק אם מודל ה-3D הבסיסי שונה והרץ בדיקה תכנונית מלאה חדשה">🔄 בדוק/בקר</button>
+        </div>
       </div>
     `;
     vpContainer.appendChild(hudEl);
@@ -1366,8 +1370,23 @@
     updateAuditPinsProjection();
 
     // 8. Fetch the Project Analysis JSON (or use offline embedded data for file:// mode) and Build the 3D Overlay
+    function updateHudSyncStatus(data) {
+      const lbl = document.getElementById('ac3d-sync-status-lbl');
+      if (!lbl || !data) return;
+      const st = data.model_3d_sync_status || (data.project_data_summary && data.project_data_summary.model_3d_sync_status) || {};
+      const hShort = st.base_model_hash_short ? st.base_model_hash_short.slice(0, 8) : 'מאומת';
+      const rev = st.audit_revision || 1;
+      if (st.was_updated_and_reaudited) {
+        lbl.innerHTML = `<strong style="color:#4ade80;">🟢 מודל עודכן (סבב #${rev})</strong> · <code>#${hShort}</code>`;
+      } else {
+        lbl.innerHTML = `🧊 מודל 3D מאומת · <code>#${hShort}</code> · סבב #${rev}`;
+      }
+      lbl.title = st.status_message_he || '';
+    }
+
     function applyAuditData(data) {
       if (data && data.notes) {
+        updateHudSyncStatus(data);
         buildAuditPinsAndVolumes(data);
         if (window.parent && window.parent !== window) {
           window.parent.postMessage({ type: 'ARCHICHECK_3D_READY', projectId }, '*');
@@ -1375,16 +1394,46 @@
       }
     }
 
+    const btnReaudit3d = document.getElementById('ac3d-btn-reaudit');
+    if (btnReaudit3d) {
+      btnReaudit3d.addEventListener('click', () => {
+        const lbl = document.getElementById('ac3d-sync-status-lbl');
+        if (lbl) lbl.textContent = '⏳ בודק שינויים במודל ה-3D ומריץ בקרה תכנונית מלאה...';
+        fetch('/api/check_3d_models', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ project: projectId, force: true }),
+        })
+          .then((r) => r.json())
+          .then((res) => {
+            if (res && res.payload) {
+              applyAuditData(res.payload);
+              if (window.parent && window.parent !== window) {
+                window.parent.postMessage({ type: 'ARCHICHECK_3D_REAUDITED', payload: res.payload }, '*');
+              }
+            }
+          })
+          .catch(() => {
+            if (lbl) lbl.textContent = '⚠️ מצב לא מקוון — נתוני בקרה מקומיים פעילים';
+          });
+      });
+    }
+
     if (window.location.protocol === 'file:' && window.__ARCHICHECK_EMBEDDED_DATA__) {
       applyAuditData(window.__ARCHICHECK_EMBEDDED_DATA__);
     } else {
-      fetch(`/api/${projectId}.json`)
-        .then((r) => (r.ok ? r.json() : fetch(`/api/analyze_project?q=${encodeURIComponent(projectId)}`).then((r2) => r2.json())))
+      fetch(`/api/analyze_project?q=${encodeURIComponent(projectId)}`)
+        .then((r) => (r.ok ? r.json() : fetch(`/api/${projectId}.json`).then((r2) => r2.json())))
         .then((data) => applyAuditData(data))
         .catch(() => {
-          if (window.__ARCHICHECK_EMBEDDED_DATA__) {
-            applyAuditData(window.__ARCHICHECK_EMBEDDED_DATA__);
-          }
+          fetch(`/api/${projectId}.json`)
+            .then((r) => r.json())
+            .then((data) => applyAuditData(data))
+            .catch(() => {
+              if (window.__ARCHICHECK_EMBEDDED_DATA__) {
+                applyAuditData(window.__ARCHICHECK_EMBEDDED_DATA__);
+              }
+            });
         });
     }
   }

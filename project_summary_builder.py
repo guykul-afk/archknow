@@ -3486,6 +3486,130 @@ def enrich_project_payload(payload):
                 },
             }
 
+    try:
+        from spatial_3d_mapper import enrich_payload_with_3d_spatial_data
+        payload = enrich_payload_with_3d_spatial_data(payload)
+    except Exception:
+        pass
+
+    # Explicit Note Classification for Right Sidebar Filtering:
+    # Polarity: NEGATIVE ("שלילי") vs POSITIVE ("חיובי")
+    # Sub-Category: STANDARD ("תקן") | ARCH_QUALITY ("איכות תכנון אדריכלי") | INTERIOR_TIP ("טיפ עיצוב פנים")
+    EXPLICIT_NOTE_CATEGORY_MAP = {
+        # Hafetz Chaim 44
+        "H44-W-01": "ARCH_QUALITY",
+        "H44-W-02": "INTERIOR_TIP",
+        "H44-W-03": "INTERIOR_TIP",
+        "H44-W-04": "STANDARD",
+        "H44-W-05": "STANDARD",
+        "H44-E-01": "ARCH_QUALITY",
+        "H44-E-02": "INTERIOR_TIP",
+        "H44-PH-01": "INTERIOR_TIP",
+        "H44-GND-01": "STANDARD",
+        "H44-BSM-01": "STANDARD",
+        # Pines 48
+        "P48-B-01": "INTERIOR_TIP",
+        "P48-B-02": "INTERIOR_TIP",
+        "P48-B-03": "ARCH_QUALITY",
+        "P48-B-04": "INTERIOR_TIP",
+        "P48-B-05": "STANDARD",
+        "P48-B-06": "ARCH_QUALITY",
+        "P48-A-01": "ARCH_QUALITY",
+        "P48-A-02": "INTERIOR_TIP",
+        "P48-A-03": "ARCH_QUALITY",
+        "P48-A-04": "INTERIOR_TIP",
+        "P48-A-05": "STANDARD",
+        "P48-C-01": "ARCH_QUALITY",
+        "P48-C-02": "INTERIOR_TIP",
+        "P48-C-03": "ARCH_QUALITY",
+        "P48-C-04": "STANDARD",
+        "P48-C-05": "INTERIOR_TIP",
+        "P48-CORE-01": "STANDARD",
+        "P48-PB-01": "INTERIOR_TIP",
+        "P48-PC-01": "ARCH_QUALITY",
+        "P48-F7-01": "STANDARD",
+        "P48-ROOF-01": "STANDARD",
+        "P48-GND-01": "ARCH_QUALITY",
+        "P48-GND-02": "STANDARD",
+        "P48-GND-03": "STANDARD",
+        "P48-BSM-01": "STANDARD",
+        # KKL 10
+        "KKL-PARK-01": "STANDARD",
+        "KKL-PARK-02": "STANDARD",
+        "KKL-E-01": "ARCH_QUALITY",
+        "KKL-E-02": "INTERIOR_TIP",
+        "KKL-E-03": "ARCH_QUALITY",
+        "KKL-B-01": "INTERIOR_TIP",
+        "KKL-B-02": "STANDARD",
+        "KKL-B-03": "INTERIOR_TIP",
+        "KKL-D-01": "ARCH_QUALITY",
+        "KKL-D-02": "INTERIOR_TIP",
+        "KKL-CORE-01": "STANDARD",
+        "KKL-PH-01": "STANDARD",
+        "KKL-GND-01": "STANDARD",
+        # Yatkovski 7
+        "YAT-N-01": "ARCH_QUALITY",
+        "YAT-N-02": "INTERIOR_TIP",
+        "YAT-N-03": "INTERIOR_TIP",
+        "YAT-S-01": "INTERIOR_TIP",
+        "YAT-S-02": "STANDARD",
+        "YAT-PH-01": "INTERIOR_TIP",
+        "YAT-GND-01": "STANDARD",
+        "YAT-BSM-01": "STANDARD",
+        # Kitroni 37-39
+        "KIT-37-NW": "INTERIOR_TIP",
+        "KIT-37-NE": "ARCH_QUALITY",
+        "KIT-37-SE": "INTERIOR_TIP",
+        "KIT-37-SW": "STANDARD",
+        "KIT-39-W3": "STANDARD",
+        "KIT-39-SW": "ARCH_QUALITY",
+        "KIT-PH-01": "INTERIOR_TIP",
+        "KIT-BSM-01": "STANDARD",
+        # Feierberg 3
+        "FB3-W-01": "ARCH_QUALITY",
+        "FB3-W-02": "INTERIOR_TIP",
+        "FB3-W-03": "STANDARD",
+        "FB3-E-01": "INTERIOR_TIP",
+        "FB3-E-02": "INTERIOR_TIP",
+        "FB3-PH-01": "ARCH_QUALITY",
+        "FB3-BSM-01": "STANDARD",
+    }
+
+    CATEGORY_LABELS_HE = {
+        "STANDARD": "תקן",
+        "ARCH_QUALITY": "איכות תכנון אדריכלי",
+        "INTERIOR_TIP": "טיפ עיצוב פנים",
+        "SAVINGS": "חיסכון",
+    }
+
+    for n in payload.get("notes", []):
+        if n.get("is_value_eng"):
+            n["audit_polarity"] = "SAVINGS"
+            n["audit_polarity_he"] = "חיסכון"
+            n["audit_category"] = "SAVINGS"
+            n["audit_category_he"] = "חיסכון"
+            continue
+
+        polarity = "POSITIVE" if n.get("status") == "PASS" else "NEGATIVE"
+        nid = n.get("id", "")
+        if nid in EXPLICIT_NOTE_CATEGORY_MAP:
+            cat = EXPLICIT_NOTE_CATEGORY_MAP[nid]
+        elif n.get("is_design_improvement"):
+            cat = "ARCH_QUALITY"
+        else:
+            rule_txt = f"{n.get('rule_id', '')} {n.get('title', '')} {n.get('recommendation', '')}".lower()
+            if n.get("status") == "FAIL" or any(k in rule_txt for k in ["ת״י", "פקע״ר", "פיקוד העורף", "חניונים", "רישוי", "תקנות", "b1.15", "b1.30", "1918", "1142", "2481"]):
+                cat = "STANDARD"
+            elif any(k in rule_txt for k in ["nkba", "אי מטבח", "ארון", "דלת כיס", "pocket", "ריהוט", "מיטה", "שולחן", "תאורה", "boverket", "din 18040"]):
+                cat = "INTERIOR_TIP"
+            else:
+                cat = "ARCH_QUALITY"
+
+        n["audit_polarity"] = polarity
+        n["audit_polarity_he"] = "חיובי" if polarity == "POSITIVE" else "שלילי"
+        n["audit_category"] = cat
+        n["audit_category_he"] = CATEGORY_LABELS_HE.get(cat, "איכות תכנון אדריכלי")
+
     notes = payload.get("notes", [])
     notes_by_id = {n.get("id"): n for n in notes if n.get("id")}
     for prop in data_summary.get("summary_document", {}).get("improvement_proposals", []):
@@ -3494,6 +3618,70 @@ def enrich_project_payload(payload):
             matched_note = notes_by_id[nid]
             prop["pin_num"] = matched_note.get("pin_num")
             prop["sheet_id"] = matched_note.get("sheet_id")
+
+    system_notes = [n for n in notes if not n.get("is_value_eng")]
+    neg_notes = [n for n in system_notes if n.get("audit_polarity") == "NEGATIVE"]
+    pos_notes = [n for n in system_notes if n.get("audit_polarity") == "POSITIVE"]
+    ve_only_notes = [n for n in notes if n.get("is_value_eng")]
+
+    def _summarize_group(group_notes, max_items=4):
+        items = []
+        for gn in group_notes[:max_items]:
+            items.append({
+                "id": gn.get("id"),
+                "pin_num": gn.get("pin_num"),
+                "sheet_id": gn.get("sheet_id"),
+                "room_name": gn.get("room_name"),
+                "title": gn.get("title"),
+                "recommendation": gn.get("recommendation"),
+                "category": gn.get("audit_category"),
+                "category_he": gn.get("audit_category_he"),
+            })
+        return items
+
+    neg_std = [n for n in neg_notes if n.get("audit_category") == "STANDARD"]
+    neg_arch = [n for n in neg_notes if n.get("audit_category") == "ARCH_QUALITY"]
+    neg_tip = [n for n in neg_notes if n.get("audit_category") == "INTERIOR_TIP"]
+
+    pos_std = [n for n in pos_notes if n.get("audit_category") == "STANDARD"]
+    pos_arch = [n for n in pos_notes if n.get("audit_category") == "ARCH_QUALITY"]
+    pos_tip = [n for n in pos_notes if n.get("audit_category") == "INTERIOR_TIP"]
+
+    overall_verdict_str = (
+        data_summary.get("summary_document", {}).get("overall_verdict", "")
+        or payload.get("project_subtitle", "")
+        or f"בדיקת התכנון זיהתה {len(neg_notes)} הערות לטיפול ({len(neg_std)} תקן, {len(neg_arch)} איכות תכנון אדריכלי, {len(neg_tip)} טיפ עיצוב פנים) ו-{len(pos_notes)} נקודות חוזק חיוביות בתכנון."
+    )
+    data_summary["summary_document"]["concise_verbal_review"] = {
+        "overall_verdict_he": overall_verdict_str,
+        "executive_paragraph": overall_verdict_str,
+        "counts": {
+            "system_total": len(system_notes),
+            "negative_total": len(neg_notes),
+            "positive_total": len(pos_notes),
+            "savings_total": len(ve_only_notes),
+            "negative_by_cat": {
+                "STANDARD": len(neg_std),
+                "ARCH_QUALITY": len(neg_arch),
+                "INTERIOR_TIP": len(neg_tip),
+            },
+            "positive_by_cat": {
+                "STANDARD": len(pos_std),
+                "ARCH_QUALITY": len(pos_arch),
+                "INTERIOR_TIP": len(pos_tip),
+            },
+        },
+        "negative_highlights": {
+            "STANDARD": _summarize_group(neg_std, 4),
+            "ARCH_QUALITY": _summarize_group(neg_arch, 4),
+            "INTERIOR_TIP": _summarize_group(neg_tip, 4),
+        },
+        "positive_highlights": {
+            "STANDARD": _summarize_group(pos_std, 3),
+            "ARCH_QUALITY": _summarize_group(pos_arch, 3),
+            "INTERIOR_TIP": _summarize_group(pos_tip, 3),
+        },
+    }
 
     fail_notes = [n for n in notes if n.get("status") == "FAIL"]
     warn_notes = [n for n in notes if n.get("status") == "WARN"]

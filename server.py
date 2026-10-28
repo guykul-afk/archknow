@@ -83,6 +83,13 @@ def serve_central_3d_model_file(project_id, filename):
         return jsonify({"error": f"Model asset not found in central repository: {filename}"}), 404
 
     if filename.lower().endswith(".html"):
+        # Automatically verify whether the base 3D model was modified; if so, trigger a full planning re-audit
+        try:
+            from model_3d_change_detector import check_and_reaudit_project
+            check_and_reaudit_project(project_id, force=False, rebuild_artifacts=True)
+        except Exception as e:
+            print(f"[SERVER] 3D model change check warning for {project_id}: {e}")
+
         with open(full_path, "r", encoding="utf-8") as f:
             html_content = f.read()
 
@@ -94,7 +101,7 @@ def serve_central_3d_model_file(project_id, filename):
         overlay_snippet = (
             f'\n<!-- ARCHICHECK_3D_OVERLAY_START -->\n'
             f'<script>window.__ARCHICHECK_PROJECT_ID__ = "{project_id}";</script>\n'
-            f'<script src="/audit_3d_overlay.js?v=6.3"></script>\n'
+            f'<script src="/audit_3d_overlay.js?v=6.4"></script>\n'
             f'<!-- ARCHICHECK_3D_OVERLAY_END -->\n'
         )
         last_body_idx = html_content.rfind("</body>")
@@ -117,10 +124,36 @@ def api_analyze_project():
     if request.method == 'POST':
         body = request.get_json(silent=True) or {}
         query = body.get('query', '')
+        force_reaudit = str(body.get('force_reaudit', '')).lower() in ('1', 'true', 'yes')
     else:
         query = request.args.get('q', '')
-    result = analyze_project_by_query(query)
+        force_reaudit = str(request.args.get('force_reaudit', '')).lower() in ('1', 'true', 'yes')
+    result = analyze_project_by_query(query, force_reaudit=force_reaudit, rebuild_artifacts=True)
     return jsonify(result)
+
+
+@app.route('/api/check_3d_models', methods=['GET', 'POST'])
+def api_check_3d_models():
+    """
+    Checks whether the base 3D model of a specific project (or all projects)
+    has been modified or updated. If modified (or if `force=true`), runs a full
+    new planning audit and returns the updated payload & sync report.
+    """
+    from model_3d_change_detector import check_and_reaudit_project, check_all_projects_3d_models
+
+    if request.method == 'POST':
+        body = request.get_json(silent=True) or {}
+        project_q = body.get('project') or body.get('query') or body.get('q') or ''
+        force = str(body.get('force', '')).lower() in ('1', 'true', 'yes')
+    else:
+        project_q = request.args.get('project') or request.args.get('q') or ''
+        force = str(request.args.get('force', '')).lower() in ('1', 'true', 'yes')
+
+    if project_q:
+        res = check_and_reaudit_project(project_q, force=force, rebuild_artifacts=True)
+        return jsonify(res)
+    summary = check_all_projects_3d_models(force=force, rebuild_artifacts=True)
+    return jsonify(summary)
 
 
 @app.route('/<path:path>')

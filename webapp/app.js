@@ -51,6 +51,8 @@
 
   const btnExportDecisions = document.getElementById('btn-export-decisions');
   const hdrDecisionsCount = document.getElementById('hdr-decisions-count');
+  const btnCheck3dUpdate = document.getElementById('btn-check-3d-update');
+  const hdr3dSyncBadge = document.getElementById('hdr-3d-sync-badge');
   const decisionsExportModal = document.getElementById('decisions-export-modal');
   const decisionsModalTitle = document.getElementById('decisions-modal-title');
   const decisionsModalBody = document.getElementById('decisions-modal-body');
@@ -60,6 +62,7 @@
   const workModesBar = document.getElementById('work-modes-bar');
   const workModeTabs = document.querySelectorAll('.work-mode-tab');
   const docSubfilterBar = document.getElementById('doc-subfilter-bar');
+  const veSubfilterBar = document.getElementById('ve-subfilter-bar');
   const countOptEl = document.getElementById('count-opt');
 
   const planBodyLayoutEl = document.getElementById('plan-body-layout');
@@ -72,10 +75,21 @@
   const docMetricsGrid = document.getElementById('doc-metrics-grid');
   const docSectionsRoot = document.getElementById('doc-sections-root');
   const countAllEl = document.getElementById('count-all');
-  const countVeEl = document.getElementById('count-ve');
-  const countImpEl = document.getElementById('count-imp');
-  const countIssuesEl = document.getElementById('count-issues');
-  const countPassEl = document.getElementById('count-pass');
+  const countPolAllEl = document.getElementById('count-pol-all');
+  const countPolNegEl = document.getElementById('count-pol-neg');
+  const countPolPosEl = document.getElementById('count-pol-pos');
+  const countCatAllEl = document.getElementById('count-cat-all');
+  const countCatStdEl = document.getElementById('count-cat-std');
+  const countCatArchEl = document.getElementById('count-cat-arch');
+  const countCatTipEl = document.getElementById('count-cat-tip');
+  const countVeAllEl = document.getElementById('count-ve-all');
+  const countVeAgEl = document.getElementById('count-ve-ag');
+  const countVeUgEl = document.getElementById('count-ve-ug');
+  const countVeFacEl = document.getElementById('count-ve-fac');
+
+  const polarityBtns = document.querySelectorAll('.polarity-btn');
+  const catFilterBtns = document.querySelectorAll('.cat-filter-btn');
+  const veCatBtns = document.querySelectorAll('.ve-cat-btn');
   const filterBtns = document.querySelectorAll('.filter-btn');
 
   const sheetTabsContainer = document.getElementById('sheet-tabs-container');
@@ -134,10 +148,79 @@
   let currentSheetId = null;
   let currentWorkMode = 'FINDINGS'; // 'OVERVIEW' | 'FINDINGS' | 'OPTIMIZATION' | 'COMPARE'
   let currentFilter = 'ALL';
+  let currentPolarity = 'ALL'; // 'ALL' | 'NEGATIVE' | 'POSITIVE'
+  let currentCategory = 'ALL'; // 'ALL' | 'STANDARD' | 'ARCH_QUALITY' | 'INTERIOR_TIP'
+  let currentVeCategory = 'ALL'; // 'ALL' | 'AG' | 'UG' | 'FAC'
   let activeNoteId = null;
   let hoveredNoteId = null;
   let showAllPins = true;
   let isFocusMode = false;
+
+  const EXPLICIT_JS_CATEGORY_MAP = {
+    'H44-W-01': 'ARCH_QUALITY', 'H44-W-02': 'INTERIOR_TIP', 'H44-W-03': 'INTERIOR_TIP',
+    'H44-W-04': 'STANDARD', 'H44-W-05': 'STANDARD', 'H44-E-01': 'ARCH_QUALITY',
+    'H44-E-02': 'INTERIOR_TIP', 'H44-PH-01': 'INTERIOR_TIP', 'H44-GND-01': 'STANDARD',
+    'H44-BSM-01': 'STANDARD',
+    'P48-B-01': 'INTERIOR_TIP', 'P48-B-02': 'INTERIOR_TIP', 'P48-B-03': 'ARCH_QUALITY',
+    'P48-B-04': 'INTERIOR_TIP', 'P48-B-05': 'STANDARD', 'P48-B-06': 'ARCH_QUALITY',
+    'P48-A-01': 'ARCH_QUALITY', 'P48-A-02': 'INTERIOR_TIP', 'P48-A-03': 'ARCH_QUALITY',
+    'P48-A-04': 'INTERIOR_TIP', 'P48-A-05': 'STANDARD', 'P48-C-01': 'ARCH_QUALITY',
+    'P48-C-02': 'INTERIOR_TIP', 'P48-C-03': 'ARCH_QUALITY', 'P48-C-04': 'STANDARD',
+    'P48-C-05': 'INTERIOR_TIP', 'P48-CORE-01': 'STANDARD', 'P48-PB-01': 'INTERIOR_TIP',
+    'P48-PC-01': 'ARCH_QUALITY', 'P48-F7-01': 'STANDARD', 'P48-ROOF-01': 'STANDARD',
+    'P48-GND-01': 'ARCH_QUALITY', 'P48-GND-02': 'STANDARD', 'P48-GND-03': 'STANDARD',
+    'P48-BSM-01': 'STANDARD',
+    'KKL-PARK-01': 'STANDARD', 'KKL-PARK-02': 'STANDARD', 'KKL-E-01': 'ARCH_QUALITY',
+    'KKL-E-02': 'INTERIOR_TIP', 'KKL-E-03': 'ARCH_QUALITY', 'KKL-B-01': 'INTERIOR_TIP',
+    'KKL-B-02': 'STANDARD', 'KKL-B-03': 'INTERIOR_TIP', 'KKL-D-01': 'ARCH_QUALITY',
+    'KKL-D-02': 'INTERIOR_TIP', 'KKL-CORE-01': 'STANDARD', 'KKL-PH-01': 'STANDARD',
+    'KKL-GND-01': 'STANDARD',
+    'YAT-N-01': 'ARCH_QUALITY', 'YAT-N-02': 'INTERIOR_TIP', 'YAT-N-03': 'INTERIOR_TIP',
+    'YAT-S-01': 'INTERIOR_TIP', 'YAT-S-02': 'STANDARD', 'YAT-PH-01': 'INTERIOR_TIP',
+    'YAT-GND-01': 'STANDARD', 'YAT-BSM-01': 'STANDARD',
+    'KIT-37-NW': 'INTERIOR_TIP', 'KIT-37-NE': 'ARCH_QUALITY', 'KIT-37-SE': 'INTERIOR_TIP',
+    'KIT-37-SW': 'STANDARD', 'KIT-39-W3': 'STANDARD', 'KIT-39-SW': 'ARCH_QUALITY',
+    'KIT-PH-01': 'INTERIOR_TIP', 'KIT-BSM-01': 'STANDARD',
+    'FB3-W-01': 'ARCH_QUALITY', 'FB3-W-02': 'INTERIOR_TIP', 'FB3-W-03': 'STANDARD',
+    'FB3-E-01': 'INTERIOR_TIP', 'FB3-E-02': 'INTERIOR_TIP', 'FB3-PH-01': 'ARCH_QUALITY',
+    'FB3-BSM-01': 'STANDARD',
+  };
+
+  const CATEGORY_HE_LABELS = {
+    STANDARD: 'תקן',
+    ARCH_QUALITY: 'איכות תכנון אדריכלי',
+    INTERIOR_TIP: 'טיפ עיצוב פנים',
+    SAVINGS: 'חיסכון',
+  };
+
+  function classifySystemNote(note) {
+    if (!note) return { polarity: 'NEGATIVE', polarityHe: 'שלילי', category: 'ARCH_QUALITY', categoryHe: 'איכות תכנון אדריכלי' };
+    if (note.is_value_eng) {
+      return { polarity: 'SAVINGS', polarityHe: 'חיסכון', category: 'SAVINGS', categoryHe: 'חיסכון' };
+    }
+    const polarity = note.audit_polarity || (note.status === 'PASS' ? 'POSITIVE' : 'NEGATIVE');
+    const polarityHe = polarity === 'POSITIVE' ? 'חיובי' : 'שלילי';
+    let category = note.audit_category;
+    if (!category || category === 'SAVINGS') {
+      const nid = note.id || '';
+      if (EXPLICIT_JS_CATEGORY_MAP[nid]) {
+        category = EXPLICIT_JS_CATEGORY_MAP[nid];
+      } else if (note.is_design_improvement) {
+        category = 'ARCH_QUALITY';
+      } else {
+        const txt = `${note.rule_id || ''} ${note.title || ''} ${note.recommendation || ''}`.toLowerCase();
+        if (note.status === 'FAIL' || ['ת״י', 'פקע״ר', 'פיקוד העורף', 'חניונים', 'רישוי', 'תקנות', 'b1.15', 'b1.30', '1918', '1142', '2481'].some((k) => txt.includes(k))) {
+          category = 'STANDARD';
+        } else if (['nkba', 'אי מטבח', 'ארון', 'דלת כיס', 'pocket', 'ריהוט', 'מיטה', 'שולחן', 'תאורה', 'boverket', 'din 18040'].some((k) => txt.includes(k))) {
+          category = 'INTERIOR_TIP';
+        } else {
+          category = 'ARCH_QUALITY';
+        }
+      }
+    }
+    const categoryHe = CATEGORY_HE_LABELS[category] || 'איכות תכנון אדריכלי';
+    return { polarity, polarityHe, category, categoryHe };
+  }
 
   // Persistent Architect Decisions Store (localStorage)
   const DECISIONS_STORAGE_KEY = 'archicheck_decisions_v5';
@@ -253,10 +336,16 @@
       userExplicitlySelectedNote = false;
       hoveredNoteId = null;
       currentFilter = 'ALL';
+      currentPolarity = 'ALL';
+      currentCategory = 'ALL';
+      currentVeCategory = 'ALL';
       currentWorkMode = 'FINDINGS';
       workModeTabs.forEach((t) => t.classList.toggle('active', t.dataset.mode === currentWorkMode));
       if (docSubfilterBar) docSubfilterBar.classList.remove('hidden');
-      filterBtns.forEach((b) => b.classList.toggle('active', b.dataset.filter === 'ALL'));
+      if (veSubfilterBar) veSubfilterBar.classList.add('hidden');
+      polarityBtns.forEach((b) => b.classList.toggle('active', b.dataset.polarity === 'ALL'));
+      catFilterBtns.forEach((b) => b.classList.toggle('active', b.dataset.category === 'ALL'));
+      veCatBtns.forEach((b) => b.classList.toggle('active', b.dataset.veCat === 'ALL'));
       if (btnToggleVePlanMode) btnToggleVePlanMode.classList.remove('active');
       if (vePlanBar) vePlanBar.classList.add('hidden');
       if (moreToolsDropdown) moreToolsDropdown.classList.add('hidden');
@@ -280,6 +369,45 @@
     } finally {
       loadingOverlay.classList.add('hidden');
     }
+  }
+
+  function updateSystemFilterCounts(data) {
+    if (!data) return;
+    const notes = data.notes || [];
+    const systemNotes = notes.filter((n) => !n.is_value_eng);
+    const veNotes = notes.filter((n) => Boolean(n.is_value_eng));
+
+    const negNotes = systemNotes.filter((n) => classifySystemNote(n).polarity === 'NEGATIVE');
+    const posNotes = systemNotes.filter((n) => classifySystemNote(n).polarity === 'POSITIVE');
+
+    if (countAllEl) countAllEl.textContent = systemNotes.length;
+    if (countOptEl) countOptEl.textContent = veNotes.length;
+
+    if (countPolAllEl) countPolAllEl.textContent = systemNotes.length;
+    if (countPolNegEl) countPolNegEl.textContent = negNotes.length;
+    if (countPolPosEl) countPolPosEl.textContent = posNotes.length;
+
+    // Dynamic sub-category counts within the currently selected Polarity (הכל / שלילי / חיובי)
+    const polarityScopedNotes = currentPolarity === 'NEGATIVE'
+      ? negNotes
+      : currentPolarity === 'POSITIVE'
+        ? posNotes
+        : systemNotes;
+
+    const stdCount = polarityScopedNotes.filter((n) => classifySystemNote(n).category === 'STANDARD').length;
+    const archCount = polarityScopedNotes.filter((n) => classifySystemNote(n).category === 'ARCH_QUALITY').length;
+    const tipCount = polarityScopedNotes.filter((n) => classifySystemNote(n).category === 'INTERIOR_TIP').length;
+
+    if (countCatAllEl) countCatAllEl.textContent = polarityScopedNotes.length;
+    if (countCatStdEl) countCatStdEl.textContent = stdCount;
+    if (countCatArchEl) countCatArchEl.textContent = archCount;
+    if (countCatTipEl) countCatTipEl.textContent = tipCount;
+
+    // Dedicated Savings tab counts
+    if (countVeAllEl) countVeAllEl.textContent = veNotes.length;
+    if (countVeAgEl) countVeAgEl.textContent = veNotes.filter((n) => n.ve_category === 'AG').length;
+    if (countVeUgEl) countVeUgEl.textContent = veNotes.filter((n) => n.ve_category === 'UG').length;
+    if (countVeFacEl) countVeFacEl.textContent = veNotes.filter((n) => n.ve_category === 'FAC').length;
   }
 
   // =========================================================================
@@ -330,22 +458,27 @@
 
     // Counts for filter & mode buttons
     const notes = data.notes || [];
-    const veCount = notes.filter((n) => n.is_value_eng).length;
-    const impCount = notes.filter((n) => n.is_design_improvement).length;
-    const passCount = notes.filter((n) => n.status === 'PASS').length;
-    const issuesCount = notes.filter((n) => n.status !== 'PASS' && !n.is_value_eng && !n.is_design_improvement).length;
-    const optCount = veCount + impCount;
-    const riskAndOptCount = issuesCount + veCount;
+    const systemNotes = notes.filter((n) => !n.is_value_eng);
+    const veCount = notes.filter((n) => Boolean(n.is_value_eng)).length;
+    const negCount = systemNotes.filter((n) => classifySystemNote(n).polarity === 'NEGATIVE').length;
+    const posCount = systemNotes.filter((n) => classifySystemNote(n).polarity === 'POSITIVE').length;
 
-    if (countAllEl) countAllEl.textContent = notes.length;
-    if (countOptEl) countOptEl.textContent = optCount;
-    if (countVeEl) countVeEl.textContent = veCount;
-    if (countImpEl) countImpEl.textContent = impCount;
-    if (countIssuesEl) countIssuesEl.textContent = issuesCount;
-    if (countPassEl) countPassEl.textContent = passCount;
+    updateSystemFilterCounts(data);
 
-    // Clean Executive Score + Findings Breakdown Strip (replaces noisy 4-card engine stats)
+    // Clean Executive Score + Findings Breakdown Strip + 3D Base Model Audit Status
     const overallScore = data.overall_score || ((data.metrics && data.metrics[0] && data.metrics[0].value) ? data.metrics[0].value.replace('/100', '') : '90.0');
+    const syncSt = data.model_3d_sync_status || (pds && pds.model_3d_sync_status) || {};
+    const hashShort = syncSt.base_model_hash_short ? syncSt.base_model_hash_short.slice(0, 8) : 'מאומת';
+    const revNum = syncSt.audit_revision || 1;
+    const wasUpdated = Boolean(syncSt.was_updated_and_reaudited);
+    const total3dChecks = (syncSt.bim_3d_checks_summary && syncSt.bim_3d_checks_summary.total_checks) || 0;
+
+    if (hdr3dSyncBadge) {
+      hdr3dSyncBadge.textContent = wasUpdated ? `עודכן! סבב #${revNum}` : `#${hashShort.slice(0, 6)} · סבב #${revNum}`;
+      hdr3dSyncBadge.style.background = wasUpdated ? '#dcfce7' : '';
+      hdr3dSyncBadge.style.color = wasUpdated ? '#166534' : '';
+    }
+
     docMetricsGrid.innerHTML = `
       <div class="exec-score-strip">
         <div class="exec-score-main">
@@ -355,14 +488,27 @@
         <div class="exec-score-divider"></div>
         <div class="exec-score-summary">
           <div class="exec-summary-sub">
-            <span>${issuesCount} לבדיקה</span> ·
-            <span>${veCount} חיסכון</span> ·
-            <span>${impCount} שיפור</span> ·
-            <span>${passCount} תקין</span>
+            <span class="strip-stat-neg">${negCount} שלילי</span> ·
+            <span class="strip-stat-pos">${posCount} חיובי</span> ·
+            <span class="strip-stat-ve">${veCount} חיסכון</span>
           </div>
         </div>
       </div>
+      <div id="model-3d-sync-strip" style="margin-top:6px;padding:6px 9px;border-radius:8px;border:1px solid ${wasUpdated ? '#86efac' : '#cbd5e1'};background:${wasUpdated ? '#f0fdf4' : '#f8fafc'};display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11.5px;">
+        <div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${syncSt.status_message_he || 'המודל התלת-ממדי הבסיסי מאומת ומסונכרן'}">
+          <strong>${wasUpdated ? '🟢 מודל 3D עודכן — הורצה בדיקה מלאה' : '🧊 מודל 3D בסיסי מנוטר'}</strong>
+          <span style="color:#475569;margin-right:4px;">· חתימה <code>#${hashShort}</code> · סבב #${revNum}${total3dChecks ? ` · ${total3dChecks} בדיקות 3D` : ''}</span>
+        </div>
+        <button type="button" id="btn-inline-reaudit-3d" style="flex-shrink:0;padding:3px 8px;border-radius:6px;border:1px solid #2563eb;background:#eff6ff;color:#1d4ed8;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;" title="בדוק אם מודל ה-3D הבסיסי שונה או עודכן והרץ בדיקה תכנונית מלאה חדשה">
+          🔄 בדוק / הרץ בקרה חדשה
+        </button>
+      </div>
     `;
+
+    const btnInlineReaudit3d = document.getElementById('btn-inline-reaudit-3d');
+    if (btnInlineReaudit3d) {
+      btnInlineReaudit3d.addEventListener('click', () => trigger3dModelCheckAndReaudit(true));
+    }
 
     // Discovered files across folders
     const files = data.discovered_files || [];
@@ -487,36 +633,50 @@
 
     const targetNote = (currentProject.notes || []).find((n) => n.id === noteId);
     if (targetNote && targetNote.is_value_eng) {
-      currentFilter = 'VE';
-    } else if (targetNote && targetNote.is_design_improvement) {
-      currentFilter = 'DESIGN_IMP';
-    } else {
-      currentFilter = 'ALL';
+      currentVeCategory = 'ALL';
+      veCatBtns.forEach((b) => b.classList.toggle('active', b.dataset.veCat === 'ALL'));
+      switchWorkMode('OPTIMIZATION');
+    } else if (targetNote) {
+      const cls = classifySystemNote(targetNote);
+      currentPolarity = cls.polarity;
+      currentCategory = cls.category;
+      polarityBtns.forEach((b) => b.classList.toggle('active', b.dataset.polarity === currentPolarity));
+      catFilterBtns.forEach((b) => b.classList.toggle('active', b.dataset.category === currentCategory));
+      updateSystemFilterCounts(currentProject);
+      switchWorkMode('FINDINGS');
     }
 
-    filterBtns.forEach((b) => b.classList.toggle('active', b.dataset.filter === currentFilter));
-    if (btnToggleVePlanMode) btnToggleVePlanMode.classList.toggle('active', currentFilter === 'VE' || currentFilter === 'DESIGN_IMP');
-    if (vePlanBar) {
-      vePlanBar.classList.toggle('hidden', !(currentFilter === 'VE' || currentFilter === 'DESIGN_IMP'));
-    }
-
-    renderDocumentSections(currentProject);
     if (sheetId && sheetId !== currentSheetId) {
       selectSheet(sheetId, { keepNote: true });
     }
     if (noteId) {
-      highlightNote(noteId, { scrollDoc: true, switchSheet: true });
+      highlightNote(noteId, { scrollDoc: true, switchSheet: true, openDock: true, zoomTo: true });
     } else {
       renderVisualPlanAnnotations();
     }
   }
 
   function matchesFilter(note) {
-    if (currentFilter === 'ALL') return true;
+    if (!note) return false;
+
+    // 1. Separated Savings Tab ("חיסכון"): strictly Value Engineering notes
+    if (currentWorkMode === 'OPTIMIZATION') {
+      if (!note.is_value_eng) return false;
+      if (currentVeCategory !== 'ALL' && note.ve_category !== currentVeCategory) return false;
+      return true;
+    }
+
+    // 2. System Findings Tab ("הערות מערכת"): strictly non-VE system notes, filtered by שלילי/חיובי and תקן / איכות תכנון אדריכלי / טיפ עיצוב פנים
+    if (currentWorkMode === 'FINDINGS') {
+      if (note.is_value_eng) return false;
+      const cls = classifySystemNote(note);
+      if (currentPolarity !== 'ALL' && cls.polarity !== currentPolarity) return false;
+      if (currentCategory !== 'ALL' && cls.category !== currentCategory) return false;
+      return true;
+    }
+
+    // 3. Overview or Compare Mode
     if (currentFilter === 'VE') return Boolean(note.is_value_eng);
-    if (currentFilter === 'DESIGN_IMP') return Boolean(note.is_design_improvement);
-    if (currentFilter === 'PASS') return note.status === 'PASS';
-    if (currentFilter === 'ISSUES') return (note.status === 'WARN' || note.status === 'FAIL') && !note.is_value_eng && !note.is_design_improvement;
     return true;
   }
 
@@ -2189,6 +2349,17 @@
     valueEngModal.classList.remove('hidden');
   }
 
+  function jumpToSystemFilter(polarity, category) {
+    currentPolarity = polarity || 'ALL';
+    currentCategory = category || 'ALL';
+    polarityBtns.forEach((b) => b.classList.toggle('active', b.dataset.polarity === currentPolarity));
+    catFilterBtns.forEach((b) => b.classList.toggle('active', b.dataset.category === currentCategory));
+    if (currentProject) {
+      updateSystemFilterCounts(currentProject);
+    }
+    switchWorkMode('FINDINGS', { preserveSubfilters: true });
+  }
+
   function buildOverviewModeElement(data) {
     const pds = data.project_data_summary || {};
     const opt = pds.design_optimization || {};
@@ -2196,54 +2367,150 @@
     const contourAudit = opt.contour_audit_summary || {};
     const sdoc = pds.summary_document || {};
     const notes = data.notes || [];
+    const sysNotes = notes.filter((n) => !n.is_value_eng);
+    const veNotes = notes.filter((n) => Boolean(n.is_value_eng));
 
-    const urgentNotes = notes.filter((n) => n.status === 'FAIL' || n.status === 'WARN' || n.is_value_eng);
-    const topPriorityNotes = urgentNotes.slice(0, 6);
+    const negNotes = sysNotes.filter((n) => classifySystemNote(n).polarity === 'NEGATIVE');
+    const posNotes = sysNotes.filter((n) => classifySystemNote(n).polarity === 'POSITIVE');
+
+    const groupByCat = (list) => ({
+      STANDARD: list.filter((n) => classifySystemNote(n).category === 'STANDARD'),
+      ARCH_QUALITY: list.filter((n) => classifySystemNote(n).category === 'ARCH_QUALITY'),
+      INTERIOR_TIP: list.filter((n) => classifySystemNote(n).category === 'INTERIOR_TIP'),
+    });
+
+    const negByCat = groupByCat(negNotes);
+    const posByCat = groupByCat(posNotes);
+
+    const catMeta = [
+      { key: 'STANDARD', label: 'תקן', icon: '⚖️' },
+      { key: 'ARCH_QUALITY', label: 'איכות תכנון אדריכלי', icon: '📐' },
+      { key: 'INTERIOR_TIP', label: 'טיפ עיצוב פנים', icon: '🛋️' },
+    ];
+
+    const renderGroupRows = (grouped, polarity) =>
+      catMeta
+        .map((cm) => {
+          const items = grouped[cm.key] || [];
+          if (items.length === 0) return '';
+          const bulletsHtml = items
+            .map(
+              (n) => `
+              <li class="ov-verbal-bullet" data-note-id="${n.id}">
+                <span class="ov-bullet-pin">#${n.pin_num}</span>
+                <div class="ov-bullet-body">
+                  <strong>${n.room_name} — ${n.title}:</strong>
+                  <span>${n.measured}${n.recommendation ? ` · <em>${n.recommendation}</em>` : ''}</span>
+                </div>
+              </li>
+            `
+            )
+            .join('');
+          return `
+            <div class="ov-verbal-cat-block">
+              <div class="ov-verbal-cat-hdr">
+                <span class="ov-verbal-cat-title">${cm.icon} ${cm.label} (${items.length})</span>
+                <button type="button" class="ov-filter-jump-btn" data-jump-pol="${polarity}" data-jump-cat="${cm.key}">
+                  סנן ב״הערות מערכת״ ◂
+                </button>
+              </div>
+              <ul class="ov-verbal-bullet-list">
+                ${bulletsHtml}
+              </ul>
+            </div>
+          `;
+        })
+        .join('');
+
+    const overallVerdictText =
+      (sdoc.concise_verbal_review && sdoc.concise_verbal_review.executive_paragraph) ||
+      sdoc.overall_verdict ||
+      data.project_subtitle ||
+      `בדיקת התכנון האדריכלית זיהתה ${negNotes.length} הערות לטיפול ושיפור (${negByCat.STANDARD.length} תקן, ${negByCat.ARCH_QUALITY.length} איכות תכנון אדריכלי, ${negByCat.INTERIOR_TIP.length} טיפ עיצוב פנים) לצד ${posNotes.length} נקודות חוזק חיוביות בתכנון.`;
 
     const wrap = document.createElement('div');
     wrap.className = 'mode-overview-container';
 
     wrap.innerHTML = `
-      <div class="ov-section-card">
-        <div class="ov-kpi-pair">
-          <div class="ov-kpi-box" id="ov-open-ve">
-            <span class="ov-kpi-lbl">חיסכון</span>
-            <strong class="ov-kpi-val">${fmtNum(optKpis.grand_total_direct_saving_ils)} ₪</strong>
-            <span class="ov-kpi-sub">-${fmtNum(contourAudit.total_verified_contour_saved_sqm)} מ״ר קונטור</span>
-          </div>
-          <div class="ov-kpi-box" id="ov-open-areas">
-            <span class="ov-kpi-lbl">שיפור תכנון</span>
-            <strong class="ov-kpi-val">+${fmtNum(optKpis.total_design_improvement_sqm)} מ״ר</strong>
-            <span class="ov-kpi-sub">שטחי פנים וחדרים</span>
-          </div>
+      <div class="ov-section-card ov-verbal-hero">
+        <div class="ov-card-header-row">
+          <span class="ov-card-title">📋 סקירה מילולית מתומצתת של בדיקת התכנון</span>
+          <span class="ov-score-pill">ציון תכנון: ${data.overall_score || '—'}</span>
+        </div>
+        <p class="ov-verbal-lead">${overallVerdictText}</p>
+        <div class="ov-polarity-summary-strip">
+          <button type="button" class="ov-pol-chip ov-pol-neg" data-jump-pol="NEGATIVE" data-jump-cat="ALL">
+            <span class="ov-pol-dot neg"></span>
+            <span>שלילי / לטיפול: <strong>${negNotes.length}</strong></span>
+          </button>
+          <button type="button" class="ov-pol-chip ov-pol-pos" data-jump-pol="POSITIVE" data-jump-cat="ALL">
+            <span class="ov-pol-dot pos"></span>
+            <span>חיובי / נקודות חוזק: <strong>${posNotes.length}</strong></span>
+          </button>
+          <button type="button" class="ov-pol-chip ov-pol-ve" id="ov-switch-ve-tab">
+            <span>💰 טאב חיסכון: <strong>${veNotes.length}</strong></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="ov-section-card ov-verbal-card ov-verbal-negative">
+        <div class="ov-card-header-row">
+          <span class="ov-card-title">🔴 תמצית ממצאים שליליים לטיפול (${negNotes.length})</span>
+          <button type="button" class="btn-link-Action" data-jump-pol="NEGATIVE" data-jump-cat="ALL">כל השליליים ◂</button>
+        </div>
+        <div class="ov-verbal-groups">
+          ${renderGroupRows(negByCat, 'NEGATIVE')}
+        </div>
+      </div>
+
+      <div class="ov-section-card ov-verbal-card ov-verbal-positive">
+        <div class="ov-card-header-row">
+          <span class="ov-card-title">🟢 תמצית נקודות חוזק חיוביות בתכנון (${posNotes.length})</span>
+          <button type="button" class="btn-link-Action" data-jump-pol="POSITIVE" data-jump-cat="ALL">כל החיוביים ◂</button>
+        </div>
+        <div class="ov-verbal-groups">
+          ${renderGroupRows(posByCat, 'POSITIVE')}
         </div>
       </div>
 
       <div class="ov-section-card">
-        <div class="ov-card-header-row">
-          <span class="ov-card-title">ממצאים מרכזיים</span>
-          <button type="button" class="btn-link-Action" id="ov-show-all-findings">הכל (${notes.length}) ◂</button>
+        <div class="ov-kpi-pair">
+          <div class="ov-kpi-box" id="ov-open-ve">
+            <span class="ov-kpi-lbl">פוטנציאל חיסכון (בטאב נפרד)</span>
+            <strong class="ov-kpi-val">${fmtNum(optKpis.grand_total_direct_saving_ils)} ₪</strong>
+            <span class="ov-kpi-sub">-${fmtNum(contourAudit.total_verified_contour_saved_sqm)} מ״ר קונטור (${veNotes.length} מוקדים)</span>
+          </div>
+          <div class="ov-kpi-box" id="ov-open-areas">
+            <span class="ov-kpi-lbl">מאזן שטחים ושיפור תכנון</span>
+            <strong class="ov-kpi-val">+${fmtNum(optKpis.total_design_improvement_sqm)} מ״ר</strong>
+            <span class="ov-kpi-sub">טבלאות שטחים והשבחת פנים</span>
+          </div>
         </div>
-        <div class="ov-priority-list" id="ov-priority-list"></div>
       </div>
     `;
 
     const veBox = wrap.querySelector('#ov-open-ve');
-    if (veBox) veBox.addEventListener('click', () => openValueEngineeringModal(data));
+    if (veBox) veBox.addEventListener('click', () => switchWorkMode('OPTIMIZATION'));
+
+    const switchVeBtn = wrap.querySelector('#ov-switch-ve-tab');
+    if (switchVeBtn) switchVeBtn.addEventListener('click', () => switchWorkMode('OPTIMIZATION'));
 
     const areasBox = wrap.querySelector('#ov-open-areas');
     if (areasBox) areasBox.addEventListener('click', () => openSummaryAreasModal(data));
 
-    const showAllBtn = wrap.querySelector('#ov-show-all-findings');
-    if (showAllBtn) {
-      showAllBtn.addEventListener('click', () => {
-        switchWorkMode('FINDINGS');
+    wrap.querySelectorAll('[data-jump-pol]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        jumpToSystemFilter(btn.getAttribute('data-jump-pol'), btn.getAttribute('data-jump-cat'));
       });
-    }
+    });
 
-    const listEl = wrap.querySelector('#ov-priority-list');
-    topPriorityNotes.forEach((n) => {
-      listEl.appendChild(createLevel1NoteCard(n));
+    wrap.querySelectorAll('.ov-verbal-bullet[data-note-id]').forEach((li) => {
+      li.addEventListener('click', () => {
+        const nid = li.getAttribute('data-note-id');
+        if (nid) {
+          highlightNote(nid, { scrollDoc: false, switchSheet: true, openDock: true, zoomTo: true });
+        }
+      });
     });
 
     return wrap;
@@ -2334,29 +2601,24 @@
     const isActive = note.id === activeNoteId;
     const dec = getNoteDecision(note.id);
     const decObj = dec ? DECISION_LABELS[dec] : null;
+    const clsInfo = classifySystemNote(note);
 
-    card.className = `doc-note-card status-${note.status} ${isVe ? 'card-ve' : ''} ${isDesignImp ? 'card-imp' : ''} ${isActive ? 'active' : ''}`;
+    card.className = `doc-note-card status-${note.status} ${isVe ? 'card-ve' : `polarity-${clsInfo.polarity} cat-${clsInfo.category}`} ${isDesignImp ? 'card-imp' : ''} ${isActive ? 'active' : ''}`;
     card.dataset.noteId = note.id;
     card.id = `doc-note-${note.id}`;
 
-    // Distinct semantic label for Level 1 card
-    let pillLabel = STATUS_LABELS[note.status] || note.status;
+    let taxBadgesHtml = '';
     if (isVe) {
-      pillLabel = note.ve_callout_badge || `חיסכון: ${fmtNum(note.ve_saving_ils)} ₪`;
-    } else if (isDesignImp) {
-      pillLabel = note.ve_callout_badge || 'הזדמנות לשיפור תכנוני';
-    } else if (note.status === 'WARN') {
-      pillLabel = 'לבדיקה הנדסית';
-    } else if (note.status === 'FAIL') {
-      pillLabel = 'ליקוי סטטוטורי';
+      const veLabel = note.ve_callout_badge || `חיסכון: ${fmtNum(note.ve_saving_ils)} ₪`;
+      taxBadgesHtml = `<span class="note-ve-pill">${veLabel}</span>`;
+    } else {
+      const polClass = clsInfo.polarity === 'NEGATIVE' ? 'pol-neg' : 'pol-pos';
+      const catClass = `cat-${clsInfo.category.toLowerCase()}`;
+      taxBadgesHtml = `
+        <span class="note-polarity-pill ${polClass}">${clsInfo.polarityHe}</span>
+        <span class="note-cat-pill ${catClass}">${clsInfo.categoryHe}</span>
+      `;
     }
-
-    // Concise 1-line subtitle (what is the gap/impact)
-    const shortSub = isVe
-      ? `${note.room_name} · ${note.measured}`
-      : isDesignImp
-        ? `${note.room_name} · השבחת שטח פנים`
-        : `${note.room_name} · קיים: ${note.measured}`;
 
     card.innerHTML = `
       <div class="note-top-row">
@@ -2364,7 +2626,10 @@
           <span class="note-pin-circle">#${note.pin_num}</span>
           <span class="note-room-tag">${note.room_name}</span>
         </div>
-        ${decObj ? `<span class="note-dec-badge ${decObj.cls}">${decObj.label}</span>` : ''}
+        <div class="note-badges-left">
+          ${taxBadgesHtml}
+          ${decObj ? `<span class="note-dec-badge ${decObj.cls}">${decObj.label}</span>` : ''}
+        </div>
       </div>
       <h3 class="note-title">${note.title}</h3>
       <div class="note-meta-line">${note.measured}</div>
@@ -2403,16 +2668,48 @@
       return;
     }
 
+    if (currentWorkMode === 'OPTIMIZATION') {
+      const pds = data.project_data_summary || {};
+      const opt = pds.design_optimization || {};
+      const optKpis = opt.executive_kpis || {};
+      const contourAudit = opt.contour_audit_summary || {};
+
+      const veBanner = document.createElement('div');
+      veBanner.className = 've-tab-summary-card';
+      veBanner.innerHTML = `
+        <div class="ve-tab-summary-row">
+          <div>
+            <div class="ve-tab-summary-lbl">סה״כ פוטנציאל חיסכון ישיר בבנייה</div>
+            <div class="ve-tab-summary-val">${fmtNum(optKpis.grand_total_direct_saving_ils)} ₪</div>
+            <div class="ve-tab-summary-sub">הקטנת קונטור מאומתת: -${fmtNum(contourAudit.total_verified_contour_saved_sqm)} מ״ר + אופטימיזציית חזיתות</div>
+          </div>
+          <button type="button" class="btn-locate-on-plan" id="ve-tab-open-modal">סימולטור ודו״ח חיסכון מלא ◂</button>
+        </div>
+      `;
+      const openModalBtn = veBanner.querySelector('#ve-tab-open-modal');
+      if (openModalBtn) {
+        openModalBtn.addEventListener('click', () => openValueEngineeringModal(data));
+      }
+      docSectionsRoot.appendChild(veBanner);
+    }
+
     const sections = data.sections || [];
     const notes = data.notes || [];
+    const isFiltered =
+      currentWorkMode === 'OPTIMIZATION' ||
+      currentPolarity !== 'ALL' ||
+      currentCategory !== 'ALL';
+
+    let totalRendered = 0;
 
     sections.forEach((sec, secIdx) => {
       const secNotes = notes.filter((n) => n.section_id === sec.id && matchesFilter(n));
       if (secNotes.length === 0) return;
+      totalRendered += secNotes.length;
 
       const secAccordion = document.createElement('details');
       secAccordion.className = 'doc-section-accordion';
-      if (secIdx === 0 || currentFilter !== 'ALL' || currentWorkMode === 'OPTIMIZATION') {
+      if (secIdx === 0 || isFiltered) {
         secAccordion.setAttribute('open', '');
       }
 
@@ -2437,6 +2734,13 @@
       secAccordion.appendChild(secNotesList);
       docSectionsRoot.appendChild(secAccordion);
     });
+
+    if (totalRendered === 0) {
+      const emptyEl = document.createElement('div');
+      emptyEl.className = 'doc-empty-filter-state';
+      emptyEl.textContent = 'אין הערות בקטגוריה זו עבור הסינון שנבחר.';
+      docSectionsRoot.appendChild(emptyEl);
+    }
   }
 
   // =========================================================================
@@ -2531,12 +2835,11 @@
     // 6. Populate the Left Analysis Drawer (Level 2 & Level 3)
     const isVe = Boolean(note.is_value_eng);
     const isDesignImp = Boolean(note.is_design_improvement);
+    const clsInfo = classifySystemNote(note);
     fcPinBadge.textContent = `#${note.pin_num}`;
     fcStatusBadge.textContent = isVe
       ? 'חיסכון'
-      : isDesignImp
-        ? 'שיפור'
-        : (STATUS_LABELS[note.status] || note.status);
+      : `${clsInfo.polarityHe} · ${clsInfo.categoryHe}`;
     fcStatusBadge.className = `fc-status-badge status-${note.status} ${isVe ? 'status-VE' : ''} ${isDesignImp ? 'status-IMP' : ''}`;
     fcRuleBadge.textContent = note.rule_id || '';
     fcRoomName.textContent = `${note.typology} · ${note.room_name}`;
@@ -2662,32 +2965,38 @@
     renderVisualPlanAnnotations();
   });
 
-  // Work Modes Switcher (סקירה · ממצאים · אופטימיזציה · השוואה)
-  function switchWorkMode(mode) {
+  // Work Modes Switcher (סקירה · הערות מערכת · חיסכון · השוואה)
+  function switchWorkMode(mode, opts = {}) {
     currentWorkMode = mode || 'FINDINGS';
     workModeTabs.forEach((t) => t.classList.toggle('active', t.dataset.mode === currentWorkMode));
 
     if (currentWorkMode === 'OPTIMIZATION') {
       currentFilter = 'VE';
-      if (docSubfilterBar) docSubfilterBar.classList.remove('hidden');
-      filterBtns.forEach((b) => b.classList.toggle('active', b.dataset.filter === 'VE'));
+      if (docSubfilterBar) docSubfilterBar.classList.add('hidden');
+      if (veSubfilterBar) veSubfilterBar.classList.remove('hidden');
       if (btnToggleVePlanMode) btnToggleVePlanMode.classList.add('active');
       if (vePlanBar) vePlanBar.classList.remove('hidden');
     } else if (currentWorkMode === 'FINDINGS') {
       currentFilter = 'ALL';
+      if (!opts.preserveSubfilters) {
+        polarityBtns.forEach((b) => b.classList.toggle('active', b.dataset.polarity === currentPolarity));
+        catFilterBtns.forEach((b) => b.classList.toggle('active', b.dataset.category === currentCategory));
+      }
       if (docSubfilterBar) docSubfilterBar.classList.remove('hidden');
-      filterBtns.forEach((b) => b.classList.toggle('active', b.dataset.filter === 'ALL'));
+      if (veSubfilterBar) veSubfilterBar.classList.add('hidden');
       if (btnToggleVePlanMode) btnToggleVePlanMode.classList.remove('active');
       if (vePlanBar) vePlanBar.classList.add('hidden');
     } else {
       // OVERVIEW or COMPARE
       currentFilter = 'ALL';
       if (docSubfilterBar) docSubfilterBar.classList.add('hidden');
+      if (veSubfilterBar) veSubfilterBar.classList.add('hidden');
       if (btnToggleVePlanMode) btnToggleVePlanMode.classList.remove('active');
       if (vePlanBar) vePlanBar.classList.add('hidden');
     }
 
     if (currentProject) {
+      updateSystemFilterCounts(currentProject);
       renderDocumentSections(currentProject);
       renderVisualPlanAnnotations();
     }
@@ -2699,43 +3008,54 @@
     });
   });
 
-  // Toggle On-Plan Savings Mode ("שכבת קונטור וחיסכון")
+  // Toggle On-Plan Savings Mode ("חיסכון" button on canvas toolbar)
   if (btnToggleVePlanMode) {
     btnToggleVePlanMode.addEventListener('click', () => {
-      if (currentFilter === 'VE') {
-        currentFilter = 'ALL';
-        btnToggleVePlanMode.classList.remove('active');
-        if (vePlanBar) vePlanBar.classList.add('hidden');
+      if (currentWorkMode === 'OPTIMIZATION') {
+        switchWorkMode('FINDINGS');
       } else {
-        currentFilter = 'VE';
-        btnToggleVePlanMode.classList.add('active');
-        if (vePlanBar) vePlanBar.classList.remove('hidden');
-      }
-      filterBtns.forEach((b) => b.classList.toggle('active', b.dataset.filter === currentFilter));
-      if (currentProject) {
-        renderDocumentSections(currentProject);
-        renderVisualPlanAnnotations();
-        const sheetMatch = (currentProject.notes || []).find((n) => matchesFilter(n) && n.sheet_id === currentSheetId);
-        const anyMatch = sheetMatch || (currentProject.notes || []).find((n) => matchesFilter(n));
-        if (anyMatch) {
-          highlightNote(anyMatch.id, { scrollDoc: true, switchSheet: true, openDock: true, zoomTo: true });
+        switchWorkMode('OPTIMIZATION');
+        if (currentProject) {
+          const sheetMatch = (currentProject.notes || []).find((n) => matchesFilter(n) && n.sheet_id === currentSheetId);
+          const anyMatch = sheetMatch || (currentProject.notes || []).find((n) => matchesFilter(n));
+          if (anyMatch) {
+            highlightNote(anyMatch.id, { scrollDoc: true, switchSheet: true, openDock: true, zoomTo: true });
+          }
         }
       }
     });
   }
 
-  // Filter Buttons in Document Panel
-  filterBtns.forEach((btn) => {
+  // Primary Polarity Filter Buttons (הכל / שלילי / חיובי) in System Notes tab
+  polarityBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
-      currentFilter = btn.dataset.filter || 'ALL';
-      filterBtns.forEach((b) => b.classList.toggle('active', b === btn));
-      const isVeOrImp = currentFilter === 'VE' || currentFilter === 'DESIGN_IMP';
-      if (btnToggleVePlanMode) {
-        btnToggleVePlanMode.classList.toggle('active', isVeOrImp);
+      currentPolarity = btn.dataset.polarity || 'ALL';
+      polarityBtns.forEach((b) => b.classList.toggle('active', b === btn));
+      if (currentProject) {
+        updateSystemFilterCounts(currentProject);
+        renderDocumentSections(currentProject);
+        renderVisualPlanAnnotations();
       }
-      if (vePlanBar) {
-        vePlanBar.classList.toggle('hidden', !isVeOrImp);
+    });
+  });
+
+  // Secondary Category Filter Buttons (הכל / תקן / איכות תכנון אדריכלי / טיפ עיצוב פנים)
+  catFilterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      currentCategory = btn.dataset.category || 'ALL';
+      catFilterBtns.forEach((b) => b.classList.toggle('active', b === btn));
+      if (currentProject) {
+        renderDocumentSections(currentProject);
+        renderVisualPlanAnnotations();
       }
+    });
+  });
+
+  // VE Sub-Filter Buttons inside the separate "חיסכון" tab
+  veCatBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      currentVeCategory = btn.dataset.veCat || 'ALL';
+      veCatBtns.forEach((b) => b.classList.toggle('active', b === btn));
       if (currentProject) {
         renderDocumentSections(currentProject);
         renderVisualPlanAnnotations();
@@ -3167,6 +3487,51 @@
     });
   }
 
+  async function trigger3dModelCheckAndReaudit(forceReaudit = true) {
+    const pid = (currentProject && currentProject.project_id) || queryInput.value || 'hafetz44';
+    loadingTitle.textContent = `בודק שינויים במודל ה-3D הבסיסי ומריץ בדיקה תכנונית מלאה חדשה עבור "${currentProject ? currentProject.project_name : pid}"...`;
+    loadingOverlay.classList.remove('hidden');
+
+    try {
+      const resp = await fetch('/api/check_3d_models', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ project: pid, force: Boolean(forceReaudit) }),
+      });
+      if (!resp.ok) {
+        throw new Error(`שגיאה בבדיקת מודל ה-3D (${resp.status})`);
+      }
+      const resData = await resp.json();
+      const updatedPayload = resData.payload || currentProject;
+      if (updatedPayload) {
+        currentProject = updatedPayload;
+        renderProjectHeaderAndFiles(updatedPayload);
+        renderSheetTabs(updatedPayload);
+        renderVePlanBar(updatedPayload);
+        renderDocumentSections(updatedPayload);
+        selectSheet(currentSheetId || ((updatedPayload.sheets && updatedPayload.sheets[0]) ? updatedPayload.sheets[0].id : null), { keepNote: true });
+        if (currentViewMode !== '2d') {
+          ensure3dModelLoaded(true);
+        }
+        const st = updatedPayload.model_3d_sync_status || {};
+        if (hudActiveNoteText) {
+          hudActiveNoteText.textContent = st.status_message_he || 'הורצה בדיקה תכנונית מלאה חדשה על בסיס המודל התלת-ממדי.';
+        }
+      }
+    } catch (err) {
+      console.error('3D Model check/reaudit error:', err);
+      if (hudActiveNoteText) {
+        hudActiveNoteText.textContent = `שגיאה בבדיקת מודל 3D: ${err.message}`;
+      }
+    } finally {
+      loadingOverlay.classList.add('hidden');
+    }
+  }
+
+  if (btnCheck3dUpdate) {
+    btnCheck3dUpdate.addEventListener('click', () => trigger3dModelCheckAndReaudit(true));
+  }
+
   window.addEventListener('message', (event) => {
     const msg = event.data;
     if (!msg || typeof msg !== 'object') return;
@@ -3182,6 +3547,12 @@
       if (userExplicitlySelectedNote && activeNoteId) {
         postMessageTo3D({ type: 'ARCHICHECK_SELECT_NOTE', noteId: activeNoteId });
       }
+    } else if (msg.type === 'ARCHICHECK_3D_REAUDITED' && msg.payload) {
+      currentProject = msg.payload;
+      renderProjectHeaderAndFiles(msg.payload);
+      renderSheetTabs(msg.payload);
+      renderVePlanBar(msg.payload);
+      renderDocumentSections(msg.payload);
     }
   });
 

@@ -228,14 +228,67 @@ def get_project_details(project_id):
             "viewer_3d_url": analysis.get('viewer_3d_url'),
             "discovered_files_count": len(analysis.get('discovered_files', [])),
             "discovered_files": analysis.get('discovered_files', [])[:10],
+            "model_3d_sync_status": analysis.get('model_3d_sync_status'),
+            "bim_3d_validation": analysis.get('bim_3d_validation'),
             "project_data_summary": analysis.get('project_data_summary'),
             "links": {
                 "analysis": f"/api/v1/projects/{project_id}/analysis",
                 "summary_for_ai": f"/api/v1/projects/{project_id}/summary",
                 "spatial_metrics": f"/api/v1/projects/{project_id}/spatial-metrics",
-                "optimization": f"/api/v1/projects/{project_id}/optimization"
+                "optimization": f"/api/v1/projects/{project_id}/optimization",
+                "check_3d_update": f"/api/v1/projects/{project_id}/check-3d-update"
             }
         }
+    })
+
+
+@api_v1.route('/projects/<project_id>/check-3d-update', methods=['GET', 'POST'])
+@require_api_key
+def check_project_3d_model_update(project_id):
+    """
+    Checks whether the base 3D model for `project_id` has been modified or updated.
+    If modified (or if `force=true`), automatically triggers a full new planning audit
+    and returns the sync status, 3D BIM validation results, and updated audit summary.
+    """
+    from model_3d_change_detector import check_and_reaudit_project
+
+    if request.method == 'POST':
+        body = request.get_json(silent=True) or {}
+        force = str(body.get('force', '')).lower() in ('1', 'true', 'yes')
+    else:
+        force = str(request.args.get('force', '')).lower() in ('1', 'true', 'yes')
+
+    res = check_and_reaudit_project(project_id, force=force, rebuild_artifacts=True)
+    return jsonify({
+        "status": "success",
+        "project_id": res.get("project_id"),
+        "project_name": res.get("project_name"),
+        "overall_score": res.get("overall_score"),
+        "total_notes": res.get("total_notes"),
+        "model_3d_sync_status": res.get("model_3d_sync_status"),
+        "bim_3d_validation": res.get("bim_3d_validation"),
+    })
+
+
+@api_v1.route('/models/check-updates', methods=['GET', 'POST'])
+@require_api_key
+def check_all_models_updates():
+    """
+    Checks all projects' base 3D models in the Single Source of Truth repository.
+    Runs a full new planning audit for any project whose base 3D model was updated.
+    """
+    from model_3d_change_detector import check_all_projects_3d_models
+
+    if request.method == 'POST':
+        body = request.get_json(silent=True) or {}
+        force = str(body.get('force', '')).lower() in ('1', 'true', 'yes')
+    else:
+        force = str(request.args.get('force', '')).lower() in ('1', 'true', 'yes')
+
+    summary = check_all_projects_3d_models(force=force, rebuild_artifacts=True)
+    return jsonify({
+        "status": "success",
+        **summary,
     })
 
 

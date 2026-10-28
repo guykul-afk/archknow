@@ -1988,31 +1988,39 @@ def build_feierberg3_analysis():
     })
 
 
-def analyze_project_by_query(query_str):
+def analyze_project_by_query(query_str, force_reaudit=False, rebuild_artifacts=True):
     """
-    Main entry point: resolves the user's project query across the 6 company projects
+    Main entry point: resolves the user's project query across the 6 company projects,
+    checks whether the underlying base 3D model has been modified or updated,
+    and if so (or when `force_reaudit=True`), runs a full new planning audit
     and returns the full synchronized textual & visual analysis payload.
     """
     q = (query_str or "").strip()
     q_low = q.lower()
 
     if any(k in q_low for k in ["פאירברג", "פאיירברג", "פיארברג", "feierberg", "fairberg", "feirberg", "6387"]):
-        return build_feierberg3_analysis()
+        payload = build_feierberg3_analysis()
+    elif any(k in q_low for k in ["יטקובסקי", "yatkovski", "7א", "אחים יטקובסקי", "yat"]):
+        payload = build_yatkovski7_analysis()
+    elif any(k in q_low for k in ["קיטרוני", "קטרוני", "kitroni", "37-39", "37", "39"]):
+        payload = build_kitroni37_analysis()
+    elif any(k in q_low for k in ["חפץ", "חיים", "hafetz", "chafetz", "44"]):
+        payload = build_hafetz44_analysis()
+    elif any(k in q_low for k in ["קקל", "קק\"ל", "קק״ל", "קרן קיימת", "kkl", "10"]):
+        payload = build_kkl10_analysis()
+    else:
+        payload = build_pines48_analysis()
 
-    if any(k in q_low for k in ["יטקובסקי", "yatkovski", "7א", "אחים יטקובסקי", "yat"]):
-        return build_yatkovski7_analysis()
+    try:
+        from model_3d_change_detector import enrich_payload_with_3d_change_and_audit
+        payload = enrich_payload_with_3d_change_and_audit(
+            payload,
+            force_reaudit=bool(force_reaudit),
+            rebuild_artifacts=bool(rebuild_artifacts),
+        )
+    except Exception as e:
+        print(f"[ANALYZER] Warning during 3D model change check: {e}")
 
-    if any(k in q_low for k in ["קיטרוני", "קטרוני", "kitroni", "37-39", "37", "39"]):
-        return build_kitroni37_analysis()
+    return payload
 
-    if any(k in q_low for k in ["חפץ", "חיים", "hafetz", "chafetz", "44"]):
-        return build_hafetz44_analysis()
-
-    if any(k in q_low for k in ["קקל", "קק\"ל", "קק״ל", "קרן קיימת", "kkl", "10"]):
-        return build_kkl10_analysis()
-
-    if not q or any(k in q_low for k in ["פינס", "pines", "הבעשט", "בעל שם טוב", "48"]):
-        return build_pines48_analysis()
-
-    return build_pines48_analysis()
 
