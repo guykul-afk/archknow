@@ -160,14 +160,14 @@
       "path": "C:/Users/User/archknow/webapp/models/feierberg3/feierberg3_3d_bim_viewer.html",
       "folder": "C:/Users/User/archknow/webapp/models/feierberg3",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6719.2
     },
     {
       "name": "feierberg3_3d_model.html",
       "path": "C:/Users/User/archknow/webapp/models/feierberg3/feierberg3_3d_model.html",
       "folder": "C:/Users/User/archknow/webapp/models/feierberg3",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6719.2
     },
     {
       "name": "feierberg3_architectural_quality_analysis.html",
@@ -209,14 +209,14 @@
       "path": "C:/Users/User/archknow/webapp/models/feierberg3/feierberg3_spatial_map.html",
       "folder": "C:/Users/User/archknow/webapp/models/feierberg3",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 2229.6
     },
     {
       "name": "index.html",
       "path": "C:/Users/User/archknow/webapp/models/feierberg3/index.html",
       "folder": "C:/Users/User/archknow/webapp/models/feierberg3",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6719.2
     },
     {
       "name": "פאירברג 3 - פתח תקוה-29-12-2025.dwf",
@@ -391,7 +391,7 @@
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/feierberg3_spatial_map.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 2229.6
     },
     {
       "name": "feierberg3_architectural_quality_analysis.pdf",
@@ -412,21 +412,21 @@
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/feierberg3_3d_model.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6719.2
     },
     {
       "name": "feierberg3_3d_bim_viewer.html",
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/feierberg3_3d_bim_viewer.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6719.2
     },
     {
       "name": "index.html",
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/index.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6719.2
     },
     {
       "name": "unified_3d_map.json",
@@ -4216,19 +4216,52 @@
     "summary_md_url": "/reports/feierberg3_summary_and_areas_report.md",
     "model_3d_sync_status": {
       "project_id": "feierberg3",
-      "base_model_hash": "aa74e2c77f6a2cf94fa16391acff4d82468d83302d967f3c138b95fdfa167dd6",
-      "base_model_hash_short": "aa74e2c77f6a",
+      "base_model_hash": "7ab8fbc914efe7f80e704f1015f1e9de36a1da795f15a2911bfd3f2ea8284d60",
+      "base_model_hash_short": "7ab8fbc914ef",
       "previous_model_hash_short": "aa74e2c77f6a",
       "tracked_files_count": 14,
-      "total_base_size_bytes": 22581881,
-      "last_modified_mtime": 1793173608.04,
-      "last_modified_iso": "2026-10-28T09:46:48+02:00",
-      "last_audit_iso": "2026-10-28T09:46:47+02:00",
-      "audit_revision": 6,
-      "was_updated_and_reaudited": false,
-      "change_reason": "up_to_date",
-      "changed_files": [],
-      "geometry_diff": {},
+      "total_base_size_bytes": 38619201,
+      "last_modified_mtime": 1793174859.12,
+      "last_modified_iso": "2026-10-28T10:07:39+02:00",
+      "last_audit_iso": "2026-10-28T10:08:16+02:00",
+      "audit_revision": 7,
+      "was_updated_and_reaudited": true,
+      "change_reason": "base_3d_model_modified",
+      "changed_files": [
+        {
+          "file": "feierberg3_3d_bim_viewer.html",
+          "change_type": "modified",
+          "old_sha256": "7b8d5e9ccbc2",
+          "new_sha256": "2ff21accf65b",
+          "old_size_bytes": 2057,
+          "size_bytes": 6880260,
+          "mtime_iso": "2026-10-28T10:07:38+02:00"
+        },
+        {
+          "file": "feierberg3_3d_model.html",
+          "change_type": "modified",
+          "old_sha256": "62f3a9358b89",
+          "new_sha256": "2ff21accf65b",
+          "old_size_bytes": 2037,
+          "size_bytes": 6880260,
+          "mtime_iso": "2026-10-28T10:07:39+02:00"
+        },
+        {
+          "file": "feierberg3_spatial_map.html",
+          "change_type": "modified",
+          "old_sha256": "33426f961b62",
+          "new_sha256": "3bcb721a6a38",
+          "old_size_bytes": 2049,
+          "size_bytes": 2282943,
+          "mtime_iso": "2026-10-28T10:07:39+02:00"
+        }
+      ],
+      "geometry_diff": {
+        "meshes_count": {
+          "before": 0,
+          "after": 162
+        }
+      },
       "consolidated_from_exec_folder": [],
       "extracted_3d_summary": {
         "levels_count": 8,
@@ -4237,7 +4270,7 @@
         "spaces_count": 0,
         "units_count": 18,
         "walls_count": 0,
-        "meshes_count": 0,
+        "meshes_count": 162,
         "glb_size_bytes": 1597516,
         "obj_size_bytes": 4408684,
         "source_formats": [
@@ -4253,10 +4286,10 @@
         "warn_count": 57,
         "fail_count": 0
       },
-      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #aa74e2c7 · סבב בקרה #6)."
+      "status_message_he": "זוהה עדכון במודל ה-3D הבסיסי (3 קבצים עודכנו/נדגמו, חתימה #7ab8fbc9) — הורצה בדיקה תכנונית מלאה חדשה (סבב בקרה #7)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-28T09:49:23+02:00",
+      "executed_at_iso": "2026-10-28T10:08:16+02:00",
       "total_checks_executed": 117,
       "pass_count": 60,
       "warn_count": 57,
@@ -4268,7 +4301,7 @@
         "spaces_count": 0,
         "units_count": 18,
         "walls_count": 0,
-        "meshes_count": 0,
+        "meshes_count": 162,
         "glb_size_bytes": 1597516,
         "obj_size_bytes": 4408684,
         "source_formats": [
@@ -4290,7 +4323,7 @@
         {
           "check_id": "BIM_3D_CORE_MAMAD_CONTINUITY",
           "title": "רציפות אנכית 3D של גרעין המיגון (מגדל ממ״דים ≥ 70%) ופיר מדרגות/מעליות",
-          "measured_3d": "48 קירות נושאים ו-120 אלמנטי שלד במודל 3D",
+          "measured_3d": "48 קירות נושאים ו-162 אלמנטי שלד במודל 3D",
           "benchmark_plan": "רציפות קירות ממ״ד ≥ 70% עד היסודות (תקנות פיקוד העורף) ורציפות פיר חדר מדרגות ממוגן",
           "status": "PASS",
           "message": "וקטורי העברת העומסים האנכיים של מגדל הממ״דים וגרעין המעליות במודל ה-3D רציפים מקומת הגג ועד קומות המרתף."
@@ -4576,19 +4609,52 @@
   },
   "model_3d_sync_status": {
     "project_id": "feierberg3",
-    "base_model_hash": "aa74e2c77f6a2cf94fa16391acff4d82468d83302d967f3c138b95fdfa167dd6",
-    "base_model_hash_short": "aa74e2c77f6a",
+    "base_model_hash": "7ab8fbc914efe7f80e704f1015f1e9de36a1da795f15a2911bfd3f2ea8284d60",
+    "base_model_hash_short": "7ab8fbc914ef",
     "previous_model_hash_short": "aa74e2c77f6a",
     "tracked_files_count": 14,
-    "total_base_size_bytes": 22581881,
-    "last_modified_mtime": 1793173608.04,
-    "last_modified_iso": "2026-10-28T09:46:48+02:00",
-    "last_audit_iso": "2026-10-28T09:46:47+02:00",
-    "audit_revision": 6,
-    "was_updated_and_reaudited": false,
-    "change_reason": "up_to_date",
-    "changed_files": [],
-    "geometry_diff": {},
+    "total_base_size_bytes": 38619201,
+    "last_modified_mtime": 1793174859.12,
+    "last_modified_iso": "2026-10-28T10:07:39+02:00",
+    "last_audit_iso": "2026-10-28T10:08:16+02:00",
+    "audit_revision": 7,
+    "was_updated_and_reaudited": true,
+    "change_reason": "base_3d_model_modified",
+    "changed_files": [
+      {
+        "file": "feierberg3_3d_bim_viewer.html",
+        "change_type": "modified",
+        "old_sha256": "7b8d5e9ccbc2",
+        "new_sha256": "2ff21accf65b",
+        "old_size_bytes": 2057,
+        "size_bytes": 6880260,
+        "mtime_iso": "2026-10-28T10:07:38+02:00"
+      },
+      {
+        "file": "feierberg3_3d_model.html",
+        "change_type": "modified",
+        "old_sha256": "62f3a9358b89",
+        "new_sha256": "2ff21accf65b",
+        "old_size_bytes": 2037,
+        "size_bytes": 6880260,
+        "mtime_iso": "2026-10-28T10:07:39+02:00"
+      },
+      {
+        "file": "feierberg3_spatial_map.html",
+        "change_type": "modified",
+        "old_sha256": "33426f961b62",
+        "new_sha256": "3bcb721a6a38",
+        "old_size_bytes": 2049,
+        "size_bytes": 2282943,
+        "mtime_iso": "2026-10-28T10:07:39+02:00"
+      }
+    ],
+    "geometry_diff": {
+      "meshes_count": {
+        "before": 0,
+        "after": 162
+      }
+    },
     "consolidated_from_exec_folder": [],
     "extracted_3d_summary": {
       "levels_count": 8,
@@ -4597,7 +4663,7 @@
       "spaces_count": 0,
       "units_count": 18,
       "walls_count": 0,
-      "meshes_count": 0,
+      "meshes_count": 162,
       "glb_size_bytes": 1597516,
       "obj_size_bytes": 4408684,
       "source_formats": [
@@ -4613,10 +4679,10 @@
       "warn_count": 57,
       "fail_count": 0
     },
-    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #aa74e2c7 · סבב בקרה #6)."
+    "status_message_he": "זוהה עדכון במודל ה-3D הבסיסי (3 קבצים עודכנו/נדגמו, חתימה #7ab8fbc9) — הורצה בדיקה תכנונית מלאה חדשה (סבב בקרה #7)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-28T09:49:23+02:00",
+    "executed_at_iso": "2026-10-28T10:08:16+02:00",
     "total_checks_executed": 117,
     "pass_count": 60,
     "warn_count": 57,
@@ -4628,7 +4694,7 @@
       "spaces_count": 0,
       "units_count": 18,
       "walls_count": 0,
-      "meshes_count": 0,
+      "meshes_count": 162,
       "glb_size_bytes": 1597516,
       "obj_size_bytes": 4408684,
       "source_formats": [
@@ -4650,7 +4716,7 @@
       {
         "check_id": "BIM_3D_CORE_MAMAD_CONTINUITY",
         "title": "רציפות אנכית 3D של גרעין המיגון (מגדל ממ״דים ≥ 70%) ופיר מדרגות/מעליות",
-        "measured_3d": "48 קירות נושאים ו-120 אלמנטי שלד במודל 3D",
+        "measured_3d": "48 קירות נושאים ו-162 אלמנטי שלד במודל 3D",
         "benchmark_plan": "רציפות קירות ממ״ד ≥ 70% עד היסודות (תקנות פיקוד העורף) ורציפות פיר חדר מדרגות ממוגן",
         "status": "PASS",
         "message": "וקטורי העברת העומסים האנכיים של מגדל הממ״דים וגרעין המעליות במודל ה-3D רציפים מקומת הגג ועד קומות המרתף."

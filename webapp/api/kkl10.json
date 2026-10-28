@@ -89,14 +89,14 @@
       "path": "C:/Users/User/archknow/webapp/models/kkl10/index.html",
       "folder": "C:/Users/User/archknow/webapp/models/kkl10",
       "ext": "HTML",
-      "size_kb": 2.1
+      "size_kb": 3853.7
     },
     {
       "name": "kkl10_3d_bim_viewer.html",
       "path": "C:/Users/User/archknow/webapp/models/kkl10/kkl10_3d_bim_viewer.html",
       "folder": "C:/Users/User/archknow/webapp/models/kkl10",
       "ext": "HTML",
-      "size_kb": 2.1
+      "size_kb": 3853.7
     },
     {
       "name": "kkl10_architectural_quality_analysis.pdf",
@@ -138,7 +138,7 @@
       "path": "C:/Users/User/archknow/webapp/models/kkl10/kkl10_spatial_map.html",
       "folder": "C:/Users/User/archknow/webapp/models/kkl10",
       "ext": "HTML",
-      "size_kb": 2.1
+      "size_kb": 3121.2
     },
     {
       "name": "kkl10_units_crm.json",
@@ -243,7 +243,7 @@
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/kkl10_spatial_map.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.1
+      "size_kb": 3121.2
     },
     {
       "name": "246-פרויקט קקל-p-23 - Sheet - A0-000002 - גרמושקה - תכניות-חישוב שטחים רובוטי (1).dwg",
@@ -264,14 +264,14 @@
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/kkl10_3d_bim_viewer.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.1
+      "size_kb": 3853.7
     },
     {
       "name": "index.html",
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה/index.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/קקל 10 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.1
+      "size_kb": 3853.7
     },
     {
       "name": "KKL10_PetahTikva_BIM_v6_1.obj",
@@ -334,7 +334,7 @@
       "path": "C:/Users/User/.gemini/antigravity/scratch/kkl10/kkl10_spatial_map.html",
       "folder": "C:/Users/User/.gemini/antigravity/scratch/kkl10",
       "ext": "HTML",
-      "size_kb": 2.1
+      "size_kb": 3121.2
     },
     {
       "name": "246-פרויקט קקל-p-23 - Sheet - A0-000002 - גרמושקה - תכניות-חישוב שטחים רובוטי (1).dwg",
@@ -355,14 +355,14 @@
       "path": "C:/Users/User/.gemini/antigravity/scratch/kkl10/kkl10_3d_bim_viewer.html",
       "folder": "C:/Users/User/.gemini/antigravity/scratch/kkl10",
       "ext": "HTML",
-      "size_kb": 2.1
+      "size_kb": 3853.7
     },
     {
       "name": "index.html",
       "path": "C:/Users/User/.gemini/antigravity/scratch/kkl10/index.html",
       "folder": "C:/Users/User/.gemini/antigravity/scratch/kkl10",
       "ext": "HTML",
-      "size_kb": 2.1
+      "size_kb": 3853.7
     },
     {
       "name": "KKL10_PetahTikva_BIM_v6_1.obj",
@@ -4715,18 +4715,37 @@
     "summary_md_url": "/reports/kkl10_summary_and_areas_report.md",
     "model_3d_sync_status": {
       "project_id": "kkl10",
-      "base_model_hash": "436764cfc17306af19ed35f65162a0cf4700135a229e402d706320e4bf37c99c",
-      "base_model_hash_short": "436764cfc173",
+      "base_model_hash": "dd93e35bcc9f4a224daad6ad32765e81f9f3327981ee3507ce2aa9feae213b42",
+      "base_model_hash_short": "dd93e35bcc9f",
       "previous_model_hash_short": "436764cfc173",
       "tracked_files_count": 11,
-      "total_base_size_bytes": 28978804,
-      "last_modified_mtime": 1793173605.49,
-      "last_modified_iso": "2026-10-28T09:46:45+02:00",
-      "last_audit_iso": "2026-10-28T09:46:45+02:00",
-      "audit_revision": 4,
-      "was_updated_and_reaudited": false,
-      "change_reason": "up_to_date",
-      "changed_files": [],
+      "total_base_size_bytes": 36116719,
+      "last_modified_mtime": 1793174859.75,
+      "last_modified_iso": "2026-10-28T10:07:39+02:00",
+      "last_audit_iso": "2026-10-28T10:08:11+02:00",
+      "audit_revision": 5,
+      "was_updated_and_reaudited": true,
+      "change_reason": "base_3d_model_modified",
+      "changed_files": [
+        {
+          "file": "kkl10_3d_bim_viewer.html",
+          "change_type": "modified",
+          "old_sha256": "25402005f7c3",
+          "new_sha256": "679b5f60b912",
+          "old_size_bytes": 1983,
+          "size_bytes": 3945984,
+          "mtime_iso": "2026-10-28T10:07:39+02:00"
+        },
+        {
+          "file": "kkl10_spatial_map.html",
+          "change_type": "modified",
+          "old_sha256": "7691bbc63d1f",
+          "new_sha256": "a3d3b56273cb",
+          "old_size_bytes": 1975,
+          "size_bytes": 3195889,
+          "mtime_iso": "2026-10-28T10:07:39+02:00"
+        }
+      ],
       "geometry_diff": {
         "levels_count": {
           "before": 9,
@@ -4760,10 +4779,10 @@
         "warn_count": 56,
         "fail_count": 0
       },
-      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #436764cf · סבב בקרה #4)."
+      "status_message_he": "זוהה עדכון במודל ה-3D הבסיסי (2 קבצים עודכנו/נדגמו, חתימה #dd93e35b) — הורצה בדיקה תכנונית מלאה חדשה (סבב בקרה #5)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-28T09:49:21+02:00",
+      "executed_at_iso": "2026-10-28T10:08:11+02:00",
       "total_checks_executed": 117,
       "pass_count": 61,
       "warn_count": 56,
@@ -5082,18 +5101,37 @@
   },
   "model_3d_sync_status": {
     "project_id": "kkl10",
-    "base_model_hash": "436764cfc17306af19ed35f65162a0cf4700135a229e402d706320e4bf37c99c",
-    "base_model_hash_short": "436764cfc173",
+    "base_model_hash": "dd93e35bcc9f4a224daad6ad32765e81f9f3327981ee3507ce2aa9feae213b42",
+    "base_model_hash_short": "dd93e35bcc9f",
     "previous_model_hash_short": "436764cfc173",
     "tracked_files_count": 11,
-    "total_base_size_bytes": 28978804,
-    "last_modified_mtime": 1793173605.49,
-    "last_modified_iso": "2026-10-28T09:46:45+02:00",
-    "last_audit_iso": "2026-10-28T09:46:45+02:00",
-    "audit_revision": 4,
-    "was_updated_and_reaudited": false,
-    "change_reason": "up_to_date",
-    "changed_files": [],
+    "total_base_size_bytes": 36116719,
+    "last_modified_mtime": 1793174859.75,
+    "last_modified_iso": "2026-10-28T10:07:39+02:00",
+    "last_audit_iso": "2026-10-28T10:08:11+02:00",
+    "audit_revision": 5,
+    "was_updated_and_reaudited": true,
+    "change_reason": "base_3d_model_modified",
+    "changed_files": [
+      {
+        "file": "kkl10_3d_bim_viewer.html",
+        "change_type": "modified",
+        "old_sha256": "25402005f7c3",
+        "new_sha256": "679b5f60b912",
+        "old_size_bytes": 1983,
+        "size_bytes": 3945984,
+        "mtime_iso": "2026-10-28T10:07:39+02:00"
+      },
+      {
+        "file": "kkl10_spatial_map.html",
+        "change_type": "modified",
+        "old_sha256": "7691bbc63d1f",
+        "new_sha256": "a3d3b56273cb",
+        "old_size_bytes": 1975,
+        "size_bytes": 3195889,
+        "mtime_iso": "2026-10-28T10:07:39+02:00"
+      }
+    ],
     "geometry_diff": {
       "levels_count": {
         "before": 9,
@@ -5127,10 +5165,10 @@
       "warn_count": 56,
       "fail_count": 0
     },
-    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #436764cf · סבב בקרה #4)."
+    "status_message_he": "זוהה עדכון במודל ה-3D הבסיסי (2 קבצים עודכנו/נדגמו, חתימה #dd93e35b) — הורצה בדיקה תכנונית מלאה חדשה (סבב בקרה #5)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-28T09:49:21+02:00",
+    "executed_at_iso": "2026-10-28T10:08:11+02:00",
     "total_checks_executed": 117,
     "pass_count": 61,
     "warn_count": 56,

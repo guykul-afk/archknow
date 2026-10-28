@@ -68,10 +68,18 @@ for cfg in PROJECTS_CONFIG:
     )
     for html_fn in html_files:
         src_html = os.path.join(src_dir, html_fn)
+        dst_html = os.path.join(dst_dir, html_fn)
         if not os.path.isfile(src_html):
             continue
         with open(src_html, 'r', encoding='utf-8', errors='replace') as fh:
             html_content = fh.read()
+
+        # Guard against overwriting rich 3D BIM models with redirect stubs
+        if 'ZERO-COPY-CENTRAL-MODEL-REDIRECT' in html_content or len(html_content) < 5000:
+            if os.path.isfile(dst_html) and os.path.getsize(dst_html) > 50000:
+                print(f'Preserving full 3D viewer (source is redirect stub): {dst_html}')
+                continue
+
         while '<!-- ARCHICHECK_3D_OVERLAY_START -->' in html_content and '<!-- ARCHICHECK_3D_OVERLAY_END -->' in html_content:
             s_idx = html_content.index('<!-- ARCHICHECK_3D_OVERLAY_START -->')
             e_idx = html_content.index('<!-- ARCHICHECK_3D_OVERLAY_END -->') + len('<!-- ARCHICHECK_3D_OVERLAY_END -->')
@@ -83,10 +91,17 @@ for cfg in PROJECTS_CONFIG:
         else:
             html_content += overlay_block
 
-        dst_html = os.path.join(dst_dir, html_fn)
         with open(dst_html, 'w', encoding='utf-8', newline='\n') as fh:
             fh.write(html_content)
         print(f'Synced 3D viewer to static hosting: {dst_html}')
+
+    # Also ensure index.html in dst_dir is a copy of primary_viewer
+    primary_v = cfg.get('primary_viewer')
+    if primary_v:
+        src_pv = os.path.join(dst_dir, primary_v)
+        dst_idx = os.path.join(dst_dir, 'index.html')
+        if os.path.isfile(src_pv):
+            shutil.copy2(src_pv, dst_idx)
 
     # If Hafetz Haim 44 has offline standalone overlay in central folder, keep it in sync
     if pid == 'hafetz44':

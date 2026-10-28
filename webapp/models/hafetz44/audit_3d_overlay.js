@@ -38,21 +38,6 @@
   waitForHostScene(initAudit3DOverlay);
 
   function initAudit3DOverlay() {
-    // Focus camera directly on the building (instead of 480m regional aerial view) and ensure WebGL canvas size is synced
-    if (typeof activatePreset === 'function') {
-      try { activatePreset('iso_east'); } catch (e) {}
-    }
-    const triggerHostResize = () => {
-      try { window.dispatchEvent(new Event('resize')); } catch (e) {}
-    };
-    triggerHostResize();
-    setTimeout(triggerHostResize, 120);
-    setTimeout(triggerHostResize, 450);
-    if (typeof ResizeObserver !== 'undefined' && document.body) {
-      const ro = new ResizeObserver(() => triggerHostResize());
-      ro.observe(document.body);
-    }
-
     // 1. Inject Styles for 3D Audit Pins, HUD & Before/After Controls
     const styleEl = document.createElement('style');
     styleEl.textContent = `

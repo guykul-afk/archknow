@@ -89,7 +89,7 @@
       "path": "C:/Users/User/archknow/webapp/models/kitroni37/index.html",
       "folder": "C:/Users/User/archknow/webapp/models/kitroni37",
       "ext": "HTML",
-      "size_kb": 2.3
+      "size_kb": 5255.6
     },
     {
       "name": "kitroni37-39-50-70-A-37-39 k1 (2).pdf",
@@ -152,14 +152,14 @@
       "path": "C:/Users/User/archknow/webapp/models/kitroni37/kitroni37_39_3d_model.html",
       "folder": "C:/Users/User/archknow/webapp/models/kitroni37",
       "ext": "HTML",
-      "size_kb": 2.3
+      "size_kb": 5255.6
     },
     {
       "name": "kitroni37_39_spatial_map.html",
       "path": "C:/Users/User/archknow/webapp/models/kitroni37/kitroni37_39_spatial_map.html",
       "folder": "C:/Users/User/archknow/webapp/models/kitroni37",
       "ext": "HTML",
-      "size_kb": 2.3
+      "size_kb": 2307.6
     },
     {
       "name": "kitroni37_architectural_quality_analysis.html",
@@ -418,21 +418,21 @@
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/הרב קיטרוני 37-39 פתח תקווה/kitroni37_39_spatial_map.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/הרב קיטרוני 37-39 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.3
+      "size_kb": 2307.6
     },
     {
       "name": "index.html",
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/הרב קיטרוני 37-39 פתח תקווה/index.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/הרב קיטרוני 37-39 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.3
+      "size_kb": 5255.6
     },
     {
       "name": "kitroni37_39_3d_model.html",
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/הרב קיטרוני 37-39 פתח תקווה/kitroni37_39_3d_model.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/הרב קיטרוני 37-39 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.3
+      "size_kb": 5255.6
     },
     {
       "name": "kitroni37_architectural_quality_analysis.html",
@@ -3881,18 +3881,37 @@
     "summary_md_url": "/reports/kitroni37_summary_and_areas_report.md",
     "model_3d_sync_status": {
       "project_id": "kitroni37",
-      "base_model_hash": "a3e9a4cd1623c756203bd0a8934be548a3e57f33e5190327b25b860d4140e6d3",
-      "base_model_hash_short": "a3e9a4cd1623",
+      "base_model_hash": "7444a0a863efd29f7d09bf70a26ec4270236dd7ee48a2c8a89dea04203eac98a",
+      "base_model_hash_short": "7444a0a863ef",
       "previous_model_hash_short": "a3e9a4cd1623",
       "tracked_files_count": 6,
-      "total_base_size_bytes": 7035581,
-      "last_modified_mtime": 1793173607.75,
-      "last_modified_iso": "2026-10-28T09:46:47+02:00",
-      "last_audit_iso": "2026-10-28T09:46:47+02:00",
-      "audit_revision": 4,
-      "was_updated_and_reaudited": false,
-      "change_reason": "up_to_date",
-      "changed_files": [],
+      "total_base_size_bytes": 14775653,
+      "last_modified_mtime": 1793174859.53,
+      "last_modified_iso": "2026-10-28T10:07:39+02:00",
+      "last_audit_iso": "2026-10-28T10:08:15+02:00",
+      "audit_revision": 5,
+      "was_updated_and_reaudited": true,
+      "change_reason": "base_3d_model_modified",
+      "changed_files": [
+        {
+          "file": "kitroni37_39_3d_model.html",
+          "change_type": "modified",
+          "old_sha256": "93238f479db4",
+          "new_sha256": "6e706189d24f",
+          "old_size_bytes": 2127,
+          "size_bytes": 5381503,
+          "mtime_iso": "2026-10-28T10:07:39+02:00"
+        },
+        {
+          "file": "kitroni37_39_spatial_map.html",
+          "change_type": "modified",
+          "old_sha256": "9db50d24d011",
+          "new_sha256": "2d385e20bc0f",
+          "old_size_bytes": 2139,
+          "size_bytes": 2362835,
+          "mtime_iso": "2026-10-28T10:07:39+02:00"
+        }
+      ],
       "geometry_diff": {
         "levels_count": {
           "before": 9,
@@ -3901,6 +3920,10 @@
         "building_height_m": {
           "before": 31.5,
           "after": 0.0
+        },
+        "meshes_count": {
+          "before": 0,
+          "after": 186
         }
       },
       "consolidated_from_exec_folder": [],
@@ -3911,7 +3934,7 @@
         "spaces_count": 0,
         "units_count": 63,
         "walls_count": 0,
-        "meshes_count": 0,
+        "meshes_count": 186,
         "glb_size_bytes": 0,
         "obj_size_bytes": 0,
         "source_formats": [
@@ -3924,10 +3947,10 @@
         "warn_count": 57,
         "fail_count": 0
       },
-      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #a3e9a4cd · סבב בקרה #4)."
+      "status_message_he": "זוהה עדכון במודל ה-3D הבסיסי (2 קבצים עודכנו/נדגמו, חתימה #7444a0a8) — הורצה בדיקה תכנונית מלאה חדשה (סבב בקרה #5)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-28T09:49:22+02:00",
+      "executed_at_iso": "2026-10-28T10:08:15+02:00",
       "total_checks_executed": 117,
       "pass_count": 60,
       "warn_count": 57,
@@ -3939,7 +3962,7 @@
         "spaces_count": 0,
         "units_count": 63,
         "walls_count": 0,
-        "meshes_count": 0,
+        "meshes_count": 186,
         "glb_size_bytes": 0,
         "obj_size_bytes": 0,
         "source_formats": [
@@ -3958,7 +3981,7 @@
         {
           "check_id": "BIM_3D_CORE_MAMAD_CONTINUITY",
           "title": "רציפות אנכית 3D של גרעין המיגון (מגדל ממ״דים ≥ 70%) ופיר מדרגות/מעליות",
-          "measured_3d": "48 קירות נושאים ו-120 אלמנטי שלד במודל 3D",
+          "measured_3d": "48 קירות נושאים ו-186 אלמנטי שלד במודל 3D",
           "benchmark_plan": "רציפות קירות ממ״ד ≥ 70% עד היסודות (תקנות פיקוד העורף) ורציפות פיר חדר מדרגות ממוגן",
           "status": "PASS",
           "message": "וקטורי העברת העומסים האנכיים של מגדל הממ״דים וגרעין המעליות במודל ה-3D רציפים מקומת הגג ועד קומות המרתף."
@@ -4244,18 +4267,37 @@
   },
   "model_3d_sync_status": {
     "project_id": "kitroni37",
-    "base_model_hash": "a3e9a4cd1623c756203bd0a8934be548a3e57f33e5190327b25b860d4140e6d3",
-    "base_model_hash_short": "a3e9a4cd1623",
+    "base_model_hash": "7444a0a863efd29f7d09bf70a26ec4270236dd7ee48a2c8a89dea04203eac98a",
+    "base_model_hash_short": "7444a0a863ef",
     "previous_model_hash_short": "a3e9a4cd1623",
     "tracked_files_count": 6,
-    "total_base_size_bytes": 7035581,
-    "last_modified_mtime": 1793173607.75,
-    "last_modified_iso": "2026-10-28T09:46:47+02:00",
-    "last_audit_iso": "2026-10-28T09:46:47+02:00",
-    "audit_revision": 4,
-    "was_updated_and_reaudited": false,
-    "change_reason": "up_to_date",
-    "changed_files": [],
+    "total_base_size_bytes": 14775653,
+    "last_modified_mtime": 1793174859.53,
+    "last_modified_iso": "2026-10-28T10:07:39+02:00",
+    "last_audit_iso": "2026-10-28T10:08:15+02:00",
+    "audit_revision": 5,
+    "was_updated_and_reaudited": true,
+    "change_reason": "base_3d_model_modified",
+    "changed_files": [
+      {
+        "file": "kitroni37_39_3d_model.html",
+        "change_type": "modified",
+        "old_sha256": "93238f479db4",
+        "new_sha256": "6e706189d24f",
+        "old_size_bytes": 2127,
+        "size_bytes": 5381503,
+        "mtime_iso": "2026-10-28T10:07:39+02:00"
+      },
+      {
+        "file": "kitroni37_39_spatial_map.html",
+        "change_type": "modified",
+        "old_sha256": "9db50d24d011",
+        "new_sha256": "2d385e20bc0f",
+        "old_size_bytes": 2139,
+        "size_bytes": 2362835,
+        "mtime_iso": "2026-10-28T10:07:39+02:00"
+      }
+    ],
     "geometry_diff": {
       "levels_count": {
         "before": 9,
@@ -4264,6 +4306,10 @@
       "building_height_m": {
         "before": 31.5,
         "after": 0.0
+      },
+      "meshes_count": {
+        "before": 0,
+        "after": 186
       }
     },
     "consolidated_from_exec_folder": [],
@@ -4274,7 +4320,7 @@
       "spaces_count": 0,
       "units_count": 63,
       "walls_count": 0,
-      "meshes_count": 0,
+      "meshes_count": 186,
       "glb_size_bytes": 0,
       "obj_size_bytes": 0,
       "source_formats": [
@@ -4287,10 +4333,10 @@
       "warn_count": 57,
       "fail_count": 0
     },
-    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #a3e9a4cd · סבב בקרה #4)."
+    "status_message_he": "זוהה עדכון במודל ה-3D הבסיסי (2 קבצים עודכנו/נדגמו, חתימה #7444a0a8) — הורצה בדיקה תכנונית מלאה חדשה (סבב בקרה #5)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-28T09:49:22+02:00",
+    "executed_at_iso": "2026-10-28T10:08:15+02:00",
     "total_checks_executed": 117,
     "pass_count": 60,
     "warn_count": 57,
@@ -4302,7 +4348,7 @@
       "spaces_count": 0,
       "units_count": 63,
       "walls_count": 0,
-      "meshes_count": 0,
+      "meshes_count": 186,
       "glb_size_bytes": 0,
       "obj_size_bytes": 0,
       "source_formats": [
@@ -4321,7 +4367,7 @@
       {
         "check_id": "BIM_3D_CORE_MAMAD_CONTINUITY",
         "title": "רציפות אנכית 3D של גרעין המיגון (מגדל ממ״דים ≥ 70%) ופיר מדרגות/מעליות",
-        "measured_3d": "48 קירות נושאים ו-120 אלמנטי שלד במודל 3D",
+        "measured_3d": "48 קירות נושאים ו-186 אלמנטי שלד במודל 3D",
         "benchmark_plan": "רציפות קירות ממ״ד ≥ 70% עד היסודות (תקנות פיקוד העורף) ורציפות פיר חדר מדרגות ממוגן",
         "status": "PASS",
         "message": "וקטורי העברת העומסים האנכיים של מגדל הממ״דים וגרעין המעליות במודל ה-3D רציפים מקומת הגג ועד קומות המרתף."
