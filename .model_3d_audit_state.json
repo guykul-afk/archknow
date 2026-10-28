@@ -4,10 +4,10 @@
     "pines48": {
       "project_id": "pines48",
       "base_model_hash": "3af3739b8609d185b01600b19641c235814b0910907611bec307124d68ed28ac",
-      "last_modified_mtime": 1793169287.63,
-      "last_modified_iso": "2026-10-28T08:34:47+02:00",
-      "last_audit_iso": "2026-10-28T08:38:18+02:00",
-      "audit_revision": 3,
+      "last_modified_mtime": 1793169498.06,
+      "last_modified_iso": "2026-10-28T08:38:18+02:00",
+      "last_audit_iso": "2026-10-28T09:46:44+02:00",
+      "audit_revision": 4,
       "tracked_files_count": 9,
       "total_base_size_bytes": 35502668,
       "files_manifest": {
@@ -32,8 +32,8 @@
         "pines48_3d_model.html": {
           "sha256": "03336dccd18bac36e22b5c3673599fc4bbbe85738940c0f18b40e7e59b8a0b28",
           "size_bytes": 2027,
-          "mtime": 1793169287.63,
-          "mtime_iso": "2026-10-28T08:34:47+02:00"
+          "mtime": 1793169498.06,
+          "mtime_iso": "2026-10-28T08:38:18+02:00"
         },
         "pines48_geometry.json": {
           "sha256": "63f25a5a41240ba79ba13adca66e3ee593eaa8f2cd73e0849ba80f5b7bcb9779",
@@ -62,8 +62,8 @@
         "pines48_spatial_map.html": {
           "sha256": "a9332ea8f9ecca5ae86113e811ea0071ffc57782ea4b7f4072ee0a0d1cb80478",
           "size_bytes": 2039,
-          "mtime": 1793169287.61,
-          "mtime_iso": "2026-10-28T08:34:47+02:00"
+          "mtime": 1793169498.03,
+          "mtime_iso": "2026-10-28T08:38:18+02:00"
         }
       },
       "extracted_3d_metrics_summary": {
@@ -83,8 +83,8 @@
         ]
       },
       "bim_3d_checks_summary": {
-        "total_checks": 55,
-        "pass_count": 31,
+        "total_checks": 56,
+        "pass_count": 32,
         "warn_count": 21,
         "fail_count": 3
       },
@@ -131,16 +131,26 @@
           "changed_files": [],
           "total_notes": 38,
           "overall_score": 89
+        },
+        {
+          "audit_revision": 4,
+          "audit_iso": "2026-10-28T09:46:44+02:00",
+          "base_model_hash": "3af3739b8609d185",
+          "change_reason": "manual_full_reaudit_triggered",
+          "changed_files_count": 0,
+          "changed_files": [],
+          "total_notes": 37,
+          "overall_score": 89
         }
       ]
     },
     "kkl10": {
       "project_id": "kkl10",
       "base_model_hash": "436764cfc17306af19ed35f65162a0cf4700135a229e402d706320e4bf37c99c",
-      "last_modified_mtime": 1793169288.66,
-      "last_modified_iso": "2026-10-28T08:34:48+02:00",
-      "last_audit_iso": "2026-10-28T08:38:19+02:00",
-      "audit_revision": 3,
+      "last_modified_mtime": 1793169499.6,
+      "last_modified_iso": "2026-10-28T08:38:19+02:00",
+      "last_audit_iso": "2026-10-28T09:46:45+02:00",
+      "audit_revision": 4,
       "tracked_files_count": 11,
       "total_base_size_bytes": 28978804,
       "files_manifest": {
@@ -189,8 +199,8 @@
         "kkl10_3d_bim_viewer.html": {
           "sha256": "25402005f7c3bfdc1b98c014f5b4e429a78236ddac97e59398afc28ddefb7007",
           "size_bytes": 1983,
-          "mtime": 1793169288.66,
-          "mtime_iso": "2026-10-28T08:34:48+02:00"
+          "mtime": 1793169499.6,
+          "mtime_iso": "2026-10-28T08:38:19+02:00"
         },
         "kkl10_cad_floor_plans_v6_1.json": {
           "sha256": "e0d4a8518ff85f56ed9105875120f5a68ca359dded23d3d00032cc9b5d8c2273",
@@ -201,8 +211,8 @@
         "kkl10_spatial_map.html": {
           "sha256": "7691bbc63d1fa13956ea353be770642d27e130bcbdb175a2ed2d8ad830fd5e1b",
           "size_bytes": 1975,
-          "mtime": 1793169288.64,
-          "mtime_iso": "2026-10-28T08:34:48+02:00"
+          "mtime": 1793169499.58,
+          "mtime_iso": "2026-10-28T08:38:19+02:00"
         },
         "kkl10_threejs_bim_v6_1.js": {
           "sha256": "055aec244a7176e7721f7ef3cba9d3888f768eea6c1f24592c223a3f3432a480",
@@ -228,8 +238,8 @@
         ]
       },
       "bim_3d_checks_summary": {
-        "total_checks": 116,
-        "pass_count": 60,
+        "total_checks": 117,
+        "pass_count": 61,
         "warn_count": 56,
         "fail_count": 0
       },
@@ -277,18 +287,28 @@
           "changed_files": [],
           "total_notes": 26,
           "overall_score": 84
+        },
+        {
+          "audit_revision": 4,
+          "audit_iso": "2026-10-28T09:46:45+02:00",
+          "base_model_hash": "436764cfc17306af",
+          "change_reason": "manual_full_reaudit_triggered",
+          "changed_files_count": 0,
+          "changed_files": [],
+          "total_notes": 25,
+          "overall_score": 84
         }
       ]
     },
     "hafetz44": {
       "project_id": "hafetz44",
-      "base_model_hash": "f882be630c7484118655d77c9ce631be2d37bc2a4f013cb0bbbd7f6c3e896165",
-      "last_modified_mtime": 1793170531.67,
-      "last_modified_iso": "2026-10-28T08:55:31+02:00",
-      "last_audit_iso": "2026-10-28T08:57:44+02:00",
-      "audit_revision": 9,
+      "base_model_hash": "448f49bbd1b0be8e8afa3e461d27e0bf43b1fc5d06834d9330be208e35dd3fa5",
+      "last_modified_mtime": 1793171717.86,
+      "last_modified_iso": "2026-10-28T09:15:17+02:00",
+      "last_audit_iso": "2026-10-28T09:46:46+02:00",
+      "audit_revision": 13,
       "tracked_files_count": 15,
-      "total_base_size_bytes": 27691591,
+      "total_base_size_bytes": 14639845,
       "files_manifest": {
         "compact_bim.json": {
           "sha256": "1f21d90fa55da3a9c20c57119f2bb9825cffef4d54aa1807ca7998df52f84522",
@@ -327,16 +347,16 @@
           "mtime_iso": "2026-10-17T20:11:22+03:00"
         },
         "hafetz44_3d_bim_viewer.html": {
-          "sha256": "24a880593a80272135b15eee474de2ca4c7b932b8106a9e869560e15237c1fb0",
-          "size_bytes": 6527924,
-          "mtime": 1793170407.26,
-          "mtime_iso": "2026-10-28T08:53:27+02:00"
+          "sha256": "02dd7c98ec0e562f35c16875e496f58d22ec541a7b22ec7580d77ecffaa8b1f2",
+          "size_bytes": 2061,
+          "mtime": 1793171717.86,
+          "mtime_iso": "2026-10-28T09:15:17+02:00"
         },
         "hafetz44_3d_model.html": {
-          "sha256": "24a880593a80272135b15eee474de2ca4c7b932b8106a9e869560e15237c1fb0",
-          "size_bytes": 6527924,
-          "mtime": 1793170407.27,
-          "mtime_iso": "2026-10-28T08:53:27+02:00"
+          "sha256": "911f21c84329dbb298f4c6ab0429d8c72a51554ff36bb1e8a6e5ed5c8894a094",
+          "size_bytes": 2041,
+          "mtime": 1793171717.86,
+          "mtime_iso": "2026-10-28T09:15:17+02:00"
         },
         "hafetz44_audit_preload.js": {
           "sha256": "095e9be2865b76368d4a9c8a33c21f73acb58c1563d50ce1ab1853442aa07ed0",
@@ -371,8 +391,8 @@
         "hafetz44_spatial_map.html": {
           "sha256": "4c44f13f783cf58aad82554ba4698cd0eaf944316782e2de15ae873dc1382108",
           "size_bytes": 2053,
-          "mtime": 1793169546.35,
-          "mtime_iso": "2026-10-28T08:39:06+02:00"
+          "mtime": 1793171717.84,
+          "mtime_iso": "2026-10-28T09:15:17+02:00"
         },
         "hafetz44_units_crm.json": {
           "sha256": "c0f9a10d230fe0ea4f1f8f2f34e987ab7612c72232a5221f19d7411501cc9977",
@@ -382,13 +402,13 @@
         }
       },
       "extracted_3d_metrics_summary": {
-        "levels_count": 9,
-        "building_height_m": 34.55,
+        "levels_count": 12,
+        "building_height_m": 36.95,
         "slab_footprint_sqm": 677.25,
         "spaces_count": 53,
         "units_count": 17,
         "walls_count": 169,
-        "meshes_count": 285,
+        "meshes_count": 0,
         "glb_size_bytes": 1556692,
         "obj_size_bytes": 4289362,
         "source_formats": [
@@ -401,8 +421,8 @@
         ]
       },
       "bim_3d_checks_summary": {
-        "total_checks": 308,
-        "pass_count": 151,
+        "total_checks": 309,
+        "pass_count": 152,
         "warn_count": 152,
         "fail_count": 5
       },
@@ -526,16 +546,67 @@
           ],
           "total_notes": 21,
           "overall_score": 89.8
+        },
+        {
+          "audit_revision": 10,
+          "audit_iso": "2026-10-28T08:58:45+02:00",
+          "base_model_hash": "d129ea5bfd1529d7",
+          "change_reason": "base_3d_model_modified",
+          "changed_files_count": 2,
+          "changed_files": [
+            "hafetz44_3d_bim_viewer.html",
+            "hafetz44_3d_model.html"
+          ],
+          "total_notes": 21,
+          "overall_score": 89.8
+        },
+        {
+          "audit_revision": 11,
+          "audit_iso": "2026-10-28T09:05:53+02:00",
+          "base_model_hash": "c1ea303cf7c252fb",
+          "change_reason": "base_3d_model_modified",
+          "changed_files_count": 3,
+          "changed_files": [
+            "hafetz44_3d_bim_viewer.html",
+            "hafetz44_3d_model.html",
+            "hafetz44_spatial_map.html"
+          ],
+          "total_notes": 20,
+          "overall_score": 89.8
+        },
+        {
+          "audit_revision": 12,
+          "audit_iso": "2026-10-28T09:15:17+02:00",
+          "base_model_hash": "448f49bbd1b0be8e",
+          "change_reason": "base_3d_model_modified",
+          "changed_files_count": 3,
+          "changed_files": [
+            "hafetz44_3d_bim_viewer.html",
+            "hafetz44_3d_model.html",
+            "hafetz44_spatial_map.html"
+          ],
+          "total_notes": 20,
+          "overall_score": 89.8
+        },
+        {
+          "audit_revision": 13,
+          "audit_iso": "2026-10-28T09:46:46+02:00",
+          "base_model_hash": "448f49bbd1b0be8e",
+          "change_reason": "manual_full_reaudit_triggered",
+          "changed_files_count": 0,
+          "changed_files": [],
+          "total_notes": 20,
+          "overall_score": 89.8
         }
       ]
     },
     "yatkovski7": {
       "project_id": "yatkovski7",
-      "base_model_hash": "1aa5580b10d6a047238e2b3684a3284bd517ecf7a3b8d9fc5e1b9ab52f385d03",
-      "last_modified_mtime": 1793169430.52,
-      "last_modified_iso": "2026-10-28T08:37:10+02:00",
-      "last_audit_iso": "2026-10-28T08:38:22+02:00",
-      "audit_revision": 4,
+      "base_model_hash": "cac813a3d17aebf961f087efcc2cc697e6124e9d30aefd227cf59eec02b7e6cc",
+      "last_modified_mtime": 1793171718.94,
+      "last_modified_iso": "2026-10-28T09:15:18+02:00",
+      "last_audit_iso": "2026-10-28T09:46:47+02:00",
+      "audit_revision": 6,
       "tracked_files_count": 12,
       "total_base_size_bytes": 11043759,
       "files_manifest": {
@@ -578,14 +649,14 @@
         "yatkovski7_3d_bim_viewer.html": {
           "sha256": "00c127e8217f926048d98064972a437d53d12c7fac493adaa7f30d51224b1fee",
           "size_bytes": 2111,
-          "mtime": 1793169430.49,
-          "mtime_iso": "2026-10-28T08:37:10+02:00"
+          "mtime": 1793171718.92,
+          "mtime_iso": "2026-10-28T09:15:18+02:00"
         },
         "yatkovski7_3d_model.html": {
           "sha256": "27499b1adabf37e92cc0e1f7222ed85094965ad8dd5a2ca7ee832d028a63d766",
           "size_bytes": 2091,
-          "mtime": 1793169430.52,
-          "mtime_iso": "2026-10-28T08:37:10+02:00"
+          "mtime": 1793171718.94,
+          "mtime_iso": "2026-10-28T09:15:18+02:00"
         },
         "yatkovski7_model.glb": {
           "sha256": "5e357fc5d31f580800a51c42c7accae5e1208bd8f17ffdce1efbadc59b157eed",
@@ -608,13 +679,13 @@
         "yatkovski7_spatial_map.html": {
           "sha256": "56cdd82604011db9174274464515831883162c5da57b1eb276d66cf414638bd7",
           "size_bytes": 2103,
-          "mtime": 1793169430.46,
-          "mtime_iso": "2026-10-28T08:37:10+02:00"
+          "mtime": 1793171718.88,
+          "mtime_iso": "2026-10-28T09:15:18+02:00"
         }
       },
       "extracted_3d_metrics_summary": {
-        "levels_count": 7,
-        "building_height_m": 25.8,
+        "levels_count": 9,
+        "building_height_m": 27.37,
         "slab_footprint_sqm": 541.38,
         "spaces_count": 23,
         "units_count": 11,
@@ -630,8 +701,8 @@
         ]
       },
       "bim_3d_checks_summary": {
-        "total_checks": 179,
-        "pass_count": 88,
+        "total_checks": 180,
+        "pass_count": 89,
         "warn_count": 91,
         "fail_count": 0
       },
@@ -690,16 +761,36 @@
           "changed_files": [],
           "total_notes": 18,
           "overall_score": 91.4
+        },
+        {
+          "audit_revision": 5,
+          "audit_iso": "2026-10-28T09:15:18+02:00",
+          "base_model_hash": "cac813a3d17aebf9",
+          "change_reason": "base_3d_model_modified",
+          "changed_files_count": 0,
+          "changed_files": [],
+          "total_notes": 17,
+          "overall_score": 91.4
+        },
+        {
+          "audit_revision": 6,
+          "audit_iso": "2026-10-28T09:46:47+02:00",
+          "base_model_hash": "cac813a3d17aebf9",
+          "change_reason": "manual_full_reaudit_triggered",
+          "changed_files_count": 0,
+          "changed_files": [],
+          "total_notes": 17,
+          "overall_score": 91.4
         }
       ]
     },
     "kitroni37": {
       "project_id": "kitroni37",
       "base_model_hash": "a3e9a4cd1623c756203bd0a8934be548a3e57f33e5190327b25b860d4140e6d3",
-      "last_modified_mtime": 1793169291.45,
-      "last_modified_iso": "2026-10-28T08:34:51+02:00",
-      "last_audit_iso": "2026-10-28T08:38:24+02:00",
-      "audit_revision": 3,
+      "last_modified_mtime": 1793169504.27,
+      "last_modified_iso": "2026-10-28T08:38:24+02:00",
+      "last_audit_iso": "2026-10-28T09:46:47+02:00",
+      "audit_revision": 4,
       "tracked_files_count": 6,
       "total_base_size_bytes": 7035581,
       "files_manifest": {
@@ -730,14 +821,14 @@
         "kitroni37_39_3d_model.html": {
           "sha256": "93238f479db4fb9ef8915ae75ccc0c56bea613ff5732f70bfb37cbdf130e5ac1",
           "size_bytes": 2127,
-          "mtime": 1793169291.45,
-          "mtime_iso": "2026-10-28T08:34:51+02:00"
+          "mtime": 1793169504.27,
+          "mtime_iso": "2026-10-28T08:38:24+02:00"
         },
         "kitroni37_39_spatial_map.html": {
           "sha256": "9db50d24d011c1ccef6af4ac18a323d53f120f1782b8c54e25817e2f3ce5df38",
           "size_bytes": 2139,
-          "mtime": 1793169291.43,
-          "mtime_iso": "2026-10-28T08:34:51+02:00"
+          "mtime": 1793169504.25,
+          "mtime_iso": "2026-10-28T08:38:24+02:00"
         }
       },
       "extracted_3d_metrics_summary": {
@@ -755,8 +846,8 @@
         ]
       },
       "bim_3d_checks_summary": {
-        "total_checks": 116,
-        "pass_count": 59,
+        "total_checks": 117,
+        "pass_count": 60,
         "warn_count": 57,
         "fail_count": 0
       },
@@ -800,18 +891,28 @@
           "changed_files": [],
           "total_notes": 19,
           "overall_score": 86.8
+        },
+        {
+          "audit_revision": 4,
+          "audit_iso": "2026-10-28T09:46:47+02:00",
+          "base_model_hash": "a3e9a4cd1623c756",
+          "change_reason": "manual_full_reaudit_triggered",
+          "changed_files_count": 0,
+          "changed_files": [],
+          "total_notes": 18,
+          "overall_score": 86.8
         }
       ]
     },
     "feierberg3": {
       "project_id": "feierberg3",
-      "base_model_hash": "8a4d7b025c159bddcee02a20e620f7aed259c8e1a47e733ced67cdd72ba6a08f",
-      "last_modified_mtime": 1793169292.18,
-      "last_modified_iso": "2026-10-28T08:34:52+02:00",
-      "last_audit_iso": "2026-10-28T08:38:24+02:00",
-      "audit_revision": 3,
+      "base_model_hash": "aa74e2c77f6a2cf94fa16391acff4d82468d83302d967f3c138b95fdfa167dd6",
+      "last_modified_mtime": 1793171719.44,
+      "last_modified_iso": "2026-10-28T09:15:19+02:00",
+      "last_audit_iso": "2026-10-28T09:46:47+02:00",
+      "audit_revision": 6,
       "tracked_files_count": 14,
-      "total_base_size_bytes": 36338307,
+      "total_base_size_bytes": 22581881,
       "files_manifest": {
         "compact_bim.json": {
           "sha256": "ddfb644699e9e20f40ef9b107c87bb21d264a6c6b839340453810b971179ee5c",
@@ -862,16 +963,16 @@
           "mtime_iso": "2026-10-22T14:46:17+03:00"
         },
         "feierberg3_3d_bim_viewer.html": {
-          "sha256": "2ff21accf65bb5623bf1a2b1b91a10cf75b9f345a3e8e7b8676ef4e95e0dfcb2",
-          "size_bytes": 6880260,
-          "mtime": 1793169292.18,
-          "mtime_iso": "2026-10-28T08:34:52+02:00"
+          "sha256": "7b8d5e9ccbc2841faae1804e84199086f6effcb27a5e8757a3081723cf67d8c9",
+          "size_bytes": 2057,
+          "mtime": 1793171719.44,
+          "mtime_iso": "2026-10-28T09:15:19+02:00"
         },
         "feierberg3_3d_model.html": {
-          "sha256": "2ff21accf65bb5623bf1a2b1b91a10cf75b9f345a3e8e7b8676ef4e95e0dfcb2",
-          "size_bytes": 6880260,
-          "mtime": 1793169292.08,
-          "mtime_iso": "2026-10-28T08:34:52+02:00"
+          "sha256": "62f3a9358b89d823312afda1a3cac576e045f4a2bea1a60baacca19a1f71b801",
+          "size_bytes": 2037,
+          "mtime": 1793171719.43,
+          "mtime_iso": "2026-10-28T09:15:19+02:00"
         },
         "feierberg3_model.glb": {
           "sha256": "a7c79e74a4f66dc39dbe05d6a5b7a05119af96c90aa6000a976fcc561fa17e00",
@@ -894,8 +995,8 @@
         "feierberg3_spatial_map.html": {
           "sha256": "33426f961b62baa1feb1cfbab849d123d8b7507b2cc931d1df19eefbeaaabf77",
           "size_bytes": 2049,
-          "mtime": 1793169291.97,
-          "mtime_iso": "2026-10-28T08:34:51+02:00"
+          "mtime": 1793171719.42,
+          "mtime_iso": "2026-10-28T09:15:19+02:00"
         }
       },
       "extracted_3d_metrics_summary": {
@@ -905,7 +1006,7 @@
         "spaces_count": 0,
         "units_count": 18,
         "walls_count": 0,
-        "meshes_count": 162,
+        "meshes_count": 0,
         "glb_size_bytes": 1597516,
         "obj_size_bytes": 4408684,
         "source_formats": [
@@ -916,8 +1017,8 @@
         ]
       },
       "bim_3d_checks_summary": {
-        "total_checks": 116,
-        "pass_count": 59,
+        "total_checks": 117,
+        "pass_count": 60,
         "warn_count": 57,
         "fail_count": 0
       },
@@ -963,6 +1064,44 @@
           "changed_files_count": 0,
           "changed_files": [],
           "total_notes": 21,
+          "overall_score": 91.2
+        },
+        {
+          "audit_revision": 4,
+          "audit_iso": "2026-10-28T09:05:55+02:00",
+          "base_model_hash": "43b7ec781e903cbc",
+          "change_reason": "base_3d_model_modified",
+          "changed_files_count": 3,
+          "changed_files": [
+            "feierberg3_3d_bim_viewer.html",
+            "feierberg3_3d_model.html",
+            "feierberg3_spatial_map.html"
+          ],
+          "total_notes": 20,
+          "overall_score": 91.2
+        },
+        {
+          "audit_revision": 5,
+          "audit_iso": "2026-10-28T09:15:19+02:00",
+          "base_model_hash": "aa74e2c77f6a2cf9",
+          "change_reason": "base_3d_model_modified",
+          "changed_files_count": 3,
+          "changed_files": [
+            "feierberg3_3d_bim_viewer.html",
+            "feierberg3_3d_model.html",
+            "feierberg3_spatial_map.html"
+          ],
+          "total_notes": 20,
+          "overall_score": 91.2
+        },
+        {
+          "audit_revision": 6,
+          "audit_iso": "2026-10-28T09:46:47+02:00",
+          "base_model_hash": "aa74e2c77f6a2cf9",
+          "change_reason": "manual_full_reaudit_triggered",
+          "changed_files_count": 0,
+          "changed_files": [],
+          "total_notes": 20,
           "overall_score": 91.2
         }
       ]

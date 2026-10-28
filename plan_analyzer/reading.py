@@ -190,6 +190,27 @@ def read_text_layer(page):
         if len(ws) == 1 and _NUM.match(ws[0][4]):
             orient = "horizontal" if (x1 - x0) >= (y1 - y0) else "vertical"
             dims.append({"value": float(ws[0][4]), "unit": "cm", "orientation": orient, "box": box})
+        elif not has_hebrew(text) and not re.match(r"^[+\-±]\d+\.\d{2}$", text.replace(" ", "")):
+            for wx0, wy0, wx1, wy1, wtxt in ws:
+                wclean = wtxt.strip().strip("/\\(),;")
+                if _NUM.match(wclean):
+                    worient = "horizontal" if (wx1 - wx0) >= (wy1 - wy0) else "vertical"
+                    dims.append({
+                        "value": float(wclean),
+                        "unit": "cm",
+                        "orientation": worient,
+                        "box": [wx0 / W, wy0 / H, wx1 / W, wy1 / H],
+                    })
+                elif re.match(r"^\d{2,4}[/\\]\d{2,4}$", wclean):
+                    for part_num in re.split(r"[/\\]", wclean):
+                        if _NUM.match(part_num):
+                            worient = "horizontal" if (wx1 - wx0) >= (wy1 - wy0) else "vertical"
+                            dims.append({
+                                "value": float(part_num),
+                                "unit": "cm",
+                                "orientation": worient,
+                                "box": [wx0 / W, wy0 / H, wx1 / W, wy1 / H],
+                            })
         elif has_hebrew(text):
             spaces.append({"label": text, "box": box, "inside_unit": True})
         elif re.match(r"^[+\-±]\d+\.\d{2}$", text.replace(" ", "")):

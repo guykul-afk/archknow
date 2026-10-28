@@ -646,10 +646,24 @@ def analyze_page(page, pno, work_dir, preview_dir, stem, use_vision=True, readin
                                                                      int(np.clip((d["span"][0] + d["span"][2]) / 2, 0, Wpx - 1))]
                   and d["orientation"] == "vertical"]
             entry["written_dimensions_cm"] = {"horizontal": hd, "vertical": vd}
+            all_written = [float(v) for v in (hd + vd) if v is not None]
             if hd and vd:
                 a_, b_ = max(hd), max(vd)
                 entry["width_cm"], entry["length_cm"] = float(min(a_, b_)), float(max(a_, b_))
                 entry["provenance"]["width_cm"] = "written_dimension"
+            elif all_written and entry.get("mbr_cm"):
+                # Single-axis written dimension(s) present: preserve written dimension instead of discarding it
+                mbr_w, mbr_l = float(entry["mbr_cm"][0]), float(entry["mbr_cm"][1])
+                w_min, w_max = min(all_written), max(all_written)
+                if len(all_written) >= 2 and w_max >= 1.8 * w_min:
+                    entry["width_cm"], entry["length_cm"] = float(w_min), float(w_max)
+                    entry["provenance"]["width_cm"] = "written_dimension"
+                elif abs(w_max - mbr_w) <= abs(w_max - mbr_l):
+                    entry["width_cm"], entry["length_cm"] = float(w_max), float(max(mbr_l, w_max))
+                    entry["provenance"]["width_cm"] = "written_dimension"
+                else:
+                    entry["width_cm"], entry["length_cm"] = float(min(mbr_w, w_min)), float(w_max)
+                    entry["provenance"]["width_cm"] = "written_dimension_partial"
             elif entry.get("mbr_cm"):
                 entry["width_cm"], entry["length_cm"] = entry["mbr_cm"]
                 entry["provenance"]["width_cm"] = "measured_geometry"
@@ -778,26 +792,48 @@ def analyze_page(page, pno, work_dir, preview_dir, stem, use_vision=True, readin
             if entrance is None or o["width_cm"] > entrance["width_cm"]:
                 entrance = o
     for e in model_spaces:
-        if e["type"] != "corridor_candidate":
-            continue
-        ops = openings_of(e["id"])
-        doors = [o for o in ops if o["kind"] == "door"]
-        plain = [o for o in ops if o["kind"] == "opening"]
-        narrow = (e.get("inscribed_width_cm") or 999) <= 170
-        if entrance and entrance["id"] in [o["id"] for o in ops]:
-            e["type"] = "entrance" if (e["area_sqm"] or 0) < 6 else "corridor"
-            e["provenance"]["type"] = "contains_entrance_door"
-        elif len(doors) >= 2 or narrow:
-            e["type"] = "corridor"
-            e["provenance"]["type"] = "circulation_geometry"
-        elif (e["area_sqm"] or 0) < 3 and len(doors) == 1 and not plain:
-            e["type"] = "storage"
-            e["provenance"]["type"] = "small_closed_room"
-        else:
-            e["type"] = "corridor"
-            e["provenance"]["type"] = "unlabeled_default"
-        e["name"] = {"corridor": "מסדרון / מעבר", "entrance": "מבואת כניסה", "storage": "מחסן / ארון"}[e["type"]]
-        e["name_inferred"] = True
+        if e["type"] == "corridor_candidate":
+            ops = openings_of(e["id"])
+            doors = [o for o in ops if o["kind"] == "door"]
+            plain = [o for o in ops if o["kind"] == "opening"]
+            narrow = (e.get("inscribed_width_cm") or 999) <= 170
+            if entrance and entrance["id"] in [o["id"] for o in ops]:
+                e["type"] = "entrance" if (e["area_sqm"] or 0) < 6 else "corridor"
+                e["provenance"]["type"] = "contains_entrance_door"
+            elif len(doors) >= 2 or narrow:
+                e["type"] = "corridor"
+                e["provenance"]["type"] = "circulation_geometry"
+            elif (e["area_sqm"] or 0) < 3 and len(doors) == 1 and not plain:
+                e["type"] = "storage"
+                e["provenance"]["type"] = "small_closed_room"
+            else:
+                e["type"] = "corridor"
+                e["provenance"]["type"] = "unlabeled_default"
+            e["name"] = {"corridor": "מסדרון / מעבר", "entrance": "מבואת כניסה", "storage": "מחסן / ארון"}[e["type"]]
+            e["name_inferred"] = True
+
+        # Ensure corridor width reflects written clear width (e.g. 100 / 105 cm) or true wall-to-wall
+        # inscribed width rather than L-shape outer bounding box or local door-frame jamb nibs.
+        if e["type"] == "corridor":
+            wdims = e.get("written_dimensions_cm") or {}
+            all_w = [float(x) for x in (wdims.get("horizontal", []) + wdims.get("vertical", [])) if x is not None]
+            corr_w_cands = sorted(set(round(x, 1) for x in all_w if 85.0 <= x <= 165.0))
+            corr_l_cands = sorted(set(round(x, 1) for x in all_w if x >= 200.0))
+            insc_w = e.get("inscribed_width_cm")
+            if corr_w_cands:
+                e["corridor_widths_written_cm"] = corr_w_cands
+                # If multiple clear widths are written (e.g. 100 and 105), use the main/max clear width
+                # if inscribed geometry confirms >=100cm, and record the range.
+                if len(corr_w_cands) >= 2 and insc_w and insc_w >= 98.0:
+                    e["width_cm"] = float(max(w for w in corr_w_cands if w <= insc_w + 12.0) or corr_w_cands[-1])
+                else:
+                    e["width_cm"] = float(corr_w_cands[0])
+                e["provenance"]["width_cm"] = "written_corridor_dimension"
+            elif insc_w and (not e.get("width_cm") or e["width_cm"] > 170.0 or e["width_cm"] < 85.0):
+                e["width_cm"] = float(insc_w)
+                e["provenance"]["width_cm"] = "inscribed_corridor_width"
+            if corr_l_cands:
+                e["length_cm"] = float(max(corr_l_cands))
 
     # ---------------- topology ----------------
     exit_marks = [nbox_center_px(a["box"]) for a in reading.get("annotations", [])

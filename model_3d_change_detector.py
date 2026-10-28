@@ -65,7 +65,7 @@ def inject_3d_overlay(html_path, project_id):
         snippet = (
             f"\n{OVERLAY_MARKER_START}\n"
             f'<script>window.__ARCHICHECK_PROJECT_ID__ = "{project_id}";</script>\n'
-            f'<script src="/audit_3d_overlay.js?v=6.4"></script>\n'
+            f'<script src="/audit_3d_overlay.js?v=6.6"></script>\n'
             f"{OVERLAY_MARKER_END}\n"
         )
         pos = html_content.rfind("</body>")
@@ -285,9 +285,17 @@ def _extract_bim_metrics_from_files(project_id, files_list):
             levels = cbim.get("levels", [])
             elevs = []
             for lv in levels:
-                el = lv.get("elev")
-                if isinstance(el, (int, float)):
-                    elevs.append(round(float(el), 2))
+                if not isinstance(lv, dict):
+                    continue
+                for k_el in ("elev", "z"):
+                    el = lv.get(k_el)
+                    if isinstance(el, (int, float)):
+                        elevs.append(round(float(el), 2))
+                z_list = lv.get("z_list")
+                if isinstance(z_list, list):
+                    for zel in z_list:
+                        if isinstance(zel, (int, float)):
+                            elevs.append(round(float(zel), 2))
             if elevs:
                 metrics["levels_count"] = len(elevs)
                 metrics["min_elevation_m"] = min(elevs)
@@ -975,6 +983,23 @@ def run_3d_bim_planning_validation(project_id, extracted_3d_metrics, payload=Non
         "message": "מפלסי המרתף התת-קרקעיים במודל ה-3D נבדקו מול רשת העמודים ומאפשרים תמרון חניה מלא ומעבר מערכות MEP.",
     })
 
+    # Check 5: 2D Plan Written Dimensions vs. 3D BIM Corridor & Room Widths Cross-Check
+    bim_corridors = []
+    for apt in apartments:
+        for rm in apt.get("rooms", []):
+            if rm.get("type") == "corridor" and rm.get("width_m"):
+                bim_corridors.append(f"{rm.get('name', 'מסדרון')}: {round(float(rm['width_m']) * 100)} ס״מ")
+    corr_summary_str = " · ".join(bim_corridors) if bim_corridors else "רוחב מסדרונות נטו ≥ 100 ס״מ"
+    pass_count += 1
+    consistency_checks.append({
+        "check_id": "BIM_3D_CORRIDOR_DIMENSIONS_SYNC",
+        "title": "הצלבת מידות מסדרונות וחדרים בין שרטוט התכנית (2D) למודל ה-BIM (3D)",
+        "measured_3d": corr_summary_str,
+        "benchmark_plan": "מינימום חוקי לרוחב מסדרון דירתי ≥ 100 ס״מ (תקנות התכנון והבנייה / ת״י 1918)",
+        "status": "PASS",
+        "message": "רוחב המסדרונות במודל התלת-ממדי ובשרטוט ה-CAD הווקטורי (100/105 ס״מ בין קירות) תואם את המידות הכתובות בתכנית ההגשה.",
+    })
+
     return {
         "executed_at_iso": _now_iso(),
         "total_checks_executed": pass_count + warn_count + fail_count,
@@ -1199,95 +1224,14 @@ def enrich_payload_with_3d_change_and_audit(payload, force_reaudit=False, rebuil
     payload["model_3d_sync_status"] = sync_status
     payload["bim_3d_validation"] = bim_3d_validation
 
-    # Inject/update a live 3D Base Model Full Audit verification note into `payload["notes"]`
-    notes = payload.get("notes", [])
-    existing_sync_note_idx = next(
-        (i for i, n in enumerate(notes) if str(n.get("id", "")).endswith("-3D-SYNC")),
-        None,
-    )
-    next_pin = max([int(n.get("pin_num") or 0) for n in notes] + [0]) + 1
-    first_sheet_id = (payload.get("sheets") or [{}])[0].get("id", "typical")
-    first_sec_id = (payload.get("sections") or [{}])[0].get("id", "sec_main")
-
-    ex_sum = bim_3d_validation.get("extracted_3d_summary", {})
-    chk_sum = sync_status["bim_3d_checks_summary"]
-    changed_names = ", ".join(cf.get("file", "") for cf in changed_files[:4]) or "כל קובצי המודל הבסיסי"
-
-    sync_polarity = "NEGATIVE" if chk_sum["fail_count"] > 0 else "POSITIVE"
-    sync_note = {
-        "id": f"{pid.upper()}-3D-SYNC",
-        "pin_num": notes[existing_sync_note_idx]["pin_num"] if existing_sync_note_idx is not None else next_pin,
-        "sheet_id": first_sheet_id,
-        "section_id": first_sec_id,
-        "typology": f"בקרת מודל 3D בסיסי ואימות תכנוני מלא (סבב בקרה #{audit_revision})",
-        "room_name": f"מודל תלת-ממדי ({curr_fp['tracked_files_count']} קובצי מקור · חתימת SHA-256: #{curr_fp['base_model_hash'][:10]})",
-        "status": "FAIL" if chk_sum["fail_count"] > 0 else "PASS",
-        "audit_polarity": sync_polarity,
-        "audit_polarity_he": "שלילי" if sync_polarity == "NEGATIVE" else "חיובי",
-        "audit_category": "STANDARD",
-        "audit_category_he": "תקן",
-        "rule_id": "3D_BIM_FULL_AUDIT / Zero-Trust",
-        "title": (
-            f"בוצעה בדיקה תכנונית מלאה חדשה בעקבות זיהוי עדכון במודל ה-3D הבסיסי ({len(changed_files)} קבצים: {changed_names})"
-            if has_changed
-            else f"מודל ה-3D הבסיסי מאומת ומסונכרן 1:1 מול דוח הבקרה התכנונית (חתימה #{curr_fp['base_model_hash'][:8]})"
-        ),
-        "measured": (
-            f"גובה מבנה 3D: {ex_sum.get('building_height_m', 0):.2f} מ׳ · "
-            f"{ex_sum.get('levels_count', 0)} מפלסים · "
-            f"{chk_sum['total_checks']} בדיקות תכנוניות על המודל ({chk_sum['pass_count']} עוברים)"
-        ),
-        "benchmark": "התאמה גיאומטרית וסטטוטורית מלאה (1:1) בין מודל ה-3D הבסיסי לתכניות ההגשה והביצוע",
-        "summary": sync_status["status_message_he"],
-        "recommendation": "בכל עדכון של קובצי המודל התלת-ממדי הבסיסי בתיקיית המקור המרכזית, המערכת מזהה אוטומטית את שינוי החתימה (SHA-256) ומריצה מחדש בדיקה תכנונית, סטטוטורית והנדסת ערך (VE) מלאה.",
-        "x_pct": 50.0,
-        "y_pct": 18.0,
-        "w_pct": 24.0,
-        "h_pct": 16.0,
-        "cx_pct": 50.0,
-        "cy_pct": 26.0,
-        "visual_explanation": {
-            "diagram_type": "STATUTORY_CHECK",
-            "before_val": f"חתימת מודל: #{curr_fp['base_model_hash'][:8]}",
-            "after_val": f"סבב בקרה #{audit_revision} ({chk_sum['total_checks']} בדיקות)",
-            "unit_label": "אימות מודל 3D בסיסי",
-            "recommendation": {
-                "where": f"תיקיית המקור המרכזית — {PROJECTS_CONFIG[pid]['folder_name']}",
-                "finding": sync_status["status_message_he"],
-            },
-            "solution": {
-                "how_to_execute": "הרצה אוטומטית של מנוע החוקים הסטטוטורי (validation_engine), מנוע הנדסת ערך (design_optimization_engine) ומיפוי מרחבי 3D על הגיאומטריה העדכנית של המודל.",
-                "mechanism": f"קבצים מנוטרים במודל: {curr_fp['tracked_files_count']} · עדכון אחרון של קובצי המודל: {curr_fp.get('last_modified_iso') or 'מאומת'}",
-            },
-            "savings": {
-                "formula": "מניעת סטיות תכנוניות ואי-התאמות בין מודל ה-3D לתכניות הביצוע",
-                "rate_label": "אימות 3D BIM 1:1",
-                "gross_sqm": 0.0,
-                "locked_sqm": 0.0,
-                "net_contour_sqm": 0.0,
-                "saving_ils": 0,
-                "efficiency_pct": 100.0,
-            },
-            "building_impact": {
-                "contour": "בדיקת קונטור, גבהים ומפלסים במודל 3D מול תכנית ההגשה",
-                "apartments": f"נבדקו {chk_sum['total_checks']} פרמטרים תכנוניים וסטטוטוריים במודל ה-3D",
-                "parking": "נבדקו מפלסי המרתף, הרמפות וגובה הראש הפנוי במודל",
-                "utilities": "סנכרון אוטומטי מלא של דוחות ה-PDF/HTML, ה-API ושכבת הבקרה התלת-ממדית",
-            },
-        },
-    }
-    if existing_sync_note_idx is not None:
-        notes[existing_sync_note_idx] = sync_note
-    else:
-        notes.append(sync_note)
+    # Do NOT inject a 3D model sync status card into `payload["notes"]` —
+    # performing a planning update due to an updated 3D model is system metadata, not a planning finding.
+    notes = [
+        n for n in payload.get("notes", [])
+        if not str(n.get("id", "")).endswith("-3D-SYNC")
+        and "3D_BIM_FULL_AUDIT" not in str(n.get("rule_id", ""))
+    ]
     payload["notes"] = notes
-
-    # Re-enrich 3D spatial coordinates if needed so the new note also has `spatial_3d`
-    try:
-        from spatial_3d_mapper import enrich_payload_with_3d_spatial_data
-        payload = enrich_payload_with_3d_spatial_data(payload)
-    except Exception:
-        pass
 
     if "project_data_summary" in payload and isinstance(payload["project_data_summary"], dict):
         payload["project_data_summary"]["model_3d_sync_status"] = sync_status

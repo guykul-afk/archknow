@@ -12,7 +12,7 @@
  *    findings directly in 3D space (1:1 metric CAD coordinates).
  * 2. Provides Interactive "Before (מצב קיים) ↔ After (מצב מוצע)" 3D geometric overlays
  *    for Hafetz Haim 44 (Basement 3-arm ramp headroom H_clear, 58m² shoring cut,
- *    Stall #16 relocation, Mamad drop-walls 3 storage rooms, West corridor 90->100cm,
+ *    Stall #16 relocation, Mamad drop-walls 3 storage rooms, West corridor 100/105->105cm uniform,
  *    Walk-in closet cancellation, Penthouse 96->120cm island shift, Ground 32m² recess,
  *    and 4-Facade 524m² HPL vs. Plaster material breakdown).
  * 3. Bi-directional postMessage sync with ArchiCheck Web UI (2D Plan + Inspector Drawer).

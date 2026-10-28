@@ -40,14 +40,14 @@
       "path": "C:/Users/User/archknow/reports/yatkovski7_architectural_quality_analysis.html",
       "folder": "C:/Users/User/archknow/reports",
       "ext": "HTML",
-      "size_kb": 73.1
+      "size_kb": 74.5
     },
     {
       "name": "yatkovski7_architectural_quality_analysis.pdf",
       "path": "C:/Users/User/archknow/reports/yatkovski7_architectural_quality_analysis.pdf",
       "folder": "C:/Users/User/archknow/reports",
       "ext": "PDF",
-      "size_kb": 1452.6
+      "size_kb": 1453.7
     },
     {
       "name": "yatkovski7_summary_and_areas_report.html",
@@ -61,7 +61,7 @@
       "path": "C:/Users/User/archknow/reports/yatkovski7_summary_and_areas_report.pdf",
       "folder": "C:/Users/User/archknow/reports",
       "ext": "PDF",
-      "size_kb": 1304.0
+      "size_kb": 1303.6
     },
     {
       "name": "yatkovski7_basement.png",
@@ -103,7 +103,7 @@
       "path": "C:/Users/User/archknow/webapp/api/yatkovski7.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 275.2
+      "size_kb": 272.9
     },
     {
       "name": "compact_bim.json",
@@ -173,7 +173,7 @@
       "path": "C:/Users/User/archknow/webapp/models/yatkovski7/yatkovski7_spatial_map.html",
       "folder": "C:/Users/User/archknow/webapp/models/yatkovski7",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 2.3
     },
     {
       "name": "compact_bim.json",
@@ -215,14 +215,14 @@
       "path": "C:/Users/User/archknow/webapp/reports/yatkovski7_architectural_quality_analysis.html",
       "folder": "C:/Users/User/archknow/webapp/reports",
       "ext": "HTML",
-      "size_kb": 73.1
+      "size_kb": 74.5
     },
     {
       "name": "yatkovski7_architectural_quality_analysis.pdf",
       "path": "C:/Users/User/archknow/webapp/reports/yatkovski7_architectural_quality_analysis.pdf",
       "folder": "C:/Users/User/archknow/webapp/reports",
       "ext": "PDF",
-      "size_kb": 1452.6
+      "size_kb": 1453.7
     },
     {
       "name": "yatkovski7_summary_and_areas_report.html",
@@ -236,7 +236,7 @@
       "path": "C:/Users/User/archknow/webapp/reports/yatkovski7_summary_and_areas_report.pdf",
       "folder": "C:/Users/User/archknow/webapp/reports",
       "ext": "PDF",
-      "size_kb": 1304.0
+      "size_kb": 1303.6
     },
     {
       "name": "yatkovski7_basement.png",
@@ -278,7 +278,7 @@
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/יטקובסקי 7 פתח תקווה/yatkovski7_spatial_map.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/יטקובסקי 7 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 2.3
     },
     {
       "name": "yatkovski7_architectural_quality_analysis.html",
@@ -2035,15 +2035,15 @@
       "contour_efficiency_pct": 0.0,
       "ve_callout_badge": "🛋️ שיפור תכנון: +1.4 מ״ר לחדרים",
       "where_on_plan": "דירות צפוניות ודרומיות בקומות א׳–ד׳ + דירת גן (9 דירות — 97–105 מ״ר בתכנית המקור)",
-      "how_to_execute": "קיצור זנב מסדרון חדרי השינה ב-90 ס״מ והסטת מחיצת הפנים של סוויטת ההורים — העברת 1.4 מ״ר נטו ממסדרון לחדר ההורים ולחלל המגורים בכל 9 הדירות.",
+      "how_to_execute": "קיצור זנב מסדרון חדרי השינה (395×105 ס״מ) ב-90 ס״מ, הזזת דלת סוויטת ההורים לקו חדר הרחצה ויצירת גומחה שקועה לדלת ההדף של הממ״ד — העברת 1.4 מ״ר נטו ממסדרון לחדר השינה ולסוויטת ההורים בכל 9 הדירות.",
       "typology": "שיפור תכנון פנים-דירתי ופתחים — דירות צפוניות ודרומיות בקומות א׳–ד׳ + דירת גן (9 דירות — 97–105 מ״ר בתכנית המקור)",
       "room_name": "📍 דירות צפוניות ודרומיות בקומות א׳–ד׳ + דירת גן (9 דירות — 97–105 מ״ר בתכנית המקור) — מסדרון (7.9 ← 6.5 מ״ר)",
       "status": "WARN",
       "rule_id": "שיפור תכנון פנים-דירתי (Space Syntax)",
       "title": "שיפור תכנון: העברת +1.4 מ״ר ממסדרון לחדרי מגורים (+12.6 מ״ר ב-9 דירות)",
       "measured": "מסדרון נוכחי: 7.9 מ״ר לדירה (קונטור דירה קבוע)",
-      "benchmark": "מסדרון יעיל: 6.5 מ״ר (+1.4 מ״ר ל-הרחבת חדר ההורים מ-275/280 ס״מ ל-295 ס״מ (תיקון התראת ADG!) + גומחה שקועה לדלת הממ״ד)",
-      "summary": "🛠️ הצעה לשיפור תכנון פנים: קיצור זנב מסדרון חדרי השינה ב-90 ס״מ והסטת מחיצת הפנים של סוויטת ההורים — העברת 1.4 מ״ר נטו ממסדרון לחדר ההורים ולחלל המגורים בכל 9 הדירות. | תוצאה: הגדלת הרחבת חדר ההורים מ-275/280 ס״מ ל-295 ס״מ (תיקון התראת ADG!) + גומחה שקועה לדלת הממ״ד (ללא שינוי קונטור הבנייה).",
+      "benchmark": "מסדרון יעיל: 6.5 מ״ר (+1.4 מ״ר ל-הרחבת חדר השינה מ-290/295 ס״מ ל-304 ס״מ (תיקון התראת ADG 3.00m!) + הגדלת מבואת סוויטת ההורים (340×360 ס״מ) וגומחה שקועה לדלת הממ״ד)",
+      "summary": "🛠️ הצעה לשיפור תכנון פנים: קיצור זנב מסדרון חדרי השינה (395×105 ס״מ) ב-90 ס״מ, הזזת דלת סוויטת ההורים לקו חדר הרחצה ויצירת גומחה שקועה לדלת ההדף של הממ״ד — העברת 1.4 מ״ר נטו ממסדרון לחדר השינה ולסוויטת ההורים בכל 9 הדירות. | תוצאה: הגדלת הרחבת חדר השינה מ-290/295 ס״מ ל-304 ס״מ (תיקון התראת ADG 3.00m!) + הגדלת מבואת סוויטת ההורים (340×360 ס״מ) וגומחה שקועה לדלת הממ״ד (ללא שינוי קונטור הבנייה).",
       "recommendation": "🪟 שיפור פתחים ואלומיניום: אופטימיזציית פתחי חלונות בחזיתות מזרח ומערב למודול אחיד עם בידוד אקוסטי 40dB.",
       "visual_explanation": {
         "diagram_type": "APT_CORRIDOR",
@@ -2055,7 +2055,7 @@
           "finding": "ב-דירות צפוניות ודרומיות בקומות א׳–ד׳ + דירת גן (9 דירות — 97–105 מ״ר בתכנית המקור) שטח המסדרון והמעברים עומד על 7.9 מ״ר לדירה על חשבון שטח חדרי המגורים."
         },
         "solution": {
-          "how_to_execute": "קיצור זנב מסדרון חדרי השינה ב-90 ס״מ והסטת מחיצת הפנים של סוויטת ההורים — העברת 1.4 מ״ר נטו ממסדרון לחדר ההורים ולחלל המגורים בכל 9 הדירות.",
+          "how_to_execute": "קיצור זנב מסדרון חדרי השינה (395×105 ס״מ) ב-90 ס״מ, הזזת דלת סוויטת ההורים לקו חדר הרחצה ויצירת גומחה שקועה לדלת ההדף של הממ״ד — העברת 1.4 מ״ר נטו ממסדרון לחדר השינה ולסוויטת ההורים בכל 9 הדירות.",
           "mechanism": "ייעול פתחים ואלומיניום: אופטימיזציית פתחי חלונות בחזיתות מזרח ומערב למודול אחיד עם בידוד אקוסטי 40dB."
         },
         "savings": {
@@ -2069,7 +2069,7 @@
         },
         "building_impact": {
           "contour": "0.0 מ״ר שינוי בקונטור החוץ של הדירה והבניין (100% שמירה על שטח הפלדלת)",
-          "apartments": "הרחבת חדר ההורים מ-275/280 ס״מ ל-295 ס״מ (תיקון התראת ADG!) + גומחה שקועה לדלת הממ״ד (+12.6 מ״ר שטח מגורים אפקטיבי בפרויקט)",
+          "apartments": "הרחבת חדר השינה מ-290/295 ס״מ ל-304 ס״מ (תיקון התראת ADG 3.00m!) + הגדלת מבואת סוויטת ההורים (340×360 ס״מ) וגומחה שקועה לדלת הממ״ד (+12.6 מ״ר שטח מגורים אפקטיבי בפרויקט)",
           "parking": "ללא השפעה על חניות או שלד",
           "utilities": "שיפור תרמי, אקוסטי וכלכלי בפתחים: אופטימיזציית פתחי חלונות בחזיתות מזרח ומערב למודול אחיד עם בידוד אקוסטי 40dB."
         }
@@ -2113,89 +2113,6 @@
       "audit_polarity_he": "שלילי",
       "audit_category": "ARCH_QUALITY",
       "audit_category_he": "איכות תכנון אדריכלי"
-    },
-    {
-      "id": "YATKOVSKI7-3D-SYNC",
-      "pin_num": 18,
-      "sheet_id": "yat_typical",
-      "section_id": "sec_yat_north",
-      "typology": "בקרת מודל 3D בסיסי ואימות תכנוני מלא (סבב בקרה #4)",
-      "room_name": "מודל תלת-ממדי (12 קובצי מקור · חתימת SHA-256: #1aa5580b10)",
-      "status": "PASS",
-      "audit_polarity": "POSITIVE",
-      "audit_polarity_he": "חיובי",
-      "audit_category": "STANDARD",
-      "audit_category_he": "תקן",
-      "rule_id": "3D_BIM_FULL_AUDIT / Zero-Trust",
-      "title": "מודל ה-3D הבסיסי מאומת ומסונכרן 1:1 מול דוח הבקרה התכנונית (חתימה #1aa5580b)",
-      "measured": "גובה מבנה 3D: 25.80 מ׳ · 7 מפלסים · 179 בדיקות תכנוניות על המודל (88 עוברים)",
-      "benchmark": "התאמה גיאומטרית וסטטוטורית מלאה (1:1) בין מודל ה-3D הבסיסי לתכניות ההגשה והביצוע",
-      "summary": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #1aa5580b · סבב בקרה #4).",
-      "recommendation": "בכל עדכון של קובצי המודל התלת-ממדי הבסיסי בתיקיית המקור המרכזית, המערכת מזהה אוטומטית את שינוי החתימה (SHA-256) ומריצה מחדש בדיקה תכנונית, סטטוטורית והנדסת ערך (VE) מלאה.",
-      "x_pct": 50.0,
-      "y_pct": 18.0,
-      "w_pct": 24.0,
-      "h_pct": 16.0,
-      "cx_pct": 50.0,
-      "cy_pct": 26.0,
-      "visual_explanation": {
-        "diagram_type": "STATUTORY_CHECK",
-        "before_val": "חתימת מודל: #1aa5580b",
-        "after_val": "סבב בקרה #4 (179 בדיקות)",
-        "unit_label": "אימות מודל 3D בסיסי",
-        "recommendation": {
-          "where": "תיקיית המקור המרכזית — יטקובסקי 7 פתח תקווה",
-          "finding": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #1aa5580b · סבב בקרה #4)."
-        },
-        "solution": {
-          "how_to_execute": "הרצה אוטומטית של מנוע החוקים הסטטוטורי (validation_engine), מנוע הנדסת ערך (design_optimization_engine) ומיפוי מרחבי 3D על הגיאומטריה העדכנית של המודל.",
-          "mechanism": "קבצים מנוטרים במודל: 12 · עדכון אחרון של קובצי המודל: 2026-10-28T08:38:24+02:00"
-        },
-        "savings": {
-          "formula": "מניעת סטיות תכנוניות ואי-התאמות בין מודל ה-3D לתכניות הביצוע",
-          "rate_label": "אימות 3D BIM 1:1",
-          "gross_sqm": 0.0,
-          "locked_sqm": 0.0,
-          "net_contour_sqm": 0.0,
-          "saving_ils": 0,
-          "efficiency_pct": 100.0
-        },
-        "building_impact": {
-          "contour": "בדיקת קונטור, גבהים ומפלסים במודל 3D מול תכנית ההגשה",
-          "apartments": "נבדקו 179 פרמטרים תכנוניים וסטטוטוריים במודל ה-3D",
-          "parking": "נבדקו מפלסי המרתף, הרמפות וגובה הראש הפנוי במודל",
-          "utilities": "סנכרון אוטומטי מלא של דוחות ה-PDF/HTML, ה-API ושכבת הבקרה התלת-ממדית"
-        }
-      },
-      "spatial_3d": {
-        "floor_id": "f4",
-        "slice_mode": "single",
-        "bbox_3d": [
-          0.0,
-          -4.48,
-          7.2,
-          -2.24,
-          12.95,
-          15.7
-        ],
-        "pin_3d": [
-          3.6,
-          15.1,
-          -3.36
-        ],
-        "camera": {
-          "target": [
-            3.6,
-            13.95,
-            -3.36
-          ],
-          "radius": 20.0,
-          "phi": 0.56,
-          "theta": 1.25
-        },
-        "callout_he": "#18: מודל ה-3D הבסיסי מאומת ומסונכרן 1:1 מול דוח הבקרה התכנונית (חתימה #1aa5580b)",
-        "category_3d": "PASS"
-      }
     }
   ],
   "central_model_path": "G:\\Shared drives\\שליטה ובקרה\\מודלים פרויקטים\\יטקובסקי 7 פתח תקווה\\yatkovski7_3d_model.html",
@@ -2656,8 +2573,8 @@
           "priority": "שיפור תכנון פנים-דירתי",
           "target": "דירות צפוניות ודרומיות בקומות א׳–ד׳ + דירת גן (9 דירות — 97–105 מ״ר בתכנית המקור) (סיכה #17)",
           "issue": "מסדרון פנים בשטח 7.9 מ״ר לדירה על חשבון שטח חדרי המגורים (ללא שינוי קונטור הבנייה)",
-          "proposal": "קיצור זנב מסדרון חדרי השינה ב-90 ס״מ והסטת מחיצת הפנים של סוויטת ההורים — העברת 1.4 מ״ר נטו ממסדרון לחדר ההורים ולחלל המגורים בכל 9 הדירות. · ייעול פתחים: אופטימיזציית פתחי חלונות בחזיתות מזרח ומערב למודול אחיד עם בידוד אקוסטי 40dB.",
-          "impact": "הגדלת הרחבת חדר ההורים מ-275/280 ס״מ ל-295 ס״מ (תיקון התראת ADG!) + גומחה שקועה לדלת הממ״ד ב-+1.4 מ״ר לדירה (+12.6 מ״ר ב-9 דירות)",
+          "proposal": "קיצור זנב מסדרון חדרי השינה (395×105 ס״מ) ב-90 ס״מ, הזזת דלת סוויטת ההורים לקו חדר הרחצה ויצירת גומחה שקועה לדלת ההדף של הממ״ד — העברת 1.4 מ״ר נטו ממסדרון לחדר השינה ולסוויטת ההורים בכל 9 הדירות. · ייעול פתחים: אופטימיזציית פתחי חלונות בחזיתות מזרח ומערב למודול אחיד עם בידוד אקוסטי 40dB.",
+          "impact": "הגדלת הרחבת חדר השינה מ-290/295 ס״מ ל-304 ס״מ (תיקון התראת ADG 3.00m!) + הגדלת מבואת סוויטת ההורים (340×360 ס״מ) וגומחה שקועה לדלת הממ״ד ב-+1.4 מ״ר לדירה (+12.6 מ״ר ב-9 דירות)",
           "note_id": "Y7-OPT-APT1",
           "pin_num": 17,
           "sheet_id": "yat_typical"
@@ -2800,10 +2717,10 @@
         }
       },
       "notes_statistics": {
-        "total_notes": 18,
+        "total_notes": 17,
         "fail_count": 0,
         "warn_count": 10,
-        "pass_count": 8
+        "pass_count": 7
       },
       "all_notes_digest": [
         {
@@ -3671,9 +3588,9 @@
             "reclaimed_sqm_per_unit": 1.4,
             "units_count": 9,
             "total_reclaimed_sqm": 12.6,
-            "target_rooms_benefiting": "הרחבת חדר ההורים מ-275/280 ס״מ ל-295 ס״מ (תיקון התראת ADG!) + גומחה שקועה לדלת הממ״ד",
+            "target_rooms_benefiting": "הרחבת חדר השינה מ-290/295 ס״מ ל-304 ס״מ (תיקון התראת ADG 3.00m!) + הגדלת מבואת סוויטת ההורים (340×360 ס״מ) וגומחה שקועה לדלת הממ״ד",
             "openings_optimization": "אופטימיזציית פתחי חלונות בחזיתות מזרח ומערב למודול אחיד עם בידוד אקוסטי 40dB.",
-            "engineering_action": "קיצור זנב מסדרון חדרי השינה ב-90 ס״מ והסטת מחיצת הפנים של סוויטת ההורים — העברת 1.4 מ״ר נטו ממסדרון לחדר ההורים ולחלל המגורים בכל 9 הדירות.",
+            "engineering_action": "קיצור זנב מסדרון חדרי השינה (395×105 ס״מ) ב-90 ס״מ, הזזת דלת סוויטת ההורים לקו חדר הרחצה ויצירת גומחה שקועה לדלת ההדף של הממ״ד — העברת 1.4 מ״ר נטו ממסדרון לחדר השינה ולסוויטת ההורים בכל 9 הדירות.",
             "sheet_id": "yat_typical",
             "x_pct": 37.5,
             "y_pct": 34.0,
@@ -3691,32 +3608,23 @@
     "summary_md_url": "/reports/yatkovski7_summary_and_areas_report.md",
     "model_3d_sync_status": {
       "project_id": "yatkovski7",
-      "base_model_hash": "1aa5580b10d6a047238e2b3684a3284bd517ecf7a3b8d9fc5e1b9ab52f385d03",
-      "base_model_hash_short": "1aa5580b10d6",
-      "previous_model_hash_short": "1aa5580b10d6",
+      "base_model_hash": "cac813a3d17aebf961f087efcc2cc697e6124e9d30aefd227cf59eec02b7e6cc",
+      "base_model_hash_short": "cac813a3d17a",
+      "previous_model_hash_short": "cac813a3d17a",
       "tracked_files_count": 12,
       "total_base_size_bytes": 11043759,
-      "last_modified_mtime": 1793169504.15,
-      "last_modified_iso": "2026-10-28T08:38:24+02:00",
-      "last_audit_iso": "2026-10-28T08:38:22+02:00",
-      "audit_revision": 4,
+      "last_modified_mtime": 1793173607.33,
+      "last_modified_iso": "2026-10-28T09:46:47+02:00",
+      "last_audit_iso": "2026-10-28T09:46:47+02:00",
+      "audit_revision": 6,
       "was_updated_and_reaudited": false,
       "change_reason": "up_to_date",
       "changed_files": [],
-      "geometry_diff": {
-        "levels_count": {
-          "before": 7,
-          "after": 0
-        },
-        "building_height_m": {
-          "before": 25.8,
-          "after": 0.0
-        }
-      },
+      "geometry_diff": {},
       "consolidated_from_exec_folder": [],
       "extracted_3d_summary": {
-        "levels_count": 7,
-        "building_height_m": 25.8,
+        "levels_count": 9,
+        "building_height_m": 27.37,
         "slab_footprint_sqm": 541.38,
         "spaces_count": 23,
         "units_count": 11,
@@ -3732,22 +3640,22 @@
         ]
       },
       "bim_3d_checks_summary": {
-        "total_checks": 179,
-        "pass_count": 88,
+        "total_checks": 180,
+        "pass_count": 89,
         "warn_count": 91,
         "fail_count": 0
       },
-      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #1aa5580b · סבב בקרה #4)."
+      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #cac813a3 · סבב בקרה #6)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-28T08:57:45+02:00",
-      "total_checks_executed": 179,
-      "pass_count": 88,
+      "executed_at_iso": "2026-10-28T09:49:22+02:00",
+      "total_checks_executed": 180,
+      "pass_count": 89,
       "warn_count": 91,
       "fail_count": 0,
       "extracted_3d_summary": {
-        "levels_count": 7,
-        "building_height_m": 25.8,
+        "levels_count": 9,
+        "building_height_m": 27.37,
         "slab_footprint_sqm": 541.38,
         "spaces_count": 23,
         "units_count": 11,
@@ -3766,7 +3674,7 @@
         {
           "check_id": "BIM_3D_ELEVATION_CHECKSUM",
           "title": "בדיקת עקביות גובה מבנה ומפלסי קומות במודל 3D מול תכנית ההגשה",
-          "measured_3d": "גובה במודל 3D: 25.80 מ׳ (7 מפלסים דגומים)",
+          "measured_3d": "גובה במודל 3D: 27.37 מ׳ (9 מפלסים דגומים)",
           "benchmark_plan": "גובה בתכנית הגשה: 25.80 מ׳ (7 קומות עיליות + 1 מרתפים)",
           "status": "PASS",
           "message": "סכימת מפלסי הקומות (Z-Elevations) במודל התלת-ממדי תואמת את חתכי ההגשה ואת גובה הראש נטו (H_clear >= 2.65 מ׳ בקומות מגורים)."
@@ -3794,6 +3702,14 @@
           "benchmark_plan": "מיסעה דו-סטרית ≥ 6.00 מ׳, גובה ראש חופשי ≥ 2.20 מ׳, שיפוע רמפה ורדיוס סיבוב תקניים",
           "status": "PASS",
           "message": "מפלסי המרתף התת-קרקעיים במודל ה-3D נבדקו מול רשת העמודים ומאפשרים תמרון חניה מלא ומעבר מערכות MEP."
+        },
+        {
+          "check_id": "BIM_3D_CORRIDOR_DIMENSIONS_SYNC",
+          "title": "הצלבת מידות מסדרונות וחדרים בין שרטוט התכנית (2D) למודל ה-BIM (3D)",
+          "measured_3d": "רוחב מסדרונות נטו ≥ 100 ס״מ",
+          "benchmark_plan": "מינימום חוקי לרוחב מסדרון דירתי ≥ 100 ס״מ (תקנות התכנון והבנייה / ת״י 1918)",
+          "status": "PASS",
+          "message": "רוחב המסדרונות במודל התלת-ממדי ובשרטוט ה-CAD הווקטורי (100/105 ס״מ בין קירות) תואם את המידות הכתובות בתכנית ההגשה."
         }
       ],
       "statutory_room_checks": [
@@ -4073,32 +3989,23 @@
   },
   "model_3d_sync_status": {
     "project_id": "yatkovski7",
-    "base_model_hash": "1aa5580b10d6a047238e2b3684a3284bd517ecf7a3b8d9fc5e1b9ab52f385d03",
-    "base_model_hash_short": "1aa5580b10d6",
-    "previous_model_hash_short": "1aa5580b10d6",
+    "base_model_hash": "cac813a3d17aebf961f087efcc2cc697e6124e9d30aefd227cf59eec02b7e6cc",
+    "base_model_hash_short": "cac813a3d17a",
+    "previous_model_hash_short": "cac813a3d17a",
     "tracked_files_count": 12,
     "total_base_size_bytes": 11043759,
-    "last_modified_mtime": 1793169504.15,
-    "last_modified_iso": "2026-10-28T08:38:24+02:00",
-    "last_audit_iso": "2026-10-28T08:38:22+02:00",
-    "audit_revision": 4,
+    "last_modified_mtime": 1793173607.33,
+    "last_modified_iso": "2026-10-28T09:46:47+02:00",
+    "last_audit_iso": "2026-10-28T09:46:47+02:00",
+    "audit_revision": 6,
     "was_updated_and_reaudited": false,
     "change_reason": "up_to_date",
     "changed_files": [],
-    "geometry_diff": {
-      "levels_count": {
-        "before": 7,
-        "after": 0
-      },
-      "building_height_m": {
-        "before": 25.8,
-        "after": 0.0
-      }
-    },
+    "geometry_diff": {},
     "consolidated_from_exec_folder": [],
     "extracted_3d_summary": {
-      "levels_count": 7,
-      "building_height_m": 25.8,
+      "levels_count": 9,
+      "building_height_m": 27.37,
       "slab_footprint_sqm": 541.38,
       "spaces_count": 23,
       "units_count": 11,
@@ -4114,22 +4021,22 @@
       ]
     },
     "bim_3d_checks_summary": {
-      "total_checks": 179,
-      "pass_count": 88,
+      "total_checks": 180,
+      "pass_count": 89,
       "warn_count": 91,
       "fail_count": 0
     },
-    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #1aa5580b · סבב בקרה #4)."
+    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #cac813a3 · סבב בקרה #6)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-28T08:57:45+02:00",
-    "total_checks_executed": 179,
-    "pass_count": 88,
+    "executed_at_iso": "2026-10-28T09:49:22+02:00",
+    "total_checks_executed": 180,
+    "pass_count": 89,
     "warn_count": 91,
     "fail_count": 0,
     "extracted_3d_summary": {
-      "levels_count": 7,
-      "building_height_m": 25.8,
+      "levels_count": 9,
+      "building_height_m": 27.37,
       "slab_footprint_sqm": 541.38,
       "spaces_count": 23,
       "units_count": 11,
@@ -4148,7 +4055,7 @@
       {
         "check_id": "BIM_3D_ELEVATION_CHECKSUM",
         "title": "בדיקת עקביות גובה מבנה ומפלסי קומות במודל 3D מול תכנית ההגשה",
-        "measured_3d": "גובה במודל 3D: 25.80 מ׳ (7 מפלסים דגומים)",
+        "measured_3d": "גובה במודל 3D: 27.37 מ׳ (9 מפלסים דגומים)",
         "benchmark_plan": "גובה בתכנית הגשה: 25.80 מ׳ (7 קומות עיליות + 1 מרתפים)",
         "status": "PASS",
         "message": "סכימת מפלסי הקומות (Z-Elevations) במודל התלת-ממדי תואמת את חתכי ההגשה ואת גובה הראש נטו (H_clear >= 2.65 מ׳ בקומות מגורים)."
@@ -4176,6 +4083,14 @@
         "benchmark_plan": "מיסעה דו-סטרית ≥ 6.00 מ׳, גובה ראש חופשי ≥ 2.20 מ׳, שיפוע רמפה ורדיוס סיבוב תקניים",
         "status": "PASS",
         "message": "מפלסי המרתף התת-קרקעיים במודל ה-3D נבדקו מול רשת העמודים ומאפשרים תמרון חניה מלא ומעבר מערכות MEP."
+      },
+      {
+        "check_id": "BIM_3D_CORRIDOR_DIMENSIONS_SYNC",
+        "title": "הצלבת מידות מסדרונות וחדרים בין שרטוט התכנית (2D) למודל ה-BIM (3D)",
+        "measured_3d": "רוחב מסדרונות נטו ≥ 100 ס״מ",
+        "benchmark_plan": "מינימום חוקי לרוחב מסדרון דירתי ≥ 100 ס״מ (תקנות התכנון והבנייה / ת״י 1918)",
+        "status": "PASS",
+        "message": "רוחב המסדרונות במודל התלת-ממדי ובשרטוט ה-CAD הווקטורי (100/105 ס״מ בין קירות) תואם את המידות הכתובות בתכנית ההגשה."
       }
     ],
     "statutory_room_checks": [

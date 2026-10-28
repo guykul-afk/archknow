@@ -40,21 +40,21 @@
       "path": "C:/Users/User/archknow/reports/kitroni37_architectural_quality_analysis.html",
       "folder": "C:/Users/User/archknow/reports",
       "ext": "HTML",
-      "size_kb": 79.7
+      "size_kb": 80.9
     },
     {
       "name": "kitroni37_architectural_quality_analysis.pdf",
       "path": "C:/Users/User/archknow/reports/kitroni37_architectural_quality_analysis.pdf",
       "folder": "C:/Users/User/archknow/reports",
       "ext": "PDF",
-      "size_kb": 1515.2
+      "size_kb": 1477.2
     },
     {
       "name": "kitroni37_summary_and_areas_report.html",
       "path": "C:/Users/User/archknow/reports/kitroni37_summary_and_areas_report.html",
       "folder": "C:/Users/User/archknow/reports",
       "ext": "HTML",
-      "size_kb": 87.0
+      "size_kb": 86.9
     },
     {
       "name": "kitroni37_summary_and_areas_report.pdf",
@@ -75,7 +75,7 @@
       "path": "C:/Users/User/archknow/webapp/api/kitroni37.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 287.4
+      "size_kb": 284.7
     },
     {
       "name": "ele_Kitroni_37-39_498-Koma_1_5-7 (9) (1).pdf",
@@ -250,21 +250,21 @@
       "path": "C:/Users/User/archknow/webapp/reports/kitroni37_architectural_quality_analysis.html",
       "folder": "C:/Users/User/archknow/webapp/reports",
       "ext": "HTML",
-      "size_kb": 79.7
+      "size_kb": 80.9
     },
     {
       "name": "kitroni37_architectural_quality_analysis.pdf",
       "path": "C:/Users/User/archknow/webapp/reports/kitroni37_architectural_quality_analysis.pdf",
       "folder": "C:/Users/User/archknow/webapp/reports",
       "ext": "PDF",
-      "size_kb": 1515.2
+      "size_kb": 1477.2
     },
     {
       "name": "kitroni37_summary_and_areas_report.html",
       "path": "C:/Users/User/archknow/webapp/reports/kitroni37_summary_and_areas_report.html",
       "folder": "C:/Users/User/archknow/webapp/reports",
       "ext": "HTML",
-      "size_kb": 87.0
+      "size_kb": 86.9
     },
     {
       "name": "kitroni37_summary_and_areas_report.pdf",
@@ -2208,89 +2208,6 @@
       "audit_polarity_he": "שלילי",
       "audit_category": "ARCH_QUALITY",
       "audit_category_he": "איכות תכנון אדריכלי"
-    },
-    {
-      "id": "KITRONI37-3D-SYNC",
-      "pin_num": 19,
-      "sheet_id": "kit_typical",
-      "section_id": "sec_kit_b37",
-      "typology": "בקרת מודל 3D בסיסי ואימות תכנוני מלא (סבב בקרה #3)",
-      "room_name": "מודל תלת-ממדי (6 קובצי מקור · חתימת SHA-256: #a3e9a4cd16)",
-      "status": "PASS",
-      "audit_polarity": "POSITIVE",
-      "audit_polarity_he": "חיובי",
-      "audit_category": "STANDARD",
-      "audit_category_he": "תקן",
-      "rule_id": "3D_BIM_FULL_AUDIT / Zero-Trust",
-      "title": "מודל ה-3D הבסיסי מאומת ומסונכרן 1:1 מול דוח הבקרה התכנונית (חתימה #a3e9a4cd)",
-      "measured": "גובה מבנה 3D: 31.50 מ׳ · 9 מפלסים · 116 בדיקות תכנוניות על המודל (59 עוברים)",
-      "benchmark": "התאמה גיאומטרית וסטטוטורית מלאה (1:1) בין מודל ה-3D הבסיסי לתכניות ההגשה והביצוע",
-      "summary": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #a3e9a4cd · סבב בקרה #3).",
-      "recommendation": "בכל עדכון של קובצי המודל התלת-ממדי הבסיסי בתיקיית המקור המרכזית, המערכת מזהה אוטומטית את שינוי החתימה (SHA-256) ומריצה מחדש בדיקה תכנונית, סטטוטורית והנדסת ערך (VE) מלאה.",
-      "x_pct": 50.0,
-      "y_pct": 18.0,
-      "w_pct": 24.0,
-      "h_pct": 16.0,
-      "cx_pct": 50.0,
-      "cy_pct": 26.0,
-      "visual_explanation": {
-        "diagram_type": "STATUTORY_CHECK",
-        "before_val": "חתימת מודל: #a3e9a4cd",
-        "after_val": "סבב בקרה #3 (116 בדיקות)",
-        "unit_label": "אימות מודל 3D בסיסי",
-        "recommendation": {
-          "where": "תיקיית המקור המרכזית — הרב קיטרוני 37-39 פתח תקווה",
-          "finding": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #a3e9a4cd · סבב בקרה #3)."
-        },
-        "solution": {
-          "how_to_execute": "הרצה אוטומטית של מנוע החוקים הסטטוטורי (validation_engine), מנוע הנדסת ערך (design_optimization_engine) ומיפוי מרחבי 3D על הגיאומטריה העדכנית של המודל.",
-          "mechanism": "קבצים מנוטרים במודל: 6 · עדכון אחרון של קובצי המודל: 2026-10-28T08:38:24+02:00"
-        },
-        "savings": {
-          "formula": "מניעת סטיות תכנוניות ואי-התאמות בין מודל ה-3D לתכניות הביצוע",
-          "rate_label": "אימות 3D BIM 1:1",
-          "gross_sqm": 0.0,
-          "locked_sqm": 0.0,
-          "net_contour_sqm": 0.0,
-          "saving_ils": 0,
-          "efficiency_pct": 100.0
-        },
-        "building_impact": {
-          "contour": "בדיקת קונטור, גבהים ומפלסים במודל 3D מול תכנית ההגשה",
-          "apartments": "נבדקו 116 פרמטרים תכנוניים וסטטוטוריים במודל ה-3D",
-          "parking": "נבדקו מפלסי המרתף, הרמפות וגובה הראש הפנוי במודל",
-          "utilities": "סנכרון אוטומטי מלא של דוחות ה-PDF/HTML, ה-API ושכבת הבקרה התלת-ממדית"
-        }
-      },
-      "spatial_3d": {
-        "floor_id": "f4",
-        "slice_mode": "single",
-        "bbox_3d": [
-          0.0,
-          -4.48,
-          7.2,
-          -2.24,
-          12.95,
-          15.7
-        ],
-        "pin_3d": [
-          3.6,
-          15.1,
-          -3.36
-        ],
-        "camera": {
-          "target": [
-            3.6,
-            13.95,
-            -3.36
-          ],
-          "radius": 20.0,
-          "phi": 0.56,
-          "theta": 1.25
-        },
-        "callout_he": "#19: מודל ה-3D הבסיסי מאומת ומסונכרן 1:1 מול דוח הבקרה התכנונית (חתימה #a3e9a4cd)",
-        "category_3d": "PASS"
-      }
     }
   ],
   "central_model_path": "G:\\Shared drives\\שליטה ובקרה\\מודלים פרויקטים\\הרב קיטרוני 37-39 פתח תקווה\\kitroni37_39_3d_model.html",
@@ -2970,10 +2887,10 @@
         }
       },
       "notes_statistics": {
-        "total_notes": 19,
+        "total_notes": 18,
         "fail_count": 0,
         "warn_count": 12,
-        "pass_count": 7
+        "pass_count": 6
       },
       "all_notes_digest": [
         {
@@ -3969,10 +3886,10 @@
       "previous_model_hash_short": "a3e9a4cd1623",
       "tracked_files_count": 6,
       "total_base_size_bytes": 7035581,
-      "last_modified_mtime": 1793169504.27,
-      "last_modified_iso": "2026-10-28T08:38:24+02:00",
-      "last_audit_iso": "2026-10-28T08:38:24+02:00",
-      "audit_revision": 3,
+      "last_modified_mtime": 1793173607.75,
+      "last_modified_iso": "2026-10-28T09:46:47+02:00",
+      "last_audit_iso": "2026-10-28T09:46:47+02:00",
+      "audit_revision": 4,
       "was_updated_and_reaudited": false,
       "change_reason": "up_to_date",
       "changed_files": [],
@@ -4002,17 +3919,17 @@
         ]
       },
       "bim_3d_checks_summary": {
-        "total_checks": 116,
-        "pass_count": 59,
+        "total_checks": 117,
+        "pass_count": 60,
         "warn_count": 57,
         "fail_count": 0
       },
-      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #a3e9a4cd · סבב בקרה #3)."
+      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #a3e9a4cd · סבב בקרה #4)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-28T08:57:46+02:00",
-      "total_checks_executed": 116,
-      "pass_count": 59,
+      "executed_at_iso": "2026-10-28T09:49:22+02:00",
+      "total_checks_executed": 117,
+      "pass_count": 60,
       "warn_count": 57,
       "fail_count": 0,
       "extracted_3d_summary": {
@@ -4061,6 +3978,14 @@
           "benchmark_plan": "מיסעה דו-סטרית ≥ 6.00 מ׳, גובה ראש חופשי ≥ 2.20 מ׳, שיפוע רמפה ורדיוס סיבוב תקניים",
           "status": "PASS",
           "message": "מפלסי המרתף התת-קרקעיים במודל ה-3D נבדקו מול רשת העמודים ומאפשרים תמרון חניה מלא ומעבר מערכות MEP."
+        },
+        {
+          "check_id": "BIM_3D_CORRIDOR_DIMENSIONS_SYNC",
+          "title": "הצלבת מידות מסדרונות וחדרים בין שרטוט התכנית (2D) למודל ה-BIM (3D)",
+          "measured_3d": "רוחב מסדרונות נטו ≥ 100 ס״מ",
+          "benchmark_plan": "מינימום חוקי לרוחב מסדרון דירתי ≥ 100 ס״מ (תקנות התכנון והבנייה / ת״י 1918)",
+          "status": "PASS",
+          "message": "רוחב המסדרונות במודל התלת-ממדי ובשרטוט ה-CAD הווקטורי (100/105 ס״מ בין קירות) תואם את המידות הכתובות בתכנית ההגשה."
         }
       ],
       "statutory_room_checks": [
@@ -4324,10 +4249,10 @@
     "previous_model_hash_short": "a3e9a4cd1623",
     "tracked_files_count": 6,
     "total_base_size_bytes": 7035581,
-    "last_modified_mtime": 1793169504.27,
-    "last_modified_iso": "2026-10-28T08:38:24+02:00",
-    "last_audit_iso": "2026-10-28T08:38:24+02:00",
-    "audit_revision": 3,
+    "last_modified_mtime": 1793173607.75,
+    "last_modified_iso": "2026-10-28T09:46:47+02:00",
+    "last_audit_iso": "2026-10-28T09:46:47+02:00",
+    "audit_revision": 4,
     "was_updated_and_reaudited": false,
     "change_reason": "up_to_date",
     "changed_files": [],
@@ -4357,17 +4282,17 @@
       ]
     },
     "bim_3d_checks_summary": {
-      "total_checks": 116,
-      "pass_count": 59,
+      "total_checks": 117,
+      "pass_count": 60,
       "warn_count": 57,
       "fail_count": 0
     },
-    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #a3e9a4cd · סבב בקרה #3)."
+    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #a3e9a4cd · סבב בקרה #4)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-28T08:57:46+02:00",
-    "total_checks_executed": 116,
-    "pass_count": 59,
+    "executed_at_iso": "2026-10-28T09:49:22+02:00",
+    "total_checks_executed": 117,
+    "pass_count": 60,
     "warn_count": 57,
     "fail_count": 0,
     "extracted_3d_summary": {
@@ -4416,6 +4341,14 @@
         "benchmark_plan": "מיסעה דו-סטרית ≥ 6.00 מ׳, גובה ראש חופשי ≥ 2.20 מ׳, שיפוע רמפה ורדיוס סיבוב תקניים",
         "status": "PASS",
         "message": "מפלסי המרתף התת-קרקעיים במודל ה-3D נבדקו מול רשת העמודים ומאפשרים תמרון חניה מלא ומעבר מערכות MEP."
+      },
+      {
+        "check_id": "BIM_3D_CORRIDOR_DIMENSIONS_SYNC",
+        "title": "הצלבת מידות מסדרונות וחדרים בין שרטוט התכנית (2D) למודל ה-BIM (3D)",
+        "measured_3d": "רוחב מסדרונות נטו ≥ 100 ס״מ",
+        "benchmark_plan": "מינימום חוקי לרוחב מסדרון דירתי ≥ 100 ס״מ (תקנות התכנון והבנייה / ת״י 1918)",
+        "status": "PASS",
+        "message": "רוחב המסדרונות במודל התלת-ממדי ובשרטוט ה-CAD הווקטורי (100/105 ס״מ בין קירות) תואם את המידות הכתובות בתכנית ההגשה."
       }
     ],
     "statutory_room_checks": [

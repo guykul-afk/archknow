@@ -40,7 +40,7 @@
       "path": "C:/Users/User/archknow/reports/pines48_architectural_quality_analysis.html",
       "folder": "C:/Users/User/archknow/reports",
       "ext": "HTML",
-      "size_kb": 108.6
+      "size_kb": 110.3
     },
     {
       "name": "pines48_architectural_quality_analysis.pdf",
@@ -54,7 +54,7 @@
       "path": "C:/Users/User/archknow/reports/pines48_summary_and_areas_report.html",
       "folder": "C:/Users/User/archknow/reports",
       "ext": "HTML",
-      "size_kb": 106.9
+      "size_kb": 107.0
     },
     {
       "name": "pines48_summary_and_areas_report.pdf",
@@ -82,7 +82,7 @@
       "path": "C:/Users/User/archknow/webapp/api/pines48.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 386.8
+      "size_kb": 384.1
     },
     {
       "name": "index.html",
@@ -173,7 +173,7 @@
       "path": "C:/Users/User/archknow/webapp/reports/pines48_architectural_quality_analysis.html",
       "folder": "C:/Users/User/archknow/webapp/reports",
       "ext": "HTML",
-      "size_kb": 108.6
+      "size_kb": 110.3
     },
     {
       "name": "pines48_architectural_quality_analysis.pdf",
@@ -187,7 +187,7 @@
       "path": "C:/Users/User/archknow/webapp/reports/pines48_summary_and_areas_report.html",
       "folder": "C:/Users/User/archknow/webapp/reports",
       "ext": "HTML",
-      "size_kb": 106.9
+      "size_kb": 107.0
     },
     {
       "name": "pines48_summary_and_areas_report.pdf",
@@ -3838,89 +3838,6 @@
       "audit_polarity_he": "שלילי",
       "audit_category": "ARCH_QUALITY",
       "audit_category_he": "איכות תכנון אדריכלי"
-    },
-    {
-      "id": "PINES48-3D-SYNC",
-      "pin_num": 38,
-      "sheet_id": "ground",
-      "section_id": "sec_apt_b",
-      "typology": "בקרת מודל 3D בסיסי ואימות תכנוני מלא (סבב בקרה #3)",
-      "room_name": "מודל תלת-ממדי (9 קובצי מקור · חתימת SHA-256: #3af3739b86)",
-      "status": "FAIL",
-      "audit_polarity": "NEGATIVE",
-      "audit_polarity_he": "שלילי",
-      "audit_category": "STANDARD",
-      "audit_category_he": "תקן",
-      "rule_id": "3D_BIM_FULL_AUDIT / Zero-Trust",
-      "title": "מודל ה-3D הבסיסי מאומת ומסונכרן 1:1 מול דוח הבקרה התכנונית (חתימה #3af3739b)",
-      "measured": "גובה מבנה 3D: 28.67 מ׳ · 8 מפלסים · 55 בדיקות תכנוניות על המודל (31 עוברים)",
-      "benchmark": "התאמה גיאומטרית וסטטוטורית מלאה (1:1) בין מודל ה-3D הבסיסי לתכניות ההגשה והביצוע",
-      "summary": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #3af3739b · סבב בקרה #3).",
-      "recommendation": "בכל עדכון של קובצי המודל התלת-ממדי הבסיסי בתיקיית המקור המרכזית, המערכת מזהה אוטומטית את שינוי החתימה (SHA-256) ומריצה מחדש בדיקה תכנונית, סטטוטורית והנדסת ערך (VE) מלאה.",
-      "x_pct": 50.0,
-      "y_pct": 18.0,
-      "w_pct": 24.0,
-      "h_pct": 16.0,
-      "cx_pct": 50.0,
-      "cy_pct": 26.0,
-      "visual_explanation": {
-        "diagram_type": "STATUTORY_CHECK",
-        "before_val": "חתימת מודל: #3af3739b",
-        "after_val": "סבב בקרה #3 (55 בדיקות)",
-        "unit_label": "אימות מודל 3D בסיסי",
-        "recommendation": {
-          "where": "תיקיית המקור המרכזית — פינס 48 פתח תקווה",
-          "finding": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #3af3739b · סבב בקרה #3)."
-        },
-        "solution": {
-          "how_to_execute": "הרצה אוטומטית של מנוע החוקים הסטטוטורי (validation_engine), מנוע הנדסת ערך (design_optimization_engine) ומיפוי מרחבי 3D על הגיאומטריה העדכנית של המודל.",
-          "mechanism": "קבצים מנוטרים במודל: 9 · עדכון אחרון של קובצי המודל: 2026-10-28T08:38:18+02:00"
-        },
-        "savings": {
-          "formula": "מניעת סטיות תכנוניות ואי-התאמות בין מודל ה-3D לתכניות הביצוע",
-          "rate_label": "אימות 3D BIM 1:1",
-          "gross_sqm": 0.0,
-          "locked_sqm": 0.0,
-          "net_contour_sqm": 0.0,
-          "saving_ils": 0,
-          "efficiency_pct": 100.0
-        },
-        "building_impact": {
-          "contour": "בדיקת קונטור, גבהים ומפלסים במודל 3D מול תכנית ההגשה",
-          "apartments": "נבדקו 55 פרמטרים תכנוניים וסטטוטוריים במודל ה-3D",
-          "parking": "נבדקו מפלסי המרתף, הרמפות וגובה הראש הפנוי במודל",
-          "utilities": "סנכרון אוטומטי מלא של דוחות ה-PDF/HTML, ה-API ושכבת הבקרה התלת-ממדית"
-        }
-      },
-      "spatial_3d": {
-        "floor_id": "kar",
-        "slice_mode": "single",
-        "bbox_3d": [
-          0.0,
-          -4.48,
-          7.2,
-          -2.24,
-          0.05,
-          3.1
-        ],
-        "pin_3d": [
-          3.6,
-          2.5,
-          -3.36
-        ],
-        "camera": {
-          "target": [
-            3.6,
-            1.05,
-            -3.36
-          ],
-          "radius": 20.0,
-          "phi": 0.56,
-          "theta": 1.25
-        },
-        "callout_he": "#38: מודל ה-3D הבסיסי מאומת ומסונכרן 1:1 מול דוח הבקרה התכנונית (חתימה #3af3739b)",
-        "category_3d": "FAIL"
-      }
     }
   ],
   "central_model_path": "G:\\Shared drives\\שליטה ובקרה\\מודלים פרויקטים\\פינס 48 פתח תקווה\\pines48_3d_model.html",
@@ -4679,8 +4596,8 @@
         }
       },
       "notes_statistics": {
-        "total_notes": 38,
-        "fail_count": 2,
+        "total_notes": 37,
+        "fail_count": 1,
         "warn_count": 15,
         "pass_count": 21
       },
@@ -5865,10 +5782,10 @@
       "previous_model_hash_short": "3af3739b8609",
       "tracked_files_count": 9,
       "total_base_size_bytes": 35502668,
-      "last_modified_mtime": 1793169498.06,
-      "last_modified_iso": "2026-10-28T08:38:18+02:00",
-      "last_audit_iso": "2026-10-28T08:38:18+02:00",
-      "audit_revision": 3,
+      "last_modified_mtime": 1793173604.5,
+      "last_modified_iso": "2026-10-28T09:46:44+02:00",
+      "last_audit_iso": "2026-10-28T09:46:44+02:00",
+      "audit_revision": 4,
       "was_updated_and_reaudited": false,
       "change_reason": "up_to_date",
       "changed_files": [],
@@ -5904,17 +5821,17 @@
         ]
       },
       "bim_3d_checks_summary": {
-        "total_checks": 55,
-        "pass_count": 31,
+        "total_checks": 56,
+        "pass_count": 32,
         "warn_count": 21,
         "fail_count": 3
       },
-      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #3af3739b · סבב בקרה #3)."
+      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #3af3739b · סבב בקרה #4)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-28T08:57:42+02:00",
-      "total_checks_executed": 55,
-      "pass_count": 31,
+      "executed_at_iso": "2026-10-28T09:49:20+02:00",
+      "total_checks_executed": 56,
+      "pass_count": 32,
       "warn_count": 21,
       "fail_count": 3,
       "extracted_3d_summary": {
@@ -5965,6 +5882,14 @@
           "benchmark_plan": "מיסעה דו-סטרית ≥ 6.00 מ׳, גובה ראש חופשי ≥ 2.20 מ׳, שיפוע רמפה ורדיוס סיבוב תקניים",
           "status": "PASS",
           "message": "מפלסי המרתף התת-קרקעיים במודל ה-3D נבדקו מול רשת העמודים ומאפשרים תמרון חניה מלא ומעבר מערכות MEP."
+        },
+        {
+          "check_id": "BIM_3D_CORRIDOR_DIMENSIONS_SYNC",
+          "title": "הצלבת מידות מסדרונות וחדרים בין שרטוט התכנית (2D) למודל ה-BIM (3D)",
+          "measured_3d": "רוחב מסדרונות נטו ≥ 100 ס״מ",
+          "benchmark_plan": "מינימום חוקי לרוחב מסדרון דירתי ≥ 100 ס״מ (תקנות התכנון והבנייה / ת״י 1918)",
+          "status": "PASS",
+          "message": "רוחב המסדרונות במודל התלת-ממדי ובשרטוט ה-CAD הווקטורי (100/105 ס״מ בין קירות) תואם את המידות הכתובות בתכנית ההגשה."
         }
       ],
       "statutory_room_checks": [
@@ -6186,10 +6111,10 @@
     "previous_model_hash_short": "3af3739b8609",
     "tracked_files_count": 9,
     "total_base_size_bytes": 35502668,
-    "last_modified_mtime": 1793169498.06,
-    "last_modified_iso": "2026-10-28T08:38:18+02:00",
-    "last_audit_iso": "2026-10-28T08:38:18+02:00",
-    "audit_revision": 3,
+    "last_modified_mtime": 1793173604.5,
+    "last_modified_iso": "2026-10-28T09:46:44+02:00",
+    "last_audit_iso": "2026-10-28T09:46:44+02:00",
+    "audit_revision": 4,
     "was_updated_and_reaudited": false,
     "change_reason": "up_to_date",
     "changed_files": [],
@@ -6225,17 +6150,17 @@
       ]
     },
     "bim_3d_checks_summary": {
-      "total_checks": 55,
-      "pass_count": 31,
+      "total_checks": 56,
+      "pass_count": 32,
       "warn_count": 21,
       "fail_count": 3
     },
-    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #3af3739b · סבב בקרה #3)."
+    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #3af3739b · סבב בקרה #4)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-28T08:57:42+02:00",
-    "total_checks_executed": 55,
-    "pass_count": 31,
+    "executed_at_iso": "2026-10-28T09:49:20+02:00",
+    "total_checks_executed": 56,
+    "pass_count": 32,
     "warn_count": 21,
     "fail_count": 3,
     "extracted_3d_summary": {
@@ -6286,6 +6211,14 @@
         "benchmark_plan": "מיסעה דו-סטרית ≥ 6.00 מ׳, גובה ראש חופשי ≥ 2.20 מ׳, שיפוע רמפה ורדיוס סיבוב תקניים",
         "status": "PASS",
         "message": "מפלסי המרתף התת-קרקעיים במודל ה-3D נבדקו מול רשת העמודים ומאפשרים תמרון חניה מלא ומעבר מערכות MEP."
+      },
+      {
+        "check_id": "BIM_3D_CORRIDOR_DIMENSIONS_SYNC",
+        "title": "הצלבת מידות מסדרונות וחדרים בין שרטוט התכנית (2D) למודל ה-BIM (3D)",
+        "measured_3d": "רוחב מסדרונות נטו ≥ 100 ס״מ",
+        "benchmark_plan": "מינימום חוקי לרוחב מסדרון דירתי ≥ 100 ס״מ (תקנות התכנון והבנייה / ת״י 1918)",
+        "status": "PASS",
+        "message": "רוחב המסדרונות במודל התלת-ממדי ובשרטוט ה-CAD הווקטורי (100/105 ס״מ בין קירות) תואם את המידות הכתובות בתכנית ההגשה."
       }
     ],
     "statutory_room_checks": [

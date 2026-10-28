@@ -41,28 +41,28 @@
       "path": "C:/Users/User/archknow/reports/feierberg3_architectural_quality_analysis.html",
       "folder": "C:/Users/User/archknow/reports",
       "ext": "HTML",
-      "size_kb": 83.6
+      "size_kb": 84.9
     },
     {
       "name": "feierberg3_architectural_quality_analysis.pdf",
       "path": "C:/Users/User/archknow/reports/feierberg3_architectural_quality_analysis.pdf",
       "folder": "C:/Users/User/archknow/reports",
       "ext": "PDF",
-      "size_kb": 1313.9
+      "size_kb": 1311.9
     },
     {
       "name": "feierberg3_summary_and_areas_report.html",
       "path": "C:/Users/User/archknow/reports/feierberg3_summary_and_areas_report.html",
       "folder": "C:/Users/User/archknow/reports",
       "ext": "HTML",
-      "size_kb": 93.9
+      "size_kb": 94.1
     },
     {
       "name": "feierberg3_summary_and_areas_report.pdf",
       "path": "C:/Users/User/archknow/reports/feierberg3_summary_and_areas_report.pdf",
       "folder": "C:/Users/User/archknow/reports",
       "ext": "PDF",
-      "size_kb": 1391.6
+      "size_kb": 1389.8
     },
     {
       "name": "feierberg3_basement1.png",
@@ -146,7 +146,7 @@
       "path": "C:/Users/User/archknow/webapp/api/feierberg3.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 337.7
+      "size_kb": 335.2
     },
     {
       "name": "compact_bim.json",
@@ -160,14 +160,14 @@
       "path": "C:/Users/User/archknow/webapp/models/feierberg3/feierberg3_3d_bim_viewer.html",
       "folder": "C:/Users/User/archknow/webapp/models/feierberg3",
       "ext": "HTML",
-      "size_kb": 6719.2
+      "size_kb": 2.2
     },
     {
       "name": "feierberg3_3d_model.html",
       "path": "C:/Users/User/archknow/webapp/models/feierberg3/feierberg3_3d_model.html",
       "folder": "C:/Users/User/archknow/webapp/models/feierberg3",
       "ext": "HTML",
-      "size_kb": 6719.2
+      "size_kb": 2.2
     },
     {
       "name": "feierberg3_architectural_quality_analysis.html",
@@ -216,7 +216,7 @@
       "path": "C:/Users/User/archknow/webapp/models/feierberg3/index.html",
       "folder": "C:/Users/User/archknow/webapp/models/feierberg3",
       "ext": "HTML",
-      "size_kb": 6719.2
+      "size_kb": 2.2
     },
     {
       "name": "פאירברג 3 - פתח תקוה-29-12-2025.dwf",
@@ -286,28 +286,28 @@
       "path": "C:/Users/User/archknow/webapp/reports/feierberg3_architectural_quality_analysis.html",
       "folder": "C:/Users/User/archknow/webapp/reports",
       "ext": "HTML",
-      "size_kb": 83.6
+      "size_kb": 84.9
     },
     {
       "name": "feierberg3_architectural_quality_analysis.pdf",
       "path": "C:/Users/User/archknow/webapp/reports/feierberg3_architectural_quality_analysis.pdf",
       "folder": "C:/Users/User/archknow/webapp/reports",
       "ext": "PDF",
-      "size_kb": 1313.9
+      "size_kb": 1311.9
     },
     {
       "name": "feierberg3_summary_and_areas_report.html",
       "path": "C:/Users/User/archknow/webapp/reports/feierberg3_summary_and_areas_report.html",
       "folder": "C:/Users/User/archknow/webapp/reports",
       "ext": "HTML",
-      "size_kb": 93.9
+      "size_kb": 94.1
     },
     {
       "name": "feierberg3_summary_and_areas_report.pdf",
       "path": "C:/Users/User/archknow/webapp/reports/feierberg3_summary_and_areas_report.pdf",
       "folder": "C:/Users/User/archknow/webapp/reports",
       "ext": "PDF",
-      "size_kb": 1391.6
+      "size_kb": 1389.8
     },
     {
       "name": "feierberg3_basement1.png",
@@ -412,21 +412,21 @@
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/feierberg3_3d_model.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 6719.2
+      "size_kb": 2.2
     },
     {
       "name": "feierberg3_3d_bim_viewer.html",
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/feierberg3_3d_bim_viewer.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 6719.2
+      "size_kb": 2.2
     },
     {
       "name": "index.html",
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה/index.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פאירברג 3 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 6719.2
+      "size_kb": 2.2
     },
     {
       "name": "unified_3d_map.json",
@@ -2495,89 +2495,6 @@
       "audit_polarity_he": "שלילי",
       "audit_category": "ARCH_QUALITY",
       "audit_category_he": "איכות תכנון אדריכלי"
-    },
-    {
-      "id": "FEIERBERG3-3D-SYNC",
-      "pin_num": 21,
-      "sheet_id": "fb_typical",
-      "section_id": "sec_fb_west",
-      "typology": "בקרת מודל 3D בסיסי ואימות תכנוני מלא (סבב בקרה #3)",
-      "room_name": "מודל תלת-ממדי (14 קובצי מקור · חתימת SHA-256: #8a4d7b025c)",
-      "status": "PASS",
-      "audit_polarity": "POSITIVE",
-      "audit_polarity_he": "חיובי",
-      "audit_category": "STANDARD",
-      "audit_category_he": "תקן",
-      "rule_id": "3D_BIM_FULL_AUDIT / Zero-Trust",
-      "title": "מודל ה-3D הבסיסי מאומת ומסונכרן 1:1 מול דוח הבקרה התכנונית (חתימה #8a4d7b02)",
-      "measured": "גובה מבנה 3D: 42.97 מ׳ · 8 מפלסים · 116 בדיקות תכנוניות על המודל (59 עוברים)",
-      "benchmark": "התאמה גיאומטרית וסטטוטורית מלאה (1:1) בין מודל ה-3D הבסיסי לתכניות ההגשה והביצוע",
-      "summary": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #8a4d7b02 · סבב בקרה #3).",
-      "recommendation": "בכל עדכון של קובצי המודל התלת-ממדי הבסיסי בתיקיית המקור המרכזית, המערכת מזהה אוטומטית את שינוי החתימה (SHA-256) ומריצה מחדש בדיקה תכנונית, סטטוטורית והנדסת ערך (VE) מלאה.",
-      "x_pct": 50.0,
-      "y_pct": 18.0,
-      "w_pct": 24.0,
-      "h_pct": 16.0,
-      "cx_pct": 50.0,
-      "cy_pct": 26.0,
-      "visual_explanation": {
-        "diagram_type": "STATUTORY_CHECK",
-        "before_val": "חתימת מודל: #8a4d7b02",
-        "after_val": "סבב בקרה #3 (116 בדיקות)",
-        "unit_label": "אימות מודל 3D בסיסי",
-        "recommendation": {
-          "where": "תיקיית המקור המרכזית — פאירברג 3 פתח תקווה",
-          "finding": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #8a4d7b02 · סבב בקרה #3)."
-        },
-        "solution": {
-          "how_to_execute": "הרצה אוטומטית של מנוע החוקים הסטטוטורי (validation_engine), מנוע הנדסת ערך (design_optimization_engine) ומיפוי מרחבי 3D על הגיאומטריה העדכנית של המודל.",
-          "mechanism": "קבצים מנוטרים במודל: 14 · עדכון אחרון של קובצי המודל: 2026-10-28T08:38:25+02:00"
-        },
-        "savings": {
-          "formula": "מניעת סטיות תכנוניות ואי-התאמות בין מודל ה-3D לתכניות הביצוע",
-          "rate_label": "אימות 3D BIM 1:1",
-          "gross_sqm": 0.0,
-          "locked_sqm": 0.0,
-          "net_contour_sqm": 0.0,
-          "saving_ils": 0,
-          "efficiency_pct": 100.0
-        },
-        "building_impact": {
-          "contour": "בדיקת קונטור, גבהים ומפלסים במודל 3D מול תכנית ההגשה",
-          "apartments": "נבדקו 116 פרמטרים תכנוניים וסטטוטוריים במודל ה-3D",
-          "parking": "נבדקו מפלסי המרתף, הרמפות וגובה הראש הפנוי במודל",
-          "utilities": "סנכרון אוטומטי מלא של דוחות ה-PDF/HTML, ה-API ושכבת הבקרה התלת-ממדית"
-        }
-      },
-      "spatial_3d": {
-        "floor_id": "f4",
-        "slice_mode": "single",
-        "bbox_3d": [
-          0.0,
-          -4.48,
-          7.2,
-          -2.24,
-          12.95,
-          15.7
-        ],
-        "pin_3d": [
-          3.6,
-          15.1,
-          -3.36
-        ],
-        "camera": {
-          "target": [
-            3.6,
-            13.95,
-            -3.36
-          ],
-          "radius": 20.0,
-          "phi": 0.56,
-          "theta": 1.25
-        },
-        "callout_he": "#21: מודל ה-3D הבסיסי מאומת ומסונכרן 1:1 מול דוח הבקרה התכנונית (חתימה #8a4d7b02)",
-        "category_3d": "PASS"
-      }
     }
   ],
   "central_model_path": "G:\\Shared drives\\שליטה ובקרה\\מודלים פרויקטים\\פאירברג 3 פתח תקווה\\feierberg3_3d_model.html",
@@ -2609,7 +2526,7 @@
           "pct_of_above_ground": 11.2
         },
         {
-          "floor_label": "קומה 1 (טיפוסית — דירה #1 מערב 105.5, דירה #2 מזרח 85.5)",
+          "floor_label": "קומה 1 (טיפוסית — דירה #1 ימין/מזרח 105.5, דירה #2 שמאל/מערב 85.5)",
           "elevation": "+3.50",
           "units_count": 2,
           "usage_description": "2 דירות 4 חדרים (3 כיווני אוויר כ״א) + גרעין מדרגות ומעלית",
@@ -2619,7 +2536,7 @@
           "pct_of_above_ground": 9.38
         },
         {
-          "floor_label": "קומה 2 (טיפוסית — דירה #3 מערב, דירה #4 מזרח)",
+          "floor_label": "קומה 2 (טיפוסית — דירה #3 ימין/מזרח, דירה #4 שמאל/מערב)",
           "elevation": "+6.65",
           "units_count": 2,
           "usage_description": "2 דירות 4 חדרים + גרעין קומתי",
@@ -2629,7 +2546,7 @@
           "pct_of_above_ground": 9.38
         },
         {
-          "floor_label": "קומה 3 (טיפוסית — דירה #5 מערב, דירה #6 מזרח)",
+          "floor_label": "קומה 3 (טיפוסית — דירה #5 ימין/מזרח, דירה #6 שמאל/מערב)",
           "elevation": "+9.80",
           "units_count": 2,
           "usage_description": "2 דירות 4 חדרים + גרעין קומתי",
@@ -2639,7 +2556,7 @@
           "pct_of_above_ground": 9.38
         },
         {
-          "floor_label": "קומה 4 (טיפוסית — דירה #7 מערב, דירה #8 מזרח)",
+          "floor_label": "קומה 4 (טיפוסית — דירה #7 ימין/מזרח, דירה #8 שמאל/מערב)",
           "elevation": "+12.95",
           "units_count": 2,
           "usage_description": "2 דירות 4 חדרים + גרעין קומתי",
@@ -2649,7 +2566,7 @@
           "pct_of_above_ground": 9.38
         },
         {
-          "floor_label": "קומה 5 (טיפוסית — דירה #9 מערב, דירה #10 מזרח)",
+          "floor_label": "קומה 5 (טיפוסית — דירה #9 ימין/מזרח, דירה #10 שמאל/מערב)",
           "elevation": "+16.10",
           "units_count": 2,
           "usage_description": "2 דירות 4 חדרים + גרעין קומתי",
@@ -2659,7 +2576,7 @@
           "pct_of_above_ground": 9.38
         },
         {
-          "floor_label": "קומה 6 (טיפוסית — דירה #11 מערב, דירה #12 מזרח)",
+          "floor_label": "קומה 6 (טיפוסית — דירה #11 ימין/מזרח, דירה #12 שמאל/מערב)",
           "elevation": "+19.25",
           "units_count": 2,
           "usage_description": "2 דירות 4 חדרים + גרעין קומתי",
@@ -2669,7 +2586,7 @@
           "pct_of_above_ground": 9.38
         },
         {
-          "floor_label": "קומה 7 (טיפוסית — דירה #13 מערב, דירה #14 מזרח)",
+          "floor_label": "קומה 7 (טיפוסית — דירה #13 ימין/מזרח, דירה #14 שמאל/מערב)",
           "elevation": "+22.40",
           "units_count": 2,
           "usage_description": "2 דירות 4 חדרים + גרעין קומתי",
@@ -2679,7 +2596,7 @@
           "pct_of_above_ground": 9.38
         },
         {
-          "floor_label": "קומה 8 (דירה #15 מערב, דירה #16 מזרח + פרגולות)",
+          "floor_label": "קומה 8 (דירה #15 ימין/מזרח, דירה #16 שמאל/מערב + פרגולות)",
           "elevation": "+25.55",
           "units_count": 2,
           "usage_description": "2 דירות 4 חדרים + פרגולות אלומיניום דרומיות + גרעין",
@@ -2770,16 +2687,16 @@
       "summary_note": "16 מרפסות שמש דרומיות בקומות 1–8 (7.50×1.60 מ׳ = 12.0 מ״ר לדירה, סה״כ 192.0 מ״ר) + 39.0 מ״ר מסתורי כביסה",
       "breakdown": [
         {
-          "floor_label": "קומות 1–8 (אגף מערבי — דירות אי-זוגיות #1..#15)",
-          "unit_label": "מרפסת שמש דרומית מערבית",
+          "floor_label": "קומות 1–8 (אגף ימני/מזרחי בתכנית המקור — דירה 1 · אי-זוגיות #1..#15)",
+          "unit_label": "מרפסת שמש דרומית (דירה 1 — 105.46 מ״ר)",
           "count": 8,
           "unit_area_sqm": 12.0,
           "total_area_sqm": 96.0,
           "dimensions": "750×160 ס״מ (כולל פרגולה בקומה 8)"
         },
         {
-          "floor_label": "קומות 1–8 (אגף מזרחי — דירות זוגיות #2..#16)",
-          "unit_label": "מרפסת שמש דרומית מזרחית",
+          "floor_label": "קומות 1–8 (אגף שמאלי/מערבי בתכנית המקור — דירה 2 · זוגיות #2..#16)",
+          "unit_label": "מרפסת שמש דרומית (דירה 2 — 85.53 מ״ר)",
           "count": 8,
           "unit_area_sqm": 12.0,
           "total_area_sqm": 96.0,
@@ -3269,10 +3186,10 @@
         }
       },
       "notes_statistics": {
-        "total_notes": 21,
+        "total_notes": 20,
         "fail_count": 0,
         "warn_count": 14,
-        "pass_count": 7
+        "pass_count": 6
       },
       "all_notes_digest": [
         {
@@ -3520,7 +3437,7 @@
           "public_flooring_sqm": 160.0,
           "balconies_flooring_sqm": 231.0,
           "total_floor_flooring_sqm": 1735.0,
-          "notes": "168.0 מ״ר ריצוף דירות נטו לקומה (92.5 מערב + 75.5 מזרח) × 8 | 20.0 מ״ר ציבורי לקומה × 8 | מרפסות שמש + כביסה"
+          "notes": "168.0 מ״ר ריצוף דירות נטו לקומה (92.5 דירה 1 ימין/מזרח + 75.5 דירה 2 שמאל/מערב) × 8 | 20.0 מ״ר ציבורי לקומה × 8 | מרפסות שמש + כביסה"
         },
         {
           "floor_label": "קומות 9–10 (דופלקס-פנטהאוזים #17 ו-#18 + גג)",
@@ -4299,15 +4216,15 @@
     "summary_md_url": "/reports/feierberg3_summary_and_areas_report.md",
     "model_3d_sync_status": {
       "project_id": "feierberg3",
-      "base_model_hash": "8a4d7b025c159bddcee02a20e620f7aed259c8e1a47e733ced67cdd72ba6a08f",
-      "base_model_hash_short": "8a4d7b025c15",
-      "previous_model_hash_short": "8a4d7b025c15",
+      "base_model_hash": "aa74e2c77f6a2cf94fa16391acff4d82468d83302d967f3c138b95fdfa167dd6",
+      "base_model_hash_short": "aa74e2c77f6a",
+      "previous_model_hash_short": "aa74e2c77f6a",
       "tracked_files_count": 14,
-      "total_base_size_bytes": 36338307,
-      "last_modified_mtime": 1793169505.27,
-      "last_modified_iso": "2026-10-28T08:38:25+02:00",
-      "last_audit_iso": "2026-10-28T08:38:24+02:00",
-      "audit_revision": 3,
+      "total_base_size_bytes": 22581881,
+      "last_modified_mtime": 1793173608.04,
+      "last_modified_iso": "2026-10-28T09:46:48+02:00",
+      "last_audit_iso": "2026-10-28T09:46:47+02:00",
+      "audit_revision": 6,
       "was_updated_and_reaudited": false,
       "change_reason": "up_to_date",
       "changed_files": [],
@@ -4320,7 +4237,7 @@
         "spaces_count": 0,
         "units_count": 18,
         "walls_count": 0,
-        "meshes_count": 162,
+        "meshes_count": 0,
         "glb_size_bytes": 1597516,
         "obj_size_bytes": 4408684,
         "source_formats": [
@@ -4331,17 +4248,17 @@
         ]
       },
       "bim_3d_checks_summary": {
-        "total_checks": 116,
-        "pass_count": 59,
+        "total_checks": 117,
+        "pass_count": 60,
         "warn_count": 57,
         "fail_count": 0
       },
-      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #8a4d7b02 · סבב בקרה #3)."
+      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #aa74e2c7 · סבב בקרה #6)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-28T08:57:46+02:00",
-      "total_checks_executed": 116,
-      "pass_count": 59,
+      "executed_at_iso": "2026-10-28T09:49:23+02:00",
+      "total_checks_executed": 117,
+      "pass_count": 60,
       "warn_count": 57,
       "fail_count": 0,
       "extracted_3d_summary": {
@@ -4351,7 +4268,7 @@
         "spaces_count": 0,
         "units_count": 18,
         "walls_count": 0,
-        "meshes_count": 162,
+        "meshes_count": 0,
         "glb_size_bytes": 1597516,
         "obj_size_bytes": 4408684,
         "source_formats": [
@@ -4373,7 +4290,7 @@
         {
           "check_id": "BIM_3D_CORE_MAMAD_CONTINUITY",
           "title": "רציפות אנכית 3D של גרעין המיגון (מגדל ממ״דים ≥ 70%) ופיר מדרגות/מעליות",
-          "measured_3d": "48 קירות נושאים ו-162 אלמנטי שלד במודל 3D",
+          "measured_3d": "48 קירות נושאים ו-120 אלמנטי שלד במודל 3D",
           "benchmark_plan": "רציפות קירות ממ״ד ≥ 70% עד היסודות (תקנות פיקוד העורף) ורציפות פיר חדר מדרגות ממוגן",
           "status": "PASS",
           "message": "וקטורי העברת העומסים האנכיים של מגדל הממ״דים וגרעין המעליות במודל ה-3D רציפים מקומת הגג ועד קומות המרתף."
@@ -4393,6 +4310,14 @@
           "benchmark_plan": "מיסעה דו-סטרית ≥ 6.00 מ׳, גובה ראש חופשי ≥ 2.20 מ׳, שיפוע רמפה ורדיוס סיבוב תקניים",
           "status": "PASS",
           "message": "מפלסי המרתף התת-קרקעיים במודל ה-3D נבדקו מול רשת העמודים ומאפשרים תמרון חניה מלא ומעבר מערכות MEP."
+        },
+        {
+          "check_id": "BIM_3D_CORRIDOR_DIMENSIONS_SYNC",
+          "title": "הצלבת מידות מסדרונות וחדרים בין שרטוט התכנית (2D) למודל ה-BIM (3D)",
+          "measured_3d": "רוחב מסדרונות נטו ≥ 100 ס״מ",
+          "benchmark_plan": "מינימום חוקי לרוחב מסדרון דירתי ≥ 100 ס״מ (תקנות התכנון והבנייה / ת״י 1918)",
+          "status": "PASS",
+          "message": "רוחב המסדרונות במודל התלת-ממדי ובשרטוט ה-CAD הווקטורי (100/105 ס״מ בין קירות) תואם את המידות הכתובות בתכנית ההגשה."
         }
       ],
       "statutory_room_checks": [
@@ -4651,15 +4576,15 @@
   },
   "model_3d_sync_status": {
     "project_id": "feierberg3",
-    "base_model_hash": "8a4d7b025c159bddcee02a20e620f7aed259c8e1a47e733ced67cdd72ba6a08f",
-    "base_model_hash_short": "8a4d7b025c15",
-    "previous_model_hash_short": "8a4d7b025c15",
+    "base_model_hash": "aa74e2c77f6a2cf94fa16391acff4d82468d83302d967f3c138b95fdfa167dd6",
+    "base_model_hash_short": "aa74e2c77f6a",
+    "previous_model_hash_short": "aa74e2c77f6a",
     "tracked_files_count": 14,
-    "total_base_size_bytes": 36338307,
-    "last_modified_mtime": 1793169505.27,
-    "last_modified_iso": "2026-10-28T08:38:25+02:00",
-    "last_audit_iso": "2026-10-28T08:38:24+02:00",
-    "audit_revision": 3,
+    "total_base_size_bytes": 22581881,
+    "last_modified_mtime": 1793173608.04,
+    "last_modified_iso": "2026-10-28T09:46:48+02:00",
+    "last_audit_iso": "2026-10-28T09:46:47+02:00",
+    "audit_revision": 6,
     "was_updated_and_reaudited": false,
     "change_reason": "up_to_date",
     "changed_files": [],
@@ -4672,7 +4597,7 @@
       "spaces_count": 0,
       "units_count": 18,
       "walls_count": 0,
-      "meshes_count": 162,
+      "meshes_count": 0,
       "glb_size_bytes": 1597516,
       "obj_size_bytes": 4408684,
       "source_formats": [
@@ -4683,17 +4608,17 @@
       ]
     },
     "bim_3d_checks_summary": {
-      "total_checks": 116,
-      "pass_count": 59,
+      "total_checks": 117,
+      "pass_count": 60,
       "warn_count": 57,
       "fail_count": 0
     },
-    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #8a4d7b02 · סבב בקרה #3)."
+    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #aa74e2c7 · סבב בקרה #6)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-28T08:57:46+02:00",
-    "total_checks_executed": 116,
-    "pass_count": 59,
+    "executed_at_iso": "2026-10-28T09:49:23+02:00",
+    "total_checks_executed": 117,
+    "pass_count": 60,
     "warn_count": 57,
     "fail_count": 0,
     "extracted_3d_summary": {
@@ -4703,7 +4628,7 @@
       "spaces_count": 0,
       "units_count": 18,
       "walls_count": 0,
-      "meshes_count": 162,
+      "meshes_count": 0,
       "glb_size_bytes": 1597516,
       "obj_size_bytes": 4408684,
       "source_formats": [
@@ -4725,7 +4650,7 @@
       {
         "check_id": "BIM_3D_CORE_MAMAD_CONTINUITY",
         "title": "רציפות אנכית 3D של גרעין המיגון (מגדל ממ״דים ≥ 70%) ופיר מדרגות/מעליות",
-        "measured_3d": "48 קירות נושאים ו-162 אלמנטי שלד במודל 3D",
+        "measured_3d": "48 קירות נושאים ו-120 אלמנטי שלד במודל 3D",
         "benchmark_plan": "רציפות קירות ממ״ד ≥ 70% עד היסודות (תקנות פיקוד העורף) ורציפות פיר חדר מדרגות ממוגן",
         "status": "PASS",
         "message": "וקטורי העברת העומסים האנכיים של מגדל הממ״דים וגרעין המעליות במודל ה-3D רציפים מקומת הגג ועד קומות המרתף."
@@ -4745,6 +4670,14 @@
         "benchmark_plan": "מיסעה דו-סטרית ≥ 6.00 מ׳, גובה ראש חופשי ≥ 2.20 מ׳, שיפוע רמפה ורדיוס סיבוב תקניים",
         "status": "PASS",
         "message": "מפלסי המרתף התת-קרקעיים במודל ה-3D נבדקו מול רשת העמודים ומאפשרים תמרון חניה מלא ומעבר מערכות MEP."
+      },
+      {
+        "check_id": "BIM_3D_CORRIDOR_DIMENSIONS_SYNC",
+        "title": "הצלבת מידות מסדרונות וחדרים בין שרטוט התכנית (2D) למודל ה-BIM (3D)",
+        "measured_3d": "רוחב מסדרונות נטו ≥ 100 ס״מ",
+        "benchmark_plan": "מינימום חוקי לרוחב מסדרון דירתי ≥ 100 ס״מ (תקנות התכנון והבנייה / ת״י 1918)",
+        "status": "PASS",
+        "message": "רוחב המסדרונות במודל התלת-ממדי ובשרטוט ה-CAD הווקטורי (100/105 ס״מ בין קירות) תואם את המידות הכתובות בתכנית ההגשה."
       }
     ],
     "statutory_room_checks": [

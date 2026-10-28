@@ -26,6 +26,7 @@ uploads/
 *.env
 
 # CAD files
+*.dwf
 *.dwfx
 *.dwg
 *.dxf
