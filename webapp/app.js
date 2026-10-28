@@ -250,6 +250,7 @@
 
       currentProject = data;
       activeNoteId = null;
+      userExplicitlySelectedNote = false;
       hoveredNoteId = null;
       currentFilter = 'ALL';
       currentWorkMode = 'FINDINGS';
@@ -2470,6 +2471,9 @@
     if (!note) return;
 
     activeNoteId = noteId;
+    if (options.openDock !== false || options.zoomTo) {
+      userExplicitlySelectedNote = true;
+    }
 
     // 1. Switch floor sheet automatically if the selected note belongs to a different sheet
     const sheetWillChange = options.switchSheet !== false && note.sheet_id !== currentSheetId;
@@ -3086,6 +3090,8 @@
   // =========================================================================
   // 7. SYNCHRONIZED 2D / 3D BIM / SPLIT VIEW CONTROLLER
   // =========================================================================
+  let userExplicitlySelectedNote = false;
+
   function postMessageTo3D(payload) {
     if (!model3dIframe || !model3dIframe.contentWindow || currentViewMode === '2d') return;
     try {
@@ -3099,7 +3105,7 @@
     if (!currentProject || !model3dIframe) return;
     const baseUrl = currentProject._resolved_3d_url || (currentProject.project_id ? `/models/${currentProject.project_id}` : null);
     if (!baseUrl) return;
-    const targetSrc = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}embed=1&v=6.2`;
+    const targetSrc = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}embed=1&v=6.3`;
     if (forceReload || loaded3dProjectUrl !== targetSrc) {
       loaded3dProjectUrl = targetSrc;
       model3dIframe.src = targetSrc;
@@ -3140,10 +3146,8 @@
         }, delay);
       });
       setTimeout(() => {
-        if (activeNoteId) {
+        if (userExplicitlySelectedNote && activeNoteId) {
           postMessageTo3D({ type: 'ARCHICHECK_SELECT_NOTE', noteId: activeNoteId });
-        } else if (currentSheetId) {
-          postMessageTo3D({ type: 'ARCHICHECK_SELECT_SHEET', sheetId: currentSheetId });
         }
       }, 250);
     }
@@ -3175,10 +3179,8 @@
         from3D: true,
       });
     } else if (msg.type === 'ARCHICHECK_3D_READY') {
-      if (activeNoteId) {
+      if (userExplicitlySelectedNote && activeNoteId) {
         postMessageTo3D({ type: 'ARCHICHECK_SELECT_NOTE', noteId: activeNoteId });
-      } else if (currentSheetId) {
-        postMessageTo3D({ type: 'ARCHICHECK_SELECT_SHEET', sheetId: currentSheetId });
       }
     }
   });

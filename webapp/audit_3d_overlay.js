@@ -38,10 +38,66 @@
   waitForHostScene(initAudit3DOverlay);
 
   function initAudit3DOverlay() {
-    // Focus camera directly on the building (instead of 480m regional aerial view) and ensure WebGL canvas size is synced
-    if (typeof activatePreset === 'function') {
-      try { activatePreset('iso_east'); } catch (e) {}
+    // =========================================================================
+    // 0. CLEAN ARCHITECTURAL PLANNING MODE (STRIP MARKETING / GIS / CATALOG)
+    // =========================================================================
+    function enforceCleanArchitecturalScene() {
+      try {
+        if (typeof gmapsVisible !== 'undefined') gmapsVisible = false;
+        if (typeof gisMapPlanesGroup !== 'undefined' && gisMapPlanesGroup) {
+          gisMapPlanesGroup.visible = false;
+        }
+        if (typeof gisRadiiVisible !== 'undefined') gisRadiiVisible = false;
+        if (typeof gisRingsGroup !== 'undefined' && gisRingsGroup) {
+          gisRingsGroup.visible = false;
+        }
+        if (typeof gisPoisVisible !== 'undefined') gisPoisVisible = false;
+        if (typeof gisPoisGroup !== 'undefined' && gisPoisGroup) {
+          gisPoisGroup.visible = false;
+        }
+        if (typeof units3DVisible !== 'undefined') units3DVisible = false;
+        if (typeof units3DGroup !== 'undefined' && units3DGroup) {
+          units3DGroup.visible = false;
+        }
+        if (typeof showLabels !== 'undefined') showLabels = false;
+        if (typeof isNightMode !== 'undefined' && isNightMode && typeof nightLightsGroup !== 'undefined') {
+          isNightMode = false;
+          nightLightsGroup.visible = false;
+        }
+        if (typeof scene !== 'undefined' && scene && scene.background && typeof scene.background.setHex === 'function') {
+          scene.background.setHex(0xeef2f6);
+        }
+      } catch (e) {}
     }
+
+    enforceCleanArchitecturalScene();
+
+    // Add a clean architectural studio metric CAD grid at ground level (y = -0.15)
+    let archGroundGrid = null;
+    try {
+      archGroundGrid = new THREE.GridHelper(68, 68, 0x94a3b8, 0xdbe3ec);
+      archGroundGrid.position.set(0.5, -0.15, 0.0);
+      if (archGroundGrid.material) {
+        archGroundGrid.material.transparent = true;
+        archGroundGrid.material.opacity = 0.55;
+      }
+      scene.add(archGroundGrid);
+    } catch (e) {}
+
+    // Focus camera directly on the building in clean architectural view and sync WebGL canvas size
+    if (typeof activatePreset === 'function') {
+      try {
+        activatePreset('iso_east');
+        if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
+          camState.spherical.radius = 44.0;
+          camState.spherical.phi = 1.02;
+          camState.target.set(0.5, 13.5, 0.0);
+          updateCameraFromOrbit();
+        }
+      } catch (e) {}
+    }
+    enforceCleanArchitecturalScene();
+
     const triggerHostResize = () => {
       try { window.dispatchEvent(new Event('resize')); } catch (e) {}
     };
@@ -53,9 +109,64 @@
       ro.observe(document.body);
     }
 
-    // 1. Inject Styles for 3D Audit Pins, HUD & Before/After Controls
+    // 1. Inject Styles for Clean Architectural Mode, 3D Audit Pins, HUD & Before/After Controls
     const styleEl = document.createElement('style');
     styleEl.textContent = `
+      /* Hide all marketing, GIS, radii, POIs, and apartment sales catalog UI elements */
+      #gis-labels-container,
+      #gis-active-card,
+      #units-labels-container,
+      #unit-sales-card,
+      #labels-container,
+      #drawer-units,
+      #drawer-apartments,
+      #drawer-gis,
+      #btn-top-gis-map,
+      #btn-top-units-3d,
+      #btn-top-radii,
+      #btn-top-pois,
+      #btn-top-night,
+      #btn-gmaps,
+      [data-drawer="drawer-units"],
+      [data-drawer="drawer-apartments"],
+      [data-drawer="drawer-gis"] {
+        display: none !important;
+      }
+
+      /* Architectural Toolbar Buttons in .top-header */
+      .arch-nav-btn {
+        border: 1px solid #cbd5e1;
+        background: #ffffff;
+        color: #1e293b;
+        border-radius: 7px;
+        padding: 4px 9px;
+        font-family: 'Heebo', system-ui, sans-serif;
+        font-size: 11.5px;
+        font-weight: 800;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: all 0.14s ease;
+        white-space: nowrap;
+      }
+      .arch-nav-btn:hover {
+        background: #f1f5f9;
+        border-color: #94a3b8;
+      }
+      .arch-nav-btn.active {
+        background: #1e3a8a;
+        color: #ffffff;
+        border-color: #1d4ed8;
+        box-shadow: 0 2px 6px rgba(30, 58, 138, 0.25);
+      }
+      .arch-nav-sep {
+        width: 1px;
+        height: 18px;
+        background: #cbd5e1;
+        margin: 0 2px;
+      }
+
       #audit-3d-pins-container {
         position: absolute;
         inset: 0;
@@ -103,7 +214,7 @@
         z-index: 60 !important;
       }
       .audit-3d-pin.dimmed-pin {
-        opacity: 0.42;
+        opacity: 0.45;
       }
       .audit-pin-FAIL { background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); }
       .audit-pin-WARN { background: linear-gradient(135deg, #d97706 0%, #b45309 100%); }
@@ -121,7 +232,7 @@
         font-size: 11px;
         font-weight: 800;
         color: #ffffff;
-        background: rgba(15, 23, 42, 0.88);
+        background: rgba(15, 23, 42, 0.90);
         border: 1.5px solid #38bdf8;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
         white-space: nowrap;
@@ -131,21 +242,21 @@
       /* Floating ArchiCheck 3D Control Dock */
       #archicheck-3d-hud {
         position: absolute;
-        top: 66px;
-        left: 14px;
+        top: 60px;
+        left: 12px;
         z-index: 32;
         display: flex;
         flex-direction: column;
         gap: 7px;
-        width: 345px;
-        max-width: calc(100vw - 28px);
-        background: rgba(15, 23, 42, 0.93);
+        width: 320px;
+        max-width: calc(100vw - 24px);
+        background: rgba(15, 23, 42, 0.94);
         color: #f8fafc;
         border: 1px solid rgba(148, 163, 184, 0.45);
-        border-radius: 14px;
-        padding: 11px 13px;
+        border-radius: 13px;
+        padding: 10px 12px;
         font-family: 'Heebo', system-ui, sans-serif;
-        box-shadow: 0 16px 36px rgba(15, 23, 42, 0.40);
+        box-shadow: 0 14px 32px rgba(15, 23, 42, 0.38);
         backdrop-filter: blur(12px);
       }
       #archicheck-3d-hud.hud-minimized .hud-body-content {
@@ -158,7 +269,7 @@
         gap: 8px;
       }
       .ac3d-title {
-        font-size: 12.5px;
+        font-size: 12px;
         font-weight: 900;
         color: #fde047;
         display: flex;
@@ -168,17 +279,17 @@
       .ac3d-btn-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 5px;
+        gap: 4px;
       }
       .ac3d-chip {
         flex: 1;
-        min-width: 60px;
+        min-width: 54px;
         border: 1px solid #475569;
         background: #1e293b;
         color: #e2e8f0;
         border-radius: 7px;
-        padding: 4px 7px;
-        font-size: 11px;
+        padding: 4px 6px;
+        font-size: 10.5px;
         font-weight: 700;
         cursor: pointer;
         text-align: center;
@@ -202,8 +313,8 @@
       .ac3d-ba-btn {
         border: none;
         border-radius: 6px;
-        padding: 6px 8px;
-        font-size: 11.5px;
+        padding: 5px 7px;
+        font-size: 11px;
         font-weight: 800;
         cursor: pointer;
         color: #94a3b8;
@@ -224,29 +335,278 @@
         background: rgba(30, 41, 59, 0.95);
         border: 1px solid #38bdf8;
         border-radius: 9px;
-        padding: 8px 10px;
-        font-size: 11.5px;
-        line-height: 1.4;
+        padding: 7px 9px;
+        font-size: 11px;
+        line-height: 1.38;
+      }
+      .top-header {
+        top: 8px !important;
+        right: 10px !important;
+        left: 10px !important;
+        padding: 6px 12px !important;
+        border-radius: 12px !important;
       }
       body.archicheck-embedded .bottom-right-sections {
         bottom: 10px;
         right: 10px;
-        width: 270px;
+        width: 265px;
         padding: 8px 10px;
       }
-      body.archicheck-embedded .top-header {
-        top: 8px;
-        right: 10px;
-        left: 10px;
-        padding: 5px 10px;
-      }
       body.archicheck-embedded #archicheck-3d-hud {
-        top: 58px;
+        top: 56px;
         left: 10px;
-        width: 315px;
+        width: 300px;
       }
     `;
     document.head.appendChild(styleEl);
+
+    // Transform the Host Top Header & Settings Drawer into a Clean Architectural Planning Interface
+    function adaptHostInterfaceForPlanningAnalysis() {
+      // 1. Update header subtitle from marketing portal to architectural planning analysis
+      const headerEl = document.querySelector('header.top-header');
+      if (headerEl) {
+        const badgeSpans = headerEl.querySelectorAll('span');
+        badgeSpans.forEach((sp) => {
+          if (sp.textContent && (sp.textContent.includes('שיווק') || sp.textContent.includes('דרגן'))) {
+            sp.textContent = '📐 סביבת ניתוח אדריכלי, בקרת תכנון והנדסת ערך (BIM 1:50)';
+            sp.style.background = '#eff6ff';
+            sp.style.borderColor = '#93c5fd';
+            sp.style.color = '#1e3a8a';
+          }
+        });
+      }
+
+      // 2. Clean up #drawer-settings (hide marketing finish packages, keep BIM layers & CAD controls)
+      const drawerSettings = document.getElementById('drawer-settings');
+      if (drawerSettings) {
+        const titleSpan = drawerSettings.querySelector('.flex-between span');
+        if (titleSpan) titleSpan.textContent = '🧱 שכבות BIM, שרטוט CAD והגדרות מודל תכנוני';
+        const pkgButtons = document.getElementById('interior-pkg-buttons');
+        if (pkgButtons) {
+          const pkgBox = pkgButtons.closest('.section-box');
+          if (pkgBox) pkgBox.style.display = 'none';
+        }
+      }
+
+      // 3. Rebuild #view-buttons into a clean Architectural Planning & Floor Cut Bar
+      const viewBtnsContainer = document.getElementById('view-buttons');
+      const measureBtn = document.getElementById('btn-top-measure');
+      const settingsBtn = document.querySelector('[data-drawer="drawer-settings"]');
+
+      if (viewBtnsContainer) {
+        // Keep measureBtn and settingsBtn in DOM but detach temporarily
+        if (measureBtn) {
+          measureBtn.className = 'arch-nav-btn';
+          measureBtn.innerHTML = '📏 מדידה';
+        }
+        if (settingsBtn) {
+          settingsBtn.className = 'arch-nav-btn';
+          settingsBtn.innerHTML = '<span>🧱 שכבות BIM</span><span style="font-size:10px;">▾</span>';
+        }
+
+        // Hide all existing marketing buttons inside #view-buttons
+        Array.from(viewBtnsContainer.children).forEach((ch) => {
+          if (ch !== measureBtn && ch !== settingsBtn) {
+            ch.style.display = 'none';
+          }
+        });
+
+        // Create dedicated Architectural Planning Floor & Projection buttons
+        const archButtons = [
+          {
+            id: 'arch-btn-all',
+            label: '🏢 מבנה שלם',
+            title: 'תצוגת מבנה שלם בתלת-ממד (איזומטריה)',
+            active: true,
+            onClick: () => {
+              if (typeof selectFloor === 'function') selectFloor('all');
+              if (typeof activatePreset === 'function') activatePreset('iso_east');
+              if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
+                camState.spherical.radius = 44.0;
+                camState.spherical.phi = 1.02;
+                camState.target.set(0.5, 13.5, 0.0);
+                updateCameraFromOrbit();
+              }
+              enforceCleanArchitecturalScene();
+              syncArchFloorBtns('all');
+            }
+          },
+          {
+            id: 'arch-btn-mar',
+            label: '🅿️ מרתף (-5.10)',
+            title: 'חתך קומת מרתף חניון, רמפה היקפית ודיפון',
+            onClick: () => {
+              if (typeof setOrthoMode === 'function') setOrthoMode(false);
+              if (typeof setSliceMode === 'function') setSliceMode('single');
+              if (typeof selectFloor === 'function') selectFloor('mar');
+              if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
+                camState.target.set(-2.0, -4.5, 1.5);
+                camState.spherical.radius = 34.0;
+                camState.spherical.phi = 0.52;
+                camState.spherical.theta = 1.25;
+                updateCameraFromOrbit();
+              }
+              renderBeforeAfterScene3D('basement_ve_full');
+              enforceCleanArchitecturalScene();
+              syncArchFloorBtns('mar');
+              syncAuditVisibility();
+            }
+          },
+          {
+            id: 'arch-btn-kar',
+            label: '🏛️ קרקע (±0.00)',
+            title: 'חתך קומת קרקע, לובי, פיתוח מגרש וחניות עיליות',
+            onClick: () => {
+              if (typeof setOrthoMode === 'function') setOrthoMode(false);
+              if (typeof setSliceMode === 'function') setSliceMode('single');
+              if (typeof selectFloor === 'function') selectFloor('kar');
+              if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
+                camState.target.set(1.5, 0.5, 0.0);
+                camState.spherical.radius = 34.0;
+                camState.spherical.phi = 0.56;
+                camState.spherical.theta = 1.22;
+                updateCameraFromOrbit();
+              }
+              renderBeforeAfterScene3D('ground_contour_recess');
+              enforceCleanArchitecturalScene();
+              syncArchFloorBtns('kar');
+              syncAuditVisibility();
+            }
+          },
+          {
+            id: 'arch-btn-f4',
+            label: '📐 קומה טיפוסית (ק׳ 1–8)',
+            title: 'חתך קומה טיפוסית (דירת 5 חד׳ מערבית + דירת 4 חד׳ מזרחית)',
+            onClick: () => {
+              if (typeof setOrthoMode === 'function') setOrthoMode(false);
+              if (typeof setSliceMode === 'function') setSliceMode('single');
+              if (typeof selectFloor === 'function') selectFloor('f4');
+              if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
+                camState.target.set(-1.0, 13.5, -0.5);
+                camState.spherical.radius = 28.0;
+                camState.spherical.phi = 0.50;
+                camState.spherical.theta = 1.45;
+                updateCameraFromOrbit();
+              }
+              renderBeforeAfterScene3D('west_corridor_fix');
+              enforceCleanArchitecturalScene();
+              syncArchFloorBtns('f4');
+              syncAuditVisibility();
+            }
+          },
+          {
+            id: 'arch-btn-f9',
+            label: '👑 פנטהאוז (ק׳ 9)',
+            title: 'חתך קומת פנטהאוז ומרפסות גג (+28.70)',
+            onClick: () => {
+              if (typeof setOrthoMode === 'function') setOrthoMode(false);
+              if (typeof setSliceMode === 'function') setSliceMode('single');
+              if (typeof selectFloor === 'function') selectFloor('f9');
+              if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
+                camState.target.set(0.5, 29.2, 0.0);
+                camState.spherical.radius = 28.0;
+                camState.spherical.phi = 0.52;
+                camState.spherical.theta = 1.35;
+                updateCameraFromOrbit();
+              }
+              renderBeforeAfterScene3D('penthouse_island_fix');
+              enforceCleanArchitecturalScene();
+              syncArchFloorBtns('f9');
+              syncAuditVisibility();
+            }
+          }
+        ];
+
+        const frag = document.createDocumentFragment();
+        archButtons.forEach((cfg) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.id = cfg.id;
+          b.className = 'arch-nav-btn arch-floor-quick' + (cfg.active ? ' active' : '');
+          b.title = cfg.title;
+          b.textContent = cfg.label;
+          b.addEventListener('click', cfg.onClick);
+          frag.appendChild(b);
+        });
+
+        const sep1 = document.createElement('span');
+        sep1.className = 'arch-nav-sep';
+        frag.appendChild(sep1);
+
+        // Top-Down 1:50 Orthographic Plan Button
+        const orthoQuickBtn = document.createElement('button');
+        orthoQuickBtn.type = 'button';
+        orthoQuickBtn.id = 'arch-btn-ortho-top';
+        orthoQuickBtn.className = 'arch-nav-btn';
+        orthoQuickBtn.title = 'מעבר בין מבט-על אורתוגרפי דו-ממדי (1:50) לבין מבט תלת-ממדי (פרספקטיבה)';
+        orthoQuickBtn.textContent = '📐 היטל 1:50';
+        orthoQuickBtn.addEventListener('click', () => {
+          if (typeof isOrtho !== 'undefined' && typeof setOrthoMode === 'function') {
+            const nextOrtho = !isOrtho;
+            if (nextOrtho) {
+              if (typeof currentFloorId !== 'undefined' && currentFloorId === 'all') {
+                if (typeof setSliceMode === 'function') setSliceMode('single');
+                if (typeof selectFloor === 'function') selectFloor('f4');
+                syncArchFloorBtns('f4');
+              }
+              if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
+                camState.spherical.theta = -Math.PI / 2;
+                camState.spherical.phi = 0.03;
+                camState.spherical.radius = 32.0;
+                updateCameraFromOrbit();
+              }
+              setOrthoMode(true);
+            } else {
+              setOrthoMode(false);
+              if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
+                camState.spherical.phi = 0.56;
+                camState.spherical.theta = 1.25;
+                updateCameraFromOrbit();
+              }
+            }
+            orthoQuickBtn.classList.toggle('active', nextOrtho);
+          }
+        });
+        frag.appendChild(orthoQuickBtn);
+
+        // Toggle 3D Furniture Button (so architect can inspect bare CAD walls vs furnished rooms)
+        let furnVis = true;
+        const furnQuickBtn = document.createElement('button');
+        furnQuickBtn.type = 'button';
+        furnQuickBtn.id = 'arch-btn-furn';
+        furnQuickBtn.className = 'arch-nav-btn active';
+        furnQuickBtn.title = 'הצג/הסתר ריהוט פנים תלת-ממדי לצפייה נקייה בקירות ובשרטוט ה-CAD';
+        furnQuickBtn.textContent = '🛋️ ריהוט 3D';
+        furnQuickBtn.addEventListener('click', () => {
+          furnVis = !furnVis;
+          if (typeof toggleLayer === 'function') toggleLayer('furn3d', furnVis);
+          furnQuickBtn.classList.toggle('active', furnVis);
+        });
+        frag.appendChild(furnQuickBtn);
+
+        viewBtnsContainer.insertBefore(frag, viewBtnsContainer.firstChild);
+      }
+    }
+
+    function syncArchFloorBtns(floorId) {
+      const mapId = {
+        all: 'arch-btn-all',
+        mar: 'arch-btn-mar',
+        kar: 'arch-btn-kar',
+        f1: 'arch-btn-f4', f2: 'arch-btn-f4', f3: 'arch-btn-f4', f4: 'arch-btn-f4',
+        f5: 'arch-btn-f4', f6: 'arch-btn-f4', f7: 'arch-btn-f4', f8: 'arch-btn-f4',
+        f9: 'arch-btn-f9'
+      };
+      const targetBtnId = mapId[floorId] || '';
+      document.querySelectorAll('.arch-floor-quick').forEach((b) => {
+        b.classList.toggle('active', b.id === targetBtnId);
+      });
+      if (archGroundGrid) {
+        archGroundGrid.visible = (floorId !== 'mar');
+      }
+    }
+
+    adaptHostInterfaceForPlanningAnalysis();
 
     if (isEmbedded) {
       document.body.classList.add('archicheck-embedded');
@@ -256,10 +616,6 @@
       if (secPanel && !secPanel.classList.contains('collapsed')) {
         secPanel.classList.add('collapsed');
         if (secBtn) secBtn.textContent = '+ פתח חתכים';
-      }
-      // Switch initial camera from distant 480m aerial to close architectural 3D building view
-      if (typeof activatePreset === 'function') {
-        activatePreset('iso_east');
       }
     }
 
@@ -660,14 +1016,7 @@
         pinEl.innerHTML = `<span>${styleMeta.icon}</span><span>${shortBadge}</span>`;
         pinEl.title = s3d.callout_he || `#${note.pin_num}: ${note.title}`;
 
-        pinEl.addEventListener('click', (e) => {
-          e.stopPropagation();
-          selectAuditNote3D(note.id, { flyTo: true, notifyParent: true });
-        });
-
-        pinsContainer.appendChild(pinEl);
-
-        auditPinItems.push({
+        const pinItemObj = {
           note,
           s3d,
           pinEl,
@@ -675,7 +1024,24 @@
           extraMeshes,
           pos3D: new THREE.Vector3(px, pyElev, pz),
           floorId: s3d.floor_id || 'all',
+          isHovered: false,
+        };
+
+        pinEl.addEventListener('mouseenter', () => {
+          pinItemObj.isHovered = true;
+          syncAuditVisibility();
         });
+        pinEl.addEventListener('mouseleave', () => {
+          pinItemObj.isHovered = false;
+          syncAuditVisibility();
+        });
+        pinEl.addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectAuditNote3D(note.id, { flyTo: true, notifyParent: true });
+        });
+
+        pinsContainer.appendChild(pinEl);
+        auditPinItems.push(pinItemObj);
       });
 
       syncAuditVisibility();
@@ -684,24 +1050,28 @@
     function syncAuditVisibility() {
       audit3DGroup.visible = auditPinsVisible;
       const hasActive = Boolean(activeAuditNoteId);
+      const curFlr = (typeof currentFloorId !== 'undefined') ? currentFloorId : 'all';
 
       auditPinItems.forEach((item) => {
         const filterOk = matchesAudit3DFilter(item.note);
-        const floorOk = (typeof currentFloorId === 'undefined' || currentFloorId === 'all' || item.floorId === 'all' || item.floorId === currentFloorId);
+        const floorOk = (curFlr === 'all')
+          ? true
+          : (item.floorId === curFlr || (item.floorId === 'all' && auditFilter === 'FAC'));
         const isVis = auditPinsVisible && filterOk && floorOk;
         const isTarget = item.note.id === activeAuditNoteId;
+        const showVolume = auditPinsVisible && (isTarget || item.isHovered || (auditFilter === 'FAC' && item.note.ve_category === 'FAC'));
 
-        item.boxGrp.visible = isVis || isTarget;
-        item.extraMeshes.forEach((em) => { em.visible = isVis || isTarget; });
+        item.boxGrp.visible = showVolume;
+        item.extraMeshes.forEach((em) => { em.visible = showVolume; });
 
         if (item.boxGrp.userData.mesh) {
           item.boxGrp.userData.mesh.material.opacity = isTarget
-            ? 0.48
-            : (hasActive ? item.boxGrp.userData.baseOpacity * 0.45 : item.boxGrp.userData.baseOpacity);
+            ? 0.45
+            : (item.isHovered ? 0.36 : item.boxGrp.userData.baseOpacity);
         }
 
         item.pinEl.classList.toggle('active-pin', isTarget);
-        item.pinEl.classList.toggle('dimmed-pin', hasActive && !isTarget);
+        item.pinEl.classList.toggle('dimmed-pin', hasActive && !isTarget && !item.isHovered);
         item.pinEl.dataset.allowed = (isVis || isTarget) ? '1' : '0';
         if (!isVis && !isTarget) {
           item.pinEl.style.display = 'none';
@@ -726,6 +1096,8 @@
         }
         if (typeof setOrthoMode === 'function') {
           setOrthoMode(false);
+          const orthoQuickBtn = document.getElementById('arch-btn-ortho-top');
+          if (orthoQuickBtn) orthoQuickBtn.classList.remove('active');
         }
 
         const targetFloor = s3d.floor_id || 'f4';
@@ -737,6 +1109,8 @@
         if (typeof selectFloor === 'function') {
           selectFloor(targetFloor);
         }
+        syncArchFloorBtns(targetFloor);
+        enforceCleanArchitecturalScene();
 
         // 2. Smooth Camera Orbit Positioning
         if (s3d.camera && typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
@@ -829,13 +1203,16 @@
         document.querySelectorAll('#ac3d-filter-row [data-acfilter]').forEach((b) => b.classList.toggle('active', b === btn));
         if (auditFilter === 'FAC') {
           if (typeof selectFloor === 'function') selectFloor('all');
+          syncArchFloorBtns('all');
           facadeCladdingGroup.visible = true;
           if (typeof activatePreset === 'function') activatePreset('iso_east');
         } else if (auditFilter === 'BSM') {
           if (typeof setSliceMode === 'function') setSliceMode('single');
           if (typeof selectFloor === 'function') selectFloor('mar');
+          syncArchFloorBtns('mar');
           renderBeforeAfterScene3D('basement_ve_full');
         }
+        enforceCleanArchitecturalScene();
         syncAuditVisibility();
       });
     });
@@ -858,20 +1235,25 @@
           if (sid.includes('basement')) {
             setSliceMode('single');
             selectFloor('mar');
+            syncArchFloorBtns('mar');
             renderBeforeAfterScene3D('basement_ve_full');
           } else if (sid.includes('ground')) {
             setSliceMode('single');
             selectFloor('kar');
+            syncArchFloorBtns('kar');
             renderBeforeAfterScene3D('ground_contour_recess');
           } else if (sid.includes('penthouse')) {
             setSliceMode('single');
             selectFloor('f9');
+            syncArchFloorBtns('f9');
             renderBeforeAfterScene3D('penthouse_island_fix');
           } else if (sid.includes('typical')) {
             setSliceMode('single');
             selectFloor('f4');
+            syncArchFloorBtns('f4');
             renderBeforeAfterScene3D('west_corridor_fix');
           }
+          enforceCleanArchitecturalScene();
           syncAuditVisibility();
         }
       } else if (msg.type === 'ARCHICHECK_SET_BA_MODE') {
@@ -913,10 +1295,25 @@
       });
     }
 
-    // Project 3D Audit Pin Badges every frame
+    // Project 3D Audit Pin Badges every frame & enforce clean architectural scene state
     const clipHeightRef = () => (typeof clipPlane !== 'undefined' ? clipPlane.constant : 999);
     function updateAuditPinsProjection() {
       requestAnimationFrame(updateAuditPinsProjection);
+      if (typeof gisMapPlanesGroup !== 'undefined' && gisMapPlanesGroup && gisMapPlanesGroup.visible) {
+        gisMapPlanesGroup.visible = false;
+      }
+      if (typeof gisRingsGroup !== 'undefined' && gisRingsGroup && gisRingsGroup.visible) {
+        gisRingsGroup.visible = false;
+      }
+      if (typeof gisPoisGroup !== 'undefined' && gisPoisGroup && gisPoisGroup.visible) {
+        gisPoisGroup.visible = false;
+      }
+      if (typeof units3DGroup !== 'undefined' && units3DGroup && units3DGroup.visible) {
+        units3DGroup.visible = false;
+      }
+      if (archGroundGrid && typeof currentFloorId !== 'undefined') {
+        archGroundGrid.visible = (currentFloorId !== 'mar');
+      }
       if (typeof activeCam === 'undefined' || !auditPinsVisible) return;
       if (typeof camState !== 'undefined' && camState.walkMode) {
         auditPinItems.forEach((it) => { it.pinEl.style.display = 'none'; });
