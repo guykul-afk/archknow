@@ -75,7 +75,7 @@
       "path": "C:/Users/User/archknow/webapp/api/kkl10.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 617.3
+      "size_kb": 616.0
     },
     {
       "name": "246-פרויקט קקל-p-23 - Sheet - A0-000002 - גרמושקה - תכניות-חישוב שטחים רובוטי (1).dwg",
@@ -9000,7 +9000,7 @@
       "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #dd93e35b · סבב בקרה #13)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-30T08:50:40+02:00",
+      "executed_at_iso": "2026-10-30T09:01:08+02:00",
       "total_checks_executed": 117,
       "pass_count": 61,
       "warn_count": 56,
@@ -9367,7 +9367,7 @@
     "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #dd93e35b · סבב בקרה #13)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-30T08:50:40+02:00",
+    "executed_at_iso": "2026-10-30T09:01:08+02:00",
     "total_checks_executed": 117,
     "pass_count": 61,
     "warn_count": 56,

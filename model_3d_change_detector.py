@@ -65,7 +65,7 @@ def inject_3d_overlay(html_path, project_id):
         snippet = (
             f"\n{OVERLAY_MARKER_START}\n"
             f'<script>window.__ARCHICHECK_PROJECT_ID__ = "{project_id}";</script>\n'
-            f'<script src="/audit_3d_overlay.js?v=7.0"></script>\n'
+            f'<script src="/audit_3d_overlay.js?v=7.5"></script>\n'
             f"{OVERLAY_MARKER_END}\n"
         )
         pos = html_content.rfind("</body>")

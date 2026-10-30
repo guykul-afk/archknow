@@ -103,7 +103,7 @@
       "path": "C:/Users/User/archknow/webapp/api/yatkovski7.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 518.6
+      "size_kb": 520.6
     },
     {
       "name": "compact_bim.json",
@@ -7352,50 +7352,17 @@
       "project_id": "yatkovski7",
       "base_model_hash": "c4ece2b822c0dc7d43e47d03521f479bf6439fed860e8b47f6a3ad729d550ac8",
       "base_model_hash_short": "c4ece2b822c0",
-      "previous_model_hash_short": "b27e6b5d282d",
+      "previous_model_hash_short": "c4ece2b822c0",
       "tracked_files_count": 13,
       "total_base_size_bytes": 26892539,
       "last_modified_mtime": 1793342999.92,
       "last_modified_iso": "2026-10-30T08:49:59+02:00",
       "last_audit_iso": "2026-10-30T08:50:42+02:00",
       "audit_revision": 15,
-      "was_updated_and_reaudited": true,
-      "change_reason": "base_3d_model_modified",
-      "changed_files": [
-        {
-          "file": "yatkovski7_3d_bim_viewer.html",
-          "change_type": "modified",
-          "old_sha256": "00c127e8217f",
-          "new_sha256": "11de303560c9",
-          "old_size_bytes": 2111,
-          "size_bytes": 6802897,
-          "mtime_iso": "2026-10-30T08:49:59+02:00"
-        },
-        {
-          "file": "yatkovski7_3d_model.html",
-          "change_type": "modified",
-          "old_sha256": "27499b1adabf",
-          "new_sha256": "11de303560c9",
-          "old_size_bytes": 2091,
-          "size_bytes": 6802897,
-          "mtime_iso": "2026-10-30T08:49:59+02:00"
-        },
-        {
-          "file": "yatkovski7_spatial_map.html",
-          "change_type": "modified",
-          "old_sha256": "56cdd8260401",
-          "new_sha256": "c17f35631de9",
-          "old_size_bytes": 2103,
-          "size_bytes": 2230851,
-          "mtime_iso": "2026-10-30T08:49:59+02:00"
-        }
-      ],
-      "geometry_diff": {
-        "meshes_count": {
-          "before": 0,
-          "after": 192
-        }
-      },
+      "was_updated_and_reaudited": false,
+      "change_reason": "up_to_date",
+      "changed_files": [],
+      "geometry_diff": {},
       "consolidated_from_exec_folder": [],
       "extracted_3d_summary": {
         "levels_count": 9,
@@ -7420,10 +7387,10 @@
         "warn_count": 91,
         "fail_count": 0
       },
-      "status_message_he": "זוהה עדכון במודל ה-3D הבסיסי (3 קבצים עודכנו/נדגמו, חתימה #c4ece2b8) — הורצה בדיקה תכנונית מלאה חדשה (סבב בקרה #15)."
+      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #c4ece2b8 · סבב בקרה #15)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-30T08:50:42+02:00",
+      "executed_at_iso": "2026-10-30T09:01:10+02:00",
       "total_checks_executed": 180,
       "pass_count": 89,
       "warn_count": 91,
@@ -7766,50 +7733,17 @@
     "project_id": "yatkovski7",
     "base_model_hash": "c4ece2b822c0dc7d43e47d03521f479bf6439fed860e8b47f6a3ad729d550ac8",
     "base_model_hash_short": "c4ece2b822c0",
-    "previous_model_hash_short": "b27e6b5d282d",
+    "previous_model_hash_short": "c4ece2b822c0",
     "tracked_files_count": 13,
     "total_base_size_bytes": 26892539,
     "last_modified_mtime": 1793342999.92,
     "last_modified_iso": "2026-10-30T08:49:59+02:00",
     "last_audit_iso": "2026-10-30T08:50:42+02:00",
     "audit_revision": 15,
-    "was_updated_and_reaudited": true,
-    "change_reason": "base_3d_model_modified",
-    "changed_files": [
-      {
-        "file": "yatkovski7_3d_bim_viewer.html",
-        "change_type": "modified",
-        "old_sha256": "00c127e8217f",
-        "new_sha256": "11de303560c9",
-        "old_size_bytes": 2111,
-        "size_bytes": 6802897,
-        "mtime_iso": "2026-10-30T08:49:59+02:00"
-      },
-      {
-        "file": "yatkovski7_3d_model.html",
-        "change_type": "modified",
-        "old_sha256": "27499b1adabf",
-        "new_sha256": "11de303560c9",
-        "old_size_bytes": 2091,
-        "size_bytes": 6802897,
-        "mtime_iso": "2026-10-30T08:49:59+02:00"
-      },
-      {
-        "file": "yatkovski7_spatial_map.html",
-        "change_type": "modified",
-        "old_sha256": "56cdd8260401",
-        "new_sha256": "c17f35631de9",
-        "old_size_bytes": 2103,
-        "size_bytes": 2230851,
-        "mtime_iso": "2026-10-30T08:49:59+02:00"
-      }
-    ],
-    "geometry_diff": {
-      "meshes_count": {
-        "before": 0,
-        "after": 192
-      }
-    },
+    "was_updated_and_reaudited": false,
+    "change_reason": "up_to_date",
+    "changed_files": [],
+    "geometry_diff": {},
     "consolidated_from_exec_folder": [],
     "extracted_3d_summary": {
       "levels_count": 9,
@@ -7834,10 +7768,10 @@
       "warn_count": 91,
       "fail_count": 0
     },
-    "status_message_he": "זוהה עדכון במודל ה-3D הבסיסי (3 קבצים עודכנו/נדגמו, חתימה #c4ece2b8) — הורצה בדיקה תכנונית מלאה חדשה (סבב בקרה #15)."
+    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #c4ece2b8 · סבב בקרה #15)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-30T08:50:42+02:00",
+    "executed_at_iso": "2026-10-30T09:01:10+02:00",
     "total_checks_executed": 180,
     "pass_count": 89,
     "warn_count": 91,

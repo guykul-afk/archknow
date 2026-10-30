@@ -545,7 +545,7 @@
         else if (['קקל', 'קק"ל', 'קק״ל', 'kkl', '10'].some((k) => q_low.includes(k))) staticFile = 'kkl10.json';
         else if (['פינס', 'pines', '48'].some((k) => q_low.includes(k))) staticFile = 'pines48.json';
 
-        const staticResp = await fetch(`/api/${staticFile}?v=7.3`, { cache: 'no-store' });
+        const staticResp = await fetch(`/api/${staticFile}?v=7.5`, { cache: 'no-store' });
         if (!staticResp.ok) {
           throw new Error(`שגיאת שרת (${staticResp.status})`);
         }
@@ -683,7 +683,7 @@
     }
     if (btnOpen3dViewer) {
       if (resolved3dUrl) {
-        btnOpen3dViewer.href = resolved3dUrl;
+        btnOpen3dViewer.href = `${resolved3dUrl}${resolved3dUrl.includes('?') ? '&' : '?'}v=7.5`;
         btnOpen3dViewer.classList.remove('hidden');
       } else {
         btnOpen3dViewer.classList.add('hidden');
@@ -4154,7 +4154,7 @@
     if (!currentProject || !model3dIframe) return;
     const baseUrl = currentProject._resolved_3d_url || (currentProject.project_id ? `/models/${currentProject.project_id}` : null);
     if (!baseUrl) return;
-    const targetSrc = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}embed=1&v=6.5`;
+    const targetSrc = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}embed=1&v=7.5`;
     if (forceReload || loaded3dProjectUrl !== targetSrc) {
       loaded3dProjectUrl = targetSrc;
       model3dIframe.src = targetSrc;
@@ -4222,16 +4222,27 @@
     loadingOverlay.classList.remove('hidden');
 
     try {
-      const resp = await fetch('/api/check_3d_models', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ project: pid, force: Boolean(forceReaudit) }),
-      });
-      if (!resp.ok) {
-        throw new Error(`שגיאה בבדיקת מודל ה-3D (${resp.status})`);
+      let updatedPayload = null;
+      try {
+        const resp = await fetch('/api/check_3d_models', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ project: pid, force: Boolean(forceReaudit) }),
+        });
+        if (resp.ok) {
+          const resData = await resp.json();
+          updatedPayload = resData.payload || null;
+        }
+      } catch (apiErr) {
+        console.warn('check_3d_models API not available, using static fallback:', apiErr);
       }
-      const resData = await resp.json();
-      const updatedPayload = resData.payload || currentProject;
+      if (!updatedPayload && pid) {
+        const staticResp = await fetch(`/api/${pid}.json?v=7.5&t=${Date.now()}`, { cache: 'no-store' });
+        if (staticResp.ok) {
+          updatedPayload = await staticResp.json();
+        }
+      }
+      updatedPayload = updatedPayload || currentProject;
       if (updatedPayload) {
         if (Array.isArray(updatedPayload.notes)) {
           updatedPayload.notes = updatedPayload.notes.filter(

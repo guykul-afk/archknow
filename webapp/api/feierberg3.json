@@ -146,7 +146,7 @@
       "path": "C:/Users/User/archknow/webapp/api/feierberg3.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 650.3
+      "size_kb": 652.4
     },
     {
       "name": "compact_bim.json",
@@ -8501,50 +8501,17 @@
       "project_id": "feierberg3",
       "base_model_hash": "b4e7288f5a19d31c04eb8dff2dda2aaa99afe24cf3f957ac5e35fdf6e4c07dfc",
       "base_model_hash_short": "b4e7288f5a19",
-      "previous_model_hash_short": "77b03f5225d7",
+      "previous_model_hash_short": "b4e7288f5a19",
       "tracked_files_count": 14,
       "total_base_size_bytes": 38613493,
       "last_modified_mtime": 1793342916.54,
       "last_modified_iso": "2026-10-30T08:48:36+02:00",
       "last_audit_iso": "2026-10-30T08:50:43+02:00",
       "audit_revision": 18,
-      "was_updated_and_reaudited": true,
-      "change_reason": "base_3d_model_modified",
-      "changed_files": [
-        {
-          "file": "feierberg3_3d_bim_viewer.html",
-          "change_type": "modified",
-          "old_sha256": "7b8d5e9ccbc2",
-          "new_sha256": "e40d7ca963b5",
-          "old_size_bytes": 2057,
-          "size_bytes": 6877415,
-          "mtime_iso": "2026-10-30T08:48:36+02:00"
-        },
-        {
-          "file": "feierberg3_3d_model.html",
-          "change_type": "modified",
-          "old_sha256": "62f3a9358b89",
-          "new_sha256": "e40d7ca963b5",
-          "old_size_bytes": 2037,
-          "size_bytes": 6877415,
-          "mtime_iso": "2026-10-30T08:48:36+02:00"
-        },
-        {
-          "file": "feierberg3_spatial_map.html",
-          "change_type": "modified",
-          "old_sha256": "33426f961b62",
-          "new_sha256": "3bcb721a6a38",
-          "old_size_bytes": 2049,
-          "size_bytes": 2282943,
-          "mtime_iso": "2026-10-30T08:48:36+02:00"
-        }
-      ],
-      "geometry_diff": {
-        "meshes_count": {
-          "before": 0,
-          "after": 172
-        }
-      },
+      "was_updated_and_reaudited": false,
+      "change_reason": "up_to_date",
+      "changed_files": [],
+      "geometry_diff": {},
       "consolidated_from_exec_folder": [],
       "extracted_3d_summary": {
         "levels_count": 8,
@@ -8569,10 +8536,10 @@
         "warn_count": 57,
         "fail_count": 0
       },
-      "status_message_he": "זוהה עדכון במודל ה-3D הבסיסי (3 קבצים עודכנו/נדגמו, חתימה #b4e7288f) — הורצה בדיקה תכנונית מלאה חדשה (סבב בקרה #18)."
+      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #b4e7288f · סבב בקרה #18)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-30T08:50:43+02:00",
+      "executed_at_iso": "2026-10-30T09:01:11+02:00",
       "total_checks_executed": 117,
       "pass_count": 60,
       "warn_count": 57,
@@ -8894,50 +8861,17 @@
     "project_id": "feierberg3",
     "base_model_hash": "b4e7288f5a19d31c04eb8dff2dda2aaa99afe24cf3f957ac5e35fdf6e4c07dfc",
     "base_model_hash_short": "b4e7288f5a19",
-    "previous_model_hash_short": "77b03f5225d7",
+    "previous_model_hash_short": "b4e7288f5a19",
     "tracked_files_count": 14,
     "total_base_size_bytes": 38613493,
     "last_modified_mtime": 1793342916.54,
     "last_modified_iso": "2026-10-30T08:48:36+02:00",
     "last_audit_iso": "2026-10-30T08:50:43+02:00",
     "audit_revision": 18,
-    "was_updated_and_reaudited": true,
-    "change_reason": "base_3d_model_modified",
-    "changed_files": [
-      {
-        "file": "feierberg3_3d_bim_viewer.html",
-        "change_type": "modified",
-        "old_sha256": "7b8d5e9ccbc2",
-        "new_sha256": "e40d7ca963b5",
-        "old_size_bytes": 2057,
-        "size_bytes": 6877415,
-        "mtime_iso": "2026-10-30T08:48:36+02:00"
-      },
-      {
-        "file": "feierberg3_3d_model.html",
-        "change_type": "modified",
-        "old_sha256": "62f3a9358b89",
-        "new_sha256": "e40d7ca963b5",
-        "old_size_bytes": 2037,
-        "size_bytes": 6877415,
-        "mtime_iso": "2026-10-30T08:48:36+02:00"
-      },
-      {
-        "file": "feierberg3_spatial_map.html",
-        "change_type": "modified",
-        "old_sha256": "33426f961b62",
-        "new_sha256": "3bcb721a6a38",
-        "old_size_bytes": 2049,
-        "size_bytes": 2282943,
-        "mtime_iso": "2026-10-30T08:48:36+02:00"
-      }
-    ],
-    "geometry_diff": {
-      "meshes_count": {
-        "before": 0,
-        "after": 172
-      }
-    },
+    "was_updated_and_reaudited": false,
+    "change_reason": "up_to_date",
+    "changed_files": [],
+    "geometry_diff": {},
     "consolidated_from_exec_folder": [],
     "extracted_3d_summary": {
       "levels_count": 8,
@@ -8962,10 +8896,10 @@
       "warn_count": 57,
       "fail_count": 0
     },
-    "status_message_he": "זוהה עדכון במודל ה-3D הבסיסי (3 קבצים עודכנו/נדגמו, חתימה #b4e7288f) — הורצה בדיקה תכנונית מלאה חדשה (סבב בקרה #18)."
+    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #b4e7288f · סבב בקרה #18)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-30T08:50:43+02:00",
+    "executed_at_iso": "2026-10-30T09:01:11+02:00",
     "total_checks_executed": 117,
     "pass_count": 60,
     "warn_count": 57,

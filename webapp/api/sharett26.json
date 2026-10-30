@@ -8135,7 +8135,7 @@
       "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #a1189fd3 · סבב בקרה #4)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-30T08:50:44+02:00",
+      "executed_at_iso": "2026-10-30T09:01:12+02:00",
       "total_checks_executed": 117,
       "pass_count": 61,
       "warn_count": 56,
@@ -8502,7 +8502,7 @@
     "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #a1189fd3 · סבב בקרה #4)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-30T08:50:44+02:00",
+    "executed_at_iso": "2026-10-30T09:01:12+02:00",
     "total_checks_executed": 117,
     "pass_count": 61,
     "warn_count": 56,

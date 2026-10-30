@@ -69,7 +69,7 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
       "path": "C:/Users/User/archknow/webapp/api/hafetz44.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 685.2
+      "size_kb": 682.6
     },
     {
       "name": "compact_bim.json",
@@ -8350,18 +8350,28 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
     "summary_md_url": "/reports/hafetz44_summary_and_areas_report.md",
     "model_3d_sync_status": {
       "project_id": "hafetz44",
-      "base_model_hash": "eb9a43e78c82837ca305d821b2f1a92b87a49220d423549ceabfaabe9de84340",
-      "base_model_hash_short": "eb9a43e78c82",
+      "base_model_hash": "aac93766edc1e0c5f1bd5bf53c9abb87feb391cc5d1a474b9e0a701928438d9f",
+      "base_model_hash_short": "aac93766edc1",
       "previous_model_hash_short": "eb9a43e78c82",
       "tracked_files_count": 19,
-      "total_base_size_bytes": 54303276,
-      "last_modified_mtime": 1793342997.85,
-      "last_modified_iso": "2026-10-30T08:49:57+02:00",
-      "last_audit_iso": "2026-10-30T08:49:57+02:00",
-      "audit_revision": 36,
-      "was_updated_and_reaudited": false,
-      "change_reason": "up_to_date",
-      "changed_files": [],
+      "total_base_size_bytes": 54303294,
+      "last_modified_mtime": 1793343049.96,
+      "last_modified_iso": "2026-10-30T08:50:49+02:00",
+      "last_audit_iso": "2026-10-30T09:01:09+02:00",
+      "audit_revision": 37,
+      "was_updated_and_reaudited": true,
+      "change_reason": "base_3d_model_modified",
+      "changed_files": [
+        {
+          "file": "hafetz44_audit_preload.js",
+          "change_type": "modified",
+          "old_sha256": "30a837bdff10",
+          "new_sha256": "569372d653fe",
+          "old_size_bytes": 699028,
+          "size_bytes": 699046,
+          "mtime_iso": "2026-10-30T08:50:49+02:00"
+        }
+      ],
       "geometry_diff": {},
       "consolidated_from_exec_folder": [],
       "extracted_3d_summary": {
@@ -8389,10 +8399,10 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
         "warn_count": 152,
         "fail_count": 5
       },
-      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #eb9a43e7 · סבב בקרה #36)."
+      "status_message_he": "זוהה עדכון במודל ה-3D הבסיסי (1 קבצים עודכנו/נדגמו, חתימה #aac93766) — הורצה בדיקה תכנונית מלאה חדשה (סבב בקרה #37)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-30T08:50:41+02:00",
+      "executed_at_iso": "2026-10-30T09:01:09+02:00",
       "total_checks_executed": 309,
       "pass_count": 152,
       "warn_count": 152,
@@ -8742,18 +8752,28 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
   },
   "model_3d_sync_status": {
     "project_id": "hafetz44",
-    "base_model_hash": "eb9a43e78c82837ca305d821b2f1a92b87a49220d423549ceabfaabe9de84340",
-    "base_model_hash_short": "eb9a43e78c82",
+    "base_model_hash": "aac93766edc1e0c5f1bd5bf53c9abb87feb391cc5d1a474b9e0a701928438d9f",
+    "base_model_hash_short": "aac93766edc1",
     "previous_model_hash_short": "eb9a43e78c82",
     "tracked_files_count": 19,
-    "total_base_size_bytes": 54303276,
-    "last_modified_mtime": 1793342997.85,
-    "last_modified_iso": "2026-10-30T08:49:57+02:00",
-    "last_audit_iso": "2026-10-30T08:49:57+02:00",
-    "audit_revision": 36,
-    "was_updated_and_reaudited": false,
-    "change_reason": "up_to_date",
-    "changed_files": [],
+    "total_base_size_bytes": 54303294,
+    "last_modified_mtime": 1793343049.96,
+    "last_modified_iso": "2026-10-30T08:50:49+02:00",
+    "last_audit_iso": "2026-10-30T09:01:09+02:00",
+    "audit_revision": 37,
+    "was_updated_and_reaudited": true,
+    "change_reason": "base_3d_model_modified",
+    "changed_files": [
+      {
+        "file": "hafetz44_audit_preload.js",
+        "change_type": "modified",
+        "old_sha256": "30a837bdff10",
+        "new_sha256": "569372d653fe",
+        "old_size_bytes": 699028,
+        "size_bytes": 699046,
+        "mtime_iso": "2026-10-30T08:50:49+02:00"
+      }
+    ],
     "geometry_diff": {},
     "consolidated_from_exec_folder": [],
     "extracted_3d_summary": {
@@ -8781,10 +8801,10 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
       "warn_count": 152,
       "fail_count": 5
     },
-    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #eb9a43e7 · סבב בקרה #36)."
+    "status_message_he": "זוהה עדכון במודל ה-3D הבסיסי (1 קבצים עודכנו/נדגמו, חתימה #aac93766) — הורצה בדיקה תכנונית מלאה חדשה (סבב בקרה #37)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-30T08:50:41+02:00",
+    "executed_at_iso": "2026-10-30T09:01:09+02:00",
     "total_checks_executed": 309,
     "pass_count": 152,
     "warn_count": 152,

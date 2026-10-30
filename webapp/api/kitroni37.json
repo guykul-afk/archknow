@@ -75,7 +75,7 @@
       "path": "C:/Users/User/archknow/webapp/api/kitroni37.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 529.9
+      "size_kb": 531.4
     },
     {
       "name": "ele_Kitroni_37-39_498-Koma_1_5-7 (9) (1).pdf",
@@ -7415,35 +7415,16 @@
       "project_id": "kitroni37",
       "base_model_hash": "7444a0a863efd29f7d09bf70a26ec4270236dd7ee48a2c8a89dea04203eac98a",
       "base_model_hash_short": "7444a0a863ef",
-      "previous_model_hash_short": "a3e9a4cd1623",
+      "previous_model_hash_short": "7444a0a863ef",
       "tracked_files_count": 6,
       "total_base_size_bytes": 14775653,
       "last_modified_mtime": 1793342916.38,
       "last_modified_iso": "2026-10-30T08:48:36+02:00",
       "last_audit_iso": "2026-10-30T08:50:43+02:00",
       "audit_revision": 13,
-      "was_updated_and_reaudited": true,
-      "change_reason": "base_3d_model_modified",
-      "changed_files": [
-        {
-          "file": "kitroni37_39_3d_model.html",
-          "change_type": "modified",
-          "old_sha256": "93238f479db4",
-          "new_sha256": "6e706189d24f",
-          "old_size_bytes": 2127,
-          "size_bytes": 5381503,
-          "mtime_iso": "2026-10-30T08:48:36+02:00"
-        },
-        {
-          "file": "kitroni37_39_spatial_map.html",
-          "change_type": "modified",
-          "old_sha256": "9db50d24d011",
-          "new_sha256": "2d385e20bc0f",
-          "old_size_bytes": 2139,
-          "size_bytes": 2362835,
-          "mtime_iso": "2026-10-30T08:48:36+02:00"
-        }
-      ],
+      "was_updated_and_reaudited": false,
+      "change_reason": "up_to_date",
+      "changed_files": [],
       "geometry_diff": {
         "levels_count": {
           "before": 9,
@@ -7452,10 +7433,6 @@
         "building_height_m": {
           "before": 31.5,
           "after": 0.0
-        },
-        "meshes_count": {
-          "before": 0,
-          "after": 186
         }
       },
       "consolidated_from_exec_folder": [],
@@ -7479,10 +7456,10 @@
         "warn_count": 57,
         "fail_count": 0
       },
-      "status_message_he": "זוהה עדכון במודל ה-3D הבסיסי (2 קבצים עודכנו/נדגמו, חתימה #7444a0a8) — הורצה בדיקה תכנונית מלאה חדשה (סבב בקרה #13)."
+      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #7444a0a8 · סבב בקרה #13)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-30T08:50:43+02:00",
+      "executed_at_iso": "2026-10-30T09:01:11+02:00",
       "total_checks_executed": 117,
       "pass_count": 60,
       "warn_count": 57,
@@ -7801,35 +7778,16 @@
     "project_id": "kitroni37",
     "base_model_hash": "7444a0a863efd29f7d09bf70a26ec4270236dd7ee48a2c8a89dea04203eac98a",
     "base_model_hash_short": "7444a0a863ef",
-    "previous_model_hash_short": "a3e9a4cd1623",
+    "previous_model_hash_short": "7444a0a863ef",
     "tracked_files_count": 6,
     "total_base_size_bytes": 14775653,
     "last_modified_mtime": 1793342916.38,
     "last_modified_iso": "2026-10-30T08:48:36+02:00",
     "last_audit_iso": "2026-10-30T08:50:43+02:00",
     "audit_revision": 13,
-    "was_updated_and_reaudited": true,
-    "change_reason": "base_3d_model_modified",
-    "changed_files": [
-      {
-        "file": "kitroni37_39_3d_model.html",
-        "change_type": "modified",
-        "old_sha256": "93238f479db4",
-        "new_sha256": "6e706189d24f",
-        "old_size_bytes": 2127,
-        "size_bytes": 5381503,
-        "mtime_iso": "2026-10-30T08:48:36+02:00"
-      },
-      {
-        "file": "kitroni37_39_spatial_map.html",
-        "change_type": "modified",
-        "old_sha256": "9db50d24d011",
-        "new_sha256": "2d385e20bc0f",
-        "old_size_bytes": 2139,
-        "size_bytes": 2362835,
-        "mtime_iso": "2026-10-30T08:48:36+02:00"
-      }
-    ],
+    "was_updated_and_reaudited": false,
+    "change_reason": "up_to_date",
+    "changed_files": [],
     "geometry_diff": {
       "levels_count": {
         "before": 9,
@@ -7838,10 +7796,6 @@
       "building_height_m": {
         "before": 31.5,
         "after": 0.0
-      },
-      "meshes_count": {
-        "before": 0,
-        "after": 186
       }
     },
     "consolidated_from_exec_folder": [],
@@ -7865,10 +7819,10 @@
       "warn_count": 57,
       "fail_count": 0
     },
-    "status_message_he": "זוהה עדכון במודל ה-3D הבסיסי (2 קבצים עודכנו/נדגמו, חתימה #7444a0a8) — הורצה בדיקה תכנונית מלאה חדשה (סבב בקרה #13)."
+    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #7444a0a8 · סבב בקרה #13)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-30T08:50:43+02:00",
+    "executed_at_iso": "2026-10-30T09:01:11+02:00",
     "total_checks_executed": 117,
     "pass_count": 60,
     "warn_count": 57,
