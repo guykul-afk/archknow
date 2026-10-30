@@ -103,7 +103,7 @@
       "path": "C:/Users/User/archknow/webapp/api/yatkovski7.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 518.5
+      "size_kb": 518.6
     },
     {
       "name": "compact_bim.json",
@@ -117,21 +117,21 @@
       "path": "C:/Users/User/archknow/webapp/models/yatkovski7/index.html",
       "folder": "C:/Users/User/archknow/webapp/models/yatkovski7",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6643.7
     },
     {
       "name": "yatkovski7_3d_bim_viewer.html",
       "path": "C:/Users/User/archknow/webapp/models/yatkovski7/yatkovski7_3d_bim_viewer.html",
       "folder": "C:/Users/User/archknow/webapp/models/yatkovski7",
       "ext": "HTML",
-      "size_kb": 2.3
+      "size_kb": 6643.7
     },
     {
       "name": "yatkovski7_3d_model.html",
       "path": "C:/Users/User/archknow/webapp/models/yatkovski7/yatkovski7_3d_model.html",
       "folder": "C:/Users/User/archknow/webapp/models/yatkovski7",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6643.7
     },
     {
       "name": "yatkovski7_architectural_quality_analysis.html",
@@ -173,7 +173,7 @@
       "path": "C:/Users/User/archknow/webapp/models/yatkovski7/yatkovski7_spatial_map.html",
       "folder": "C:/Users/User/archknow/webapp/models/yatkovski7",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 2178.8
     },
     {
       "name": "טבלת_דירות_יטקובסקי_7.html",
@@ -285,7 +285,7 @@
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/יטקובסקי 7 פתח תקווה/yatkovski7_spatial_map.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/יטקובסקי 7 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 2178.8
     },
     {
       "name": "yatkovski7_architectural_quality_analysis.html",
@@ -327,14 +327,14 @@
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/יטקובסקי 7 פתח תקווה/yatkovski7_3d_bim_viewer.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/יטקובסקי 7 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6643.7
     },
     {
       "name": "index.html",
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/יטקובסקי 7 פתח תקווה/index.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/יטקובסקי 7 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6643.7
     },
     {
       "name": "yatkovski7_model.obj",
@@ -348,7 +348,7 @@
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/יטקובסקי 7 פתח תקווה/yatkovski7_3d_model.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/יטקובסקי 7 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6643.7
     },
     {
       "name": "טבלת_דירות_יטקובסקי_7.html",
@@ -7350,19 +7350,52 @@
     "summary_md_url": "/reports/yatkovski7_summary_and_areas_report.md",
     "model_3d_sync_status": {
       "project_id": "yatkovski7",
-      "base_model_hash": "b27e6b5d282d2aee07465e7d80e9a51ea93366c00525bfbb44840078b370a570",
-      "base_model_hash_short": "b27e6b5d282d",
+      "base_model_hash": "c4ece2b822c0dc7d43e47d03521f479bf6439fed860e8b47f6a3ad729d550ac8",
+      "base_model_hash_short": "c4ece2b822c0",
       "previous_model_hash_short": "b27e6b5d282d",
       "tracked_files_count": 13,
-      "total_base_size_bytes": 11062199,
-      "last_modified_mtime": 1793290621.34,
-      "last_modified_iso": "2026-10-29T18:17:01+02:00",
-      "last_audit_iso": "2026-10-29T18:17:01+02:00",
-      "audit_revision": 14,
-      "was_updated_and_reaudited": false,
-      "change_reason": "up_to_date",
-      "changed_files": [],
-      "geometry_diff": {},
+      "total_base_size_bytes": 26892539,
+      "last_modified_mtime": 1793342999.92,
+      "last_modified_iso": "2026-10-30T08:49:59+02:00",
+      "last_audit_iso": "2026-10-30T08:50:42+02:00",
+      "audit_revision": 15,
+      "was_updated_and_reaudited": true,
+      "change_reason": "base_3d_model_modified",
+      "changed_files": [
+        {
+          "file": "yatkovski7_3d_bim_viewer.html",
+          "change_type": "modified",
+          "old_sha256": "00c127e8217f",
+          "new_sha256": "11de303560c9",
+          "old_size_bytes": 2111,
+          "size_bytes": 6802897,
+          "mtime_iso": "2026-10-30T08:49:59+02:00"
+        },
+        {
+          "file": "yatkovski7_3d_model.html",
+          "change_type": "modified",
+          "old_sha256": "27499b1adabf",
+          "new_sha256": "11de303560c9",
+          "old_size_bytes": 2091,
+          "size_bytes": 6802897,
+          "mtime_iso": "2026-10-30T08:49:59+02:00"
+        },
+        {
+          "file": "yatkovski7_spatial_map.html",
+          "change_type": "modified",
+          "old_sha256": "56cdd8260401",
+          "new_sha256": "c17f35631de9",
+          "old_size_bytes": 2103,
+          "size_bytes": 2230851,
+          "mtime_iso": "2026-10-30T08:49:59+02:00"
+        }
+      ],
+      "geometry_diff": {
+        "meshes_count": {
+          "before": 0,
+          "after": 192
+        }
+      },
       "consolidated_from_exec_folder": [],
       "extracted_3d_summary": {
         "levels_count": 9,
@@ -7371,7 +7404,7 @@
         "spaces_count": 23,
         "units_count": 11,
         "walls_count": 73,
-        "meshes_count": 0,
+        "meshes_count": 192,
         "glb_size_bytes": 890416,
         "obj_size_bytes": 2410194,
         "source_formats": [
@@ -7387,10 +7420,10 @@
         "warn_count": 91,
         "fail_count": 0
       },
-      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #b27e6b5d · סבב בקרה #14)."
+      "status_message_he": "זוהה עדכון במודל ה-3D הבסיסי (3 קבצים עודכנו/נדגמו, חתימה #c4ece2b8) — הורצה בדיקה תכנונית מלאה חדשה (סבב בקרה #15)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-30T08:00:05+02:00",
+      "executed_at_iso": "2026-10-30T08:50:42+02:00",
       "total_checks_executed": 180,
       "pass_count": 89,
       "warn_count": 91,
@@ -7402,7 +7435,7 @@
         "spaces_count": 23,
         "units_count": 11,
         "walls_count": 73,
-        "meshes_count": 0,
+        "meshes_count": 192,
         "glb_size_bytes": 890416,
         "obj_size_bytes": 2410194,
         "source_formats": [
@@ -7424,7 +7457,7 @@
         {
           "check_id": "BIM_3D_CORE_MAMAD_CONTINUITY",
           "title": "רציפות אנכית 3D של גרעין המיגון (מגדל ממ״דים ≥ 70%) ופיר מדרגות/מעליות",
-          "measured_3d": "73 קירות נושאים ו-120 אלמנטי שלד במודל 3D",
+          "measured_3d": "73 קירות נושאים ו-192 אלמנטי שלד במודל 3D",
           "benchmark_plan": "רציפות קירות ממ״ד ≥ 70% עד היסודות (תקנות פיקוד העורף) ורציפות פיר חדר מדרגות ממוגן",
           "status": "PASS",
           "message": "וקטורי העברת העומסים האנכיים של מגדל הממ״דים וגרעין המעליות במודל ה-3D רציפים מקומת הגג ועד קומות המרתף."
@@ -7731,19 +7764,52 @@
   },
   "model_3d_sync_status": {
     "project_id": "yatkovski7",
-    "base_model_hash": "b27e6b5d282d2aee07465e7d80e9a51ea93366c00525bfbb44840078b370a570",
-    "base_model_hash_short": "b27e6b5d282d",
+    "base_model_hash": "c4ece2b822c0dc7d43e47d03521f479bf6439fed860e8b47f6a3ad729d550ac8",
+    "base_model_hash_short": "c4ece2b822c0",
     "previous_model_hash_short": "b27e6b5d282d",
     "tracked_files_count": 13,
-    "total_base_size_bytes": 11062199,
-    "last_modified_mtime": 1793290621.34,
-    "last_modified_iso": "2026-10-29T18:17:01+02:00",
-    "last_audit_iso": "2026-10-29T18:17:01+02:00",
-    "audit_revision": 14,
-    "was_updated_and_reaudited": false,
-    "change_reason": "up_to_date",
-    "changed_files": [],
-    "geometry_diff": {},
+    "total_base_size_bytes": 26892539,
+    "last_modified_mtime": 1793342999.92,
+    "last_modified_iso": "2026-10-30T08:49:59+02:00",
+    "last_audit_iso": "2026-10-30T08:50:42+02:00",
+    "audit_revision": 15,
+    "was_updated_and_reaudited": true,
+    "change_reason": "base_3d_model_modified",
+    "changed_files": [
+      {
+        "file": "yatkovski7_3d_bim_viewer.html",
+        "change_type": "modified",
+        "old_sha256": "00c127e8217f",
+        "new_sha256": "11de303560c9",
+        "old_size_bytes": 2111,
+        "size_bytes": 6802897,
+        "mtime_iso": "2026-10-30T08:49:59+02:00"
+      },
+      {
+        "file": "yatkovski7_3d_model.html",
+        "change_type": "modified",
+        "old_sha256": "27499b1adabf",
+        "new_sha256": "11de303560c9",
+        "old_size_bytes": 2091,
+        "size_bytes": 6802897,
+        "mtime_iso": "2026-10-30T08:49:59+02:00"
+      },
+      {
+        "file": "yatkovski7_spatial_map.html",
+        "change_type": "modified",
+        "old_sha256": "56cdd8260401",
+        "new_sha256": "c17f35631de9",
+        "old_size_bytes": 2103,
+        "size_bytes": 2230851,
+        "mtime_iso": "2026-10-30T08:49:59+02:00"
+      }
+    ],
+    "geometry_diff": {
+      "meshes_count": {
+        "before": 0,
+        "after": 192
+      }
+    },
     "consolidated_from_exec_folder": [],
     "extracted_3d_summary": {
       "levels_count": 9,
@@ -7752,7 +7818,7 @@
       "spaces_count": 23,
       "units_count": 11,
       "walls_count": 73,
-      "meshes_count": 0,
+      "meshes_count": 192,
       "glb_size_bytes": 890416,
       "obj_size_bytes": 2410194,
       "source_formats": [
@@ -7768,10 +7834,10 @@
       "warn_count": 91,
       "fail_count": 0
     },
-    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #b27e6b5d · סבב בקרה #14)."
+    "status_message_he": "זוהה עדכון במודל ה-3D הבסיסי (3 קבצים עודכנו/נדגמו, חתימה #c4ece2b8) — הורצה בדיקה תכנונית מלאה חדשה (סבב בקרה #15)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-30T08:00:05+02:00",
+    "executed_at_iso": "2026-10-30T08:50:42+02:00",
     "total_checks_executed": 180,
     "pass_count": 89,
     "warn_count": 91,
@@ -7783,7 +7849,7 @@
       "spaces_count": 23,
       "units_count": 11,
       "walls_count": 73,
-      "meshes_count": 0,
+      "meshes_count": 192,
       "glb_size_bytes": 890416,
       "obj_size_bytes": 2410194,
       "source_formats": [
@@ -7805,7 +7871,7 @@
       {
         "check_id": "BIM_3D_CORE_MAMAD_CONTINUITY",
         "title": "רציפות אנכית 3D של גרעין המיגון (מגדל ממ״דים ≥ 70%) ופיר מדרגות/מעליות",
-        "measured_3d": "73 קירות נושאים ו-120 אלמנטי שלד במודל 3D",
+        "measured_3d": "73 קירות נושאים ו-192 אלמנטי שלד במודל 3D",
         "benchmark_plan": "רציפות קירות ממ״ד ≥ 70% עד היסודות (תקנות פיקוד העורף) ורציפות פיר חדר מדרגות ממוגן",
         "status": "PASS",
         "message": "וקטורי העברת העומסים האנכיים של מגדל הממ״דים וגרעין המעליות במודל ה-3D רציפים מקומת הגג ועד קומות המרתף."

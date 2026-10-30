@@ -35,7 +35,7 @@ project_queries = {
     'sharett26': 'משה שרת 26–28',
 }
 for pid, q in project_queries.items():
-    data = analyze_project_by_query(q)
+    data = analyze_project_by_query(q, rebuild_artifacts=False)
     out_p = f'webapp/api/{pid}.json'
     with open(out_p, 'w', encoding='utf-8', newline='\n') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
@@ -88,10 +88,28 @@ for cfg in PROJECTS_CONFIG:
         with open(src_html, 'r', encoding='utf-8', errors='replace') as fh:
             html_content = fh.read()
 
-        # Guard against overwriting rich 3D BIM models with redirect stubs
+        # Guard against overwriting rich 3D BIM models with redirect stubs (and reverse-heal central folder if needed)
         if 'ZERO-COPY-CENTRAL-MODEL-REDIRECT' in html_content or len(html_content) < 5000:
-            if os.path.isfile(dst_html) and os.path.getsize(dst_html) > 50000:
-                print(f'Preserving full 3D viewer (source is redirect stub): {dst_html}')
+            if os.path.isfile(dst_html) and os.path.getsize(dst_html) > 20000:
+                print(f'Preserving full 3D viewer and reverse-healing central folder: {dst_html} -> {src_html}')
+                with open(dst_html, 'r', encoding='utf-8', errors='replace') as dfh:
+                    html_content = dfh.read()
+                while '<!-- ARCHICHECK_3D_OVERLAY_START -->' in html_content and '<!-- ARCHICHECK_3D_OVERLAY_END -->' in html_content:
+                    s_idx = html_content.index('<!-- ARCHICHECK_3D_OVERLAY_START -->')
+                    e_idx = html_content.index('<!-- ARCHICHECK_3D_OVERLAY_END -->') + len('<!-- ARCHICHECK_3D_OVERLAY_END -->')
+                    html_content = html_content[:s_idx] + html_content[e_idx:]
+                last_body_idx = html_content.rfind('</body>')
+                if last_body_idx != -1:
+                    html_content = html_content[:last_body_idx] + overlay_block + html_content[last_body_idx:]
+                else:
+                    html_content += overlay_block
+                with open(dst_html, 'w', encoding='utf-8', newline='\n') as fh:
+                    fh.write(html_content)
+                try:
+                    with open(src_html, 'w', encoding='utf-8', newline='\n') as sfh:
+                        sfh.write(html_content)
+                except Exception:
+                    pass
                 continue
 
         while '<!-- ARCHICHECK_3D_OVERLAY_START -->' in html_content and '<!-- ARCHICHECK_3D_OVERLAY_END -->' in html_content:

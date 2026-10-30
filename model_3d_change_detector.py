@@ -65,7 +65,7 @@ def inject_3d_overlay(html_path, project_id):
         snippet = (
             f"\n{OVERLAY_MARKER_START}\n"
             f'<script>window.__ARCHICHECK_PROJECT_ID__ = "{project_id}";</script>\n'
-            f'<script src="/audit_3d_overlay.js?v=6.6"></script>\n'
+            f'<script src="/audit_3d_overlay.js?v=7.0"></script>\n'
             f"{OVERLAY_MARKER_END}\n"
         )
         pos = html_content.rfind("</body>")
@@ -189,9 +189,14 @@ def consolidate_newer_source_files_for_project(project_id):
                 src_mtime = os.path.getmtime(src_item)
                 dst_mtime = os.path.getmtime(dst_item) if os.path.exists(dst_item) else 0
                 if not os.path.exists(dst_item) or (src_mtime > dst_mtime + 2.0):
-                    # Verify content actually differs (ignoring overlay)
+                    # Verify content is not a redirect stub and actually differs (ignoring overlay)
+                    if low.endswith(".html") and os.path.getsize(src_item) < 5000:
+                        continue
                     with open(src_item, "rb") as f:
-                        src_clean = strip_runtime_overlay_bytes(f.read(), item)
+                        src_raw = f.read()
+                    if b"ZERO-COPY-CENTRAL-MODEL-REDIRECT" in src_raw[:4096]:
+                        continue
+                    src_clean = strip_runtime_overlay_bytes(src_raw, item)
                     dst_clean = b""
                     if os.path.exists(dst_item):
                         with open(dst_item, "rb") as f:
@@ -754,11 +759,16 @@ def load_audit_state():
 
 def save_audit_state(state_data):
     """Persists `.model_3d_audit_state.json` to disk with UTF-8 LF encoding."""
-    try:
-        with open(STATE_FILE_PATH, "w", encoding="utf-8", newline="\n") as f:
-            json.dump(state_data, f, ensure_ascii=False, indent=2)
-    except Exception as e:
-        print(f"[3D-CHANGE-DETECTOR] Warning: could not save audit state: {e}")
+    for attempt in range(3):
+        try:
+            with open(STATE_FILE_PATH, "w", encoding="utf-8", newline="\n") as f:
+                json.dump(state_data, f, ensure_ascii=False, indent=2)
+            return
+        except Exception as e:
+            if attempt < 2:
+                time.sleep(0.25)
+            else:
+                print(f"[3D-CHANGE-DETECTOR] Warning: could not save audit state: {e}")
 
 
 def diff_3d_model_fingerprints(prev_entry, curr_fp):
@@ -1043,20 +1053,38 @@ def sync_single_project_3d_model(project_id):
     primary_viewer = cfg["primary_viewer"]
 
     for item in os.listdir(central_dir):
+        if item.startswith(".") or item.lower().endswith((".dwg", ".dxf", ".pdf")):
+            continue
         src_item = os.path.join(central_dir, item)
         dst_item = os.path.join(webapp_dir, item)
-        if os.path.isdir(src_item):
-            if os.path.exists(dst_item):
-                shutil.rmtree(dst_item)
-            shutil.copytree(src_item, dst_item)
-        else:
-            shutil.copy2(src_item, dst_item)
-            if item.lower().endswith(".html") and "audit" not in item.lower() and "quality_analysis" not in item.lower():
-                inject_3d_overlay(dst_item, project_id)
-                inject_3d_overlay(src_item, project_id)
+        try:
+            if os.path.isdir(src_item):
+                if os.path.exists(dst_item):
+                    shutil.rmtree(dst_item, ignore_errors=True)
+                shutil.copytree(src_item, dst_item, dirs_exist_ok=True)
+            else:
+                if item.lower().endswith(".html"):
+                    try:
+                        with open(src_item, "r", encoding="utf-8", errors="ignore") as f:
+                            src_head = f.read(4096)
+                        if "ZERO-COPY-CENTRAL-MODEL-REDIRECT" in src_head or os.path.getsize(src_item) < 5000:
+                            if os.path.isfile(dst_item) and os.path.getsize(dst_item) > 50000:
+                                # Reverse-heal central_dir from intact webapp_dir viewer!
+                                shutil.copy2(dst_item, src_item)
+                                inject_3d_overlay(dst_item, project_id)
+                                inject_3d_overlay(src_item, project_id)
+                            continue
+                    except OSError:
+                        pass
+                shutil.copy2(src_item, dst_item)
+                if item.lower().endswith(".html") and "audit" not in item.lower() and "quality_analysis" not in item.lower():
+                    inject_3d_overlay(dst_item, project_id)
+                    inject_3d_overlay(src_item, project_id)
+        except Exception:
+            pass
 
     primary_webapp_path = os.path.join(webapp_dir, primary_viewer)
-    if os.path.exists(primary_webapp_path):
+    if os.path.exists(primary_webapp_path) and os.path.getsize(primary_webapp_path) > 10000:
         shutil.copy2(primary_webapp_path, os.path.join(webapp_dir, "index.html"))
         shutil.copy2(primary_webapp_path, os.path.join(central_dir, "index.html"))
     return True
@@ -1252,8 +1280,9 @@ def enrich_payload_with_3d_change_and_audit(payload, force_reaudit=False, rebuil
     if has_changed and pid not in _ACTIVE_REAUDIT_LOCKS:
         _ACTIVE_REAUDIT_LOCKS.add(pid)
         try:
-            # 1. Sync base 3D model files and inject runtime overlay
-            sync_single_project_3d_model(pid)
+            # 1. Sync base 3D model files and inject runtime overlay (only when rebuild_artifacts=True)
+            if rebuild_artifacts:
+                sync_single_project_3d_model(pid)
 
             # 2. Record updated state in `.model_3d_audit_state.json`
             history = list(prev_entry.get("audit_history", [])) if prev_entry else []

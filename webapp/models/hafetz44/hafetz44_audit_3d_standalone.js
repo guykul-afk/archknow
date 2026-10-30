@@ -41,7 +41,7 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
       "path": "C:/Users/User/archknow/reports/hafetz44_architectural_quality_analysis.html",
       "folder": "C:/Users/User/archknow/reports",
       "ext": "HTML",
-      "size_kb": 108.5
+      "size_kb": 107.1
     },
     {
       "name": "hafetz44_architectural_quality_analysis.pdf",
@@ -55,7 +55,7 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
       "path": "C:/Users/User/archknow/reports/hafetz44_summary_and_areas_report.html",
       "folder": "C:/Users/User/archknow/reports",
       "ext": "HTML",
-      "size_kb": 120.6
+      "size_kb": 119.5
     },
     {
       "name": "hafetz44_summary_and_areas_report.pdf",
@@ -69,7 +69,7 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
       "path": "C:/Users/User/archknow/webapp/api/hafetz44.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 683.3
+      "size_kb": 685.2
     },
     {
       "name": "compact_bim.json",
@@ -90,14 +90,14 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
       "path": "C:/Users/User/archknow/webapp/models/hafetz44/hafetz44_3d_bim_viewer.html",
       "folder": "C:/Users/User/archknow/webapp/models/hafetz44",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6378.0
     },
     {
       "name": "hafetz44_3d_model.html",
       "path": "C:/Users/User/archknow/webapp/models/hafetz44/hafetz44_3d_model.html",
       "folder": "C:/Users/User/archknow/webapp/models/hafetz44",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6378.0
     },
     {
       "name": "hafetz44_architectural_quality_analysis.html",
@@ -146,7 +146,7 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
       "path": "C:/Users/User/archknow/webapp/models/hafetz44/hafetz44_spatial_map.html",
       "folder": "C:/Users/User/archknow/webapp/models/hafetz44",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 22.6
     },
     {
       "name": "hafetz44_units_crm.json",
@@ -160,7 +160,7 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
       "path": "C:/Users/User/archknow/webapp/models/hafetz44/index.html",
       "folder": "C:/Users/User/archknow/webapp/models/hafetz44",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6378.0
     },
     {
       "name": "חפץ 44- ג9 -חלק 1 (1).pdf",
@@ -251,7 +251,7 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
       "path": "C:/Users/User/archknow/webapp/reports/hafetz44_architectural_quality_analysis.html",
       "folder": "C:/Users/User/archknow/webapp/reports",
       "ext": "HTML",
-      "size_kb": 108.5
+      "size_kb": 107.1
     },
     {
       "name": "hafetz44_architectural_quality_analysis.pdf",
@@ -265,7 +265,7 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
       "path": "C:/Users/User/archknow/webapp/reports/hafetz44_summary_and_areas_report.html",
       "folder": "C:/Users/User/archknow/webapp/reports",
       "ext": "HTML",
-      "size_kb": 120.6
+      "size_kb": 119.5
     },
     {
       "name": "hafetz44_summary_and_areas_report.pdf",
@@ -335,7 +335,7 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/חפץ חיים 44 פתח תקווה/hafetz44_spatial_map.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/חפץ חיים 44 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 22.6
     },
     {
       "name": "hafetz44_architectural_quality_analysis.html",
@@ -377,21 +377,21 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/חפץ חיים 44 פתח תקווה/hafetz44_3d_bim_viewer.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/חפץ חיים 44 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6378.0
     },
     {
       "name": "hafetz44_3d_model.html",
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/חפץ חיים 44 פתח תקווה/hafetz44_3d_model.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/חפץ חיים 44 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6378.0
     },
     {
       "name": "index.html",
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/חפץ חיים 44 פתח תקווה/index.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/חפץ חיים 44 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6378.0
     },
     {
       "name": "hafetz44_extracted_plans.json",
@@ -8350,15 +8350,15 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
     "summary_md_url": "/reports/hafetz44_summary_and_areas_report.md",
     "model_3d_sync_status": {
       "project_id": "hafetz44",
-      "base_model_hash": "9666d89e5a077b8e10da90d068544a449e3c637d8c54f86c07322614682bbd67",
-      "base_model_hash_short": "9666d89e5a07",
-      "previous_model_hash_short": "9666d89e5a07",
+      "base_model_hash": "eb9a43e78c82837ca305d821b2f1a92b87a49220d423549ceabfaabe9de84340",
+      "base_model_hash_short": "eb9a43e78c82",
+      "previous_model_hash_short": "eb9a43e78c82",
       "tracked_files_count": 19,
-      "total_base_size_bytes": 41225583,
-      "last_modified_mtime": 1793294618.53,
-      "last_modified_iso": "2026-10-29T19:23:38+02:00",
-      "last_audit_iso": "2026-10-29T19:23:38+02:00",
-      "audit_revision": 34,
+      "total_base_size_bytes": 54303276,
+      "last_modified_mtime": 1793342997.85,
+      "last_modified_iso": "2026-10-30T08:49:57+02:00",
+      "last_audit_iso": "2026-10-30T08:49:57+02:00",
+      "audit_revision": 36,
       "was_updated_and_reaudited": false,
       "change_reason": "up_to_date",
       "changed_files": [],
@@ -8371,7 +8371,7 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
         "spaces_count": 53,
         "units_count": 17,
         "walls_count": 169,
-        "meshes_count": 0,
+        "meshes_count": 314,
         "glb_size_bytes": 1558200,
         "obj_size_bytes": 4295074,
         "source_formats": [
@@ -8389,10 +8389,10 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
         "warn_count": 152,
         "fail_count": 5
       },
-      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #9666d89e · סבב בקרה #34)."
+      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #eb9a43e7 · סבב בקרה #36)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-30T08:00:04+02:00",
+      "executed_at_iso": "2026-10-30T08:50:41+02:00",
       "total_checks_executed": 309,
       "pass_count": 152,
       "warn_count": 152,
@@ -8404,7 +8404,7 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
         "spaces_count": 53,
         "units_count": 17,
         "walls_count": 169,
-        "meshes_count": 0,
+        "meshes_count": 314,
         "glb_size_bytes": 1558200,
         "obj_size_bytes": 4295074,
         "source_formats": [
@@ -8428,7 +8428,7 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
         {
           "check_id": "BIM_3D_CORE_MAMAD_CONTINUITY",
           "title": "רציפות אנכית 3D של גרעין המיגון (מגדל ממ״דים ≥ 70%) ופיר מדרגות/מעליות",
-          "measured_3d": "169 קירות נושאים ו-120 אלמנטי שלד במודל 3D",
+          "measured_3d": "169 קירות נושאים ו-314 אלמנטי שלד במודל 3D",
           "benchmark_plan": "רציפות קירות ממ״ד ≥ 70% עד היסודות (תקנות פיקוד העורף) ורציפות פיר חדר מדרגות ממוגן",
           "status": "PASS",
           "message": "וקטורי העברת העומסים האנכיים של מגדל הממ״דים וגרעין המעליות במודל ה-3D רציפים מקומת הגג ועד קומות המרתף."
@@ -8742,15 +8742,15 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
   },
   "model_3d_sync_status": {
     "project_id": "hafetz44",
-    "base_model_hash": "9666d89e5a077b8e10da90d068544a449e3c637d8c54f86c07322614682bbd67",
-    "base_model_hash_short": "9666d89e5a07",
-    "previous_model_hash_short": "9666d89e5a07",
+    "base_model_hash": "eb9a43e78c82837ca305d821b2f1a92b87a49220d423549ceabfaabe9de84340",
+    "base_model_hash_short": "eb9a43e78c82",
+    "previous_model_hash_short": "eb9a43e78c82",
     "tracked_files_count": 19,
-    "total_base_size_bytes": 41225583,
-    "last_modified_mtime": 1793294618.53,
-    "last_modified_iso": "2026-10-29T19:23:38+02:00",
-    "last_audit_iso": "2026-10-29T19:23:38+02:00",
-    "audit_revision": 34,
+    "total_base_size_bytes": 54303276,
+    "last_modified_mtime": 1793342997.85,
+    "last_modified_iso": "2026-10-30T08:49:57+02:00",
+    "last_audit_iso": "2026-10-30T08:49:57+02:00",
+    "audit_revision": 36,
     "was_updated_and_reaudited": false,
     "change_reason": "up_to_date",
     "changed_files": [],
@@ -8763,7 +8763,7 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
       "spaces_count": 53,
       "units_count": 17,
       "walls_count": 169,
-      "meshes_count": 0,
+      "meshes_count": 314,
       "glb_size_bytes": 1558200,
       "obj_size_bytes": 4295074,
       "source_formats": [
@@ -8781,10 +8781,10 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
       "warn_count": 152,
       "fail_count": 5
     },
-    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #9666d89e · סבב בקרה #34)."
+    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #eb9a43e7 · סבב בקרה #36)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-30T08:00:04+02:00",
+    "executed_at_iso": "2026-10-30T08:50:41+02:00",
     "total_checks_executed": 309,
     "pass_count": 152,
     "warn_count": 152,
@@ -8796,7 +8796,7 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
       "spaces_count": 53,
       "units_count": 17,
       "walls_count": 169,
-      "meshes_count": 0,
+      "meshes_count": 314,
       "glb_size_bytes": 1558200,
       "obj_size_bytes": 4295074,
       "source_formats": [
@@ -8820,7 +8820,7 @@ window.__ARCHICHECK_EMBEDDED_DATA__ = {
       {
         "check_id": "BIM_3D_CORE_MAMAD_CONTINUITY",
         "title": "רציפות אנכית 3D של גרעין המיגון (מגדל ממ״דים ≥ 70%) ופיר מדרגות/מעליות",
-        "measured_3d": "169 קירות נושאים ו-120 אלמנטי שלד במודל 3D",
+        "measured_3d": "169 קירות נושאים ו-314 אלמנטי שלד במודל 3D",
         "benchmark_plan": "רציפות קירות ממ״ד ≥ 70% עד היסודות (תקנות פיקוד העורף) ורציפות פיר חדר מדרגות ממוגן",
         "status": "PASS",
         "message": "וקטורי העברת העומסים האנכיים של מגדל הממ״דים וגרעין המעליות במודל ה-3D רציפים מקומת הגג ועד קומות המרתף."

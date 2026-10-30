@@ -40,7 +40,7 @@
       "path": "C:/Users/User/archknow/reports/pines48_architectural_quality_analysis.html",
       "folder": "C:/Users/User/archknow/reports",
       "ext": "HTML",
-      "size_kb": 111.8
+      "size_kb": 110.1
     },
     {
       "name": "pines48_architectural_quality_analysis.pdf",
@@ -54,7 +54,7 @@
       "path": "C:/Users/User/archknow/reports/pines48_summary_and_areas_report.html",
       "folder": "C:/Users/User/archknow/reports",
       "ext": "HTML",
-      "size_kb": 112.1
+      "size_kb": 110.9
     },
     {
       "name": "pines48_summary_and_areas_report.pdf",
@@ -89,14 +89,14 @@
       "path": "C:/Users/User/archknow/webapp/models/pines48/index.html",
       "folder": "C:/Users/User/archknow/webapp/models/pines48",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6214.6
     },
     {
       "name": "pines48_3d_model.html",
       "path": "C:/Users/User/archknow/webapp/models/pines48/pines48_3d_model.html",
       "folder": "C:/Users/User/archknow/webapp/models/pines48",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6214.6
     },
     {
       "name": "pines48_architectural_quality_analysis.pdf",
@@ -145,7 +145,7 @@
       "path": "C:/Users/User/archknow/webapp/models/pines48/pines48_spatial_map.html",
       "folder": "C:/Users/User/archknow/webapp/models/pines48",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 2154.9
     },
     {
       "name": "extracted_interior_plans.json",
@@ -173,7 +173,7 @@
       "path": "C:/Users/User/archknow/webapp/reports/pines48_architectural_quality_analysis.html",
       "folder": "C:/Users/User/archknow/webapp/reports",
       "ext": "HTML",
-      "size_kb": 111.8
+      "size_kb": 110.1
     },
     {
       "name": "pines48_architectural_quality_analysis.pdf",
@@ -187,7 +187,7 @@
       "path": "C:/Users/User/archknow/webapp/reports/pines48_summary_and_areas_report.html",
       "folder": "C:/Users/User/archknow/webapp/reports",
       "ext": "HTML",
-      "size_kb": 112.1
+      "size_kb": 110.9
     },
     {
       "name": "pines48_summary_and_areas_report.pdf",
@@ -271,21 +271,21 @@
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פינס 48 פתח תקווה/pines48_spatial_map.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פינס 48 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 2154.9
     },
     {
       "name": "index.html",
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פינס 48 פתח תקווה/index.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פינס 48 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6214.6
     },
     {
       "name": "pines48_3d_model.html",
       "path": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פינס 48 פתח תקווה/pines48_3d_model.html",
       "folder": "G:/Shared drives/שליטה ובקרה/מודלים פרויקטים/פינס 48 פתח תקווה",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6214.6
     },
     {
       "name": "pines48_architectural_quality_analysis.pdf",
@@ -355,21 +355,21 @@
       "path": "C:/Users/User/.gemini/antigravity/scratch/pines-48-3d/pines48_spatial_map.html",
       "folder": "C:/Users/User/.gemini/antigravity/scratch/pines-48-3d",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 2154.9
     },
     {
       "name": "index.html",
       "path": "C:/Users/User/.gemini/antigravity/scratch/pines-48-3d/index.html",
       "folder": "C:/Users/User/.gemini/antigravity/scratch/pines-48-3d",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6214.6
     },
     {
       "name": "pines48_3d_model.html",
       "path": "C:/Users/User/.gemini/antigravity/scratch/pines-48-3d/pines48_3d_model.html",
       "folder": "C:/Users/User/.gemini/antigravity/scratch/pines-48-3d",
       "ext": "HTML",
-      "size_kb": 2.2
+      "size_kb": 6214.6
     },
     {
       "name": "pines48_architectural_quality_analysis.pdf",
@@ -10746,15 +10746,15 @@
     "summary_md_url": "/reports/pines48_summary_and_areas_report.md",
     "model_3d_sync_status": {
       "project_id": "pines48",
-      "base_model_hash": "3af3739b8609d185b01600b19641c235814b0910907611bec307124d68ed28ac",
-      "base_model_hash_short": "3af3739b8609",
-      "previous_model_hash_short": "3af3739b8609",
+      "base_model_hash": "18665741989165edd2cdbe4ecba64d4a67597b6c502051f0bd85e0cafa7bdb2f",
+      "base_model_hash_short": "186657419891",
+      "previous_model_hash_short": "186657419891",
       "tracked_files_count": 9,
-      "total_base_size_bytes": 35502668,
-      "last_modified_mtime": 1793290618.33,
-      "last_modified_iso": "2026-10-29T18:16:58+02:00",
-      "last_audit_iso": "2026-10-29T18:16:58+02:00",
-      "audit_revision": 12,
+      "total_base_size_bytes": 44068531,
+      "last_modified_mtime": 1793342936.27,
+      "last_modified_iso": "2026-10-30T08:48:56+02:00",
+      "last_audit_iso": "2026-10-30T08:48:56+02:00",
+      "audit_revision": 13,
       "was_updated_and_reaudited": false,
       "change_reason": "up_to_date",
       "changed_files": [],
@@ -10780,7 +10780,7 @@
         "spaces_count": 0,
         "units_count": 17,
         "walls_count": 0,
-        "meshes_count": 50,
+        "meshes_count": 60,
         "glb_size_bytes": 5745956,
         "obj_size_bytes": 14065428,
         "source_formats": [
@@ -10795,10 +10795,10 @@
         "warn_count": 23,
         "fail_count": 3
       },
-      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #3af3739b · סבב בקרה #12)."
+      "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #18665741 · סבב בקרה #13)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-30T08:00:02+02:00",
+      "executed_at_iso": "2026-10-30T08:50:39+02:00",
       "total_checks_executed": 60,
       "pass_count": 34,
       "warn_count": 23,
@@ -10810,7 +10810,7 @@
         "spaces_count": 0,
         "units_count": 17,
         "walls_count": 0,
-        "meshes_count": 50,
+        "meshes_count": 60,
         "glb_size_bytes": 5745956,
         "obj_size_bytes": 14065428,
         "source_formats": [
@@ -10831,7 +10831,7 @@
         {
           "check_id": "BIM_3D_CORE_MAMAD_CONTINUITY",
           "title": "רציפות אנכית 3D של גרעין המיגון (מגדל ממ״דים ≥ 70%) ופיר מדרגות/מעליות",
-          "measured_3d": "48 קירות נושאים ו-50 אלמנטי שלד במודל 3D",
+          "measured_3d": "48 קירות נושאים ו-60 אלמנטי שלד במודל 3D",
           "benchmark_plan": "רציפות קירות ממ״ד ≥ 70% עד היסודות (תקנות פיקוד העורף) ורציפות פיר חדר מדרגות ממוגן",
           "status": "PASS",
           "message": "וקטורי העברת העומסים האנכיים של מגדל הממ״דים וגרעין המעליות במודל ה-3D רציפים מקומת הגג ועד קומות המרתף."
@@ -11075,15 +11075,15 @@
   },
   "model_3d_sync_status": {
     "project_id": "pines48",
-    "base_model_hash": "3af3739b8609d185b01600b19641c235814b0910907611bec307124d68ed28ac",
-    "base_model_hash_short": "3af3739b8609",
-    "previous_model_hash_short": "3af3739b8609",
+    "base_model_hash": "18665741989165edd2cdbe4ecba64d4a67597b6c502051f0bd85e0cafa7bdb2f",
+    "base_model_hash_short": "186657419891",
+    "previous_model_hash_short": "186657419891",
     "tracked_files_count": 9,
-    "total_base_size_bytes": 35502668,
-    "last_modified_mtime": 1793290618.33,
-    "last_modified_iso": "2026-10-29T18:16:58+02:00",
-    "last_audit_iso": "2026-10-29T18:16:58+02:00",
-    "audit_revision": 12,
+    "total_base_size_bytes": 44068531,
+    "last_modified_mtime": 1793342936.27,
+    "last_modified_iso": "2026-10-30T08:48:56+02:00",
+    "last_audit_iso": "2026-10-30T08:48:56+02:00",
+    "audit_revision": 13,
     "was_updated_and_reaudited": false,
     "change_reason": "up_to_date",
     "changed_files": [],
@@ -11109,7 +11109,7 @@
       "spaces_count": 0,
       "units_count": 17,
       "walls_count": 0,
-      "meshes_count": 50,
+      "meshes_count": 60,
       "glb_size_bytes": 5745956,
       "obj_size_bytes": 14065428,
       "source_formats": [
@@ -11124,10 +11124,10 @@
       "warn_count": 23,
       "fail_count": 3
     },
-    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #3af3739b · סבב בקרה #12)."
+    "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #18665741 · סבב בקרה #13)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-30T08:00:02+02:00",
+    "executed_at_iso": "2026-10-30T08:50:39+02:00",
     "total_checks_executed": 60,
     "pass_count": 34,
     "warn_count": 23,
@@ -11139,7 +11139,7 @@
       "spaces_count": 0,
       "units_count": 17,
       "walls_count": 0,
-      "meshes_count": 50,
+      "meshes_count": 60,
       "glb_size_bytes": 5745956,
       "obj_size_bytes": 14065428,
       "source_formats": [
@@ -11160,7 +11160,7 @@
       {
         "check_id": "BIM_3D_CORE_MAMAD_CONTINUITY",
         "title": "רציפות אנכית 3D של גרעין המיגון (מגדל ממ״דים ≥ 70%) ופיר מדרגות/מעליות",
-        "measured_3d": "48 קירות נושאים ו-50 אלמנטי שלד במודל 3D",
+        "measured_3d": "48 קירות נושאים ו-60 אלמנטי שלד במודל 3D",
         "benchmark_plan": "רציפות קירות ממ״ד ≥ 70% עד היסודות (תקנות פיקוד העורף) ורציפות פיר חדר מדרגות ממוגן",
         "status": "PASS",
         "message": "וקטורי העברת העומסים האנכיים של מגדל הממ״דים וגרעין המעליות במודל ה-3D רציפים מקומת הגג ועד קומות המרתף."

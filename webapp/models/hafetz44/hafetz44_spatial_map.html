@@ -1,39 +1,488 @@
 <!DOCTYPE html>
-<!-- ZERO-COPY-CENTRAL-MODEL-REDIRECT -->
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=../../../../שליטה ובקרה/מודלים פרויקטים/חפץ חיים 44 פתח תקווה/hafetz44_spatial_map.html">
-  <title>מעביר למודל 3D מרכזי – חפץ חיים 44, פתח תקווה</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>חפץ חיים 44, פתח תקווה – מפת ניתוח מרחבי ומרחקים (Google Maps GIS)</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
+    * { box-sizing: border-box; }
     body {
-      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-      background: #0f172a; color: #f8fafc;
-      display: flex; align-items: center; justify-content: center;
-      height: 100vh; margin: 0; text-align: center;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
-    .card {
-      background: #1e293b; border: 1px solid #334155; border-radius: 14px;
-      padding: 28px 36px; max-width: 520px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    .pulse-ring {
+      animation: pulseRing 2.2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+      transform-origin: center;
+      transform-box: fill-box;
     }
-    a {
-      display: inline-block; margin-top: 14px; padding: 10px 20px;
-      background: #10b981; color: #064e3b; font-weight: 800;
-      text-decoration: none; border-radius: 8px;
+    @keyframes pulseRing {
+      0% { transform: scale(0.85); opacity: 0.9; }
+      70% { transform: scale(1.9); opacity: 0; }
+      100% { transform: scale(1.9); opacity: 0; }
     }
-    .path { font-size: 12px; color: #94a3b8; margin-top: 12px; direction: ltr; word-break: break-all; }
+    .dash-anim {
+      stroke-dasharray: 8 5;
+      animation: dashMove 18s linear infinite;
+    }
+    @keyframes dashMove {
+      to { stroke-dashoffset: -260; }
+    }
+    .custom-scroll::-webkit-scrollbar { width: 6px; }
+    .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: rgba(144,163,184,0.4); border-radius: 9999px; }
   </style>
-  <script>
-    window.location.replace("../../../../\u05e9\u05dc\u05d9\u05d8\u05d4 \u05d5\u05d1\u05e7\u05e8\u05d4/\u05de\u05d5\u05d3\u05dc\u05d9\u05dd \u05e4\u05e8\u05d5\u05d9\u05e7\u05d8\u05d9\u05dd/\u05d7\u05e4\u05e5 \u05d7\u05d9\u05d9\u05dd 44 \u05e4\u05ea\u05d7 \u05ea\u05e7\u05d5\u05d5\u05d4/hafetz44_spatial_map.html");
-  </script>
 </head>
-<body>
-  <div class="card">
-    <h2>פותח מודל אדריכלי 3D – חפץ חיים 44, פתח תקווה</h2>
-    <p>קובצי המקור רוכזו בתיקיית השליטה והבקרה המרכזית.</p>
-    <a href="../../../../שליטה ובקרה/מודלים פרויקטים/חפץ חיים 44 פתח תקווה/hafetz44_spatial_map.html">פתיחת המודל כעת</a>
-    <div class="path">G:\Shared drives\שליטה ובקרה\מודלים פרויקטים\חפץ חיים 44 פתח תקווה\hafetz44_spatial_map.html</div>
+<body class="bg-[var(--background)] text-[var(--foreground)] antialiased select-none overflow-hidden h-screen flex flex-col">
+
+  <!-- Top Header Bar -->
+  <header class="bg-[var(--card)] border-b border-[var(--border)] px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 shrink-0 z-20 shadow-sm">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-red-600 text-white flex items-center justify-center font-bold text-sm shadow">
+        44
+      </div>
+      <div>
+        <h1 class="text-base font-bold text-[var(--foreground)] leading-tight">
+          חפץ חיים 44, פתח תקווה, פתח תקווה — ניתוח מרחבי ומרחקי נגישות (Google Maps)
+        </h1>
+        <p class="text-xs text-[var(--muted-foreground)]">
+          לחץ על כל מוסד חינוך, תחנה או מרכז מסחרי למדידת מרחק אווירי, זמן הליכה וניווט ישיר
+        </p>
+      </div>
+    </div>
+
+    <!-- Map Mode & Zoom Controls -->
+    <div class="flex flex-wrap items-center gap-2">
+      <!-- Scale Toggle -->
+      <div class="inline-flex rounded-lg border border-[var(--border)] bg-[var(--secondary)] p-0.5 text-xs">
+        <button id="btn-z16" onclick="setZoomMode('z16')" class="px-2.5 py-1 rounded-md font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] transition">
+          תקריב שכונתי (0–1 ק"מ)
+        </button>
+        <button id="btn-z15" onclick="setZoomMode('z15')" class="px-2.5 py-1 rounded-md font-semibold text-[var(--foreground)] transition">
+          מבט עירוני רחב (עד 2.8 ק"מ)
+        </button>
+      </div>
+
+      <!-- Layer Toggle -->
+      <div class="inline-flex rounded-lg border border-[var(--border)] bg-[var(--secondary)] p-0.5 text-xs">
+        <button id="btn-hybrid" onclick="setMapLayer('hybrid')" class="px-2.5 py-1 rounded-md font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] transition">
+          לוויין + רחובות (Google Hybrid)
+        </button>
+        <button id="btn-roadmap" onclick="setMapLayer('roadmap')" class="px-2.5 py-1 rounded-md font-semibold text-[var(--foreground)] transition">
+          מפת רחובות (Google Map)
+        </button>
+      </div>
+
+      <!-- Rings Toggle -->
+      <button id="btn-rings" onclick="toggleRings()" class="px-2.5 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] text-xs font-semibold hover:opacity-90 transition">
+        טבעות מרחק: פעיל
+      </button>
+    </div>
+  </header>
+
+  <!-- Category Filter Bar -->
+  <div class="bg-[var(--card)] border-b border-[var(--border)] px-4 py-2 flex flex-wrap items-center justify-between gap-2 shrink-0 z-10">
+    <div class="flex flex-wrap items-center gap-1.5" id="category-buttons">
+      <button onclick="setCategory('all')" data-cat="all" class="cat-btn px-3 py-1 rounded-full text-xs font-bold bg-slate-800 text-white shadow-sm transition">
+        הכל (28)
+      </button>
+      <button onclick="setCategory('education')" data-cat="education" class="cat-btn px-3 py-1 rounded-full text-xs font-semibold bg-blue-600/15 text-blue-600 border border-blue-500/30 hover:bg-blue-600/25 transition">
+        מוסדות חינוך ובתי ספר (9)
+      </button>
+      <button onclick="setCategory('transport')" data-cat="transport" class="cat-btn px-3 py-1 rounded-full text-xs font-semibold bg-amber-600/15 text-amber-600 border border-amber-500/30 hover:bg-amber-600/25 transition">
+        תחבורה ציבורית ומטרו (7)
+      </button>
+      <button onclick="setCategory('shopping')" data-cat="shopping" class="cat-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-600/15 text-purple-600 border border-purple-500/30 hover:bg-purple-600/25 transition">
+        קניונים ומרכזי קניות (6)
+      </button>
+      <button onclick="setCategory('parks')" data-cat="parks" class="cat-btn px-3 py-1 rounded-full text-xs font-semibold bg-emerald-600/15 text-emerald-600 border border-emerald-500/30 hover:bg-emerald-600/25 transition">
+        פארקים, ספורט וקהילה (3)
+      </button>
+      <button onclick="setCategory('health')" data-cat="health" class="cat-btn px-3 py-1 rounded-full text-xs font-semibold bg-red-600/15 text-red-600 border border-red-500/30 hover:bg-red-600/25 transition">
+        בריאות ובתי חולים (3)
+      </button>
+    </div>
+
+    <div class="text-xs text-[var(--muted-foreground)] font-medium hidden md:block">
+      נ.צ. הפרויקט: <span class="font-mono font-semibold text-[var(--foreground)]">32.08107°N, 34.88766°E</span>
+    </div>
   </div>
+
+  <!-- Main Workspace: Map Canvas + Right Sidebar -->
+  <div class="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
+
+    <!-- Interactive Map Viewport -->
+    <div class="flex-1 relative bg-slate-950 overflow-hidden flex items-center justify-center" id="map-viewport">
+      <div id="map-stage" class="relative w-full h-full flex items-center justify-center overflow-hidden">
+        <svg id="gis-svg" viewBox="0 0 1280 1024" preserveAspectRatio="xMidYMid slice" class="w-full h-full">
+          <defs>
+            <filter id="drop-shadow" x="-25%" y="-25%" width="150%" height="150%">
+              <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.65" />
+            </filter>
+          </defs>
+
+          <!-- Base Google Map Image -->
+          <image id="base-map-img" x="0" y="0" width="1280" height="1024" href="" />
+
+          <!-- Subtle Contrast Veil -->
+          <rect id="map-veil" x="0" y="0" width="1280" height="1024" fill="rgba(8, 15, 30, 0.14)" />
+
+          <!-- Concentric Distance Rings Layer -->
+          <g id="rings-layer"></g>
+
+          <!-- Radial Distance Lines Layer -->
+          <g id="lines-layer"></g>
+
+          <!-- Active Selected Highlight Line -->
+          <g id="active-line-layer"></g>
+
+          <!-- POI Markers Layer -->
+          <g id="markers-layer"></g>
+
+          <!-- Project Center Pin -->
+          <g id="project-pin-layer"></g>
+        </svg>
+      </div>
+
+      <!-- Floating Active Selection Card on Map (Bottom Left) -->
+      <div id="active-poi-card" class="absolute bottom-4 left-4 z-20 w-80 sm:w-96 bg-[var(--card)]/95 backdrop-blur-md border border-[var(--border)] rounded-xl p-4 shadow-xl transition-all duration-200">
+        <!-- Populated dynamically by JS -->
+      </div>
+    </div>
+
+    <!-- Right Sidebar List of POIs & Distances -->
+    <aside class="w-full lg:w-96 bg-[var(--card)] border-r border-[var(--border)] flex flex-col h-72 lg:h-full shrink-0 z-10">
+      <div class="p-3 border-b border-[var(--border)] flex items-center justify-between">
+        <div>
+          <h2 class="text-sm font-bold text-[var(--foreground)]">טבלת מוקדים ומרחקים מהפרויקט</h2>
+          <p class="text-xs text-[var(--muted-foreground)]">ממוין לפי קטגוריה ומרחק אווירי מחפץ חיים 44</p>
+        </div>
+        <a href="https://www.google.com/maps/place/32%C2%B004'52.1%22N+34%C2%B053'38.3%22E/@32.08115,34.89398,17z" target="_blank"
+           class="px-2.5 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition shadow-sm">
+          פתח ב-Google Maps ↗
+        </a>
+      </div>
+
+      <div id="poi-list-container" class="flex-1 overflow-y-auto custom-scroll p-2.5 space-y-2">
+        <!-- Populated dynamically -->
+      </div>
+    </aside>
+
+  </div>
+
+  <script>
+    const MAP_DATA = __DATA_JSON__;
+
+    const CAT_META = {
+      education: { label: 'מוסדות חינוך ובתי ספר', color: '#2563eb', badgeBg: 'bg-blue-600', lightBg: 'bg-blue-500/10 text-blue-600 border-blue-500/30' },
+      transport: { label: 'תחבורה ציבורית וצירים', color: '#d97706', badgeBg: 'bg-amber-600', lightBg: 'bg-amber-500/10 text-amber-600 border-amber-500/30' },
+      shopping:  { label: 'מרכזי קניות ומסחר', color: '#9333ea', badgeBg: 'bg-purple-600', lightBg: 'bg-purple-500/10 text-purple-600 border-purple-500/30' },
+      parks:     { label: 'פארקים, ספורט וקהילה', color: '#059669', badgeBg: 'bg-emerald-600', lightBg: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/30' },
+      health:    { label: 'בריאות ומרכזים רפואיים', color: '#dc2626', badgeBg: 'bg-red-600', lightBg: 'bg-red-500/10 text-red-600 border-red-500/30' }
+    };
+
+    let currentZoom = 'z16';
+    let currentLayer = 'hybrid';
+    let currentCat = 'all';
+    let showRings = true;
+    let selectedPoiId = 1;
+
+    function getFilteredPois() {
+      return MAP_DATA.pois.filter(p => currentCat === 'all' || p.cat === currentCat);
+    }
+
+    function setZoomMode(z) {
+      currentZoom = z;
+      document.getElementById('btn-z16').className = z === 'z16'
+        ? 'px-2.5 py-1 rounded-md font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] transition'
+        : 'px-2.5 py-1 rounded-md font-semibold text-[var(--foreground)] transition';
+      document.getElementById('btn-z15').className = z === 'z15'
+        ? 'px-2.5 py-1 rounded-md font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] transition'
+        : 'px-2.5 py-1 rounded-md font-semibold text-[var(--foreground)] transition';
+      renderMap();
+    }
+
+    function setMapLayer(layer) {
+      currentLayer = layer;
+      document.getElementById('btn-hybrid').className = layer === 'hybrid'
+        ? 'px-2.5 py-1 rounded-md font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] transition'
+        : 'px-2.5 py-1 rounded-md font-semibold text-[var(--foreground)] transition';
+      document.getElementById('btn-roadmap').className = layer === 'roadmap'
+        ? 'px-2.5 py-1 rounded-md font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] transition'
+        : 'px-2.5 py-1 rounded-md font-semibold text-[var(--foreground)] transition';
+      document.getElementById('map-veil').setAttribute('fill', layer === 'hybrid' ? 'rgba(8, 15, 30, 0.14)' : 'rgba(8, 15, 30, 0.03)');
+      renderMap();
+    }
+
+    function toggleRings() {
+      showRings = !showRings;
+      document.getElementById('btn-rings').textContent = showRings ? 'טבעות מרחק: פעיל' : 'טבעות מרחק: מוסתר';
+      renderMap();
+    }
+
+    function setCategory(cat) {
+      currentCat = cat;
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        const bCat = btn.getAttribute('data-cat');
+        if (bCat === cat) {
+          btn.classList.add('ring-2', 'ring-offset-1', 'ring-blue-500', 'font-bold');
+        } else {
+          btn.classList.remove('ring-2', 'ring-offset-1', 'ring-blue-500', 'font-bold');
+        }
+      });
+      const list = getFilteredPois();
+      if (list.length > 0 && !list.some(p => p.id === selectedPoiId)) {
+        selectedPoiId = list[0].id;
+      }
+      renderMap();
+      renderSidebar();
+      renderActiveCard();
+    }
+
+    function selectPoi(id) {
+      selectedPoiId = id;
+      const p = MAP_DATA.pois.find(x => x.id === id);
+      if (p && !p.show_z16 && currentZoom === 'z16') {
+        setZoomMode('z15');
+      } else {
+        renderMap();
+      }
+      renderSidebar();
+      renderActiveCard();
+    }
+
+    function renderMap() {
+      const zData = MAP_DATA[currentZoom];
+      const cx = zData.cx;
+      const cy = zData.cy;
+      const mpp = zData.mpp;
+
+      document.getElementById('base-map-img').setAttribute('href', zData[currentLayer]);
+
+      // 1. Render Concentric Rings
+      const ringsGroup = document.getElementById('rings-layer');
+      ringsGroup.innerHTML = '';
+      if (showRings) {
+        const rings = currentZoom === 'z16'
+          ? [
+              { m: 200, label: "200 מ' (2 דק' הליכה)", color: '#38bdf8' },
+              { m: 400, label: "400 מ' (5 דק' הליכה)", color: '#34d399' },
+              { m: 650, label: "650 מ' (8 דק' הליכה)", color: '#fbbf24' },
+              { m: 1000, label: "1,000 מ' (12 דק' הליכה)", color: '#f87171' }
+            ]
+          : [
+              { m: 400, label: "400 מ'", color: '#38bdf8' },
+              { m: 800, label: "800 מ'", color: '#34d399' },
+              { m: 1400, label: "1.4 ק\"מ", color: '#fbbf24' },
+              { m: 2000, label: "2.0 ק\"מ", color: '#f87171' }
+            ];
+
+        rings.forEach(r => {
+          const rad = r.m / mpp;
+          const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          circle.setAttribute('cx', cx);
+          circle.setAttribute('cy', cy);
+          circle.setAttribute('r', rad);
+          circle.setAttribute('fill', 'none');
+          circle.setAttribute('stroke', r.color);
+          circle.setAttribute('stroke-width', '2');
+          circle.setAttribute('stroke-dasharray', '6 4');
+          circle.setAttribute('opacity', '0.85');
+          ringsGroup.appendChild(circle);
+
+          const angle = 215 * Math.PI / 180;
+          const lx = cx + rad * Math.cos(angle);
+          const ly = cy + rad * Math.sin(angle);
+          if (ly > 24 && ly < 1000 && lx > 70 && lx < 1210) {
+            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            g.innerHTML = `
+              <rect x="${lx - 68}" y="${ly - 11}" width="136" height="22" rx="11" fill="#0f172a" fill-opacity="0.88" stroke="${r.color}" stroke-width="1.2" />
+              <text x="${lx}" y="${ly + 4}" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="700">${r.label}</text>
+            `;
+            ringsGroup.appendChild(g);
+          }
+        });
+      }
+
+      // 2. Render Radial Lines & Markers
+      const linesGroup = document.getElementById('lines-layer');
+      const activeLineGroup = document.getElementById('active-line-layer');
+      const markersGroup = document.getElementById('markers-layer');
+      linesGroup.innerHTML = '';
+      activeLineGroup.innerHTML = '';
+      markersGroup.innerHTML = '';
+
+      const visiblePois = getFilteredPois().filter(p => {
+        const px = currentZoom === 'z16' ? p.x16 : p.x15;
+        const py = currentZoom === 'z16' ? p.y16 : p.y15;
+        return px >= 15 && px <= 1265 && py >= 15 && py <= 1009;
+      });
+
+      visiblePois.forEach(p => {
+        const px = currentZoom === 'z16' ? p.x16 : p.x15;
+        const py = currentZoom === 'z16' ? p.y16 : p.y15;
+        const c = CAT_META[p.cat].color;
+        const isSelected = p.id === selectedPoiId;
+
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', cx);
+        line.setAttribute('y1', cy);
+        line.setAttribute('x2', px);
+        line.setAttribute('y2', py);
+        line.setAttribute('stroke', c);
+        line.setAttribute('stroke-width', isSelected ? '3.5' : '1.8');
+        line.setAttribute('opacity', isSelected ? '1' : '0.68');
+        if (isSelected) {
+          line.setAttribute('class', 'dash-anim');
+          activeLineGroup.appendChild(line);
+
+          // Midpoint distance badge on active line
+          const mx = (cx + px) / 2;
+          const my = (cy + py) / 2;
+          const dLabel = p.dist_m >= 1000 ? `${(p.dist_m/1000).toFixed(2)} ק"מ` : `${p.dist_m} מ'`;
+          const badge = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          badge.innerHTML = `
+            <rect x="${mx - 42}" y="${my - 13}" width="84" height="26" rx="8" fill="#0f172a" stroke="#ffffff" stroke-width="1.8" filter="url(#drop-shadow)" />
+            <text x="${mx}" y="${my + 5}" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="800">${dLabel}</text>
+          `;
+          activeLineGroup.appendChild(badge);
+        } else {
+          linesGroup.appendChild(line);
+        }
+
+        // Marker Pin
+        const mg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        mg.style.cursor = 'pointer';
+        mg.onclick = () => selectPoi(p.id);
+        const rad = isSelected ? 18 : 14;
+        mg.innerHTML = `
+          ${isSelected ? `<circle cx="${px}" cy="${py}" r="26" fill="${c}" opacity="0.35" class="pulse-ring" />` : ''}
+          <circle cx="${px}" cy="${py}" r="${rad}" fill="${c}" stroke="#ffffff" stroke-width="${isSelected ? 3 : 2}" filter="url(#drop-shadow)" />
+          <text x="${px}" y="${py + 4.5}" text-anchor="middle" fill="#ffffff" font-size="${isSelected ? 13 : 12}" font-weight="800">${p.id}</text>
+        `;
+        markersGroup.appendChild(mg);
+      });
+
+      // 3. Project Center Pin ("חפץ חיים 44 פינת הבעש״ט")
+      const projGroup = document.getElementById('project-pin-layer');
+      projGroup.innerHTML = `
+        <circle cx="${cx}" cy="${cy}" r="32" fill="#ef4444" opacity="0.35" class="pulse-ring" />
+        <circle cx="${cx}" cy="${cy}" r="16" fill="#dc2626" stroke="#ffffff" stroke-width="3.5" filter="url(#drop-shadow)" />
+        <circle cx="${cx}" cy="${cy}" r="5" fill="#ffffff" />
+        <g transform="translate(${cx}, ${cy - 34})" filter="url(#drop-shadow)">
+          <rect x="-95" y="-14" width="190" height="26" rx="8" fill="#dc2626" stroke="#ffffff" stroke-width="1.8" />
+          <text x="0" y="4" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="800">הפרויקט: חפץ חיים 44, פתח תקווה</text>
+        </g>
+      `;
+    }
+
+    function renderSidebar() {
+      const container = document.getElementById('poi-list-container');
+      container.innerHTML = '';
+      const list = getFilteredPois();
+
+      list.forEach(p => {
+        const meta = CAT_META[p.cat];
+        const isSelected = p.id === selectedPoiId;
+        const distTxt = p.dist_m >= 1000 ? `${(p.dist_m/1000).toFixed(2)} ק"מ` : `${p.dist_m} מ'`;
+        const timeTxt = p.dist_m >= 1000 ? `${p.drive_min} דק' נסיעה` : `${p.walk_min} דק' הליכה`;
+
+        const card = document.createElement('div');
+        card.onclick = () => selectPoi(p.id);
+        card.className = `p-2.5 rounded-xl border transition cursor-pointer flex items-center justify-between gap-2.5 ${
+          isSelected
+            ? 'bg-blue-600/10 border-blue-500 shadow-sm'
+            : 'bg-[var(--background)] border-[var(--border)] hover:border-slate-400'
+        }`;
+
+        card.innerHTML = `
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div class="w-7 h-7 rounded-full ${meta.badgeBg} text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-sm">
+              ${p.id}
+            </div>
+            <div class="min-w-0">
+              <div class="text-xs font-bold text-[var(--foreground)] truncate">${p.name}</div>
+              <div class="text-xs text-[var(--muted-foreground)] truncate">${p.sub}</div>
+            </div>
+          </div>
+          <div class="text-left shrink-0">
+            <div class="text-xs font-extrabold text-blue-600 dark:text-sky-400">${distTxt}</div>
+            <div class="text-xs text-[var(--muted-foreground)]">${timeTxt}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderActiveCard() {
+      const card = document.getElementById('active-poi-card');
+      const p = MAP_DATA.pois.find(x => x.id === selectedPoiId) || MAP_DATA.pois[0];
+      if (!p) return;
+      const meta = CAT_META[p.cat];
+      const distTxt = p.dist_m >= 1000 ? `${(p.dist_m/1000).toFixed(2)} ק"מ (${p.dist_m} מ')` : `${p.dist_m} מטרים`;
+      const gmapsDirUrl = `https://www.google.com/maps/dir/${MAP_DATA.proj_lat},${MAP_DATA.proj_lon}/${p.lat},${p.lon}`;
+
+      card.innerHTML = `
+        <div class="flex items-start justify-between gap-2 mb-2">
+          <div class="flex items-center gap-2">
+            <span class="w-7 h-7 rounded-full ${meta.badgeBg} text-white text-xs font-bold flex items-center justify-center shadow">
+              ${p.id}
+            </span>
+            <div>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded-full border ${meta.lightBg}">${meta.label}</span>
+              <h3 class="text-sm font-bold text-[var(--foreground)] mt-1">${p.name}</h3>
+            </div>
+          </div>
+        </div>
+        <p class="text-xs text-[var(--muted-foreground)] mb-3">${p.sub}</p>
+        <div class="grid grid-cols-3 gap-2 bg-[var(--secondary)] rounded-lg p-2 text-center mb-3">
+          <div>
+            <div class="text-xs text-[var(--muted-foreground)]">מרחק אווירי</div>
+            <div class="text-xs font-extrabold text-[var(--foreground)]">${distTxt}</div>
+          </div>
+          <div class="border-r border-l border-[var(--border)]">
+            <div class="text-xs text-[var(--muted-foreground)]">הליכה ברגל</div>
+            <div class="text-xs font-extrabold text-emerald-600 dark:text-emerald-400">כ-${p.walk_min} דק'</div>
+          </div>
+          <div>
+            <div class="text-xs text-[var(--muted-foreground)]">נסיעה ברכב</div>
+            <div class="text-xs font-extrabold text-blue-600 dark:text-sky-400">כ-${p.drive_min} דק'</div>
+          </div>
+        </div>
+        <a href="${gmapsDirUrl}" target="_blank"
+           class="w-full py-1.5 px-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition shadow">
+          <span>הצג מסלול מחפץ חיים 44 ב-Google Maps</span>
+          <span>↗</span>
+        </a>
+      `;
+    }
+
+    // Initialize
+    renderMap();
+    renderSidebar();
+    renderActiveCard();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -51,7 +500,7 @@
 
 <!-- ARCHICHECK_3D_OVERLAY_START -->
 <script>window.__ARCHICHECK_PROJECT_ID__ = "hafetz44";</script>
-<script src="/audit_3d_overlay.js?v=6.6"></script>
+<script src="/audit_3d_overlay.js?v=7.0"></script>
 <!-- ARCHICHECK_3D_OVERLAY_END -->
 </body>
 </html>
