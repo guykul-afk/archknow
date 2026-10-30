@@ -523,9 +523,62 @@ def test_three_axis_schema_and_architect_action_package():
     print("   [PASS] Sections 3 & 6 verified: 3-Axis schema and Architect Action Package present and populated.")
 
 
+def test_e33_to_e42_ui_ux_and_operational_evals():
+    print("E33–E42: Testing UI/UX & Operational EVALS across index.html, styles.css, and app.js...")
+    with open(os.path.join("webapp", "index.html"), "r", encoding="utf-8") as f:
+        html_src = f.read()
+    with open(os.path.join("webapp", "styles.css"), "r", encoding="utf-8") as f:
+        css_src = f.read()
+    with open(os.path.join("webapp", "app.js"), "r", encoding="utf-8") as f:
+        js_src = f.read()
+
+    # 1. Task-oriented Progressive Disclosure Filter Bar (Section 5.2)
+    assert 'id="task-focus-filter-row"' in html_src
+    assert 'data-task-focus="ACTION_NEEDED"' in html_src
+    assert 'data-task-focus="OPPORTUNITIES"' in html_src
+    assert 'data-task-focus="PRESERVE"' in html_src
+    assert 'data-task-focus="UNKNOWN"' in html_src
+    assert 'class="progressive-kb-drawer"' in html_src
+
+    # 2. 4 Primary Operational Metrics & Provenance Bar (E36)
+    assert "zt-provenance-bar" in js_src and "zt-four-metrics-grid" in js_src
+    assert "zt-m-btn-open" in js_src and "zt-m-btn-coverage" in js_src
+    assert "zt-m-btn-unknown" in js_src and "zt-m-btn-savings" in js_src
+    assert "נתוני בקרה שמורים" in js_src and "הרצת מנוע חיה" in js_src
+
+    # 3. E33: Floor-switch clears activeNoteId if note belongs to a different sheet
+    assert "fromHighlightNote" in js_src
+    assert "activeObj.sheet_id !== sheetId" in js_src
+    assert "activeNoteId = null;" in js_src
+
+    # 4. Short 2-Layer Finding Card + 3-Axis Reliability Strip + Evidence Record Drawer (Section 3 & 5.3)
+    assert "build3AxisReliabilityStripHtml" in js_src
+    assert "zt-short-card-grid" in js_src
+    assert "zt-evidence-record-box" in js_src
+    assert "l3-evidence-drawer" in js_src
+
+    # 5. 5-Stage Maturity Stepper & RICS NRM Net Avoidable Cost Breakdown (Section 4.1–4.6)
+    assert "zt-maturity-stepper" in js_src
+    assert "net_avoidable_cost_breakdown" in js_src
+    assert "net_avoidable_saving_base_ils" in js_src
+
+    # 6. Architect Action Package & E42 Workflow Closure (Section 6.1–6.4, E38, E42)
+    assert "architect_action_package" in js_src
+    assert "FIXED_PENDING_VERIFICATION" in js_src
+    assert "תוקן — ממתין לאימות" in js_src
+    assert "FIX_MEASURED_DEVIATION" in js_src
+    assert "CONFIRM_PRESERVATION_CONSTRAINT" in js_src
+
+    # 7. Pin collision avoidance & WCAG 2.2 keyboard focus (Section 5.5–5.6)
+    assert "collisionIdx" in js_src
+    assert ":focus-visible" in css_src
+    assert ".zt-four-metrics-grid" in css_src
+    print("   [PASS] E33–E42 verified: UI/UX Progressive Disclosure, 4 Operational Metrics, E33 Floor-Switch, 2-Layer Card, 5-Stage Maturity & E42 Workflow verified.")
+
+
 if __name__ == "__main__":
     print("=" * 78)
-    print("RUNNING ARCHKNOW ZERO-TRUST EPISTEMIC & ECONOMIC EVALS SUITE (E01-E32)")
+    print("RUNNING ARCHKNOW ZERO-TRUST EPISTEMIC, ECONOMIC & UI/UX EVALS SUITE (E01-E42)")
     print("=" * 78)
     test_e01_empty_model_and_empty_data_summary()
     test_e02_no_basement_zero_underground_savings()
@@ -539,6 +592,7 @@ if __name__ == "__main__":
     test_e17_to_e22_custom_parking_relocation_requires_geometric_proof()
     test_e23_e25_e26_e27_e28_e29_e30_e32_combined_proposals_and_net_savings()
     test_three_axis_schema_and_architect_action_package()
+    test_e33_to_e42_ui_ux_and_operational_evals()
     print("=" * 78)
-    print("ALL ZERO-TRUST EVALS PASSED 100%!")
+    print("ALL ZERO-TRUST EVALS (E01-E42) PASSED 100%!")
     print("=" * 78)

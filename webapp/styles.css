@@ -6316,6 +6316,385 @@ body.top-bar-collapsed .visual-panel.plan-toolbar-collapsed .plan-image {
   max-height: calc(100vh - 24px) !important;
 }
 
+/* =========================================================================
+   ZERO-TRUST UI/UX UPGRADES (Sections 5.1–5.6, 6.1–6.4, E33–E42)
+   ========================================================================= */
+
+/* 1. Provenance Strip & 4 Primary Operational Metrics (Section 5.4 & E36) */
+.zt-provenance-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 5px 8px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  font-size: 11px;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.zt-prov-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 6px;
+  border-radius: 5px;
+  background: #e2e8f0;
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 10.5px;
+}
+
+.zt-secondary-score-pill {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.zt-four-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.zt-metric-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  text-align: right;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.14s ease;
+  min-height: 54px;
+}
+
+.zt-metric-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
+}
+
+.zt-metric-card.m-open {
+  border-top: 3px solid #dc2626;
+  background: #fffafa;
+}
+
+.zt-metric-card.m-coverage {
+  border-top: 3px solid #2563eb;
+  background: #f8fbff;
+}
+
+.zt-metric-card.m-unknown {
+  border-top: 3px solid #d97706;
+  background: #fffdf5;
+}
+
+.zt-metric-card.m-savings {
+  border-top: 3px solid #059669;
+  background: #f4fdf9;
+}
+
+.zt-m-lbl {
+  font-size: 10px;
+  font-weight: 800;
+  color: #475569;
+  line-height: 1.15;
+}
+
+.zt-m-val {
+  font-size: 13.5px;
+  font-weight: 900;
+  color: #0f172a;
+  margin: 2px 0;
+  line-height: 1.15;
+}
+
+.zt-metric-card.m-open .zt-m-val { color: #b91c1c; }
+.zt-metric-card.m-coverage .zt-m-val { color: #1d4ed8; }
+.zt-metric-card.m-unknown .zt-m-val { color: #b45309; }
+.zt-metric-card.m-savings .zt-m-val { color: #047857; }
+
+.zt-m-sub {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #64748b;
+  line-height: 1.15;
+}
+
+/* 2. Task-Focus Filter Row & Progressive Disclosure Drawer (Section 5.2) */
+.task-focus-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.task-focus-btn {
+  flex: 1 1 auto;
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.14s ease;
+  white-space: nowrap;
+}
+
+.task-focus-btn:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.task-focus-btn.active[data-task-focus="ACTION_NEEDED"] {
+  background: #dc2626;
+  color: #ffffff;
+  border-color: #b91c1c;
+}
+
+.task-focus-btn.active[data-task-focus="OPPORTUNITIES"] {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #1d4ed8;
+}
+
+.task-focus-btn.active[data-task-focus="PRESERVE"] {
+  background: #059669;
+  color: #ffffff;
+  border-color: #047857;
+}
+
+.task-focus-btn.active[data-task-focus="UNKNOWN"] {
+  background: #d97706;
+  color: #ffffff;
+  border-color: #b45309;
+}
+
+.task-focus-btn.active[data-task-focus="ALL"] {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+.progressive-kb-drawer {
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #f8fafc;
+  margin-top: 2px;
+}
+
+.progressive-kb-summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+}
+
+.progressive-kb-summary::-webkit-details-marker {
+  display: none;
+}
+
+.progressive-kb-body {
+  padding: 6px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* 3. 3-Axis Reliability Strip & Short 2-Layer Finding Card (Section 3 & 5.3) */
+.zt-3axis-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin: 4px 0 6px 0;
+}
+
+.zt-axis-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.zt-axis-verif.v-DEVIATION { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+.zt-axis-verif.v-VALID { background: #f0fdf4; color: #166534; border-color: #bbf7d0; }
+.zt-axis-verif.v-UNKNOWN { background: #fffbeb; color: #92400e; border-color: #fde68a; }
+.zt-axis-verif.v-NOT_APPLICABLE { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
+
+.zt-axis-source {
+  background: #f8fafc;
+  color: #334155;
+  border-color: #cbd5e1;
+}
+
+.zt-axis-workflow {
+  background: #eff6ff;
+  color: #1e40af;
+  border-color: #bfdbfe;
+}
+
+.zt-axis-workflow.wf-FIXED_PENDING_VERIFICATION {
+  background: #fef3c7;
+  color: #92400e;
+  border-color: #fcd34d;
+}
+
+.zt-axis-workflow.wf-CLOSED {
+  background: #dcfce7;
+  color: #166534;
+  border-color: #86efac;
+}
+
+.zt-axis-workflow.wf-REJECTED {
+  background: #f1f5f9;
+  color: #64748b;
+  border-color: #cbd5e1;
+}
+
+.zt-short-card-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 7px;
+  font-size: 11.5px;
+}
+
+.zt-sc-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  line-height: 1.4;
+}
+
+.zt-sc-lbl {
+  font-weight: 800;
+  color: #0f172a;
+  min-width: 92px;
+  flex-shrink: 0;
+  font-size: 11px;
+}
+
+.zt-sc-val {
+  color: #334155;
+  flex: 1;
+}
+
+.zt-sc-recheck {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-right: 3px solid #f59e0b;
+  border-radius: 5px;
+  padding: 5px 8px;
+  font-size: 11px;
+  color: #78350f;
+  margin-top: 2px;
+}
+
+.zt-evidence-record-box {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 10.5px;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+/* 4. 5-Stage Maturity Stepper & Net Avoidable Cost Breakdown (Section 4.1–4.6) */
+.zt-maturity-stepper {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  margin: 8px 0;
+}
+
+.zt-mat-step {
+  padding: 5px 6px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  text-align: center;
+  font-size: 10px;
+  color: #64748b;
+}
+
+.zt-mat-step.done {
+  background: #ecfdf5;
+  border-color: #6ee7b7;
+  color: #065f46;
+  font-weight: 700;
+}
+
+.zt-mat-step.current {
+  background: #059669;
+  border-color: #047857;
+  color: #ffffff;
+  font-weight: 900;
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.25);
+}
+
+/* 5. Cross-Floor Context Banner (E33) & WCAG 2.2 Keyboard Focus (Section 5.6) */
+.zt-cross-floor-banner {
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  border-right: 4px solid #d97706;
+  color: #92400e;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.doc-note-card:focus-visible,
+.plan-pin:focus-visible,
+.task-focus-btn:focus-visible,
+.zt-metric-card:focus-visible,
+.ctrl-btn:focus-visible {
+  outline: 2.5px solid #2563eb !important;
+  outline-offset: 2px !important;
+}
+
+.plan-pin {
+  min-width: 24px;
+  min-height: 24px;
+}
+
+
 
 
 

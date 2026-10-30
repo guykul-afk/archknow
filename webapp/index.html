@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=7.5" />
+  <link rel="stylesheet" href="styles.css?v=7.6" />
 </head>
 <body>
   <!-- COLLAPSIBLE MINIMALIST TOP BAR -->
@@ -61,8 +61,8 @@
           🔄 בדיקת מודל 3D <span id="hdr-3d-sync-badge" class="hdr-ve-pill">מאומת</span>
         </button>
 
-        <button type="button" id="btn-export-decisions" class="btn-tool" title="דוח החלטות">
-          החלטות (<span id="hdr-decisions-count">0</span>)
+        <button type="button" id="btn-export-decisions" class="btn-tool" title="חבילת תיקונים לאדריכל ומעקב החלטות">
+          חבילת אדריכל (<span id="hdr-decisions-count">0</span>)
         </button>
 
         <div class="tools-dropdown-wrap">
@@ -143,67 +143,95 @@
           </button>
         </div>
 
-        <!-- Three-Tier System Notes Filters (Shown in FINDINGS mode) -->
+        <!-- Task-Oriented Progressive Disclosure Filters (Shown in FINDINGS mode) -->
         <div class="doc-filter-stack hidden" id="doc-subfilter-bar">
-          <!-- Tier 1: Polarity (הכל / שלילי / חיובי) -->
-          <div class="doc-filter-bar polarity-filter-row" id="polarity-filter-row">
-            <button type="button" class="polarity-btn active" data-polarity="ALL">
+          <!-- Primary Task Focus Row (Section 5.2: ברירת מחדל "נדרש טיפול" · הזדמנויות · לשימור · מידע חסר) -->
+          <div class="doc-filter-bar task-focus-filter-row" id="task-focus-filter-row" role="group" aria-label="סינון לפי משימת עבודה">
+            <button type="button" class="task-focus-btn active" data-task-focus="ACTION_NEEDED" title="ממצאים פתוחים וחריגות הדורשים החלטה או תיקון">
+              🔴 נדרש טיפול (<span id="count-task-action">0</span>)
+            </button>
+            <button type="button" class="task-focus-btn" data-task-focus="OPPORTUNITIES" title="הזדמנויות לשיפור תכנון, ארגונומיה ונצילות שטחים">
+              💡 הזדמנויות (<span id="count-task-opp">0</span>)
+            </button>
+            <button type="button" class="task-focus-btn" data-task-focus="PRESERVE" title="יתרונות תכנוניים מאומתים המוגדרים כאילוצים לשימור">
+              🛡️ לשימור (<span id="count-task-preserve">0</span>)
+            </button>
+            <button type="button" class="task-focus-btn" data-task-focus="UNKNOWN" title="ממצאים שבהם חסר נתון וממתינים להשלמת מידע">
+              ❓ מידע חסר (<span id="count-task-unknown">0</span>)
+            </button>
+            <button type="button" class="task-focus-btn" data-task-focus="ALL" title="הצג את כל הערות המערכת">
               הכל (<span id="count-pol-all">0</span>)
             </button>
-            <button type="button" class="polarity-btn polarity-neg" data-polarity="NEGATIVE">
-              שלילי (<span id="count-pol-neg">0</span>)
-            </button>
-            <button type="button" class="polarity-btn polarity-pos" data-polarity="POSITIVE">
-              חיובי (<span id="count-pol-pos">0</span>)
-            </button>
           </div>
 
-          <!-- Tier 2: Category within Polarity (הכל / תקן / איכות תכנון אדריכלי / טיפ עיצוב פנים) -->
-          <div class="doc-filter-bar category-filter-row" id="category-filter-row">
-            <button type="button" class="cat-filter-btn active" data-category="ALL">
-              הכל (<span id="count-cat-all">0</span>)
-            </button>
-            <button type="button" class="cat-filter-btn" data-category="STANDARD">
-              תקן (<span id="count-cat-std">0</span>)
-            </button>
-            <button type="button" class="cat-filter-btn" data-category="ARCH_QUALITY">
-              איכות תכנון אדריכלי (<span id="count-cat-arch">0</span>)
-            </button>
-            <button type="button" class="cat-filter-btn" data-category="INTERIOR_TIP">
-              טיפ עיצוב פנים (<span id="count-cat-tip">0</span>)
-            </button>
-          </div>
+          <!-- Progressive Disclosure Drawer for Secondary Standard / Category / 9 Knowledge Bases -->
+          <details class="progressive-kb-drawer" id="progressive-kb-drawer">
+            <summary class="progressive-kb-summary">
+              <span>⚙️ סינון מתקדם: סיווג תפקודי ו-9 בסיסי ידע</span>
+              <span class="progressive-kb-chevron">▾</span>
+            </summary>
+            <div class="progressive-kb-body">
+              <!-- Tier 1: Polarity (הכל / שלילי / חיובי) -->
+              <div class="doc-filter-bar polarity-filter-row" id="polarity-filter-row">
+                <button type="button" class="polarity-btn active" data-polarity="ALL">
+                  הכל
+                </button>
+                <button type="button" class="polarity-btn polarity-neg" data-polarity="NEGATIVE">
+                  שלילי (<span id="count-pol-neg">0</span>)
+                </button>
+                <button type="button" class="polarity-btn polarity-pos" data-polarity="POSITIVE">
+                  חיובי (<span id="count-pol-pos">0</span>)
+                </button>
+              </div>
 
-          <!-- Tier 3: Knowledge Base (סינון לפי בסיס הידע שעל פיו ההערה ניתנה) -->
-          <div class="doc-filter-bar kb-filter-row" id="kb-filter-row">
-            <button type="button" class="kb-filter-btn active" data-kb="ALL" title="כל בסיסי הידע">
-              כל בסיסי הידע (<span id="count-kb-all">0</span>)
-            </button>
-            <button type="button" class="kb-filter-btn" data-kb="KB_ISRAELI_STATUTORY" title="חקיקה, תקנות התכנון והבנייה, פקע״ר, נגישות ובטיחות אש">
-              ⚖️ תקינה ישראלית (<span id="count-kb-isr">0</span>)
-            </button>
-            <button type="button" class="kb-filter-btn" data-kb="KB_INTL_HOUSING" title="תקני איכות דיור ופרוגרמה בינלאומיים (NSW ADG · UK NDSS · משרד השיכון · WBS)">
-              🏛️ תקני דיור בינ״ל (<span id="count-kb-intl">0</span>)
-            </button>
-            <button type="button" class="kb-filter-btn" data-kb="KB_SPACE_SYNTAX" title="טופולוגיה מרחבית, זרימת חלל וביקורת תכניות אירופאית (Space Syntax · Grundrisskritik)">
-              🧭 זרימת חלל ופרטיות (<span id="count-kb-space">0</span>)
-            </button>
-            <button type="button" class="kb-filter-btn" data-kb="KB_ERGONOMICS_INTERIOR" title="ארגונומיה, מטבחים, חדרים רטובים ואנתרופומטריה (NKBA · Panero & Zelnik · San-ten Bunri)">
-              🛋️ ארגונומיה וריהוט (<span id="count-kb-ergo">0</span>)
-            </button>
-            <button type="button" class="kb-filter-btn" data-kb="KB_DAYLIGHT_IEQ" title="אקלים פנים, אור יום צירקדי, אוורור טבעי וביופיליה (EN 17037 · WELL v2 · ת״י 5281/1045)">
-              ☀️ אור יום ואוורור (<span id="count-kb-ieq">0</span>)
-            </button>
-            <button type="button" class="kb-filter-btn" data-kb="KB_ADAPTABILITY_FAMILY" title="גמישות תכנונית (Open Building), התאמה למעגל החיים ותכנון למשפחות (Habraken · Toronto Growing Up)">
-              🧬 גמישות ומשפחות (<span id="count-kb-adapt">0</span>)
-            </button>
-            <button type="button" class="kb-filter-btn" data-kb="KB_ACOUSTICS_MEP" title="אקוסטיקה פנימית, תיאום מערכות מיזוג (MEP/VRF) ואינסטלציה (ת״י 1004/1205 · ASHRAE · WELL)">
-              🔇 אקוסטיקה ו-MEP (<span id="count-kb-mep">0</span>)
-            </button>
-            <button type="button" class="kb-filter-btn" data-kb="KB_URBAN_LOCAL" title="ממשק עירוני, קומת קרקע, מסתורי שירות והנחיות מרחביות מקומיות (סעיף 145ד · שכונה 360°)">
-              🏙️ ממשק עירוני (<span id="count-kb-urban">0</span>)
-            </button>
-          </div>
+              <!-- Tier 2: Category within Polarity (הכל / תקן / איכות תכנון אדריכלי / טיפ עיצוב פנים) -->
+              <div class="doc-filter-bar category-filter-row" id="category-filter-row">
+                <button type="button" class="cat-filter-btn active" data-category="ALL">
+                  הכל (<span id="count-cat-all">0</span>)
+                </button>
+                <button type="button" class="cat-filter-btn" data-category="STANDARD">
+                  תקן (<span id="count-cat-std">0</span>)
+                </button>
+                <button type="button" class="cat-filter-btn" data-category="ARCH_QUALITY">
+                  איכות תכנון אדריכלי (<span id="count-cat-arch">0</span>)
+                </button>
+                <button type="button" class="cat-filter-btn" data-category="INTERIOR_TIP">
+                  טיפ עיצוב פנים (<span id="count-cat-tip">0</span>)
+                </button>
+              </div>
+
+              <!-- Tier 3: Knowledge Base (סינון לפי בסיס הידע שעל פיו ההערה ניתנה) -->
+              <div class="doc-filter-bar kb-filter-row" id="kb-filter-row">
+                <button type="button" class="kb-filter-btn active" data-kb="ALL" title="כל בסיסי הידע">
+                  כל בסיסי הידע (<span id="count-kb-all">0</span>)
+                </button>
+                <button type="button" class="kb-filter-btn" data-kb="KB_ISRAELI_STATUTORY" title="חקיקה, תקנות התכנון והבנייה, פקע״ר, נגישות ובטיחות אש">
+                  ⚖️ תקינה ישראלית (<span id="count-kb-isr">0</span>)
+                </button>
+                <button type="button" class="kb-filter-btn" data-kb="KB_INTL_HOUSING" title="תקני איכות דיור ופרוגרמה בינלאומיים (NSW ADG · UK NDSS · משרד השיכון · WBS)">
+                  🏛️ תקני דיור בינ״ל (<span id="count-kb-intl">0</span>)
+                </button>
+                <button type="button" class="kb-filter-btn" data-kb="KB_SPACE_SYNTAX" title="טופולוגיה מרחבית, זרימת חלל וביקורת תכניות אירופאית (Space Syntax · Grundrisskritik)">
+                  🧭 זרימת חלל ופרטיות (<span id="count-kb-space">0</span>)
+                </button>
+                <button type="button" class="kb-filter-btn" data-kb="KB_ERGONOMICS_INTERIOR" title="ארגונומיה, מטבחים, חדרים רטובים ואנתרופומטריה (NKBA · Panero & Zelnik · San-ten Bunri)">
+                  🛋️ ארגונומיה וריהוט (<span id="count-kb-ergo">0</span>)
+                </button>
+                <button type="button" class="kb-filter-btn" data-kb="KB_DAYLIGHT_IEQ" title="אקלים פנים, אור יום צירקדי, אוורור טבעי וביופיליה (EN 17037 · WELL v2 · ת״י 5281/1045)">
+                  ☀️ אור יום ואוורור (<span id="count-kb-ieq">0</span>)
+                </button>
+                <button type="button" class="kb-filter-btn" data-kb="KB_ADAPTABILITY_FAMILY" title="גמישות תכנונית (Open Building), התאמה למעגל החיים ותכנון למשפחות (Habraken · Toronto Growing Up)">
+                  🧬 גמישות ומשפחות (<span id="count-kb-adapt">0</span>)
+                </button>
+                <button type="button" class="kb-filter-btn" data-kb="KB_ACOUSTICS_MEP" title="אקוסטיקה פנימית, תיאום מערכות מיזוג (MEP/VRF) ואינסטלציה (ת״י 1004/1205 · ASHRAE · WELL)">
+                  🔇 אקוסטיקה ו-MEP (<span id="count-kb-mep">0</span>)
+                </button>
+                <button type="button" class="kb-filter-btn" data-kb="KB_URBAN_LOCAL" title="ממשק עירוני, קומת קרקע, מסתורי שירות והנחיות מרחביות מקומיות (סעיף 145ד · שכונה 360°)">
+                  🏙️ ממשק עירוני (<span id="count-kb-urban">0</span>)
+                </button>
+              </div>
+            </div>
+          </details>
         </div>
 
         <!-- Dedicated Savings Sub-Filters (Shown only in separated חיסכון OPTIMIZATION tab) -->
@@ -433,13 +461,13 @@
     </div>
   </div>
 
-  <!-- DECISIONS EXPORT MODAL -->
+  <!-- ARCHITECT ACTION PACKAGE & DECISIONS EXPORT MODAL -->
   <div id="decisions-export-modal" class="summary-modal-backdrop hidden">
-    <div class="summary-modal-dialog" style="max-width:860px;">
+    <div class="summary-modal-dialog" style="max-width:1140px;">
       <div class="summary-modal-header">
-        <h2 id="decisions-modal-title" class="decisions-modal-title summary-modal-title">דוח החלטות</h2>
+        <h2 id="decisions-modal-title" class="decisions-modal-title summary-modal-title">חבילת תיקונים לאדריכל ומעקב החלטות</h2>
         <div class="summary-modal-actions">
-          <button type="button" id="btn-print-decisions" class="btn-tool">הדפסה</button>
+          <button type="button" id="btn-print-decisions" class="btn-tool">הדפסה / PDF</button>
           <button type="button" id="btn-close-decisions-modal" class="btn-close-drawer">✕</button>
         </div>
       </div>
@@ -447,6 +475,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=7.5"></script>
+  <script src="app.js?v=7.6"></script>
 </body>
 </html>
