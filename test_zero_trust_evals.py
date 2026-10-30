@@ -569,10 +569,15 @@ def test_e33_to_e42_ui_ux_and_operational_evals():
     assert "FIX_MEASURED_DEVIATION" in js_src
     assert "CONFIRM_PRESERVATION_CONSTRAINT" in js_src
 
-    # 7. Pin collision avoidance & WCAG 2.2 keyboard focus (Section 5.5–5.6)
+    # 7. Pin collision avoidance & WCAG 2.2 keyboard focus & Collapsible Bars Restore Pill (Section 5.5–5.6)
     assert "collisionIdx" in js_src
     assert ":focus-visible" in css_src
     assert ".zt-four-metrics-grid" in css_src
+    assert "syncCollapsedBarsRestoreUi" in js_src
+    assert "restoreAllBarsAndPanels" in js_src
+    assert 'id="btn-restore-top-bar-floating"' in html_src
+    assert 'id="btn-restore-doc-panel-floating"' in html_src
+    assert 'id="btn-restore-all-bars"' in html_src
     print("   [PASS] E33–E42 verified: UI/UX Progressive Disclosure, 4 Operational Metrics, E33 Floor-Switch, 2-Layer Card, 5-Stage Maturity & E42 Workflow verified.")
 
 

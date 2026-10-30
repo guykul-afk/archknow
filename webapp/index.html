@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=7.6" />
+  <link rel="stylesheet" href="styles.css?v=7.7" />
 </head>
 <body>
   <!-- COLLAPSIBLE MINIMALIST TOP BAR -->
@@ -343,12 +343,21 @@
       <!-- Main Plan Body: Center Drawing Stage + Left Inspector Drawer (Closed by Default) -->
       <div id="plan-body-layout" class="plan-body-layout dock-collapsed">
         <div id="plan-viewport" class="plan-viewport vmode-2d">
-          <!-- Floating Restore Pill when Plan Toolbar is Closed -->
+          <!-- Floating Restore Pill when Any Bar / Panel is Closed -->
           <div id="plan-toolbar-restore-bar" class="plan-toolbar-restore-bar hidden">
-            <button type="button" id="btn-restore-plan-toolbar" class="btn-restore-plan-toolbar" title="פתח חזרה את סרגל הקומות והכלים">
+            <button type="button" id="btn-restore-top-bar-floating" class="btn-restore-plan-toolbar hidden" title="פתח חזרה את הסרגל העליון">
+              <span>⬆️ פתח סרגל עליון ▾</span>
+            </button>
+            <button type="button" id="btn-restore-doc-panel-floating" class="btn-restore-plan-toolbar hidden" title="הצג חזרה את רשימת הממצאים מימין">
+              <span>📋 הצג רשימת ממצאים ▸</span>
+            </button>
+            <button type="button" id="btn-restore-plan-toolbar" class="btn-restore-plan-toolbar hidden" title="פתח חזרה את סרגל הקומות והכלים">
               <span>📐 <strong id="restore-bar-sheet-name">קומה פעילה</strong></span>
               <span class="restore-bar-sep">|</span>
               <span>פתח קומות וכלים ▾</span>
+            </button>
+            <button type="button" id="btn-restore-all-bars" class="btn-restore-plan-toolbar btn-restore-all-pill hidden" title="הצג את כל הסרגלים והפאנלים (Esc)">
+              <span>🔄 הצג את כל הסרגלים</span>
             </button>
           </div>
 
@@ -475,6 +484,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=7.6"></script>
+  <script src="app.js?v=7.7"></script>
 </body>
 </html>

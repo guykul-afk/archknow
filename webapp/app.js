@@ -114,6 +114,9 @@
   const btnCollapsePlanToolbar = document.getElementById('btn-collapse-plan-toolbar');
   const planToolbarRestoreBar = document.getElementById('plan-toolbar-restore-bar');
   const btnRestorePlanToolbar = document.getElementById('btn-restore-plan-toolbar');
+  const btnRestoreTopBarFloating = document.getElementById('btn-restore-top-bar-floating');
+  const btnRestoreDocPanelFloating = document.getElementById('btn-restore-doc-panel-floating');
+  const btnRestoreAllBars = document.getElementById('btn-restore-all-bars');
   const restoreBarSheetName = document.getElementById('restore-bar-sheet-name');
   const btnCollapseVePlanBar = document.getElementById('btn-collapse-ve-plan-bar');
   const btnRestoreVePlanBar = document.getElementById('btn-restore-ve-plan-bar');
@@ -957,6 +960,64 @@
     syncSheetsCompactUi();
   }
 
+  function syncCollapsedBarsRestoreUi() {
+    const isTopCollapsed = document.body.classList.contains('top-bar-collapsed');
+    const isDocCollapsed = splitWorkspaceEl ? splitWorkspaceEl.classList.contains('doc-collapsed') : false;
+    const isToolbarCollapsed = Boolean(isPlanToolbarCollapsed);
+
+    // Sync inline expand buttons inside visual-toolbar (visible when visual-toolbar itself is open)
+    if (btnExpandTopBar) {
+      btnExpandTopBar.classList.toggle('hidden', !isTopCollapsed);
+    }
+    if (btnExpandDocPanel) {
+      btnExpandDocPanel.classList.toggle('hidden', !isDocCollapsed);
+    }
+
+    // Sync floating restore bar inside #plan-viewport (ALWAYS accessible even when visual-toolbar is closed!)
+    const anyBarCollapsed = isTopCollapsed || isDocCollapsed || isToolbarCollapsed;
+    if (planToolbarRestoreBar) {
+      planToolbarRestoreBar.classList.toggle('hidden', !anyBarCollapsed);
+    }
+    if (btnRestoreTopBarFloating) {
+      btnRestoreTopBarFloating.classList.toggle('hidden', !isTopCollapsed);
+    }
+    if (btnRestoreDocPanelFloating) {
+      btnRestoreDocPanelFloating.classList.toggle('hidden', !isDocCollapsed);
+    }
+    if (btnRestorePlanToolbar) {
+      btnRestorePlanToolbar.classList.toggle('hidden', !isToolbarCollapsed);
+    }
+    const collapsedCount = (isTopCollapsed ? 1 : 0) + (isDocCollapsed ? 1 : 0) + (isToolbarCollapsed ? 1 : 0);
+    if (btnRestoreAllBars) {
+      btnRestoreAllBars.classList.toggle('hidden', collapsedCount < 2);
+    }
+  }
+
+  function restoreAllBarsAndPanels() {
+    isFocusMode = false;
+    if (btnFocusMode) {
+      btnFocusMode.classList.remove('active');
+      btnFocusMode.textContent = 'מיקוד';
+    }
+    document.body.classList.remove('top-bar-collapsed');
+    if (topCommandBar) topCommandBar.classList.remove('hidden');
+    if (splitWorkspaceEl) splitWorkspaceEl.classList.remove('doc-collapsed');
+    isPlanToolbarCollapsed = false;
+    if (visualPanelEl) visualPanelEl.classList.remove('plan-toolbar-collapsed');
+    if (visualToolbarEl) visualToolbarEl.classList.remove('hidden');
+    if (vePlanBar && currentWorkMode === 'OPTIMIZATION' && !isVePlanBarCollapsed) {
+      vePlanBar.classList.remove('hidden');
+    }
+    syncCollapsedBarsRestoreUi();
+    setTimeout(() => {
+      try {
+        if (model3dIframe && model3dIframe.contentWindow && currentViewMode !== '2d') {
+          model3dIframe.contentWindow.dispatchEvent(new Event('resize'));
+        }
+      } catch (e) {}
+    }, 60);
+  }
+
   function togglePlanToolbar(forceCollapse) {
     isPlanToolbarCollapsed = forceCollapse !== undefined ? Boolean(forceCollapse) : !isPlanToolbarCollapsed;
     if (visualPanelEl) {
@@ -965,9 +1026,6 @@
     if (visualToolbarEl) {
       visualToolbarEl.classList.toggle('hidden', isPlanToolbarCollapsed);
     }
-    if (planToolbarRestoreBar) {
-      planToolbarRestoreBar.classList.toggle('hidden', !isPlanToolbarCollapsed);
-    }
     if (vePlanBar) {
       if (isPlanToolbarCollapsed) {
         vePlanBar.classList.add('hidden');
@@ -975,6 +1033,7 @@
         vePlanBar.classList.remove('hidden');
       }
     }
+    syncCollapsedBarsRestoreUi();
     setTimeout(() => {
       try {
         if (model3dIframe && model3dIframe.contentWindow && currentViewMode !== '2d') {
@@ -4129,9 +4188,7 @@
     if (topCommandBar) {
       topCommandBar.classList.toggle('hidden', !shouldShow);
     }
-    if (btnExpandTopBar) {
-      btnExpandTopBar.classList.toggle('hidden', shouldShow);
-    }
+    syncCollapsedBarsRestoreUi();
   }
 
   if (btnCollapseTopBar) {
@@ -4139,6 +4196,9 @@
   }
   if (btnExpandTopBar) {
     btnExpandTopBar.addEventListener('click', () => toggleTopBar(true));
+  }
+  if (btnRestoreTopBarFloating) {
+    btnRestoreTopBarFloating.addEventListener('click', () => toggleTopBar(true));
   }
 
   // Collapsible / Compact Floor Tabs & Plan Toolbar Handlers
@@ -4150,6 +4210,9 @@
   }
   if (btnRestorePlanToolbar) {
     btnRestorePlanToolbar.addEventListener('click', () => togglePlanToolbar(false));
+  }
+  if (btnRestoreAllBars) {
+    btnRestoreAllBars.addEventListener('click', () => restoreAllBarsAndPanels());
   }
   if (btnCollapseVePlanBar) {
     btnCollapseVePlanBar.addEventListener('click', () => toggleVePlanBarCollapse(true));
@@ -4167,15 +4230,12 @@
     }
     if (isFocusMode) {
       if (splitWorkspaceEl) splitWorkspaceEl.classList.add('doc-collapsed');
-      if (btnExpandDocPanel) btnExpandDocPanel.classList.remove('hidden');
       toggleSideDock(false);
       toggleTopBar(false);
       toggleSheetsCompact(true);
+      syncCollapsedBarsRestoreUi();
     } else {
-      if (splitWorkspaceEl) splitWorkspaceEl.classList.remove('doc-collapsed');
-      if (btnExpandDocPanel) btnExpandDocPanel.classList.add('hidden');
-      toggleTopBar(true);
-      togglePlanToolbar(false);
+      restoreAllBarsAndPanels();
     }
   }
 
@@ -4424,8 +4484,13 @@
         decisionsExportModal.classList.add('hidden');
         return;
       }
-      if (isFocusMode) {
-        toggleFocusMode(false);
+      if (
+        isFocusMode ||
+        document.body.classList.contains('top-bar-collapsed') ||
+        (splitWorkspaceEl && splitWorkspaceEl.classList.contains('doc-collapsed')) ||
+        isPlanToolbarCollapsed
+      ) {
+        restoreAllBarsAndPanels();
         return;
       }
       toggleSideDock(false);
@@ -4473,14 +4538,21 @@
   if (btnCollapseDocPanel && splitWorkspaceEl) {
     btnCollapseDocPanel.addEventListener('click', () => {
       splitWorkspaceEl.classList.add('doc-collapsed');
-      if (btnExpandDocPanel) btnExpandDocPanel.classList.remove('hidden');
+      syncCollapsedBarsRestoreUi();
     });
   }
 
   if (btnExpandDocPanel && splitWorkspaceEl) {
     btnExpandDocPanel.addEventListener('click', () => {
       splitWorkspaceEl.classList.remove('doc-collapsed');
-      btnExpandDocPanel.classList.add('hidden');
+      syncCollapsedBarsRestoreUi();
+    });
+  }
+
+  if (btnRestoreDocPanelFloating && splitWorkspaceEl) {
+    btnRestoreDocPanelFloating.addEventListener('click', () => {
+      splitWorkspaceEl.classList.remove('doc-collapsed');
+      syncCollapsedBarsRestoreUi();
     });
   }
 
