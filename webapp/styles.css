@@ -5616,7 +5616,7 @@ body.top-bar-collapsed .top-command-bar {
 }
 
 .split-workspace {
-  grid-template-columns: minmax(340px, 31%) minmax(0, 1fr) !important;
+  grid-template-columns: minmax(380px, 35%) minmax(0, 1fr) !important;
 }
 
 .split-workspace.doc-collapsed {
@@ -5662,5 +5662,660 @@ body.top-bar-collapsed .top-command-bar {
   font-weight: 700 !important;
   line-height: 1.3;
 }
+
+/* =========================================================================
+   ARCHITECT'S NARRATIVE REVIEW & KNOWLEDGE-BASE BREAKDOWN ("סקירה")
+   ========================================================================= */
+.ov-architect-hero-card {
+  border-right: 4px solid #1e3a8a !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+  padding: 14px 15px !important;
+}
+
+.ov-architect-subtitle {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #475569;
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+.ov-identity-badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 9px 0 11px;
+}
+
+.ov-identity-pill {
+  display: inline-flex;
+  align-items: center;
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  padding: 2.5px 9px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.ov-prose-container {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin: 8px 0 12px;
+  padding: 10px 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-right: 3px solid #3b82f6;
+  border-radius: 8px;
+}
+
+.ov-arch-paragraph {
+  margin: 0;
+  font-size: 12.8px;
+  line-height: 1.68;
+  color: #1e293b;
+  text-align: justify;
+}
+
+.ov-narrative-intro {
+  margin: 6px 0 10px;
+  padding: 8px 11px;
+  border-radius: 7px;
+  font-size: 12.4px;
+  line-height: 1.62;
+  color: #1e293b;
+}
+
+.ov-narrative-intro.intro-pos {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #064e3b;
+}
+
+.ov-narrative-intro.intro-neg {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #7f1d1d;
+}
+
+.ov-narrative-intro.intro-ve {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+}
+
+.ov-arch-bullets-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.ov-arch-bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 10px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.ov-arch-bullet:hover {
+  transform: translateX(-2px);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+.ov-arch-bullet.bullet-pos {
+  border-right: 3px solid #10b981;
+}
+
+.ov-arch-bullet.bullet-pos:hover {
+  background: #f0fdf4;
+  border-color: #6ee7b7;
+}
+
+.ov-arch-bullet.bullet-neg {
+  border-right: 3px solid #ef4444;
+}
+
+.ov-arch-bullet.bullet-neg:hover {
+  background: #fef2f2;
+  border-color: #fca5a5;
+}
+
+.ov-bullet-pin.pin-pos {
+  background: #059669;
+  color: #ffffff;
+}
+
+.ov-bullet-pin.pin-neg {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.ov-arch-bullet-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.ov-arch-bullet-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 3px;
+}
+
+.ov-arch-bullet-title {
+  font-size: 12.2px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.ov-inline-kb-tag {
+  font-size: 10.2px;
+  font-weight: 700;
+  padding: 1.5px 7px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  white-space: nowrap;
+}
+
+.ov-arch-bullet-text {
+  font-size: 12px;
+  line-height: 1.56;
+  color: #334155;
+}
+
+/* Knowledge Base Section & Accordions */
+.ov-kb-section-card {
+  border-right: 4px solid #4338ca !important;
+}
+
+.ov-kb-pills-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 8px 0 10px;
+}
+
+.ov-kb-summary-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid #cbd5e1;
+  font-family: 'Heebo', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.ov-kb-summary-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+
+.ov-kb-groups-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ov-kb-group-details {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ov-kb-group-summary {
+  list-style: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 11px;
+  cursor: pointer;
+  background: #ffffff;
+  border-bottom: 1px solid transparent;
+}
+
+.ov-kb-group-details[open] .ov-kb-group-summary {
+  border-bottom-color: #e2e8f0;
+  background: #f8fafc;
+}
+
+.ov-kb-group-summary::-webkit-details-marker {
+  display: none;
+}
+
+.ov-kb-group-title-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.ov-kb-group-title {
+  font-size: 12.3px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.35;
+}
+
+.ov-kb-sources-line {
+  font-size: 10.8px;
+  color: #475569;
+  margin-top: 3px;
+  line-height: 1.38;
+}
+
+.ov-kb-group-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.ov-kb-counts-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: flex-end;
+}
+
+.ov-kb-stat-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1.5px 6px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.ov-kb-stat-badge.stat-pos {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.ov-kb-stat-badge.stat-neg {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.ov-kb-stat-badge.stat-ve {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.ov-kb-group-body {
+  padding: 8px 10px 10px;
+}
+
+.ov-kb-desc-paragraph {
+  margin: 0 0 8px;
+  font-size: 11.4px;
+  line-height: 1.5;
+  color: #475569;
+  background: #ffffff;
+  padding: 6px 9px;
+  border-radius: 6px;
+  border: 1px dashed #cbd5e1;
+}
+
+.ov-kb-bullet-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ov-kb-bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  padding: 7px 9px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.ov-kb-bullet-item:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.ov-kb-bullet-item.kb-item-pos {
+  border-right: 3px solid #10b981;
+}
+
+.ov-kb-bullet-item.kb-item-neg {
+  border-right: 3px solid #ef4444;
+}
+
+.ov-kb-bullet-item.kb-item-ve {
+  border-right: 3px solid #059669;
+  background: #f0fdf4;
+}
+
+.ov-kb-bullet-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.ov-kb-bullet-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 3px;
+  font-size: 11.8px;
+  color: #0f172a;
+}
+
+.ov-kb-bullet-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ov-kb-pol-tag {
+  font-size: 9.8px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+
+.ov-kb-pol-tag.tag-pos {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.ov-kb-pol-tag.tag-neg {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.ov-kb-pol-tag.tag-ve {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.ov-kb-rule-code {
+  font-size: 9.8px;
+  background: #f1f5f9;
+  color: #475569;
+  padding: 1px 5px;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+}
+
+.ov-kb-bullet-desc {
+  font-size: 11.6px;
+  line-height: 1.5;
+  color: #334155;
+}
+
+.ov-ve-narrative-card {
+  border-right: 4px solid #059669 !important;
+}
+
+.ov-func-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.ov-func-chip {
+  padding: 5px 6px;
+  border-radius: 6px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 10.8px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #1e293b;
+  text-align: center;
+  transition: all 0.12s ease;
+}
+
+.ov-func-chip.neg {
+  background: #fff1f2;
+  border-color: #fecdd3;
+  color: #9f1239;
+}
+
+.ov-func-chip.neg:hover {
+  background: #ffe4e6;
+}
+
+.ov-func-chip.pos {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #166534;
+}
+
+.ov-func-chip.pos:hover {
+  background: #dcfce7;
+}
+
+/* Tier 3 Knowledge Base Filter Row in System Findings Tab */
+.kb-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding-top: 3px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.kb-filter-btn {
+  padding: 3px 7px;
+  border-radius: 999px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #334155;
+  font-family: 'Heebo', sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.kb-filter-btn:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1e40af;
+}
+
+.kb-filter-btn.active {
+  background: #1e3a8a;
+  border-color: #1e3a8a;
+  color: #ffffff;
+}
+
+.note-kb-pill {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1.5px 6px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.note-kb-attribution-box {
+  padding: 7px 10px;
+  border-radius: 7px;
+  margin-bottom: 6px;
+  font-size: 11.3px;
+  line-height: 1.45;
+}
+
+.note-kb-attr-title {
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.note-kb-attr-sources {
+  font-size: 10.5px;
+  opacity: 0.92;
+}
+
+/* =========================================================================
+   COLLAPSIBLE & COMPACT PLAN TOOLBAR / FLOOR SELECTOR
+   Allows shrinking the multi-row floor list into 1 line or closing it
+   completely to maximize the Floor Plan Viewport height.
+   ========================================================================= */
+.toolbar-right-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+
+.sheet-tabs.sheets-compact {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.sheet-tabs.sheets-compact .sheet-tab-full {
+  display: none !important;
+}
+
+.sheet-tabs.sheets-compact .sheet-tab-short {
+  display: inline !important;
+}
+
+.sheet-tabs.sheets-expanded .sheet-tab-short {
+  display: none !important;
+}
+
+.sheet-tabs.sheets-expanded .sheet-tab-full {
+  display: inline !important;
+}
+
+.sheet-tabs.sheets-compact .sheet-tab-btn {
+  padding: 4px 9px !important;
+  font-size: 11.5px !important;
+  white-space: nowrap;
+}
+
+.btn-sheets-compact-toggle {
+  background: #f1f5f9 !important;
+  color: #1e293b !important;
+  border: 1px solid #cbd5e1 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  padding: 4px 9px !important;
+  white-space: nowrap;
+}
+
+.btn-sheets-compact-toggle:hover {
+  background: #e2e8f0 !important;
+  border-color: #94a3b8 !important;
+}
+
+.btn-sheets-compact-toggle.active {
+  background: #eff6ff !important;
+  color: #1d4ed8 !important;
+  border-color: #93c5fd !important;
+}
+
+.btn-collapse-plan-toolbar,
+.btn-close-ve-bar {
+  background: #f8fafc !important;
+  color: #334155 !important;
+  border: 1px solid #cbd5e1 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  padding: 4px 8px !important;
+  white-space: nowrap;
+}
+
+.btn-collapse-plan-toolbar:hover,
+.btn-close-ve-bar:hover {
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+  border-color: #94a3b8 !important;
+}
+
+.plan-toolbar-restore-bar {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 32;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-restore-plan-toolbar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.92);
+  color: #ffffff;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
+  transition: all 0.15s ease;
+}
+
+.btn-restore-plan-toolbar:hover {
+  background: #1e3a8a;
+  border-color: #93c5fd;
+  transform: translateY(-1px);
+}
+
+.restore-bar-sep {
+  opacity: 0.45;
+}
+
+/* Maximize Plan Image vertical space when floor list is compact or toolbar is collapsed */
+.plan-image {
+  max-height: calc(100vh - 138px) !important;
+}
+
+.visual-panel.plan-toolbar-collapsed .plan-viewport {
+  padding: 8px !important;
+}
+
+.visual-panel.plan-toolbar-collapsed .plan-image {
+  max-height: calc(100vh - 82px) !important;
+}
+
+body.top-bar-collapsed .plan-image {
+  max-height: calc(100vh - 82px) !important;
+}
+
+body.top-bar-collapsed .visual-panel.plan-toolbar-collapsed .plan-image {
+  max-height: calc(100vh - 24px) !important;
+}
+
+
 
 

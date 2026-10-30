@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=6.9" />
+  <link rel="stylesheet" href="styles.css?v=7.3" />
 </head>
 <body>
   <!-- COLLAPSIBLE MINIMALIST TOP BAR -->
@@ -27,6 +27,7 @@
         <button type="button" class="proj-chip" data-query="יטקובסקי 7">יטקובסקי 7</button>
         <button type="button" class="proj-chip" data-query="קטרוני 37–39">קטרוני 37–39</button>
         <button type="button" class="proj-chip" data-query="פאירברג 3">פאירברג 3</button>
+        <button type="button" class="proj-chip" data-query="משה שרת 26–28">משה שרת 26–28</button>
       </div>
 
       <form id="project-search-form" class="search-form" autocomplete="off">
@@ -128,10 +129,10 @@
 
         <!-- 4 Work Modes: סקירה | הערות מערכת | חיסכון (מופרד) | השוואה -->
         <div class="work-modes-bar" id="work-modes-bar" role="tablist">
-          <button type="button" class="work-mode-tab" data-mode="OVERVIEW" title="סקירה מילולית מתומצתת של בדיקת התכנון">
+          <button type="button" class="work-mode-tab active" data-mode="OVERVIEW" title="דבר האדריכל הבודק: סקירה מילולית שוטפת, יתרונות וחסרונות בבוליטים וחלוקה לפי בסיסי הידע">
             סקירה
           </button>
-          <button type="button" class="work-mode-tab active" data-mode="FINDINGS" title="הערות מערכת מסוננות לפי שלילי/חיובי ותתי-קטגוריות">
+          <button type="button" class="work-mode-tab" data-mode="FINDINGS" title="הערות מערכת מסוננות לפי שלילי/חיובי, תתי-קטגוריות ובסיס הידע">
             הערות מערכת (<span id="count-all">0</span>)
           </button>
           <button type="button" class="work-mode-tab" data-mode="OPTIMIZATION" title="טאב נפרד לחיסכון בעלויות הבנייה ובקרת קונטור">
@@ -142,8 +143,8 @@
           </button>
         </div>
 
-        <!-- Two-Tier System Notes Filters (Shown in FINDINGS mode) -->
-        <div class="doc-filter-stack" id="doc-subfilter-bar">
+        <!-- Three-Tier System Notes Filters (Shown in FINDINGS mode) -->
+        <div class="doc-filter-stack hidden" id="doc-subfilter-bar">
           <!-- Tier 1: Polarity (הכל / שלילי / חיובי) -->
           <div class="doc-filter-bar polarity-filter-row" id="polarity-filter-row">
             <button type="button" class="polarity-btn active" data-polarity="ALL">
@@ -170,6 +171,37 @@
             </button>
             <button type="button" class="cat-filter-btn" data-category="INTERIOR_TIP">
               טיפ עיצוב פנים (<span id="count-cat-tip">0</span>)
+            </button>
+          </div>
+
+          <!-- Tier 3: Knowledge Base (סינון לפי בסיס הידע שעל פיו ההערה ניתנה) -->
+          <div class="doc-filter-bar kb-filter-row" id="kb-filter-row">
+            <button type="button" class="kb-filter-btn active" data-kb="ALL" title="כל בסיסי הידע">
+              כל בסיסי הידע (<span id="count-kb-all">0</span>)
+            </button>
+            <button type="button" class="kb-filter-btn" data-kb="KB_ISRAELI_STATUTORY" title="חקיקה, תקנות התכנון והבנייה, פקע״ר, נגישות ובטיחות אש">
+              ⚖️ תקינה ישראלית (<span id="count-kb-isr">0</span>)
+            </button>
+            <button type="button" class="kb-filter-btn" data-kb="KB_INTL_HOUSING" title="תקני איכות דיור ופרוגרמה בינלאומיים (NSW ADG · UK NDSS · משרד השיכון · WBS)">
+              🏛️ תקני דיור בינ״ל (<span id="count-kb-intl">0</span>)
+            </button>
+            <button type="button" class="kb-filter-btn" data-kb="KB_SPACE_SYNTAX" title="טופולוגיה מרחבית, זרימת חלל וביקורת תכניות אירופאית (Space Syntax · Grundrisskritik)">
+              🧭 זרימת חלל ופרטיות (<span id="count-kb-space">0</span>)
+            </button>
+            <button type="button" class="kb-filter-btn" data-kb="KB_ERGONOMICS_INTERIOR" title="ארגונומיה, מטבחים, חדרים רטובים ואנתרופומטריה (NKBA · Panero & Zelnik · San-ten Bunri)">
+              🛋️ ארגונומיה וריהוט (<span id="count-kb-ergo">0</span>)
+            </button>
+            <button type="button" class="kb-filter-btn" data-kb="KB_DAYLIGHT_IEQ" title="אקלים פנים, אור יום צירקדי, אוורור טבעי וביופיליה (EN 17037 · WELL v2 · ת״י 5281/1045)">
+              ☀️ אור יום ואוורור (<span id="count-kb-ieq">0</span>)
+            </button>
+            <button type="button" class="kb-filter-btn" data-kb="KB_ADAPTABILITY_FAMILY" title="גמישות תכנונית (Open Building), התאמה למעגל החיים ותכנון למשפחות (Habraken · Toronto Growing Up)">
+              🧬 גמישות ומשפחות (<span id="count-kb-adapt">0</span>)
+            </button>
+            <button type="button" class="kb-filter-btn" data-kb="KB_ACOUSTICS_MEP" title="אקוסטיקה פנימית, תיאום מערכות מיזוג (MEP/VRF) ואינסטלציה (ת״י 1004/1205 · ASHRAE · WELL)">
+              🔇 אקוסטיקה ו-MEP (<span id="count-kb-mep">0</span>)
+            </button>
+            <button type="button" class="kb-filter-btn" data-kb="KB_URBAN_LOCAL" title="ממשק עירוני, קומת קרקע, מסתורי שירות והנחיות מרחביות מקומיות (סעיף 145ד · שכונה 360°)">
+              🏙️ ממשק עירוני (<span id="count-kb-urban">0</span>)
             </button>
           </div>
         </div>
@@ -199,8 +231,8 @@
 
     <!-- ZONE 2 (CENTER) & ZONE 3 (LEFT INSPECTOR DRAWER) -->
     <section class="visual-panel" id="visual-panel">
-      <!-- Clean Top Plan Toolbar -->
-      <div class="visual-toolbar">
+      <!-- Clean Top Plan Toolbar (Collapsible & Minimizable) -->
+      <div class="visual-toolbar" id="visual-toolbar">
         <div class="toolbar-right-group">
           <button type="button" id="btn-expand-top-bar" class="ctrl-btn btn-expand-topbar hidden" title="פתח סרגל עליון">
             סרגל עליון ▾
@@ -209,7 +241,10 @@
             ממצאים ▸
           </button>
           <!-- Floor / Sheet Selector Tabs -->
-          <div class="sheet-tabs" id="sheet-tabs-container"></div>
+          <div class="sheet-tabs sheets-compact" id="sheet-tabs-container"></div>
+          <button type="button" id="btn-toggle-sheets-compact" class="ctrl-btn btn-sheets-compact-toggle" title="הצג או צמצם את פירוט הקומות המלא">
+            פירוט קומות ▾
+          </button>
         </div>
 
         <!-- Minimalist Canvas Controls -->
@@ -226,6 +261,9 @@
             </button>
             <button type="button" id="btn-toggle-ve-plan-mode" class="ctrl-btn" title="שכבת קונטור וחיסכון">
               קונטור
+            </button>
+            <button type="button" id="btn-restore-ve-plan-bar" class="ctrl-btn hidden" title="פתח חזרה את שורת מוקדי החיסכון">
+              שורת חיסכון ▾
             </button>
           </div>
 
@@ -254,6 +292,10 @@
             מיקוד
           </button>
 
+          <button type="button" id="btn-collapse-plan-toolbar" class="ctrl-btn btn-collapse-plan-toolbar" title="סגור וצמצם את סרגל הקומות והכלים כדי לפנות מקום למסך התכניות">
+            סגור פאנל ▴
+          </button>
+
           <button type="button" id="btn-toggle-side-dock" class="ctrl-btn hidden" title="חלונית פרטים">
             פרטים
           </button>
@@ -265,6 +307,7 @@
         <div class="ve-plan-bar-header">
           <span class="ve-plan-bar-badge" id="ve-plan-bar-total">מוקדי קונטור</span>
           <button type="button" id="btn-open-ve-center-from-bar" class="btn-ve-bar-hub">טבלה מלאה ◂</button>
+          <button type="button" id="btn-collapse-ve-plan-bar" class="ctrl-btn btn-close-ve-bar" title="סגור שורת מוקדי קונטור כדי לפנות מקום לתכנית">צמצם ▴</button>
         </div>
         <div id="ve-plan-hotspots-list" class="ve-plan-hotspots-list"></div>
       </div>
@@ -272,6 +315,15 @@
       <!-- Main Plan Body: Center Drawing Stage + Left Inspector Drawer (Closed by Default) -->
       <div id="plan-body-layout" class="plan-body-layout dock-collapsed">
         <div id="plan-viewport" class="plan-viewport vmode-2d">
+          <!-- Floating Restore Pill when Plan Toolbar is Closed -->
+          <div id="plan-toolbar-restore-bar" class="plan-toolbar-restore-bar hidden">
+            <button type="button" id="btn-restore-plan-toolbar" class="btn-restore-plan-toolbar" title="פתח חזרה את סרגל הקומות והכלים">
+              <span>📐 <strong id="restore-bar-sheet-name">קומה פעילה</strong></span>
+              <span class="restore-bar-sep">|</span>
+              <span>פתח קומות וכלים ▾</span>
+            </button>
+          </div>
+
           <div id="plan-stage" class="plan-stage">
             <div id="plan-image-wrapper" class="plan-image-wrapper">
               <img id="plan-image" class="plan-image" src="/uploads/hafetz44_ground.png" alt="תכנית אדריכלית" draggable="false" />
@@ -395,6 +447,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=6.9"></script>
+  <script src="app.js?v=7.3"></script>
 </body>
 </html>

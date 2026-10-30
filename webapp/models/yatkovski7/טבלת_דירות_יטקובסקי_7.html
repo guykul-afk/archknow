@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>טבלת דירות בפרויקט — יטקובסקי אחים 7 (7א), פתח תקווה</title>
+  <style>
+    @page { size: A4 landscape; margin: 12mm; }
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+      margin: 0;
+      padding: 24px;
+      direction: rtl;
+    }
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #ffffff;
+      padding: 22px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .header h1 {
+      margin: 0 0 6px 0;
+      font-size: 22px;
+      font-weight: 800;
+    }
+    .header p {
+      margin: 0;
+      color: #93c5fd;
+      font-size: 14px;
+    }
+    .header-badges {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .kpi-box {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 8px 14px;
+      text-align: center;
+    }
+    .kpi-box .val {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fde047;
+      display: block;
+    }
+    .kpi-box .lbl {
+      font-size: 11px;
+      color: #e2e8f0;
+    }
+    .toolbar {
+      padding: 14px 28px;
+      background: #f1f5f9;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .ownership-banner {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13.5px;
+      color: #1e3a8a;
+      font-weight: 600;
+    }
+    .btn {
+      padding: 7px 16px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      background: #059669;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn:hover {
+      background: #047857;
+    }
+    .table-wrap {
+      padding: 20px 28px;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+    th, td {
+      padding: 11px 12px;
+      text-align: right;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    th {
+      background: #f8fafc;
+      color: #334155;
+      font-weight: 800;
+      border-top: 1px solid #cbd5e1;
+      border-bottom: 2px solid #94a3b8;
+      white-space: nowrap;
+    }
+    tr:hover td {
+      background-color: #f1f5f9;
+    }
+    .num {
+      font-weight: 700;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+    .area-highlight {
+      font-weight: 800;
+      color: #1e3a8a;
+      background: #eff6ff;
+      text-align: center;
+      border-radius: 4px;
+    }
+    .balc-highlight {
+      font-weight: 800;
+      color: #047857;
+      background: #ecfdf5;
+      text-align: center;
+      border-radius: 4px;
+    }
+    .badge-combo {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+    }
+    tfoot td {
+      background: #0f172a;
+      color: #ffffff;
+      font-weight: 800;
+      border-top: 2px solid #334155;
+      padding: 14px 12px;
+    }
+    .notes {
+      padding: 16px 28px 24px;
+      background: #fafafa;
+      border-top: 1px solid #e2e8f0;
+      font-size: 12.5px;
+      color: #64748b;
+      line-height: 1.6;
+    }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .container { box-shadow: none; border: none; max-width: 100%; }
+      .toolbar { display: none; }
+      .table-wrap { padding: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <h1>פרויקט האחים יטקובסקי 7 (7א), פתח תקווה — לוח דירות מפורט</h1>
+        <p>מגרש: גוש 6714, חלקה 470 · תב"ע מאושרת 410-1272517 · מבנה מגורים יוקרתי (קרקע + 6 קומות + מרתף חניה)</p>
+      </div>
+      <div class="header-badges">
+        <div class="kpi-box">
+          <span class="val">11</span>
+          <span class="lbl">יח"ד בבניין</span>
+        </div>
+        <div class="kpi-box">
+          <span class="val">1,018</span>
+          <span class="lbl">מ"ר עיקרי תב"ע</span>
+        </div>
+        <div class="kpi-box">
+          <span class="val">1,176</span>
+          <span class="lbl">מ"ר ברוטו (פלדלת)</span>
+        </div>
+        <div class="kpi-box">
+          <span class="val">52% / 48%</span>
+          <span class="lbl">יחס יזם / בעלים</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="ownership-banner">
+        ⚖️ <strong>עסקת קומבינציה:</strong> אחוז יזמי <strong>52%</strong> (יצחק קולסקי חברה לבניה והשקעות בע"מ) מול <strong>48%</strong> בעלי הקרקע (ללא חלוקה / ייחוד דירות פרטני)
+      </div>
+      <div>
+        <button class="btn" onclick="window.print()">🖨️ הדפסה / שמירה כ-PDF</button>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table id="aptTable">
+        <thead>
+          <tr>
+            <th style="text-align:center;">מס' דירה</th>
+            <th>קומה</th>
+            <th style="text-align:center;">מפלס (מ')</th>
+            <th>אגף / מיקום</th>
+            <th style="text-align:center;">חדרים</th>
+            <th>טיפוס דירה</th>
+            <th style="text-align:center;">שטח עיקרי<br><small>(מ"ר תב"ע)</small></th>
+            <th style="text-align:center;">שטח דירה ברוטו<br><small>(מ"ר פלדלת)</small></th>
+            <th style="text-align:center;">גודל מרפסת / גינה<br><small>(מ"ר)</small></th>
+            <th>פירוט מרפסת / גינה</th>
+            <th>כיווני אוויר</th>
+            <th style="text-align:center;">חניה</th>
+            <th>אחוז בעלות יזמי</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td class="num"><strong>דירה 1</strong></td>
+            <td><strong>קומת קרקע (0)</strong></td>
+            <td class="num" style="direction:ltr;">±0.00</td>
+            <td>דרום (דירת גן)</td>
+            <td class="num">4</td>
+            <td>דירת גן דרומית</td>
+            <td class="num">83 מ"ר</td>
+            <td class="area-highlight">105 מ"ר</td>
+            <td class="balc-highlight">153 מ"ר</td>
+            <td>גינה פרטית היקפית</td>
+            <td><strong>דרום, מערב, מזרח (3 כיווני אוויר)</strong></td>
+            <td class="num" style="direction:ltr;">#7</td>
+            <td><span class="badge-combo">עסקת קומבינציה (יזם 52% / בעלים 48%)</span></td>
+          </tr>
+          <tr>
+            <td class="num"><strong>דירה 2</strong></td>
+            <td><strong>קומה 1 (א')</strong></td>
+            <td class="num" style="direction:ltr;">+3.85</td>
+            <td>דרום (עורף)</td>
+            <td class="num">4</td>
+            <td>דירת 4 חדרים עורפית</td>
+            <td class="num">90 מ"ר</td>
+            <td class="area-highlight">102 מ"ר</td>
+            <td class="balc-highlight">16 מ"ר</td>
+            <td>מרפסת שמש + סוכה א'</td>
+            <td><strong>דרום, מערב, מזרח (3 כיווני אוויר)</strong></td>
+            <td class="num" style="direction:ltr;">#1</td>
+            <td><span class="badge-combo">עסקת קומבינציה (יזם 52% / בעלים 48%)</span></td>
+          </tr>
+          <tr>
+            <td class="num"><strong>דירה 3</strong></td>
+            <td><strong>קומה 1 (א')</strong></td>
+            <td class="num" style="direction:ltr;">+3.85</td>
+            <td>צפון (חזית)</td>
+            <td class="num">4</td>
+            <td>דירת 4 חדרים חזיתית</td>
+            <td class="num">85 מ"ר</td>
+            <td class="area-highlight">97 מ"ר</td>
+            <td class="balc-highlight">18 מ"ר</td>
+            <td>מרפסת שמש + סוכה א'</td>
+            <td><strong>צפון (חזית), מערב, מזרח (3 כיווני אוויר)</strong></td>
+            <td class="num" style="direction:ltr;">#2</td>
+            <td><span class="badge-combo">עסקת קומבינציה (יזם 52% / בעלים 48%)</span></td>
+          </tr>
+          <tr>
+            <td class="num"><strong>דירה 4</strong></td>
+            <td><strong>קומה 2 (ב')</strong></td>
+            <td class="num" style="direction:ltr;">+7.00</td>
+            <td>דרום (עורף)</td>
+            <td class="num">4</td>
+            <td>דירת 4 חדרים עורפית</td>
+            <td class="num">90 מ"ר</td>
+            <td class="area-highlight">102 מ"ר</td>
+            <td class="balc-highlight">13 מ"ר</td>
+            <td>מרפסת שמש + סוכה ב' (מדורגת)</td>
+            <td><strong>דרום, מערב, מזרח (3 כיווני אוויר)</strong></td>
+            <td class="num" style="direction:ltr;">#3</td>
+            <td><span class="badge-combo">עסקת קומבינציה (יזם 52% / בעלים 48%)</span></td>
+          </tr>
+          <tr>
+            <td class="num"><strong>דירה 5</strong></td>
+            <td><strong>קומה 2 (ב')</strong></td>
+            <td class="num" style="direction:ltr;">+7.00</td>
+            <td>צפון (חזית)</td>
+            <td class="num">4</td>
+            <td>דירת 4 חדרים חזיתית</td>
+            <td class="num">85 מ"ר</td>
+            <td class="area-highlight">97 מ"ר</td>
+            <td class="balc-highlight">15 מ"ר</td>
+            <td>מרפסת שמש + סוכה ב' (מדורגת)</td>
+            <td><strong>צפון (חזית), מערב, מזרח (3 כיווני אוויר)</strong></td>
+            <td class="num" style="direction:ltr;">#4</td>
+            <td><span class="badge-combo">עסקת קומבינציה (יזם 52% / בעלים 48%)</span></td>
+          </tr>
+          <tr>
+            <td class="num"><strong>דירה 6</strong></td>
+            <td><strong>קומה 3 (ג')</strong></td>
+            <td class="num" style="direction:ltr;">+10.15</td>
+            <td>דרום (עורף)</td>
+            <td class="num">4</td>
+            <td>דירת 4 חדרים עורפית</td>
+            <td class="num">90 מ"ר</td>
+            <td class="area-highlight">102 מ"ר</td>
+            <td class="balc-highlight">11 מ"ר</td>
+            <td>מרפסת שמש מקורה</td>
+            <td><strong>דרום, מערב, מזרח (3 כיווני אוויר)</strong></td>
+            <td class="num" style="direction:ltr;">#5</td>
+            <td><span class="badge-combo">עסקת קומבינציה (יזם 52% / בעלים 48%)</span></td>
+          </tr>
+          <tr>
+            <td class="num"><strong>דירה 7</strong></td>
+            <td><strong>קומה 3 (ג')</strong></td>
+            <td class="num" style="direction:ltr;">+10.15</td>
+            <td>צפון (חזית)</td>
+            <td class="num">4</td>
+            <td>דירת 4 חדרים חזיתית</td>
+            <td class="num">85 מ"ר</td>
+            <td class="area-highlight">97 מ"ר</td>
+            <td class="balc-highlight">12 מ"ר</td>
+            <td>מרפסת שמש מקורה</td>
+            <td><strong>צפון (חזית), מערב, מזרח (3 כיווני אוויר)</strong></td>
+            <td class="num" style="direction:ltr;">#6</td>
+            <td><span class="badge-combo">עסקת קומבינציה (יזם 52% / בעלים 48%)</span></td>
+          </tr>
+          <tr>
+            <td class="num"><strong>דירה 8</strong></td>
+            <td><strong>קומה 4 (ד')</strong></td>
+            <td class="num" style="direction:ltr;">+13.30</td>
+            <td>דרום (עורף)</td>
+            <td class="num">4</td>
+            <td>דירת 4 חדרים עורפית</td>
+            <td class="num">90 מ"ר</td>
+            <td class="area-highlight">102 מ"ר</td>
+            <td class="balc-highlight">11 מ"ר</td>
+            <td>מרפסת שמש מקורה</td>
+            <td><strong>דרום, מערב, מזרח (3 כיווני אוויר)</strong></td>
+            <td class="num" style="direction:ltr;">#7</td>
+            <td><span class="badge-combo">עסקת קומבינציה (יזם 52% / בעלים 48%)</span></td>
+          </tr>
+          <tr>
+            <td class="num"><strong>דירה 9</strong></td>
+            <td><strong>קומה 4 (ד')</strong></td>
+            <td class="num" style="direction:ltr;">+13.30</td>
+            <td>צפון (חזית)</td>
+            <td class="num">4</td>
+            <td>דירת 4 חדרים חזיתית</td>
+            <td class="num">85 מ"ר</td>
+            <td class="area-highlight">97 מ"ר</td>
+            <td class="balc-highlight">12 מ"ר</td>
+            <td>מרפסת שמש מקורה</td>
+            <td><strong>צפון (חזית), מערב, מזרח (3 כיווני אוויר)</strong></td>
+            <td class="num" style="direction:ltr;">#8</td>
+            <td><span class="badge-combo">עסקת קומבינציה (יזם 52% / בעלים 48%)</span></td>
+          </tr>
+          <tr>
+            <td class="num"><strong>דירה 10</strong></td>
+            <td><strong>קומה 5 (ה')</strong></td>
+            <td class="num" style="direction:ltr;">+16.53</td>
+            <td>קומה שלמה</td>
+            <td class="num">5</td>
+            <td>מיני-פנטהאוז קומתי</td>
+            <td class="num">133 מ"ר</td>
+            <td class="area-highlight">150 מ"ר</td>
+            <td class="balc-highlight">64 מ"ר</td>
+            <td>2 מרפסות גג (צפונית ~26 מ"ר + דרומית ~38 מ"ר) + פרגולות</td>
+            <td><strong>צפון, דרום, מזרח, מערב (4 כיווני אוויר)</strong></td>
+            <td class="num" style="direction:ltr;">#10</td>
+            <td><span class="badge-combo">עסקת קומבינציה (יזם 52% / בעלים 48%)</span></td>
+          </tr>
+          <tr>
+            <td class="num"><strong>דירה 11</strong></td>
+            <td><strong>קומה 6 (ו')</strong></td>
+            <td class="num" style="direction:ltr;">+19.76</td>
+            <td>קומה שלמה</td>
+            <td class="num">5</td>
+            <td>פנטהאוז קומתי + מחסן צמוד</td>
+            <td class="num">102 מ"ר</td>
+            <td class="area-highlight">125 מ"ר</td>
+            <td class="balc-highlight">52 מ"ר</td>
+            <td>2 מרפסות גג (צפונית ~16 מ"ר + דרומית ~36 מ"ר) + פרגולה</td>
+            <td><strong>צפון, דרום, מזרח, מערב (4 כיווני אוויר)</strong></td>
+            <td class="num" style="direction:ltr;">#11, #12</td>
+            <td><span class="badge-combo">עסקת קומבינציה (יזם 52% / בעלים 48%)</span></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td style="text-align:center;">סה"כ: 11 יח"ד</td>
+            <td>קרקע + 6 קומות</td>
+            <td></td>
+            <td></td>
+            <td class="num">46 חד'</td>
+            <td></td>
+            <td class="num">1,018 מ"ר</td>
+            <td class="num">1,176 מ"ר</td>
+            <td class="num">224 מ"ר + 153 מ"ר גינה</td>
+            <td colspan="2">100% מהדירות עם 3–4 כיווני אוויר מלאים ומרפסת סוכה</td>
+            <td class="num">12 חניות</td>
+            <td>יחס פרויקט: 52% יזם / 48% בעלים</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="notes">
+      <strong>הערות הנדסיות ותכנוניות (מתוך קובץ DWG אדריכלי <code>yatkovski7-100-20.dwg</code> ותב"ע מאושרת <code>410-1272517</code>):</strong>
+      <ul style="margin: 6px 0 0 0; padding-right: 20px;">
+        <li><strong>בעלות וקומבינציה:</strong> הפרויקט מבוסס על עסקת קומבינציה של <strong>52% יזם</strong> (יצחק קולסקי חברה לבניה והשקעות בע"מ) מול <strong>48% בעלי הקרקע</strong>. הלוח מציג את נתוני כל הדירות באופן שוויוני ללא חלוקה/הקצאה אוטומטית של דירות ספציפיות.</li>
+        <li><strong>גודל דירה:</strong> מוצגים הן <strong>השטח העיקרי (נטו תב"ע)</strong> מתוך טבלת שטחי הדירות בשרטוט (סה"כ 1,018 מ"ר) והן <strong>שטח הפלדלת ברוטו</strong> (כולל ממ"ד ~12 מ"ר וקירות חוץ/פנים, סה"כ 1,176 מ"ר).</li>
+        <li><strong>דירוג מרפסות סוכה בקומות א'–ד':</strong> בהתאם לתוכניות הקומות ב-DWG, מרפסות השמש מדורגות לטובת שמיים פתוחים לסוכה — קומה 1 (סוכה א': 16 מ"ר בדרום ו-18 מ"ר בצפון), קומה 2 (סוכה ב': 13 מ"ר בדרום ו-15 מ"ר בצפון), וקומות 3–4 (11 מ"ר בדרום ו-12 מ"ר בצפון).</li>
+        <li><strong>דירות הגג (קומות ה'–ו'):</strong> דירה 10 (קומה 5) ודירה 11 (קומה 6) משתרעות כל אחת על קומה שלמה (4 כיווני אוויר מלאים) וכוללות 2 מרפסות גג (צפונית ודרומית) עם פרגולות; לדירה 11 מוצמד גם מחסן קומתי (כ-5 מ"ר) ו-2 חניות במרתף.</li>
+      </ul>
+    </div>
+  </div>
+
+
+
+<!-- ARCHICHECK_3D_OVERLAY_START -->
+<script>window.__ARCHICHECK_PROJECT_ID__ = "yatkovski7";</script>
+<script src="/audit_3d_overlay.js?v=6.6"></script>
+<!-- ARCHICHECK_3D_OVERLAY_END -->
+</body>
+</html>

@@ -95,6 +95,24 @@
         "193"
       ],
       "pdf_report_url": "/reports/feierberg3_architectural_quality_analysis.pdf"
+    },
+    {
+      "id": "sharett26",
+      "name": "משה שרת 26–28, פתח תקווה (גוש 6372, חלקה 1025)",
+      "short_name": "משה שרת 26–28",
+      "subtitle": "מתחם מגורים דו-אגפי (בניינים 28 ו-26) בן 9 קומות + קרקע, גלריה ו-2 מרתפים (66 יח״ד · א.ל.ר אדריכלים · א.ב. שרת)",
+      "score": "91.8 / 100",
+      "status_summary": "485 עוברים · 32 התראות איכות · 0 כישלונות חוקיים · מודל 3D BIM 1:1",
+      "keywords": [
+        "משה שרת",
+        "שרת",
+        "sharett",
+        "sharet",
+        "26-28",
+        "6372",
+        "1025"
+      ],
+      "pdf_report_url": "/reports/sharett26_architectural_quality_analysis.pdf"
     }
   ]
 }

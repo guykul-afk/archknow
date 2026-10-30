@@ -26,9 +26,11 @@
   const urlParams = new URLSearchParams(window.location.search);
   const isEmbedded = urlParams.get('embed') === '1' || window.self !== window.top;
 
-  // Wait until Three.js scene and FLOORS are initialized in the host model
-  function waitForHostScene(cb, retries = 40) {
-    if (typeof THREE !== 'undefined' && typeof scene !== 'undefined' && typeof activeCam !== 'undefined') {
+  // Wait until Three.js scene (or KKL10 custom WebGL BIM engine) is initialized in the host model
+  function waitForHostScene(cb, retries = 50) {
+    const hasThree = (typeof THREE !== 'undefined' && typeof scene !== 'undefined' && typeof activeCam !== 'undefined');
+    const hasKklWebGL = (typeof viewFloorPlan === 'function' && typeof projectWorldToScreen === 'function' && typeof cam !== 'undefined');
+    if (hasThree || hasKklWebGL) {
       cb();
     } else if (retries > 0) {
       setTimeout(() => waitForHostScene(cb, retries - 1), 100);
@@ -38,6 +40,93 @@
   waitForHostScene(initAudit3DOverlay);
 
   function initAudit3DOverlay() {
+    // Universal Host Adapter for Pines 48 (Three.js with spherical/target/setClipHeight) & KKL 10 (Custom WebGL Engine)
+    if (typeof THREE === 'undefined' && typeof projectWorldToScreen === 'function') {
+      // KKL 10 WebGL Adapter
+      class Vec3Shim {
+        constructor(x = 0, y = 0, z = 0) { this.x = x; this.y = y; this.z = z; }
+        set(x, y, z) { this.x = x; this.y = y; this.z = z; return this; }
+        copy(v) { this.x = v.x; this.y = v.y; this.z = v.z; return this; }
+        clone() { return new Vec3Shim(this.x, this.y, this.z); }
+        subVectors(a, b) { this.x = a.x - b.x; this.y = a.y - b.y; this.z = a.z - b.z; return this; }
+        length() { return Math.hypot(this.x, this.y, this.z); }
+        normalize() { const l = this.length() || 1; this.x /= l; this.y /= l; this.z /= l; return this; }
+        project() {
+          if (typeof currentProjMat === 'undefined' || typeof currentViewMat === 'undefined' || !currentProjMat || !currentViewMat) {
+            return { x: 0, y: 0, z: 2 };
+          }
+          const w = window.innerWidth || 1, h = window.innerHeight || 1;
+          const scr = projectWorldToScreen(this.x, this.y, this.z, currentProjMat, currentViewMat, w, h);
+          if (!scr) return { x: 0, y: 0, z: 2 };
+          return { x: (scr.x / w) * 2 - 1, y: -((scr.y / h) * 2 - 1), z: 0 };
+        }
+      }
+      class GroupShim {
+        constructor() { this.children = []; this.visible = true; this.position = new Vec3Shim(); this.rotation = new Vec3Shim(); this.userData = {}; }
+        add(c) { if (c) this.children.push(c); }
+        remove(c) { const i = this.children.indexOf(c); if (i >= 0) this.children.splice(i, 1); }
+      }
+      window.THREE = {
+        Vector3: Vec3Shim,
+        Vector2: class { constructor(x = 0, y = 0) { this.x = x; this.y = y; } },
+        Group: GroupShim,
+        GridHelper: class extends GroupShim {},
+        BoxGeometry: class {},
+        EdgesGeometry: class {},
+        MeshStandardMaterial: class { constructor(o = {}) { Object.assign(this, o); } },
+        LineBasicMaterial: class { constructor(o = {}) { Object.assign(this, o); } },
+        Mesh: class extends GroupShim { constructor(g, m) { super(); this.geometry = g; this.material = m; } },
+        LineSegments: class extends GroupShim { constructor(g, m) { super(); this.geometry = g; this.material = m; } },
+        ArrowHelper: class extends GroupShim {},
+        Raycaster: class { setFromCamera() {} intersectObjects() { return []; } },
+        DoubleSide: 2,
+      };
+      window.scene = new GroupShim();
+      window.activeCam = {};
+      window.currentFloorId = 'all';
+      window.camState = {
+        target: {
+          set(x, y, z) { if (typeof cam !== 'undefined') cam.target = [x, y, z]; }
+        },
+        spherical: { radius: 34, phi: 0.54, theta: 1.57 },
+        walkMode: false,
+      };
+      window.updateCameraFromOrbit = function () {
+        if (typeof cam !== 'undefined') {
+          cam.dist = window.camState.spherical.radius || 32;
+          cam.pitch = Math.max(0.15, Math.min(1.48, Math.PI / 2 - (window.camState.spherical.phi || 0.52)));
+          cam.yaw = (window.camState.spherical.theta || 1.57) - 1.57;
+        }
+      };
+      window.selectFloor = function (flr) {
+        window.currentFloorId = flr;
+        if (flr === 'all') {
+          if (typeof resetClipping === 'function') resetClipping();
+          return;
+        }
+        const idxMap = { B2: -2, b2: -2, B1: -1, b1: -1, mar: -1, L0: 0, kar: 0, L1: 1, L2: 2, L3: 3, L4: 4, f4: 4, L5: 5, L6: 6, L7: 7, L8: 8, f9: 8, gag: 8 };
+        const idx = idxMap[flr] !== undefined ? idxMap[flr] : 4;
+        if (typeof viewFloorPlan === 'function') viewFloorPlan(idx);
+      };
+    } else if (typeof camState === 'undefined' && typeof spherical !== 'undefined' && typeof target !== 'undefined') {
+      // Pines 48 Three.js Adapter
+      window.currentFloorId = 'all';
+      window.camState = {
+        spherical: spherical,
+        target: target,
+        walkMode: false,
+      };
+      window.updateCameraFromOrbit = function () {
+        if (typeof updateCameraFromSpherical === 'function') updateCameraFromSpherical();
+      };
+      window.selectFloor = function (flr) {
+        window.currentFloorId = flr;
+        const hMap = { all: 29.5, mar: -0.25, b1: -0.25, b2: -3.8, kar: 3.45, f1: 6.3, f2: 9.2, f3: 12.6, f4: 12.6, f5: 18.8, f6: 22.1, f7: 25.4, f9: 22.1, gag: 28.5 };
+        if (typeof setClipHeight === 'function') {
+          setClipHeight(hMap[flr] !== undefined ? hMap[flr] : 12.6);
+        }
+      };
+    }
     // =========================================================================
     // 0. CLEAN ARCHITECTURAL PLANNING MODE (STRIP MARKETING / GIS / CATALOG)
     // =========================================================================
@@ -414,7 +503,7 @@
           },
           {
             id: 'arch-btn-mar',
-            label: projectId === 'feierberg3' ? '🅿️ מרתפים (1-/2-)' : '🅿️ מרתף (-5.10)',
+            label: (projectId === 'feierberg3' || projectId === 'sharett26') ? '🅿️ מרתפים (1-/2-)' : '🅿️ מרתף (-5.10)',
             title: 'חתך קומת מרתף חניון, רמפה היקפית ודיפון',
             onClick: () => {
               const bsmFlr = resolveHostFloorId('basement1');
@@ -478,7 +567,7 @@
           },
           {
             id: 'arch-btn-f9',
-            label: projectId === 'feierberg3' ? '👑 פנטהאוז (ק׳ 9–10)' : '👑 פנטהאוז (ק׳ 9)',
+            label: projectId === 'feierberg3' ? '👑 פנטהאוז (ק׳ 9–10)' : (projectId === 'sharett26' ? '👑 פנטהאוז (ק׳ 8–9)' : '👑 פנטהאוז (ק׳ 9)'),
             title: 'חתך קומת פנטהאוז ומרפסות גג',
             onClick: () => {
               const phFlr = resolveHostFloorId('penthouse');
@@ -533,7 +622,7 @@
                 syncArchFloorBtns('f4');
               }
               if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
-                camState.spherical.theta = -Math.PI / 2;
+                camState.spherical.theta = Math.PI / 2;
                 camState.spherical.phi = 0.03;
                 camState.spherical.radius = 32.0;
                 updateCameraFromOrbit();
@@ -542,8 +631,8 @@
             } else {
               setOrthoMode(false);
               if (typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
-                camState.spherical.phi = 0.56;
-                camState.spherical.theta = 1.25;
+                camState.spherical.phi = 0.52;
+                camState.spherical.theta = Math.PI / 2;
                 updateCameraFromOrbit();
               }
             }
@@ -593,37 +682,61 @@
     function resolveHostFloorId(roleOrSheet) {
       const s = String(roleOrSheet || '').toLowerCase();
       const hostFloors = (typeof FLOORS !== 'undefined' && Array.isArray(FLOORS)) ? FLOORS.map((f) => f.id) : [];
-      if (s.includes('basement2') || s === 'b2') {
+      if (projectId === 'kkl10') {
+        if (s.includes('basement2') || s === 'b2') return 'B2';
+        if (s.includes('basement') || s === 'b1' || s === 'mar') return 'B1';
+        if (s.includes('ground') || s === 'l0' || s === 'kar') return 'L0';
+        if (s.includes('f1_2') || s === 'l2') return 'L2';
+        if (s.includes('penthouse') || s === 'l8' || s === 'f9') return 'L8';
+        return 'L4';
+      }
+      if (projectId === 'kitroni37') {
+        if (s.includes('basement') || s === 'mar') return hostFloors.includes('mar') ? 'mar' : 'b1';
+        if (s.includes('ground') || s === 'kar') return 'kar';
+        if (s.includes('floor8') || s === 'k8') return hostFloors.includes('k8') ? 'k8' : 'f4';
+        if (s.includes('penthouse') || s === 'k9' || s === 'f9') return hostFloors.includes('k9') ? 'k9' : 'f9';
+        return hostFloors.includes('k2_4') ? 'k2_4' : 'f4';
+      }
+      if (s.includes('basement2') || s === 'b2' || s === 'bm2') {
+        if (hostFloors.includes('bm2')) return 'bm2';
         return hostFloors.includes('b2') ? 'b2' : (hostFloors.includes('mar') ? 'mar' : 'b1');
       }
-      if (s.includes('basement') || s === 'mar' || s === 'b1') {
+      if (s.includes('basement') || s === 'mar' || s === 'b1' || s === 'bm1') {
+        if (hostFloors.includes('bm1')) return 'bm1';
         return hostFloors.includes('b1') ? 'b1' : 'mar';
+      }
+      if (s.includes('gallery') || s === 'gal') {
+        return hostFloors.includes('gal') ? 'gal' : 'kar';
       }
       if (s.includes('ground') || s === 'kar') {
         return 'kar';
+      }
+      if (s.includes('floor8') || s === 'f8') {
+        return hostFloors.includes('f8') ? 'f8' : 'f4';
       }
       if (s.includes('floor10') || s === 'f10') {
         return hostFloors.includes('f10') ? 'f10' : (hostFloors.includes('f9') ? 'f9' : 'f6');
       }
       if (s.includes('penthouse') || s.includes('floor9') || s === 'f9' || s.includes('f6') || s.includes('f7')) {
         if (hostFloors.includes('f9')) return 'f9';
+        if (hostFloors.includes('f8')) return 'f8';
         if (hostFloors.includes('f6')) return 'f6';
         return 'f9';
       }
       if (s.includes('roof') || s === 'gag') {
         return hostFloors.includes('gag') ? 'gag' : 'f9';
       }
-      return 'f4';
+      return hostFloors.includes('f3') && !hostFloors.includes('f4') ? 'f3' : 'f4';
     }
 
     function syncArchFloorBtns(floorId) {
       const mapId = {
         all: 'arch-btn-all',
-        mar: 'arch-btn-mar', b1: 'arch-btn-mar', b2: 'arch-btn-mar',
-        kar: 'arch-btn-kar',
+        mar: 'arch-btn-mar', b1: 'arch-btn-mar', b2: 'arch-btn-mar', bm1: 'arch-btn-mar', bm2: 'arch-btn-mar',
+        kar: 'arch-btn-kar', gal: 'arch-btn-kar',
         f1: 'arch-btn-f4', f2: 'arch-btn-f4', f3: 'arch-btn-f4', f4: 'arch-btn-f4',
         f5: 'arch-btn-f4', f6: (projectId === 'yatkovski7' ? 'arch-btn-f9' : 'arch-btn-f4'),
-        f7: 'arch-btn-f4', f8: 'arch-btn-f4',
+        f7: 'arch-btn-f4', f8: (projectId === 'sharett26' ? 'arch-btn-f9' : 'arch-btn-f4'),
         f9: 'arch-btn-f9', f10: 'arch-btn-f9', gag: 'arch-btn-f9'
       };
       const targetBtnId = mapId[floorId] || '';
@@ -631,7 +744,7 @@
         b.classList.toggle('active', b.id === targetBtnId);
       });
       if (archGroundGrid) {
-        archGroundGrid.visible = !['mar', 'b1', 'b2'].includes(floorId);
+        archGroundGrid.visible = !['mar', 'b1', 'b2', 'bm1', 'bm2'].includes(floorId);
       }
     }
 
@@ -820,41 +933,40 @@
       if (!sceneKey) return;
 
       // -----------------------------------------------------------------------
-      // FEIERBERG 3 SCENE A: APT 1 CORRIDOR (PROTECTED IN FRONT OF GENERAL BATHROOM)
+      // FEIERBERG 3 SCENE A: APT 1 CORRIDOR & NORTHERN ROOM (EAST/RIGHT WING X>0 — BATHROOM & CORRIDOR 100% PROTECTED)
       // -----------------------------------------------------------------------
       if (sceneKey === 'fb3_apt1_corridor_fix') {
         const zF = 12.95;
         if (!isProposedMode) {
-          beforeAfterGroup.add(makeOverlayBox(-10.95, -1.35, -1.80, 0.45, zF + 0.03, zF + 2.45, 0xd97706, 0.40, 0xfde047));
-          beforeAfterGroup.add(makeOverlayBox(-6.35, -4.00, -3.50, -0.30, zF + 0.03, zF + 2.40, 0xf59e0b, 0.30, 0xfde047));
-          addDynamic3DLabel(-6.35, zF + 2.65, -0.45, '🟠 מצב קיים: מסדרון באורך 880 ס״מ × 100 ס״מ המוביל לאמבטיה הכללית (210×185) ולחדרי השינה', '#fbbf24', 'rgba(146, 64, 14, 0.94)');
-          addDynamic3DLabel(-4.92, zF + 2.50, -2.15, '🟠 חדר שינה #1 צפוני: 370×280 ס״מ (10.36 מ״ר)', '#fbbf24');
+          beforeAfterGroup.add(makeOverlayBox(1.80, -1.35, 10.95, 0.45, zF + 0.03, zF + 2.45, 0xd97706, 0.40, 0xfde047));
+          beforeAfterGroup.add(makeOverlayBox(3.50, -4.00, 6.35, -0.30, zF + 0.03, zF + 2.40, 0xf59e0b, 0.30, 0xfde047));
+          addDynamic3DLabel(6.35, zF + 2.65, -0.45, '🟠 מצב קיים: מסדרון דירה 1 (880×110 ס״מ) וחדר האמבטיה הכללי (230×170 ס״מ) הגובל בחדר הצפוני', '#fbbf24', 'rgba(146, 64, 14, 0.94)');
+          addDynamic3DLabel(4.92, zF + 2.50, -2.15, '🟠 חדר צפוני בדירה 1 (280×370 ס״מ = 10.36 מ״ר): גובל ממזרח באמבטיה הכללית (230×170) וממערב בחדר המדרגות', '#fbbf24');
         } else {
-          // AFTER: Corridor in front of General Bathroom & Northern Bedroom is 100% PROTECTED (0cm narrowing/blocking!)
-          beforeAfterGroup.add(makeOverlayBox(-9.90, -1.35, -1.80, -0.25, zF + 0.03, zF + 2.45, 0x10b981, 0.42, 0x6ee7b7));
-          // Reclaimed West end beyond General Bathroom door (+1.1 sqm into Master Suite + Z-wardrobe niche in internal partition)
-          beforeAfterGroup.add(makeOverlayBox(-10.95, -1.35, -9.90, 0.45, zF + 0.05, zF + 2.55, 0x0284c7, 0.72, 0x7dd3fc));
-          addDynamic3DLabel(-5.85, zF + 2.75, -0.80, '🛡️ מבחן 8: המסדרון מול האמבטיה הכללית והחדר הצפוני נשמר ב-100% ללא הצרה או חסימת דלת!', '#34d399', 'rgba(6, 95, 70, 0.94)');
-          addDynamic3DLabel(-8.20, zF + 2.75, -1.65, '🛋️ נישת ארון קו-אפס במחיצה הפנימית + קיצור קצה המסדרון מעבר לדלת האמבטיה (+1.1 מ״ר לדירה)', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
+          // AFTER: Both Corridor AND General Bathroom (230x170) are 100% PROTECTED (Test 8 & Test 10: 0cm bathroom shrinking, no impossible Z-niche!)
+          beforeAfterGroup.add(makeOverlayBox(1.80, -1.35, 9.90, -0.25, zF + 0.03, zF + 2.45, 0x10b981, 0.42, 0x6ee7b7));
+          beforeAfterGroup.add(makeOverlayBox(6.35, -4.00, 8.65, -2.10, zF + 0.05, zF + 2.55, 0x0284c7, 0.55, 0x7dd3fc));
+          addDynamic3DLabel(5.85, zF + 2.75, -0.80, '🛡️ מבחן 8 ומבחן 10: המסדרון (110 ס״מ) וחדר האמבטיה הכללי (230×170 ס״מ) נשמרים ב-100% ללא הקטנה!', '#34d399', 'rgba(6, 95, 70, 0.94)');
+          addDynamic3DLabel(7.50, zF + 2.75, -2.85, '🚫 נפסלה נישת ארון קו-אפס בחדר הצפוני (280×370): ללא הקטנת חדר האמבטיה (230×170) אין אפשרות לנישת ארון!', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
         }
         return;
       }
 
       // -----------------------------------------------------------------------
-      // FEIERBERG 3 SCENE B: APT 2 CORRIDOR (625x105cm -> -95cm & +1.4m² TO MASTER SUITE)
+      // FEIERBERG 3 SCENE B: APT 2 CORRIDOR & MASTER SUITE (WEST/LEFT WING X<0 — CORRIDOR, BATHROOM & MAMAD DOOR PROTECTED)
       // -----------------------------------------------------------------------
       if (sceneKey === 'fb3_apt2_corridor_fix') {
         const zF = 12.95;
         if (!isProposedMode) {
-          beforeAfterGroup.add(makeOverlayBox(4.35, -1.35, 10.15, 0.45, zF + 0.03, zF + 2.45, 0xd97706, 0.40, 0xfde047));
-          beforeAfterGroup.add(makeOverlayBox(9.80, -4.00, 12.75, -0.30, zF + 0.03, zF + 2.40, 0xf59e0b, 0.30, 0xfde047));
-          addDynamic3DLabel(7.25, zF + 2.65, -0.45, '🟠 מצב קיים: מסדרון דירה 2 באורך 625 ס״מ × 105 ס״מ (6.56 מ״ר)', '#fbbf24', 'rgba(146, 64, 14, 0.94)');
-          addDynamic3DLabel(11.25, zF + 2.50, -2.15, '🟠 חדר שינה הורים מזרחי: רוחב 295 ס״מ', '#fbbf24');
+          beforeAfterGroup.add(makeOverlayBox(-10.15, -1.35, -4.35, 0.45, zF + 0.03, zF + 2.45, 0xd97706, 0.40, 0xfde047));
+          beforeAfterGroup.add(makeOverlayBox(-12.95, 0.45, -8.65, 4.00, zF + 0.03, zF + 2.40, 0xf59e0b, 0.30, 0xfde047));
+          addDynamic3DLabel(-7.25, zF + 2.65, -0.45, '🟠 מצב קיים: מסדרון דירה 2 (625+220×105 ס״מ) המוביל לאמבטיה הכללית (230×170) ולממ״ד (295×310)', '#fbbf24', 'rgba(146, 64, 14, 0.94)');
+          addDynamic3DLabel(-10.80, zF + 2.50, 2.00, '🟠 סוויטת הורים דרום-מערבית (דירה 2): 340×280 ס״מ + רחצה צמודה 180×170 ס״מ', '#fbbf24');
         } else {
-          beforeAfterGroup.add(makeOverlayBox(4.35, -1.35, 9.20, -0.30, zF + 0.03, zF + 2.45, 0x10b981, 0.42, 0x6ee7b7));
-          beforeAfterGroup.add(makeOverlayBox(9.20, -1.35, 10.15, 0.45, zF + 0.05, zF + 2.55, 0x0284c7, 0.75, 0x7dd3fc));
-          addDynamic3DLabel(6.80, zF + 2.75, -0.80, '🟢 מצב מוצע: קיצור 95 ס״מ מקצה המסדרון המזרחי והזזת דלת כניסה ליחידת ההורים', '#34d399', 'rgba(6, 95, 70, 0.94)');
-          addDynamic3DLabel(10.60, zF + 2.75, -1.65, '🛋️ סיפוח +1.4 מ״ר ליחידת ההורים (הרחבה ל-3.12 מ׳ · +11.2 מ״ר ב-8 קומות)', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
+          beforeAfterGroup.add(makeOverlayBox(-10.15, -1.35, -4.35, -0.30, zF + 0.03, zF + 2.45, 0x10b981, 0.42, 0x6ee7b7));
+          beforeAfterGroup.add(makeOverlayBox(-12.95, 0.45, -8.65, 4.00, zF + 0.05, zF + 2.55, 0x0284c7, 0.55, 0x7dd3fc));
+          addDynamic3DLabel(-6.80, zF + 2.75, -0.80, '🛡️ מבחן 8 ומבחן 10: שמירה ב-100% על המסדרון (105 ס״מ) מול דלת האמבטיה הכללית ודלת הממ״ד (295×310)', '#34d399', 'rgba(6, 95, 70, 0.94)');
+          addDynamic3DLabel(-10.60, zF + 2.75, 1.40, '🛋️ הצבת ארון לאורך קיר ה-340 ס״מ בסוויטת ההורים וניצול גומחת ה-45 ס״מ הקיימת בחדר הצפוני (350×370)', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
         }
         return;
       }
@@ -1116,7 +1228,7 @@
       if (auditFilter === 'ISSUES') return (note.status === 'FAIL' || note.status === 'WARN') && !note.is_value_eng && !note.is_design_improvement;
       if (auditFilter === 'VE') return Boolean(note.is_value_eng || note.is_design_improvement);
       if (auditFilter === 'FAC') return note.ve_category === 'FAC';
-      if (auditFilter === 'BSM') return ['mar', 'b1', 'b2'].includes(s3d.floor_id) || String(note.sheet_id || '').includes('basement');
+      if (auditFilter === 'BSM') return ['mar', 'b1', 'b2', 'bm1', 'bm2'].includes(s3d.floor_id) || String(note.sheet_id || '').includes('basement');
       return true;
     }
 
@@ -1166,8 +1278,10 @@
         const shortBadge = note.is_value_eng && note.ve_saving_ils > 0
           ? `#${note.pin_num} · ${(note.ve_saving_ils / 1000).toFixed(0)}K ₪`
           : `#${note.pin_num}`;
+        const lockInfo = note.position_lock || s3d.position_lock || {};
+        const lockTag = lockInfo.locked ? ` [🔒 2D↔3D מקובע #${lockInfo.lock_hash ? lockInfo.lock_hash.slice(0, 6) : 'OK'}]` : '';
         pinEl.innerHTML = `<span>${styleMeta.icon}</span><span>${shortBadge}</span>`;
-        pinEl.title = s3d.callout_he || `#${note.pin_num}: ${note.title}`;
+        pinEl.title = (s3d.callout_he || `#${note.pin_num}: ${note.title}`) + lockTag;
 
         const pinItemObj = {
           note,
@@ -1265,13 +1379,14 @@
         syncArchFloorBtns(targetFloor);
         enforceCleanArchitecturalScene();
 
-        // 2. Smooth Camera Orbit Positioning
+        // 2. Smooth Camera Orbit Positioning (Enforce locked South->North orientation for floor-sliced views so 2D & 3D wings match 1:1)
         if (s3d.camera && typeof camState !== 'undefined' && typeof updateCameraFromOrbit === 'function') {
           const [tx, ty, tz] = s3d.camera.target;
           camState.target.set(tx, ty, tz);
           camState.spherical.radius = s3d.camera.radius || 18.0;
-          camState.spherical.phi = s3d.camera.phi || 0.54;
-          camState.spherical.theta = s3d.camera.theta || 1.25;
+          camState.spherical.phi = s3d.camera.phi || 0.52;
+          const rawTheta = (typeof s3d.camera.theta === 'number') ? s3d.camera.theta : 1.57;
+          camState.spherical.theta = (targetFloor !== 'all' && (rawTheta < 1.20 || rawTheta > 1.95)) ? 1.57 : rawTheta;
           updateCameraFromOrbit();
         }
       }
@@ -1285,10 +1400,14 @@
         const modeBadge = isProposedMode
           ? '<span style="background:#059669;color:#fff;padding:1px 6px;border-radius:4px;font-size:10px;">מצב מוצע (VE/תיקון)</span>'
           : '<span style="background:#dc2626;color:#fff;padding:1px 6px;border-radius:4px;font-size:10px;">מצב קיים בתכנית</span>';
+        const lockObj = note.position_lock || s3d.position_lock || {};
+        const lockBadgeHtml = lockObj.locked
+          ? `<span style="background:#1e3a8a;color:#93c5fd;border:1px solid #3b82f6;padding:1px 6px;border-radius:4px;font-size:9.5px;" title="מיקום דו-ממד ותלת-ממד מאומת ומקובע (${lockObj.lock_hash || ''})">🔒 2D↔3D מקובע</span>`
+          : '';
         calloutEl.innerHTML = `
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:4px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:4px;flex-wrap:wrap;">
             <strong style="color:#fde047;font-size:12px;">ממצא #${note.pin_num} · ${note.room_name.replace('📍 ', '')}</strong>
-            ${modeBadge}
+            <div style="display:flex;gap:4px;align-items:center;">${lockBadgeHtml}${modeBadge}</div>
           </div>
           <div style="color:#ffffff;font-weight:700;margin-bottom:3px;">${s3d.callout_he || note.title}</div>
           <div style="color:#93c5fd;font-size:10.5px;"><strong>קיים:</strong> ${note.measured} ⬅️ <strong>יעד:</strong> ${note.benchmark}</div>
@@ -1461,7 +1580,7 @@
         units3DGroup.visible = false;
       }
       if (archGroundGrid && typeof currentFloorId !== 'undefined') {
-        archGroundGrid.visible = !['mar', 'b1', 'b2'].includes(currentFloorId);
+        archGroundGrid.visible = !['mar', 'b1', 'b2', 'bm1', 'bm2'].includes(currentFloorId);
       }
       if (typeof activeCam === 'undefined' || !auditPinsVisible) return;
       if (typeof camState !== 'undefined' && camState.walkMode) {

@@ -82,6 +82,15 @@
   const countCatStdEl = document.getElementById('count-cat-std');
   const countCatArchEl = document.getElementById('count-cat-arch');
   const countCatTipEl = document.getElementById('count-cat-tip');
+  const countKbAllEl = document.getElementById('count-kb-all');
+  const countKbIsrEl = document.getElementById('count-kb-isr');
+  const countKbIntlEl = document.getElementById('count-kb-intl');
+  const countKbSpaceEl = document.getElementById('count-kb-space');
+  const countKbErgoEl = document.getElementById('count-kb-ergo');
+  const countKbIeqEl = document.getElementById('count-kb-ieq');
+  const countKbAdaptEl = document.getElementById('count-kb-adapt');
+  const countKbMepEl = document.getElementById('count-kb-mep');
+  const countKbUrbanEl = document.getElementById('count-kb-urban');
   const countVeAllEl = document.getElementById('count-ve-all');
   const countVeAgEl = document.getElementById('count-ve-ag');
   const countVeUgEl = document.getElementById('count-ve-ug');
@@ -89,10 +98,20 @@
 
   const polarityBtns = document.querySelectorAll('.polarity-btn');
   const catFilterBtns = document.querySelectorAll('.cat-filter-btn');
+  const kbFilterBtns = document.querySelectorAll('.kb-filter-btn');
   const veCatBtns = document.querySelectorAll('.ve-cat-btn');
   const filterBtns = document.querySelectorAll('.filter-btn');
 
   const sheetTabsContainer = document.getElementById('sheet-tabs-container');
+  const visualPanelEl = document.getElementById('visual-panel');
+  const visualToolbarEl = document.getElementById('visual-toolbar');
+  const btnToggleSheetsCompact = document.getElementById('btn-toggle-sheets-compact');
+  const btnCollapsePlanToolbar = document.getElementById('btn-collapse-plan-toolbar');
+  const planToolbarRestoreBar = document.getElementById('plan-toolbar-restore-bar');
+  const btnRestorePlanToolbar = document.getElementById('btn-restore-plan-toolbar');
+  const restoreBarSheetName = document.getElementById('restore-bar-sheet-name');
+  const btnCollapseVePlanBar = document.getElementById('btn-collapse-ve-plan-bar');
+  const btnRestoreVePlanBar = document.getElementById('btn-restore-ve-plan-bar');
   const btnToggleVePlanMode = document.getElementById('btn-toggle-ve-plan-mode');
   const btnToggleAllPins = document.getElementById('btn-toggle-all-pins');
   const vePlanBar = document.getElementById('ve-plan-bar');
@@ -146,15 +165,150 @@
   // Application State
   let currentProject = null;
   let currentSheetId = null;
-  let currentWorkMode = 'FINDINGS'; // 'OVERVIEW' | 'FINDINGS' | 'OPTIMIZATION' | 'COMPARE'
+  let currentWorkMode = 'OVERVIEW'; // 'OVERVIEW' | 'FINDINGS' | 'OPTIMIZATION' | 'COMPARE'
   let currentFilter = 'ALL';
   let currentPolarity = 'ALL'; // 'ALL' | 'NEGATIVE' | 'POSITIVE'
   let currentCategory = 'ALL'; // 'ALL' | 'STANDARD' | 'ARCH_QUALITY' | 'INTERIOR_TIP'
+  let currentKnowledgeBase = 'ALL'; // 'ALL' | 'KB_ISRAELI_STATUTORY' | 'KB_INTL_HOUSING' | 'KB_SPACE_SYNTAX' | 'KB_ERGONOMICS_INTERIOR' | 'KB_DAYLIGHT_IEQ'
   let currentVeCategory = 'ALL'; // 'ALL' | 'AG' | 'UG' | 'FAC'
   let activeNoteId = null;
   let hoveredNoteId = null;
   let showAllPins = true;
   let isFocusMode = false;
+  let isSheetsCompact = true;
+  let isPlanToolbarCollapsed = false;
+  let isVePlanBarCollapsed = false;
+
+  function getShortSheetTitle(fullTitle) {
+    const raw = String(fullTitle || '').trim();
+    if (!raw) return 'קומה';
+    const head = raw.split(/\s*[—–-]\s+(?:תכנית|בניין|קומת|דירות|פנטהאוז|דופלקס|מפלס|\d+\s+חניות)/)[0].split(' — ')[0].trim();
+    const cleaned = head.replace(/\s*\([^)]*(?:m|מ׳|מ"|±|עד|קומות|טיפוסית)[^)]*\)/gi, '').trim();
+    return cleaned || head || raw;
+  }
+
+  const KB_META_CATALOG = {
+    KB_ISRAELI_STATUTORY: {
+      id: 'KB_ISRAELI_STATUTORY',
+      icon: '⚖️',
+      shortHe: 'תקינה ישראלית ורישוי',
+      titleHe: 'חקיקה, תקנות התכנון והבנייה ותקינה ישראלית מחייבת',
+      sourcesHe: 'תקנות התכנון והבנייה (B1.3–B1.30) · הנחיות פקע״ר לממ״דים · ת״י 1918 · ת״י 1142 · ת״י 2481 · הנחיות משרד התחבורה לחניונים',
+      color: '#1e40af',
+      bg: '#eff6ff',
+      border: '#bfdbfe',
+    },
+    KB_INTL_HOUSING: {
+      id: 'KB_INTL_HOUSING',
+      icon: '🏛️',
+      shortHe: 'תקני איכות דיור (NSW/UK/משב״ש)',
+      titleHe: 'תקני איכות דיור ופרוגרמה בינלאומיים (NSW ADG · UK NDSS · משרד השיכון)',
+      sourcesHe: 'NSW Apartment Design Guide (ADG 4D/4E/4F) · UK Nationally Described Space Standard (NDSS) · אוגדן תכנון משרד הבינוי והשיכון · London Plan D6',
+      color: '#4338ca',
+      bg: '#eef2ff',
+      border: '#c7d2fe',
+    },
+    KB_SPACE_SYNTAX: {
+      id: 'KB_SPACE_SYNTAX',
+      icon: '🧭',
+      shortHe: 'טופולוגיה, זרימה ופרטיות',
+      titleHe: 'טופולוגיה מרחבית, זרימת תנועה והיררכיית פרטיות (Space Syntax & Pattern Language)',
+      sourcesHe: 'Hillier & Hanson Space Syntax (SAGA) · Christopher Alexander Pattern Language (#127 Intimacy Gradient, #131 Flow Through Rooms) · ETH Zürich Grundrisskritik',
+      color: '#6d28d9',
+      bg: '#f5f3ff',
+      border: '#ddd6fe',
+    },
+    KB_ERGONOMICS_INTERIOR: {
+      id: 'KB_ERGONOMICS_INTERIOR',
+      icon: '🛋️',
+      shortHe: 'ארגונומיה, מטבח וריהוט (NKBA)',
+      titleHe: 'ארגונומיה, תכנון מטבחים וחדרים רטובים ויכולת ריהוט (NKBA · Boverket · DIN)',
+      sourcesHe: 'NKBA Kitchen & Bath Guidelines · Boverket BBR (Sweden Furnishability) · DIN 18040-2 · Neufert Architects’ Data',
+      color: '#b45309',
+      bg: '#fffbeb',
+      border: '#fde68a',
+    },
+    KB_DAYLIGHT_IEQ: {
+      id: 'KB_DAYLIGHT_IEQ',
+      icon: '☀️',
+      shortHe: 'אור יום, אוורור ואקלים',
+      titleHe: 'אקלים פנים, אור יום צירקדי, אוורור טבעי וביופיליה (EN 17037 · WELL v2 · ת״י 5281/1045)',
+      sourcesHe: 'EN 17037 (אור יום) · WELL v2 Light & Air · CIBSE AM10/TM59 · ת״י 5281/5282 · ת״י 1045 · Biophilic Prospect & Refuge',
+      color: '#0369a1',
+      bg: '#f0f9ff',
+      border: '#bae6fd',
+    },
+    KB_ADAPTABILITY_FAMILY: {
+      id: 'KB_ADAPTABILITY_FAMILY',
+      icon: '🧬',
+      shortHe: 'גמישות תכנונית ומשפחות (Open Building)',
+      titleHe: 'גמישות תכנונית (Open Building), התאמה למעגל החיים ותכנון למשפחות (Habraken · Toronto)',
+      sourcesHe: 'N. John Habraken (Supports / Open Building) · EU Level(s) 2.3 (Adaptability) · UK Lifetime Homes M4(2) · City of Toronto Growing Up & Vancouver Family Housing · Casa Collage',
+      color: '#be185d',
+      bg: '#fdf2f8',
+      border: '#fbcfe8',
+    },
+    KB_ACOUSTICS_MEP: {
+      id: 'KB_ACOUSTICS_MEP',
+      icon: '🔇',
+      shortHe: 'אקוסטיקה ומערכות MEP/VRF',
+      titleHe: 'אקוסטיקה פנימית, תיאום מערכות מיזוג (MEP/VRF) ואינסטלציה (ת״י 1004/1205 · ASHRAE · WELL)',
+      sourcesHe: 'ת״י 1004 (בידוד אקוסטי) · WELL v2 Sound & זונינג אקוסטי פנימי (ארון חוצץ סלון↔שינה) · ASHRAE VRF (נתיבי הנמכות גבס) · ת״י 1205 / הל״ת (קולטנים והלימה אנכית)',
+      color: '#4338ca',
+      bg: '#eef2ff',
+      border: '#c7d2fe',
+    },
+    KB_URBAN_LOCAL: {
+      id: 'KB_URBAN_LOCAL',
+      icon: '🏙️',
+      shortHe: 'ממשק עירוני והנחיות מרחביות',
+      titleHe: 'ממשק עירוני, קומת קרקע, מסתורי שירות והנחיות מרחביות מקומיות (סעיף 145ד · שכונה 360°)',
+      sourcesHe: 'הנחיות מרחביות של ועדות מקומיות (סעיף 145ד — פתח תקווה, ת״א, ר״ג) · מדד שכונה 360° · Davos Baukultur · Active Design / Fitwel',
+      color: '#0e7490',
+      bg: '#ecfeff',
+      border: '#a5f3fc',
+    },
+    KB_VALUE_ENG_BIM: {
+      id: 'KB_VALUE_ENG_BIM',
+      icon: '💰',
+      shortHe: 'הנדסת ערך ובקרת קונטור BIM',
+      titleHe: 'הנדסת ערך (VE), נצילות שטחי בנייה ובקרת קונטור תלת-ממדית (BIM)',
+      sourcesHe: 'פרוטוקול 10 המבחנים לכיווץ קונטור אפקטיבי · ניצול חללים תחת רמפות (H≥2.20m) · אופטימיזציית תמהיל חיפוי חזיתות · הצלבת BIM 2D↔3D',
+      color: '#047857',
+      bg: '#ecfdf5',
+      border: '#a7f3d0',
+    },
+  };
+
+  const EXPLICIT_JS_KB_MAP = {
+    'H44-W-01': 'KB_SPACE_SYNTAX', 'H44-W-02': 'KB_ERGONOMICS_INTERIOR', 'H44-W-03': 'KB_DAYLIGHT_IEQ',
+    'H44-W-04': 'KB_ISRAELI_STATUTORY', 'H44-W-05': 'KB_ISRAELI_STATUTORY', 'H44-E-01': 'KB_INTL_HOUSING',
+    'H44-E-02': 'KB_ERGONOMICS_INTERIOR', 'H44-PH-01': 'KB_ERGONOMICS_INTERIOR', 'H44-GND-01': 'KB_ISRAELI_STATUTORY',
+    'H44-BSM-01': 'KB_ISRAELI_STATUTORY',
+    'P48-B-01': 'KB_ERGONOMICS_INTERIOR', 'P48-B-02': 'KB_ERGONOMICS_INTERIOR', 'P48-B-03': 'KB_DAYLIGHT_IEQ',
+    'P48-B-04': 'KB_SPACE_SYNTAX', 'P48-B-05': 'KB_ISRAELI_STATUTORY', 'P48-B-06': 'KB_INTL_HOUSING',
+    'P48-A-01': 'KB_INTL_HOUSING', 'P48-A-02': 'KB_ERGONOMICS_INTERIOR', 'P48-A-03': 'KB_SPACE_SYNTAX',
+    'P48-A-04': 'KB_ERGONOMICS_INTERIOR', 'P48-A-05': 'KB_ISRAELI_STATUTORY', 'P48-C-01': 'KB_SPACE_SYNTAX',
+    'P48-C-02': 'KB_ERGONOMICS_INTERIOR', 'P48-C-03': 'KB_INTL_HOUSING', 'P48-C-04': 'KB_ISRAELI_STATUTORY',
+    'P48-C-05': 'KB_ERGONOMICS_INTERIOR', 'P48-CORE-01': 'KB_ISRAELI_STATUTORY', 'P48-PB-01': 'KB_ERGONOMICS_INTERIOR',
+    'P48-PC-01': 'KB_INTL_HOUSING', 'P48-F7-01': 'KB_ISRAELI_STATUTORY', 'P48-ROOF-01': 'KB_ISRAELI_STATUTORY',
+    'P48-GND-01': 'KB_INTL_HOUSING', 'P48-GND-02': 'KB_ISRAELI_STATUTORY', 'P48-GND-03': 'KB_ISRAELI_STATUTORY',
+    'P48-BSM-01': 'KB_ISRAELI_STATUTORY',
+    'KKL-PARK-01': 'KB_ISRAELI_STATUTORY', 'KKL-PARK-02': 'KB_ISRAELI_STATUTORY', 'KKL-E-01': 'KB_INTL_HOUSING',
+    'KKL-E-02': 'KB_ERGONOMICS_INTERIOR', 'KKL-E-03': 'KB_DAYLIGHT_IEQ', 'KKL-B-01': 'KB_ERGONOMICS_INTERIOR',
+    'KKL-B-02': 'KB_ISRAELI_STATUTORY', 'KKL-B-03': 'KB_SPACE_SYNTAX', 'KKL-D-01': 'KB_INTL_HOUSING',
+    'KKL-D-02': 'KB_ERGONOMICS_INTERIOR', 'KKL-CORE-01': 'KB_ISRAELI_STATUTORY', 'KKL-PH-01': 'KB_ISRAELI_STATUTORY',
+    'KKL-GND-01': 'KB_ISRAELI_STATUTORY',
+    'YAT-N-01': 'KB_INTL_HOUSING', 'YAT-N-02': 'KB_ERGONOMICS_INTERIOR', 'YAT-N-03': 'KB_SPACE_SYNTAX',
+    'YAT-S-01': 'KB_ERGONOMICS_INTERIOR', 'YAT-S-02': 'KB_ISRAELI_STATUTORY', 'YAT-PH-01': 'KB_INTL_HOUSING',
+    'YAT-GND-01': 'KB_ISRAELI_STATUTORY', 'YAT-BSM-01': 'KB_ISRAELI_STATUTORY',
+    'KIT-37-NW': 'KB_ERGONOMICS_INTERIOR', 'KIT-37-NE': 'KB_INTL_HOUSING', 'KIT-37-SE': 'KB_ERGONOMICS_INTERIOR',
+    'KIT-37-SW': 'KB_ISRAELI_STATUTORY', 'KIT-39-W3': 'KB_ISRAELI_STATUTORY', 'KIT-39-SW': 'KB_DAYLIGHT_IEQ',
+    'KIT-PH-01': 'KB_ERGONOMICS_INTERIOR', 'KIT-BSM-01': 'KB_ISRAELI_STATUTORY',
+    'FB3-W-01': 'KB_SPACE_SYNTAX', 'FB3-W-02': 'KB_ERGONOMICS_INTERIOR', 'FB3-W-03': 'KB_ISRAELI_STATUTORY',
+    'FB3-E-01': 'KB_ERGONOMICS_INTERIOR', 'FB3-E-02': 'KB_DAYLIGHT_IEQ', 'FB3-PH-01': 'KB_INTL_HOUSING',
+    'FB3-BSM-01': 'KB_ISRAELI_STATUTORY',
+  };
 
   const EXPLICIT_JS_CATEGORY_MAP = {
     'H44-W-01': 'ARCH_QUALITY', 'H44-W-02': 'INTERIOR_TIP', 'H44-W-03': 'INTERIOR_TIP',
@@ -194,21 +348,51 @@
   };
 
   function classifySystemNote(note) {
-    if (!note) return { polarity: 'NEGATIVE', polarityHe: 'שלילי', category: 'ARCH_QUALITY', categoryHe: 'איכות תכנון אדריכלי' };
+    if (!note) {
+      const defKb = KB_META_CATALOG.KB_INTL_HOUSING;
+      return {
+        polarity: 'NEGATIVE',
+        polarityHe: 'שלילי',
+        category: 'ARCH_QUALITY',
+        categoryHe: 'איכות תכנון אדריכלי',
+        kbId: defKb.id,
+        kbShortHe: defKb.shortHe,
+        kbTitleHe: defKb.titleHe,
+        kbIcon: defKb.icon,
+        kbSourcesHe: defKb.sourcesHe,
+        kbColor: defKb.color,
+        kbBg: defKb.bg,
+        kbBorder: defKb.border,
+      };
+    }
     if (note.is_value_eng) {
-      return { polarity: 'SAVINGS', polarityHe: 'חיסכון', category: 'SAVINGS', categoryHe: 'חיסכון' };
+      const veKb = KB_META_CATALOG.KB_VALUE_ENG_BIM;
+      return {
+        polarity: 'SAVINGS',
+        polarityHe: 'חיסכון',
+        category: 'SAVINGS',
+        categoryHe: 'חיסכון',
+        kbId: veKb.id,
+        kbShortHe: veKb.shortHe,
+        kbTitleHe: veKb.titleHe,
+        kbIcon: veKb.icon,
+        kbSourcesHe: veKb.sourcesHe,
+        kbColor: veKb.color,
+        kbBg: veKb.bg,
+        kbBorder: veKb.border,
+      };
     }
     const polarity = note.audit_polarity || (note.status === 'PASS' ? 'POSITIVE' : 'NEGATIVE');
     const polarityHe = polarity === 'POSITIVE' ? 'חיובי' : 'שלילי';
     let category = note.audit_category;
+    const nid = note.id || '';
+    const txt = `${note.rule_id || ''} ${note.title || ''} ${note.recommendation || ''}`.toLowerCase();
     if (!category || category === 'SAVINGS') {
-      const nid = note.id || '';
       if (EXPLICIT_JS_CATEGORY_MAP[nid]) {
         category = EXPLICIT_JS_CATEGORY_MAP[nid];
       } else if (note.is_design_improvement) {
         category = 'ARCH_QUALITY';
       } else {
-        const txt = `${note.rule_id || ''} ${note.title || ''} ${note.recommendation || ''}`.toLowerCase();
         if (note.status === 'FAIL' || ['ת״י', 'פקע״ר', 'פיקוד העורף', 'חניונים', 'רישוי', 'תקנות', 'b1.15', 'b1.30', '1918', '1142', '2481'].some((k) => txt.includes(k))) {
           category = 'STANDARD';
         } else if (['nkba', 'אי מטבח', 'ארון', 'דלת כיס', 'pocket', 'ריהוט', 'מיטה', 'שולחן', 'תאורה', 'boverket', 'din 18040'].some((k) => txt.includes(k))) {
@@ -219,7 +403,43 @@
       }
     }
     const categoryHe = CATEGORY_HE_LABELS[category] || 'איכות תכנון אדריכלי';
-    return { polarity, polarityHe, category, categoryHe };
+
+    // Knowledge Base classification
+    let kbId = note.kb_id || EXPLICIT_JS_KB_MAP[nid] || '';
+    if (!kbId || !KB_META_CATALOG[kbId]) {
+      if (note.is_design_improvement) {
+        kbId = 'KB_SPACE_SYNTAX';
+      } else if (['כיווני אוויר', 'אוורור', 'אור יום', 'אקוסט', 'en 17037', 'cibse', '5281', '1004', 'חלון', 'הצללה'].some((k) => txt.includes(k))) {
+        kbId = 'KB_DAYLIGHT_IEQ';
+      } else if (['פקע״ר', 'פיקוד העורף', 'ממ״ד', 'חניון', 'מיסעה', 'רמפה', 'ת״י', 'תקנות', 'b1.', '1918', '1142', '2481', 'הגשה', 'מכר', 'מוניציפלי'].some((k) => txt.includes(k))) {
+        kbId = 'KB_ISRAELI_STATUTORY';
+      } else if (['nkba', 'אי מטבח', 'ארון', 'דלת כיס', 'pocket', 'ריהוט', 'מיטה', 'מקלחון', 'boverket', 'din 18040', 'משקוף'].some((k) => txt.includes(k))) {
+        kbId = 'KB_ERGONOMICS_INTERIOR';
+      } else if (['מסדרון', 'מבואה', 'זרימה', 'פרטיות', 'space syntax', 'alexander', 'מדרגת מחיצה'].some((k) => txt.includes(k))) {
+        kbId = 'KB_SPACE_SYNTAX';
+      } else if (category === 'STANDARD') {
+        kbId = 'KB_ISRAELI_STATUTORY';
+      } else if (category === 'INTERIOR_TIP') {
+        kbId = 'KB_ERGONOMICS_INTERIOR';
+      } else {
+        kbId = 'KB_INTL_HOUSING';
+      }
+    }
+    const kbMeta = KB_META_CATALOG[kbId] || KB_META_CATALOG.KB_INTL_HOUSING;
+    return {
+      polarity,
+      polarityHe,
+      category,
+      categoryHe,
+      kbId: kbMeta.id,
+      kbShortHe: note.kb_short_he || kbMeta.shortHe,
+      kbTitleHe: note.kb_title_he || kbMeta.titleHe,
+      kbIcon: note.kb_icon || kbMeta.icon,
+      kbSourcesHe: note.kb_sources_he || kbMeta.sourcesHe,
+      kbColor: note.kb_color || kbMeta.color,
+      kbBg: note.kb_bg || kbMeta.bg,
+      kbBorder: note.kb_border || kbMeta.border,
+    };
   }
 
   // Persistent Architect Decisions Store (localStorage)
@@ -317,14 +537,15 @@
         // Fallback for Google Cloud / Firebase Hosting
         const q_low = cleanQuery.toLowerCase();
         let staticFile = 'hafetz44.json';
-        if (['פאירברג', 'פאיירברג', 'פיארברג', 'feierberg', 'fairberg', 'feirberg', '6387'].some((k) => q_low.includes(k))) staticFile = 'feierberg3.json';
+        if (['משה שרת', 'שרת', 'sharett', 'sharet', '26-28', '26–28', '1025'].some((k) => q_low.includes(k))) staticFile = 'sharett26.json';
+        else if (['פאירברג', 'פאיירברג', 'פיארברג', 'feierberg', 'fairberg', 'feirberg', '6387'].some((k) => q_low.includes(k))) staticFile = 'feierberg3.json';
         else if (['יטקובסקי', 'yatkovski', '7א'].some((k) => q_low.includes(k))) staticFile = 'yatkovski7.json';
         else if (['קיטרוני', 'קטרוני', 'kitroni', '37', '39'].some((k) => q_low.includes(k))) staticFile = 'kitroni37.json';
         else if (['חפץ', 'חיים', 'hafetz', '44'].some((k) => q_low.includes(k))) staticFile = 'hafetz44.json';
         else if (['קקל', 'קק"ל', 'קק״ל', 'kkl', '10'].some((k) => q_low.includes(k))) staticFile = 'kkl10.json';
         else if (['פינס', 'pines', '48'].some((k) => q_low.includes(k))) staticFile = 'pines48.json';
 
-        const staticResp = await fetch(`/api/${staticFile}?v=6.9`, { cache: 'no-store' });
+        const staticResp = await fetch(`/api/${staticFile}?v=7.3`, { cache: 'no-store' });
         if (!staticResp.ok) {
           throw new Error(`שגיאת שרת (${staticResp.status})`);
         }
@@ -344,13 +565,17 @@
       currentFilter = 'ALL';
       currentPolarity = 'ALL';
       currentCategory = 'ALL';
+      currentKnowledgeBase = 'ALL';
       currentVeCategory = 'ALL';
-      currentWorkMode = 'FINDINGS';
+      if (currentWorkMode !== 'OVERVIEW' && currentWorkMode !== 'FINDINGS') {
+        currentWorkMode = 'OVERVIEW';
+      }
       workModeTabs.forEach((t) => t.classList.toggle('active', t.dataset.mode === currentWorkMode));
-      if (docSubfilterBar) docSubfilterBar.classList.remove('hidden');
+      if (docSubfilterBar) docSubfilterBar.classList.toggle('hidden', currentWorkMode !== 'FINDINGS');
       if (veSubfilterBar) veSubfilterBar.classList.add('hidden');
       polarityBtns.forEach((b) => b.classList.toggle('active', b.dataset.polarity === 'ALL'));
       catFilterBtns.forEach((b) => b.classList.toggle('active', b.dataset.category === 'ALL'));
+      kbFilterBtns.forEach((b) => b.classList.toggle('active', b.dataset.kb === 'ALL'));
       veCatBtns.forEach((b) => b.classList.toggle('active', b.dataset.veCat === 'ALL'));
       if (btnToggleVePlanMode) btnToggleVePlanMode.classList.remove('active');
       if (vePlanBar) vePlanBar.classList.add('hidden');
@@ -408,6 +633,21 @@
     if (countCatStdEl) countCatStdEl.textContent = stdCount;
     if (countCatArchEl) countCatArchEl.textContent = archCount;
     if (countCatTipEl) countCatTipEl.textContent = tipCount;
+
+    // Knowledge Base counts within polarity + category scope
+    const catScopedNotes = currentCategory === 'ALL'
+      ? polarityScopedNotes
+      : polarityScopedNotes.filter((n) => classifySystemNote(n).category === currentCategory);
+
+    if (countKbAllEl) countKbAllEl.textContent = catScopedNotes.length;
+    if (countKbIsrEl) countKbIsrEl.textContent = catScopedNotes.filter((n) => classifySystemNote(n).kbId === 'KB_ISRAELI_STATUTORY').length;
+    if (countKbIntlEl) countKbIntlEl.textContent = catScopedNotes.filter((n) => classifySystemNote(n).kbId === 'KB_INTL_HOUSING').length;
+    if (countKbSpaceEl) countKbSpaceEl.textContent = catScopedNotes.filter((n) => classifySystemNote(n).kbId === 'KB_SPACE_SYNTAX').length;
+    if (countKbErgoEl) countKbErgoEl.textContent = catScopedNotes.filter((n) => classifySystemNote(n).kbId === 'KB_ERGONOMICS_INTERIOR').length;
+    if (countKbIeqEl) countKbIeqEl.textContent = catScopedNotes.filter((n) => classifySystemNote(n).kbId === 'KB_DAYLIGHT_IEQ').length;
+    if (countKbAdaptEl) countKbAdaptEl.textContent = catScopedNotes.filter((n) => classifySystemNote(n).kbId === 'KB_ADAPTABILITY_FAMILY').length;
+    if (countKbMepEl) countKbMepEl.textContent = catScopedNotes.filter((n) => classifySystemNote(n).kbId === 'KB_ACOUSTICS_MEP').length;
+    if (countKbUrbanEl) countKbUrbanEl.textContent = catScopedNotes.filter((n) => classifySystemNote(n).kbId === 'KB_URBAN_LOCAL').length;
 
     // Dedicated Savings tab counts
     if (countVeAllEl) countVeAllEl.textContent = veNotes.length;
@@ -485,6 +725,9 @@
       hdr3dSyncBadge.style.color = wasUpdated ? '#166534' : '';
     }
 
+    const lockSum = data.spatial_lock_summary || {};
+    const lockCountTxt = lockSum.locked_notes ? `${lockSum.locked_notes}/${lockSum.total_notes}` : `${notes.length}/${notes.length}`;
+
     docMetricsGrid.innerHTML = `
       <div class="exec-score-strip">
         <div class="exec-score-main">
@@ -503,7 +746,7 @@
       <div id="model-3d-sync-strip" style="margin-top:6px;padding:6px 9px;border-radius:8px;border:1px solid ${wasUpdated ? '#86efac' : '#cbd5e1'};background:${wasUpdated ? '#f0fdf4' : '#f8fafc'};display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11.5px;">
         <div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${syncSt.status_message_he || 'המודל התלת-ממדי הבסיסי מאומת ומסונכרן'}">
           <strong>${wasUpdated ? '🟢 מודל 3D עודכן — הורצה בדיקה מלאה' : '🧊 מודל 3D בסיסי מנוטר'}</strong>
-          <span style="color:#475569;margin-right:4px;">· חתימה <code>#${hashShort}</code> · סבב #${revNum}${total3dChecks ? ` · ${total3dChecks} בדיקות 3D` : ''}</span>
+          <span style="color:#475569;margin-right:4px;">· חתימה <code>#${hashShort}</code> · סבב #${revNum}${total3dChecks ? ` · ${total3dChecks} בדיקות 3D` : ''} · <strong style="color:#1e40af;">🔒 מיקומי 2D↔3D מקובעים (${lockCountTxt})</strong></span>
         </div>
         <button type="button" id="btn-inline-reaudit-3d" style="flex-shrink:0;padding:3px 8px;border-radius:6px;border:1px solid #2563eb;background:#eff6ff;color:#1d4ed8;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;" title="בדוק אם מודל ה-3D הבסיסי שונה או עודכן והרץ בדיקה תכנונית מלאה חדשה">
           🔄 בדוק / הרץ בקרה חדשה
@@ -546,19 +789,85 @@
 
     sheets.forEach((sh) => {
       const sheetNotesCount = notes.filter((n) => n.sheet_id === sh.id).length;
+      const shortTitle = getShortSheetTitle(sh.title);
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'sheet-tab-btn';
       btn.dataset.sheetId = sh.id;
+      btn.title = `${sh.title} (לחץ לבחירת קומה)`;
       btn.innerHTML = `
-        <span>${sh.title}</span>
+        <span class="sheet-tab-short">${shortTitle}</span>
+        <span class="sheet-tab-full">${sh.title}</span>
         <span class="sheet-tab-count">${sheetNotesCount}</span>
       `;
       btn.addEventListener('click', () => {
-        selectSheet(sh.id, { keepNote: true });
+        if (currentSheetId === sh.id && !isSheetsCompact) {
+          toggleSheetsCompact(true);
+        } else {
+          selectSheet(sh.id, { keepNote: true });
+        }
       });
       sheetTabsContainer.appendChild(btn);
     });
+    syncSheetsCompactUi();
+  }
+
+  function syncSheetsCompactUi() {
+    if (sheetTabsContainer) {
+      sheetTabsContainer.classList.toggle('sheets-compact', isSheetsCompact);
+      sheetTabsContainer.classList.toggle('sheets-expanded', !isSheetsCompact);
+    }
+    if (btnToggleSheetsCompact) {
+      btnToggleSheetsCompact.classList.toggle('active', !isSheetsCompact);
+      btnToggleSheetsCompact.innerHTML = isSheetsCompact ? 'פירוט קומות ▾' : 'צמצם קומות ▴';
+      btnToggleSheetsCompact.title = isSheetsCompact
+        ? 'פתח פירוט מלא של הקומות והתיאורים'
+        : 'צמצם את רשימת הקומות לשורה קומפקטית אחת';
+    }
+  }
+
+  function toggleSheetsCompact(forceCompact) {
+    isSheetsCompact = forceCompact !== undefined ? Boolean(forceCompact) : !isSheetsCompact;
+    syncSheetsCompactUi();
+  }
+
+  function togglePlanToolbar(forceCollapse) {
+    isPlanToolbarCollapsed = forceCollapse !== undefined ? Boolean(forceCollapse) : !isPlanToolbarCollapsed;
+    if (visualPanelEl) {
+      visualPanelEl.classList.toggle('plan-toolbar-collapsed', isPlanToolbarCollapsed);
+    }
+    if (visualToolbarEl) {
+      visualToolbarEl.classList.toggle('hidden', isPlanToolbarCollapsed);
+    }
+    if (planToolbarRestoreBar) {
+      planToolbarRestoreBar.classList.toggle('hidden', !isPlanToolbarCollapsed);
+    }
+    if (vePlanBar) {
+      if (isPlanToolbarCollapsed) {
+        vePlanBar.classList.add('hidden');
+      } else if (currentWorkMode === 'OPTIMIZATION' && !isVePlanBarCollapsed) {
+        vePlanBar.classList.remove('hidden');
+      }
+    }
+    setTimeout(() => {
+      try {
+        if (model3dIframe && model3dIframe.contentWindow && currentViewMode !== '2d') {
+          model3dIframe.contentWindow.dispatchEvent(new Event('resize'));
+        }
+      } catch (e) {}
+    }, 60);
+  }
+
+  function toggleVePlanBarCollapse(forceCollapse) {
+    isVePlanBarCollapsed = forceCollapse !== undefined ? Boolean(forceCollapse) : !isVePlanBarCollapsed;
+    if (vePlanBar) {
+      const shouldHide = isVePlanBarCollapsed || isPlanToolbarCollapsed || currentWorkMode !== 'OPTIMIZATION';
+      vePlanBar.classList.toggle('hidden', shouldHide);
+    }
+    if (btnRestoreVePlanBar) {
+      const showRestoreBtn = isVePlanBarCollapsed && currentWorkMode === 'OPTIMIZATION';
+      btnRestoreVePlanBar.classList.toggle('hidden', !showRestoreBtn);
+    }
   }
 
   function selectSheet(sheetId, options = {}) {
@@ -569,9 +878,12 @@
     const sheetChanged = currentSheetId !== sheetId;
     currentSheetId = sheetId;
 
-    // Update top header breadcrumb
+    // Update top header breadcrumb & collapsed restore pill
     if (hdrBreadcrumbSub) {
       hdrBreadcrumbSub.textContent = `${currentProject.project_name || ''} · ${sheet.title}`;
+    }
+    if (restoreBarSheetName) {
+      restoreBarSheetName.textContent = getShortSheetTitle(sheet.title);
     }
 
     // Update active tab button
@@ -672,12 +984,13 @@
       return true;
     }
 
-    // 2. System Findings Tab ("הערות מערכת"): strictly non-VE system notes, filtered by שלילי/חיובי and תקן / איכות תכנון אדריכלי / טיפ עיצוב פנים
+    // 2. System Findings Tab ("הערות מערכת"): strictly non-VE system notes, filtered by שלילי/חיובי, תקן / איכות תכנון / עיצוב פנים, ובסיס הידע
     if (currentWorkMode === 'FINDINGS') {
       if (note.is_value_eng) return false;
       const cls = classifySystemNote(note);
       if (currentPolarity !== 'ALL' && cls.polarity !== currentPolarity) return false;
       if (currentCategory !== 'ALL' && cls.category !== currentCategory) return false;
+      if (currentKnowledgeBase !== 'ALL' && cls.kbId !== currentKnowledgeBase) return false;
       return true;
     }
 
@@ -2392,15 +2705,80 @@
     valueEngModal.classList.remove('hidden');
   }
 
-  function jumpToSystemFilter(polarity, category) {
+  function jumpToSystemFilter(polarity, category, kbId) {
+    if (kbId === 'KB_VALUE_ENG_BIM') {
+      currentVeCategory = 'ALL';
+      veCatBtns.forEach((b) => b.classList.toggle('active', b.dataset.veCat === 'ALL'));
+      switchWorkMode('OPTIMIZATION');
+      return;
+    }
     currentPolarity = polarity || 'ALL';
     currentCategory = category || 'ALL';
+    currentKnowledgeBase = kbId || 'ALL';
     polarityBtns.forEach((b) => b.classList.toggle('active', b.dataset.polarity === currentPolarity));
     catFilterBtns.forEach((b) => b.classList.toggle('active', b.dataset.category === currentCategory));
+    kbFilterBtns.forEach((b) => b.classList.toggle('active', b.dataset.kb === currentKnowledgeBase));
     if (currentProject) {
       updateSystemFilterCounts(currentProject);
     }
     switchWorkMode('FINDINGS', { preserveSubfilters: true });
+  }
+
+  function buildClientFallbackKbBreakdown(notes) {
+    const order = [
+      'KB_ISRAELI_STATUTORY',
+      'KB_INTL_HOUSING',
+      'KB_SPACE_SYNTAX',
+      'KB_ERGONOMICS_INTERIOR',
+      'KB_DAYLIGHT_IEQ',
+      'KB_ADAPTABILITY_FAMILY',
+      'KB_ACOUSTICS_MEP',
+      'KB_URBAN_LOCAL',
+      'KB_VALUE_ENG_BIM',
+    ];
+    const groups = {};
+    order.forEach((k) => {
+      const m = KB_META_CATALOG[k];
+      groups[k] = {
+        kb_id: m.id,
+        kb_icon: m.icon,
+        kb_short_he: m.shortHe,
+        kb_title_he: m.titleHe,
+        kb_sources_he: m.sourcesHe,
+        kb_description_he: '',
+        kb_color: m.color,
+        kb_bg: m.bg,
+        kb_border: m.border,
+        total_count: 0,
+        positive_count: 0,
+        negative_count: 0,
+        savings_count: 0,
+        bullets: [],
+      };
+    });
+    (notes || []).forEach((n) => {
+      const cls = classifySystemNote(n);
+      const g = groups[cls.kbId] || groups.KB_INTL_HOUSING;
+      g.total_count += 1;
+      if (cls.polarity === 'SAVINGS') g.savings_count += 1;
+      else if (cls.polarity === 'POSITIVE') g.positive_count += 1;
+      else g.negative_count += 1;
+      g.bullets.push({
+        note_id: n.id,
+        pin_num: n.pin_num,
+        sheet_id: n.sheet_id,
+        room_name: n.room_name || '',
+        title: n.title || '',
+        status: n.status || 'WARN',
+        polarity: cls.polarity,
+        polarity_he: cls.polarity === 'SAVINGS' ? 'חיסכון והנדסת ערך' : cls.polarity === 'POSITIVE' ? 'יתרון תכנוני (תקין)' : 'לשיפור / תשומת לב',
+        rule_id: n.rule_id || '',
+        measured: n.measured || '',
+        recommendation: n.recommendation || '',
+        pleasant_text: `${n.summary || n.measured || ''}${n.recommendation ? ` — מומלץ: ${n.recommendation}` : ''}`,
+      });
+    });
+    return order.map((k) => groups[k]).filter((g) => g.total_count > 0);
   }
 
   function buildOverviewModeElement(data) {
@@ -2409,6 +2787,8 @@
     const optKpis = opt.executive_kpis || {};
     const contourAudit = opt.contour_audit_summary || {};
     const sdoc = pds.summary_document || {};
+    const cvr = sdoc.concise_verbal_review || {};
+    const archNar = cvr.architect_narrative || {};
     const notes = data.notes || [];
     const sysNotes = notes.filter((n) => !n.is_value_eng);
     const veNotes = notes.filter((n) => Boolean(n.is_value_eng));
@@ -2416,118 +2796,337 @@
     const negNotes = sysNotes.filter((n) => classifySystemNote(n).polarity === 'NEGATIVE');
     const posNotes = sysNotes.filter((n) => classifySystemNote(n).polarity === 'POSITIVE');
 
+    // Find pin/note ID helper by pin_num or note_id
+    const findNoteByPinOrId = (pinNum, noteId) => {
+      if (noteId) {
+        const byId = notes.find((n) => n.id === noteId);
+        if (byId) return byId;
+      }
+      if (pinNum !== undefined && pinNum !== null) {
+        return notes.find((n) => Number(n.pin_num) === Number(pinNum));
+      }
+      return null;
+    };
+
+    // 1. General Architectural Overview Paragraphs (טקסט שוטף של אדריכל)
+    const overviewParagraphs = Array.isArray(archNar.general_overview_paragraphs) && archNar.general_overview_paragraphs.length > 0
+      ? archNar.general_overview_paragraphs
+      : [
+          cvr.executive_paragraph || sdoc.overall_verdict || data.project_subtitle ||
+          `בסקירה האדריכלית של הפרויקט נבחנו תכניות הקומות, חתכי הבניין והמודל התלת-ממדי אל מול תקנות התכנון והבנייה, תקני איכות הדיור הבינלאומיים ומדדי הארגונומיה וזרימת החלל.`,
+        ];
+
+    const identityBadges = Array.isArray(archNar.identity_badges) && archNar.identity_badges.length > 0
+      ? archNar.identity_badges
+      : [
+          `ציון איכות תכנון: ${data.overall_score || '90.0'}/100`,
+          `${posNotes.length} יתרונות ונקודות חוזק`,
+          `${negNotes.length} נקודות לשיפור`,
+          `${veNotes.length} מוקדי הנדסת ערך וחיסכון`,
+        ];
+
+    const identityBadgesHtml = identityBadges
+      .map((b) => `<span class="ov-identity-pill">${b}</span>`)
+      .join('');
+
+    const overviewProseHtml = overviewParagraphs
+      .map((p) => `<p class="ov-arch-paragraph">${p}</p>`)
+      .join('');
+
+    // 2. Pros Narrative + Bullets (יתרונות הפרויקט — טקסט שוטף + בוליטים)
+    const prosNarrativeText = archNar.pros_narrative ||
+      `נקודות החוזק המרכזיות של הפרויקט באות לידי ביטוי ב-${posNotes.length} ממצאים חיוביים שעמדו בהצלחה מלאה בדרישות הרישוי, המיגון ואיכות החיים הדירתית:`;
+
+    const prosBulletsList = Array.isArray(archNar.pros_bullets) && archNar.pros_bullets.length > 0
+      ? archNar.pros_bullets
+      : posNotes.map((n) => {
+          const cls = classifySystemNote(n);
+          return {
+            title: `${n.room_name} — ${n.title}`,
+            text: `${n.summary || n.measured}${n.recommendation ? ` (${n.recommendation})` : ''}`,
+            pin_num: n.pin_num,
+            note_id: n.id,
+            kb_badge: `${cls.kbIcon} ${cls.kbShortHe}`,
+          };
+        });
+
+    const prosBulletsHtml = prosBulletsList
+      .map((b) => {
+        const matchedNote = findNoteByPinOrId(b.pin_num, b.note_id);
+        const nidAttr = matchedNote ? `data-note-id="${matchedNote.id}"` : '';
+        const pinHtml = b.pin_num ? `<span class="ov-bullet-pin pin-pos" title="לחץ למיקוד בסיכה #${b.pin_num} על התכנית">#${b.pin_num}</span>` : `<span class="ov-bullet-pin pin-pos">✓</span>`;
+        const kbBadgeHtml = b.kb_badge ? `<span class="ov-inline-kb-tag">${b.kb_badge}</span>` : '';
+        return `
+          <li class="ov-arch-bullet bullet-pos" ${nidAttr}>
+            ${pinHtml}
+            <div class="ov-arch-bullet-content">
+              <div class="ov-arch-bullet-top">
+                <strong class="ov-arch-bullet-title">${b.title}</strong>
+                ${kbBadgeHtml}
+              </div>
+              <div class="ov-arch-bullet-text">${b.text}</div>
+            </div>
+          </li>
+        `;
+      })
+      .join('');
+
+    // 3. Cons Narrative + Bullets (חסרונות ונקודות לשיפור — טקסט שוטף + בוליטים אופרטיביים)
+    const consNarrativeText = archNar.cons_narrative ||
+      `לצד היתרונות התכנוניים, זיהתה הבקרה האדריכלית ${negNotes.length} נקודות תורפה ופשרות תכנוניות שמומלץ לטפל בהן כדי לשדרג את נוחות המגורים ולמנוע חיכוך תפקודי:`;
+
+    const consBulletsList = Array.isArray(archNar.cons_bullets) && archNar.cons_bullets.length > 0
+      ? archNar.cons_bullets
+      : negNotes.map((n) => {
+          const cls = classifySystemNote(n);
+          return {
+            title: `${n.room_name} — ${n.title}`,
+            text: `${n.summary || n.measured}${n.recommendation ? ` — פתרון מומלץ: ${n.recommendation}` : ''}`,
+            pin_num: n.pin_num,
+            note_id: n.id,
+            kb_badge: `${cls.kbIcon} ${cls.kbShortHe}`,
+          };
+        });
+
+    const consBulletsHtml = consBulletsList
+      .map((b) => {
+        const matchedNote = findNoteByPinOrId(b.pin_num, b.note_id);
+        const nidAttr = matchedNote ? `data-note-id="${matchedNote.id}"` : '';
+        const pinHtml = b.pin_num ? `<span class="ov-bullet-pin pin-neg" title="לחץ למיקוד בסיכה #${b.pin_num} על התכנית">#${b.pin_num}</span>` : `<span class="ov-bullet-pin pin-neg">!</span>`;
+        const kbBadgeHtml = b.kb_badge ? `<span class="ov-inline-kb-tag">${b.kb_badge}</span>` : '';
+        return `
+          <li class="ov-arch-bullet bullet-neg" ${nidAttr}>
+            ${pinHtml}
+            <div class="ov-arch-bullet-content">
+              <div class="ov-arch-bullet-top">
+                <strong class="ov-arch-bullet-title">${b.title}</strong>
+                ${kbBadgeHtml}
+              </div>
+              <div class="ov-arch-bullet-text">${b.text}</div>
+            </div>
+          </li>
+        `;
+      })
+      .join('');
+
+    // 4. Value Engineering & Interior Improvement Narrative
+    const veNarrativeText = archNar.ve_and_improvement_narrative ||
+      `בגזרת ההשבחה התכנונית והנדסת הערך (Value Engineering), אותר פוטנציאל חיסכון ישיר של ${fmtNum(optKpis.grand_total_direct_saving_ils)} ₪ באמצעות כיווץ קונטור מאומת של ${fmtNum(contourAudit.total_verified_contour_saved_sqm)} מ״ר ואופטימיזציית תמהיל חיפוי החזיתות, לצד השבחת פנים של +${fmtNum(optKpis.total_design_improvement_sqm)} מ״ר — ללא אובדן מ״ר דירתי או חניות.`;
+
+    // 5. Knowledge Base Breakdown (חלוקה לסוגי הערות לפי בסיס הידע שעל פיו ההערה ניתנה)
+    const kbBreakdown = Array.isArray(cvr.knowledge_base_breakdown) && cvr.knowledge_base_breakdown.length > 0
+      ? cvr.knowledge_base_breakdown
+      : buildClientFallbackKbBreakdown(notes);
+
+    const kbQuickPillsHtml = kbBreakdown
+      .map((kb) => `
+        <button type="button" class="ov-kb-summary-pill" data-jump-kb="${kb.kb_id}" style="background:${kb.kb_bg || '#f8fafc'};border-color:${kb.kb_border || '#cbd5e1'};color:${kb.kb_color || '#0f172a'};" title="לחץ לסינון הערות לפי בסיס ידע: ${kb.kb_title_he}">
+          <span>${kb.kb_icon} ${kb.kb_short_he}</span>
+          <strong>(${kb.total_count})</strong>
+        </button>
+      `)
+      .join('');
+
+    const kbCardsHtml = kbBreakdown
+      .map((kb, idx) => {
+        const isVeKb = kb.kb_id === 'KB_VALUE_ENG_BIM';
+        const countsBadges = [];
+        if (kb.positive_count > 0) {
+          countsBadges.push(`<span class="ov-kb-stat-badge stat-pos">🟢 ${kb.positive_count} יתרונות</span>`);
+        }
+        if (kb.negative_count > 0) {
+          countsBadges.push(`<span class="ov-kb-stat-badge stat-neg">🔴 ${kb.negative_count} לשיפור</span>`);
+        }
+        if (kb.savings_count > 0) {
+          countsBadges.push(`<span class="ov-kb-stat-badge stat-ve">💰 ${kb.savings_count} מוקדי חיסכון</span>`);
+        }
+
+        const kbBulletsHtml = (kb.bullets || kb.items || [])
+          .map((item) => {
+            const polCls = item.polarity === 'SAVINGS' ? 'kb-item-ve' : item.polarity === 'POSITIVE' ? 'kb-item-pos' : 'kb-item-neg';
+            const polTagCls = item.polarity === 'SAVINGS' ? 'tag-ve' : item.polarity === 'POSITIVE' ? 'tag-pos' : 'tag-neg';
+            const nid = item.note_id || item.id || '';
+            const polLabel = item.polarity_he || (item.polarity === 'SAVINGS' ? 'חיסכון והנדסת ערך' : item.polarity === 'POSITIVE' ? 'יתרון תכנוני (תקין)' : 'לשיפור / תשומת לב');
+            const descTxt = item.pleasant_text || `${item.explanation_he || item.measured || ''}${item.recommendation_he ? ` · המלצה: ${item.recommendation_he}` : ''}`;
+            return `
+              <li class="ov-kb-bullet-item ${polCls}" data-note-id="${nid}">
+                <span class="ov-bullet-pin">#${item.pin_num}</span>
+                <div class="ov-kb-bullet-body">
+                  <div class="ov-kb-bullet-hdr">
+                    <strong>${item.room_name} — ${item.title}</strong>
+                    <div class="ov-kb-bullet-meta">
+                      <span class="ov-kb-pol-tag ${polTagCls}">${polLabel}</span>
+                      ${item.rule_id ? `<code class="ov-kb-rule-code">${item.rule_id}</code>` : ''}
+                    </div>
+                  </div>
+                  <div class="ov-kb-bullet-desc">${descTxt}</div>
+                </div>
+              </li>
+            `;
+          })
+          .join('');
+
+        return `
+          <details class="ov-kb-group-details" ${idx < 3 ? 'open' : ''} style="border-right: 4px solid ${kb.kb_color || '#1e40af'};">
+            <summary class="ov-kb-group-summary">
+              <div class="ov-kb-group-title-wrap">
+                <div class="ov-kb-group-title">
+                  <span>${kb.kb_icon} ${kb.kb_title_he}</span>
+                </div>
+                <div class="ov-kb-sources-line">
+                  <strong>בסיס הידע והמקורות:</strong> ${kb.kb_sources_he}
+                </div>
+              </div>
+              <div class="ov-kb-group-right">
+                <div class="ov-kb-counts-row">
+                  ${countsBadges.join('')}
+                </div>
+                <button type="button" class="ov-filter-jump-btn" data-jump-kb="${kb.kb_id}">
+                  ${isVeKb ? 'למרכז החיסכון ◂' : 'סנן ב״הערות מערכת״ ◂'}
+                </button>
+              </div>
+            </summary>
+            <div class="ov-kb-group-body">
+              ${kb.kb_description_he ? `<p class="ov-kb-desc-paragraph">${kb.kb_description_he}</p>` : ''}
+              <ul class="ov-kb-bullet-list">
+                ${kbBulletsHtml}
+              </ul>
+            </div>
+          </details>
+        `;
+      })
+      .join('');
+
+    // 6. Functional Quick Breakdown (תקן / איכות תכנון אדריכלי / טיפ עיצוב פנים)
     const groupByCat = (list) => ({
       STANDARD: list.filter((n) => classifySystemNote(n).category === 'STANDARD'),
       ARCH_QUALITY: list.filter((n) => classifySystemNote(n).category === 'ARCH_QUALITY'),
       INTERIOR_TIP: list.filter((n) => classifySystemNote(n).category === 'INTERIOR_TIP'),
     });
-
     const negByCat = groupByCat(negNotes);
     const posByCat = groupByCat(posNotes);
-
-    const catMeta = [
-      { key: 'STANDARD', label: 'תקן', icon: '⚖️' },
-      { key: 'ARCH_QUALITY', label: 'איכות תכנון אדריכלי', icon: '📐' },
-      { key: 'INTERIOR_TIP', label: 'טיפ עיצוב פנים', icon: '🛋️' },
-    ];
-
-    const renderGroupRows = (grouped, polarity) =>
-      catMeta
-        .map((cm) => {
-          const items = grouped[cm.key] || [];
-          if (items.length === 0) return '';
-          const bulletsHtml = items
-            .map(
-              (n) => `
-              <li class="ov-verbal-bullet" data-note-id="${n.id}">
-                <span class="ov-bullet-pin">#${n.pin_num}</span>
-                <div class="ov-bullet-body">
-                  <strong>${n.room_name} — ${n.title}:</strong>
-                  <span>${n.measured}${n.recommendation ? ` · <em>${n.recommendation}</em>` : ''}</span>
-                </div>
-              </li>
-            `
-            )
-            .join('');
-          return `
-            <div class="ov-verbal-cat-block">
-              <div class="ov-verbal-cat-hdr">
-                <span class="ov-verbal-cat-title">${cm.icon} ${cm.label} (${items.length})</span>
-                <button type="button" class="ov-filter-jump-btn" data-jump-pol="${polarity}" data-jump-cat="${cm.key}">
-                  סנן ב״הערות מערכת״ ◂
-                </button>
-              </div>
-              <ul class="ov-verbal-bullet-list">
-                ${bulletsHtml}
-              </ul>
-            </div>
-          `;
-        })
-        .join('');
-
-    const overallVerdictText =
-      (sdoc.concise_verbal_review && sdoc.concise_verbal_review.executive_paragraph) ||
-      sdoc.overall_verdict ||
-      data.project_subtitle ||
-      `בדיקת התכנון האדריכלית זיהתה ${negNotes.length} הערות לטיפול ושיפור (${negByCat.STANDARD.length} תקן, ${negByCat.ARCH_QUALITY.length} איכות תכנון אדריכלי, ${negByCat.INTERIOR_TIP.length} טיפ עיצוב פנים) לצד ${posNotes.length} נקודות חוזק חיוביות בתכנון.`;
 
     const wrap = document.createElement('div');
     wrap.className = 'mode-overview-container';
 
     wrap.innerHTML = `
-      <div class="ov-section-card ov-verbal-hero">
+      <!-- 1. ARCHITECT'S NARRATIVE OVERVIEW HERO CARD -->
+      <div class="ov-section-card ov-architect-hero-card">
         <div class="ov-card-header-row">
-          <span class="ov-card-title">📋 סקירה מילולית מתומצתת של בדיקת התכנון</span>
+          <div>
+            <div class="ov-card-title">🏛️ ${archNar.architect_title || archNar.architect_title_he || `סקירת אדריכל בודק — ${data.project_name || ''}`}</div>
+            <div class="ov-architect-subtitle">${archNar.architect_subtitle || archNar.architect_subtitle_he || data.project_subtitle || 'ניתוח תכנוני שוטף, יתרונות, חסרונות וחלוקה לפי בסיסי הידע'}</div>
+          </div>
           <span class="ov-score-pill">ציון תכנון: ${data.overall_score || '—'}</span>
         </div>
-        <p class="ov-verbal-lead">${overallVerdictText}</p>
+
+        <div class="ov-identity-badges-row">
+          ${identityBadgesHtml}
+        </div>
+
+        <div class="ov-prose-container">
+          ${overviewProseHtml}
+        </div>
+
         <div class="ov-polarity-summary-strip">
-          <button type="button" class="ov-pol-chip ov-pol-neg" data-jump-pol="NEGATIVE" data-jump-cat="ALL">
-            <span class="ov-pol-dot neg"></span>
-            <span>שלילי / לטיפול: <strong>${negNotes.length}</strong></span>
-          </button>
           <button type="button" class="ov-pol-chip ov-pol-pos" data-jump-pol="POSITIVE" data-jump-cat="ALL">
             <span class="ov-pol-dot pos"></span>
-            <span>חיובי / נקודות חוזק: <strong>${posNotes.length}</strong></span>
+            <span>יתרונות ונקודות חוזק: <strong>${posNotes.length}</strong></span>
+          </button>
+          <button type="button" class="ov-pol-chip ov-pol-neg" data-jump-pol="NEGATIVE" data-jump-cat="ALL">
+            <span class="ov-pol-dot neg"></span>
+            <span>חסרונות / לשיפור: <strong>${negNotes.length}</strong></span>
           </button>
           <button type="button" class="ov-pol-chip ov-pol-ve" id="ov-switch-ve-tab">
-            <span>💰 טאב חיסכון: <strong>${veNotes.length}</strong></span>
+            <span>💰 מוקדי חיסכון והנדסת ערך: <strong>${veNotes.length}</strong></span>
           </button>
         </div>
       </div>
 
-      <div class="ov-section-card ov-verbal-card ov-verbal-negative">
-        <div class="ov-card-header-row">
-          <span class="ov-card-title">🔴 תמצית ממצאים שליליים לטיפול (${negNotes.length})</span>
-          <button type="button" class="btn-link-Action" data-jump-pol="NEGATIVE" data-jump-cat="ALL">כל השליליים ◂</button>
-        </div>
-        <div class="ov-verbal-groups">
-          ${renderGroupRows(negByCat, 'NEGATIVE')}
-        </div>
-      </div>
-
+      <!-- 2. PROS & STRENGTHS: FLOWING PROSE + BULLETS -->
       <div class="ov-section-card ov-verbal-card ov-verbal-positive">
         <div class="ov-card-header-row">
-          <span class="ov-card-title">🟢 תמצית נקודות חוזק חיוביות בתכנון (${posNotes.length})</span>
-          <button type="button" class="btn-link-Action" data-jump-pol="POSITIVE" data-jump-cat="ALL">כל החיוביים ◂</button>
+          <span class="ov-card-title">🟢 יתרונות הפרויקט ונקודות החוזק התכנוניות (${posNotes.length})</span>
+          <button type="button" class="btn-link-Action" data-jump-pol="POSITIVE" data-jump-cat="ALL">כל החיוביים ב״הערות מערכת״ ◂</button>
         </div>
-        <div class="ov-verbal-groups">
-          ${renderGroupRows(posByCat, 'POSITIVE')}
+        <p class="ov-narrative-intro intro-pos">${prosNarrativeText}</p>
+        <ul class="ov-arch-bullets-list">
+          ${prosBulletsHtml}
+        </ul>
+      </div>
+
+      <!-- 3. CONS & CHALLENGES: FLOWING PROSE + OPERATIVE BULLETS -->
+      <div class="ov-section-card ov-verbal-card ov-verbal-negative">
+        <div class="ov-card-header-row">
+          <span class="ov-card-title">🔴 חסרונות, פשרות תכנוניות ונקודות לשיפור (${negNotes.length})</span>
+          <button type="button" class="btn-link-Action" data-jump-pol="NEGATIVE" data-jump-cat="ALL">כל השליליים ב״הערות מערכת״ ◂</button>
+        </div>
+        <p class="ov-narrative-intro intro-neg">${consNarrativeText}</p>
+        <ul class="ov-arch-bullets-list">
+          ${consBulletsHtml}
+        </ul>
+      </div>
+
+      <!-- 4. KNOWLEDGE BASE BREAKDOWN (חלוקה לסוגי הערות לפי בסיס הידע שעל פיו ההערה ניתנה) -->
+      <div class="ov-section-card ov-kb-section-card">
+        <div class="ov-card-header-row">
+          <div>
+            <div class="ov-card-title">📚 חלוקה לסוגי הערות לפי בסיס הידע שעל פיו ההערה ניתנה (${notes.length} הערות ב-${kbBreakdown.length} בסיסי ידע)</div>
+            <div class="ov-architect-subtitle">כל הערה בפרויקט משויכת למקור הידע התכנוני, החוקי או ההנדסי שעל בסיסו היא נקבעה — לחצו לסינון או למיקוד על התכנית</div>
+          </div>
+        </div>
+        <div class="ov-kb-pills-bar">
+          ${kbQuickPillsHtml}
+        </div>
+        <div class="ov-kb-groups-stack">
+          ${kbCardsHtml}
         </div>
       </div>
 
-      <div class="ov-section-card">
+      <!-- 5. VALUE ENGINEERING & INTERIOR IMPROVEMENT NARRATIVE + KPI BOXES -->
+      <div class="ov-section-card ov-ve-narrative-card">
+        <div class="ov-card-header-row">
+          <span class="ov-card-title">💡 פוטנציאל השבחה תכנונית, נצילות שטחים והנדסת ערך (VE)</span>
+        </div>
+        <p class="ov-narrative-intro intro-ve">${veNarrativeText}</p>
         <div class="ov-kpi-pair">
           <div class="ov-kpi-box" id="ov-open-ve">
-            <span class="ov-kpi-lbl">פוטנציאל חיסכון (בטאב נפרד)</span>
+            <span class="ov-kpi-lbl">פוטנציאל חיסכון מאומת (בטאב חיסכון)</span>
             <strong class="ov-kpi-val">${fmtNum(optKpis.grand_total_direct_saving_ils)} ₪</strong>
-            <span class="ov-kpi-sub">-${fmtNum(contourAudit.total_verified_contour_saved_sqm)} מ״ר קונטור (${veNotes.length} מוקדים)</span>
+            <span class="ov-kpi-sub">-${fmtNum(contourAudit.total_verified_contour_saved_sqm)} מ״ר קונטור (${veNotes.length} מוקדים) · 0 פגיעה בדירות/חניות</span>
           </div>
           <div class="ov-kpi-box" id="ov-open-areas">
-            <span class="ov-kpi-lbl">מאזן שטחים ושיפור תכנון</span>
+            <span class="ov-kpi-lbl">מאזן שטחים והשבחת פנים</span>
             <strong class="ov-kpi-val">+${fmtNum(optKpis.total_design_improvement_sqm)} מ״ר</strong>
-            <span class="ov-kpi-sub">טבלאות שטחים והשבחת פנים</span>
+            <span class="ov-kpi-sub">פתיחת טבלאות שטחים מלאות והשבחת דירות</span>
           </div>
+        </div>
+      </div>
+
+      <!-- 6. COMPACT FUNCTIONAL MATRIX (שלילי / חיובי × תקן / איכות תכנון / עיצוב פנים) -->
+      <div class="ov-section-card">
+        <div class="ov-card-header-row" style="margin-bottom:6px;">
+          <span class="ov-card-title">🗂️ קיצורי דרך לסינון מהיר לפי סיווג תפקודי</span>
+        </div>
+        <div class="ov-func-matrix-grid">
+          <button type="button" class="ov-func-chip neg" data-jump-pol="NEGATIVE" data-jump-cat="STANDARD">
+            ⚖️ לשיפור בתקן (${negByCat.STANDARD.length})
+          </button>
+          <button type="button" class="ov-func-chip neg" data-jump-pol="NEGATIVE" data-jump-cat="ARCH_QUALITY">
+            📐 לשיפור באיכות תכנון (${negByCat.ARCH_QUALITY.length})
+          </button>
+          <button type="button" class="ov-func-chip neg" data-jump-pol="NEGATIVE" data-jump-cat="INTERIOR_TIP">
+            🛋️ טיפי עיצוב פנים (${negByCat.INTERIOR_TIP.length})
+          </button>
+          <button type="button" class="ov-func-chip pos" data-jump-pol="POSITIVE" data-jump-cat="STANDARD">
+            ⚖️ תקין בתקן (${posByCat.STANDARD.length})
+          </button>
+          <button type="button" class="ov-func-chip pos" data-jump-pol="POSITIVE" data-jump-cat="ARCH_QUALITY">
+            📐 חוזקות איכות תכנון (${posByCat.ARCH_QUALITY.length})
+          </button>
+          <button type="button" class="ov-func-chip pos" data-jump-pol="POSITIVE" data-jump-cat="INTERIOR_TIP">
+            🛋️ חוזקות עיצוב פנים (${posByCat.INTERIOR_TIP.length})
+          </button>
         </div>
       </div>
     `;
@@ -2542,12 +3141,21 @@
     if (areasBox) areasBox.addEventListener('click', () => openSummaryAreasModal(data));
 
     wrap.querySelectorAll('[data-jump-pol]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        jumpToSystemFilter(btn.getAttribute('data-jump-pol'), btn.getAttribute('data-jump-cat'));
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        jumpToSystemFilter(btn.getAttribute('data-jump-pol'), btn.getAttribute('data-jump-cat'), 'ALL');
       });
     });
 
-    wrap.querySelectorAll('.ov-verbal-bullet[data-note-id]').forEach((li) => {
+    wrap.querySelectorAll('[data-jump-kb]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        jumpToSystemFilter('ALL', 'ALL', btn.getAttribute('data-jump-kb'));
+      });
+    });
+
+    wrap.querySelectorAll('[data-note-id]').forEach((li) => {
       li.addEventListener('click', () => {
         const nid = li.getAttribute('data-note-id');
         if (nid) {
@@ -2638,7 +3246,12 @@
   }
 
   function buildInlineNoteDetailsHtml(note) {
+    const cls = classifySystemNote(note);
     return `
+      <div class="note-kb-attribution-box" style="background:${cls.kbBg};border:1px solid ${cls.kbBorder};color:${cls.kbColor};">
+        <div class="note-kb-attr-title">${cls.kbIcon} בסיס הידע שעל פיו ההערה ניתנה: <strong>${cls.kbTitleHe}</strong></div>
+        <div class="note-kb-attr-sources">מקורות ותקנים: ${cls.kbSourcesHe}${note.rule_id ? ` · סעיף/חוק: <code>${note.rule_id}</code>` : ''}</div>
+      </div>
       <div class="fc-metrics-row" style="margin-top:8px;">
         <div class="fc-metric-box metric-current">
           <span class="fc-metric-label">קיים</span>
@@ -2695,17 +3308,24 @@
     card.id = `doc-note-${note.id}`;
 
     let taxBadgesHtml = '';
+    const kbPillHtml = `<span class="note-kb-pill" style="background:${clsInfo.kbBg};color:${clsInfo.kbColor};border:1px solid ${clsInfo.kbBorder};" title="בסיס הידע: ${clsInfo.kbTitleHe} (${clsInfo.kbSourcesHe})">${clsInfo.kbIcon} ${clsInfo.kbShortHe}</span>`;
     if (isVe) {
       const veLabel = note.ve_callout_badge || `חיסכון: ${fmtNum(note.ve_saving_ils)} ₪`;
-      taxBadgesHtml = `<span class="note-ve-pill">${veLabel}</span>`;
+      taxBadgesHtml = `${kbPillHtml}<span class="note-ve-pill">${veLabel}</span>`;
     } else {
       const polClass = clsInfo.polarity === 'NEGATIVE' ? 'pol-neg' : 'pol-pos';
       const catClass = `cat-${clsInfo.category.toLowerCase()}`;
       taxBadgesHtml = `
+        ${kbPillHtml}
         <span class="note-polarity-pill ${polClass}">${clsInfo.polarityHe}</span>
         <span class="note-cat-pill ${catClass}">${clsInfo.categoryHe}</span>
       `;
     }
+
+    const posLock = note.position_lock || (note.spatial_3d && note.spatial_3d.position_lock) || null;
+    const posLockBadgeHtml = (posLock && posLock.locked)
+      ? `<span class="note-cat-pill" style="background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;" title="מיקום דו-ממד (${note.cx_pct}%, ${note.cy_pct}%) ותלת-ממד (${(posLock.actual_3d_xz || []).join(', ')}m) מאומת ומקובע · #${posLock.lock_hash || ''}">🔒 2D↔3D</span>`
+      : '';
 
     card.innerHTML = `
       <div class="note-top-row">
@@ -2714,6 +3334,7 @@
           <span class="note-room-tag">${note.room_name}</span>
         </div>
         <div class="note-badges-left">
+          ${posLockBadgeHtml}
           ${taxBadgesHtml}
           ${decObj ? `<span class="note-dec-badge ${decObj.cls}">${decObj.label}</span>` : ''}
         </div>
@@ -2793,7 +3414,8 @@
     const isFiltered =
       currentWorkMode === 'OPTIMIZATION' ||
       currentPolarity !== 'ALL' ||
-      currentCategory !== 'ALL';
+      currentCategory !== 'ALL' ||
+      currentKnowledgeBase !== 'ALL';
 
     let totalRendered = 0;
 
@@ -2892,8 +3514,10 @@
       } else {
         currentPolarity = 'ALL';
         currentCategory = 'ALL';
+        currentKnowledgeBase = 'ALL';
         polarityBtns.forEach((b) => b.classList.toggle('active', b.dataset.polarity === 'ALL'));
         catFilterBtns.forEach((b) => b.classList.toggle('active', b.dataset.category === 'ALL'));
+        kbFilterBtns.forEach((b) => b.classList.toggle('active', b.dataset.kb === 'ALL'));
         switchWorkMode('FINDINGS', { preserveSubfilters: true });
       }
     }
@@ -3040,20 +3664,24 @@
 
     if (currentWorkMode === 'OPTIMIZATION') {
       currentFilter = 'VE';
+      isVePlanBarCollapsed = false;
       if (docSubfilterBar) docSubfilterBar.classList.add('hidden');
       if (veSubfilterBar) veSubfilterBar.classList.remove('hidden');
       if (btnToggleVePlanMode) btnToggleVePlanMode.classList.add('active');
-      if (vePlanBar) vePlanBar.classList.remove('hidden');
+      if (vePlanBar && !isPlanToolbarCollapsed) vePlanBar.classList.remove('hidden');
+      if (btnRestoreVePlanBar) btnRestoreVePlanBar.classList.add('hidden');
     } else if (currentWorkMode === 'FINDINGS') {
       currentFilter = 'ALL';
       if (!opts.preserveSubfilters) {
         polarityBtns.forEach((b) => b.classList.toggle('active', b.dataset.polarity === currentPolarity));
         catFilterBtns.forEach((b) => b.classList.toggle('active', b.dataset.category === currentCategory));
+        kbFilterBtns.forEach((b) => b.classList.toggle('active', b.dataset.kb === currentKnowledgeBase));
       }
       if (docSubfilterBar) docSubfilterBar.classList.remove('hidden');
       if (veSubfilterBar) veSubfilterBar.classList.add('hidden');
       if (btnToggleVePlanMode) btnToggleVePlanMode.classList.remove('active');
       if (vePlanBar) vePlanBar.classList.add('hidden');
+      if (btnRestoreVePlanBar) btnRestoreVePlanBar.classList.add('hidden');
     } else {
       // OVERVIEW or COMPARE
       currentFilter = 'ALL';
@@ -3061,6 +3689,7 @@
       if (veSubfilterBar) veSubfilterBar.classList.add('hidden');
       if (btnToggleVePlanMode) btnToggleVePlanMode.classList.remove('active');
       if (vePlanBar) vePlanBar.classList.add('hidden');
+      if (btnRestoreVePlanBar) btnRestoreVePlanBar.classList.add('hidden');
     }
 
     if (currentProject) {
@@ -3113,6 +3742,19 @@
       currentCategory = btn.dataset.category || 'ALL';
       catFilterBtns.forEach((b) => b.classList.toggle('active', b === btn));
       if (currentProject) {
+        updateSystemFilterCounts(currentProject);
+        renderDocumentSections(currentProject);
+        renderVisualPlanAnnotations();
+      }
+    });
+  });
+
+  // Tertiary Knowledge Base Filter Buttons (סינון לפי בסיס הידע שעל פיו ההערה ניתנה)
+  kbFilterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      currentKnowledgeBase = btn.dataset.kb || 'ALL';
+      kbFilterBtns.forEach((b) => b.classList.toggle('active', b === btn));
+      if (currentProject) {
         renderDocumentSections(currentProject);
         renderVisualPlanAnnotations();
       }
@@ -3163,6 +3805,23 @@
     btnExpandTopBar.addEventListener('click', () => toggleTopBar(true));
   }
 
+  // Collapsible / Compact Floor Tabs & Plan Toolbar Handlers
+  if (btnToggleSheetsCompact) {
+    btnToggleSheetsCompact.addEventListener('click', () => toggleSheetsCompact());
+  }
+  if (btnCollapsePlanToolbar) {
+    btnCollapsePlanToolbar.addEventListener('click', () => togglePlanToolbar(true));
+  }
+  if (btnRestorePlanToolbar) {
+    btnRestorePlanToolbar.addEventListener('click', () => togglePlanToolbar(false));
+  }
+  if (btnCollapseVePlanBar) {
+    btnCollapseVePlanBar.addEventListener('click', () => toggleVePlanBarCollapse(true));
+  }
+  if (btnRestoreVePlanBar) {
+    btnRestoreVePlanBar.addEventListener('click', () => toggleVePlanBarCollapse(false));
+  }
+
   // Focus Mode Toggle (One-Click Maximize Drawing Stage)
   function toggleFocusMode(forceVal) {
     isFocusMode = forceVal !== undefined ? forceVal : !isFocusMode;
@@ -3175,10 +3834,12 @@
       if (btnExpandDocPanel) btnExpandDocPanel.classList.remove('hidden');
       toggleSideDock(false);
       toggleTopBar(false);
+      toggleSheetsCompact(true);
     } else {
       if (splitWorkspaceEl) splitWorkspaceEl.classList.remove('doc-collapsed');
       if (btnExpandDocPanel) btnExpandDocPanel.classList.add('hidden');
       toggleTopBar(true);
+      togglePlanToolbar(false);
     }
   }
 

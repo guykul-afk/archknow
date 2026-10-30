@@ -1327,7 +1327,7 @@ def check_all_projects_3d_models(force=False, rebuild_artifacts=True):
     results = []
     updated_projects = []
 
-    canonical_ids = ["pines48", "kkl10", "hafetz44", "yatkovski7", "kitroni37", "feierberg3"]
+    canonical_ids = ["pines48", "kkl10", "hafetz44", "yatkovski7", "kitroni37", "feierberg3", "sharett26"]
     for pid in canonical_ids:
         if pid not in PROJECTS_CONFIG:
             continue

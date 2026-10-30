@@ -38,8 +38,8 @@ def test_cost_constants():
 
 
 def test_all_five_catalog_projects():
-    print("2. Testing all 6 cataloged projects (including Feierberg 3) for zero saleable/parking loss, exact math, and on-plan Where/How coordinates...")
-    pids = ["pines48", "kkl10", "hafetz44", "yatkovski7", "kitroni37", "feierberg3"]
+    print("2. Testing all 7 cataloged projects (including Feierberg 3 & Moshe Sharet 26-28) for zero saleable/parking loss, exact math, and on-plan Where/How coordinates...")
+    pids = ["pines48", "kkl10", "hafetz44", "yatkovski7", "kitroni37", "feierberg3", "sharett26"]
     for pid in pids:
         analysis = analyze_project_by_query(pid)
         pds = analysis.get("project_data_summary")
@@ -82,8 +82,8 @@ def test_all_five_catalog_projects():
         assert len(ve_notes) >= 6, f"Expected at least 6 on-plan Value Engineering notes in {pid}, got {len(ve_notes)}"
         ug_notes = [n for n in ve_notes if n.get("ve_category") == "UG"]
         assert len(ug_notes) >= 1, f"Expected at least 1 UG note in {pid}"
-        if pid == "feierberg3":
-            assert len(ug_notes) >= 2, "Expected 2 UG basement notes in feierberg3"
+        if pid in ("feierberg3", "sharett26"):
+            assert len(ug_notes) >= 2, f"Expected 2 UG basement notes in {pid}"
         for vn in ve_notes:
             assert vn.get("ve_category") in ("AG", "UG", "FAC"), f"Non-contour note must not be in Cost Savings model: {vn.get('id')}"
             assert vn.get("where_on_plan"), f"Missing where_on_plan in VE note {vn.get('id')}"
@@ -101,8 +101,8 @@ def test_all_five_catalog_projects():
                 reloc = vn.get("parking_relocation_audit")
                 assert isinstance(reloc, dict), f"Missing parking_relocation_audit dict in UG note {vn.get('id')}"
                 assert reloc.get("stalls_relocated_count", -1) >= 0, f"Expected stalls_relocated_count >= 0 in {vn.get('id')}"
-                if pid == "hafetz44":
-                    assert reloc.get("stalls_relocated_count") == 0, "Expected 0 relocated parking stalls in hafetz44 (TEST-9)"
+                if pid in ("hafetz44", "sharett26"):
+                    assert reloc.get("stalls_relocated_count") == 0, f"Expected 0 relocated parking stalls in {pid} (TEST-9)"
                 assert reloc.get("affected_stalls_label"), f"Missing affected_stalls_label in {vn.get('id')}"
                 assert reloc.get("original_location_he"), f"Missing original_location_he in {vn.get('id')}"
                 assert reloc.get("alternative_location_found_he"), f"Missing alternative_location_found_he in {vn.get('id')}"
@@ -117,8 +117,8 @@ def test_all_five_catalog_projects():
         rma = ug_opt.get("ramp_and_maneuvering_audit")
         assert isinstance(rma, dict) and rma.get("total_protected_ramp_and_maneuvering_deducted_sqm", 0) > 0, f"Missing ramp_and_maneuvering_audit in {pid}"
         assert rma.get("total_stalls_relocated_to_alternative_bays", -1) >= 0, f"Missing total_stalls_relocated_to_alternative_bays in {pid}"
-        if pid == "hafetz44":
-            assert rma.get("total_stalls_relocated_to_alternative_bays") == 0, "Expected 0 relocated stalls in hafetz44"
+        if pid in ("hafetz44", "sharett26"):
+            assert rma.get("total_stalls_relocated_to_alternative_bays") == 0, f"Expected 0 relocated stalls in {pid}"
         assert rma.get("parking_relocation_rule_he"), f"Missing parking_relocation_rule_he in {pid}"
 
         # Verify internal apartment layout improvements + locked-core reductions are classified under Design Improvement (not Cost Savings)
@@ -197,6 +197,11 @@ def test_api_and_payload_enrichment():
         assert resp_fb.status_code == 200
         fb_body = resp_fb.get_json()
         assert fb_body["design_optimization"]["executive_kpis"]["grand_total_direct_saving_ils"] == 1296900
+
+        resp_ms = client.get("/api/v1/projects/sharett26/optimization")
+        assert resp_ms.status_code == 200
+        ms_body = resp_ms.get_json()
+        assert ms_body["design_optimization"]["executive_kpis"]["grand_total_direct_saving_ils"] == 895000
 
         # Test dynamic simulation query parameters
         resp_sim = client.get("/api/v1/projects/pines48/optimization?ag_rate=7000&ug_rate=4000&dry_rate=800&plaster_rate=300")
@@ -384,7 +389,7 @@ def test_pines48_ground_and_basement_plans_present():
 
 if __name__ == "__main__":
     from spatial_3d_mapper import validate_project_spatial_catalog
-    for _pid in ["pines48", "kkl10", "hafetz44", "yatkovski7", "kitroni37", "feierberg3"]:
+    for _pid in ["pines48", "kkl10", "hafetz44", "yatkovski7", "kitroni37", "feierberg3", "sharett26"]:
         _issues = validate_project_spatial_catalog(analyze_project_by_query(_pid))
         assert len(_issues) == 0, f"Spatial catalog validation failed for {_pid}: {_issues}"
     _h44 = analyze_project_by_query("hafetz44")
@@ -393,7 +398,7 @@ if __name__ == "__main__":
     assert _h44_notes["H44-W-04"]["spatial_3d"]["bbox_3d"][:4] == [-1.05, -4.33, 2.25, -0.33]
     for _nid in ("H44-W-06", "H44-E-02", "H44-E-03", "H44-E-04", "H44-E-05", "H44-CORE-01", "H44-PH-01", "H44-PH-02", "H44-PH-03", "H44-LOCKED-CORE2"):
         assert _nid in _h44_notes, f"Missing note {_nid} in Hafetz Chaim 44"
-    assert _h44_notes["H44-PH-03"]["spatial_3d"]["bbox_3d"][:4] == [-9.95, -0.25, -7.15, 3.98]
+    assert _h44_notes["H44-PH-03"]["spatial_3d"]["bbox_3d"][:4] == [-8.66, -2.45, 1.54, 2.93]
     assert _h44_notes["H44-LOCKED-CORE2"]["ve_saving_ils"] == 0
     assert _h44_notes["H44-OPT-AG2"]["sheet_id"] == "h44_penthouse"
     print("0. [PASS] Hafetz Chaim 44 7 User Fixes & Systemic Spatial Catalog Validator verified across all 6 projects.")

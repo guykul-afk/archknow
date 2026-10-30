@@ -7,6 +7,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 from project_analyzer_service import get_projects_catalog, analyze_project_by_query
 from sync_3d_models import CENTRAL_MODELS_ROOT, PROJECTS_CONFIG
+from spatial_position_lock import build_and_verify_master_registry
 
 # 1. Copy reports to webapp/reports
 os.makedirs('webapp/reports', exist_ok=True)
@@ -31,6 +32,7 @@ project_queries = {
     'yatkovski7': 'יטקובסקי 7',
     'kitroni37': 'קטרוני 37–39',
     'feierberg3': 'פאירברג 3',
+    'sharett26': 'משה שרת 26–28',
 }
 for pid, q in project_queries.items():
     data = analyze_project_by_query(q)
@@ -38,6 +40,10 @@ for pid, q in project_queries.items():
     with open(out_p, 'w', encoding='utf-8', newline='\n') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     print(f'Wrote {out_p} ({len(data["notes"])} notes, {len(data["sheets"])} sheets)')
+
+lock_reg = build_and_verify_master_registry(write_file=True)
+shutil.copy2('spatial_lock_registry.json', 'webapp/api/spatial_lock_registry.json')
+print(f'Wrote webapp/api/spatial_lock_registry.json ({lock_reg["total_notes"]} locked notes, verified_100_pct={lock_reg["verified_100_pct"]})')
 
 # 3. Sync existing 3D model viewers from Central Repository (G:\Shared drives\שליטה ובקרה\מודלים פרויקטים)
 #    into webapp/models/<pid>/ for Firebase Hosting (Zero-Rebuild, runtime overlay injected)
@@ -71,7 +77,7 @@ for cfg in PROJECTS_CONFIG:
     overlay_block = (
         f'\n<!-- ARCHICHECK_3D_OVERLAY_START -->\n'
         f'<script>window.__ARCHICHECK_PROJECT_ID__ = "{pid}";</script>\n'
-        f'<script src="/audit_3d_overlay.js?v=6.8"></script>\n'
+        f'<script src="/audit_3d_overlay.js?v=7.0"></script>\n'
         f'<!-- ARCHICHECK_3D_OVERLAY_END -->\n'
     )
     for html_fn in html_files:

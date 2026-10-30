@@ -61,6 +61,12 @@ PROJECT_FOLDERS = {
         "name_he": "פאירברג 3, פתח תקווה",
         "query": "פאירברג 3",
         "report_prefix": "feierberg3"
+    },
+    "sharett26": {
+        "folder": "07_משה_שרת_26_28_פתח_תקווה",
+        "name_he": "משה שרת 26–28, פתח תקווה",
+        "query": "משה שרת 26–28",
+        "report_prefix": "sharett26"
     }
 }
 
