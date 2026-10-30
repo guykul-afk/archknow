@@ -201,6 +201,16 @@ def find_openings(walls, cm_per_px, dark=None):
     return keep_h | keep_v, br_h + br_v
 
 
+def _draw_seg_np(canvas, x0, y0, x1, y1, r):
+    H, W = canvas.shape
+    n = int(max(abs(x1 - x0), abs(y1 - y0), 1)) + 1
+    xs = np.clip(np.round(np.linspace(x0, x1, n)).astype(np.int32), 0, W - 1)
+    ys = np.clip(np.round(np.linspace(y0, y1, n)).astype(np.int32), 0, H - 1)
+    for dy in range(-r, r + 1):
+        for dx in range(-r, r + 1):
+            canvas[np.clip(ys + dy, 0, H - 1), np.clip(xs + dx, 0, W - 1)] = True
+
+
 def dark_mask(img, page=None, zoom=None):
     """Drawn strokes (black / near-black), excluding mid-gray hatching (floor tiles, decks).
 
@@ -210,37 +220,73 @@ def dark_mask(img, page=None, zoom=None):
     g = img.astype(np.int16).mean(axis=2)
     if page is None:
         return g < 105
-    from PIL import Image, ImageDraw
     H, W = g.shape
-    canvas = Image.new("L", (W, H), 0)
-    d = ImageDraw.Draw(canvas)
-    for dr in page.get_drawings():
-        col = dr.get("color")
-        if col is None or max(col) > 0.35:
-            continue
-        w = max(1, int(round((dr.get("width") or 0.5) * zoom)))
-        for it in dr.get("items", []):
-            kind = it[0]
-            if kind == "l":
-                d.line([(it[1].x * zoom, it[1].y * zoom), (it[2].x * zoom, it[2].y * zoom)], fill=255, width=w)
-            elif kind == "re":
-                r = it[1]
-                d.rectangle([r.x0 * zoom, r.y0 * zoom, r.x1 * zoom, r.y1 * zoom], outline=255, width=w)
-            elif kind == "qu":
-                q = it[1]
-                pts = [(q.ul.x * zoom, q.ul.y * zoom), (q.ur.x * zoom, q.ur.y * zoom),
-                       (q.lr.x * zoom, q.lr.y * zoom), (q.ll.x * zoom, q.ll.y * zoom)]
-                d.line(pts + [pts[0]], fill=255, width=w)
-            elif kind == "c":
-                p0, p1, p2, p3 = it[1:5]
-                pts = []
-                for t in np.linspace(0, 1, 9):
-                    mt = 1 - t
-                    x = mt ** 3 * p0.x + 3 * mt * mt * t * p1.x + 3 * mt * t * t * p2.x + t ** 3 * p3.x
-                    y = mt ** 3 * p0.y + 3 * mt * mt * t * p1.y + 3 * mt * t * t * p2.y + t ** 3 * p3.y
-                    pts.append((x * zoom, y * zoom))
-                d.line(pts, fill=255, width=w)
-    vec = np.asarray(canvas) > 0
+    try:
+        from PIL import Image, ImageDraw
+        canvas = Image.new("L", (W, H), 0)
+        d = ImageDraw.Draw(canvas)
+        for dr in page.get_drawings():
+            col = dr.get("color")
+            if col is None or max(col) > 0.35:
+                continue
+            w = max(1, int(round((dr.get("width") or 0.5) * zoom)))
+            for it in dr.get("items", []):
+                kind = it[0]
+                if kind == "l":
+                    d.line([(it[1].x * zoom, it[1].y * zoom), (it[2].x * zoom, it[2].y * zoom)], fill=255, width=w)
+                elif kind == "re":
+                    r = it[1]
+                    d.rectangle([r.x0 * zoom, r.y0 * zoom, r.x1 * zoom, r.y1 * zoom], outline=255, width=w)
+                elif kind == "qu":
+                    q = it[1]
+                    pts = [(q.ul.x * zoom, q.ul.y * zoom), (q.ur.x * zoom, q.ur.y * zoom),
+                           (q.lr.x * zoom, q.lr.y * zoom), (q.ll.x * zoom, q.ll.y * zoom)]
+                    d.line(pts + [pts[0]], fill=255, width=w)
+                elif kind == "c":
+                    p0, p1, p2, p3 = it[1:5]
+                    pts = []
+                    for t in np.linspace(0, 1, 9):
+                        mt = 1 - t
+                        x = mt ** 3 * p0.x + 3 * mt * mt * t * p1.x + 3 * mt * t * t * p2.x + t ** 3 * p3.x
+                        y = mt ** 3 * p0.y + 3 * mt * mt * t * p1.y + 3 * mt * t * t * p2.y + t ** 3 * p3.y
+                        pts.append((x * zoom, y * zoom))
+                    d.line(pts, fill=255, width=w)
+        vec = np.asarray(canvas) > 0
+    except ImportError:
+        vec = np.zeros((H, W), dtype=bool)
+        for dr in page.get_drawings():
+            col = dr.get("color")
+            if col is None or max(col) > 0.35:
+                continue
+            w = max(1, int(round((dr.get("width") or 0.5) * zoom)))
+            rad = max(0, (w - 1) // 2)
+            for it in dr.get("items", []):
+                kind = it[0]
+                if kind == "l":
+                    _draw_seg_np(vec, it[1].x * zoom, it[1].y * zoom, it[2].x * zoom, it[2].y * zoom, rad)
+                elif kind == "re":
+                    r = it[1]
+                    x0, y0, x1, y1 = r.x0 * zoom, r.y0 * zoom, r.x1 * zoom, r.y1 * zoom
+                    _draw_seg_np(vec, x0, y0, x1, y0, rad)
+                    _draw_seg_np(vec, x1, y0, x1, y1, rad)
+                    _draw_seg_np(vec, x1, y1, x0, y1, rad)
+                    _draw_seg_np(vec, x0, y1, x0, y0, rad)
+                elif kind == "qu":
+                    q = it[1]
+                    pts = [(q.ul.x * zoom, q.ul.y * zoom), (q.ur.x * zoom, q.ur.y * zoom),
+                           (q.lr.x * zoom, q.lr.y * zoom), (q.ll.x * zoom, q.ll.y * zoom)]
+                    for k in range(4):
+                        _draw_seg_np(vec, pts[k][0], pts[k][1], pts[(k + 1) % 4][0], pts[(k + 1) % 4][1], rad)
+                elif kind == "c":
+                    p0, p1, p2, p3 = it[1:5]
+                    pts = []
+                    for t in np.linspace(0, 1, 9):
+                        mt = 1 - t
+                        x = mt ** 3 * p0.x + 3 * mt * mt * t * p1.x + 3 * mt * t * t * p2.x + t ** 3 * p3.x
+                        y = mt ** 3 * p0.y + 3 * mt * mt * t * p1.y + 3 * mt * t * t * p2.y + t ** 3 * p3.y
+                        pts.append((x * zoom, y * zoom))
+                    for k in range(len(pts) - 1):
+                        _draw_seg_np(vec, pts[k][0], pts[k][1], pts[k + 1][0], pts[k + 1][1], rad)
     return vec & (g < 215)
 
 

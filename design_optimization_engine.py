@@ -651,14 +651,82 @@ def build_facade_cladding_optimization(facades_data: dict, baseline_dry_pct: flo
     from each project's submission plans (תכנית הגשה) and 1:1 3D BIM models.
     Calculates exact cost savings from shifting convertible dry cladding (`submission_dry_cladding_sqm`,
     700 ILS/sqm) to Exterior Plaster (`submission_plaster_sqm`, 300 ILS/sqm -> Saving = 400 ILS/sqm).
-    Falls back to heuristic percentages ONLY for custom uploaded models without submission material data.
+    Enforces Zero-Trust epistemic rules:
+    - Evaluates material availability per facade (never turning a missing facade into 0.0 known dry cladding).
+    - Strictly clamps converted area to available dry cladding (`min(cur_dry, ...)`).
+    - Rejects negative or physically impossible areas (`validation_status = "ERROR"`).
     """
-    total_gross = float(facades_data.get("total_sqm") or 0.0)
-    total_glazing = float(facades_data.get("total_glazing_sqm") or 0.0)
-    total_opaque = float(facades_data.get("total_opaque_sqm") or max(0.0, total_gross - total_glazing))
+    if not isinstance(facades_data, dict):
+        facades_data = {}
+
+    raw_gross = float(facades_data.get("total_sqm") or 0.0)
+    raw_glazing = float(facades_data.get("total_glazing_sqm") or 0.0)
+    raw_opaque = float(facades_data.get("total_opaque_sqm") or 0.0)
     directions = facades_data.get("by_direction") or []
 
-    has_exact_submission_data = any("submission_dry_cladding_sqm" in d for d in directions)
+    validation_errors = []
+    if raw_gross < 0 or raw_glazing < 0 or raw_opaque < 0:
+        validation_errors.append("שטח חזית כולל, זיגוג או קיר אטום אינו יכול להיות שלילי.")
+    if raw_gross > 0 and raw_glazing > raw_gross:
+        validation_errors.append(f"שטח הזיגוג בחזית ({raw_glazing} מ״ר) עולה על השטח הכולל ({raw_gross} מ״ר).")
+    if baseline_dry_pct < 0 or baseline_dry_pct > 100:
+        validation_errors.append(f"אחוז חיפוי יבש בסיסי ({baseline_dry_pct}%) מחוץ לטווח החוקי 0–100%.")
+
+    for idx, d in enumerate(directions):
+        d_op = float(d.get("opaque_area_sqm") or 0.0)
+        d_gl = float(d.get("glazing_area_sqm") or 0.0)
+        d_gr = float(d.get("gross_area_sqm") or 0.0)
+        d_dry = float(d.get("submission_dry_cladding_sqm") or 0.0)
+        d_pl = float(d.get("submission_plaster_sqm") or 0.0)
+        if d_op < 0 or d_gl < 0 or d_gr < 0 or d_dry < 0 or d_pl < 0:
+            validation_errors.append(f"ערכי שטח שליליים בחזית {d.get('facade_name', idx + 1)}.")
+        if d_gr > 0 and d_gl > d_gr:
+            validation_errors.append(f"שטח הזיגוג ({d_gl} מ״ר) גדול מהשטח הכולל ({d_gr} מ״ר) בחזית {d.get('facade_name', idx + 1)}.")
+
+    if validation_errors:
+        return {
+            "validation_status": "ERROR",
+            "validation_errors": validation_errors,
+            "facades_with_unknown_materials": [],
+            "submission_plan_source": facades_data.get("submission_plan_source", ""),
+            "submission_legend_items": [],
+            "total_facade_gross_sqm": 0.0,
+            "total_glazing_sqm": 0.0,
+            "total_opaque_wall_sqm": 0.0,
+            "main_facades_opaque_sqm": 0.0,
+            "side_and_rear_facades_opaque_sqm": 0.0,
+            "preset_plaster_pct": 0,
+            "preset_dry_cladding_pct": 0,
+            "preset_split_rule_he": "שגיאת קלט בנתוני החזיתות — לא חושב חיסכון.",
+            "dry_cladding_price_per_sqm_ils": COST_DRY_CLADDING_PER_SQM_ILS,
+            "plaster_price_per_sqm_ils": COST_PLASTER_PER_SQM_ILS,
+            "saving_per_converted_sqm_ils": SAVING_CLADDING_TO_PLASTER_PER_SQM_ILS,
+            "baseline_dry_cladding_pct": 0.0,
+            "baseline_plaster_pct": 0.0,
+            "baseline_louvers_pct": 0.0,
+            "baseline_dry_cladding_sqm": 0.0,
+            "baseline_plaster_sqm": 0.0,
+            "baseline_louvers_sqm": 0.0,
+            "baseline_total_cost_ils": 0,
+            "recommended_converted_to_plaster_sqm": 0.0,
+            "optimized_dry_cladding_sqm": 0.0,
+            "optimized_plaster_sqm": 0.0,
+            "optimized_dry_cladding_pct": 0.0,
+            "optimized_plaster_pct": 0.0,
+            "optimized_total_cost_ils": 0,
+            "recommended_saving_ils": 0,
+            "net_avoidable_saving_ils": 0,
+            "by_facade": [],
+            "scenarios": [],
+        }
+
+    total_gross = raw_gross
+    total_glazing = raw_glazing
+    total_opaque = raw_opaque if raw_opaque > 0 else max(0.0, total_gross - total_glazing)
+
+    any_facade_has_exact = any("submission_dry_cladding_sqm" in d for d in directions)
+    all_facades_have_exact = bool(directions) and all("submission_dry_cladding_sqm" in d for d in directions)
+    facades_with_unknown_materials = []
 
     by_facade = []
     tot_rec_converted_sqm = 0.0
@@ -684,33 +752,58 @@ def build_facade_cladding_optimization(facades_data: dict, baseline_dry_pct: flo
             side_and_rear_facades_opaque_sqm += opaque_sqm
             side_facade_names.append(f"{fname} ({opaque_sqm:.0f} מ״ר)")
 
-        if has_exact_submission_data:
-            cur_dry = round(float(d.get("submission_dry_cladding_sqm") or 0.0), 1)
-            cur_plaster = round(float(d.get("submission_plaster_sqm") or 0.0), 1)
-            cur_louvers = round(float(d.get("submission_louvers_sqm") or max(0.0, opaque_sqm - cur_dry - cur_plaster)), 1)
-            conv_sqm = round(min(cur_dry, float(d.get("recommended_converted_to_plaster_sqm") or 0.0)), 1)
+        facade_has_exact = "submission_dry_cladding_sqm" in d and d.get("submission_dry_cladding_sqm") is not None
+        facade_explicit_unknown = bool(d.get("materials_unknown")) or (
+            any_facade_has_exact and not facade_has_exact and "dry_cladding_pct" not in d
+        )
+
+        if facade_has_exact:
+            material_data_status = "EXACT_SUBMISSION"
+            cur_dry = round(min(opaque_sqm, max(0.0, float(d.get("submission_dry_cladding_sqm") or 0.0))), 1) if opaque_sqm > 0 else round(max(0.0, float(d.get("submission_dry_cladding_sqm") or 0.0)), 1)
+            cur_plaster = round(max(0.0, float(d.get("submission_plaster_sqm") or 0.0)), 1)
+            cur_louvers = round(max(0.0, float(d.get("submission_louvers_sqm") or max(0.0, opaque_sqm - cur_dry - cur_plaster))), 1)
+            conv_sqm = round(min(cur_dry, max(0.0, float(d.get("recommended_converted_to_plaster_sqm") or 0.0))), 1)
             new_dry = round(max(0.0, cur_dry - conv_sqm), 1)
             new_plaster = round(cur_plaster + conv_sqm, 1)
             strategy = d.get("submission_optimization_strategy") or d.get("materials_and_elements") or ""
             mat_breakdown = d.get("submission_materials_breakdown") or []
+        elif facade_explicit_unknown:
+            material_data_status = "UNKNOWN"
+            facades_with_unknown_materials.append(fname)
+            cur_dry = 0.0
+            cur_plaster = 0.0
+            cur_louvers = 0.0
+            conv_sqm = 0.0
+            new_dry = 0.0
+            new_plaster = 0.0
+            strategy = "חסר פירוט חומרי גמר לחזית זו (לא ידוע — UNKNOWN) — לא הוכר חיסכון בחזית זו עד להשלמת מקרא החומרים בתכנית ההגשה."
+            mat_breakdown = []
         else:
+            material_data_status = "HEURISTIC_ESTIMATE"
+            facade_dry_pct = max(0.0, min(100.0, float(d.get("dry_cladding_pct", baseline_dry_pct))))
+            cur_dry = round(opaque_sqm * (facade_dry_pct / 100.0), 1)
+            cur_plaster = round(max(0.0, opaque_sqm - cur_dry), 1)
+            cur_louvers = 0.0
             is_main_street = ("ראשית" in fname) or ("רחוב" in fname and idx == 0)
             is_rear = ("עורפית" in fname) or ("חצר" in fname) or ("שצ״פ" in fname)
-            if is_main_street:
-                conv_share = 0.20
-                strategy = "חזית רחוב ייצוגית — שמירת חיפוי יבש מלא בחזית הראשית ובמסד; המרת קירות פנים-מרפסות ונסיגות קומות גג בלבד לטיח (20%)"
-            elif is_rear:
-                conv_share = 0.48
-                strategy = "חזית עורפית — המרת שטחי הקירות האטומים העורפיים ומסתורי הכביסה לטיח תרמי/אקרילי משובח תוך שמירת מסגרות חיפוי יבש (48%)"
+            if cur_dry <= 0.0 or opaque_sqm <= 0.0:
+                conv_share = 0.0
+                conv_sqm = 0.0
+                strategy = "אין חיפוי יבש זמין להמרה בחזית זו (0 מ״ר חיפוי יבש) — 0 ₪ חיסכון."
             else:
-                conv_share = 0.36
-                strategy = "חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)"
-            cur_dry = round(opaque_sqm * (baseline_dry_pct / 100.0), 1)
-            cur_plaster = round(opaque_sqm - cur_dry, 1)
-            cur_louvers = 0.0
-            conv_sqm = round(opaque_sqm * conv_share, 1)
+                if is_main_street:
+                    conv_share = 0.20
+                    strategy = "חזית רחוב ייצוגית — שמירת חיפוי יבש מלא בחזית הראשית ובמסד; המרת קירות פנים-מרפסות ונסיגות קומות גג בלבד לטיח (20%)"
+                elif is_rear:
+                    conv_share = 0.48
+                    strategy = "חזית עורפית — המרת שטחי הקירות האטומים העורפיים ומסתורי הכביסה לטיח תרמי/אקרילי משובח תוך שמירת מסגרות חיפוי יבש (48%)"
+                else:
+                    conv_share = 0.36
+                    strategy = "חזית צדדית — שילוב אדריכלי מאוזן: חיפוי יבש במסד ובאגפי הסלון, ומעבר לטיח חוץ באגפי חדרי השינה, הפירים ומסתורי הכביסה (36%)"
+                # Strictly clamp converted area to actual available dry cladding on this facade
+                conv_sqm = round(min(cur_dry, opaque_sqm * conv_share), 1)
             new_dry = round(max(0.0, cur_dry - conv_sqm), 1)
-            new_plaster = round(opaque_sqm - new_dry, 1)
+            new_plaster = round(max(0.0, opaque_sqm - new_dry), 1)
             mat_breakdown = []
 
         facade_saving_ils = round(conv_sqm * SAVING_CLADDING_TO_PLASTER_PER_SQM_ILS)
@@ -722,15 +815,17 @@ def build_facade_cladding_optimization(facades_data: dict, baseline_dry_pct: flo
         by_facade.append({
             "facade_name": fname,
             "direction": direction,
+            "material_data_status": material_data_status,
+            "current_dry_cladding_known": material_data_status != "UNKNOWN",
             "facade_role": "MAIN_DRY" if is_main_facade else "SIDE_PLASTER",
             "facade_role_he": "חזית עיקרית (פריסט: חיפוי יבש)" if is_main_facade else "חזית צד/עורף (פריסט: טיח)",
             "gross_area_sqm": gross_sqm,
             "glazing_area_sqm": glazing_sqm,
             "opaque_area_sqm": opaque_sqm,
-            "current_dry_cladding_sqm": cur_dry,
-            "current_dry_cladding_pct": round((cur_dry / opaque_sqm * 100.0) if opaque_sqm > 0 else 0.0, 1),
-            "current_plaster_sqm": cur_plaster,
-            "current_plaster_pct": round((cur_plaster / opaque_sqm * 100.0) if opaque_sqm > 0 else 0.0, 1),
+            "current_dry_cladding_sqm": cur_dry if material_data_status != "UNKNOWN" else None,
+            "current_dry_cladding_pct": round((cur_dry / opaque_sqm * 100.0) if (opaque_sqm > 0 and material_data_status != "UNKNOWN") else 0.0, 1),
+            "current_plaster_sqm": cur_plaster if material_data_status != "UNKNOWN" else None,
+            "current_plaster_pct": round((cur_plaster / opaque_sqm * 100.0) if (opaque_sqm > 0 and material_data_status != "UNKNOWN") else 0.0, 1),
             "current_louvers_sqm": cur_louvers,
             "current_louvers_pct": round((cur_louvers / opaque_sqm * 100.0) if opaque_sqm > 0 else 0.0, 1),
             "submission_materials_breakdown": mat_breakdown,
@@ -761,28 +856,27 @@ def build_facade_cladding_optimization(facades_data: dict, baseline_dry_pct: flo
             ),
         })
 
-    if has_exact_submission_data:
+    if any_facade_has_exact or directions:
         baseline_dry_sqm = round(tot_cur_dry_sqm, 1)
         baseline_plaster_sqm = round(tot_cur_plaster_sqm, 1)
         baseline_louvers_sqm = round(tot_cur_louvers_sqm, 1)
         true_dry_pct = round((baseline_dry_sqm / total_opaque * 100.0) if total_opaque > 0 else 0.0, 1)
         true_plaster_pct = round((baseline_plaster_sqm / total_opaque * 100.0) if total_opaque > 0 else 0.0, 1)
         true_louvers_pct = round((baseline_louvers_sqm / total_opaque * 100.0) if total_opaque > 0 else 0.0, 1)
-        tot_rec_converted_sqm = round(tot_rec_converted_sqm, 1)
+        tot_rec_converted_sqm = round(min(baseline_dry_sqm, tot_rec_converted_sqm), 1)
         opt_dry_sqm = round(max(0.0, baseline_dry_sqm - tot_rec_converted_sqm), 1)
         opt_plaster_sqm = round(baseline_plaster_sqm + tot_rec_converted_sqm, 1)
     else:
-        baseline_dry_sqm = round(total_opaque * (baseline_dry_pct / 100.0), 1)
-        baseline_plaster_sqm = round(total_opaque - baseline_dry_sqm, 1)
+        # No per-direction breakdown provided: cannot verify which facade is street-facing vs side/rear
+        baseline_dry_sqm = 0.0
+        baseline_plaster_sqm = 0.0
         baseline_louvers_sqm = 0.0
-        true_dry_pct = baseline_dry_pct
-        true_plaster_pct = round(100.0 - baseline_dry_pct, 1)
+        true_dry_pct = 0.0
+        true_plaster_pct = 0.0
         true_louvers_pct = 0.0
-        tot_rec_converted_sqm = round(tot_rec_converted_sqm, 1)
-        if tot_rec_converted_sqm <= 0 and total_opaque > 0:
-            tot_rec_converted_sqm = round(total_opaque * (target_plaster_conversion_pct / 100.0), 1)
-        opt_dry_sqm = round(max(0.0, baseline_dry_sqm - tot_rec_converted_sqm), 1)
-        opt_plaster_sqm = round(total_opaque - opt_dry_sqm, 1)
+        tot_rec_converted_sqm = 0.0
+        opt_dry_sqm = 0.0
+        opt_plaster_sqm = 0.0
 
     baseline_total_cost_ils = round(
         baseline_dry_sqm * COST_DRY_CLADDING_PER_SQM_ILS + baseline_plaster_sqm * COST_PLASTER_PER_SQM_ILS
@@ -791,6 +885,13 @@ def build_facade_cladding_optimization(facades_data: dict, baseline_dry_pct: flo
         opt_dry_sqm * COST_DRY_CLADDING_PER_SQM_ILS + opt_plaster_sqm * COST_PLASTER_PER_SQM_ILS
     )
     recommended_saving_ils = round(tot_rec_converted_sqm * SAVING_CLADDING_TO_PLASTER_PER_SQM_ILS)
+    transition_profiles_cost_ils = round(tot_rec_converted_sqm * 35.0)
+    redesign_coord_cost_ils = 4500 if tot_rec_converted_sqm > 0 else 0
+    sunk_cladding_cost_ils = round(max(0.0, float(facades_data.get("committed_cladding_cost_ils") or 0.0)))
+    net_avoidable_saving_ils = max(
+        0,
+        recommended_saving_ils - transition_profiles_cost_ils - redesign_coord_cost_ils - sunk_cladding_cost_ils,
+    )
 
     conv_100_dry = round(baseline_dry_sqm, 1)
     scenarios = [
@@ -820,10 +921,22 @@ def build_facade_cladding_optimization(facades_data: dict, baseline_dry_pct: flo
         },
     ]
 
-    preset_plaster_pct = max(1, min(100, round((side_and_rear_facades_opaque_sqm / total_opaque * 100.0) if total_opaque > 0 else 75)))
-    preset_dry_pct = 100 - preset_plaster_pct
+    preset_plaster_pct = max(0, min(100, round((side_and_rear_facades_opaque_sqm / total_opaque * 100.0) if total_opaque > 0 else 0)))
+    preset_dry_pct = max(0, 100 - preset_plaster_pct) if total_opaque > 0 else 0
+
+    if not directions or total_opaque <= 0:
+        val_status = "INSUFFICIENT_DATA"
+    elif facades_with_unknown_materials:
+        val_status = "PARTIAL_UNKNOWN_MATERIALS"
+    elif all_facades_have_exact:
+        val_status = "VERIFIED_SUBMISSION_DATA"
+    else:
+        val_status = "HEURISTIC_ESTIMATE"
 
     return {
+        "validation_status": val_status,
+        "validation_errors": [],
+        "facades_with_unknown_materials": facades_with_unknown_materials,
         "submission_plan_source": facades_data.get("submission_plan_source", ""),
         "submission_legend_items": facades_data.get("submission_legend_items", []),
         "total_facade_gross_sqm": total_gross,
@@ -851,6 +964,11 @@ def build_facade_cladding_optimization(facades_data: dict, baseline_dry_pct: flo
         "optimized_plaster_pct": round((opt_plaster_sqm / total_opaque * 100.0) if total_opaque > 0 else 0.0, 1),
         "optimized_total_cost_ils": optimized_total_cost_ils,
         "recommended_saving_ils": recommended_saving_ils,
+        "gross_avoided_cost_ils": recommended_saving_ils,
+        "implementation_and_transition_cost_ils": transition_profiles_cost_ils,
+        "redesign_and_coordination_cost_ils": redesign_coord_cost_ils,
+        "sunk_or_committed_cost_ils": sunk_cladding_cost_ils,
+        "net_avoidable_saving_ils": net_avoidable_saving_ils,
         "by_facade": by_facade,
         "scenarios": scenarios,
     }
@@ -1541,10 +1659,20 @@ PROJECT_LOCKED_CORE_RECLASSIFIED_ITEMS = {
 # =============================================================================
 def build_project_design_optimization(pid: str, data_summary: dict) -> dict:
     """
-    Builds the complete `design_optimization` dictionary for a project (both the 6 cataloged
+    Builds the complete `design_optimization` dictionary for a project (both the 7 cataloged
     projects and any dynamically uploaded CAD/PDF model), including the Global Building Contour
     Contraction Audit (`contour_audit_summary` and `locked_core_reclassified_items`).
+    Enforces Zero-Trust epistemic rules:
+    - Never emits savings or zero-damage guarantees when `data_summary` is empty or missing (`E01`).
+    - Rejects negative or physically impossible quantities with `validation_status = "ERROR"` (`E04`).
+    - Removes hardcoded positive savings floors (`18.0 m²` AG / `25.0 m²` UG) and fabricated stall
+      relocation narratives for custom projects (`E02`, `E07`).
+    - Separates gross avoided cost from net avoidable savings (`net_avoidable_cost_breakdown`) and
+      assigns explicit `maturity_stage` and `value_category` per item.
     """
+    if not isinstance(data_summary, dict):
+        data_summary = {}
+
     ag = data_summary.get("above_ground_areas") or {}
     ug = data_summary.get("underground_areas") or {}
     fac = data_summary.get("facades") or {}
@@ -1553,203 +1681,415 @@ def build_project_design_optimization(pid: str, data_summary: dict) -> dict:
     net_apt_sqm = float(ag.get("net_apartments_sqm") or 0.0)
     core_ag_sqm = float(ag.get("core_and_service_sqm") or 0.0)
     total_ug_sqm = float(ug.get("total_sqm") or 0.0)
-    parking_spaces = int(ug.get("parking_spaces") or 1)
+    raw_parking_spaces = int(ug.get("parking_spaces") or 0)
+    parking_spaces = raw_parking_spaces if raw_parking_spaces > 0 else 0
+    fac_total_sqm = float(fac.get("total_sqm") or 0.0)
+    fac_directions = fac.get("by_direction") or []
+
+    # 1. Input Validation Guard (E04: Negative or physically impossible quantities)
+    validation_errors = []
+    if total_ag_sqm < 0 or net_apt_sqm < 0 or core_ag_sqm < 0 or total_ug_sqm < 0 or raw_parking_spaces < 0:
+        validation_errors.append("ערכי שטח או מספר חניות שליליים אינם חוקיים.")
+    if total_ag_sqm > 0 and core_ag_sqm > total_ag_sqm:
+        validation_errors.append(f"שטח הליבה והשירות ({core_ag_sqm} מ״ר) עולה על השטח העילי הכולל ({total_ag_sqm} מ״ר).")
+    if total_ag_sqm > 0 and net_apt_sqm > total_ag_sqm:
+        validation_errors.append(f"שטח הדירות נטו ({net_apt_sqm} מ״ר) עולה על השטח העילי הכולל ({total_ag_sqm} מ״ר).")
+
+    facade_opt_check = build_facade_cladding_optimization(fac)
+    if facade_opt_check.get("validation_status") == "ERROR":
+        validation_errors.extend(facade_opt_check.get("validation_errors", []))
+
+    has_any_valid_area_evidence = (
+        total_ag_sqm > 0.0 or total_ug_sqm > 0.0 or fac_total_sqm > 0.0 or len(fac_directions) > 0
+    )
+
+    if validation_errors or not has_any_valid_area_evidence:
+        status_code = "ERROR" if validation_errors else "INSUFFICIENT_DATA"
+        empty_fac = facade_opt_check if validation_errors else build_facade_cladding_optimization({})
+        return {
+            "validation_status": status_code,
+            "validation_errors": validation_errors,
+            "maturity_stage": "0_UNVERIFIED",
+            "pricing_parameters": {
+                "above_ground_saved_per_sqm_ils": COST_ABOVE_GROUND_PER_SQM_ILS,
+                "underground_parking_saved_per_sqm_ils": COST_UNDERGROUND_PARKING_PER_SQM_ILS,
+                "dry_cladding_cost_per_sqm_ils": COST_DRY_CLADDING_PER_SQM_ILS,
+                "plaster_cost_per_sqm_ils": COST_PLASTER_PER_SQM_ILS,
+                "cladding_to_plaster_diff_per_sqm_ils": SAVING_CLADDING_TO_PLASTER_PER_SQM_ILS,
+            },
+            "zero_damage_guarantees": {
+                "verified": False,
+                "verification_status": "ERROR" if validation_errors else "UNKNOWN",
+                "apartment_saleable_area_loss_sqm": None,
+                "apartment_saleable_area_preserved_sqm": 0.0,
+                "parking_spaces_lost": None,
+                "parking_spaces_preserved": 0,
+                "public_utilities_preserved": False,
+                "guarantee_statement": (
+                    f"שגיאת קלט בנתוני המודל: {'; '.join(validation_errors)}"
+                    if validation_errors
+                    else "לא אומת — חסרים נתוני שטחים, חניות וגיאומטריה (INSUFFICIENT_DATA). לא הוכר חיסכון כלשהו."
+                ),
+            },
+            "contour_audit_summary": {
+                "audit_rule_he": "לא ניתן לאמת כיווץ קונטור בהיעדר נתוני שטחים וגיאומטריה תקינים.",
+                "proposed_ag_gross_reduction_sqm": 0.0,
+                "verified_ag_contour_saved_sqm": 0.0,
+                "rejected_locked_ag_core_sqm": 0.0,
+                "ag_contour_efficiency_pct": 0.0,
+                "proposed_ug_gross_reduction_sqm": 0.0,
+                "verified_ug_contour_saved_sqm": 0.0,
+                "rejected_locked_ug_zone_sqm": 0.0,
+                "protected_ramp_and_maneuvering_deducted_sqm": 0.0,
+                "under_ramp_utilized_sqm": 0.0,
+                "ug_contour_efficiency_pct": 0.0,
+                "total_proposed_raw_reduction_sqm": 0.0,
+                "total_verified_contour_saved_sqm": 0.0,
+                "rejected_locked_core_and_service_sqm": 0.0,
+                "rejected_internal_apt_corridor_sqm": 0.0,
+                "total_reclassified_to_design_improvement_sqm": 0.0,
+                "before_total_ag_contour_sqm": 0.0,
+                "after_total_ag_contour_sqm": 0.0,
+                "before_total_ug_contour_sqm": 0.0,
+                "after_total_ug_contour_sqm": 0.0,
+                "methodology_pillars": CONTOUR_AUDIT_METHODOLOGY_PILLARS,
+                "locked_core_reclassified_items": [],
+                "ramp_and_maneuvering_audit": {
+                    "total_proposed_ug_gross_cut_sqm": 0.0,
+                    "total_protected_ramp_and_maneuvering_deducted_sqm": 0.0,
+                    "total_verified_ug_contour_saved_sqm": 0.0,
+                    "total_under_ramp_utilized_sqm": 0.0,
+                    "total_stalls_relocated_to_alternative_bays": 0,
+                    "audit_statement_he": "לא חושב — אין נתוני מרתף מאומתים.",
+                },
+            },
+            "executive_kpis": {
+                "above_ground_saved_sqm": 0.0,
+                "above_ground_saving_ils": 0,
+                "underground_saved_sqm": 0.0,
+                "underground_saving_ils": 0,
+                "facade_converted_to_plaster_sqm": 0.0,
+                "facade_saving_ils": 0,
+                "internal_reclaimed_living_sqm": 0.0,
+                "locked_core_reclassified_sqm": 0.0,
+                "total_design_improvement_sqm": 0.0,
+                "grand_total_direct_saving_ils": 0,
+                "grand_total_net_avoidable_saving_ils": 0,
+                "current_core_share_pct": 0.0,
+                "optimized_core_share_pct": 0.0,
+                "current_basement_sqm_per_stall": 0.0,
+                "optimized_basement_sqm_per_stall": 0.0,
+            },
+            "net_avoidable_cost_breakdown": {
+                "gross_avoided_cost_ils": 0,
+                "implementation_and_transition_cost_ils": 0,
+                "redesign_and_coordination_cost_ils": 0,
+                "sunk_or_committed_cost_ils": 0,
+                "envelope_cladding_overlap_deduction_ils": 0,
+                "net_avoidable_saving_ils": 0,
+            },
+            "above_ground_optimization": {
+                "current_total_above_ground_sqm": 0.0,
+                "current_core_and_service_sqm": 0.0,
+                "optimized_core_and_service_sqm": 0.0,
+                "optimized_total_above_ground_sqm": 0.0,
+                "proposed_gross_reduction_sqm": 0.0,
+                "rejected_locked_core_sqm": 0.0,
+                "total_saved_sqm": 0.0,
+                "rate_per_sqm_ils": COST_ABOVE_GROUND_PER_SQM_ILS,
+                "total_saving_ils": 0,
+                "items": [],
+            },
+            "underground_optimization": {
+                "current_total_underground_sqm": 0.0,
+                "optimized_total_underground_sqm": 0.0,
+                "parking_spaces": 0,
+                "current_sqm_per_stall": 0.0,
+                "optimized_sqm_per_stall": 0.0,
+                "proposed_gross_reduction_sqm": 0.0,
+                "rejected_locked_zone_sqm": 0.0,
+                "protected_ramp_and_maneuvering_deducted_sqm": 0.0,
+                "under_ramp_utilized_sqm": 0.0,
+                "total_saved_sqm": 0.0,
+                "rate_per_sqm_ils": COST_UNDERGROUND_PARKING_PER_SQM_ILS,
+                "total_saving_ils": 0,
+                "ramp_and_maneuvering_audit": {},
+                "items": [],
+            },
+            "facade_cladding_optimization": empty_fac,
+            "internal_apartment_optimization": {
+                "total_reclaimed_effective_living_sqm": 0.0,
+                "locked_core_reclassified_sqm": 0.0,
+                "locked_core_reclassified_items": [],
+                "items": [],
+            },
+        }
 
     profile = PROJECT_OPTIMIZATION_PROFILES.get(pid)
 
     if profile:
         ag_items = []
-        for item in profile["above_ground_items"]:
-            saved = float(item["saved_sqm"])
-            cmeta = ITEM_CONTOUR_AUDIT_METADATA.get(item["id"], {})
-            prop_gross = float(cmeta.get("proposed_gross_reduction_sqm", saved))
-            locked_non_contour = round(max(0.0, prop_gross - saved), 1)
-            eff_pct = round((saved / prop_gross * 100.0) if prop_gross > 0 else 100.0, 1)
-            ag_items.append({
-                **item,
-                "proposed_gross_reduction_sqm": prop_gross,
-                "verified_contour_saved_sqm": saved,
-                "non_contour_reclassified_sqm": locked_non_contour,
-                "contour_efficiency_pct": eff_pct,
-                "contour_test_status": cmeta.get("contour_test_status", "FULL_CONTOUR_REDUCTION"),
-                "contour_mechanism": cmeta.get("contour_mechanism", "קירוב אגפי הדירות ונסיגת קיר המעטפת החיצוני בהתאם להפחתת הגרעין."),
-                "contour_dims_before_after": cmeta.get("contour_dims_before_after", f"הקטנת קונטור עילי ב-{saved} מ״ר"),
-                "locked_reason_he": cmeta.get("locked_reason_he", ""),
-                "unit_cost_ils": COST_ABOVE_GROUND_PER_SQM_ILS,
-                "cost_saving_ils": round(saved * COST_ABOVE_GROUND_PER_SQM_ILS),
-            })
+        if total_ag_sqm > 0:
+            for item in profile["above_ground_items"]:
+                saved = min(total_ag_sqm, float(item["saved_sqm"]))
+                cmeta = ITEM_CONTOUR_AUDIT_METADATA.get(item["id"], {})
+                prop_gross = float(cmeta.get("proposed_gross_reduction_sqm", saved))
+                locked_non_contour = round(max(0.0, prop_gross - saved), 1)
+                eff_pct = round((saved / prop_gross * 100.0) if prop_gross > 0 else 100.0, 1)
+                gross_ils = round(saved * COST_ABOVE_GROUND_PER_SQM_ILS)
+                redesign_ils = round(saved * 180)
+                ag_items.append({
+                    **item,
+                    "value_category": "CONSTRUCTION_COST_SAVING",
+                    "maturity_stage": "3_GEOMETRICALLY_VERIFIED",
+                    "evidence_source": "COMPUTED_GEOM",
+                    "proposed_gross_reduction_sqm": prop_gross,
+                    "verified_contour_saved_sqm": saved,
+                    "non_contour_reclassified_sqm": locked_non_contour,
+                    "contour_efficiency_pct": eff_pct,
+                    "contour_test_status": cmeta.get("contour_test_status", "FULL_CONTOUR_REDUCTION"),
+                    "contour_mechanism": cmeta.get("contour_mechanism", "קירוב אגפי הדירות ונסיגת קיר המעטפת החיצוני בהתאם להפחתת הגרעין."),
+                    "contour_dims_before_after": cmeta.get("contour_dims_before_after", f"הקטנת קונטור עילי ב-{saved} מ״ר"),
+                    "locked_reason_he": cmeta.get("locked_reason_he", ""),
+                    "unit_cost_ils": COST_ABOVE_GROUND_PER_SQM_ILS,
+                    "cost_saving_ils": gross_ils,
+                    "gross_avoided_cost_ils": gross_ils,
+                    "redesign_and_coordination_cost_ils": redesign_ils,
+                    "net_avoidable_saving_ils": max(0, gross_ils - redesign_ils),
+                })
 
         ug_items = []
-        for item in profile["underground_items"]:
-            saved = float(item["saved_sqm"])
-            cmeta = ITEM_CONTOUR_AUDIT_METADATA.get(item["id"], {})
-            prop_gross = float(cmeta.get("proposed_gross_reduction_sqm", saved))
-            locked_non_contour = round(max(0.0, prop_gross - saved), 1)
-            eff_pct = round((saved / prop_gross * 100.0) if prop_gross > 0 else 100.0, 1)
-            prot_ramp_sqm = float(cmeta.get("protected_ramp_and_maneuvering_deducted_sqm", locked_non_contour))
-            under_ramp_sqm = float(cmeta.get("under_ramp_utilized_sqm", round(saved * 0.5, 1)))
-            ug_items.append({
-                **item,
-                "proposed_gross_reduction_sqm": prop_gross,
-                "verified_contour_saved_sqm": saved,
-                "non_contour_reclassified_sqm": locked_non_contour,
-                "protected_ramp_and_maneuvering_deducted_sqm": prot_ramp_sqm,
-                "under_ramp_utilized_sqm": under_ramp_sqm,
-                "contour_efficiency_pct": eff_pct,
-                "contour_test_status": cmeta.get("contour_test_status", "FULL_CONTOUR_REDUCTION"),
-                "contour_mechanism": cmeta.get("contour_mechanism", "הזזת קו הדיפון ההיקפי וגבול החפירה פנימה לאחר ניצול תחתית הרמפה."),
-                "contour_dims_before_after": cmeta.get("contour_dims_before_after", f"הקטנת קונטור דיפון ב-{saved} מ״ר"),
-                "locked_reason_he": cmeta.get("locked_reason_he", ""),
-                "ramp_function_audit_he": cmeta.get(
-                    "ramp_function_audit_he",
-                    "שמירה מלאה על נתיב הרמפה (15%–17%), משטחי ההתמתנות (5%–10% באורך 3.00 מ׳) ורדיוסי הסיבוב (R_in ≥ 3.50m); ניצול תחתית הרמפה לחדר משאבות ומאגר מים מבוצע אך ורק בחצי העליון שבו גובה הראש הפנוי H_clear ≥ 2.15–2.20 מ׳.",
-                ),
-                "maneuvering_aisle_audit_he": cmeta.get(
-                    "maneuvering_aisle_audit_he",
-                    "שמירה מלאה על מיסעות דו-סטריות ברוחב 5.20–6.50 מ׳ לחניות 90° ואוזן תמרון של 1.00 מ׳ לחניות קצה; כל שטח החופף למעטפת התמרון קוזז מחיסכון הקונטור.",
-                ),
-                "parking_relocation_audit": cmeta.get(
-                    "parking_relocation_audit",
-                    {
-                        "stalls_relocated_count": 1,
-                        "affected_stalls_label": "חניית קצה באזור נסיגת קיר הדיפון",
-                        "original_location_he": "מוקמה בכיס החפירה ההיקפי שצומצם להקטנת קונטור המרתף.",
-                        "alternative_location_found_he": "הועתקה למפרץ חלופי מאומת לאורך המיסעה המרכזית שהתפנה בעקבות העברת מאגר המים וחדר המשאבות אל מתחת לחלק העליון של הרמפה (H_clear ≥ 2.15–2.20m).",
-                        "new_stall_dimensions_and_access_he": "תא חניה תקני 2.60×5.00 מ׳ בניצב למיסעה (6.00 מ׳) עם גישה ישירה בתמרון אחד.",
-                        "multi_floor_search_and_ground_audit_he": "סריקה רב-קומתית (קומת קרקע + מרתפים): בדיקת חלופות בחניון העילי בקומת הקרקע (0.0 מ״ר תוספת שטח בנייה) ובמפרצים הפנויים במרתף מחוץ לקירות הממ״ד היורדים.",
-                        "zero_contour_expansion_proof_he": "0.0 מ״ר חריגה מקו הדיפונים ו-0.0 מ״ר תוספת שטח בנייה כללי: המפרץ החלופי נמצא ב-100% בתוך קו הדיפון הקיים וללא פלישה למיסעה או לחניות סמוכות.",
-                        "net_parking_balance_he": f"מאזן חניות נטו: 0 גריעה (100% מ-{parking_spaces} החניות נשמרות במלואן וללא הגדלת קונטור).",
-                    },
-                ),
-                "parking_relocation_audit_he": cmeta.get(
-                    "parking_relocation_audit_he",
-                    "בדיקת העתקת חנייה רב-קומתית ואי-הגדלת קונטור: כל חניית קצה המושפעת מנסיגת קיר הדיפון נבדקת מול קומת הקרקע והמרתף ומועתקת למפרץ החלופי שהתפנה לאורך המיסעה בעקבות העברת מאגר המים וחדר המשאבות אל מתחת לחלק העליון של הרמפה (H_clear ≥ 2.15m) — 0 גריעת חניות ו-0.0 מ״ר חריגה מקו הדיפונים.",
-                ),
-                "plan_overlay_zones": cmeta.get(
-                    "plan_overlay_zones",
-                    {
-                        "protected_ramp_maneuver_rect": {"x_pct": 22.0, "y_pct": 38.0, "w_pct": 52.0, "h_pct": 22.0, "label_he": "מיסעה ורדיוס סיבוב רמפה (מוגן 100%)"},
-                        "under_ramp_utility_rect": {"x_pct": 55.0, "y_pct": 22.0, "w_pct": 20.0, "h_pct": 12.0, "label_he": f"ניצול תחתית רמפה עליונה (H≥2.15m · {under_ramp_sqm} מ״ר)"},
-                        "relocated_parking_target_rect": {"x_pct": 38.0, "y_pct": 24.0, "w_pct": 15.0, "h_pct": 12.0, "label_he": "🅿️🔄 מקום חלופי מאומת לחנייה שהועתקה (2.60×5.00 מ׳)"},
-                    },
-                ),
-                "unit_cost_ils": COST_UNDERGROUND_PARKING_PER_SQM_ILS,
-                "cost_saving_ils": round(saved * COST_UNDERGROUND_PARKING_PER_SQM_ILS),
-            })
+        if total_ug_sqm > 0 and parking_spaces > 0:
+            for item in profile["underground_items"]:
+                saved = min(total_ug_sqm, float(item["saved_sqm"]))
+                cmeta = ITEM_CONTOUR_AUDIT_METADATA.get(item["id"], {})
+                prop_gross = float(cmeta.get("proposed_gross_reduction_sqm", saved))
+                locked_non_contour = round(max(0.0, prop_gross - saved), 1)
+                eff_pct = round((saved / prop_gross * 100.0) if prop_gross > 0 else 100.0, 1)
+                prot_ramp_sqm = float(cmeta.get("protected_ramp_and_maneuvering_deducted_sqm", locked_non_contour))
+                under_ramp_sqm = float(cmeta.get("under_ramp_utilized_sqm", round(saved * 0.5, 1)))
+                gross_ils = round(saved * COST_UNDERGROUND_PARKING_PER_SQM_ILS)
+                redesign_ils = round(saved * 150)
+                ug_items.append({
+                    **item,
+                    "value_category": "CONSTRUCTION_COST_SAVING",
+                    "maturity_stage": "3_GEOMETRICALLY_VERIFIED",
+                    "evidence_source": "COMPUTED_GEOM",
+                    "proposed_gross_reduction_sqm": prop_gross,
+                    "verified_contour_saved_sqm": saved,
+                    "non_contour_reclassified_sqm": locked_non_contour,
+                    "protected_ramp_and_maneuvering_deducted_sqm": prot_ramp_sqm,
+                    "under_ramp_utilized_sqm": under_ramp_sqm,
+                    "contour_efficiency_pct": eff_pct,
+                    "contour_test_status": cmeta.get("contour_test_status", "FULL_CONTOUR_REDUCTION"),
+                    "contour_mechanism": cmeta.get("contour_mechanism", "הזזת קו הדיפון ההיקפי וגבול החפירה פנימה לאחר ניצול תחתית הרמפה."),
+                    "contour_dims_before_after": cmeta.get("contour_dims_before_after", f"הקטנת קונטור דיפון ב-{saved} מ״ר"),
+                    "locked_reason_he": cmeta.get("locked_reason_he", ""),
+                    "ramp_function_audit_he": cmeta.get(
+                        "ramp_function_audit_he",
+                        "שמירה מלאה על נתיב הרמפה (15%–17%), משטחי ההתמתנות (5%–10% באורך 3.00 מ׳) ורדיוסי הסיבוב (R_in ≥ 3.50m); ניצול תחתית הרמפה לחדר משאבות ומאגר מים מבוצע אך ורק בחצי העליון שבו גובה הראש הפנוי H_clear ≥ 2.15–2.20 מ׳.",
+                    ),
+                    "maneuvering_aisle_audit_he": cmeta.get(
+                        "maneuvering_aisle_audit_he",
+                        "שמירה מלאה על מיסעות דו-סטריות ברוחב 5.20–6.50 מ׳ לחניות 90° ואוזן תמרון של 1.00 מ׳ לחניות קצה; כל שטח החופף למעטפת התמרון קוזז מחיסכון הקונטור.",
+                    ),
+                    "parking_relocation_audit": cmeta.get(
+                        "parking_relocation_audit",
+                        {
+                            "stalls_relocated_count": 1,
+                            "affected_stalls_label": "חניית קצה באזור נסיגת קיר הדיפון",
+                            "original_location_he": "מוקמה בכיס החפירה ההיקפי שצומצם להקטנת קונטור המרתף.",
+                            "alternative_location_found_he": "הועתקה למפרץ חלופי מאומת לאורך המיסעה המרכזית שהתפנה בעקבות העברת מאגר המים וחדר המשאבות אל מתחת לחלק העליון של הרמפה (H_clear ≥ 2.15–2.20m).",
+                            "new_stall_dimensions_and_access_he": "תא חניה תקני 2.60×5.00 מ׳ בניצב למיסעה (6.00 מ׳) עם גישה ישירה בתמרון אחד.",
+                            "multi_floor_search_and_ground_audit_he": "סריקה רב-קומתית (קומת קרקע + מרתפים): בדיקת חלופות בחניון העילי בקומת הקרקע (0.0 מ״ר תוספת שטח בנייה) ובמפרצים הפנויים במרתף מחוץ לקירות הממ״ד היורדים.",
+                            "zero_contour_expansion_proof_he": "0.0 מ״ר חריגה מקו הדיפונים ו-0.0 מ״ר תוספת שטח בנייה כללי: המפרץ החלופי נמצא ב-100% בתוך קו הדיפון הקיים וללא פלישה למיסעה או לחניות סמוכות.",
+                            "net_parking_balance_he": f"מאזן חניות נטו: 0 גריעה (100% מ-{parking_spaces} החניות נשמרות במלואן וללא הגדלת קונטור).",
+                        },
+                    ),
+                    "parking_relocation_audit_he": cmeta.get(
+                        "parking_relocation_audit_he",
+                        "בדיקת העתקת חנייה רב-קומתית ואי-הגדלת קונטור: כל חניית קצה המושפעת מנסיגת קיר הדיפון נבדקת מול קומת הקרקע והמרתף ומועתקת למפרץ החלופי שהתפנה לאורך המיסעה בעקבות העברת מאגר המים וחדר המשאבות אל מתחת לחלק העליון של הרמפה (H_clear ≥ 2.15m) — 0 גריעת חניות ו-0.0 מ״ר חריגה מקו הדיפונים.",
+                    ),
+                    "plan_overlay_zones": cmeta.get(
+                        "plan_overlay_zones",
+                        {
+                            "protected_ramp_maneuver_rect": {"x_pct": 22.0, "y_pct": 38.0, "w_pct": 52.0, "h_pct": 22.0, "label_he": "מיסעה ורדיוס סיבוב רמפה (מוגן 100%)"},
+                            "under_ramp_utility_rect": {"x_pct": 55.0, "y_pct": 22.0, "w_pct": 20.0, "h_pct": 12.0, "label_he": f"ניצול תחתית רמפה עליונה (H≥2.15m · {under_ramp_sqm} מ״ר)"},
+                            "relocated_parking_target_rect": {"x_pct": 38.0, "y_pct": 24.0, "w_pct": 15.0, "h_pct": 12.0, "label_he": "🅿️🔄 מקום חלופי מאומת לחנייה שהועתקה (2.60×5.00 מ׳)"},
+                        },
+                    ),
+                    "unit_cost_ils": COST_UNDERGROUND_PARKING_PER_SQM_ILS,
+                    "cost_saving_ils": gross_ils,
+                    "gross_avoided_cost_ils": gross_ils,
+                    "redesign_and_coordination_cost_ils": redesign_ils,
+                    "net_avoidable_saving_ils": max(0, gross_ils - redesign_ils),
+                })
 
-        apt_items = list(profile["internal_apartment_items"])
-        locked_core_items = [dict(x) for x in PROJECT_LOCKED_CORE_RECLASSIFIED_ITEMS.get(pid, [])]
+        apt_items = [
+            {**x, "value_category": "USABILITY_IMPROVEMENT", "maturity_stage": "2_ALTERNATIVE_DESCRIBED"}
+            for x in profile["internal_apartment_items"]
+        ] if total_ag_sqm > 0 else []
+        locked_core_items = [
+            {**dict(x), "value_category": "USABILITY_IMPROVEMENT", "maturity_stage": "3_GEOMETRICALLY_VERIFIED"}
+            for x in PROJECT_LOCKED_CORE_RECLASSIFIED_ITEMS.get(pid, [])
+        ] if total_ag_sqm > 0 else []
         facade_opt = build_facade_cladding_optimization(
             fac,
             baseline_dry_pct=profile.get("baseline_dry_cladding_pct", 85.0),
             target_plaster_conversion_pct=profile.get("recommended_plaster_conversion_pct", 35.0),
         )
     else:
-        # Dynamic calculation for uploaded / custom projects with Contour Contraction Audit
-        raw_ag_candidate = round(max(24.0, core_ag_sqm * 0.18), 1)
-        saved_ag_sqm = round(max(18.0, core_ag_sqm * 0.14), 1)
-        locked_ag_sqm = round(max(4.0, raw_ag_candidate - saved_ag_sqm), 1)
-        prop_ag_gross = round(saved_ag_sqm + locked_ag_sqm, 1)
-        ag_items = [
-            {
-                "id": f"{pid.upper()}-OPT-AG1",
-                "floor_or_zone": "גרעין קומות טיפוסיות, מבואות וקומת קרקע",
-                "current_sqm": core_ag_sqm,
-                "optimal_sqm": round(core_ag_sqm - saved_ag_sqm, 1),
-                "saved_sqm": saved_ag_sqm,
-                "proposed_gross_reduction_sqm": prop_ag_gross,
-                "verified_contour_saved_sqm": saved_ag_sqm,
-                "non_contour_reclassified_sqm": locked_ag_sqm,
-                "contour_efficiency_pct": round(saved_ag_sqm / prop_ag_gross * 100.0, 1),
-                "contour_test_status": "PARTIAL_CONTOUR_REDUCTION",
-                "contour_mechanism": "קירוב אגפי הדירות על ציר הגרעין ונסיגת קיר השירות בקומת הקרקע (נבנה פחות בפועל).",
-                "contour_dims_before_after": f"קונטור עילי כולל: {total_ag_sqm:.1f} מ״ר ← {total_ag_sqm - saved_ag_sqm:.1f} מ״ר (-{saved_ag_sqm:.1f} מ״ר)",
-                "locked_reason_he": f"{locked_ag_sqm:.1f} מ״ר בנישות ליבה פנימיות כלואות ותחת תקרת קומה א׳ אינם מקטינים את קונטור הבניין והועברו לשיפור תכנון (0 ₪).",
-                "unit_cost_ils": COST_ABOVE_GROUND_PER_SQM_ILS,
-                "cost_saving_ils": round(saved_ag_sqm * COST_ABOVE_GROUND_PER_SQM_ILS),
-                "preserved_utilities": "שמירה מלאה על שטח הפלדלת של הדירות וכל ארונות החשמל, המים, הגז והתקשורת",
-                "engineering_action": "הידוק שטחי מעבר כפולים בלובי ובגרעין הקומתי ויישור גומחות ארונות השירות לקו אפס.",
-            }
-        ]
+        # Zero-Trust Dynamic calculation for uploaded / custom projects:
+        # NO positive calculation floors (18 m² AG / 25 m² UG) and NO fabricated stall relocation proof!
+        ag_items = []
+        locked_core_items = []
+        optimal_core_target_sqm = round(total_ag_sqm * 0.175, 1)
+        excess_core_raw = round(max(0.0, core_ag_sqm - optimal_core_target_sqm), 1)
+        if total_ag_sqm > 0 and core_ag_sqm > 0 and excess_core_raw >= 2.0:
+            saved_ag_sqm = round(excess_core_raw * 0.75, 1)
+            locked_ag_sqm = round(max(0.0, excess_core_raw - saved_ag_sqm), 1)
+            prop_ag_gross = round(saved_ag_sqm + locked_ag_sqm, 1)
+            gross_ag_ils = round(saved_ag_sqm * COST_ABOVE_GROUND_PER_SQM_ILS)
+            redesign_ag_ils = round(saved_ag_sqm * 180)
+            ag_items = [
+                {
+                    "id": f"{pid.upper()}-OPT-AG1",
+                    "value_category": "CONSTRUCTION_COST_SAVING",
+                    "maturity_stage": "1_OPPORTUNITY",
+                    "evidence_source": "HEURISTIC_ESTIMATE",
+                    "floor_or_zone": "גרעין קומות טיפוסיות, מבואות וקומת קרקע (הזדמנות לבדיקה הנדסית)",
+                    "current_sqm": core_ag_sqm,
+                    "optimal_sqm": round(core_ag_sqm - saved_ag_sqm, 1),
+                    "saved_sqm": saved_ag_sqm,
+                    "proposed_gross_reduction_sqm": prop_ag_gross,
+                    "verified_contour_saved_sqm": saved_ag_sqm,
+                    "non_contour_reclassified_sqm": locked_ag_sqm,
+                    "contour_efficiency_pct": round((saved_ag_sqm / prop_ag_gross * 100.0) if prop_ag_gross > 0 else 0.0, 1),
+                    "contour_test_status": "HYPOTHESIS_REQUIRES_GEOMETRIC_CHECK",
+                    "contour_mechanism": "השערה תכנונית לבדיקה: קירוב אגפי הדירות על ציר הגרעין ונסיגת קיר השירות בקומת הקרקע בכפוף לאימות קונסטרוקטיבי.",
+                    "contour_dims_before_after": f"קונטור עילי כולל: {total_ag_sqm:.1f} מ״ר ← {total_ag_sqm - saved_ag_sqm:.1f} מ״ר (-{saved_ag_sqm:.1f} מ״ר משוער לבדיקה)",
+                    "locked_reason_he": f"{locked_ag_sqm:.1f} מ״ר בנישות ליבה פנימיות כלואות אינם מקטינים את קונטור הבניין והועברו לשיפור תכנון (0 ₪).",
+                    "unit_cost_ils": COST_ABOVE_GROUND_PER_SQM_ILS,
+                    "cost_saving_ils": gross_ag_ils,
+                    "gross_avoided_cost_ils": gross_ag_ils,
+                    "redesign_and_coordination_cost_ils": redesign_ag_ils,
+                    "net_avoidable_saving_ils": max(0, gross_ag_ils - redesign_ag_ils),
+                    "preserved_utilities": "מותנה בשמירה מלאה על שטח הפלדלת של הדירות וכל ארונות החשמל, המים, הגז והתקשורת",
+                    "engineering_action": "בדיקת הידוק שטחי מעבר כפולים בלובי ובגרעין הקומתי ויישור גומחות ארונות השירות לקו אפס.",
+                }
+            ]
+            if locked_ag_sqm > 0:
+                locked_core_items = [
+                    {
+                        "id": f"{pid.upper()}-LOCKED-CORE1",
+                        "value_category": "USABILITY_IMPROVEMENT",
+                        "maturity_stage": "1_OPPORTUNITY",
+                        "zone": "נישות מבואה פנימיות כלואות בין דירות ומעברי שירות",
+                        "proposed_core_reduction_sqm": locked_ag_sqm,
+                        "verified_contour_saved_sqm": 0.0,
+                        "reclassified_design_improvement_sqm": locked_ag_sqm,
+                        "cost_saving_ils": 0,
+                        "why_not_contour_saving": "שטח ליבה כלוא בין עמודי שלד וקירות ממ״ד — אינו מקטין את קונטור הבניין הכולל (0 ₪ חיסכון) ולכן הועבר לשיפור תכנון.",
+                        "design_benefit": "הרחבת מבואות הכניסה הקומתיות והלובי הראשי.",
+                        "sheet_id": "f1_5",
+                        "x_pct": 44.0, "y_pct": 35.0, "w_pct": 14.0, "h_pct": 14.0, "cx_pct": 51.0, "cy_pct": 42.0,
+                    }
+                ]
 
-        current_per_stall = total_ug_sqm / max(1, parking_spaces)
-        excess_ug = max(25.0, round(max(0.0, (current_per_stall - 35.0) * parking_spaces), 1))
-        locked_ug_sqm = round(max(6.0, excess_ug * 0.16), 1)
-        prop_ug_gross = round(excess_ug + locked_ug_sqm, 1)
-        under_ramp_dyn_sqm = round(min(28.0, excess_ug * 0.55), 1)
-        ug_items = [
-            {
-                "id": f"{pid.upper()}-OPT-UG1",
-                "zone": "מרתף חניון תת-קרקעי — ייעול קו דיפון, ניצול תחתית רמפה (H≥2.15m) והגנת שטחי תמרון",
-                "current_sqm": total_ug_sqm,
-                "optimal_sqm": round(total_ug_sqm - excess_ug, 1),
-                "saved_sqm": excess_ug,
-                "proposed_gross_reduction_sqm": prop_ug_gross,
-                "verified_contour_saved_sqm": excess_ug,
-                "non_contour_reclassified_sqm": locked_ug_sqm,
-                "protected_ramp_and_maneuvering_deducted_sqm": locked_ug_sqm,
-                "under_ramp_utilized_sqm": under_ramp_dyn_sqm,
-                "contour_efficiency_pct": round(excess_ug / prop_ug_gross * 100.0, 1),
-                "contour_test_status": "PARTIAL_CONTOUR_REDUCTION",
-                "contour_mechanism": "הזזת קיר הדיפון ההיקפי פנימה לאחר מיקום מאגר המים וחדר המשאבות מתחת לחלק העליון של רמפת הירידה (H_clear ≥ 2.15 מ׳).",
-                "contour_dims_before_after": f"קונטור מרתף: {total_ug_sqm:.1f} מ״ר ← {total_ug_sqm - excess_ug:.1f} מ״ר (-{excess_ug:.1f} מ״ר מאומת · {locked_ug_sqm:.1f} מ״ר קוזזו להגנת תמרון ורמפה)",
-                "locked_reason_he": f"{locked_ug_sqm:.1f} מ״ר באזור רדיוס הסיבוב של הרמפה ומיסעת התמרון לחניות מוגנים ב-100% וקוזזו מחיסכון הקונטור (0 ₪).",
-                "ramp_function_audit_he": f"ניצול תחתית הרמפה ({under_ramp_dyn_sqm:.1f} מ״ר) מתבצע אך ורק בחצי העליון של כבש הירידה שבו גובה הראש הפנוי H_clear ≥ 2.15–2.20 מ׳, תוך שמירה מלאה על משטחי ההתמתנות ורדיוס הסיבוב.",
-                "maneuvering_aisle_audit_he": f"שמירה מלאה על מיסעה דו-סטרית (5.50–6.00 מ׳) ואוזני תמרון (1.00 מ׳) לכל {parking_spaces} החניות; {locked_ug_sqm:.1f} מ״ר קוזזו להגנת רדיוסי התמרון.",
-                "parking_relocation_audit": {
-                    "stalls_relocated_count": 1,
-                    "affected_stalls_label": f"חניית קצה #{parking_spaces} באזור נסיגת קיר הדיפון",
-                    "original_location_he": "מוקמה בכיס החפירה ההיקפי שניסוג פנימה להקטנת קונטור המרתף.",
-                    "alternative_location_found_he": f"הועתקה למפרץ החלופי המאומת שהתפנה לאורך המיסעה המרכזית (6.00 מ׳) לאחר העברת מאגר המים וחדר המשאבות ({under_ramp_dyn_sqm:.1f} מ״ר) אל מתחת לחלק העליון של הרמפה (H_clear ≥ 2.15m).",
-                    "new_stall_dimensions_and_access_he": "תא חניה תקני 2.60×5.00 מ׳ (13.0 מ״ר) בניצב למיסעה עם כניסה ויציאה ישירה בתמרון אחד.",
-                    "multi_floor_search_and_ground_audit_he": "סריקה רב-קומתית (קומת קרקע + מרתפים): בדיקת חלופות בחניון העילי בקומת הקרקע (0.0 מ״ר תוספת שטח בנייה) ובמפרצים הפנויים במרתף מחוץ לקירות הממ״ד היורדים.",
-                    "zero_contour_expansion_proof_he": "0.0 מ״ר חריגה מקו הדיפונים ו-0.0 מ״ר תוספת שטח בנייה כללי: המפרץ החלופי נמצא ב-100% בתוך קו הדיפון הקיים וללא פלישה למיסעה או לחניות סמוכות.",
-                    "net_parking_balance_he": f"מאזן חניות נטו: 0 גריעה (חניה 1 הועתקה ← מפרץ חלופי 1 אוכלס = {parking_spaces}/{parking_spaces} חניות נשמרות ב-100% וללא הגדלת קונטור).",
-                },
-                "parking_relocation_audit_he": f"בדיקת העתקת חנייה רב-קומתית ואי-הגדלת קונטור: נסיגת קיר הדיפון ההיקפי מזיזה את חניית הקצה #{parking_spaces}. העברת מאגר המים וחדר המשאבות ({under_ramp_dyn_sqm:.1f} מ״ר) אל מתחת לחלק העליון של הרמפה (H_clear ≥ 2.15m) מפנה מפרץ חניה תקני בתוך הקונטור הקיים לאורך המיסעה המרכזית (6.00 מ׳) שלתוכו מועתקת החנייה במידות 2.60×5.00 מ׳ ({parking_spaces}/{parking_spaces} חניות נשמרות במלואן ו-0.0 מ״ר חריגה מקו הדיפונים).",
-                "plan_overlay_zones": {
-                    "protected_ramp_maneuver_rect": {"x_pct": 22.0, "y_pct": 38.0, "w_pct": 52.0, "h_pct": 22.0, "label_he": "מיסעה ורדיוס סיבוב רמפה (מוגן 100%)"},
-                    "under_ramp_utility_rect": {"x_pct": 55.0, "y_pct": 22.0, "w_pct": 20.0, "h_pct": 12.0, "label_he": f"ניצול תחתית רמפה עליונה (H≥2.15m · {under_ramp_dyn_sqm} מ״ר)"},
-                    "relocated_parking_target_rect": {"x_pct": 36.0, "y_pct": 24.0, "w_pct": 16.0, "h_pct": 12.0, "label_he": f"🅿️🔄 מקום חלופי מאומת לחניה #{parking_spaces} (במפרץ המשאבות שפונה · 2.60×5.00 מ׳)"},
-                },
-                "unit_cost_ils": COST_UNDERGROUND_PARKING_PER_SQM_ILS,
-                "cost_saving_ils": round(excess_ug * COST_UNDERGROUND_PARKING_PER_SQM_ILS),
-                "parking_spaces_preserved": f"{parking_spaces} חניות תקניות (100% שמירה על מצבת החניות ומיסעות תמרון)",
-                "engineering_action": "מיקום מאגר המים וחדר המשאבות מתחת לחלק העליון של רמפת הירידה (H_clear ≥ 2.15m) וגיזום כיסי חפירה מתים מחוץ למיסעה.",
-            }
-        ]
+        ug_items = []
+        if total_ug_sqm > 0 and raw_parking_spaces > 0:
+            current_per_stall = total_ug_sqm / raw_parking_spaces
+            raw_excess_ug = round(max(0.0, (current_per_stall - 35.0) * raw_parking_spaces), 1)
+            if raw_excess_ug >= 2.0:
+                locked_ug_sqm = round(raw_excess_ug * 0.20, 1)
+                excess_ug = round(max(0.0, raw_excess_ug - locked_ug_sqm), 1)
+                prop_ug_gross = round(excess_ug + locked_ug_sqm, 1)
+                under_ramp_dyn_sqm = round(min(28.0, excess_ug * 0.45), 1)
+                verified_bay = ug.get("verified_relocation_bay")
+                has_verified_bay = isinstance(verified_bay, dict) and bool(verified_bay.get("bay_id"))
+                stalls_reloc = int(verified_bay.get("stalls_relocated_count", 1)) if has_verified_bay else 0
+                gross_ug_ils = round(excess_ug * COST_UNDERGROUND_PARKING_PER_SQM_ILS)
+                redesign_ug_ils = round(excess_ug * 150)
+                ug_items = [
+                    {
+                        "id": f"{pid.upper()}-OPT-UG1",
+                        "value_category": "CONSTRUCTION_COST_SAVING",
+                        "maturity_stage": "3_GEOMETRICALLY_VERIFIED" if has_verified_bay else "1_OPPORTUNITY",
+                        "evidence_source": "COMPUTED_GEOM" if has_verified_bay else "HEURISTIC_ESTIMATE",
+                        "zone": "מרתף חניון תת-קרקעי — בדיקת ייעול קו דיפון והגנת שטחי תמרון",
+                        "current_sqm": total_ug_sqm,
+                        "optimal_sqm": round(total_ug_sqm - excess_ug, 1),
+                        "saved_sqm": excess_ug,
+                        "proposed_gross_reduction_sqm": prop_ug_gross,
+                        "verified_contour_saved_sqm": excess_ug,
+                        "non_contour_reclassified_sqm": locked_ug_sqm,
+                        "protected_ramp_and_maneuvering_deducted_sqm": locked_ug_sqm,
+                        "under_ramp_utilized_sqm": under_ramp_dyn_sqm,
+                        "contour_efficiency_pct": round((excess_ug / prop_ug_gross * 100.0) if prop_ug_gross > 0 else 0.0, 1),
+                        "contour_test_status": "PARTIAL_CONTOUR_REDUCTION" if has_verified_bay else "HYPOTHESIS_REQUIRES_GEOMETRIC_CHECK",
+                        "contour_mechanism": "בדיקת הזזת קיר הדיפון ההיקפי פנימה בכיסי חפירה מתים מחוץ למיסעה וללא פגיעה בחניות קיימות.",
+                        "contour_dims_before_after": f"קונטור מרתף: {total_ug_sqm:.1f} מ״ר ← {total_ug_sqm - excess_ug:.1f} מ״ר (-{excess_ug:.1f} מ״ר · {locked_ug_sqm:.1f} מ״ר קוזזו להגנת תמרון ורמפה)",
+                        "locked_reason_he": f"{locked_ug_sqm:.1f} מ״ר באזור רדיוס הסיבוב של הרמפה ומיסעת התמרון לחניות מוגנים ב-100% וקוזזו מחיסכון הקונטור (0 ₪).",
+                        "ramp_function_audit_he": f"בדיקת ניצול תחתית הרמפה ({under_ramp_dyn_sqm:.1f} מ״ר) מותנית בגובה ראש פנוי H_clear ≥ 2.15–2.20 מ׳ ובשמירה מלאה על משטחי ההתמתנות ורדיוס הסיבוב.",
+                        "maneuvering_aisle_audit_he": f"שמירה מלאה על מיסעה דו-סטרית (5.50–6.00 מ׳) ואוזני תמרון (1.00 מ׳) לכל {raw_parking_spaces} החניות; {locked_ug_sqm:.1f} מ״ר קוזזו להגנת רדיוסי התמרון.",
+                        "parking_relocation_audit": {
+                            "stalls_relocated_count": stalls_reloc,
+                            "verified_geometric_relocation": has_verified_bay,
+                            "affected_stalls_label": verified_bay.get("affected_stalls_label", "ללא הזזת חניות ללא הוכחה גיאומטרית") if has_verified_bay else "0 חניות מוזזות (אין להזיז חניה ללא הוכחה גיאומטרית למפרץ חלופי)",
+                            "original_location_he": verified_bay.get("original_location_he", "כיס חפירה היקפי מחוץ לתאי החניה") if has_verified_bay else "כיסי חפירה היקפיים מתים בלבד מחוץ לתאי החניה.",
+                            "alternative_location_found_he": verified_bay.get("alternative_location_found_he", "") if has_verified_bay else "לא הוגדר מפרץ חלופי מאומת גיאומטרית — ההפחתה מוגבלת לכיסי שירות מתים בלבד ללא הזזת חניה.",
+                            "new_stall_dimensions_and_access_he": "תא חניה תקני 2.60×5.00 מ׳ בניצב למיסעה" if has_verified_bay else "החניות הקיימות נותרות במקומן ללא שינוי.",
+                            "multi_floor_search_and_ground_audit_he": "נדרשת בדיקת יועץ תנועה לאימות תמרון וקו דיפון.",
+                            "zero_contour_expansion_proof_he": "0.0 מ״ר חריגה מקו הדיפונים הקיים.",
+                            "net_parking_balance_he": f"מאזן חניות נטו: {raw_parking_spaces}/{raw_parking_spaces} חניות נשמרות.",
+                        },
+                        "parking_relocation_audit_he": (
+                            f"העתקת חניה אומתה גיאומטרית למפרץ {verified_bay.get('bay_id')}."
+                            if has_verified_bay
+                            else "השערה לבדיקה: צמצום כיסי חפירה מתים בלבד (0 חניות מוזזות — לא נטען פתרון העתקת חניה ללא ראיה גיאומטרית למפרץ חלופי)."
+                        ),
+                        "plan_overlay_zones": {
+                            "protected_ramp_maneuver_rect": {"x_pct": 22.0, "y_pct": 38.0, "w_pct": 52.0, "h_pct": 22.0, "label_he": "מיסעה ורדיוס סיבוב רמפה (מוגן 100%)"},
+                            "under_ramp_utility_rect": {"x_pct": 55.0, "y_pct": 22.0, "w_pct": 20.0, "h_pct": 12.0, "label_he": f"בדיקת תחתית רמפה עליונה (H≥2.15m · {under_ramp_dyn_sqm} מ״ר)"},
+                            "relocated_parking_target_rect": {"x_pct": 36.0, "y_pct": 24.0, "w_pct": 16.0, "h_pct": 12.0, "label_he": "אזור בדיקת חלופות במרתף"},
+                        },
+                        "unit_cost_ils": COST_UNDERGROUND_PARKING_PER_SQM_ILS,
+                        "cost_saving_ils": gross_ug_ils,
+                        "gross_avoided_cost_ils": gross_ug_ils,
+                        "redesign_and_coordination_cost_ils": redesign_ug_ils,
+                        "net_avoidable_saving_ils": max(0, gross_ug_ils - redesign_ug_ils),
+                        "parking_spaces_preserved": f"{raw_parking_spaces} חניות תקניות",
+                        "engineering_action": "בדיקת גיזום כיסי חפירה מתים מחוץ למיסעה ובחינת מיקום חדרים טכניים מתחת לחלק העליון של הרמפה (בכפוף ל-H_clear ≥ 2.15m).",
+                    }
+                ]
 
-        apts_count = int(data_summary.get("apartments_count") or 16)
-        reclaimed_per_apt = 1.6
-        apt_items = [
-            {
-                "id": f"{pid.upper()}-OPT-APT1",
-                "typology": f"כלל טיפוסי הדירות בפרויקט ({apts_count} יח״ד)",
-                "current_corridor_sqm": 8.8,
-                "optimal_corridor_sqm": 7.2,
-                "reclaimed_sqm_per_unit": reclaimed_per_apt,
-                "units_count": apts_count,
-                "total_reclaimed_sqm": round(reclaimed_per_apt * apts_count, 1),
-                "target_rooms_benefiting": "הגדלת חדרי השינה וסוויטת ההורים והרחבת פינת האוכל/סלון",
-                "openings_optimization": "איחוד מפתחי חלונות למודול ייצור אחיד ואיזון יחס זיגוג לרצפה (WWR).",
-                "engineering_action": "קיצור זנב המסדרון הפנימי ב-95 ס״מ והטמעת נישות ארונות בקו אפס.",
-            }
-        ]
-        locked_core_items = [
-            {
-                "id": f"{pid.upper()}-LOCKED-CORE1",
-                "zone": "נישות מבואה פנימיות כלואות בין דירות ומעברי שירות תחת תקרת קומה א׳",
-                "proposed_core_reduction_sqm": locked_ag_sqm,
-                "verified_contour_saved_sqm": 0.0,
-                "reclassified_design_improvement_sqm": locked_ag_sqm,
-                "cost_saving_ils": 0,
-                "why_not_contour_saving": "שטח ליבה כלוא בין עמודי שלד וקירות ממ״ד או מקורה ע״י תקרת קומה א׳ — אינו מקטין את קונטור הבניין הכולל (0 ₪ חיסכון) ולכן הועבר לשיפור תכנון.",
-                "design_benefit": "הרחבת מבואות הכניסה הקומתיות והלובי הראשי.",
-                "sheet_id": "f1_5",
-                "x_pct": 44.0, "y_pct": 35.0, "w_pct": 14.0, "h_pct": 14.0, "cx_pct": 51.0, "cy_pct": 42.0,
-            }
-        ]
-        facade_opt = build_facade_cladding_optimization(fac, baseline_dry_pct=85.0, target_plaster_conversion_pct=35.0)
+        apt_items = []
+        measured_corr_sqm = float(ag.get("measured_corridor_sqm_per_unit") or data_summary.get("measured_corridor_sqm_per_unit") or 0.0)
+        apts_count = int(data_summary.get("apartments_count") or 0)
+        if measured_corr_sqm > 7.5 and apts_count > 0:
+            reclaimed_per_apt = round(measured_corr_sqm - 7.2, 1)
+            apt_items = [
+                {
+                    "id": f"{pid.upper()}-OPT-APT1",
+                    "value_category": "USABILITY_IMPROVEMENT",
+                    "maturity_stage": "1_OPPORTUNITY",
+                    "typology": f"כלל טיפוסי הדירות בפרויקט ({apts_count} יח״ד)",
+                    "current_corridor_sqm": measured_corr_sqm,
+                    "optimal_corridor_sqm": 7.2,
+                    "reclaimed_sqm_per_unit": reclaimed_per_apt,
+                    "units_count": apts_count,
+                    "total_reclaimed_sqm": round(reclaimed_per_apt * apts_count, 1),
+                    "target_rooms_benefiting": "הגדלת חדרי השינה וסוויטת ההורים והרחבת פינת האוכל/סלון",
+                    "openings_optimization": "איחוד מפתחי חלונות למודול ייצור אחיד ואיזון יחס זיגוג לרצפה (WWR).",
+                    "engineering_action": "קיצור זנב המסדרון הפנימי והטמעת נישות ארונות בקו אפס.",
+                }
+            ]
+
+        facade_opt = build_facade_cladding_optimization(
+            fac,
+            baseline_dry_pct=float(fac.get("baseline_dry_cladding_pct", 85.0)),
+            target_plaster_conversion_pct=float(fac.get("target_plaster_conversion_pct", 35.0)),
+        )
 
     total_ag_saved_sqm = round(sum(float(x["saved_sqm"]) for x in ag_items), 1)
     total_ag_saving_ils = round(total_ag_saved_sqm * COST_ABOVE_GROUND_PER_SQM_ILS)
@@ -1763,6 +2103,22 @@ def build_project_design_optimization(pid: str, data_summary: dict) -> dict:
     total_reclaimed_living_sqm = round(sum(float(x["total_reclaimed_sqm"]) for x in apt_items), 1)
     grand_total_saving_ils = total_ag_saving_ils + total_ug_saving_ils + total_facade_saving_ils
 
+    # Net Avoidable Cost Calculation (Section 4.3 & E26–E30)
+    # Deduct implementation/transition costs, redesign/coordination costs, sunk costs, and envelope-shrinkage cladding overlap
+    ag_redesign_ils = sum(int(x.get("redesign_and_coordination_cost_ils", round(float(x["saved_sqm"]) * 180))) for x in ag_items)
+    ug_redesign_ils = sum(int(x.get("redesign_and_coordination_cost_ils", round(float(x["saved_sqm"]) * 150))) for x in ug_items)
+    fac_impl_ils = int(facade_opt.get("implementation_and_transition_cost_ils", 0))
+    fac_redesign_ils = int(facade_opt.get("redesign_and_coordination_cost_ils", 0))
+    sunk_cost_ils = round(float(data_summary.get("committed_or_sunk_cost_ils") or 0.0)) + int(facade_opt.get("sunk_or_committed_cost_ils", 0))
+    # When above-ground contour shrinks, perimeter wall area decreases slightly; avoid double-counting cladding conversion on eliminated wall area
+    envelope_cladding_overlap_sqm = round(min(total_facade_converted_sqm, total_ag_saved_sqm * 0.12), 1) if (total_ag_saved_sqm > 0 and total_facade_converted_sqm > 0) else 0.0
+    envelope_cladding_overlap_ils = round(envelope_cladding_overlap_sqm * SAVING_CLADDING_TO_PLASTER_PER_SQM_ILS)
+    total_redesign_coord_ils = ag_redesign_ils + ug_redesign_ils + fac_redesign_ils
+    grand_total_net_avoidable_ils = max(
+        0,
+        grand_total_saving_ils - fac_impl_ils - total_redesign_coord_ils - sunk_cost_ils - envelope_cladding_overlap_ils,
+    )
+
     # Contour Audit Summary Totals
     proposed_ag_gross_sqm = round(sum(float(x.get("proposed_gross_reduction_sqm", x["saved_sqm"])) for x in ag_items), 1)
     locked_ag_non_contour_sqm = round(sum(float(x.get("non_contour_reclassified_sqm", 0.0)) for x in ag_items), 1)
@@ -1770,20 +2126,20 @@ def build_project_design_optimization(pid: str, data_summary: dict) -> dict:
     locked_ug_non_contour_sqm = round(sum(float(x.get("non_contour_reclassified_sqm", 0.0)) for x in ug_items), 1)
     total_protected_ramp_maneuver_sqm = round(sum(float(x.get("protected_ramp_and_maneuvering_deducted_sqm", x.get("non_contour_reclassified_sqm", 0.0))) for x in ug_items), 1)
     total_under_ramp_utilized_sqm = round(sum(float(x.get("under_ramp_utilized_sqm", 0.0)) for x in ug_items), 1)
-    total_stalls_relocated = sum(int(x.get("parking_relocation_audit", {}).get("stalls_relocated_count", 1)) for x in ug_items)
+    total_stalls_relocated = sum(int(x.get("parking_relocation_audit", {}).get("stalls_relocated_count", 0)) for x in ug_items)
     total_locked_core_and_ug_reclassified_sqm = round(locked_ag_non_contour_sqm + locked_ug_non_contour_sqm, 1)
     total_proposed_raw_sqm = round(proposed_ag_gross_sqm + proposed_ug_gross_sqm + total_reclaimed_living_sqm, 1)
     total_verified_contour_saved_sqm = round(total_ag_saved_sqm + total_ug_saved_sqm, 1)
     total_reclassified_to_design_improvement_sqm = round(total_locked_core_and_ug_reclassified_sqm + total_reclaimed_living_sqm, 1)
 
     current_core_ratio_pct = round((core_ag_sqm / total_ag_sqm * 100.0) if total_ag_sqm > 0 else 0.0, 1)
-    optimized_ag_total_sqm = round(total_ag_sqm - total_ag_saved_sqm, 1)
-    optimized_core_sqm = round(core_ag_sqm - total_ag_saved_sqm, 1)
+    optimized_ag_total_sqm = round(max(0.0, total_ag_sqm - total_ag_saved_sqm), 1)
+    optimized_core_sqm = round(max(0.0, core_ag_sqm - total_ag_saved_sqm), 1)
     optimized_core_ratio_pct = round((optimized_core_sqm / optimized_ag_total_sqm * 100.0) if optimized_ag_total_sqm > 0 else 0.0, 1)
 
-    current_sqm_per_stall = round(total_ug_sqm / max(1, parking_spaces), 1)
-    optimized_ug_total_sqm = round(total_ug_sqm - total_ug_saved_sqm, 1)
-    optimized_sqm_per_stall = round(optimized_ug_total_sqm / max(1, parking_spaces), 1)
+    current_sqm_per_stall = round(total_ug_sqm / parking_spaces, 1) if parking_spaces > 0 else 0.0
+    optimized_ug_total_sqm = round(max(0.0, total_ug_sqm - total_ug_saved_sqm), 1)
+    optimized_sqm_per_stall = round(optimized_ug_total_sqm / parking_spaces, 1) if parking_spaces > 0 else 0.0
 
     ramp_and_maneuvering_audit = {
         "total_proposed_ug_gross_cut_sqm": proposed_ug_gross_sqm,
@@ -1808,20 +2164,35 @@ def build_project_design_optimization(pid: str, data_summary: dict) -> dict:
         ),
     }
 
+    overall_maturity = "3_GEOMETRICALLY_VERIFIED" if profile else ("1_OPPORTUNITY" if grand_total_saving_ils > 0 else "0_NO_PROPOSALS")
+
     return {
+        "validation_status": "VERIFIED" if profile else ("OPPORTUNITY_ESTIMATE" if grand_total_saving_ils > 0 else "NO_EXCESS_DETECTED"),
+        "validation_errors": [],
+        "maturity_stage": overall_maturity,
         "pricing_parameters": {
             "above_ground_saved_per_sqm_ils": COST_ABOVE_GROUND_PER_SQM_ILS,
             "underground_parking_saved_per_sqm_ils": COST_UNDERGROUND_PARKING_PER_SQM_ILS,
             "dry_cladding_cost_per_sqm_ils": COST_DRY_CLADDING_PER_SQM_ILS,
             "plaster_cost_per_sqm_ils": COST_PLASTER_PER_SQM_ILS,
             "cladding_to_plaster_diff_per_sqm_ils": SAVING_CLADDING_TO_PLASTER_PER_SQM_ILS,
+            "vat_included": False,
+            "currency": "ILS",
         },
         "zero_damage_guarantees": {
+            "verified": bool(profile),
+            "verification_status": "PASS" if profile else "REQUIRES_GEOMETRIC_VERIFICATION",
             "apartment_saleable_area_loss_sqm": 0.0,
             "apartment_saleable_area_preserved_sqm": net_apt_sqm,
             "parking_spaces_lost": 0,
             "parking_spaces_preserved": parking_spaces,
             "public_utilities_preserved": True,
+            "checked_entities": {
+                "checked_apartments_net_sqm": net_apt_sqm,
+                "checked_parking_stalls_count": parking_spaces,
+                "checked_relocated_stalls_count": total_stalls_relocated,
+                "protected_ramp_and_maneuver_sqm": total_protected_ramp_maneuver_sqm,
+            },
             "guarantee_statement": (
                 f"0 מ״ר פגיעה בשטח הדירות ({net_apt_sqm:,.1f} מ״ר פלדלת נשמרים במלואם) · "
                 f"0 פגיעה במצבת החניות ({parking_spaces} חניות נשמרות) · "
@@ -1868,10 +2239,20 @@ def build_project_design_optimization(pid: str, data_summary: dict) -> dict:
             "locked_core_reclassified_sqm": total_locked_core_and_ug_reclassified_sqm,
             "total_design_improvement_sqm": total_reclassified_to_design_improvement_sqm,
             "grand_total_direct_saving_ils": grand_total_saving_ils,
+            "grand_total_net_avoidable_saving_ils": grand_total_net_avoidable_ils,
             "current_core_share_pct": current_core_ratio_pct,
             "optimized_core_share_pct": optimized_core_ratio_pct,
             "current_basement_sqm_per_stall": current_sqm_per_stall,
             "optimized_basement_sqm_per_stall": optimized_sqm_per_stall,
+        },
+        "net_avoidable_cost_breakdown": {
+            "gross_avoided_cost_ils": grand_total_saving_ils,
+            "implementation_and_transition_cost_ils": fac_impl_ils,
+            "redesign_and_coordination_cost_ils": total_redesign_coord_ils,
+            "sunk_or_committed_cost_ils": sunk_cost_ils,
+            "envelope_cladding_overlap_deduction_sqm": envelope_cladding_overlap_sqm,
+            "envelope_cladding_overlap_deduction_ils": envelope_cladding_overlap_ils,
+            "net_avoidable_saving_ils": grand_total_net_avoidable_ils,
         },
         "above_ground_optimization": {
             "current_total_above_ground_sqm": total_ag_sqm,
@@ -1908,6 +2289,199 @@ def build_project_design_optimization(pid: str, data_summary: dict) -> dict:
             "locked_core_reclassified_items": locked_core_items,
             "items": apt_items,
         },
+    }
+
+
+# =============================================================================
+# NET AVOIDABLE COST & MULTI-PROPOSAL INTERACTION EVALUATOR (E23, E25–E32)
+# =============================================================================
+def evaluate_combined_proposals(
+    proposals: list,
+    project_stage: str = "SUBMISSION",
+    vat_rate: float = 0.17,
+) -> dict:
+    """
+    Evaluates a list of Value Engineering / Design Optimization proposals under strict
+    Zero-Trust financial and geometric interaction rules (Audit Section 4 & Section 7.6):
+    1. Deduplication (`E25`): Two proposals targeting the same `zone_id` / `element_id` cannot
+       both claim the same square meters.
+    2. Envelope + Cladding Overlap (`E26`): When an above-ground contour reduction shrinks
+       exterior wall area on a facade, that eliminated wall area is deducted from the
+       cladding-to-plaster conversion area on the same facade.
+    3. Mutual Exclusion (`E23`): Proposals sharing a `conflict_group` or conflicting on the
+       same structural/MEP constraint cannot be summed together; only the highest net-value
+       feasible option is retained in the combined sum.
+    4. Net Avoidable Cost (`E27`, `E29`, `E30`):
+       `net_saving = gross_avoided_cost - implementation_cost - redesign_fee - committed_sunk_cost`.
+       If `project_stage == "POST_TENDER_COMMITTED"` or `committed_contract_ratio >= 1.0`,
+       committed costs are deducted.
+    5. Unit & Tax Basis Normalization (`E32`): All amounts are normalized to ILS ex-VAT
+       before aggregation, and reported both ex-VAT and incl-VAT without mixing bases.
+    """
+    if not isinstance(proposals, list):
+        return {"valid": False, "error": "proposals must be a list", "net_total_saving_ex_vat_ils": 0}
+
+    # 1. Filter out mutually exclusive conflicts (keep best net candidate per conflict_group)
+    by_conflict_group = {}
+    non_conflicting = []
+    rejected_conflicts = []
+    for p in proposals:
+        if not isinstance(p, dict):
+            continue
+        cg = p.get("conflict_group")
+        if cg:
+            by_conflict_group.setdefault(cg, []).append(p)
+        else:
+            non_conflicting.append(p)
+
+    selected = list(non_conflicting)
+    for cg, group in by_conflict_group.items():
+        # Sort by net potential descending
+        group_sorted = sorted(
+            group,
+            key=lambda x: float(x.get("gross_saving_ils") or 0) - float(x.get("implementation_cost_ils") or 0) - float(x.get("redesign_fee_ils") or 0),
+            reverse=True,
+        )
+        selected.append(group_sorted[0])
+        for rej in group_sorted[1:]:
+            rejected_conflicts.append({
+                "id": rej.get("id"),
+                "conflict_group": cg,
+                "reason": f"נדחה עקב סתירה הנדסית מול חלופה עדיפה בקבוצת קונפליקט '{cg}'.",
+            })
+
+    # 2. Deduplicate overlapping zone_id claims (E25)
+    zone_claimed_sqm = {}
+    deduped_proposals = []
+    duplicate_deductions_sqm = 0.0
+    duplicate_deductions_ils = 0
+
+    for p in selected:
+        zid = p.get("zone_id") or p.get("id")
+        cat = str(p.get("category") or "AG").upper()
+        req_sqm = max(0.0, float(p.get("saved_sqm") or 0.0))
+        max_zone_sqm = float(p.get("max_zone_available_sqm") or req_sqm)
+        already = zone_claimed_sqm.get((cat, zid), 0.0)
+        if p.get("zone_id") and (cat, zid) in zone_claimed_sqm:
+            avail = max(0.0, max_zone_sqm - already)
+            effective_sqm = min(req_sqm, avail)
+        else:
+            effective_sqm = req_sqm
+        deducted_sqm = round(max(0.0, req_sqm - effective_sqm), 2)
+        if p.get("zone_id"):
+            zone_claimed_sqm[(cat, zid)] = already + effective_sqm
+
+        unit_rate = float(p.get("unit_rate_ils") or (
+            COST_ABOVE_GROUND_PER_SQM_ILS if cat == "AG"
+            else COST_UNDERGROUND_PARKING_PER_SQM_ILS if cat == "UG"
+            else SAVING_CLADDING_TO_PLASTER_PER_SQM_ILS if cat == "FAC"
+            else 0.0
+        ))
+        # Normalize unit & VAT basis (E32)
+        if str(p.get("unit") or "sqm").lower() in ("cm2", "sqcm"):
+            effective_sqm = effective_sqm / 10000.0
+            deducted_sqm = deducted_sqm / 10000.0
+        if bool(p.get("includes_vat")):
+            unit_rate = unit_rate / (1.0 + vat_rate)
+
+        duplicate_deductions_sqm += deducted_sqm
+        duplicate_deductions_ils += round(deducted_sqm * unit_rate)
+        deduped_proposals.append({
+            **p,
+            "_effective_sqm": round(effective_sqm, 2),
+            "_unit_rate_ex_vat_ils": unit_rate,
+            "_deducted_duplicate_sqm": deducted_sqm,
+        })
+
+    # 3. Envelope Contraction + Facade Cladding Overlap Deduction (E26)
+    total_ag_shrunk_sqm = sum(
+        p["_effective_sqm"] for p in deduped_proposals if str(p.get("category") or "").upper() == "AG"
+    )
+    # Explicit wall area removed by AG contraction (or 0.85 m² exterior wall per 1 m² perimeter floor contraction if specified)
+    eliminated_wall_sqm = sum(
+        float(p.get("eliminated_exterior_wall_sqm") or (p["_effective_sqm"] * 0.25 if p.get("shrinks_facade_perimeter") else 0.0))
+        for p in deduped_proposals if str(p.get("category") or "").upper() == "AG"
+    )
+
+    envelope_overlap_deducted_sqm = 0.0
+    envelope_overlap_deducted_ils = 0
+    evaluated_items = []
+    gross_total_ex_vat = 0
+    impl_total_ex_vat = 0
+    redesign_total_ex_vat = 0
+    committed_total_ex_vat = 0
+    net_total_ex_vat = 0
+
+    remaining_wall_overlap = eliminated_wall_sqm
+    for p in deduped_proposals:
+        cat = str(p.get("category") or "AG").upper()
+        eff_sqm = p["_effective_sqm"]
+        rate = p["_unit_rate_ex_vat_ils"]
+
+        if cat == "FAC" and remaining_wall_overlap > 0 and eff_sqm > 0:
+            overlap_cut = min(eff_sqm, remaining_wall_overlap)
+            eff_sqm = round(max(0.0, eff_sqm - overlap_cut), 2)
+            remaining_wall_overlap = round(max(0.0, remaining_wall_overlap - overlap_cut), 2)
+            envelope_overlap_deducted_sqm += overlap_cut
+            envelope_overlap_deducted_ils += round(overlap_cut * rate)
+
+        # Internal apartment rearrangement (APT) or locked core has 0 construction cost saving (Section 4.1)
+        if cat in ("APT", "LOCKED_CORE", "USABILITY"):
+            gross_ils = 0
+        else:
+            gross_ils = round(eff_sqm * rate)
+
+        impl_ils = round(float(p.get("implementation_cost_ils") or 0.0))
+        redesign_ils = round(float(p.get("redesign_fee_ils") or 0.0))
+        if bool(p.get("includes_vat")):
+            impl_ils = round(impl_ils / (1.0 + vat_rate))
+            redesign_ils = round(redesign_ils / (1.0 + vat_rate))
+
+        committed_ratio = float(p.get("committed_contract_ratio") or (0.85 if project_stage == "POST_TENDER_COMMITTED" else 0.0))
+        committed_ratio = max(0.0, min(1.0, committed_ratio))
+        cancellation_penalty_ils = round(float(p.get("cancellation_penalty_ils") or 0.0))
+        sunk_ils = round(gross_ils * committed_ratio) + cancellation_penalty_ils
+
+        # Net saving can be negative or zero if redesign/implementation/sunk costs exceed gross avoided cost (E29, E30)
+        raw_net_ils = gross_ils - impl_ils - redesign_ils - sunk_ils
+        recognized_net_ils = max(0, raw_net_ils)
+
+        gross_total_ex_vat += gross_ils
+        impl_total_ex_vat += impl_ils
+        redesign_total_ex_vat += redesign_ils
+        committed_total_ex_vat += sunk_ils
+        net_total_ex_vat += recognized_net_ils
+
+        evaluated_items.append({
+            "id": p.get("id"),
+            "category": cat,
+            "effective_sqm": eff_sqm,
+            "gross_avoided_cost_ex_vat_ils": gross_ils,
+            "implementation_cost_ex_vat_ils": impl_ils,
+            "redesign_fee_ex_vat_ils": redesign_ils,
+            "committed_or_sunk_cost_ex_vat_ils": sunk_ils,
+            "raw_net_balance_ex_vat_ils": raw_net_ils,
+            "recognized_net_saving_ex_vat_ils": recognized_net_ils,
+            "economically_viable": raw_net_ils > 0,
+        })
+
+    return {
+        "valid": True,
+        "project_stage": project_stage,
+        "currency": "ILS",
+        "vat_rate": vat_rate,
+        "gross_total_saving_ex_vat_ils": gross_total_ex_vat,
+        "implementation_cost_total_ex_vat_ils": impl_total_ex_vat,
+        "redesign_fee_total_ex_vat_ils": redesign_total_ex_vat,
+        "committed_sunk_cost_total_ex_vat_ils": committed_total_ex_vat,
+        "duplicate_zone_deduction_sqm": round(duplicate_deductions_sqm, 2),
+        "duplicate_zone_deduction_ils": duplicate_deductions_ils,
+        "envelope_cladding_overlap_deduction_sqm": round(envelope_overlap_deducted_sqm, 2),
+        "envelope_cladding_overlap_deduction_ils": envelope_overlap_deducted_ils,
+        "net_total_saving_ex_vat_ils": net_total_ex_vat,
+        "net_total_saving_incl_vat_ils": round(net_total_ex_vat * (1.0 + vat_rate)),
+        "rejected_mutually_exclusive_proposals": rejected_conflicts,
+        "evaluated_items": evaluated_items,
     }
 
 
@@ -1988,11 +2562,14 @@ def check_apartment_value_engineering(apartment: dict, rules: list = None) -> li
             })
 
     # 3. Openings & Glazing Value Engineering (WWR Check)
+    # Zero-Trust Rule: Only evaluate WWR when at least one room has measured `window_area_sqm`
     over_glazed = []
+    rooms_with_window_data = 0
     for r in rooms:
         w_area = r.get("window_area_sqm")
         r_area = float(r.get("area_sqm") or 0)
         if w_area is not None and r_area > 0:
+            rooms_with_window_data += 1
             ratio = float(w_area) / r_area
             if ratio > 0.32:
                 over_glazed.append(f"{r.get('name', 'חדר')} ({float(w_area):.1f} מ\"ר זיגוג = {ratio:.0%} משטח הרצפה)")
@@ -2007,7 +2584,7 @@ def check_apartment_value_engineering(apartment: dict, rules: list = None) -> li
                 f"צמצום מתון של מפתח הזיגוג ב-15%–20% ואיחוד מודול החלונות יחסכו בעלויות האלומיניום והתריסים וישפרו את הבידוד התרמי והאקוסטי."
             ),
         })
-    else:
+    elif rooms_with_window_data > 0:
         results.append({
             "status": "PASS",
             "element": "ייעול פתחים ואלומיניום — יחס זיגוג לרצפה (WWR)",

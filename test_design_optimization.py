@@ -320,10 +320,65 @@ def test_reports_and_static_files():
 
 
 def test_dynamic_custom_project_enrichment():
-    print("6. Testing dynamic/custom uploaded project enrichment (non-catalog project_id)...")
+    print("6. Testing dynamic/custom uploaded project enrichment (Zero-Trust E07 + Measured Custom Project)...")
+    # Case A (Audit Section 2.ג / E07): Minimal compliant 1-room custom input without basement/facade/core areas
+    # MUST NOT hallucinate VE notes or positive savings!
+    minimal_custom_payload = {
+        "project_id": "custom_upload_minimal",
+        "project_name": "פרויקט בדיקה מינימלי ללא נתוני מרתף או חזיתות",
+        "sheets": [{"id": "sheet_main", "title": "תכנית קומה טיפוסית", "image_url": "/uploads/pines48_f1_5.png"}],
+        "sections": [{"id": "sec_custom_1", "title": "בדיקה סטטוטורית"}],
+        "notes": [
+            {
+                "id": "CUST-N1",
+                "pin_num": 1,
+                "sheet_id": "sheet_main",
+                "section_id": "sec_custom_1",
+                "typology": "דירה 1",
+                "room_name": "סלון",
+                "status": "PASS",
+                "rule_id": "ADG 4D-3",
+                "title": "רוחב סלון תקין",
+                "measured": "4.05 מ׳",
+                "benchmark": "≥4.00 מ׳",
+                "summary": "סלון רחב ותקין.",
+                "recommendation": "ללא הערות.",
+                "x_pct": 20.0, "y_pct": 20.0, "w_pct": 20.0, "h_pct": 20.0, "cx_pct": 30.0, "cy_pct": 30.0,
+            }
+        ],
+    }
+    enriched_min = enrich_project_payload(minimal_custom_payload)
+    min_notes = enriched_min.get("notes", [])
+    assert len(min_notes) == 1, f"Expected 0 hallucinated VE notes on minimal 1-room input (Audit 2.ג / E07), got {len(min_notes)}"
+    min_opt = enriched_min["project_data_summary"]["design_optimization"]
+    assert min_opt["validation_status"] == "INSUFFICIENT_DATA"
+    assert min_opt["executive_kpis"]["grand_total_direct_saving_ils"] == 0
+
+    # Case B: Custom project WITH explicit measured quantitative excess areas
     custom_payload = {
         "project_id": "custom_upload_test",
-        "project_name": "פרויקט בדיקה מותאם אישית",
+        "project_name": "פרויקט בדיקה מותאם אישית עם נתונים מדודים",
+        "apartments_count": 16,
+        "above_ground_areas": {
+            "total_sqm": 2050.0,
+            "net_apartments_sqm": 1640.0,
+            "core_and_service_sqm": 410.0,
+            "measured_corridor_sqm_per_unit": 8.8,
+        },
+        "underground_areas": {
+            "total_sqm": 640.0,
+            "parking_spaces": 16,
+        },
+        "facades": {
+            "total_sqm": 1840.0,
+            "total_glazing_sqm": 460.0,
+            "total_opaque_sqm": 1380.0,
+            "baseline_dry_cladding_pct": 85.0,
+            "by_direction": [
+                {"facade_name": "חזית צפונית (ראשית)", "direction": "צפון", "gross_area_sqm": 460.0, "glazing_area_sqm": 115.0, "opaque_area_sqm": 345.0},
+                {"facade_name": "חזית דרומית (עורפית)", "direction": "דרום", "gross_area_sqm": 460.0, "glazing_area_sqm": 115.0, "opaque_area_sqm": 345.0},
+            ],
+        },
         "sheets": [{"id": "sheet_main", "title": "תכנית קומה טיפוסית", "image_url": "/uploads/pines48_f1_5.png"}],
         "sections": [{"id": "sec_custom_1", "title": "בדיקה סטטוטורית"}],
         "notes": [
@@ -347,9 +402,12 @@ def test_dynamic_custom_project_enrichment():
     }
     enriched = enrich_project_payload(custom_payload)
     notes = enriched.get("notes", [])
-    assert len(notes) >= 7, f"Expected dynamic VE and Design Improvement notes to be injected, got {len(notes)}"
+    assert len(notes) >= 7, f"Expected dynamic VE and Design Improvement notes when measured excess exists, got {len(notes)}"
     diagram_types_seen = set()
     for n in notes:
+        assert n.get("verification_status") in ("PASS", "FAIL", "WARN", "UNKNOWN", "PRESERVE")
+        assert n.get("evidence_source") in ("WRITTEN_DIM", "COMPUTED_GEOM", "CATALOG_PRESET", "HEURISTIC_ESTIMATE", "MISSING_DATA")
+        assert n.get("workflow_state") in ("TO_REVIEW", "APPROVED_TO_FIX", "IN_DESIGN", "FIXED_PENDING_VERIFICATION", "VERIFIED_CLOSED", "REJECTED")
         vexp = n.get("visual_explanation")
         assert isinstance(vexp, dict), f"Missing visual_explanation on dynamic note {n.get('id')}"
         diagram_types_seen.add(vexp.get("diagram_type"))
@@ -357,11 +415,12 @@ def test_dynamic_custom_project_enrichment():
             assert k in vexp and isinstance(vexp[k], dict), f"Missing {k} in dynamic note {n.get('id')}"
     for expected_dt in ("AG_CONTOUR", "UG_CONTOUR", "FACADE_CLADDING", "LOCKED_CORE", "APT_CORRIDOR", "STATUTORY_CHECK"):
         assert expected_dt in diagram_types_seen, f"Missing diagram_type {expected_dt} in dynamic project enrichment"
-    for ext in ("md", "html", "pdf"):
-        tmp_path = os.path.join("reports", f"custom_upload_test_summary_and_areas_report.{ext}")
-        if os.path.exists(tmp_path):
-            os.remove(tmp_path)
-    print("   [PASS] Dynamic custom project enrichment verified across all 6 diagram types and 4 pillars.")
+    for pid_tmp in ("custom_upload_minimal", "custom_upload_test"):
+        for ext in ("md", "html", "pdf"):
+            tmp_path = os.path.join("reports", f"{pid_tmp}_summary_and_areas_report.{ext}")
+            if os.path.exists(tmp_path):
+                os.remove(tmp_path)
+    print("   [PASS] Zero-Trust E07 (0 hallucinated notes on minimal input) + Measured custom project enrichment verified.")
 
 
 def test_pines48_ground_and_basement_plans_present():

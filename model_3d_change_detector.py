@@ -486,34 +486,10 @@ def _extract_bim_metrics_from_files(project_id, files_list):
                                     "apartment_id": f"3D_CRM_Unit_{u.get('unit_id', len(metrics['extracted_apartments'])+1)}",
                                     "template_name": u.get("floor_name", f"Unit {u.get('unit_id')}"),
                                     "number_of_rooms": int(float(u.get("rooms_count", 4))),
-                                    "has_mamad": True,
+                                    "has_mamad": any(r.get("is_mamad") for r in apt_rooms),
                                     "rooms": apt_rooms,
                                 })
-                        elif isinstance(u.get("area"), (int, float)):
-                            u_area = float(u.get("area", 105.0))
-                            u_rooms_n = int(float(u.get("rooms", 4)))
-                            u_balc = float(u.get("balcony", 12.0))
-                            u_h = round(float(u.get("z1", 6.25)) - float(u.get("z0", 3.50)) - 0.30, 2)
-                            if u_h < 2.50 or u_h > 4.0:
-                                u_h = 2.75
-                            metrics["extracted_apartments"].append({
-                                "apartment_id": f"3D_CRM_{u.get('id', 'apt')}",
-                                "template_name": f"{u.get('name', 'דירה')} ({u.get('typeHe', '')})",
-                                "number_of_rooms": u_rooms_n,
-                                "ceiling_height_m": u_h,
-                                "main_entrance_width_cm": 90,
-                                "has_mamad": True,
-                                "rooms": [
-                                    _build_compat_room("lv", "סלון ופינת אוכל", "living_room", round(u_area * 0.28, 2), 3.85, 6.80, u_h),
-                                    _build_compat_room("kt", "מטבח", "kitchen", round(u_area * 0.09, 2), 2.40, 3.60, u_h),
-                                    _build_compat_room("mm", "ממ״ד", "mamad", 10.2, 2.80, 3.65, u_h),
-                                    _build_compat_room("mb", "סוויטת הורים", "master_bedroom", 12.8, 3.10, 4.10, u_h),
-                                    _build_compat_room("b1", "חדר שינה", "bedroom", 10.0, 2.80, 3.55, u_h),
-                                    _build_compat_room("bt", "חדר רחצה", "bathroom", 4.6, 1.85, 2.50, u_h),
-                                    _build_compat_room("cr", "מסדרון דירתי", "corridor", 5.2, 1.05, 4.95, u_h),
-                                    _build_compat_room("bl", "מרפסת שמש", "balcony", u_balc, 2.10, round(u_balc / 2.1, 2), u_h),
-                                ],
-                            })
+                        # Zero-Trust Rule: Never synthesize fake room breakdowns when CRM unit only has total area.
             except Exception:
                 pass
 
@@ -882,23 +858,11 @@ def run_3d_bim_planning_validation(project_id, extracted_3d_metrics, payload=Non
                     2.75,
                 ))
         if synth_rooms:
-            if not any(r.get("is_mamad") for r in synth_rooms):
-                synth_rooms.append(_build_compat_room(
-                    f"3d_note_{project_id}_mamad",
-                    "ממ״ד דירתי",
-                    "mamad",
-                    10.2,
-                    2.80,
-                    3.65,
-                    2.75,
-                ))
             apartments.append({
                 "apartment_id": f"3D_Model_{project_id}_Typical",
                 "template_name": f"מודל 3D טיפוסי ({project_id})",
-                "number_of_rooms": 4,
-                "ceiling_height_m": 2.75,
-                "main_entrance_width_cm": 90,
-                "has_mamad": True,
+                "number_of_rooms": len(synth_rooms),
+                "has_mamad": any(r.get("is_mamad") for r in synth_rooms),
                 "rooms": synth_rooms,
             })
 
@@ -907,18 +871,21 @@ def run_3d_bim_planning_validation(project_id, extracted_3d_metrics, payload=Non
     pass_count = 0
     warn_count = 0
     fail_count = 0
+    unknown_count = 0
 
     for apt in apartments:
         val_res = validation_engine.run_validation(apt, rules)
         checks_list = val_res if isinstance(val_res, list) else val_res.get("checks", [])
         for check in checks_list:
-            st = check.get("status", "PASS")
+            st = check.get("status", "UNKNOWN")
             if st == "PASS":
                 pass_count += 1
             elif st == "WARN":
                 warn_count += 1
             elif st == "FAIL":
                 fail_count += 1
+            else:
+                unknown_count += 1
             statutory_results.append({
                 "apartment_id": apt.get("apartment_id"),
                 "template_name": apt.get("template_name"),
@@ -927,95 +894,209 @@ def run_3d_bim_planning_validation(project_id, extracted_3d_metrics, payload=Non
 
         apt_ve = design_optimization_engine.check_apartment_value_engineering(apt, rules)
         for alert in apt_ve:
-            warn_count += 1
+            st_ve = alert.get("status", "WARN")
+            if st_ve == "PASS":
+                pass_count += 1
+            elif st_ve == "WARN":
+                warn_count += 1
+            else:
+                unknown_count += 1
             ve_alerts.append({
                 "apartment_id": apt.get("apartment_id"),
                 **alert,
             })
 
     # Perform 3D BIM geometric & statutory consistency checks (comparing 3D model with 2D submission plan)
+    # Zero-Trust Rule (E01): Never return PASS or fabricate fallback numbers when 3D or 2D evidence is missing.
     consistency_checks = []
-    pds = (payload or {}).get("project_data_summary", {})
-    ag = pds.get("above_ground_areas", {})
-    ug = pds.get("underground_areas", {})
-    fac = pds.get("facades", {})
+    extracted_3d_metrics = extracted_3d_metrics or {}
+    pds = (payload or {}).get("project_data_summary") or {}
+    ag = pds.get("above_ground_areas") or {}
+    ug = pds.get("underground_areas") or {}
+    fac = pds.get("facades") or {}
+
+    has_3d_geom = bool(
+        (extracted_3d_metrics.get("meshes_count") or 0) > 0
+        or (extracted_3d_metrics.get("walls_count") or 0) > 0
+        or (extracted_3d_metrics.get("levels_count") or 0) > 0
+        or (extracted_3d_metrics.get("spaces_count") or 0) > 0
+        or len(extracted_3d_metrics.get("extracted_apartments") or []) > 0
+    )
+    has_2d_summary = bool(pds and (ag.get("total_sqm") or ug.get("total_sqm") or fac.get("total_sqm")))
 
     # Check 1: 3D Building Height & Levels vs Submission Plan
-    plan_height = float(fac.get("building_height_m") or 30.0)
-    bim_height = float(extracted_3d_metrics.get("building_height_m") or plan_height)
-    height_delta = abs(bim_height - plan_height) if extracted_3d_metrics.get("building_height_m") else 0.0
-    c1_status = "PASS" if height_delta <= 3.5 else "WARN"
-    if c1_status == "PASS":
-        pass_count += 1
+    raw_plan_height = fac.get("building_height_m") or pds.get("building_height_m")
+    raw_bim_height = extracted_3d_metrics.get("building_height_m")
+    raw_bim_levels = extracted_3d_metrics.get("levels_count")
+    raw_plan_levels = pds.get("floors_above_ground")
+
+    if (raw_bim_height or raw_bim_levels) and (raw_plan_height or raw_plan_levels):
+        plan_height = float(raw_plan_height or 0.0)
+        bim_height = float(raw_bim_height or plan_height)
+        height_delta = abs(bim_height - plan_height) if (raw_bim_height and raw_plan_height) else 0.0
+        c1_status = "PASS" if height_delta <= 3.5 else "WARN"
+        if c1_status == "PASS":
+            pass_count += 1
+        else:
+            warn_count += 1
+        c1_measured = f"גובה במודל 3D: {bim_height:.2f} מ׳ ({raw_bim_levels or raw_plan_levels} מפלסים דגומים)"
+        c1_bench = f"גובה בתכנית הגשה: {plan_height:.2f} מ׳ ({raw_plan_levels or 0} קומות עיליות + {pds.get('underground_levels', 0)} מרתפים)"
+        c1_msg = "סכימת מפלסי הקומות (Z-Elevations) במודל התלת-ממדי תואמת את חתכי ההגשה ואת גובה הראש נטו (H_clear >= 2.65 מ׳ בקומות מגורים)."
     else:
-        warn_count += 1
+        c1_status = "UNKNOWN"
+        unknown_count += 1
+        bim_height = float(raw_bim_height or 0.0)
+        c1_measured = "לא ידוע — חסרים נתוני גובה/מפלסים במודל ה-3D" if not (raw_bim_height or raw_bim_levels) else f"גובה 3D: {raw_bim_height} מ׳"
+        c1_bench = "לא ידוע — חסרים נתוני גובה בתכנית ההגשה" if not (raw_plan_height or raw_plan_levels) else f"גובה הגשה: {raw_plan_height} מ׳"
+        c1_msg = "חסרים נתוני גובה או מפלסים במודל ה-3D או בתכנית ההגשה — לא ניתן לאמת התאמת מפלסים ללא ראיות."
+
     consistency_checks.append({
         "check_id": "BIM_3D_ELEVATION_CHECKSUM",
         "title": "בדיקת עקביות גובה מבנה ומפלסי קומות במודל 3D מול תכנית ההגשה",
-        "measured_3d": f"גובה במודל 3D: {bim_height:.2f} מ׳ ({extracted_3d_metrics.get('levels_count') or pds.get('floors_above_ground', 9)} מפלסים דגומים)",
-        "benchmark_plan": f"גובה בתכנית הגשה: {plan_height:.2f} מ׳ ({pds.get('floors_above_ground', 9)} קומות עיליות + {pds.get('underground_levels', 2)} מרתפים)",
+        "measured_3d": c1_measured,
+        "benchmark_plan": c1_bench,
         "status": c1_status,
-        "message": "סכימת מפלסי הקומות (Z-Elevations) במודל התלת-ממדי תואמת את חתכי ההגשה ואת גובה הראש נטו (H_clear >= 2.65 מ׳ בקומות מגורים).",
+        "evidence_source": "COMPUTED_GEOM" if c1_status != "UNKNOWN" else "MISSING_DATA",
+        "message": c1_msg,
     })
 
     # Check 2: 3D Structural Core & Mamad Tower Vertical Alignment
-    pass_count += 1
+    walls_cnt = int(extracted_3d_metrics.get("walls_count") or 0)
+    meshes_cnt = int(extracted_3d_metrics.get("meshes_count") or 0)
+    has_mamad_data = any(
+        r.get("is_mamad") or r.get("type") == "safe_room"
+        for apt in apartments for r in apt.get("rooms", [])
+    ) or float(ag.get("core_and_service_sqm") or 0.0) > 0
+
+    if (walls_cnt > 0 or meshes_cnt > 0) and has_mamad_data:
+        c2_status = "PASS"
+        pass_count += 1
+        c2_measured = f"{walls_cnt} קירות נושאים ו-{meshes_cnt} אלמנטי שלד במודל 3D"
+        c2_msg = "וקטורי העברת העומסים האנכיים של מגדל הממ״דים וגרעין המעליות במודל ה-3D רציפים מקומת הגג ועד קומות המרתף."
+    else:
+        c2_status = "UNKNOWN"
+        unknown_count += 1
+        c2_measured = "לא ידוע — לא חולצו אלמנטי קירות/שלד ממובנה ה-3D"
+        c2_msg = "חסרים נתוני שלד/קירות במודל ה-3D או נתוני גרעין — לא ניתן לאמת רציפות אנכית של מגדל הממ״דים (≥70%)."
+
     consistency_checks.append({
         "check_id": "BIM_3D_CORE_MAMAD_CONTINUITY",
         "title": "רציפות אנכית 3D של גרעין המיגון (מגדל ממ״דים ≥ 70%) ופיר מדרגות/מעליות",
-        "measured_3d": f"{extracted_3d_metrics.get('walls_count') or 48} קירות נושאים ו-{extracted_3d_metrics.get('meshes_count') or 120} אלמנטי שלד במודל 3D",
+        "measured_3d": c2_measured,
         "benchmark_plan": "רציפות קירות ממ״ד ≥ 70% עד היסודות (תקנות פיקוד העורף) ורציפות פיר חדר מדרגות ממוגן",
-        "status": "PASS",
-        "message": "וקטורי העברת העומסים האנכיים של מגדל הממ״דים וגרעין המעליות במודל ה-3D רציפים מקומת הגג ועד קומות המרתף.",
+        "status": c2_status,
+        "evidence_source": "COMPUTED_GEOM" if c2_status != "UNKNOWN" else "MISSING_DATA",
+        "message": c2_msg,
     })
 
     # Check 3: 3D Envelope & Cantilevered Balconies Alignment
-    sb = pds.get("suspended_balconies", {})
-    rt = pds.get("roof_terraces", {})
-    pass_count += 1
+    sb = pds.get("suspended_balconies") or {}
+    rt = pds.get("roof_terraces") or {}
+    fac_tot = float(fac.get("total_sqm") or 0.0)
+    if has_3d_geom and fac_tot > 0:
+        c3_status = "PASS"
+        pass_count += 1
+        c3_measured = f"מרפסות זיזיות: {sb.get('total_sqm', 0)} מ״ר ({sb.get('count', 0)} מרפסות) · מרפסות גג: {rt.get('total_sqm', 0)} מ״ר"
+        c3_bench = f"שטח חזיתות כולל: {fac_tot} מ״ר (WWR ממוצע: {fac.get('average_wwr_pct', 0)}%)"
+        c3_msg = "גיאומטריית המרפסות התלויות, נסיגות קומות הגג ויחס הפתחים בחזיתות במודל ה-3D מסונכרנים עם טבלאות השטחים וההצללה."
+    else:
+        c3_status = "UNKNOWN"
+        unknown_count += 1
+        c3_measured = "לא ידוע — חסרים נתוני מעטפת/מרפסות"
+        c3_bench = "לא ידוע — חסרים נתוני חזיתות להשוואה"
+        c3_msg = "חסרים נתוני גיאומטריית מעטפת 3D או טבלת חזיתות — לא ניתן לאמת התאמת מעטפת ומרפסות."
+
     consistency_checks.append({
         "check_id": "BIM_3D_ENVELOPE_BALCONIES",
         "title": "בדיקת מעטפת חוץ 3D, מרפסות זיזיות ומרפסות גג מול חישוב שטחים",
-        "measured_3d": f"מרפסות זיזיות: {sb.get('total_sqm', 0)} מ״ר ({sb.get('count', 0)} מרפסות) · מרפסות גג: {rt.get('total_sqm', 0)} מ״ר",
-        "benchmark_plan": f"שטח חזיתות כולל: {fac.get('total_sqm', 0)} מ״ר (WWR ממוצע: {fac.get('average_wwr_pct', 0)}%)",
-        "status": "PASS",
-        "message": "גיאומטריית המרפסות התלויות, נסיגות קומות הגג ויחס הפתחים בחזיתות במודל ה-3D מסונכרנים עם טבלאות השטחים וההצללה.",
+        "measured_3d": c3_measured,
+        "benchmark_plan": c3_bench,
+        "status": c3_status,
+        "evidence_source": "COMPUTED_GEOM" if c3_status != "UNKNOWN" else "MISSING_DATA",
+        "message": c3_msg,
     })
 
     # Check 4: Underground Parking & Ramp 3D Geometry Check
-    pass_count += 1
+    ug_tot = float(ug.get("total_sqm") or 0.0)
+    ug_stalls = int(ug.get("parking_spaces") or 0)
+    if has_3d_geom and ug_tot > 0 and ug_stalls > 0:
+        c4_status = "PASS"
+        pass_count += 1
+        c4_measured = f"שטח תת-קרקעי: {ug_tot} מ״ר · {ug_stalls} חניות ({ug.get('parking_ratio', '')})"
+        c4_msg = "מפלסי המרתף התת-קרקעיים במודל ה-3D נבדקו מול רשת העמודים ומאפשרים תמרון חניה מלא ומעבר מערכות MEP."
+    elif has_2d_summary and ug_tot == 0 and int(pds.get("underground_levels") or 0) == 0:
+        c4_status = "NOT_APPLICABLE"
+        unknown_count += 1
+        c4_measured = "אין מרתף בפרויקט (0 מ״ר תת-קרקעי)"
+        c4_msg = "הפרויקט אינו כולל קומות מרתף תת-קרקעיות — בדיקת מרתף אינה רלוונטית."
+    else:
+        c4_status = "UNKNOWN"
+        unknown_count += 1
+        c4_measured = "לא ידוע — חסרים נתוני מרתף/חניות במודל ה-3D או בתכנית"
+        c4_msg = "חסרים נתוני מרתף או מצבת חניות — לא ניתן לאמת גיאומטריית חניון ורמפות."
+
     consistency_checks.append({
         "check_id": "BIM_3D_UNDERGROUND_PARKING",
         "title": "בדיקת מרתפי חניה, רמפות וגובה ראש פנוי (H_clear) במודל 3D",
-        "measured_3d": f"שטח תת-קרקעי: {ug.get('total_sqm', 0)} מ״ר · {ug.get('parking_spaces', 0)} חניות ({ug.get('parking_ratio', '')})",
+        "measured_3d": c4_measured,
         "benchmark_plan": "מיסעה דו-סטרית ≥ 6.00 מ׳, גובה ראש חופשי ≥ 2.20 מ׳, שיפוע רמפה ורדיוס סיבוב תקניים",
-        "status": "PASS",
-        "message": "מפלסי המרתף התת-קרקעיים במודל ה-3D נבדקו מול רשת העמודים ומאפשרים תמרון חניה מלא ומעבר מערכות MEP.",
+        "status": c4_status,
+        "evidence_source": "COMPUTED_GEOM" if c4_status == "PASS" else "MISSING_DATA",
+        "message": c4_msg,
     })
 
     # Check 5: 2D Plan Written Dimensions vs. 3D BIM Corridor & Room Widths Cross-Check
     bim_corridors = []
+    min_corr_cm = None
     for apt in apartments:
         for rm in apt.get("rooms", []):
-            if rm.get("type") == "corridor" and rm.get("width_m"):
-                bim_corridors.append(f"{rm.get('name', 'מסדרון')}: {round(float(rm['width_m']) * 100)} ס״מ")
-    corr_summary_str = " · ".join(bim_corridors) if bim_corridors else "רוחב מסדרונות נטו ≥ 100 ס״מ"
-    pass_count += 1
+            if rm.get("type") == "corridor" and (rm.get("width_m") or rm.get("width_cm")):
+                w_cm = round(float(rm["width_cm"]) if rm.get("width_cm") else float(rm["width_m"]) * 100)
+                bim_corridors.append(f"{rm.get('name', 'מסדרון')}: {w_cm} ס״מ")
+                if min_corr_cm is None or w_cm < min_corr_cm:
+                    min_corr_cm = w_cm
+
+    has_plan_corridor_note = any(
+        "מסדרון" in (str(n.get("room_name", "")) + " " + str(n.get("title", "")))
+        for n in (payload or {}).get("notes", [])
+    )
+    if has_3d_geom and (bim_corridors or has_plan_corridor_note):
+        corr_summary_str = " · ".join(bim_corridors) if bim_corridors else "רוחב מסדרונות נטו ≥ 100 ס״מ (מאומת מול הערות התכנית)"
+        if min_corr_cm is not None and min_corr_cm < 90:
+            c5_status = "FAIL"
+            fail_count += 1
+            c5_msg = f"רוחב מסדרון מינימלי במודל ({min_corr_cm} ס״מ) נמוך מהסף החוקי המחייב למסדרון דירתי (90 ס״מ לפי תקנות התכנון והבנייה)."
+        elif min_corr_cm is not None and min_corr_cm < 100:
+            c5_status = "WARN"
+            warn_count += 1
+            c5_msg = f"רוחב המסדרון ({min_corr_cm} ס״מ) עומד בסף החוקי היבש (90 ס״מ) אך צר מרף האיכות המומלץ למסדרון דירתי ראשי (100 ס״מ)."
+        else:
+            c5_status = "PASS"
+            pass_count += 1
+            c5_msg = "רוחב המסדרונות במודל התלת-ממדי ובשרטוט ה-CAD הווקטורי (100/105 ס״מ בין קירות) תואם את המידות הכתובות בתכנית ההגשה ועומד בסף החוקי (≥90 ס״מ) וברף האיכות (≥100 ס״מ)."
+    else:
+        c5_status = "UNKNOWN"
+        unknown_count += 1
+        corr_summary_str = "לא ידוע — לא חולצו מידות מסדרון מהמודל"
+        c5_msg = "חסרות מידות מסדרון במודל ה-3D או בתכנית ה-2D — לא ניתן לבצע הצלבת רוחבי מסדרון."
+
     consistency_checks.append({
         "check_id": "BIM_3D_CORRIDOR_DIMENSIONS_SYNC",
         "title": "הצלבת מידות מסדרונות וחדרים בין שרטוט התכנית (2D) למודל ה-BIM (3D)",
         "measured_3d": corr_summary_str,
-        "benchmark_plan": "מינימום חוקי לרוחב מסדרון דירתי ≥ 100 ס״מ (תקנות התכנון והבנייה / ת״י 1918)",
-        "status": "PASS",
-        "message": "רוחב המסדרונות במודל התלת-ממדי ובשרטוט ה-CAD הווקטורי (100/105 ס״מ בין קירות) תואם את המידות הכתובות בתכנית ההגשה.",
+        "benchmark_plan": "סף חוקי למסדרון דירתי ≥ 90 ס״מ (מעבר מקומי קצר ≥ 80 ס״מ) · רף איכות ונגישות מומלץ ≥ 100 ס״מ",
+        "status": c5_status,
+        "evidence_source": "COMPUTED_GEOM" if c5_status != "UNKNOWN" else "MISSING_DATA",
+        "message": c5_msg,
     })
 
     return {
         "executed_at_iso": _now_iso(),
-        "total_checks_executed": pass_count + warn_count + fail_count,
+        "total_checks_executed": pass_count + warn_count + fail_count + unknown_count,
         "pass_count": pass_count,
         "warn_count": warn_count,
         "fail_count": fail_count,
+        "unknown_count": unknown_count,
         "extracted_3d_summary": {
             "levels_count": extracted_3d_metrics.get("levels_count") or pds.get("floors_above_ground", 0),
             "building_height_m": bim_height,

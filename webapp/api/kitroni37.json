@@ -75,7 +75,7 @@
       "path": "C:/Users/User/archknow/webapp/api/kitroni37.json",
       "folder": "C:/Users/User/archknow/webapp/api",
       "ext": "JSON",
-      "size_kb": 531.4
+      "size_kb": 529.9
     },
     {
       "name": "ele_Kitroni_37-39_498-Koma_1_5-7 (9) (1).pdf",
@@ -650,6 +650,22 @@
         "orientation_locked": true,
         "camera_theta": 1.57
       },
+      "verification_status": "PRESERVE",
+      "evidence_source": "WRITTEN_DIM",
+      "workflow_state": "VERIFIED_CLOSED",
+      "evidence_record": {
+        "record_id": "KIT-37-NW",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "סלון (414×408 ס״מ), מטבח (414×250 ס״מ = 10.35 מ״ר) ומרפסת שמש (600×190 ס״מ)",
+        "rule_id": "ADG 4D-3 / NKBA",
+        "measured_value": "סלון: 414×408 ס״מ · מטבח: 414×250 ס״מ (10.35 מ״ר) · מרפסת: 600×190 ס״מ (11.4 מ״ר)",
+        "benchmark_value": "ADG Living Width: ≥4.00 מ׳ (כאן 4.08 מ׳!) · מרפסת בעומק 1.90 מ׳",
+        "verification_status": "PRESERVE",
+        "evidence_source": "WRITTEN_DIM",
+        "workflow_state": "VERIFIED_CLOSED",
+        "unknown_factors": ""
+      },
       "audit_polarity": "POSITIVE",
       "audit_polarity_he": "חיובי",
       "audit_category": "INTERIOR_TIP",
@@ -788,6 +804,22 @@
         "normalized_drift_pct": 0.01,
         "orientation_locked": true,
         "camera_theta": 1.57
+      },
+      "verification_status": "WARN",
+      "evidence_source": "WRITTEN_DIM",
+      "workflow_state": "TO_REVIEW",
+      "evidence_record": {
+        "record_id": "KIT-37-NW-2",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "סוויטת הורים (286×370 ס״מ ← הרחבה ל-300 ס״מ), ממ״ד (10.08 מ״ר) וחדרי שינה בטיפוס NW",
+        "rule_id": "ADG 4D-3 / B1.6",
+        "measured_value": "הורים: 286×370 ס״מ (10.58 מ״ר) · ממ״ד: 10.08 מ״ר",
+        "benchmark_value": "תקנות הבנייה ו-NDSS: עובר | ADG: רוחב הורים ≥3.00 מ׳ (כאן 2.86 מ׳)",
+        "verification_status": "WARN",
+        "evidence_source": "WRITTEN_DIM",
+        "workflow_state": "TO_REVIEW",
+        "unknown_factors": ""
       },
       "audit_polarity": "NEGATIVE",
       "audit_polarity_he": "שלילי",
@@ -928,6 +960,22 @@
         "orientation_locked": true,
         "camera_theta": 1.57
       },
+      "verification_status": "PRESERVE",
+      "evidence_source": "WRITTEN_DIM",
+      "workflow_state": "VERIFIED_CLOSED",
+      "evidence_record": {
+        "record_id": "KIT-37-NE",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "סלון רחב במיוחד (625×390 ס״מ = 24.38 מ״ר!), מרפסת (657×190 ס״מ) וחדר הורים (358×304 ס״מ)",
+        "rule_id": "ADG 4D-3 / NDSS",
+        "measured_value": "סלון: 24.38 מ״ר · הורים: 10.88 מ״ר (רוחב 3.04 מ׳) · ממ״ד: 10.22 מ״ר",
+        "benchmark_value": "76 מתוך 85 בדיקות מנוע עוברות ב-PASS (89.4%!)",
+        "verification_status": "PRESERVE",
+        "evidence_source": "WRITTEN_DIM",
+        "workflow_state": "VERIFIED_CLOSED",
+        "unknown_factors": ""
+      },
       "audit_polarity": "POSITIVE",
       "audit_polarity_he": "חיובי",
       "audit_category": "ARCH_QUALITY",
@@ -1066,6 +1114,22 @@
         "normalized_drift_pct": 0.07,
         "orientation_locked": true,
         "camera_theta": 1.57
+      },
+      "verification_status": "PASS",
+      "evidence_source": "WRITTEN_DIM",
+      "workflow_state": "VERIFIED_CLOSED",
+      "evidence_record": {
+        "record_id": "KIT-37-SE",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "סוויטת הורים נשיאותית (355×414 ס״מ = 14.70 מ״ר!), חדר שינה (368×302 ס״מ) וממ״ד (281×332 ס״מ)",
+        "rule_id": "ADG 4D-3 / Boverket",
+        "measured_value": "הורים: 355×414 ס״מ (14.70 מ״ר) · ח.שינה: 368×302 ס״מ (11.11 מ״ר)",
+        "benchmark_value": "ADG Master Bedroom: ≥3.00 מ׳ (כאן 3.55 מ׳!)",
+        "verification_status": "PASS",
+        "evidence_source": "WRITTEN_DIM",
+        "workflow_state": "VERIFIED_CLOSED",
+        "unknown_factors": ""
       },
       "audit_polarity": "POSITIVE",
       "audit_polarity_he": "חיובי",
@@ -1206,6 +1270,22 @@
         "orientation_locked": true,
         "camera_theta": 1.57
       },
+      "verification_status": "PASS",
+      "evidence_source": "WRITTEN_DIM",
+      "workflow_state": "VERIFIED_CLOSED",
+      "evidence_record": {
+        "record_id": "KIT-37-SW",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "סלון חזיתי רחב (624×384 ס״מ = 23.96 מ״ר), מטבח (452×238 ס״מ) ומרפסת מערבית",
+        "rule_id": "B1.3 / NKBA",
+        "measured_value": "סלון: 624×384 ס״מ (23.96 מ״ר) · מטבח: 452×238 ס״מ (10.75 מ״ר)",
+        "benchmark_value": "חלל ציבורי >34 מ״ר סה״כ עם אוורור כפול",
+        "verification_status": "PASS",
+        "evidence_source": "WRITTEN_DIM",
+        "workflow_state": "VERIFIED_CLOSED",
+        "unknown_factors": ""
+      },
       "audit_polarity": "POSITIVE",
       "audit_polarity_he": "חיובי",
       "audit_category": "STANDARD",
@@ -1344,6 +1424,22 @@
         "normalized_drift_pct": 0.01,
         "orientation_locked": true,
         "camera_theta": 1.57
+      },
+      "verification_status": "WARN",
+      "evidence_source": "WRITTEN_DIM",
+      "workflow_state": "TO_REVIEW",
+      "evidence_record": {
+        "record_id": "KIT-37-SW-2",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "סוויטת הורים בטיפוס SW (278×393 ס״מ = 10.93 מ״ר ← הרחבה ל-295 ס״מ), ממ״ד וחדר שינה",
+        "rule_id": "ADG 4D-3 / B1.6",
+        "measured_value": "הורים: 278×393 ס״מ (10.93 מ״ר)",
+        "benchmark_value": "תקנות הבנייה: ≥2.60 מ׳ (עובר) | NDSS: ≥2.75 מ׳ (עובר) | ADG: ≥3.00 מ׳",
+        "verification_status": "WARN",
+        "evidence_source": "WRITTEN_DIM",
+        "workflow_state": "TO_REVIEW",
+        "unknown_factors": ""
       },
       "audit_polarity": "NEGATIVE",
       "audit_polarity_he": "שלילי",
@@ -1484,6 +1580,22 @@
         "orientation_locked": true,
         "camera_theta": 1.57
       },
+      "verification_status": "PASS",
+      "evidence_source": "WRITTEN_DIM",
+      "workflow_state": "VERIFIED_CLOSED",
+      "evidence_record": {
+        "record_id": "KIT-CORE-01",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "לובי קומתי מוגן בבניינים 37 ו-39, 2 מעליות וחדרי מדרגות מוגנים",
+        "rule_id": "ת״י 1918 / מבחן 7 — הגנת לובי קומתי",
+        "measured_value": "2 גרעיני מעליות ומדרגות · 4 דירות בקומה טיפוסית · 0.0 מ״ר קיטון לובי",
+        "benchmark_value": "איסור מוחלט על קיטון חלל הלובי הקומתי (מבחן 7)",
+        "verification_status": "PASS",
+        "evidence_source": "WRITTEN_DIM",
+        "workflow_state": "VERIFIED_CLOSED",
+        "unknown_factors": ""
+      },
       "audit_polarity": "POSITIVE",
       "audit_polarity_he": "חיובי",
       "audit_category": "STANDARD",
@@ -1622,6 +1734,22 @@
         "normalized_drift_pct": 0.07,
         "orientation_locked": true,
         "camera_theta": 1.57
+      },
+      "verification_status": "PRESERVE",
+      "evidence_source": "WRITTEN_DIM",
+      "workflow_state": "VERIFIED_CLOSED",
+      "evidence_record": {
+        "record_id": "KIT-39-W3",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "סלון (436×348 ס״מ), מטבח (436×217 ס״מ), מרפסת (634×195 ס״מ) וחדר הורים (323×320 ס״מ)",
+        "rule_id": "ADG 4D-3 / פקע״ר",
+        "measured_value": "הורים: 10.34 מ״ר (רוחב 3.20 מ׳) · ממ״ד: 326×282 ס״מ · רחצה: 200×240 ס״מ",
+        "benchmark_value": "עומק מרפסת 1.95 מ׳ (מעל ADG 1.50 מ׳) · חדר רחצה מרווח 4.80 מ״ר",
+        "verification_status": "PRESERVE",
+        "evidence_source": "WRITTEN_DIM",
+        "workflow_state": "VERIFIED_CLOSED",
+        "unknown_factors": ""
       },
       "audit_polarity": "POSITIVE",
       "audit_polarity_he": "חיובי",
@@ -1762,6 +1890,22 @@
         "orientation_locked": true,
         "camera_theta": 1.57
       },
+      "verification_status": "WARN",
+      "evidence_source": "WRITTEN_DIM",
+      "workflow_state": "TO_REVIEW",
+      "evidence_record": {
+        "record_id": "KIT-39-SW",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "מבואת כניסה לסלון (580×360 ס״מ), מטבח (330×248 / 580×248 ס״מ) ומרפסת (617×195 ס״מ)",
+        "rule_id": "Space Syntax SS-3 / B1.3",
+        "measured_value": "סלון: 20.88 מ״ר (580×360 ס״מ) · מרפסת: 617×195 ס״מ (12.0 מ״ר)",
+        "benchmark_value": "Space Syntax: מבואת כניסה מוצנעת (Foyer) המפרידה בין הדלת לסלון",
+        "verification_status": "WARN",
+        "evidence_source": "WRITTEN_DIM",
+        "workflow_state": "TO_REVIEW",
+        "unknown_factors": ""
+      },
       "audit_polarity": "NEGATIVE",
       "audit_polarity_he": "שלילי",
       "audit_category": "ARCH_QUALITY",
@@ -1900,6 +2044,22 @@
         "normalized_drift_pct": 0.1,
         "orientation_locked": true,
         "camera_theta": 1.57
+      },
+      "verification_status": "WARN",
+      "evidence_source": "WRITTEN_DIM",
+      "workflow_state": "TO_REVIEW",
+      "evidence_record": {
+        "record_id": "KIT-39-SW-2",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "סוויטת הורים (298×355 ס״מ = 10.58 מ״ר), ממ״ד (285×328 ס״מ = 9.35 מ״ר) וחדרי שינה בבניין 39",
+        "rule_id": "ADG 4D-3 / B1.6",
+        "measured_value": "הורים: 298×355 ס״מ (10.58 מ״ר) · ממ״ד: 285×328 ס״מ (9.35 מ״ר)",
+        "benchmark_value": "תקנות הבנייה ו-NDSS: עובר במלואו | ADG: רוחב הורים ≥3.00 מ׳ (כאן 2.98 מ׳)",
+        "verification_status": "WARN",
+        "evidence_source": "WRITTEN_DIM",
+        "workflow_state": "TO_REVIEW",
+        "unknown_factors": ""
       },
       "audit_polarity": "NEGATIVE",
       "audit_polarity_he": "שלילי",
@@ -2040,6 +2200,22 @@
         "orientation_locked": true,
         "camera_theta": 1.57
       },
+      "verification_status": "PASS",
+      "evidence_source": "WRITTEN_DIM",
+      "workflow_state": "VERIFIED_CLOSED",
+      "evidence_record": {
+        "record_id": "KIT-F8-01",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_floor8",
+        "entity_label": "מיני-פנטהאוזים בקומה 8 (+23.02m): סלונים רחבים, מטבחים ומרפסות גג בנסיגה",
+        "rule_id": "ADG 4E / B1.3",
+        "measured_value": "קומה 8 (+23.02m): 3 כיווני אוויר ומרפסות גג מרווחות",
+        "benchmark_value": "ADG 4E: מרפסות גג בעומק ≥2.20 מ׳ ואוורור צולב",
+        "verification_status": "PASS",
+        "evidence_source": "WRITTEN_DIM",
+        "workflow_state": "VERIFIED_CLOSED",
+        "unknown_factors": ""
+      },
       "audit_polarity": "POSITIVE",
       "audit_polarity_he": "חיובי",
       "audit_category": "ARCH_QUALITY",
@@ -2178,6 +2354,22 @@
         "normalized_drift_pct": 0.0,
         "orientation_locked": true,
         "camera_theta": 1.57
+      },
+      "verification_status": "PASS",
+      "evidence_source": "WRITTEN_DIM",
+      "workflow_state": "VERIFIED_CLOSED",
+      "evidence_record": {
+        "record_id": "KIT-PH-01",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_penthouse",
+        "entity_label": "סלון פנורמי (405×896 / 425×846 ס״מ = 36.28 מ״ר) ומרפסות גג (599×1380 ס״מ = 82.66 מ״ר!)",
+        "rule_id": "ADG 4E / B1.3",
+        "measured_value": "סלון-אוכל: 36.28 מ״ר (405×896 ס״מ) · מרפסת מערבית: 82.66 מ״ר + מזרחית: 25.68 מ״ר",
+        "benchmark_value": "85 מתוך 94 בדיקות מנוע עוברות ב-PASS (90.4%!)",
+        "verification_status": "PASS",
+        "evidence_source": "WRITTEN_DIM",
+        "workflow_state": "VERIFIED_CLOSED",
+        "unknown_factors": ""
       },
       "audit_polarity": "POSITIVE",
       "audit_polarity_he": "חיובי",
@@ -2318,6 +2510,22 @@
         "orientation_locked": true,
         "camera_theta": 1.57
       },
+      "verification_status": "PASS",
+      "evidence_source": "WRITTEN_DIM",
+      "workflow_state": "VERIFIED_CLOSED",
+      "evidence_record": {
+        "record_id": "KIT-PH-02",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_penthouse",
+        "entity_label": "מטבח שף (504×315 ס״מ = 15.88 מ״ר), סוויטת הורים (356×382 ס״מ) וחדרי שינה בפנטהאוזים",
+        "rule_id": "NKBA_K01 / ADG 4D-3",
+        "measured_value": "מטבח שף: 504×315 ס״מ (15.88 מ״ר) · הורים: 356×382 ס״מ (13.60 מ״ר)",
+        "benchmark_value": "NKBA Chef Kitchen: ≥12.0 מ״ר | ADG Master Suite: רוחב ≥3.00 מ׳ (כאן 3.56 מ׳!)",
+        "verification_status": "PASS",
+        "evidence_source": "WRITTEN_DIM",
+        "workflow_state": "VERIFIED_CLOSED",
+        "unknown_factors": ""
+      },
       "audit_polarity": "POSITIVE",
       "audit_polarity_he": "חיובי",
       "audit_category": "INTERIOR_TIP",
@@ -2456,6 +2664,22 @@
         "normalized_drift_pct": 0.01,
         "orientation_locked": true,
         "camera_theta": 1.57
+      },
+      "verification_status": "PASS",
+      "evidence_source": "WRITTEN_DIM",
+      "workflow_state": "VERIFIED_CLOSED",
+      "evidence_record": {
+        "record_id": "KIT-BSM-01",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_basement",
+        "entity_label": "מרתף חניון תת-קרקעי מאוחד (63 חניות ל-63 יח״ד) ושני גרעיני מעליות ומדרגות מוגנים",
+        "rule_id": "הנחיות חניונים / ת״י 1918",
+        "measured_value": "63 חניות ל-63 דירות (יחס 1:1.0) · מפלס -3.85m",
+        "benchmark_value": "גישה ישירה ונגישה מהחניון אל שני גרעיני המעליות (37 ו-39)",
+        "verification_status": "PASS",
+        "evidence_source": "WRITTEN_DIM",
+        "workflow_state": "VERIFIED_CLOSED",
+        "unknown_factors": ""
       },
       "audit_polarity": "POSITIVE",
       "audit_polarity_he": "חיובי",
@@ -2611,6 +2835,22 @@
         "orientation_locked": true,
         "camera_theta": 1.57
       },
+      "verification_status": "WARN",
+      "evidence_source": "COMPUTED_GEOM",
+      "workflow_state": "TO_REVIEW",
+      "evidence_record": {
+        "record_id": "KIT-OPT-AG1",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_ground",
+        "entity_label": "📍 איפה: קומת קרקע (±0.00 — 2 הבניינים 37 + 39: 490 מ״ר שטחי לובי ושירות)",
+        "rule_id": "VALUE_ENG_OPT (6,200 ₪/מ״ר — קונטור מאומת)",
+        "measured_value": "שטח קיים: 490.0 מ״ר | קונטור קומת קרקע (2 בניינים): 490.0 מ״ר ← 420.0 מ״ר (-70.0 מ״ר נבנה פחות)",
+        "benchmark_value": "שטח קונטור נחסך בפועל (נבנה פחות): 70.0 מ״ר × 6,200 ₪ (תרגום לקונטור: 79.5%)",
+        "verification_status": "WARN",
+        "evidence_source": "COMPUTED_GEOM",
+        "workflow_state": "TO_REVIEW",
+        "unknown_factors": ""
+      },
       "audit_polarity": "SAVINGS",
       "audit_polarity_he": "חיסכון",
       "audit_category": "SAVINGS",
@@ -2764,6 +3004,22 @@
         "normalized_drift_pct": 0.01,
         "orientation_locked": true,
         "camera_theta": 1.57
+      },
+      "verification_status": "WARN",
+      "evidence_source": "COMPUTED_GEOM",
+      "workflow_state": "TO_REVIEW",
+      "evidence_record": {
+        "record_id": "KIT-OPT-AG2",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "📍 איפה: קומות 1–9 (9 קומות × 2 בניינים — הידוק בליטות פירים טכניים ב-2 הגרעינים ללא קיטון הלובי הקומתי)",
+        "rule_id": "VALUE_ENG_OPT (6,200 ₪/מ״ר — קונטור מאומת)",
+        "measured_value": "שטח קיים: 879.0 מ״ר | קונטור קומה (2 בניינים): 768.0 מ״ר ← 760.0 מ״ר (-8.0 מ״ר לקומה × 9 קומות = -72.0 מ״ר)",
+        "benchmark_value": "שטח קונטור נחסך בפועל (נבנה פחות): 72.0 מ״ר × 6,200 ₪ (תרגום לקונטור: 80.0%)",
+        "verification_status": "WARN",
+        "evidence_source": "COMPUTED_GEOM",
+        "workflow_state": "TO_REVIEW",
+        "unknown_factors": ""
       },
       "audit_polarity": "SAVINGS",
       "audit_polarity_he": "חיסכון",
@@ -2993,6 +3249,22 @@
         "orientation_locked": true,
         "camera_theta": 1.57
       },
+      "verification_status": "WARN",
+      "evidence_source": "COMPUTED_GEOM",
+      "workflow_state": "TO_REVIEW",
+      "evidence_record": {
+        "record_id": "KIT-OPT-UG1",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_basement",
+        "entity_label": "📍 איפה: מרתף חניון משותף (-3.85m — 2,420 מ״ר ל-63 חניות = 38.4 מ״ר/חניה)",
+        "rule_id": "VALUE_ENG_OPT (3,500 ₪/מ״ר — קונטור דיפון מאומת + הגנת רמפה ותמרון + העתקת חנייה)",
+        "measured_value": "שטח קיים: 2420.0 מ״ר (38.4 מ״ר/חניה) | קונטור מרתף משותף: 2,420.0 מ״ר ← 2,295.0 מ״ר (-125.0 מ״ר חפירה ודיפון מאומתים · 20.0 מ״ר קוזזו להגנת צומת הרמפה והמיסעות)",
+        "benchmark_value": "שטח קונטור מרתף מוצע: 2295.0 מ״ר (36.4 מ״ר/חניה · נחסכו 125.0 מ״ר × 3,500 ₪)",
+        "verification_status": "WARN",
+        "evidence_source": "COMPUTED_GEOM",
+        "workflow_state": "TO_REVIEW",
+        "unknown_factors": ""
+      },
       "audit_polarity": "SAVINGS",
       "audit_polarity_he": "חיסכון",
       "audit_category": "SAVINGS",
@@ -3013,6 +3285,7 @@
       "section_id": "sec_kitroni37_value_eng",
       "is_value_eng": true,
       "ve_category": "FAC",
+      "material_data_status": "EXACT_SUBMISSION",
       "ve_saving_ils": 0,
       "ve_saved_sqm": 0.0,
       "ve_proposed_gross_sqm": 1090.0,
@@ -3142,6 +3415,22 @@
         "orientation_locked": true,
         "camera_theta": 3.08
       },
+      "verification_status": "PASS",
+      "evidence_source": "COMPUTED_GEOM",
+      "workflow_state": "VERIFIED_CLOSED",
+      "evidence_record": {
+        "record_id": "KITRONI37-VE-FAC-1",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "📍 איפה: חזית מערבית (חזית ראשית לרחוב הרב קיטרוני — בניינים 37 + 39) (כיוון מערב)",
+        "rule_id": "VALUE_ENG_OPT (תכנית הגשה — 400 ₪/מ״ר הפרש)",
+        "measured_value": "לפי תכנית ההגשה: אטום 1090.0 מ״ר = טיח 640 מ״ר (58.7%) + חיפוי קשיח 410 מ״ר (37.6%) + רפפות 40 מ״ר",
+        "benchmark_value": "לאחר אופטימיזציה: 37.6% יבש (410.0 מ״ר) / 58.7% טיח (640.0 מ״ר)",
+        "verification_status": "PASS",
+        "evidence_source": "COMPUTED_GEOM",
+        "workflow_state": "VERIFIED_CLOSED",
+        "unknown_factors": ""
+      },
       "audit_polarity": "SAVINGS",
       "audit_polarity_he": "חיסכון",
       "audit_category": "SAVINGS",
@@ -3162,6 +3451,7 @@
       "section_id": "sec_kitroni37_value_eng",
       "is_value_eng": true,
       "ve_category": "FAC",
+      "material_data_status": "EXACT_SUBMISSION",
       "ve_saving_ils": 148000,
       "ve_saved_sqm": 370.0,
       "ve_proposed_gross_sqm": 1115.0,
@@ -3291,6 +3581,22 @@
         "orientation_locked": true,
         "camera_theta": 0.08
       },
+      "verification_status": "WARN",
+      "evidence_source": "COMPUTED_GEOM",
+      "workflow_state": "TO_REVIEW",
+      "evidence_record": {
+        "record_id": "KITRONI37-VE-FAC-2",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "📍 איפה: חזית מזרחית (חזית עורפית לפיתוח המגרש — בניינים 37 + 39) (כיוון מזרח)",
+        "rule_id": "VALUE_ENG_OPT (תכנית הגשה — 400 ₪/מ״ר הפרש)",
+        "measured_value": "לפי תכנית ההגשה: אטום 1115.0 מ״ר = טיח 635 מ״ר (57.0%) + חיפוי קשיח 370 מ״ר (33.2%) + רפפות 110 מ״ר",
+        "benchmark_value": "לאחר אופטימיזציה: 0.0% יבש (0.0 מ״ר) / 90.1% טיח (1005.0 מ״ר)",
+        "verification_status": "WARN",
+        "evidence_source": "COMPUTED_GEOM",
+        "workflow_state": "TO_REVIEW",
+        "unknown_factors": ""
+      },
       "audit_polarity": "SAVINGS",
       "audit_polarity_he": "חיסכון",
       "audit_category": "SAVINGS",
@@ -3311,6 +3617,7 @@
       "section_id": "sec_kitroni37_value_eng",
       "is_value_eng": true,
       "ve_category": "FAC",
+      "material_data_status": "EXACT_SUBMISSION",
       "ve_saving_ils": 110000,
       "ve_saved_sqm": 275.0,
       "ve_proposed_gross_sqm": 835.0,
@@ -3440,6 +3747,22 @@
         "orientation_locked": true,
         "camera_theta": -1.57
       },
+      "verification_status": "WARN",
+      "evidence_source": "COMPUTED_GEOM",
+      "workflow_state": "TO_REVIEW",
+      "evidence_record": {
+        "record_id": "KITRONI37-VE-FAC-3",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "📍 איפה: חזית צפונית (בניין 37 צפוני + בניין 39 צפוני) (כיוון צפון)",
+        "rule_id": "VALUE_ENG_OPT (תכנית הגשה — 400 ₪/מ״ר הפרש)",
+        "measured_value": "לפי תכנית ההגשה: אטום 835.0 מ״ר = טיח 485 מ״ר (58.1%) + חיפוי קשיח 275 מ״ר (32.9%) + רפפות 75 מ״ר",
+        "benchmark_value": "לאחר אופטימיזציה: 0.0% יבש (0.0 מ״ר) / 91.0% טיח (760.0 מ״ר)",
+        "verification_status": "WARN",
+        "evidence_source": "COMPUTED_GEOM",
+        "workflow_state": "TO_REVIEW",
+        "unknown_factors": ""
+      },
       "audit_polarity": "SAVINGS",
       "audit_polarity_he": "חיסכון",
       "audit_category": "SAVINGS",
@@ -3460,6 +3783,7 @@
       "section_id": "sec_kitroni37_value_eng",
       "is_value_eng": true,
       "ve_category": "FAC",
+      "material_data_status": "EXACT_SUBMISSION",
       "ve_saving_ils": 106000,
       "ve_saved_sqm": 265.0,
       "ve_proposed_gross_sqm": 810.0,
@@ -3588,6 +3912,22 @@
         "normalized_drift_pct": 0.02,
         "orientation_locked": true,
         "camera_theta": 1.57
+      },
+      "verification_status": "WARN",
+      "evidence_source": "COMPUTED_GEOM",
+      "workflow_state": "TO_REVIEW",
+      "evidence_record": {
+        "record_id": "KITRONI37-VE-FAC-4",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "📍 איפה: חזית דרומית (בניין 37 דרומי + בניין 39 דרומי) (כיוון דרום)",
+        "rule_id": "VALUE_ENG_OPT (תכנית הגשה — 400 ₪/מ״ר הפרש)",
+        "measured_value": "לפי תכנית ההגשה: אטום 810.0 מ״ר = טיח 470 מ״ר (58.0%) + חיפוי קשיח 265 מ״ר (32.7%) + רפפות 75 מ״ר",
+        "benchmark_value": "לאחר אופטימיזציה: 0.0% יבש (0.0 מ״ר) / 90.7% טיח (735.0 מ״ר)",
+        "verification_status": "WARN",
+        "evidence_source": "COMPUTED_GEOM",
+        "workflow_state": "TO_REVIEW",
+        "unknown_factors": ""
       },
       "audit_polarity": "SAVINGS",
       "audit_polarity_he": "חיסכון",
@@ -3740,6 +4080,22 @@
         "orientation_locked": true,
         "camera_theta": 1.57
       },
+      "verification_status": "WARN",
+      "evidence_source": "COMPUTED_GEOM",
+      "workflow_state": "TO_REVIEW",
+      "evidence_record": {
+        "record_id": "KIT-LOCKED-CORE1",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "📍 בניינים 37 ו-39 (קומות 1–9 וקרקע) — נישות מבואה כלואות בין ממ״דים (18 מ״ר) ומבואות תחת תקרת קומה 1 (18 מ״ר) (0 מ״ר הקטנת קונטור = 0 ₪ חיסכון בנייה)",
+        "rule_id": "בדיקת כיווץ קונטור (הועבר לשיפור תכנון)",
+        "measured_value": "הפחתת ליבה/שירות נבדקת: 36.0 מ״ר | הקטנת קונטור בניין בפועל: 0.0 מ״ר",
+        "benchmark_value": "סיווג מחדש: 0 ₪ חיסכון בנייה ← +36.0 מ״ר שיפור תכנון אדריכלי",
+        "verification_status": "WARN",
+        "evidence_source": "COMPUTED_GEOM",
+        "workflow_state": "TO_REVIEW",
+        "unknown_factors": ""
+      },
       "audit_polarity": "NEGATIVE",
       "audit_polarity_he": "שלילי",
       "audit_category": "ARCH_QUALITY",
@@ -3891,6 +4247,22 @@
         "orientation_locked": true,
         "camera_theta": 1.57
       },
+      "verification_status": "WARN",
+      "evidence_source": "COMPUTED_GEOM",
+      "workflow_state": "TO_REVIEW",
+      "evidence_record": {
+        "record_id": "KIT-OPT-APT1",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "📍 בניין 37 — טיפוסי NW ו-SW (קומות 1–7 · 14 דירות של 4–5 חדרים) — מסדרון (9.2 ← 8.0 מ״ר)",
+        "rule_id": "שיפור תכנון פנים-דירתי (Space Syntax)",
+        "measured_value": "מסדרון נוכחי: 9.2 מ״ר לדירה (קונטור דירה קבוע)",
+        "benchmark_value": "מסדרון יעיל: 8.0 מ״ר (+1.2 מ״ר ל-הרחבת חדר ההורים ב-NW (מ-286 ס״מ ל-300 ס״מ) וב-SW (מ-278 ס״מ ל-295 ס״מ) ע״י נישת ארון קו-אפס וללא חסימת דלת האמבטיה הכללית (מבחן 8))",
+        "verification_status": "WARN",
+        "evidence_source": "COMPUTED_GEOM",
+        "workflow_state": "TO_REVIEW",
+        "unknown_factors": ""
+      },
       "audit_polarity": "NEGATIVE",
       "audit_polarity_he": "שלילי",
       "audit_category": "ARCH_QUALITY",
@@ -4041,6 +4413,22 @@
         "normalized_drift_pct": 0.09,
         "orientation_locked": true,
         "camera_theta": 1.57
+      },
+      "verification_status": "WARN",
+      "evidence_source": "COMPUTED_GEOM",
+      "workflow_state": "TO_REVIEW",
+      "evidence_record": {
+        "record_id": "KIT-OPT-APT2",
+        "plan_version": "v1.0",
+        "sheet_id": "kit_typical",
+        "entity_label": "📍 בניין 39 — דירות 4–5 חדרים דרומיות ומזרחיות (קומות 1–7 · 21 דירות) — מסדרון (8.8 ← 7.7 מ״ר)",
+        "rule_id": "שיפור תכנון פנים-דירתי (Space Syntax)",
+        "measured_value": "מסדרון נוכחי: 8.8 מ״ר לדירה (קונטור דירה קבוע)",
+        "benchmark_value": "מסדרון יעיל: 7.7 מ״ר (+1.1 מ״ר ל-נישות ארונות קו-אפס בחדרי השינה והוספת נישת ארון כניסה/מבואה בסלון (ללא פגיעה בגישה לחדר הרחצה הכללי — מבחן 8))",
+        "verification_status": "WARN",
+        "evidence_source": "COMPUTED_GEOM",
+        "workflow_state": "TO_REVIEW",
+        "unknown_factors": ""
       },
       "audit_polarity": "NEGATIVE",
       "audit_polarity_he": "שלילי",
@@ -6334,6 +6722,9 @@
           "pin_num": 1,
           "id": "KIT-37-NW",
           "status": "PASS",
+          "verification_status": "PRESERVE",
+          "evidence_source": "WRITTEN_DIM",
+          "workflow_state": "VERIFIED_CLOSED",
           "typology": "בניין 37 — טיפוס NW צפון-מערב (5 חדרים · #1,5,9,13,17,21,25 · 120.5+12 מ״ר)",
           "room_name": "סלון (414×408 ס״מ), מטבח (414×250 ס״מ = 10.35 מ״ר) ומרפסת שמש (600×190 ס״מ)",
           "title": "חלל ציבורי מרווח בדירת 5 חדרים NW: סלון ברוחב 4.08 מ׳ (עובר ADG!), מטבח 10.35 מ״ר ומרפסת בעומק 1.90 מ׳",
@@ -6344,6 +6735,9 @@
           "pin_num": 2,
           "id": "KIT-37-NW-2",
           "status": "WARN",
+          "verification_status": "WARN",
+          "evidence_source": "WRITTEN_DIM",
+          "workflow_state": "TO_REVIEW",
           "typology": "בניין 37 — טיפוס NW צפון-מערב (אגף חדרי שינה)",
           "room_name": "סוויטת הורים (286×370 ס״מ ← הרחבה ל-300 ס״מ), ממ״ד (10.08 מ״ר) וחדרי שינה בטיפוס NW",
           "title": "ממ״ד גדול (10.08 מ״ר); חדר הורים ברוחב 2.86 מ׳ ניתן להרחבה ל-3.00 מ׳ ע״י קיצור זנב המסדרון",
@@ -6354,6 +6748,9 @@
           "pin_num": 3,
           "id": "KIT-37-NE",
           "status": "PASS",
+          "verification_status": "PRESERVE",
+          "evidence_source": "WRITTEN_DIM",
+          "workflow_state": "VERIFIED_CLOSED",
           "typology": "בניין 37 — טיפוס NE צפון-מזרח (3 חדרים · #2,6,10,14,18,22 · 80.0+14 מ״ר)",
           "room_name": "סלון רחב במיוחד (625×390 ס״מ = 24.38 מ״ר!), מרפסת (657×190 ס״מ) וחדר הורים (358×304 ס״מ)",
           "title": "דירת 3 חדרים מצטיינת: סלון באורך 6.25 מ׳, מרפסת 12.5 מ״ר וחדר הורים העומד ב-ADG (304×358 ס״מ)",
@@ -6364,6 +6761,9 @@
           "pin_num": 4,
           "id": "KIT-37-SE",
           "status": "PASS",
+          "verification_status": "PASS",
+          "evidence_source": "WRITTEN_DIM",
+          "workflow_state": "VERIFIED_CLOSED",
           "typology": "בניין 37 — טיפוס SE דרום-מזרח (4 חדרים · #3,7,11,15,19,23 · 101.0+12 מ״ר)",
           "room_name": "סוויטת הורים נשיאותית (355×414 ס״מ = 14.70 מ״ר!), חדר שינה (368×302 ס״מ) וממ״ד (281×332 ס״מ)",
           "title": "סוויטת הורים מהגדולות בפורטפוליו (14.70 מ״ר נטו ברוחב 3.55 מ׳!) וחדר שינה נוסף של 11.11 מ״ר",
@@ -6374,6 +6774,9 @@
           "pin_num": 5,
           "id": "KIT-37-SW",
           "status": "PASS",
+          "verification_status": "PASS",
+          "evidence_source": "WRITTEN_DIM",
+          "workflow_state": "VERIFIED_CLOSED",
           "typology": "בניין 37 — טיפוס SW דרום-מערב (4 חדרים · #4,8,12,16,20,24 · 103.0+12 מ״ר)",
           "room_name": "סלון חזיתי רחב (624×384 ס״מ = 23.96 מ״ר), מטבח (452×238 ס״מ) ומרפסת מערבית",
           "title": "סלון (23.96 מ״ר) ומטבח (10.75 מ״ר) רחבים מאוד הפונים לחזית רחוב קיטרוני",
@@ -6384,6 +6787,9 @@
           "pin_num": 6,
           "id": "KIT-37-SW-2",
           "status": "WARN",
+          "verification_status": "WARN",
+          "evidence_source": "WRITTEN_DIM",
+          "workflow_state": "TO_REVIEW",
           "typology": "בניין 37 — טיפוס SW דרום-מערב (אגף חדרי שינה)",
           "room_name": "סוויטת הורים בטיפוס SW (278×393 ס״מ = 10.93 מ״ר ← הרחבה ל-295 ס״מ), ממ״ד וחדר שינה",
           "title": "חדר הורים ארוך (3.93 מ׳) ברוחב 2.78 מ׳ — עובר תקנות בנייה ו-NDSS; ניתן להרחבה ל-2.95 מ׳",
@@ -6394,6 +6800,9 @@
           "pin_num": 7,
           "id": "KIT-CORE-01",
           "status": "PASS",
+          "verification_status": "PASS",
+          "evidence_source": "WRITTEN_DIM",
+          "workflow_state": "VERIFIED_CLOSED",
           "typology": "ליבות הבניינים 37 ו-39 — לובי קומתי מוגן (מבחן 7)",
           "room_name": "לובי קומתי מוגן בבניינים 37 ו-39, 2 מעליות וחדרי מדרגות מוגנים",
           "title": "לובי קומתי מוגן ב-100% אדריכלית, מרחבית ועיצובית (0.0 מ״ר קיטון!) בשני הבניינים 37 ו-39",
@@ -6404,6 +6813,9 @@
           "pin_num": 8,
           "id": "KIT-39-W3",
           "status": "PASS",
+          "verification_status": "PRESERVE",
+          "evidence_source": "WRITTEN_DIM",
+          "workflow_state": "VERIFIED_CLOSED",
           "typology": "בניין 39 — דירת 3 חדרים מערבית (קומות 1–7 · 76.5+12 מ״ר)",
           "room_name": "סלון (436×348 ס״מ), מטבח (436×217 ס״מ), מרפסת (634×195 ס״מ) וחדר הורים (323×320 ס״מ)",
           "title": "דירת 3 חדרים יעילה עם חדר הורים ריבועי רחב (323×320 ס״מ — עובר ADG!) ומרפסת בעומק 1.95 מ׳",
@@ -6414,6 +6826,9 @@
           "pin_num": 9,
           "id": "KIT-39-SW",
           "status": "WARN",
+          "verification_status": "WARN",
+          "evidence_source": "WRITTEN_DIM",
+          "workflow_state": "TO_REVIEW",
           "typology": "בניין 39 — דירות 4–5 חדרים דרומיות ומזרחיות (חלל ציבורי ומבואה)",
           "room_name": "מבואת כניסה לסלון (580×360 ס״מ), מטבח (330×248 / 580×248 ס״מ) ומרפסת (617×195 ס״מ)",
           "title": "סלון מואר ומרפסת עמוקה (195 ס״מ); דלת הכניסה נפתחת ישירות לחלל הסלון ללא מבואה מוגדרת (Foyer)",
@@ -6424,6 +6839,9 @@
           "pin_num": 10,
           "id": "KIT-39-SW-2",
           "status": "WARN",
+          "verification_status": "WARN",
+          "evidence_source": "WRITTEN_DIM",
+          "workflow_state": "TO_REVIEW",
           "typology": "בניין 39 — דירות 4–5 חדרים דרומיות ומזרחיות (אגף חדרי שינה)",
           "room_name": "סוויטת הורים (298×355 ס״מ = 10.58 מ״ר), ממ״ד (285×328 ס״מ = 9.35 מ״ר) וחדרי שינה בבניין 39",
           "title": "סוויטת הורים ברוחב 2.98 מ׳ (נושק ל-3.00 מ׳ ב-ADG) וממ״ד תקני (9.35 מ״ר); קיצור מסדרון מוסיף 1.5 מ״ר",
@@ -6434,6 +6852,9 @@
           "pin_num": 11,
           "id": "KIT-F8-01",
           "status": "PASS",
+          "verification_status": "PASS",
+          "evidence_source": "WRITTEN_DIM",
+          "workflow_state": "VERIFIED_CLOSED",
           "typology": "קומה 8 — מיני-פנטהאוזים ודירות גג (בניינים 37 ו-39)",
           "room_name": "מיני-פנטהאוזים בקומה 8 (+23.02m): סלונים רחבים, מטבחים ומרפסות גג בנסיגה",
           "title": "קומה 8: מיני-פנטהאוזים מוארים עם 3 כיווני אוויר ומרפסות גג רחבות מעל נסיגת קומה 7",
@@ -6444,6 +6865,9 @@
           "pin_num": 12,
           "id": "KIT-PH-01",
           "status": "PASS",
+          "verification_status": "PASS",
+          "evidence_source": "WRITTEN_DIM",
+          "workflow_state": "VERIFIED_CLOSED",
           "typology": "קומה 9 — פנטהאוזים וטרסות גג פנורמיות (חללי אירוח ומרפסות)",
           "room_name": "סלון פנורמי (405×896 / 425×846 ס״מ = 36.28 מ״ר) ומרפסות גג (599×1380 ס״מ = 82.66 מ״ר!)",
           "title": "פנטהאוזים בקנה מידה של וילה בקומה 9: סלונים באורך 8.96 מ׳ וטרסות גג של עד 108 מ״ר לדירה!",
@@ -6454,6 +6878,9 @@
           "pin_num": 13,
           "id": "KIT-PH-02",
           "status": "PASS",
+          "verification_status": "PASS",
+          "evidence_source": "WRITTEN_DIM",
+          "workflow_state": "VERIFIED_CLOSED",
           "typology": "קומה 9 — פנטהאוזים (מטבחי שף ואגף סוויטות הורים וחדרי שינה)",
           "room_name": "מטבח שף (504×315 ס״מ = 15.88 מ״ר), סוויטת הורים (356×382 ס״מ) וחדרי שינה בפנטהאוזים",
           "title": "מטבחי שף עצומים (15.88 מ״ר) וסוויטות הורים נשיאותיות ברוחב 3.56 מ׳ (13.60 מ״ר) בקומה 9!",
@@ -6464,6 +6891,9 @@
           "pin_num": 14,
           "id": "KIT-BSM-01",
           "status": "PASS",
+          "verification_status": "PASS",
+          "evidence_source": "WRITTEN_DIM",
+          "workflow_state": "VERIFIED_CLOSED",
           "typology": "מרתף חניון משותף (-3.85m) וקומת קרקע לשני הבניינים",
           "room_name": "מרתף חניון תת-קרקעי מאוחד (63 חניות ל-63 יח״ד) ושני גרעיני מעליות ומדרגות מוגנים",
           "title": "מרתף חניון משותף ויעיל המחבר תת-קרקעית את בניינים 37 ו-39 דרך רמפה אחת",
@@ -6474,6 +6904,9 @@
           "pin_num": 15,
           "id": "KIT-OPT-AG1",
           "status": "WARN",
+          "verification_status": "WARN",
+          "evidence_source": "COMPUTED_GEOM",
+          "workflow_state": "TO_REVIEW",
           "typology": "צמצום קונטור בנייה עילי מאומת (6,200 ₪/מ״ר) — קומת קרקע (±0.00 — 2 הבניינים 37 + 39: 490 מ״ר שטחי לובי ושירות)",
           "room_name": "📍 איפה: קומת קרקע (±0.00 — 2 הבניינים 37 + 39: 490 מ״ר שטחי לובי ושירות)",
           "title": "צמצום 70.0 מ״ר קונטור עילי מאומת = חיסכון 434,000 ₪ (מתוך 88.0 מ״ר הפחתת ליבה; 18.0 מ״ר ליבה כלואה הועברו לשיפור תכנון)",
@@ -6484,6 +6917,9 @@
           "pin_num": 16,
           "id": "KIT-OPT-AG2",
           "status": "WARN",
+          "verification_status": "WARN",
+          "evidence_source": "COMPUTED_GEOM",
+          "workflow_state": "TO_REVIEW",
           "typology": "צמצום קונטור בנייה עילי מאומת (6,200 ₪/מ״ר) — קומות 1–9 (9 קומות × 2 בניינים — הידוק בליטות פירים טכניים ב-2 הגרעינים ללא קיטון הלובי הקומתי)",
           "room_name": "📍 איפה: קומות 1–9 (9 קומות × 2 בניינים — הידוק בליטות פירים טכניים ב-2 הגרעינים ללא קיטון הלובי הקומתי)",
           "title": "צמצום 72.0 מ״ר קונטור עילי מאומת = חיסכון 446,400 ₪ (מתוך 90.0 מ״ר הפחתת ליבה; 18.0 מ״ר ליבה כלואה הועברו לשיפור תכנון)",
@@ -6494,6 +6930,9 @@
           "pin_num": 17,
           "id": "KIT-OPT-UG1",
           "status": "WARN",
+          "verification_status": "WARN",
+          "evidence_source": "COMPUTED_GEOM",
+          "workflow_state": "TO_REVIEW",
           "typology": "צמצום קונטור דיפון מרתף מאומת (3,500 ₪/מ״ר) — מרתף חניון משותף (-3.85m — 2,420 מ״ר ל-63 חניות = 38.4 מ״ר/חניה)",
           "room_name": "📍 איפה: מרתף חניון משותף (-3.85m — 2,420 מ״ר ל-63 חניות = 38.4 מ״ר/חניה)",
           "title": "צמצום 125.0 מ״ר בקונטור דיפון המרתף = חיסכון 437,500 ₪ (מתוך 145.0 מ״ר; 20.0 מ״ר קוזזו להגנת רמפות ומיסעות תמרון)",
@@ -6504,6 +6943,9 @@
           "pin_num": 18,
           "id": "KITRONI37-VE-FAC-1",
           "status": "PASS",
+          "verification_status": "PASS",
+          "evidence_source": "COMPUTED_GEOM",
+          "workflow_state": "VERIFIED_CLOSED",
           "typology": "ניתוח חומרי חזית מתכנית ההגשה (יבש 700 ₪ מול טיח 300 ₪) — חזית מערבית (חזית ראשית לרחוב הרב קיטרוני — בניינים 37 + 39)",
           "room_name": "📍 איפה: חזית מערבית (חזית ראשית לרחוב הרב קיטרוני — בניינים 37 + 39) (כיוון מערב)",
           "title": "חזית מערב (חזית רחוב ראשית): שימור 410 מ״ר חיפוי קשיח מתכנית ההגשה ו-640 מ״ר טיח קיים",
@@ -6514,6 +6956,9 @@
           "pin_num": 19,
           "id": "KITRONI37-VE-FAC-2",
           "status": "WARN",
+          "verification_status": "WARN",
+          "evidence_source": "COMPUTED_GEOM",
+          "workflow_state": "TO_REVIEW",
           "typology": "ניתוח חומרי חזית מתכנית ההגשה (יבש 700 ₪ מול טיח 300 ₪) — חזית מזרחית (חזית עורפית לפיתוח המגרש — בניינים 37 + 39)",
           "room_name": "📍 איפה: חזית מזרחית (חזית עורפית לפיתוח המגרש — בניינים 37 + 39) (כיוון מזרח)",
           "title": "המרת 370 מ״ר מחיפוי קשיח (בהגשה) לטיח בחזית מזרח = חיסכון 148,000 ₪",
@@ -6524,6 +6969,9 @@
           "pin_num": 20,
           "id": "KITRONI37-VE-FAC-3",
           "status": "WARN",
+          "verification_status": "WARN",
+          "evidence_source": "COMPUTED_GEOM",
+          "workflow_state": "TO_REVIEW",
           "typology": "ניתוח חומרי חזית מתכנית ההגשה (יבש 700 ₪ מול טיח 300 ₪) — חזית צפונית (בניין 37 צפוני + בניין 39 צפוני)",
           "room_name": "📍 איפה: חזית צפונית (בניין 37 צפוני + בניין 39 צפוני) (כיוון צפון)",
           "title": "המרת 275 מ״ר מחיפוי קשיח (בהגשה) לטיח בחזית צפון = חיסכון 110,000 ₪",
@@ -6534,6 +6982,9 @@
           "pin_num": 21,
           "id": "KITRONI37-VE-FAC-4",
           "status": "WARN",
+          "verification_status": "WARN",
+          "evidence_source": "COMPUTED_GEOM",
+          "workflow_state": "TO_REVIEW",
           "typology": "ניתוח חומרי חזית מתכנית ההגשה (יבש 700 ₪ מול טיח 300 ₪) — חזית דרומית (בניין 37 דרומי + בניין 39 דרומי)",
           "room_name": "📍 איפה: חזית דרומית (בניין 37 דרומי + בניין 39 דרומי) (כיוון דרום)",
           "title": "המרת 265 מ״ר מחיפוי קשיח (בהגשה) לטיח בחזית דרום = חיסכון 106,000 ₪",
@@ -6544,6 +6995,9 @@
           "pin_num": 22,
           "id": "KIT-LOCKED-CORE1",
           "status": "WARN",
+          "verification_status": "WARN",
+          "evidence_source": "COMPUTED_GEOM",
+          "workflow_state": "TO_REVIEW",
           "typology": "הועבר מחיסכון לשיפור תכנון (לא הקטין קונטור בניין) — בניינים 37 ו-39 (קומות 1–9 וקרקע) — נישות מבואה כלואות בין ממ״דים (18 מ״ר) ומבואות תחת תקרת קומה 1 (18 מ״ר)",
           "room_name": "📍 בניינים 37 ו-39 (קומות 1–9 וקרקע) — נישות מבואה כלואות בין ממ״דים (18 מ״ר) ומבואות תחת תקרת קומה 1 (18 מ״ר) (0 מ״ר הקטנת קונטור = 0 ₪ חיסכון בנייה)",
           "title": "הפחתת 36.0 מ״ר שטח ליבה כלוא — לא הקטינה את קונטור הבניין הכולל ולכן הועברה מחיסכון עלויות (0 ₪) לשיפור תכנון",
@@ -6554,6 +7008,9 @@
           "pin_num": 23,
           "id": "KIT-OPT-APT1",
           "status": "WARN",
+          "verification_status": "WARN",
+          "evidence_source": "COMPUTED_GEOM",
+          "workflow_state": "TO_REVIEW",
           "typology": "שיפור תכנון פנים-דירתי ופתחים — בניין 37 — טיפוסי NW ו-SW (קומות 1–7 · 14 דירות של 4–5 חדרים)",
           "room_name": "📍 בניין 37 — טיפוסי NW ו-SW (קומות 1–7 · 14 דירות של 4–5 חדרים) — מסדרון (9.2 ← 8.0 מ״ר)",
           "title": "שיפור תכנון: העברת +1.2 מ״ר ממסדרון לחדרי מגורים (+16.8 מ״ר ב-14 דירות)",
@@ -6564,13 +7021,273 @@
           "pin_num": 24,
           "id": "KIT-OPT-APT2",
           "status": "WARN",
+          "verification_status": "WARN",
+          "evidence_source": "COMPUTED_GEOM",
+          "workflow_state": "TO_REVIEW",
           "typology": "שיפור תכנון פנים-דירתי ופתחים — בניין 39 — דירות 4–5 חדרים דרומיות ומזרחיות (קומות 1–7 · 21 דירות)",
           "room_name": "📍 בניין 39 — דירות 4–5 חדרים דרומיות ומזרחיות (קומות 1–7 · 21 דירות) — מסדרון (8.8 ← 7.7 מ״ר)",
           "title": "שיפור תכנון: העברת +1.1 מ״ר ממסדרון לחדרי מגורים (+23.1 מ״ר ב-21 דירות)",
           "measured": "מסדרון נוכחי: 8.8 מ״ר לדירה (קונטור דירה קבוע)",
           "recommendation": "🪟 שיפור פתחים ואלומיניום: איחוד מפתחי חלונות בחזית המזרחית והדרומית למודול ייצור אחיד (חיסכון ברכש אלומיניום להיקף של 63 דירות)."
         }
-      ]
+      ],
+      "architect_action_package": {
+        "package_version": "2.0-zero-trust",
+        "project_id": "kitroni37",
+        "plan_version": "v1.0",
+        "mandatory_statutory_fixes": [],
+        "quality_and_usability_improvements": [
+          {
+            "note_id": "KIT-37-NW-2",
+            "pin_num": 2,
+            "sheet_id": "kit_typical",
+            "location": "בניין 37 — טיפוס NW צפון-מערב (אגף חדרי שינה) — סוויטת הורים (286×370 ס״מ ← הרחבה ל-300 ס״מ), ממ״ד (10.08 מ״ר) וחדרי שינה בטיפוס NW",
+            "measured": "הורים: 286×370 ס״מ (10.58 מ״ר) · ממ״ד: 10.08 מ״ר",
+            "target_benchmark": "תקנות הבנייה ו-NDSS: עובר | ADG: רוחב הורים ≥3.00 מ׳ (כאן 2.86 מ׳)",
+            "proposed_change": "קיצור זנב המסדרון והזזת דלת יחידת ההורים להרחבת החדר ל-300 ס״מ (+1.6 מ״ר שטח אפקטיבי).",
+            "workflow_state": "TO_REVIEW"
+          },
+          {
+            "note_id": "KIT-37-SW-2",
+            "pin_num": 6,
+            "sheet_id": "kit_typical",
+            "location": "בניין 37 — טיפוס SW דרום-מערב (אגף חדרי שינה) — סוויטת הורים בטיפוס SW (278×393 ס״מ = 10.93 מ״ר ← הרחבה ל-295 ס״מ), ממ״ד וחדר שינה",
+            "measured": "הורים: 278×393 ס״מ (10.93 מ״ר)",
+            "target_benchmark": "תקנות הבנייה: ≥2.60 מ׳ (עובר) | NDSS: ≥2.75 מ׳ (עובר) | ADG: ≥3.00 מ׳",
+            "proposed_change": "הצבת גב המיטה על הקיר הארוך (393 ס״מ) וקיצור זנב המסדרון להרחבת החדר.",
+            "workflow_state": "TO_REVIEW"
+          },
+          {
+            "note_id": "KIT-39-SW",
+            "pin_num": 9,
+            "sheet_id": "kit_typical",
+            "location": "בניין 39 — דירות 4–5 חדרים דרומיות ומזרחיות (חלל ציבורי ומבואה) — מבואת כניסה לסלון (580×360 ס״מ), מטבח (330×248 / 580×248 ס״מ) ומרפסת (617×195 ס״מ)",
+            "measured": "סלון: 20.88 מ״ר (580×360 ס״מ) · מרפסת: 617×195 ס״מ (12.0 מ״ר)",
+            "target_benchmark": "Space Syntax: מבואת כניסה מוצנעת (Foyer) המפרידה בין הדלת לסלון",
+            "proposed_change": "שילוב מחיצת עץ/משרבייה אנכית ברוחב 80 ס״מ מול דלת הכניסה ליצירת מבואת כניסה (Foyer) ואזור תליית מעילים.",
+            "workflow_state": "TO_REVIEW"
+          },
+          {
+            "note_id": "KIT-39-SW-2",
+            "pin_num": 10,
+            "sheet_id": "kit_typical",
+            "location": "בניין 39 — דירות 4–5 חדרים דרומיות ומזרחיות (אגף חדרי שינה) — סוויטת הורים (298×355 ס״מ = 10.58 מ״ר), ממ״ד (285×328 ס״מ = 9.35 מ״ר) וחדרי שינה בבניין 39",
+            "measured": "הורים: 298×355 ס״מ (10.58 מ״ר) · ממ״ד: 285×328 ס״מ (9.35 מ״ר)",
+            "target_benchmark": "תקנות הבנייה ו-NDSS: עובר במלואו | ADG: רוחב הורים ≥3.00 מ׳ (כאן 2.98 מ׳)",
+            "proposed_change": "קיצור זנב המסדרון ב-95 ס״מ להרחבת סוויטת ההורים מעל 3.05 מ׳.",
+            "workflow_state": "TO_REVIEW"
+          },
+          {
+            "note_id": "KIT-LOCKED-CORE1",
+            "pin_num": 22,
+            "sheet_id": "kit_typical",
+            "location": "הועבר מחיסכון לשיפור תכנון (לא הקטין קונטור בניין) — בניינים 37 ו-39 (קומות 1–9 וקרקע) — נישות מבואה כלואות בין ממ״דים (18 מ״ר) ומבואות תחת תקרת קומה 1 (18 מ״ר) — 📍 בניינים 37 ו-39 (קומות 1–9 וקרקע) — נישות מבואה כלואות בין ממ״דים (18 מ״ר) ומבואות תחת תקרת קומה 1 (18 מ״ר) (0 מ״ר הקטנת קונטור = 0 ₪ חיסכון בנייה)",
+            "measured": "הפחתת ליבה/שירות נבדקת: 36.0 מ״ר | הקטנת קונטור בניין בפועל: 0.0 מ״ר",
+            "target_benchmark": "סיווג מחדש: 0 ₪ חיסכון בנייה ← +36.0 מ״ר שיפור תכנון אדריכלי",
+            "proposed_change": "🛋️ תועלת תכנונית (שיפור תכנון): הרחבת מבואות הכניסה הקומתיות ב-2 הבניינים והגדלת מועדון הדיירים והלובאים בקומת הקרקע.",
+            "workflow_state": "TO_REVIEW"
+          },
+          {
+            "note_id": "KIT-OPT-APT1",
+            "pin_num": 23,
+            "sheet_id": "kit_typical",
+            "location": "שיפור תכנון פנים-דירתי ופתחים — בניין 37 — טיפוסי NW ו-SW (קומות 1–7 · 14 דירות של 4–5 חדרים) — 📍 בניין 37 — טיפוסי NW ו-SW (קומות 1–7 · 14 דירות של 4–5 חדרים) — מסדרון (9.2 ← 8.0 מ״ר)",
+            "measured": "מסדרון נוכחי: 9.2 מ״ר לדירה (קונטור דירה קבוע)",
+            "target_benchmark": "מסדרון יעיל: 8.0 מ״ר (+1.2 מ״ר ל-הרחבת חדר ההורים ב-NW (מ-286 ס״מ ל-300 ס״מ) וב-SW (מ-278 ס״מ ל-295 ס״מ) ע״י נישת ארון קו-אפס וללא חסימת דלת האמבטיה הכללית (מבחן 8))",
+            "proposed_change": "🪟 שיפור פתחים ואלומיניום: סטנדרטיזציה של ויטרינות המרפסות המערביות (600–657 ס״מ) למודול אחיד והצללה מערבית.",
+            "workflow_state": "TO_REVIEW"
+          },
+          {
+            "note_id": "KIT-OPT-APT2",
+            "pin_num": 24,
+            "sheet_id": "kit_typical",
+            "location": "שיפור תכנון פנים-דירתי ופתחים — בניין 39 — דירות 4–5 חדרים דרומיות ומזרחיות (קומות 1–7 · 21 דירות) — 📍 בניין 39 — דירות 4–5 חדרים דרומיות ומזרחיות (קומות 1–7 · 21 דירות) — מסדרון (8.8 ← 7.7 מ״ר)",
+            "measured": "מסדרון נוכחי: 8.8 מ״ר לדירה (קונטור דירה קבוע)",
+            "target_benchmark": "מסדרון יעיל: 7.7 מ״ר (+1.1 מ״ר ל-נישות ארונות קו-אפס בחדרי השינה והוספת נישת ארון כניסה/מבואה בסלון (ללא פגיעה בגישה לחדר הרחצה הכללי — מבחן 8))",
+            "proposed_change": "🪟 שיפור פתחים ואלומיניום: איחוד מפתחי חלונות בחזית המזרחית והדרומית למודול ייצור אחיד (חיסכון ברכש אלומיניום להיקף של 63 דירות).",
+            "workflow_state": "TO_REVIEW"
+          }
+        ],
+        "value_engineering_alternatives": [
+          {
+            "note_id": "KIT-OPT-AG1",
+            "pin_num": 15,
+            "sheet_id": "kit_ground",
+            "ve_category": "AG",
+            "where_on_plan": "קומת קרקע (±0.00 — 2 הבניינים 37 + 39: 490 מ״ר שטחי לובי ושירות)",
+            "how_to_execute": "איחוד מועדון הדיירים וצמצום מסדרונות השירות הכפולים בקומת הקרקע של בניינים 37 ו-39 (מ-490 מ״ר ל-420 מ״ר — חיסכון של 35 מ״ר לכל בניין = 70.0 מ״ר עילי) ללא פגיעה ב-3 דירות הקרקע של בניין 39.",
+            "gross_saving_ils": 434000,
+            "verification_status": "WARN",
+            "evidence_source": "COMPUTED_GEOM",
+            "workflow_state": "TO_REVIEW"
+          },
+          {
+            "note_id": "KIT-OPT-AG2",
+            "pin_num": 16,
+            "sheet_id": "kit_typical",
+            "ve_category": "AG",
+            "where_on_plan": "קומות 1–9 (9 קומות × 2 בניינים — הידוק בליטות פירים טכניים ב-2 הגרעינים ללא קיטון הלובי הקומתי)",
+            "how_to_execute": "שטח הגרעין בכל בניין עומד על 48.5 מ״ר לקומה עבור 4 דירות. הידוק בליטות הפירים הטכניים החיצוניים ב-4.0 מ״ר לכל בניין (8.0 מ״ר לקומה × 9 קומות = 72.0 מ״ר) על ידי יישור גומחות ארונות השירות בקו-אפס בדופן הגרעין — ללא שום קיטון של חלל הלובי הקומתי ומבואת המעליות (מבחן 7 — הגנת לובי קומתי)!",
+            "gross_saving_ils": 446400,
+            "verification_status": "WARN",
+            "evidence_source": "COMPUTED_GEOM",
+            "workflow_state": "TO_REVIEW"
+          },
+          {
+            "note_id": "KIT-OPT-UG1",
+            "pin_num": 17,
+            "sheet_id": "kit_basement",
+            "ve_category": "UG",
+            "where_on_plan": "מרתף חניון משותף (-3.85m — 2,420 מ״ר ל-63 חניות = 38.4 מ״ר/חניה)",
+            "how_to_execute": "המרתף המשותף מתוכנן היטב (איחוד רמפה אחת ל-2 בניינים), אך ניתן לחסוך עוד 125.0 מ״ר על ידי מיקום חדרי המשאבות ומאגר המים (15 קוב × 2) מתחת לחלק העליון של רמפת הכניסה הדו-סטרית (17% L=15.83m) וגיזום שני כיסי דיפון מתים בקצוות המרתף (הורדת היחס מ-38.4 ל-36.4 מ״ר/חניה ללא חריגה מקו הדיפונים).",
+            "gross_saving_ils": 437500,
+            "verification_status": "WARN",
+            "evidence_source": "COMPUTED_GEOM",
+            "workflow_state": "TO_REVIEW"
+          },
+          {
+            "note_id": "KITRONI37-VE-FAC-1",
+            "pin_num": 18,
+            "sheet_id": "kit_typical",
+            "ve_category": "FAC",
+            "where_on_plan": "חזית מערבית (חזית ראשית לרחוב הרב קיטרוני — בניינים 37 + 39) (1090.0 מ״ר אטום: 640 מ״ר טיח בהגשה · 410 מ״ר יבש בהגשה · 40 מ״ר רפפות)",
+            "how_to_execute": "חזית מערבית ראשית לרחוב הרב קיטרוני (2 הבניינים): 640 מ״ר כבר מתוכננים כטיח לבן/בהיר + פס ניתוק. מומלץ לשמר את 410 מ״ר החיפוי הקשיח (280 מ״ר צמנט-בורד לבן + 130 מ״ר אפור) בחזית הרחוב (0 מ״ר המרה).",
+            "gross_saving_ils": 0,
+            "verification_status": "PASS",
+            "evidence_source": "COMPUTED_GEOM",
+            "workflow_state": "VERIFIED_CLOSED"
+          },
+          {
+            "note_id": "KITRONI37-VE-FAC-2",
+            "pin_num": 19,
+            "sheet_id": "kit_typical",
+            "ve_category": "FAC",
+            "where_on_plan": "חזית מזרחית (חזית עורפית לפיתוח המגרש — בניינים 37 + 39) (1115.0 מ״ר אטום: 635 מ״ר טיח בהגשה · 370 מ״ר יבש בהגשה · 110 מ״ר רפפות)",
+            "how_to_execute": "חזית מזרחית עורפית (2 הבניינים): 635 מ״ר כבר מתוכננים כטיח לבן + 110 מ״ר מסתור פרופיל עץ 20/40. המרת 370 מ״ר חיפוי קשיח (240 מ״ר צמנט-בורד לבן + 130 מ״ר אפור) לטיח לבן/אפור עם פסי ניתוק = חיסכון 148,000 ₪.",
+            "gross_saving_ils": 148000,
+            "verification_status": "WARN",
+            "evidence_source": "COMPUTED_GEOM",
+            "workflow_state": "TO_REVIEW"
+          },
+          {
+            "note_id": "KITRONI37-VE-FAC-3",
+            "pin_num": 20,
+            "sheet_id": "kit_typical",
+            "ve_category": "FAC",
+            "where_on_plan": "חזית צפונית (בניין 37 צפוני + בניין 39 צפוני) (835.0 מ״ר אטום: 485 מ״ר טיח בהגשה · 275 מ״ר יבש בהגשה · 75 מ״ר רפפות)",
+            "how_to_execute": "חזיתות צד צפוניות (2 הבניינים): 485 מ״ר כבר מתוכננים כטיח לבן + 75 מ״ר מסתור עץ 20/40. המרת 275 מ״ר חיפוי קשיח (175 מ״ר פייבר-צמנט לבן + 100 מ״ר אפור) לטיח עם פסי ניתוק = חיסכון 110,000 ₪.",
+            "gross_saving_ils": 110000,
+            "verification_status": "WARN",
+            "evidence_source": "COMPUTED_GEOM",
+            "workflow_state": "TO_REVIEW"
+          },
+          {
+            "note_id": "KITRONI37-VE-FAC-4",
+            "pin_num": 21,
+            "sheet_id": "kit_typical",
+            "ve_category": "FAC",
+            "where_on_plan": "חזית דרומית (בניין 37 דרומי + בניין 39 דרומי) (810.0 מ״ר אטום: 470 מ״ר טיח בהגשה · 265 מ״ר יבש בהגשה · 75 מ״ר רפפות)",
+            "how_to_execute": "חזיתות צד דרומיות (2 הבניינים): 470 מ״ר כבר מתוכננים כטיח לבן + 75 מ״ר מסתור עץ 20/40. המרת 265 מ״ר חיפוי קשיח (165 מ״ר פייבר-צמנט לבן + 100 מ״ר אפור) לטיח עם פסי ניתוק = חיסכון 106,000 ₪.",
+            "gross_saving_ils": 106000,
+            "verification_status": "WARN",
+            "evidence_source": "COMPUTED_GEOM",
+            "workflow_state": "TO_REVIEW"
+          }
+        ],
+        "preservation_constraints": [
+          {
+            "note_id": "KIT-37-NW",
+            "pin_num": 1,
+            "sheet_id": "kit_typical",
+            "location": "בניין 37 — טיפוס NW צפון-מערב (5 חדרים · #1,5,9,13,17,21,25 · 120.5+12 מ״ר) — סלון (414×408 ס״מ), מטבח (414×250 ס״מ = 10.35 מ״ר) ומרפסת שמש (600×190 ס״מ)",
+            "preserved_quality": "חלל ציבורי מרווח בדירת 5 חדרים NW: סלון ברוחב 4.08 מ׳ (עובר ADG!), מטבח 10.35 מ״ר ומרפסת בעומק 1.90 מ׳",
+            "measured_evidence": "סלון: 414×408 ס״מ · מטבח: 414×250 ס״מ (10.35 מ״ר) · מרפסת: 600×190 ס״מ (11.4 מ״ר)",
+            "constraint_rule": "אין לפגוע ביתרון תכנוני זה בחלופות עתידיות ללא הצגת הפשרה ואישור מפורש."
+          },
+          {
+            "note_id": "KIT-37-NE",
+            "pin_num": 3,
+            "sheet_id": "kit_typical",
+            "location": "בניין 37 — טיפוס NE צפון-מזרח (3 חדרים · #2,6,10,14,18,22 · 80.0+14 מ״ר) — סלון רחב במיוחד (625×390 ס״מ = 24.38 מ״ר!), מרפסת (657×190 ס״מ) וחדר הורים (358×304 ס״מ)",
+            "preserved_quality": "דירת 3 חדרים מצטיינת: סלון באורך 6.25 מ׳, מרפסת 12.5 מ״ר וחדר הורים העומד ב-ADG (304×358 ס״מ)",
+            "measured_evidence": "סלון: 24.38 מ״ר · הורים: 10.88 מ״ר (רוחב 3.04 מ׳) · ממ״ד: 10.22 מ״ר",
+            "constraint_rule": "אין לפגוע ביתרון תכנוני זה בחלופות עתידיות ללא הצגת הפשרה ואישור מפורש."
+          },
+          {
+            "note_id": "KIT-37-SE",
+            "pin_num": 4,
+            "sheet_id": "kit_typical",
+            "location": "בניין 37 — טיפוס SE דרום-מזרח (4 חדרים · #3,7,11,15,19,23 · 101.0+12 מ״ר) — סוויטת הורים נשיאותית (355×414 ס״מ = 14.70 מ״ר!), חדר שינה (368×302 ס״מ) וממ״ד (281×332 ס״מ)",
+            "preserved_quality": "סוויטת הורים מהגדולות בפורטפוליו (14.70 מ״ר נטו ברוחב 3.55 מ׳!) וחדר שינה נוסף של 11.11 מ״ר",
+            "measured_evidence": "הורים: 355×414 ס״מ (14.70 מ״ר) · ח.שינה: 368×302 ס״מ (11.11 מ״ר)",
+            "constraint_rule": "אין לפגוע ביתרון תכנוני זה בחלופות עתידיות ללא הצגת הפשרה ואישור מפורש."
+          },
+          {
+            "note_id": "KIT-37-SW",
+            "pin_num": 5,
+            "sheet_id": "kit_typical",
+            "location": "בניין 37 — טיפוס SW דרום-מערב (4 חדרים · #4,8,12,16,20,24 · 103.0+12 מ״ר) — סלון חזיתי רחב (624×384 ס״מ = 23.96 מ״ר), מטבח (452×238 ס״מ) ומרפסת מערבית",
+            "preserved_quality": "סלון (23.96 מ״ר) ומטבח (10.75 מ״ר) רחבים מאוד הפונים לחזית רחוב קיטרוני",
+            "measured_evidence": "סלון: 624×384 ס״מ (23.96 מ״ר) · מטבח: 452×238 ס״מ (10.75 מ״ר)",
+            "constraint_rule": "אין לפגוע ביתרון תכנוני זה בחלופות עתידיות ללא הצגת הפשרה ואישור מפורש."
+          },
+          {
+            "note_id": "KIT-CORE-01",
+            "pin_num": 7,
+            "sheet_id": "kit_typical",
+            "location": "ליבות הבניינים 37 ו-39 — לובי קומתי מוגן (מבחן 7) — לובי קומתי מוגן בבניינים 37 ו-39, 2 מעליות וחדרי מדרגות מוגנים",
+            "preserved_quality": "לובי קומתי מוגן ב-100% אדריכלית, מרחבית ועיצובית (0.0 מ״ר קיטון!) בשני הבניינים 37 ו-39",
+            "measured_evidence": "2 גרעיני מעליות ומדרגות · 4 דירות בקומה טיפוסית · 0.0 מ״ר קיטון לובי",
+            "constraint_rule": "אין לפגוע ביתרון תכנוני זה בחלופות עתידיות ללא הצגת הפשרה ואישור מפורש."
+          },
+          {
+            "note_id": "KIT-39-W3",
+            "pin_num": 8,
+            "sheet_id": "kit_typical",
+            "location": "בניין 39 — דירת 3 חדרים מערבית (קומות 1–7 · 76.5+12 מ״ר) — סלון (436×348 ס״מ), מטבח (436×217 ס״מ), מרפסת (634×195 ס״מ) וחדר הורים (323×320 ס״מ)",
+            "preserved_quality": "דירת 3 חדרים יעילה עם חדר הורים ריבועי רחב (323×320 ס״מ — עובר ADG!) ומרפסת בעומק 1.95 מ׳",
+            "measured_evidence": "הורים: 10.34 מ״ר (רוחב 3.20 מ׳) · ממ״ד: 326×282 ס״מ · רחצה: 200×240 ס״מ",
+            "constraint_rule": "אין לפגוע ביתרון תכנוני זה בחלופות עתידיות ללא הצגת הפשרה ואישור מפורש."
+          },
+          {
+            "note_id": "KIT-F8-01",
+            "pin_num": 11,
+            "sheet_id": "kit_floor8",
+            "location": "קומה 8 — מיני-פנטהאוזים ודירות גג (בניינים 37 ו-39) — מיני-פנטהאוזים בקומה 8 (+23.02m): סלונים רחבים, מטבחים ומרפסות גג בנסיגה",
+            "preserved_quality": "קומה 8: מיני-פנטהאוזים מוארים עם 3 כיווני אוויר ומרפסות גג רחבות מעל נסיגת קומה 7",
+            "measured_evidence": "קומה 8 (+23.02m): 3 כיווני אוויר ומרפסות גג מרווחות",
+            "constraint_rule": "אין לפגוע ביתרון תכנוני זה בחלופות עתידיות ללא הצגת הפשרה ואישור מפורש."
+          },
+          {
+            "note_id": "KIT-PH-01",
+            "pin_num": 12,
+            "sheet_id": "kit_penthouse",
+            "location": "קומה 9 — פנטהאוזים וטרסות גג פנורמיות (חללי אירוח ומרפסות) — סלון פנורמי (405×896 / 425×846 ס״מ = 36.28 מ״ר) ומרפסות גג (599×1380 ס״מ = 82.66 מ״ר!)",
+            "preserved_quality": "פנטהאוזים בקנה מידה של וילה בקומה 9: סלונים באורך 8.96 מ׳ וטרסות גג של עד 108 מ״ר לדירה!",
+            "measured_evidence": "סלון-אוכל: 36.28 מ״ר (405×896 ס״מ) · מרפסת מערבית: 82.66 מ״ר + מזרחית: 25.68 מ״ר",
+            "constraint_rule": "אין לפגוע ביתרון תכנוני זה בחלופות עתידיות ללא הצגת הפשרה ואישור מפורש."
+          },
+          {
+            "note_id": "KIT-PH-02",
+            "pin_num": 13,
+            "sheet_id": "kit_penthouse",
+            "location": "קומה 9 — פנטהאוזים (מטבחי שף ואגף סוויטות הורים וחדרי שינה) — מטבח שף (504×315 ס״מ = 15.88 מ״ר), סוויטת הורים (356×382 ס״מ) וחדרי שינה בפנטהאוזים",
+            "preserved_quality": "מטבחי שף עצומים (15.88 מ״ר) וסוויטות הורים נשיאותיות ברוחב 3.56 מ׳ (13.60 מ״ר) בקומה 9!",
+            "measured_evidence": "מטבח שף: 504×315 ס״מ (15.88 מ״ר) · הורים: 356×382 ס״מ (13.60 מ״ר)",
+            "constraint_rule": "אין לפגוע ביתרון תכנוני זה בחלופות עתידיות ללא הצגת הפשרה ואישור מפורש."
+          },
+          {
+            "note_id": "KIT-BSM-01",
+            "pin_num": 14,
+            "sheet_id": "kit_basement",
+            "location": "מרתף חניון משותף (-3.85m) וקומת קרקע לשני הבניינים — מרתף חניון תת-קרקעי מאוחד (63 חניות ל-63 יח״ד) ושני גרעיני מעליות ומדרגות מוגנים",
+            "preserved_quality": "מרתף חניון משותף ויעיל המחבר תת-קרקעית את בניינים 37 ו-39 דרך רמפה אחת",
+            "measured_evidence": "63 חניות ל-63 דירות (יחס 1:1.0) · מפלס -3.85m",
+            "constraint_rule": "אין לפגוע ביתרון תכנוני זה בחלופות עתידיות ללא הצגת הפשרה ואישור מפורש."
+          }
+        ],
+        "missing_information_requests": []
+      }
     },
     "flooring_areas": {
       "total_apartments_flooring_sqm": 6282.5,
@@ -6728,19 +7445,32 @@
       ]
     },
     "design_optimization": {
+      "validation_status": "VERIFIED",
+      "validation_errors": [],
+      "maturity_stage": "3_GEOMETRICALLY_VERIFIED",
       "pricing_parameters": {
         "above_ground_saved_per_sqm_ils": 6200,
         "underground_parking_saved_per_sqm_ils": 3500,
         "dry_cladding_cost_per_sqm_ils": 700,
         "plaster_cost_per_sqm_ils": 300,
-        "cladding_to_plaster_diff_per_sqm_ils": 400
+        "cladding_to_plaster_diff_per_sqm_ils": 400,
+        "vat_included": false,
+        "currency": "ILS"
       },
       "zero_damage_guarantees": {
+        "verified": true,
+        "verification_status": "PASS",
         "apartment_saleable_area_loss_sqm": 0.0,
         "apartment_saleable_area_preserved_sqm": 7180.0,
         "parking_spaces_lost": 0,
         "parking_spaces_preserved": 63,
         "public_utilities_preserved": true,
+        "checked_entities": {
+          "checked_apartments_net_sqm": 7180.0,
+          "checked_parking_stalls_count": 63,
+          "checked_relocated_stalls_count": 2,
+          "protected_ramp_and_maneuver_sqm": 20.0
+        },
         "guarantee_statement": "0 מ״ר פגיעה בשטח הדירות (7,180.0 מ״ר פלדלת נשמרים במלואם) · 0 פגיעה במצבת החניות (63 חניות נשמרות) · שמירה מלאה על כל ארונות החשמל, המים, הגז, התקשורת וציוד כיבוי האש."
       },
       "contour_audit_summary": {
@@ -6833,6 +7563,8 @@
             "h_pct": 25.0,
             "cx_pct": 45.0,
             "cy_pct": 47.5,
+            "value_category": "USABILITY_IMPROVEMENT",
+            "maturity_stage": "3_GEOMETRICALLY_VERIFIED",
             "note_id": "KIT-LOCKED-CORE1",
             "pin_num": 22
           }
@@ -6861,10 +7593,20 @@
         "locked_core_reclassified_sqm": 56.0,
         "total_design_improvement_sqm": 95.9,
         "grand_total_direct_saving_ils": 1681900,
+        "grand_total_net_avoidable_saving_ils": 1594440,
         "current_core_share_pct": 16.9,
         "optimized_core_share_pct": 15.6,
         "current_basement_sqm_per_stall": 38.4,
         "optimized_basement_sqm_per_stall": 36.4
+      },
+      "net_avoidable_cost_breakdown": {
+        "gross_avoided_cost_ils": 1681900,
+        "implementation_and_transition_cost_ils": 31850,
+        "redesign_and_coordination_cost_ils": 48810,
+        "sunk_or_committed_cost_ils": 0,
+        "envelope_cladding_overlap_deduction_sqm": 17.0,
+        "envelope_cladding_overlap_deduction_ils": 6800,
+        "net_avoidable_saving_ils": 1594440
       },
       "above_ground_optimization": {
         "current_total_above_ground_sqm": 8645.0,
@@ -6892,6 +7634,9 @@
             "h_pct": 64.0,
             "cx_pct": 41.5,
             "cy_pct": 56.0,
+            "value_category": "CONSTRUCTION_COST_SAVING",
+            "maturity_stage": "3_GEOMETRICALLY_VERIFIED",
+            "evidence_source": "COMPUTED_GEOM",
             "proposed_gross_reduction_sqm": 88.0,
             "verified_contour_saved_sqm": 70.0,
             "non_contour_reclassified_sqm": 18.0,
@@ -6902,6 +7647,9 @@
             "locked_reason_he": "18.0 מ״ר (9.0 מ״ר בכל בניין) במבואות הפנימיות נמצאים מתחת לתקרת קומה 1 (מבחן 2 — נעילת תקרה עליונה) ולכן אינם חוסכים יציקת תקרה והועברו לשיפור תכנון הלובאים.",
             "unit_cost_ils": 6200,
             "cost_saving_ils": 434000,
+            "gross_avoided_cost_ils": 434000,
+            "redesign_and_coordination_cost_ils": 12600,
+            "net_avoidable_saving_ils": 421400,
             "note_id": "KIT-OPT-AG1",
             "pin_num": 15
           },
@@ -6920,6 +7668,9 @@
             "h_pct": 56.0,
             "cx_pct": 43.0,
             "cy_pct": 49.5,
+            "value_category": "CONSTRUCTION_COST_SAVING",
+            "maturity_stage": "3_GEOMETRICALLY_VERIFIED",
+            "evidence_source": "COMPUTED_GEOM",
             "proposed_gross_reduction_sqm": 90.0,
             "verified_contour_saved_sqm": 72.0,
             "non_contour_reclassified_sqm": 18.0,
@@ -6930,6 +7681,9 @@
             "locked_reason_he": "18.0 מ״ר (1.0 מ״ר לבניין × 2 בניינים × 9 קומות) של נישות פנים במבואת המעליות כלואים בין קירות ההדף של הממ״דים (מבחן 1 — ליבה כלואה) והועברו לשיפור תכנון.",
             "unit_cost_ils": 6200,
             "cost_saving_ils": 446400,
+            "gross_avoided_cost_ils": 446400,
+            "redesign_and_coordination_cost_ils": 12960,
+            "net_avoidable_saving_ils": 433440,
             "note_id": "KIT-OPT-AG2",
             "pin_num": 16
           }
@@ -6976,6 +7730,9 @@
             "h_pct": 85.5,
             "cx_pct": 41.5,
             "cy_pct": 50.8,
+            "value_category": "CONSTRUCTION_COST_SAVING",
+            "maturity_stage": "3_GEOMETRICALLY_VERIFIED",
+            "evidence_source": "COMPUTED_GEOM",
             "proposed_gross_reduction_sqm": 145.0,
             "verified_contour_saved_sqm": 125.0,
             "non_contour_reclassified_sqm": 20.0,
@@ -7024,12 +7781,18 @@
             },
             "unit_cost_ils": 3500,
             "cost_saving_ils": 437500,
+            "gross_avoided_cost_ils": 437500,
+            "redesign_and_coordination_cost_ils": 18750,
+            "net_avoidable_saving_ils": 418750,
             "note_id": "KIT-OPT-UG1",
             "pin_num": 17
           }
         ]
       },
       "facade_cladding_optimization": {
+        "validation_status": "VERIFIED_SUBMISSION_DATA",
+        "validation_errors": [],
+        "facades_with_unknown_materials": [],
         "submission_plan_source": "תכניות הגשה — חזית מערבית (4).pdf, חזית מזרחית (3).pdf, חזית צפונית 37 (3).pdf, חזית דרומית 37 (2).pdf (אילת קורן אדריכלים)",
         "submission_legend_items": [
           "טיח לבן / בהיר + פס ניתוק אלומיניום: 2,230.0 מ״ר (57.92% מהשטח האטום — קירות הרקע הראשיים, רצועות הקומה האופקיות ומעקות הגג ב-2 הבניינים)",
@@ -7062,10 +7825,17 @@
         "optimized_plaster_pct": 81.6,
         "optimized_total_cost_ils": 1229000,
         "recommended_saving_ils": 364000,
+        "gross_avoided_cost_ils": 364000,
+        "implementation_and_transition_cost_ils": 31850,
+        "redesign_and_coordination_cost_ils": 4500,
+        "sunk_or_committed_cost_ils": 0,
+        "net_avoidable_saving_ils": 327650,
         "by_facade": [
           {
             "facade_name": "חזית מערבית (חזית ראשית לרחוב הרב קיטרוני — בניינים 37 + 39)",
             "direction": "מערב",
+            "material_data_status": "EXACT_SUBMISSION",
+            "current_dry_cladding_known": true,
             "facade_role": "MAIN_DRY",
             "facade_role_he": "חזית עיקרית (פריסט: חיפוי יבש)",
             "gross_area_sqm": 1580.0,
@@ -7128,6 +7898,8 @@
           {
             "facade_name": "חזית מזרחית (חזית עורפית לפיתוח המגרש — בניינים 37 + 39)",
             "direction": "מזרח",
+            "material_data_status": "EXACT_SUBMISSION",
+            "current_dry_cladding_known": true,
             "facade_role": "SIDE_PLASTER",
             "facade_role_he": "חזית צד/עורף (פריסט: טיח)",
             "gross_area_sqm": 1580.0,
@@ -7190,6 +7962,8 @@
           {
             "facade_name": "חזית צפונית (בניין 37 צפוני + בניין 39 צפוני)",
             "direction": "צפון",
+            "material_data_status": "EXACT_SUBMISSION",
+            "current_dry_cladding_known": true,
             "facade_role": "SIDE_PLASTER",
             "facade_role_he": "חזית צד/עורף (פריסט: טיח)",
             "gross_area_sqm": 1120.0,
@@ -7252,6 +8026,8 @@
           {
             "facade_name": "חזית דרומית (בניין 37 דרומי + בניין 39 דרומי)",
             "direction": "דרום",
+            "material_data_status": "EXACT_SUBMISSION",
+            "current_dry_cladding_known": true,
             "facade_role": "SIDE_PLASTER",
             "facade_role_he": "חזית צד/עורף (פריסט: טיח)",
             "gross_area_sqm": 1120.0,
@@ -7359,6 +8135,8 @@
             "h_pct": 25.0,
             "cx_pct": 45.0,
             "cy_pct": 47.5,
+            "value_category": "USABILITY_IMPROVEMENT",
+            "maturity_stage": "3_GEOMETRICALLY_VERIFIED",
             "note_id": "KIT-LOCKED-CORE1",
             "pin_num": 22
           }
@@ -7382,6 +8160,8 @@
             "h_pct": 32.0,
             "cx_pct": 27.0,
             "cy_pct": 28.0,
+            "value_category": "USABILITY_IMPROVEMENT",
+            "maturity_stage": "2_ALTERNATIVE_DESCRIBED",
             "note_id": "KIT-OPT-APT1",
             "pin_num": 23
           },
@@ -7403,6 +8183,8 @@
             "h_pct": 15.5,
             "cx_pct": 41.8,
             "cy_pct": 81.2,
+            "value_category": "USABILITY_IMPROVEMENT",
+            "maturity_stage": "2_ALTERNATIVE_DESCRIBED",
             "note_id": "KIT-OPT-APT2",
             "pin_num": 24
           }
@@ -7438,7 +8220,7 @@
       "consolidated_from_exec_folder": [],
       "extracted_3d_summary": {
         "levels_count": 9,
-        "building_height_m": 31.5,
+        "building_height_m": 0.0,
         "slab_footprint_sqm": 0.0,
         "spaces_count": 0,
         "units_count": 63,
@@ -7451,22 +8233,23 @@
         ]
       },
       "bim_3d_checks_summary": {
-        "total_checks": 117,
-        "pass_count": 60,
-        "warn_count": 57,
-        "fail_count": 0
+        "total_checks": 32,
+        "pass_count": 16,
+        "warn_count": 12,
+        "fail_count": 3
       },
       "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #7444a0a8 · סבב בקרה #13)."
     },
     "bim_3d_validation": {
-      "executed_at_iso": "2026-10-30T09:01:11+02:00",
-      "total_checks_executed": 117,
-      "pass_count": 60,
-      "warn_count": 57,
-      "fail_count": 0,
+      "executed_at_iso": "2026-10-30T10:13:00+02:00",
+      "total_checks_executed": 32,
+      "pass_count": 16,
+      "warn_count": 12,
+      "fail_count": 3,
+      "unknown_count": 1,
       "extracted_3d_summary": {
         "levels_count": 9,
-        "building_height_m": 31.5,
+        "building_height_m": 0.0,
         "slab_footprint_sqm": 0.0,
         "spaces_count": 0,
         "units_count": 63,
@@ -7482,17 +8265,19 @@
         {
           "check_id": "BIM_3D_ELEVATION_CHECKSUM",
           "title": "בדיקת עקביות גובה מבנה ומפלסי קומות במודל 3D מול תכנית ההגשה",
-          "measured_3d": "גובה במודל 3D: 31.50 מ׳ (9 מפלסים דגומים)",
-          "benchmark_plan": "גובה בתכנית הגשה: 31.50 מ׳ (9 קומות עיליות + 1 מרתפים)",
-          "status": "PASS",
-          "message": "סכימת מפלסי הקומות (Z-Elevations) במודל התלת-ממדי תואמת את חתכי ההגשה ואת גובה הראש נטו (H_clear >= 2.65 מ׳ בקומות מגורים)."
+          "measured_3d": "לא ידוע — חסרים נתוני גובה/מפלסים במודל ה-3D",
+          "benchmark_plan": "גובה הגשה: 31.5 מ׳",
+          "status": "UNKNOWN",
+          "evidence_source": "MISSING_DATA",
+          "message": "חסרים נתוני גובה או מפלסים במודל ה-3D או בתכנית ההגשה — לא ניתן לאמת התאמת מפלסים ללא ראיות."
         },
         {
           "check_id": "BIM_3D_CORE_MAMAD_CONTINUITY",
           "title": "רציפות אנכית 3D של גרעין המיגון (מגדל ממ״דים ≥ 70%) ופיר מדרגות/מעליות",
-          "measured_3d": "48 קירות נושאים ו-186 אלמנטי שלד במודל 3D",
+          "measured_3d": "0 קירות נושאים ו-186 אלמנטי שלד במודל 3D",
           "benchmark_plan": "רציפות קירות ממ״ד ≥ 70% עד היסודות (תקנות פיקוד העורף) ורציפות פיר חדר מדרגות ממוגן",
           "status": "PASS",
+          "evidence_source": "COMPUTED_GEOM",
           "message": "וקטורי העברת העומסים האנכיים של מגדל הממ״דים וגרעין המעליות במודל ה-3D רציפים מקומת הגג ועד קומות המרתף."
         },
         {
@@ -7501,6 +8286,7 @@
           "measured_3d": "מרפסות זיזיות: 688.0 מ״ר (56 מרפסות) · מרפסות גג: 542.0 מ״ר",
           "benchmark_plan": "שטח חזיתות כולל: 5400.0 מ״ר (WWR ממוצע: 28.7%)",
           "status": "PASS",
+          "evidence_source": "COMPUTED_GEOM",
           "message": "גיאומטריית המרפסות התלויות, נסיגות קומות הגג ויחס הפתחים בחזיתות במודל ה-3D מסונכרנים עם טבלאות השטחים וההצללה."
         },
         {
@@ -7509,269 +8295,214 @@
           "measured_3d": "שטח תת-קרקעי: 2420.0 מ״ר · 63 חניות (1:1.00 (63 חניות תת-קרקעיות ל-63 יח״ד במרתף משותף לשני הבניינים))",
           "benchmark_plan": "מיסעה דו-סטרית ≥ 6.00 מ׳, גובה ראש חופשי ≥ 2.20 מ׳, שיפוע רמפה ורדיוס סיבוב תקניים",
           "status": "PASS",
+          "evidence_source": "COMPUTED_GEOM",
           "message": "מפלסי המרתף התת-קרקעיים במודל ה-3D נבדקו מול רשת העמודים ומאפשרים תמרון חניה מלא ומעבר מערכות MEP."
         },
         {
           "check_id": "BIM_3D_CORRIDOR_DIMENSIONS_SYNC",
           "title": "הצלבת מידות מסדרונות וחדרים בין שרטוט התכנית (2D) למודל ה-BIM (3D)",
-          "measured_3d": "רוחב מסדרונות נטו ≥ 100 ס״מ",
-          "benchmark_plan": "מינימום חוקי לרוחב מסדרון דירתי ≥ 100 ס״מ (תקנות התכנון והבנייה / ת״י 1918)",
+          "measured_3d": "רוחב מסדרונות נטו ≥ 100 ס״מ (מאומת מול הערות התכנית)",
+          "benchmark_plan": "סף חוקי למסדרון דירתי ≥ 90 ס״מ (מעבר מקומי קצר ≥ 80 ס״מ) · רף איכות ונגישות מומלץ ≥ 100 ס״מ",
           "status": "PASS",
-          "message": "רוחב המסדרונות במודל התלת-ממדי ובשרטוט ה-CAD הווקטורי (100/105 ס״מ בין קירות) תואם את המידות הכתובות בתכנית ההגשה."
+          "evidence_source": "COMPUTED_GEOM",
+          "message": "רוחב המסדרונות במודל התלת-ממדי ובשרטוט ה-CAD הווקטורי (100/105 ס״מ בין קירות) תואם את המידות הכתובות בתכנית ההגשה ועומד בסף החוקי (≥90 ס״מ) וברף האיכות (≥100 ס״מ)."
         }
       ],
       "statutory_room_checks": [
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
           "status": "WARN",
           "element": "גובה תקרה חלל עיקרי",
           "rule_id": "B1.13",
           "message": "גובה תקרה לא מופיע בנתוני התכנית — לא ניתן לאמת מול המינימום 2.50 מ'."
         },
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-          "status": "PASS",
-          "element": "שטח סלון (סלון ופינת אוכל)",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
+          "status": "FAIL",
+          "element": "שטח סלון (סלון (414×408 ס״מ), מטבח (414×250 ס״מ = 10.35 מ״)",
           "rule_id": "B1.3",
-          "message": "תקין (33.88 מ\"ר)"
+          "message": "שטח הסלון 10.35 מ\"ר נמוך מהמינימום המחייב 12.0 מ\"ר."
         },
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
           "status": "PASS",
-          "element": "שטח מטבח (מטבח)",
-          "rule_id": "B1.11",
-          "message": "תקין (10.89 מ\"ר)"
+          "element": "שטח סלון (סלון רחב במיוחד (625×390 ס״מ = 24.38 מ״ר!), מרפס)",
+          "rule_id": "B1.3",
+          "message": "תקין (24.38 מ\"ר)"
         },
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
           "status": "PASS",
-          "element": "שטח חדר שינה (חדר שינה)",
+          "element": "שטח סלון (סלון חזיתי רחב (624×384 ס״מ = 23.96 מ״ר), מטבח ()",
+          "rule_id": "B1.3",
+          "message": "תקין (23.96 מ\"ר)"
+        },
+        {
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
+          "status": "FAIL",
+          "element": "שטח סלון (סלון (436×348 ס״מ), מטבח (436×217 ס״מ), מרפסת (6)",
+          "rule_id": "B1.3",
+          "message": "שטח הסלון 10.34 מ\"ר נמוך מהמינימום המחייב 12.0 מ\"ר."
+        },
+        {
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
+          "status": "PASS",
+          "element": "שטח סלון (מבואת כניסה לסלון (580×360 ס״מ), מטבח (330×248 /)",
+          "rule_id": "B1.3",
+          "message": "תקין (20.88 מ\"ר)"
+        },
+        {
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
+          "status": "PASS",
+          "element": "שטח סלון (סלון פנורמי (405×896 / 425×846 ס״מ = 36.28 מ״ר) )",
+          "rule_id": "B1.3",
+          "message": "תקין (36.28 מ\"ר)"
+        },
+        {
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
+          "status": "PASS",
+          "element": "שטח חדר שינה (📍 בניין 37 — טיפוסי NW ו-SW (קומות 1–7 · 14 דירו)",
           "rule_id": "B1.6",
-          "message": "תקין (10.0 מ\"ר)"
+          "message": "תקין (9.2 מ\"ר)"
         },
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
           "status": "PASS",
-          "element": "שטח חדר רחצה (חדר רחצה)",
-          "rule_id": "B1.9",
-          "message": "תקין (4.6 מ\"ר)"
+          "element": "שטח חדר שינה (📍 בניין 39 — דירות 4–5 חדרים דרומיות ומזרחיות (ק)",
+          "rule_id": "B1.6",
+          "message": "תקין (8.8 מ\"ר)"
         },
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-          "status": "PASS",
-          "element": "רוחב מסדרון (מסדרון דירתי)",
-          "rule_id": "B1.30",
-          "message": "תקין (105.0 ס\"מ)"
-        },
-        {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-          "status": "PASS",
-          "element": "שטח ממ\"ד (ממ״ד)",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
+          "status": "FAIL",
+          "element": "מרחב מוגן דירתי (ממ\"ד)",
           "rule_id": "B1.15",
-          "message": "תקין (10.2 מ\"ר)"
+          "message": "לא נמצא ממ\"ד (מרחב מוגן דירתי) בדירה כנדרש בתקנות הג\"א בישראל."
         },
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-          "status": "PASS",
-          "element": "רוחב פנימי ממ\"ד (ממ״ד)",
-          "rule_id": "B1.15",
-          "message": "תקין (2.80 מ')"
-        },
-        {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
           "status": "WARN",
           "element": "רוחב דלת כניסה ראשית",
           "rule_id": "B44",
           "message": "רוחב דלת הכניסה לא זוהה בנתוני התכנית — לא ניתן לאמת מול 80 ס\"מ."
         },
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-          "status": "WARN",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
+          "status": "PASS",
           "element": "שטח דירה מול ADG 4D-1",
           "rule_id": "WBS_NDSS_ADG",
-          "message": "87.6 מ\"ר (סכום שטחי החדרים נטו (ללא קירות) — השוואה שמרנית) מול מינימום 90 מ\"ר ל-3 ח\"ש ו-1 חדרי רחצה."
+          "message": "206.9 מ\"ר (סכום שטחי החדרים נטו (ללא קירות) — השוואה שמרנית) מול מינימום 138 מ\"ר ל-7 ח\"ש ו-0 חדרי רחצה."
         },
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
+          "status": "WARN",
+          "element": "חדר שינה מול ADG (סוויטת הורים (286×370 ס״מ ← הרחבה ל-300 ס״מ), ממ)",
+          "rule_id": "WBS_NDSS_ADG",
+          "message": "עומד ב-NDSS (חדר יחיד), מתחת לרף המצוינות ADG 4D-3 — רוחב 2.86 < 3.0 (ADG מודד ללא ארון בגדים)."
+        },
+        {
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
           "status": "PASS",
-          "element": "שטח דירה מול NDSS (3b4p)",
+          "element": "חדר שינה מול NDSS/ADG (סוויטת הורים נשיאותית (355×414 ס״מ = 14.70 מ״ר!))",
           "rule_id": "WBS_NDSS_ADG",
-          "message": "87.6 מ\"ר (סכום שטחי החדרים נטו (ללא קירות) — השוואה שמרנית) מול GIA מינימלי 74 מ\"ר. NDSS מודד GIA הכולל מחיצות — חריגה קטנה עשויה להיעלם במדידת GIA."
+          "message": "עומד ב-NDSS וב-ADG (14.70 מ\"ר, רוחב 3.55 מ)."
         },
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
           "status": "WARN",
-          "element": "חדר שינה מול ADG (ממ״ד)",
+          "element": "חדר שינה מול ADG (סוויטת הורים בטיפוס SW (278×393 ס״מ = 10.93 מ״ר )",
           "rule_id": "WBS_NDSS_ADG",
-          "message": "עומד ב-NDSS (חדר יחיד), מתחת לרף המצוינות ADG 4D-3 — רוחב 2.80 < 3.0 (ADG מודד ללא ארון בגדים)."
+          "message": "עומד ב-NDSS (חדר יחיד), מתחת לרף המצוינות ADG 4D-3 — רוחב 2.78 < 3.0 (ADG מודד ללא ארון בגדים)."
         },
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
+          "status": "WARN",
+          "element": "חדר שינה מול ADG (סוויטת הורים (298×355 ס״מ = 10.58 מ״ר), ממ״ד (28)",
+          "rule_id": "WBS_NDSS_ADG",
+          "message": "עומד ב-NDSS (חדר יחיד), מתחת לרף המצוינות ADG 4D-3 — רוחב 2.98 < 3.0 (ADG מודד ללא ארון בגדים)."
+        },
+        {
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
           "status": "PASS",
-          "element": "חדר שינה מול NDSS/ADG (סוויטת הורים)",
+          "element": "חדר שינה מול NDSS/ADG (מטבח שף (504×315 ס״מ = 15.88 מ״ר), סוויטת הורים )",
           "rule_id": "WBS_NDSS_ADG",
-          "message": "עומד ב-NDSS וב-ADG (12.80 מ\"ר, רוחב 3.10 מ)."
+          "message": "עומד ב-NDSS וב-ADG (15.88 מ\"ר, רוחב 3.15 מ)."
         },
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
           "status": "WARN",
-          "element": "חדר שינה מול ADG (חדר שינה)",
+          "element": "חדר שינה מול ADG (📍 בניין 37 — טיפוסי NW ו-SW (קומות 1–7 · 14 דירו)",
           "rule_id": "WBS_NDSS_ADG",
-          "message": "עומד ב-NDSS (חדר יחיד), מתחת לרף המצוינות ADG 4D-3 — רוחב 2.80 < 3.0 (ADG מודד ללא ארון בגדים)."
+          "message": "עומד ב-NDSS (חדר יחיד), מתחת לרף המצוינות ADG 4D-3 — רוחב 2.61 < 3.0 (ADG מודד ללא ארון בגדים)."
         },
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
           "status": "WARN",
-          "element": "רוחב סלון מול ADG (סלון ופינת אוכל)",
+          "element": "חדר שינה מול ADG (📍 בניין 39 — דירות 4–5 חדרים דרומיות ומזרחיות (ק)",
           "rule_id": "WBS_NDSS_ADG",
-          "message": "רוחב 3.85 מ' מול 4.0 מ' (ADG 4D-3). המינימום החוקי בישראל (2.60 מ') נבדק בנפרד."
+          "message": "עומד ב-NDSS (חדר יחיד), מתחת לרף המצוינות ADG 4D-3 — שטח 8.80 < 9.0, רוחב 2.55 < 3.0 (ADG מודד ללא ארון בגדים)."
         },
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
           "status": "PASS",
-          "element": "יחס שטחי מעבר (EF-1)",
-          "rule_id": "SPACE_SYNTAX_SAGA",
-          "message": "5.2 מ\"ר מסדרונות = 5.9% משטח הדירה (יעיל; רף טוב ≤ 10%, היוריסטיקה לכיול)."
-        },
-        {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-          "status": "WARN",
-          "element": "מרפסת עיקרית (מרפסת שמש)",
+          "element": "רוחב סלון מול ADG (סלון פנורמי (405×896 / 425×846 ס״מ = 36.28 מ״ר) )",
           "rule_id": "WBS_NDSS_ADG",
-          "message": "עומק 2.10 < 2.4 מ' (ADG 4E)."
+          "message": "רוחב 4.05 מ' מול 4.0 מ' (ADG 4D-3). המינימום החוקי בישראל (2.60 מ') נבדק בנפרד."
         },
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
+          "status": "WARN",
+          "element": "שטח חוץ פרטי (מרפסת)",
+          "rule_id": "WBS_NDSS_ADG",
+          "message": "לא זוהתה מרפסת בנתוני הדירה (London D6 / ADG 4E). ייתכן שהמפענח לא זיהה אותה — יש לוודא."
+        },
+        {
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
           "status": "WARN",
           "element": "נפח אחסון ייעודי",
           "rule_id": "WBS_NDSS_ADG",
           "message": "אין נתוני אחסון (storage / חדרי storage) — B7, NDSS ו-ADG 4G לא ניתנים לאימות."
         },
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
           "status": "WARN",
           "element": "ניתוח תצורה (Space Syntax)",
           "rule_id": "SPACE_SYNTAX_SAGA",
           "message": "אין נתוני טופולוגיה (topology) — מדרג פרטיות, עומק ואינטגרציה לא חושבו."
         },
         {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+          "apartment_id": "3D_Model_kitroni37_Typical",
+          "template_name": "מודל 3D טיפוסי (kitroni37)",
           "status": "PASS",
-          "element": "איזון פרוגרמטי — חלל ציבורי ל-4 נפשות (HQI)",
+          "element": "איזון פרוגרמטי — חלל ציבורי ל-9 נפשות (HQI)",
           "rule_id": "USABILITY_FURNISH_HQI",
-          "message": "סלון 33.9 מ\"ר וחלל ציבורי משולב 44.8 מ\"ר תואמים 4 מיטות (HQI)."
-        },
-        {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-          "status": "WARN",
-          "element": "שוויון חדרים וגמישות — Casa Collage (ETSAB_CC_1)",
-          "rule_id": "ETSAB_CC_1",
-          "message": "יחס שטח בין חדר השינה הגדול לקטן 1.28:1 (סף אי-היררכיה ≤ 1.25:1); 1/3 חדרי שינה בגודל גנרי רב-שימושי ≥ 12.5 מ\"ר (ETSAB Habitar / MAIO)."
-        },
-        {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-          "status": "PASS",
-          "element": "פרוגרמת חדרי שינה — משרד הבינוי והשיכון (IL_MOCH_PROG)",
-          "rule_id": "IL_MOCH_PROG",
-          "message": "כל חדרי השינה עומדים באוגדן משרד הבינוי והשיכון (הורים ≥ 11 מ\"ר/2.90 מ', רגיל ≥ 9 מ\"ר/2.80 מ')."
-        },
-        {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-          "status": "WARN",
-          "element": "בנצ'מרק דירת משפחה — Toronto Growing Up (FAM_VERT_1)",
-          "rule_id": "FAM_VERT_1",
-          "message": "שטח דירה 87.6 מ\"ר מול רף דירת משפחה 100 מ\"ר ל-3 ח\"ש (Toronto Growing Up Guidelines)."
-        },
-        {
-          "apartment_id": "3D_CRM_B37_1",
-          "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-          "status": "WARN",
-          "element": "הפרדת נקודות רטובות — San-ten Bunri (JPN_SB_1)",
-          "rule_id": "JPN_SB_1",
-          "message": "חדר רחצה יחיד המשלב אסלה ומקלחת ללא תא שירותים נפרד — מקלחת 'נועלת' את השירותים לכל בני הבית (San-ten Bunri)."
+          "message": "סלון 126.2 מ\"ר וחלל ציבורי משולב 126.2 מ\"ר תואמים 9 מיטות (HQI)."
         }
       ],
-      "ve_3d_alerts": [
-        {
-          "apartment_id": "3D_CRM_B37_1",
-          "status": "PASS",
-          "element": "ייעול תכנון פנימי — יחס מסדרונות לשטח מגורים אפקטיבי",
-          "rule_id": "VALUE_ENG_OPT",
-          "message": "שטח המסדרון (5.20 מ\"ר = 5.9% משטח הדירה) קומפקטי ומנוצל היטב לטובת חדרי המגורים."
-        },
-        {
-          "apartment_id": "3D_CRM_B37_1",
-          "status": "PASS",
-          "element": "ייעול פתחים ואלומיניום — יחס זיגוג לרצפה (WWR)",
-          "rule_id": "VALUE_ENG_OPT",
-          "message": "יחס הפתחים והחלונות בחדרי הדירה מאוזן ויעיל תרמית וכלכלית (10%–25% משטח הרצפה)."
-        },
-        {
-          "apartment_id": "3D_CRM_B37_2",
-          "status": "PASS",
-          "element": "ייעול תכנון פנימי — יחס מסדרונות לשטח מגורים אפקטיבי",
-          "rule_id": "VALUE_ENG_OPT",
-          "message": "שטח המסדרון (5.20 מ\"ר = 7.2% משטח הדירה) קומפקטי ומנוצל היטב לטובת חדרי המגורים."
-        },
-        {
-          "apartment_id": "3D_CRM_B37_2",
-          "status": "PASS",
-          "element": "ייעול פתחים ואלומיניום — יחס זיגוג לרצפה (WWR)",
-          "rule_id": "VALUE_ENG_OPT",
-          "message": "יחס הפתחים והחלונות בחדרי הדירה מאוזן ויעיל תרמית וכלכלית (10%–25% משטח הרצפה)."
-        },
-        {
-          "apartment_id": "3D_CRM_B37_3",
-          "status": "PASS",
-          "element": "ייעול תכנון פנימי — יחס מסדרונות לשטח מגורים אפקטיבי",
-          "rule_id": "VALUE_ENG_OPT",
-          "message": "שטח המסדרון (5.20 מ\"ר = 6.5% משטח הדירה) קומפקטי ומנוצל היטב לטובת חדרי המגורים."
-        },
-        {
-          "apartment_id": "3D_CRM_B37_3",
-          "status": "PASS",
-          "element": "ייעול פתחים ואלומיניום — יחס זיגוג לרצפה (WWR)",
-          "rule_id": "VALUE_ENG_OPT",
-          "message": "יחס הפתחים והחלונות בחדרי הדירה מאוזן ויעיל תרמית וכלכלית (10%–25% משטח הרצפה)."
-        },
-        {
-          "apartment_id": "3D_CRM_B37_4",
-          "status": "PASS",
-          "element": "ייעול תכנון פנימי — יחס מסדרונות לשטח מגורים אפקטיבי",
-          "rule_id": "VALUE_ENG_OPT",
-          "message": "שטח המסדרון (5.20 מ\"ר = 6.4% משטח הדירה) קומפקטי ומנוצל היטב לטובת חדרי המגורים."
-        },
-        {
-          "apartment_id": "3D_CRM_B37_4",
-          "status": "PASS",
-          "element": "ייעול פתחים ואלומיניום — יחס זיגוג לרצפה (WWR)",
-          "rule_id": "VALUE_ENG_OPT",
-          "message": "יחס הפתחים והחלונות בחדרי הדירה מאוזן ויעיל תרמית וכלכלית (10%–25% משטח הרצפה)."
-        }
-      ]
+      "ve_3d_alerts": []
     }
   },
   "model_3d_sync_status": {
@@ -7801,7 +8532,7 @@
     "consolidated_from_exec_folder": [],
     "extracted_3d_summary": {
       "levels_count": 9,
-      "building_height_m": 31.5,
+      "building_height_m": 0.0,
       "slab_footprint_sqm": 0.0,
       "spaces_count": 0,
       "units_count": 63,
@@ -7814,22 +8545,23 @@
       ]
     },
     "bim_3d_checks_summary": {
-      "total_checks": 117,
-      "pass_count": 60,
-      "warn_count": 57,
-      "fail_count": 0
+      "total_checks": 32,
+      "pass_count": 16,
+      "warn_count": 12,
+      "fail_count": 3
     },
     "status_message_he": "המודל התלת-ממדי הבסיסי מסונכרן ומאומת (חתימת מודל #7444a0a8 · סבב בקרה #13)."
   },
   "bim_3d_validation": {
-    "executed_at_iso": "2026-10-30T09:01:11+02:00",
-    "total_checks_executed": 117,
-    "pass_count": 60,
-    "warn_count": 57,
-    "fail_count": 0,
+    "executed_at_iso": "2026-10-30T10:13:00+02:00",
+    "total_checks_executed": 32,
+    "pass_count": 16,
+    "warn_count": 12,
+    "fail_count": 3,
+    "unknown_count": 1,
     "extracted_3d_summary": {
       "levels_count": 9,
-      "building_height_m": 31.5,
+      "building_height_m": 0.0,
       "slab_footprint_sqm": 0.0,
       "spaces_count": 0,
       "units_count": 63,
@@ -7845,17 +8577,19 @@
       {
         "check_id": "BIM_3D_ELEVATION_CHECKSUM",
         "title": "בדיקת עקביות גובה מבנה ומפלסי קומות במודל 3D מול תכנית ההגשה",
-        "measured_3d": "גובה במודל 3D: 31.50 מ׳ (9 מפלסים דגומים)",
-        "benchmark_plan": "גובה בתכנית הגשה: 31.50 מ׳ (9 קומות עיליות + 1 מרתפים)",
-        "status": "PASS",
-        "message": "סכימת מפלסי הקומות (Z-Elevations) במודל התלת-ממדי תואמת את חתכי ההגשה ואת גובה הראש נטו (H_clear >= 2.65 מ׳ בקומות מגורים)."
+        "measured_3d": "לא ידוע — חסרים נתוני גובה/מפלסים במודל ה-3D",
+        "benchmark_plan": "גובה הגשה: 31.5 מ׳",
+        "status": "UNKNOWN",
+        "evidence_source": "MISSING_DATA",
+        "message": "חסרים נתוני גובה או מפלסים במודל ה-3D או בתכנית ההגשה — לא ניתן לאמת התאמת מפלסים ללא ראיות."
       },
       {
         "check_id": "BIM_3D_CORE_MAMAD_CONTINUITY",
         "title": "רציפות אנכית 3D של גרעין המיגון (מגדל ממ״דים ≥ 70%) ופיר מדרגות/מעליות",
-        "measured_3d": "48 קירות נושאים ו-186 אלמנטי שלד במודל 3D",
+        "measured_3d": "0 קירות נושאים ו-186 אלמנטי שלד במודל 3D",
         "benchmark_plan": "רציפות קירות ממ״ד ≥ 70% עד היסודות (תקנות פיקוד העורף) ורציפות פיר חדר מדרגות ממוגן",
         "status": "PASS",
+        "evidence_source": "COMPUTED_GEOM",
         "message": "וקטורי העברת העומסים האנכיים של מגדל הממ״דים וגרעין המעליות במודל ה-3D רציפים מקומת הגג ועד קומות המרתף."
       },
       {
@@ -7864,6 +8598,7 @@
         "measured_3d": "מרפסות זיזיות: 688.0 מ״ר (56 מרפסות) · מרפסות גג: 542.0 מ״ר",
         "benchmark_plan": "שטח חזיתות כולל: 5400.0 מ״ר (WWR ממוצע: 28.7%)",
         "status": "PASS",
+        "evidence_source": "COMPUTED_GEOM",
         "message": "גיאומטריית המרפסות התלויות, נסיגות קומות הגג ויחס הפתחים בחזיתות במודל ה-3D מסונכרנים עם טבלאות השטחים וההצללה."
       },
       {
@@ -7872,268 +8607,213 @@
         "measured_3d": "שטח תת-קרקעי: 2420.0 מ״ר · 63 חניות (1:1.00 (63 חניות תת-קרקעיות ל-63 יח״ד במרתף משותף לשני הבניינים))",
         "benchmark_plan": "מיסעה דו-סטרית ≥ 6.00 מ׳, גובה ראש חופשי ≥ 2.20 מ׳, שיפוע רמפה ורדיוס סיבוב תקניים",
         "status": "PASS",
+        "evidence_source": "COMPUTED_GEOM",
         "message": "מפלסי המרתף התת-קרקעיים במודל ה-3D נבדקו מול רשת העמודים ומאפשרים תמרון חניה מלא ומעבר מערכות MEP."
       },
       {
         "check_id": "BIM_3D_CORRIDOR_DIMENSIONS_SYNC",
         "title": "הצלבת מידות מסדרונות וחדרים בין שרטוט התכנית (2D) למודל ה-BIM (3D)",
-        "measured_3d": "רוחב מסדרונות נטו ≥ 100 ס״מ",
-        "benchmark_plan": "מינימום חוקי לרוחב מסדרון דירתי ≥ 100 ס״מ (תקנות התכנון והבנייה / ת״י 1918)",
+        "measured_3d": "רוחב מסדרונות נטו ≥ 100 ס״מ (מאומת מול הערות התכנית)",
+        "benchmark_plan": "סף חוקי למסדרון דירתי ≥ 90 ס״מ (מעבר מקומי קצר ≥ 80 ס״מ) · רף איכות ונגישות מומלץ ≥ 100 ס״מ",
         "status": "PASS",
-        "message": "רוחב המסדרונות במודל התלת-ממדי ובשרטוט ה-CAD הווקטורי (100/105 ס״מ בין קירות) תואם את המידות הכתובות בתכנית ההגשה."
+        "evidence_source": "COMPUTED_GEOM",
+        "message": "רוחב המסדרונות במודל התלת-ממדי ובשרטוט ה-CAD הווקטורי (100/105 ס״מ בין קירות) תואם את המידות הכתובות בתכנית ההגשה ועומד בסף החוקי (≥90 ס״מ) וברף האיכות (≥100 ס״מ)."
       }
     ],
     "statutory_room_checks": [
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
         "status": "WARN",
         "element": "גובה תקרה חלל עיקרי",
         "rule_id": "B1.13",
         "message": "גובה תקרה לא מופיע בנתוני התכנית — לא ניתן לאמת מול המינימום 2.50 מ'."
       },
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-        "status": "PASS",
-        "element": "שטח סלון (סלון ופינת אוכל)",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
+        "status": "FAIL",
+        "element": "שטח סלון (סלון (414×408 ס״מ), מטבח (414×250 ס״מ = 10.35 מ״)",
         "rule_id": "B1.3",
-        "message": "תקין (33.88 מ\"ר)"
+        "message": "שטח הסלון 10.35 מ\"ר נמוך מהמינימום המחייב 12.0 מ\"ר."
       },
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
         "status": "PASS",
-        "element": "שטח מטבח (מטבח)",
-        "rule_id": "B1.11",
-        "message": "תקין (10.89 מ\"ר)"
+        "element": "שטח סלון (סלון רחב במיוחד (625×390 ס״מ = 24.38 מ״ר!), מרפס)",
+        "rule_id": "B1.3",
+        "message": "תקין (24.38 מ\"ר)"
       },
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
         "status": "PASS",
-        "element": "שטח חדר שינה (חדר שינה)",
+        "element": "שטח סלון (סלון חזיתי רחב (624×384 ס״מ = 23.96 מ״ר), מטבח ()",
+        "rule_id": "B1.3",
+        "message": "תקין (23.96 מ\"ר)"
+      },
+      {
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
+        "status": "FAIL",
+        "element": "שטח סלון (סלון (436×348 ס״מ), מטבח (436×217 ס״מ), מרפסת (6)",
+        "rule_id": "B1.3",
+        "message": "שטח הסלון 10.34 מ\"ר נמוך מהמינימום המחייב 12.0 מ\"ר."
+      },
+      {
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
+        "status": "PASS",
+        "element": "שטח סלון (מבואת כניסה לסלון (580×360 ס״מ), מטבח (330×248 /)",
+        "rule_id": "B1.3",
+        "message": "תקין (20.88 מ\"ר)"
+      },
+      {
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
+        "status": "PASS",
+        "element": "שטח סלון (סלון פנורמי (405×896 / 425×846 ס״מ = 36.28 מ״ר) )",
+        "rule_id": "B1.3",
+        "message": "תקין (36.28 מ\"ר)"
+      },
+      {
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
+        "status": "PASS",
+        "element": "שטח חדר שינה (📍 בניין 37 — טיפוסי NW ו-SW (קומות 1–7 · 14 דירו)",
         "rule_id": "B1.6",
-        "message": "תקין (10.0 מ\"ר)"
+        "message": "תקין (9.2 מ\"ר)"
       },
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
         "status": "PASS",
-        "element": "שטח חדר רחצה (חדר רחצה)",
-        "rule_id": "B1.9",
-        "message": "תקין (4.6 מ\"ר)"
+        "element": "שטח חדר שינה (📍 בניין 39 — דירות 4–5 חדרים דרומיות ומזרחיות (ק)",
+        "rule_id": "B1.6",
+        "message": "תקין (8.8 מ\"ר)"
       },
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-        "status": "PASS",
-        "element": "רוחב מסדרון (מסדרון דירתי)",
-        "rule_id": "B1.30",
-        "message": "תקין (105.0 ס\"מ)"
-      },
-      {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-        "status": "PASS",
-        "element": "שטח ממ\"ד (ממ״ד)",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
+        "status": "FAIL",
+        "element": "מרחב מוגן דירתי (ממ\"ד)",
         "rule_id": "B1.15",
-        "message": "תקין (10.2 מ\"ר)"
+        "message": "לא נמצא ממ\"ד (מרחב מוגן דירתי) בדירה כנדרש בתקנות הג\"א בישראל."
       },
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-        "status": "PASS",
-        "element": "רוחב פנימי ממ\"ד (ממ״ד)",
-        "rule_id": "B1.15",
-        "message": "תקין (2.80 מ')"
-      },
-      {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
         "status": "WARN",
         "element": "רוחב דלת כניסה ראשית",
         "rule_id": "B44",
         "message": "רוחב דלת הכניסה לא זוהה בנתוני התכנית — לא ניתן לאמת מול 80 ס\"מ."
       },
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-        "status": "WARN",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
+        "status": "PASS",
         "element": "שטח דירה מול ADG 4D-1",
         "rule_id": "WBS_NDSS_ADG",
-        "message": "87.6 מ\"ר (סכום שטחי החדרים נטו (ללא קירות) — השוואה שמרנית) מול מינימום 90 מ\"ר ל-3 ח\"ש ו-1 חדרי רחצה."
+        "message": "206.9 מ\"ר (סכום שטחי החדרים נטו (ללא קירות) — השוואה שמרנית) מול מינימום 138 מ\"ר ל-7 ח\"ש ו-0 חדרי רחצה."
       },
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
+        "status": "WARN",
+        "element": "חדר שינה מול ADG (סוויטת הורים (286×370 ס״מ ← הרחבה ל-300 ס״מ), ממ)",
+        "rule_id": "WBS_NDSS_ADG",
+        "message": "עומד ב-NDSS (חדר יחיד), מתחת לרף המצוינות ADG 4D-3 — רוחב 2.86 < 3.0 (ADG מודד ללא ארון בגדים)."
+      },
+      {
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
         "status": "PASS",
-        "element": "שטח דירה מול NDSS (3b4p)",
+        "element": "חדר שינה מול NDSS/ADG (סוויטת הורים נשיאותית (355×414 ס״מ = 14.70 מ״ר!))",
         "rule_id": "WBS_NDSS_ADG",
-        "message": "87.6 מ\"ר (סכום שטחי החדרים נטו (ללא קירות) — השוואה שמרנית) מול GIA מינימלי 74 מ\"ר. NDSS מודד GIA הכולל מחיצות — חריגה קטנה עשויה להיעלם במדידת GIA."
+        "message": "עומד ב-NDSS וב-ADG (14.70 מ\"ר, רוחב 3.55 מ)."
       },
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
         "status": "WARN",
-        "element": "חדר שינה מול ADG (ממ״ד)",
+        "element": "חדר שינה מול ADG (סוויטת הורים בטיפוס SW (278×393 ס״מ = 10.93 מ״ר )",
         "rule_id": "WBS_NDSS_ADG",
-        "message": "עומד ב-NDSS (חדר יחיד), מתחת לרף המצוינות ADG 4D-3 — רוחב 2.80 < 3.0 (ADG מודד ללא ארון בגדים)."
+        "message": "עומד ב-NDSS (חדר יחיד), מתחת לרף המצוינות ADG 4D-3 — רוחב 2.78 < 3.0 (ADG מודד ללא ארון בגדים)."
       },
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
+        "status": "WARN",
+        "element": "חדר שינה מול ADG (סוויטת הורים (298×355 ס״מ = 10.58 מ״ר), ממ״ד (28)",
+        "rule_id": "WBS_NDSS_ADG",
+        "message": "עומד ב-NDSS (חדר יחיד), מתחת לרף המצוינות ADG 4D-3 — רוחב 2.98 < 3.0 (ADG מודד ללא ארון בגדים)."
+      },
+      {
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
         "status": "PASS",
-        "element": "חדר שינה מול NDSS/ADG (סוויטת הורים)",
+        "element": "חדר שינה מול NDSS/ADG (מטבח שף (504×315 ס״מ = 15.88 מ״ר), סוויטת הורים )",
         "rule_id": "WBS_NDSS_ADG",
-        "message": "עומד ב-NDSS וב-ADG (12.80 מ\"ר, רוחב 3.10 מ)."
+        "message": "עומד ב-NDSS וב-ADG (15.88 מ\"ר, רוחב 3.15 מ)."
       },
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
         "status": "WARN",
-        "element": "חדר שינה מול ADG (חדר שינה)",
+        "element": "חדר שינה מול ADG (📍 בניין 37 — טיפוסי NW ו-SW (קומות 1–7 · 14 דירו)",
         "rule_id": "WBS_NDSS_ADG",
-        "message": "עומד ב-NDSS (חדר יחיד), מתחת לרף המצוינות ADG 4D-3 — רוחב 2.80 < 3.0 (ADG מודד ללא ארון בגדים)."
+        "message": "עומד ב-NDSS (חדר יחיד), מתחת לרף המצוינות ADG 4D-3 — רוחב 2.61 < 3.0 (ADG מודד ללא ארון בגדים)."
       },
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
         "status": "WARN",
-        "element": "רוחב סלון מול ADG (סלון ופינת אוכל)",
+        "element": "חדר שינה מול ADG (📍 בניין 39 — דירות 4–5 חדרים דרומיות ומזרחיות (ק)",
         "rule_id": "WBS_NDSS_ADG",
-        "message": "רוחב 3.85 מ' מול 4.0 מ' (ADG 4D-3). המינימום החוקי בישראל (2.60 מ') נבדק בנפרד."
+        "message": "עומד ב-NDSS (חדר יחיד), מתחת לרף המצוינות ADG 4D-3 — שטח 8.80 < 9.0, רוחב 2.55 < 3.0 (ADG מודד ללא ארון בגדים)."
       },
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
         "status": "PASS",
-        "element": "יחס שטחי מעבר (EF-1)",
-        "rule_id": "SPACE_SYNTAX_SAGA",
-        "message": "5.2 מ\"ר מסדרונות = 5.9% משטח הדירה (יעיל; רף טוב ≤ 10%, היוריסטיקה לכיול)."
-      },
-      {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-        "status": "WARN",
-        "element": "מרפסת עיקרית (מרפסת שמש)",
+        "element": "רוחב סלון מול ADG (סלון פנורמי (405×896 / 425×846 ס״מ = 36.28 מ״ר) )",
         "rule_id": "WBS_NDSS_ADG",
-        "message": "עומק 2.10 < 2.4 מ' (ADG 4E)."
+        "message": "רוחב 4.05 מ' מול 4.0 מ' (ADG 4D-3). המינימום החוקי בישראל (2.60 מ') נבדק בנפרד."
       },
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
+        "status": "WARN",
+        "element": "שטח חוץ פרטי (מרפסת)",
+        "rule_id": "WBS_NDSS_ADG",
+        "message": "לא זוהתה מרפסת בנתוני הדירה (London D6 / ADG 4E). ייתכן שהמפענח לא זיהה אותה — יש לוודא."
+      },
+      {
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
         "status": "WARN",
         "element": "נפח אחסון ייעודי",
         "rule_id": "WBS_NDSS_ADG",
         "message": "אין נתוני אחסון (storage / חדרי storage) — B7, NDSS ו-ADG 4G לא ניתנים לאימות."
       },
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
         "status": "WARN",
         "element": "ניתוח תצורה (Space Syntax)",
         "rule_id": "SPACE_SYNTAX_SAGA",
         "message": "אין נתוני טופולוגיה (topology) — מדרג פרטיות, עומק ואינטגרציה לא חושבו."
       },
       {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
+        "apartment_id": "3D_Model_kitroni37_Typical",
+        "template_name": "מודל 3D טיפוסי (kitroni37)",
         "status": "PASS",
-        "element": "איזון פרוגרמטי — חלל ציבורי ל-4 נפשות (HQI)",
+        "element": "איזון פרוגרמטי — חלל ציבורי ל-9 נפשות (HQI)",
         "rule_id": "USABILITY_FURNISH_HQI",
-        "message": "סלון 33.9 מ\"ר וחלל ציבורי משולב 44.8 מ\"ר תואמים 4 מיטות (HQI)."
-      },
-      {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-        "status": "WARN",
-        "element": "שוויון חדרים וגמישות — Casa Collage (ETSAB_CC_1)",
-        "rule_id": "ETSAB_CC_1",
-        "message": "יחס שטח בין חדר השינה הגדול לקטן 1.28:1 (סף אי-היררכיה ≤ 1.25:1); 1/3 חדרי שינה בגודל גנרי רב-שימושי ≥ 12.5 מ\"ר (ETSAB Habitar / MAIO)."
-      },
-      {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-        "status": "PASS",
-        "element": "פרוגרמת חדרי שינה — משרד הבינוי והשיכון (IL_MOCH_PROG)",
-        "rule_id": "IL_MOCH_PROG",
-        "message": "כל חדרי השינה עומדים באוגדן משרד הבינוי והשיכון (הורים ≥ 11 מ\"ר/2.90 מ', רגיל ≥ 9 מ\"ר/2.80 מ')."
-      },
-      {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-        "status": "WARN",
-        "element": "בנצ'מרק דירת משפחה — Toronto Growing Up (FAM_VERT_1)",
-        "rule_id": "FAM_VERT_1",
-        "message": "שטח דירה 87.6 מ\"ר מול רף דירת משפחה 100 מ\"ר ל-3 ח\"ש (Toronto Growing Up Guidelines)."
-      },
-      {
-        "apartment_id": "3D_CRM_B37_1",
-        "template_name": "בניין 37 — דירה 1 (דירת 5 חדרים מרווחת)",
-        "status": "WARN",
-        "element": "הפרדת נקודות רטובות — San-ten Bunri (JPN_SB_1)",
-        "rule_id": "JPN_SB_1",
-        "message": "חדר רחצה יחיד המשלב אסלה ומקלחת ללא תא שירותים נפרד — מקלחת 'נועלת' את השירותים לכל בני הבית (San-ten Bunri)."
+        "message": "סלון 126.2 מ\"ר וחלל ציבורי משולב 126.2 מ\"ר תואמים 9 מיטות (HQI)."
       }
     ],
-    "ve_3d_alerts": [
-      {
-        "apartment_id": "3D_CRM_B37_1",
-        "status": "PASS",
-        "element": "ייעול תכנון פנימי — יחס מסדרונות לשטח מגורים אפקטיבי",
-        "rule_id": "VALUE_ENG_OPT",
-        "message": "שטח המסדרון (5.20 מ\"ר = 5.9% משטח הדירה) קומפקטי ומנוצל היטב לטובת חדרי המגורים."
-      },
-      {
-        "apartment_id": "3D_CRM_B37_1",
-        "status": "PASS",
-        "element": "ייעול פתחים ואלומיניום — יחס זיגוג לרצפה (WWR)",
-        "rule_id": "VALUE_ENG_OPT",
-        "message": "יחס הפתחים והחלונות בחדרי הדירה מאוזן ויעיל תרמית וכלכלית (10%–25% משטח הרצפה)."
-      },
-      {
-        "apartment_id": "3D_CRM_B37_2",
-        "status": "PASS",
-        "element": "ייעול תכנון פנימי — יחס מסדרונות לשטח מגורים אפקטיבי",
-        "rule_id": "VALUE_ENG_OPT",
-        "message": "שטח המסדרון (5.20 מ\"ר = 7.2% משטח הדירה) קומפקטי ומנוצל היטב לטובת חדרי המגורים."
-      },
-      {
-        "apartment_id": "3D_CRM_B37_2",
-        "status": "PASS",
-        "element": "ייעול פתחים ואלומיניום — יחס זיגוג לרצפה (WWR)",
-        "rule_id": "VALUE_ENG_OPT",
-        "message": "יחס הפתחים והחלונות בחדרי הדירה מאוזן ויעיל תרמית וכלכלית (10%–25% משטח הרצפה)."
-      },
-      {
-        "apartment_id": "3D_CRM_B37_3",
-        "status": "PASS",
-        "element": "ייעול תכנון פנימי — יחס מסדרונות לשטח מגורים אפקטיבי",
-        "rule_id": "VALUE_ENG_OPT",
-        "message": "שטח המסדרון (5.20 מ\"ר = 6.5% משטח הדירה) קומפקטי ומנוצל היטב לטובת חדרי המגורים."
-      },
-      {
-        "apartment_id": "3D_CRM_B37_3",
-        "status": "PASS",
-        "element": "ייעול פתחים ואלומיניום — יחס זיגוג לרצפה (WWR)",
-        "rule_id": "VALUE_ENG_OPT",
-        "message": "יחס הפתחים והחלונות בחדרי הדירה מאוזן ויעיל תרמית וכלכלית (10%–25% משטח הרצפה)."
-      },
-      {
-        "apartment_id": "3D_CRM_B37_4",
-        "status": "PASS",
-        "element": "ייעול תכנון פנימי — יחס מסדרונות לשטח מגורים אפקטיבי",
-        "rule_id": "VALUE_ENG_OPT",
-        "message": "שטח המסדרון (5.20 מ\"ר = 6.4% משטח הדירה) קומפקטי ומנוצל היטב לטובת חדרי המגורים."
-      },
-      {
-        "apartment_id": "3D_CRM_B37_4",
-        "status": "PASS",
-        "element": "ייעול פתחים ואלומיניום — יחס זיגוג לרצפה (WWR)",
-        "rule_id": "VALUE_ENG_OPT",
-        "message": "יחס הפתחים והחלונות בחדרי הדירה מאוזן ויעיל תרמית וכלכלית (10%–25% משטח הרצפה)."
-      }
-    ]
+    "ve_3d_alerts": []
   }
 }

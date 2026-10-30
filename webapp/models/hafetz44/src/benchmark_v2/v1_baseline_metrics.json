@@ -1,0 +1,131 @@
+{
+  "version": "v1_baseline",
+  "project": "חפץ חיים 44, פתח תקווה",
+  "captured_at": "2026-10-30T10:10:47",
+  "html_file": "G:\\Shared drives\\שליטה ובקרה\\מודלים פרויקטים\\חפץ חיים 44 פתח תקווה\\hafetz44_3d_model.html",
+  "html_size_bytes": 6531054,
+  "html_size_mb": 6.228,
+  "src_script_count": 20,
+  "scene_metrics": {
+    "floorsCount": 12,
+    "floorGroupKeys": [
+      "mar",
+      "kar",
+      "f1",
+      "f2",
+      "f3",
+      "f4",
+      "f5",
+      "f6",
+      "f7",
+      "f8",
+      "f9",
+      "gag"
+    ],
+    "perFloorMeshes": {
+      "mar": 115,
+      "kar": 323,
+      "f1": 611,
+      "f2": 611,
+      "f3": 611,
+      "f4": 903,
+      "f5": 903,
+      "f6": 611,
+      "f7": 611,
+      "f8": 611,
+      "f9": 790,
+      "gag": 27
+    },
+    "totalMeshes": 6876,
+    "visibleMeshes": 6875,
+    "batchedMeshes": 0,
+    "instancedMeshes": 0,
+    "lineSegmentsCount": 29,
+    "edgeLinesCount": 0,
+    "activeDrawCallsFullBuilding": 6904,
+    "uniqueGeometries": 6876,
+    "uniqueMaterials": 500,
+    "totalVertices": 235268,
+    "totalTriangles": 125912,
+    "allBuildingMeshesLen": 6727,
+    "unitBadgesLen": 17,
+    "parkingStallsLen": 21,
+    "hasPMREMEnvMap": false,
+    "vertexAOMeshes": 0,
+    "bumpMapMaterials": 0,
+    "hasSectionPocheCaps": false,
+    "hasBaseboards": false,
+    "v2Meta": null,
+    "buildTimeMs": 200.18,
+    "runtimeError": null
+  },
+  "plans_metrics": {
+    "sheets": {
+      "basement": {
+        "wall_poly_count": 14,
+        "wall_area_sqm": 15.019,
+        "openings_count": 7,
+        "cad_lines_count": 2078,
+        "room_labels_count": 10,
+        "room_cells_count": 0,
+        "has_auto_envelope": false,
+        "envelope_iou": null
+      },
+      "ground": {
+        "wall_poly_count": 17,
+        "wall_area_sqm": 20.551,
+        "openings_count": 19,
+        "cad_lines_count": 3548,
+        "room_labels_count": 10,
+        "room_cells_count": 0,
+        "has_auto_envelope": false,
+        "envelope_iou": null
+      },
+      "typical": {
+        "wall_poly_count": 25,
+        "wall_area_sqm": 24.423,
+        "openings_count": 41,
+        "cad_lines_count": 2579,
+        "room_labels_count": 30,
+        "room_cells_count": 0,
+        "has_auto_envelope": false,
+        "envelope_iou": null
+      },
+      "penthouse": {
+        "wall_poly_count": 21,
+        "wall_area_sqm": 18.552,
+        "openings_count": 27,
+        "cad_lines_count": 2146,
+        "room_labels_count": 19,
+        "room_cells_count": 0,
+        "has_auto_envelope": false,
+        "envelope_iou": null
+      },
+      "roof_main": {
+        "wall_poly_count": 1,
+        "wall_area_sqm": 2.539,
+        "openings_count": 1,
+        "cad_lines_count": 456,
+        "room_labels_count": 5,
+        "room_cells_count": 0,
+        "has_auto_envelope": false,
+        "envelope_iou": null
+      }
+    },
+    "total_wall_polys": 78,
+    "total_openings": 95,
+    "total_cad_lines": 10807,
+    "total_room_labels": 74,
+    "total_room_cells": 0
+  },
+  "architecture_audit": {
+    "uses_manual_footprint_coords": true,
+    "uses_manual_exterior_wall_thresholds": true,
+    "uses_per_floor_geometry_batching": false,
+    "uses_procedural_pmrem_hdri": false,
+    "uses_baked_vertex_ao": false,
+    "uses_section_poche_caps": false,
+    "uses_7cm_interior_baseboards": false,
+    "uses_automated_room_cell_graph": false
+  }
+}

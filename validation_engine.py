@@ -10,7 +10,30 @@ FALLBACK_THRESHOLDS = {
     "B1.10": {"min_area_sqm": 1.1, "min_width_m": 0.80}, # Toilet Area
     "B1.11": {"min_area_sqm": 6.0, "min_width_m": 1.70}, # Kitchen Area
     "B1.13": {"min_height_m": 2.50},                     # Ceiling Height
+    "B1.30": {
+        "min_local_passage_width_cm": 80.0,
+        "min_statutory_corridor_width_cm": 90.0,
+        "recommended_quality_corridor_width_cm": 100.0,
+        "din18040_accessible_corridor_width_cm": 120.0,
+    },
     "B44": {"min_width_cm": 80},                         # Main Entrance
+}
+
+# Single Source of Truth for Statutory vs. Quality Thresholds & Applicability Context (Audit Section 2.ד)
+CANONICAL_THRESHOLDS_REGISTRY = {
+    "B1.30": {
+        "rule_id": "B1.30",
+        "title_he": "רוחב פרוזדור ומעברים בדירה",
+        "statutory_source_he": "תקנות התכנון והבנייה (בקשה להיתר, תנאים ואגרות) — תוספת שנייה",
+        "min_local_passage_width_cm": 80.0,
+        "min_statutory_corridor_width_cm": 90.0,
+        "recommended_quality_corridor_width_cm": 100.0,
+        "din18040_accessible_corridor_width_cm": 120.0,
+        "applicability_note_he": (
+            "סף סטטוטורי מחייב: 80 ס״מ למעבר נקודתי קצר (עד 1.5 מ׳), 90 ס״מ לפרוזדור דירתי ראשי. "
+            "סף מצוינות תכנונית מומלץ לנוחות מעבר דו-כיווני וריהוט: 100 ס״מ (ו-120 ס״מ לנגישות DIN 18040-2)."
+        ),
+    }
 }
 
 def get_rule_param(rules, rule_id, param, default_val):
@@ -133,41 +156,54 @@ def run_validation(apartment, rules):
             else:
                 results.append({"status": "PASS", "element": f"שטח מטבח ({room_name})", "rule_id": "B1.11", "message": f"תקין ({room_area} מ\"ר)"})
 
-        # Check Corridor Width (B1.30)
+        # Check Corridor Width (B1.30 — Unified Statutory vs. Quality Thresholds)
         elif room_type == "corridor":
             width = room.get("width_cm", 0)
+            c_rules = CANONICAL_THRESHOLDS_REGISTRY["B1.30"]
+            min_local_cm = c_rules["min_local_passage_width_cm"]
+            min_stat_cm = c_rules["min_statutory_corridor_width_cm"]
+            rec_qual_cm = c_rules["recommended_quality_corridor_width_cm"]
             if width > 0:
-                if width < 80.0:
+                if width < min_local_cm:
                     results.append({
                         "status": "FAIL",
                         "element": f"רוחב מסדרון ({room_name})",
                         "rule_id": "B1.30",
-                        "message": f"רוחב המסדרון {width} ס\"מ נמוך מהמינימום המוחלט של 80 ס\"מ."
+                        "message": f"רוחב המסדרון {width} ס\"מ נמוך מהמינימום הסטטוטורי המוחלט למעבר קצר ({min_local_cm:.0f} ס\"מ)."
                     })
-                elif width < 90.0:
+                elif width < min_stat_cm:
                     results.append({
-                        "status": "FAIL", # We can make it a soft fail/warning or fail based on length
+                        "status": "FAIL",
                         "element": f"רוחב מסדרון ({room_name})",
                         "rule_id": "B1.30",
-                        "message": f"רוחב המסדרון {width} ס\"מ נמוך מרוחב המעבר המומלץ למסדרונות ארוכים (90 ס\"מ)."
+                        "message": f"רוחב המסדרון {width} ס\"מ נמוך מהמינימום הסטטוטורי לפרוזדור דירתי ({min_stat_cm:.0f} ס\"מ; מומלץ תכנונית ≥{rec_qual_cm:.0f} ס\"מ)."
                     })
                 else:
+                    qual_suffix = f" (עומד גם ברף המצוינות התכנוני ≥{rec_qual_cm:.0f} ס\"מ)" if width >= rec_qual_cm else f" (עומד במינימום הסטטוטורי {min_stat_cm:.0f} ס\"מ; מומלץ תכנונית ≥{rec_qual_cm:.0f} ס\"מ)"
                     results.append({
                         "status": "PASS",
                         "element": f"רוחב מסדרון ({room_name})",
                         "rule_id": "B1.30",
-                        "message": f"תקין ({width} ס\"מ)"
+                        "message": f"תקין ({width} ס\"מ){qual_suffix}"
                     })
 
         # Check Utility Room (B1.31)
         elif room_type == "utility":
-            area = room.get("area_sqm", 0)
-            results.append({
-                "status": "PASS",
-                "element": f"שטח חדר שירות ({room_name})",
-                "rule_id": "B1.31",
-                "message": f"רשום תקין ({area} מ\"ר)"
-            })
+            area = float(room.get("area_sqm") or 0)
+            if area > 0:
+                results.append({
+                    "status": "PASS",
+                    "element": f"שטח חדר שירות ({room_name})",
+                    "rule_id": "B1.31",
+                    "message": f"רשום תקין ({area} מ\"ר)"
+                })
+            else:
+                results.append({
+                    "status": "WARN",
+                    "element": f"שטח חדר שירות ({room_name})",
+                    "rule_id": "B1.31",
+                    "message": "לא הוזן שטח מדיד לחדר השירות — לא ניתן לאמת תקינות."
+                })
 
         # Check Ventilation (Simulating an A17 / IAQ check)
         if room_type == "bathroom" and not room.get("has_window") and room.get("ventilation_type") == "none":
@@ -965,6 +1001,7 @@ def _check_accessibility(rules, typed, apartment):
                         f"מקסימום Ø{max(tcs):.0f} ס\"מ מול Ø{tc_req:.0f} ס\"מ." + ACCESS_NOTE))
 
     narrow = []
+    doors_checked = 0
     for r, t in typed:
         if r.get("clear_width_cm") is not None:
             v, kind = float(r["clear_width_cm"]), "נטו"
@@ -972,11 +1009,16 @@ def _check_accessibility(rules, typed, apartment):
             v, kind = float(r["door_width_cm"]), "כנף"
         else:
             continue
+        doors_checked += 1
         if v < door_req:
             narrow.append(f"{_label(r)} ({v:.0f} ס\"מ {kind})")
-    out.append(_res("WARN" if narrow else "PASS", "רוחב מעבר בדלתות פנים", "IS1918_ACCESS",
-                    (f"מתחת ל-{door_req:.0f} ס\"מ: {', '.join(narrow)}." if narrow else f"כל הדלתות שהוזנו ≥ {door_req:.0f} ס\"מ.")
-                    + " רוחב כנף גדול בכ-5–8 ס\"מ מהמעבר הנטו." + ACCESS_NOTE))
+    if doors_checked == 0:
+        out.append(_res("WARN", "רוחב מעבר בדלתות פנים", "IS1918_ACCESS",
+                        "לא הוזנו מידות רוחב (clear_width_cm / door_width_cm) לדלתות פנים — לא ניתן לאמת נגישות." + ACCESS_NOTE))
+    else:
+        out.append(_res("WARN" if narrow else "PASS", "רוחב מעבר בדלתות פנים", "IS1918_ACCESS",
+                        (f"מתחת ל-{door_req:.0f} ס\"מ: {', '.join(narrow)}." if narrow else f"כל {doors_checked} הדלתות שהוזנו ≥ {door_req:.0f} ס\"מ.")
+                        + " רוחב כנף גדול בכ-5–8 ס\"מ מהמעבר הנטו." + ACCESS_NOTE))
 
     for r, t in typed:
         if t == "balcony" and r.get("threshold_cm") is not None:

@@ -2245,14 +2245,15 @@ PROJECT_QUANTITATIVE_DATA = {
 
 def build_dynamic_project_data_summary(payload):
     """
-    Fallback generator for any dynamically uploaded/analyzed model not in PROJECT_QUANTITATIVE_DATA.
-    Synthesizes a complete `project_data_summary` (areas by floor, underground, roof terraces,
-    suspended balconies, facades by direction, and summary document of notes & improvement proposals)
-    from the project's `notes`, `sheets`, and `metrics`.
+    Zero-Trust generator for any dynamically uploaded/analyzed model not in PROJECT_QUANTITATIVE_DATA.
+    Uses ONLY actual quantitative areas provided in `payload` (`project_data_summary`, `above_ground_areas`,
+    `underground_areas`, `facades`, `metrics`) rather than fabricating an 8-story 2,050 m² building,
+    600 m² basement, or 1,840 m² facades when those inputs do not exist.
     """
     pid = payload.get("project_id", "custom_model")
     pname = payload.get("project_name", "מודל אדריכלי מנותח")
     notes = payload.get("notes", [])
+    existing_pds = payload.get("project_data_summary") if isinstance(payload.get("project_data_summary"), dict) else {}
 
     fail_notes = [n for n in notes if n.get("status") == "FAIL"]
     warn_notes = [n for n in notes if n.get("status") == "WARN"]
@@ -2263,7 +2264,11 @@ def build_dynamic_project_data_summary(payload):
         for n in (fail_notes + warn_notes)[:6]
     ]
     if not critical_summary:
-        critical_summary = ["כל הבדיקות במודל עברו בהצלחה ללא חריגות קריטיות."]
+        critical_summary = (
+            ["כל הבדיקות שנמדדו במודל עברו ללא חריגות קריטיות."]
+            if pass_notes
+            else ["טרם הוזנו נתונים גיאומטריים מלאים לבדיקת שטחים וכמויות."]
+        )
 
     proposals = []
     for n in (fail_notes + warn_notes)[:6]:
@@ -2276,113 +2281,73 @@ def build_dynamic_project_data_summary(payload):
                 "impact": "שיפור עמידה בתקנים ואיכות התכנון האדריכלי במודל."
             })
 
+    ag_in = existing_pds.get("above_ground_areas") or payload.get("above_ground_areas") or {}
+    ug_in = existing_pds.get("underground_areas") or payload.get("underground_areas") or {}
+    fac_in = existing_pds.get("facades") or payload.get("facades") or {}
+    rt_in = existing_pds.get("roof_terraces") or payload.get("roof_terraces") or {}
+    sb_in = existing_pds.get("suspended_balconies") or payload.get("suspended_balconies") or {}
+
+    ag_total = float(ag_in.get("total_sqm") or 0.0)
+    ag_net_apts = float(ag_in.get("net_apartments_sqm") or 0.0)
+    ag_core = float(ag_in.get("core_and_service_sqm") or 0.0)
+    ug_total = float(ug_in.get("total_sqm") or 0.0)
+    ug_stalls = int(ug_in.get("parking_spaces") or 0)
+    apts_count = int(existing_pds.get("apartments_count") or payload.get("apartments_count") or 0)
+    floors_ag = int(existing_pds.get("floors_above_ground") or payload.get("floors_above_ground") or 0)
+    ug_levels = int(existing_pds.get("underground_levels") or payload.get("underground_levels") or (1 if ug_total > 0 else 0))
+
     return {
         "project_id": pid,
         "project_name": pname,
-        "lot_area_sqm": 650.0,
-        "buildings_count": 1,
-        "apartments_count": 16,
-        "floors_above_ground": 8,
-        "underground_levels": 1,
-        "building_height_m": 28.0,
-        "total_built_area_sqm": 2650.0,
+        "lot_area_sqm": float(existing_pds.get("lot_area_sqm") or payload.get("lot_area_sqm") or 0.0),
+        "buildings_count": int(existing_pds.get("buildings_count") or payload.get("buildings_count") or 1),
+        "apartments_count": apts_count,
+        "floors_above_ground": floors_ag,
+        "underground_levels": ug_levels,
+        "building_height_m": float(existing_pds.get("building_height_m") or payload.get("building_height_m") or 0.0),
+        "total_built_area_sqm": round(ag_total + ug_total, 1),
+        "measured_corridor_sqm_per_unit": float(existing_pds.get("measured_corridor_sqm_per_unit") or ag_in.get("measured_corridor_sqm_per_unit") or 0.0),
         "above_ground_areas": {
-            "total_sqm": 2050.0,
-            "net_apartments_sqm": 1640.0,
-            "core_and_service_sqm": 410.0,
-            "summary_note": "חישוב שטחים עיליים מסוכם לפי קומות המודל",
-            "by_floor": [
-                {
-                    "floor_label": "קומת קרקע (0.00)",
-                    "elevation": "±0.00",
-                    "units_count": 0,
-                    "usage_description": "לובי כניסה, חדרי שירות וגרעין מדרגות/מעלית",
-                    "apartments_sqm": 0.0,
-                    "core_service_sqm": 200.0,
-                    "total_floor_sqm": 200.0,
-                    "pct_of_above_ground": 9.76,
-                },
-                {
-                    "floor_label": "קומות טיפוסיות (חלוקה קומתית)",
-                    "elevation": "+3.50 עד +21.50",
-                    "units_count": 14,
-                    "usage_description": "קומות מגורים טיפוסיות + גרעין תנועה קומתי",
-                    "apartments_sqm": 1400.0,
-                    "core_service_sqm": 180.0,
-                    "total_floor_sqm": 1580.0,
-                    "pct_of_above_ground": 77.07,
-                },
-                {
-                    "floor_label": "קומת גג / פנטהאוז",
-                    "elevation": "+21.50 עד +28.00",
-                    "units_count": 2,
-                    "usage_description": "דירות גג/פנטהאוז וגרעין יציאה לגג",
-                    "apartments_sqm": 240.0,
-                    "core_service_sqm": 30.0,
-                    "total_floor_sqm": 270.0,
-                    "pct_of_above_ground": 13.17,
-                },
-            ],
+            "total_sqm": ag_total,
+            "net_apartments_sqm": ag_net_apts,
+            "core_and_service_sqm": ag_core,
+            "measured_corridor_sqm_per_unit": float(ag_in.get("measured_corridor_sqm_per_unit") or 0.0),
+            "summary_note": ag_in.get("summary_note") or ("חישוב שטחים עיליים מסוכם לפי קומות המודל" if ag_total > 0 else "לא הוזנו שטחים עיליים למודל זה (UNKNOWN)"),
+            "by_floor": list(ag_in.get("by_floor") or []),
         },
         "underground_areas": {
-            "total_sqm": 600.0,
-            "parking_spaces": 16,
-            "parking_ratio": "1:1.0",
-            "summary_note": "מרתף חניון תת-קרקעי, מיסעות, מאגרים וגרעין",
-            "by_floor": [
-                {
-                    "floor_label": "מרתף חניון (-1)",
-                    "elevation": "-3.50",
-                    "usage_description": "חניות תת-קרקעיות, רמפה, מאגר מים וגרעין מדרגות/מעלית",
-                    "total_floor_sqm": 600.0,
-                    "pct_of_underground": 100.0,
-                }
-            ],
+            "total_sqm": ug_total,
+            "parking_spaces": ug_stalls,
+            "parking_ratio": ug_in.get("parking_ratio") or (f"1:{round(ug_stalls / apts_count, 2)}" if (apts_count > 0 and ug_stalls > 0) else "N/A"),
+            "verified_relocation_bay": ug_in.get("verified_relocation_bay"),
+            "summary_note": ug_in.get("summary_note") or ("מרתף חניון תת-קרקעי" if ug_total > 0 else "אין מרתף / לא הוזנו נתוני מרתף"),
+            "by_floor": list(ug_in.get("by_floor") or []),
         },
         "roof_terraces": {
-            "total_sqm": 110.0,
-            "count": 2,
-            "garden_terraces_sqm": 0.0,
-            "summary_note": "מרפסות גג בקומת הפנטהאוז",
-            "breakdown": [
-                {
-                    "floor_label": "קומת גג / פנטהאוז",
-                    "unit_label": "מרפסות גג",
-                    "dimensions": "טרסות גג פתוחות",
-                    "area_sqm": 110.0,
-                }
-            ],
+            "total_sqm": float(rt_in.get("total_sqm") or 0.0),
+            "count": int(rt_in.get("count") or 0),
+            "garden_terraces_sqm": float(rt_in.get("garden_terraces_sqm") or 0.0),
+            "summary_note": rt_in.get("summary_note", ""),
+            "breakdown": list(rt_in.get("breakdown") or []),
         },
         "suspended_balconies": {
-            "total_sqm": 192.0,
-            "count": 16,
-            "sun_balconies_sqm": 192.0,
-            "service_balconies_sqm": 18.0,
-            "summary_note": "מרפסות שמש זיזיות בקומות הטיפוסיות",
-            "breakdown": [
-                {
-                    "floor_label": "קומות טיפוסיות",
-                    "unit_label": "מרפסות שמש זיזיות",
-                    "count": 16,
-                    "unit_area_sqm": 12.0,
-                    "total_area_sqm": 192.0,
-                    "dimensions": "12.0 מ״ר בממוצע לדירה",
-                }
-            ],
+            "total_sqm": float(sb_in.get("total_sqm") or 0.0),
+            "count": int(sb_in.get("count") or 0),
+            "sun_balconies_sqm": float(sb_in.get("sun_balconies_sqm") or 0.0),
+            "service_balconies_sqm": float(sb_in.get("service_balconies_sqm") or 0.0),
+            "summary_note": sb_in.get("summary_note", ""),
+            "breakdown": list(sb_in.get("breakdown") or []),
         },
         "facades": {
-            "total_sqm": 1840.0,
-            "building_height_m": 28.0,
-            "total_glazing_sqm": 460.0,
-            "total_opaque_sqm": 1380.0,
-            "average_wwr_pct": 25.0,
-            "summary_note": "חלוקת שטחי חזיתות ל-4 רוחות השמיים",
-            "by_direction": [
-                {"facade_name": "חזית צפונית", "direction": "צפון", "length_m": 14.0, "height_m": 28.0, "gross_area_sqm": 392.0, "pct_of_total": 21.3, "glazing_area_sqm": 110.0, "opaque_area_sqm": 282.0, "wwr_pct": 28.1, "materials_and_elements": "ויטרינות, מרפסות וחיפוי אבן"},
-                {"facade_name": "חזית דרומית", "direction": "דרום", "length_m": 14.0, "height_m": 28.0, "gross_area_sqm": 392.0, "pct_of_total": 21.3, "glazing_area_sqm": 110.0, "opaque_area_sqm": 282.0, "wwr_pct": 28.1, "materials_and_elements": "ויטרינות, מרפסות וחיפוי אבן"},
-                {"facade_name": "חזית מזרחית", "direction": "מזרח", "length_m": 18.85, "height_m": 28.0, "gross_area_sqm": 528.0, "pct_of_total": 28.7, "glazing_area_sqm": 120.0, "opaque_area_sqm": 408.0, "wwr_pct": 22.7, "materials_and_elements": "חלונות חדרי שינה, ממ״דים ורפפות"},
-                {"facade_name": "חזית מערבית", "direction": "מערב", "length_m": 18.85, "height_m": 28.0, "gross_area_sqm": 528.0, "pct_of_total": 28.7, "glazing_area_sqm": 120.0, "opaque_area_sqm": 408.0, "wwr_pct": 22.7, "materials_and_elements": "חלונות חדרי שינה, מטבחים ורפפות"},
-            ],
+            "total_sqm": float(fac_in.get("total_sqm") or 0.0),
+            "building_height_m": float(fac_in.get("building_height_m") or 0.0),
+            "total_glazing_sqm": float(fac_in.get("total_glazing_sqm") or 0.0),
+            "total_opaque_sqm": float(fac_in.get("total_opaque_sqm") or 0.0),
+            "average_wwr_pct": float(fac_in.get("average_wwr_pct") or 0.0),
+            "baseline_dry_cladding_pct": float(fac_in.get("baseline_dry_cladding_pct", 85.0)),
+            "target_plaster_conversion_pct": float(fac_in.get("target_plaster_conversion_pct", 35.0)),
+            "summary_note": fac_in.get("summary_note") or ("חלוקת שטחי חזיתות" if fac_in.get("by_direction") else "לא הוזנו נתוני חזיתות למודל זה (UNKNOWN)"),
+            "by_direction": list(fac_in.get("by_direction") or []),
         },
         "summary_document": {
             "document_title": f"מסמך סיכום הערות והצעות לשיפור — {pname}",
@@ -3249,11 +3214,20 @@ def build_flooring_data_for_project(pid: str, data_summary: dict) -> dict:
 
     # Dynamic calculation for any custom/uploaded model from its `above_ground_areas`, `underground_areas`, `roof_terraces`, `suspended_balconies`
     ag = data_summary.get("above_ground_areas", {})
+    ug = data_summary.get("underground_areas", {})
     rt = data_summary.get("roof_terraces", {})
     sb = data_summary.get("suspended_balconies", {})
 
-    by_floor = [
-        {
+    by_floor = []
+    tot_apt = 0.0
+    tot_dry = 0.0
+    tot_wet = 0.0
+    tot_pub = 0.0
+    tot_balc = 0.0
+
+    if float(ug.get("total_sqm") or 0.0) > 0:
+        tot_pub = 28.0
+        by_floor.append({
             "floor_label": "מרתף חניון (-1)",
             "elevation": "-3.50",
             "units_count": 0,
@@ -3264,13 +3238,7 @@ def build_flooring_data_for_project(pid: str, data_summary: dict) -> dict:
             "balconies_flooring_sqm": 0.0,
             "total_floor_flooring_sqm": 28.0,
             "notes": "מבואת מעלית וחדר מדרגות במרתף",
-        }
-    ]
-    tot_apt = 0.0
-    tot_dry = 0.0
-    tot_wet = 0.0
-    tot_pub = 28.0
-    tot_balc = 0.0
+        })
 
     for f in ag.get("by_floor", []):
         apt_net = round(float(f.get("apartments_sqm", 0.0)) * 0.875, 1)
@@ -3313,13 +3281,15 @@ def enrich_project_payload(payload):
     """
     Attaches `project_data_summary` (containing quantitative areas, flooring areas, balconies, facades,
     and the summary document of audit notes & improvement proposals) to any project payload.
-    Also computes live note counts from `payload['notes']`.
+    Also computes live note counts from `payload['notes']` and attaches the 3-Axis Reliability
+    Metadata (`verification_status`, `evidence_source`, `workflow_state`) and `architect_action_package`.
     """
     if not payload or not isinstance(payload, dict):
         return payload
 
     pid = payload.get("project_id", "")
-    if pid in PROJECT_QUANTITATIVE_DATA:
+    has_explicit_custom_pds = isinstance(payload.get("project_data_summary"), dict) and bool(payload["project_data_summary"])
+    if pid in PROJECT_QUANTITATIVE_DATA and not has_explicit_custom_pds:
         import copy
         from submission_facade_materials import enrich_facades_with_submission_data
         enrich_facades_with_submission_data(pid, PROJECT_QUANTITATIVE_DATA[pid].get("facades", {}))
@@ -3338,12 +3308,20 @@ def enrich_project_payload(payload):
     data_summary["design_optimization"] = design_opt
 
     # Inject synchronized Value Engineering section & visual pins into payload['sections'] and payload['notes']
+    # ONLY when actual verified/measured VE items or facade items exist (Zero-Trust E07)
     sections = payload.get("sections", [])
     notes = payload.get("notes", [])
     sec_opt_id = f"sec_{pid}_value_eng"
-    if not any(s.get("id") == sec_opt_id for s in sections):
+    ag_opt = design_opt.get("above_ground_optimization", {})
+    ug_opt = design_opt.get("underground_optimization", {})
+    fac_opt = design_opt.get("facade_cladding_optimization", {})
+    int_opt = design_opt.get("internal_apartment_optimization", {})
+    contour_audit = design_opt.get("contour_audit_summary", {})
+    has_ve_items = bool(ag_opt.get("items") or ug_opt.get("items") or fac_opt.get("by_facade"))
+    has_imp_items = bool(contour_audit.get("locked_core_reclassified_items") or int_opt.get("items"))
+
+    if not any(s.get("id") == sec_opt_id for s in sections) and (has_ve_items or has_imp_items):
         kpis = design_opt.get("executive_kpis", {})
-        contour_audit = design_opt.get("contour_audit_summary", {})
         tot_ils = kpis.get("grand_total_direct_saving_ils", 0)
         ag_sqm = kpis.get("above_ground_saved_sqm", 0)
         ug_sqm = kpis.get("underground_saved_sqm", 0)
@@ -3351,25 +3329,25 @@ def enrich_project_payload(payload):
         apt_sqm = kpis.get("internal_reclaimed_living_sqm", 0)
         locked_core_sqm = contour_audit.get("rejected_locked_core_and_service_sqm", 0)
 
-        sections.append({
-            "id": sec_opt_id,
-            "title": f"💰 מודל החיסכון בעלויות הבנייה — צמצום קונטור בנייה מאומת וחיפוי ({tot_ils:,.0f} ₪)",
-            "subtitle": (
-                f"צמצום קונטור עילי מאומת: {ag_sqm} מ״ר (6,200 ₪/מ״ר) · צמצום קונטור חניון מאומת: {ug_sqm} מ״ר (3,500 ₪/מ״ר) · "
-                f"המרת חיפוי יבש לטיח: {fac_sqm} מ״ר (400 ₪/מ״ר) · [נוכו {locked_core_sqm} מ״ר ליבה/מרתף כלואים שלא הקטינו קונטור ← הועברו לשיפור תכנון]"
-            ),
-            "intro": (
-                "חיסכון אמיתי בעלויות הבנייה נספר אך ורק כאשר ההמלצה מקטינה בפועל את קונטור הבניין העילי או קונטור הדיפון במרתף (סך הכל נבנה פחות). "
-                "שטחי ליבה או מרתף שירדו אך נותרו כלואים בין דירות/עמודים או מתחת לתקרה עליונה קשיחה קוזזו ממודל החיסכון (0 ₪) והועברו לקטגוריית 'שיפור תכנון'."
-            ),
-        })
+        if has_ve_items:
+            sections.append({
+                "id": sec_opt_id,
+                "title": f"💰 מודל החיסכון בעלויות הבנייה — צמצום קונטור בנייה מאומת וחיפוי ({tot_ils:,.0f} ₪)",
+                "subtitle": (
+                    f"צמצום קונטור עילי מאומת: {ag_sqm} מ״ר (6,200 ₪/מ״ר) · צמצום קונטור חניון מאומת: {ug_sqm} מ״ר (3,500 ₪/מ״ר) · "
+                    f"המרת חיפוי יבש לטיח: {fac_sqm} מ״ר (400 ₪/מ״ר) · [נוכו {locked_core_sqm} מ״ר ליבה/מרתף כלואים שלא הקטינו קונטור ← הועברו לשיפור תכנון]"
+                ),
+                "intro": (
+                    "חיסכון אמיתי בעלויות הבנייה נספר אך ורק כאשר ההמלצה מקטינה בפועל את קונטור הבניין העילי או קונטור הדיפון במרתף (סך הכל נבנה פחות). "
+                    "שטחי ליבה או מרתף שירדו אך נותרו כלואים בין דירות/עמודים או מתחת לתקרה עליונה קשיחה קוזזו ממודל החיסכון (0 ₪) והועברו לקטגוריית 'שיפור תכנון'."
+                ),
+            })
 
         sheets = payload.get("sheets", [])
         default_sheet_id = sheets[0]["id"] if sheets else "f1_5"
         next_pin = max((int(n.get("pin_num") or 0) for n in notes), default=0) + 1
 
         # 1. Above-ground contour reduction notes (ALL items)
-        ag_opt = design_opt.get("above_ground_optimization", {})
         for idx, item in enumerate(ag_opt.get("items", [])):
             note_id = item.get("id", f"{pid.upper()}-VE-AG-{idx+1}")
             target_sheet = item.get("sheet_id") or default_sheet_id
@@ -3568,18 +3546,23 @@ def enrich_project_payload(payload):
             next_pin += 1
 
         # 3. Facade Cladding vs. Plaster optimization notes (Per-direction perimeter zones on typical plan)
-        fac_opt = design_opt.get("facade_cladding_optimization", {})
         for idx, fitem in enumerate(fac_opt.get("by_facade", [])):
             note_id = f"{pid.upper()}-VE-FAC-{idx+1}"
             fitem["note_id"] = note_id
             fitem["pin_num"] = next_pin
             fitem["sheet_id"] = default_sheet_id
             conv_sqm = float(fitem.get("recommended_converted_to_plaster_sqm", 0) or 0)
-            cur_dry = float(fitem.get("current_dry_cladding_sqm", 0) or 0)
-            cur_pl = float(fitem.get("current_plaster_sqm", 0) or 0)
+            mat_status = fitem.get("material_data_status", "EXACT_SUBMISSION")
+            cur_dry = float(fitem.get("current_dry_cladding_sqm") or 0.0)
+            cur_pl = float(fitem.get("current_plaster_sqm") or 0.0)
             cur_lv = float(fitem.get("current_louvers_sqm", 0) or 0)
             sav_ils = int(fitem.get("cost_saving_ils", 0) or 0)
-            if conv_sqm > 0:
+            if mat_status == "UNKNOWN":
+                badge_str = f"❓ {fitem.get('direction')}: חומרי גמר לא ידועים (UNKNOWN)"
+                title_str = f"חזית {fitem.get('direction')}: חסר פירוט חומרי גמר בתכנית — לא הוכר חיסכון (סטטוס: לא ידוע)"
+                status_str = "UNKNOWN"
+                rec_str = f"לא ניתן לקבוע חיסכון בחזית {fitem.get('direction')} ללא פירוט חומרי גמר (חיפוי יבש מול טיח) בתכנית החזית."
+            elif conv_sqm > 0:
                 badge_str = f"🧱 {fitem.get('direction')}: -{conv_sqm:.0f} מ״ר יבש←טיח | {sav_ils:,.0f} ₪"
                 title_str = f"המרת {conv_sqm:.0f} מ״ר מחיפוי קשיח (בהגשה) לטיח בחזית {fitem.get('direction')} = חיסכון {sav_ils:,.0f} ₪"
                 status_str = "WARN"
@@ -3601,11 +3584,12 @@ def enrich_project_payload(payload):
                 "section_id": sec_opt_id,
                 "is_value_eng": True,
                 "ve_category": "FAC",
+                "material_data_status": mat_status,
                 "ve_saving_ils": sav_ils,
                 "ve_saved_sqm": conv_sqm,
                 "ve_proposed_gross_sqm": fitem.get("opaque_area_sqm", 0),
                 "ve_locked_non_contour_sqm": 0.0,
-                "contour_efficiency_pct": 100.0,
+                "contour_efficiency_pct": 100.0 if mat_status != "UNKNOWN" else 0.0,
                 "ve_callout_badge": badge_str,
                 "where_on_plan": f"{fitem.get('facade_name')} ({fitem.get('opaque_area_sqm')} מ״ר אטום: {cur_pl:.0f} מ״ר טיח בהגשה · {cur_dry:.0f} מ״ר יבש בהגשה · {cur_lv:.0f} מ״ר רפפות)",
                 "how_to_execute": fitem.get("strategy_note", ""),
@@ -3614,7 +3598,11 @@ def enrich_project_payload(payload):
                 "status": status_str,
                 "rule_id": "VALUE_ENG_OPT (תכנית הגשה — 400 ₪/מ״ר הפרש)",
                 "title": title_str,
-                "measured": f"לפי תכנית ההגשה: אטום {fitem.get('opaque_area_sqm')} מ״ר = טיח {cur_pl:.0f} מ״ר ({fitem.get('current_plaster_pct', 0)}%) + חיפוי קשיח {cur_dry:.0f} מ״ר ({fitem.get('current_dry_cladding_pct', 0)}%) + רפפות {cur_lv:.0f} מ״ר",
+                "measured": (
+                    f"אטום {fitem.get('opaque_area_sqm')} מ״ר — פירוט חומרי גמר חסר (UNKNOWN)"
+                    if mat_status == "UNKNOWN"
+                    else f"לפי תכנית ההגשה: אטום {fitem.get('opaque_area_sqm')} מ״ר = טיח {cur_pl:.0f} מ״ר ({fitem.get('current_plaster_pct', 0)}%) + חיפוי קשיח {cur_dry:.0f} מ״ר ({fitem.get('current_dry_cladding_pct', 0)}%) + רפפות {cur_lv:.0f} מ״ר"
+                ),
                 "benchmark": f"לאחר אופטימיזציה: {fitem.get('optimized_dry_pct')}% יבש ({fitem.get('optimized_dry_cladding_sqm')} מ״ר) / {fitem.get('optimized_plaster_pct')}% טיח ({fitem.get('optimized_plaster_sqm')} מ״ר)",
                 "summary": f"🛠️ ניתוח תכנית הגשה וביצוע: {fitem.get('strategy_note')}",
                 "recommendation": rec_str,
@@ -3638,7 +3626,7 @@ def enrich_project_payload(payload):
                         "locked_sqm": 0.0,
                         "net_contour_sqm": conv_sqm,
                         "saving_ils": sav_ils,
-                        "efficiency_pct": 100.0,
+                        "efficiency_pct": 100.0 if mat_status != "UNKNOWN" else 0.0,
                     },
                     "building_impact": {
                         "contour": "שמירה מלאה על הנראות האדריכלית היוקרתית בחזית הרחוב הראשית",
@@ -3659,18 +3647,18 @@ def enrich_project_payload(payload):
         # 4. Architectural Design Improvement (Internal Apartment + Locked Core/Service reductions that did NOT shrink building contour)
         sec_apt_id = f"sec_{pid}_apt_improvement"
         tot_imp_sqm = round(apt_sqm + locked_core_sqm, 1)
-        sections.append({
-            "id": sec_apt_id,
-            "title": f"🛋️ שיפור תכנון (ללא הקטנת קונטור הבנייה): ייעול פנים-דירתי (+{apt_sqm} מ״ר) והקטנת שטחי ליבה/מרתף כלואים (+{locked_core_sqm} מ״ר)",
-            "subtitle": f"סה״כ {tot_imp_sqm} מ״ר שטחים שיועלו תכנונית אך לא הקטינו את קונטור הבניין הכולל — ולכן הועברו ממודל חיסכון העלויות (0 ₪ חיסכון שלד) לשיפור תכנון",
-            "intro": (
-                "בהתאם למבחן כיווץ קונטור הבניין הכולל: שטח ליבה/מבואה או שטח מסדרון פנים-דירתי שצומצם אך לא הקטין את קונטור תקרת הבניין "
-                "או את קו הדיפון במרתף (למשל נישה פנימית כלואה בין ממ״דים ועמודים או מעבר תחת תקרת קומה א׳ קשיחה) אינו חוסך עלויות בנייה (0 ₪) "
-                "ומסווג כשיפור תכנון אדריכלי להגדלת חדרי המגורים, מבואות הכניסה, הלובי או המחסנים."
-            ),
-        })
+        if has_imp_items:
+            sections.append({
+                "id": sec_apt_id,
+                "title": f"🛋️ שיפור תכנון (ללא הקטנת קונטור הבנייה): ייעול פנים-דירתי (+{apt_sqm} מ״ר) והקטנת שטחי ליבה/מרתף כלואים (+{locked_core_sqm} מ״ר)",
+                "subtitle": f"סה״כ {tot_imp_sqm} מ״ר שטחים שיועלו תכנונית אך לא הקטינו את קונטור הבניין הכולל — ולכן הועברו ממודל חיסכון העלויות (0 ₪ חיסכון שלד) לשיפור תכנון",
+                "intro": (
+                    "בהתאם למבחן כיווץ קונטור הבניין הכולל: שטח ליבה/מבואה או שטח מסדרון פנים-דירתי שצומצם אך לא הקטין את קונטור תקרת הבניין "
+                    "או את קו הדיפון במרתף (למשל נישה פנימית כלואה בין ממ״דים ועמודים או מעבר תחת תקרת קומה א׳ קשיחה) אינו חוסך עלויות בנייה (0 ₪) "
+                    "ומסווג כשיפור תכנון אדריכלי להגדלת חדרי המגורים, מבואות הכניסה, הלובי או המחסנים."
+                ),
+            })
 
-        int_opt = design_opt.get("internal_apartment_optimization", {})
         proposals_list = data_summary.get("summary_document", {}).setdefault("improvement_proposals", [])
 
         # 4A. Locked Core / Service items rejected from Cost Savings because ΔContour = 0
@@ -3970,6 +3958,52 @@ def enrich_project_payload(payload):
     }
 
     for n in payload.get("notes", []):
+        st_raw = str(n.get("status") or "PASS").upper()
+        # 3-Axis Reliability Model (Audit Section 3):
+        # Axis 1: verification_status ("PASS" | "FAIL" | "WARN" | "UNKNOWN" | "PRESERVE")
+        # Axis 2: evidence_source ("WRITTEN_DIM" | "COMPUTED_GEOM" | "CATALOG_PRESET" | "HEURISTIC_ESTIMATE" | "MISSING_DATA")
+        # Axis 3: workflow_state ("TO_REVIEW" | "APPROVED_TO_FIX" | "IN_DESIGN" | "FIXED_PENDING_VERIFICATION" | "VERIFIED_CLOSED" | "REJECTED")
+        if st_raw == "UNKNOWN" or n.get("material_data_status") == "UNKNOWN":
+            ver_status = "UNKNOWN"
+        elif st_raw == "PASS" and not n.get("is_value_eng"):
+            ver_status = "PRESERVE" if any(k in str(n.get("title") or "") for k in ("שימור", "אוורור", "חוזק", "יתרון", "מרפסת")) else "PASS"
+        elif st_raw in ("FAIL", "WARN", "PASS"):
+            ver_status = st_raw
+        else:
+            ver_status = "UNKNOWN"
+
+        if ver_status == "UNKNOWN":
+            ev_source = "MISSING_DATA"
+        elif n.get("evidence_source"):
+            ev_source = n["evidence_source"]
+        elif n.get("is_value_eng") or n.get("is_design_improvement"):
+            ev_source = "COMPUTED_GEOM" if pid in PROJECT_QUANTITATIVE_DATA else "HEURISTIC_ESTIMATE"
+        elif n.get("measured") and any(ch.isdigit() for ch in str(n.get("measured"))):
+            ev_source = "WRITTEN_DIM"
+        else:
+            ev_source = "COMPUTED_GEOM"
+
+        wf_state = n.get("workflow_state") or (
+            "VERIFIED_CLOSED" if ver_status in ("PASS", "PRESERVE") else "TO_REVIEW"
+        )
+
+        n["verification_status"] = ver_status
+        n["evidence_source"] = ev_source
+        n["workflow_state"] = wf_state
+        n["evidence_record"] = {
+            "record_id": n.get("id", ""),
+            "plan_version": payload.get("plan_version", "v1.0"),
+            "sheet_id": n.get("sheet_id", ""),
+            "entity_label": n.get("room_name", ""),
+            "rule_id": n.get("rule_id", ""),
+            "measured_value": n.get("measured", ""),
+            "benchmark_value": n.get("benchmark", ""),
+            "verification_status": ver_status,
+            "evidence_source": ev_source,
+            "workflow_state": wf_state,
+            "unknown_factors": "חסר פירוט חומרים או מידות בתכנית המקור" if ver_status == "UNKNOWN" else "",
+        }
+
         if n.get("is_value_eng"):
             n["audit_polarity"] = "SAVINGS"
             n["audit_polarity_he"] = "חיסכון"
@@ -3977,7 +4011,7 @@ def enrich_project_payload(payload):
             n["audit_category_he"] = "חיסכון"
             continue
 
-        polarity = "POSITIVE" if n.get("status") == "PASS" else "NEGATIVE"
+        polarity = "POSITIVE" if st_raw == "PASS" else "NEGATIVE"
         nid = n.get("id", "")
         if nid in EXPLICIT_NOTE_CATEGORY_MAP:
             cat = EXPLICIT_NOTE_CATEGORY_MAP[nid]
@@ -3985,7 +4019,7 @@ def enrich_project_payload(payload):
             cat = "ARCH_QUALITY"
         else:
             rule_txt = f"{n.get('rule_id', '')} {n.get('title', '')} {n.get('recommendation', '')}".lower()
-            if n.get("status") == "FAIL" or any(k in rule_txt for k in ["ת״י", "פקע״ר", "פיקוד העורף", "חניונים", "רישוי", "תקנות", "b1.15", "b1.30", "1918", "1142", "2481"]):
+            if st_raw == "FAIL" or any(k in rule_txt for k in ["ת״י", "פקע״ר", "פיקוד העורף", "חניונים", "רישוי", "תקנות", "b1.15", "b1.30", "1918", "1142", "2481"]):
                 cat = "STANDARD"
             elif any(k in rule_txt for k in ["nkba", "אי מטבח", "ארון", "דלת כיס", "pocket", "ריהוט", "מיטה", "שולחן", "תאורה", "boverket", "din 18040"]):
                 cat = "INTERIOR_TIP"
@@ -4084,18 +4118,23 @@ def enrich_project_payload(payload):
     fail_notes = [n for n in notes if n.get("status") == "FAIL"]
     warn_notes = [n for n in notes if n.get("status") == "WARN"]
     pass_notes = [n for n in notes if n.get("status") == "PASS"]
+    unknown_notes = [n for n in notes if n.get("status") == "UNKNOWN" or n.get("verification_status") == "UNKNOWN"]
 
     data_summary["summary_document"]["notes_statistics"] = {
         "total_notes": len(notes),
         "fail_count": len(fail_notes),
         "warn_count": len(warn_notes),
         "pass_count": len(pass_notes),
+        "unknown_count": len(unknown_notes),
     }
     data_summary["summary_document"]["all_notes_digest"] = [
         {
             "pin_num": n.get("pin_num"),
             "id": n.get("id"),
             "status": n.get("status"),
+            "verification_status": n.get("verification_status"),
+            "evidence_source": n.get("evidence_source"),
+            "workflow_state": n.get("workflow_state"),
             "typology": n.get("typology"),
             "room_name": n.get("room_name"),
             "title": n.get("title"),
@@ -4104,6 +4143,75 @@ def enrich_project_payload(payload):
         }
         for n in notes
     ]
+    # Structured Action Package for the Architect (Audit Section 6)
+    data_summary["summary_document"]["architect_action_package"] = {
+        "package_version": "2.0-zero-trust",
+        "project_id": pid,
+        "plan_version": payload.get("plan_version", "v1.0"),
+        "mandatory_statutory_fixes": [
+            {
+                "note_id": n.get("id"),
+                "pin_num": n.get("pin_num"),
+                "sheet_id": n.get("sheet_id"),
+                "location": f"{n.get('typology', '')} — {n.get('room_name', '')}",
+                "measured": n.get("measured", ""),
+                "required_benchmark": n.get("benchmark", ""),
+                "action_required": n.get("recommendation", ""),
+                "workflow_state": n.get("workflow_state", "TO_REVIEW"),
+            }
+            for n in fail_notes
+        ],
+        "quality_and_usability_improvements": [
+            {
+                "note_id": n.get("id"),
+                "pin_num": n.get("pin_num"),
+                "sheet_id": n.get("sheet_id"),
+                "location": f"{n.get('typology', '')} — {n.get('room_name', '')}",
+                "measured": n.get("measured", ""),
+                "target_benchmark": n.get("benchmark", ""),
+                "proposed_change": n.get("recommendation", ""),
+                "workflow_state": n.get("workflow_state", "TO_REVIEW"),
+            }
+            for n in warn_notes if not n.get("is_value_eng")
+        ],
+        "value_engineering_alternatives": [
+            {
+                "note_id": n.get("id"),
+                "pin_num": n.get("pin_num"),
+                "sheet_id": n.get("sheet_id"),
+                "ve_category": n.get("ve_category"),
+                "where_on_plan": n.get("where_on_plan", ""),
+                "how_to_execute": n.get("how_to_execute", ""),
+                "gross_saving_ils": n.get("ve_saving_ils", 0),
+                "verification_status": n.get("verification_status", "WARN"),
+                "evidence_source": n.get("evidence_source", "COMPUTED_GEOM"),
+                "workflow_state": n.get("workflow_state", "TO_REVIEW"),
+            }
+            for n in ve_only_notes if n.get("verification_status") != "UNKNOWN"
+        ],
+        "preservation_constraints": [
+            {
+                "note_id": n.get("id"),
+                "pin_num": n.get("pin_num"),
+                "sheet_id": n.get("sheet_id"),
+                "location": f"{n.get('typology', '')} — {n.get('room_name', '')}",
+                "preserved_quality": n.get("title", ""),
+                "measured_evidence": n.get("measured", ""),
+                "constraint_rule": "אין לפגוע ביתרון תכנוני זה בחלופות עתידיות ללא הצגת הפשרה ואישור מפורש.",
+            }
+            for n in pos_notes
+        ],
+        "missing_information_requests": [
+            {
+                "note_id": n.get("id"),
+                "pin_num": n.get("pin_num"),
+                "sheet_id": n.get("sheet_id"),
+                "location": n.get("room_name", ""),
+                "missing_item": n.get("title", ""),
+            }
+            for n in unknown_notes
+        ],
+    }
     data_summary["summary_doc_url"] = f"/reports/{pid}_summary_and_areas_report.html"
     data_summary["summary_md_url"] = f"/reports/{pid}_summary_and_areas_report.md"
 

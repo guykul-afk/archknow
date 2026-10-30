@@ -506,13 +506,13 @@
     },
     "hafetz44": {
       "project_id": "hafetz44",
-      "base_model_hash": "aac93766edc1e0c5f1bd5bf53c9abb87feb391cc5d1a474b9e0a701928438d9f",
-      "last_modified_mtime": 1793343049.96,
-      "last_modified_iso": "2026-10-30T08:50:49+02:00",
-      "last_audit_iso": "2026-10-30T09:01:09+02:00",
-      "audit_revision": 37,
-      "tracked_files_count": 19,
-      "total_base_size_bytes": 54303294,
+      "base_model_hash": "a721f2906c61b0a4fc34c84d2fdd099441d80cea025cd949a7c4e7badf49696b",
+      "last_modified_mtime": 1793347847.49,
+      "last_modified_iso": "2026-10-30T10:10:47+02:00",
+      "last_audit_iso": "2026-10-30T10:12:07+02:00",
+      "audit_revision": 39,
+      "tracked_files_count": 20,
+      "total_base_size_bytes": 54307461,
       "files_manifest": {
         "compact_bim.json": {
           "sha256": "1f21d90fa55da3a9c20c57119f2bb9825cffef4d54aa1807ca7998df52f84522",
@@ -565,20 +565,20 @@
         "hafetz44_3d_bim_viewer.html": {
           "sha256": "2ad399f37cd6f6cbcac51c89ca4ecd28e8ae42eb87b5647223a9392242b039fb",
           "size_bytes": 6530845,
-          "mtime": 1793342997.75,
-          "mtime_iso": "2026-10-30T08:49:57+02:00"
+          "mtime": 1793347623.88,
+          "mtime_iso": "2026-10-30T10:07:03+02:00"
         },
         "hafetz44_3d_model.html": {
           "sha256": "2ad399f37cd6f6cbcac51c89ca4ecd28e8ae42eb87b5647223a9392242b039fb",
           "size_bytes": 6530845,
-          "mtime": 1793342997.85,
-          "mtime_iso": "2026-10-30T08:49:57+02:00"
+          "mtime": 1793347623.98,
+          "mtime_iso": "2026-10-30T10:07:03+02:00"
         },
         "hafetz44_audit_preload.js": {
-          "sha256": "569372d653fecb606e11dd13fde41bf34c6f71922b1bacb67d42e36c62e74437",
-          "size_bytes": 699046,
-          "mtime": 1793343049.96,
-          "mtime_iso": "2026-10-30T08:50:49+02:00"
+          "sha256": "3089b375ffe786277e18cb1f6b9b92260be92aa846a0b7d6e1c4d1e37721b8c9",
+          "size_bytes": 699802,
+          "mtime": 1793343677.95,
+          "mtime_iso": "2026-10-30T09:01:17+02:00"
         },
         "hafetz44_extracted_plans.json": {
           "sha256": "59336ad4d78ddde7e9e0a3e2a5004fef9ddb53eccff8875ead996ac4666c5b05",
@@ -607,8 +607,8 @@
         "hafetz44_spatial_map.html": {
           "sha256": "61b1a1bf9ce0ee3d42a72147a30f84daeb06e06df0dc88c0d61b9c82b02ff011",
           "size_bytes": 22904,
-          "mtime": 1793342997.64,
-          "mtime_iso": "2026-10-30T08:49:57+02:00"
+          "mtime": 1793347623.76,
+          "mtime_iso": "2026-10-30T10:07:03+02:00"
         },
         "hafetz44_units_crm.json": {
           "sha256": "c0f9a10d230fe0ea4f1f8f2f34e987ab7612c72232a5221f19d7411501cc9977",
@@ -627,6 +627,12 @@
           "size_bytes": 6534661,
           "mtime": 1793190552.65,
           "mtime_iso": "2026-10-28T14:29:12+02:00"
+        },
+        "src/benchmark_v2/v1_baseline_metrics.json": {
+          "sha256": "3272f17b288ceb37c793e316cf5833f4c3d58f6e82ff48c2af0c7fc1e1d14e34",
+          "size_bytes": 3411,
+          "mtime": 1793347847.49,
+          "mtime_iso": "2026-10-30T10:10:47+02:00"
         }
       },
       "extracted_3d_metrics_summary": {
@@ -649,41 +655,12 @@
         ]
       },
       "bim_3d_checks_summary": {
-        "total_checks": 309,
-        "pass_count": 152,
-        "warn_count": 152,
+        "total_checks": 81,
+        "pass_count": 39,
+        "warn_count": 37,
         "fail_count": 5
       },
       "audit_history": [
-        {
-          "audit_revision": 18,
-          "audit_iso": "2026-10-28T12:06:53+02:00",
-          "base_model_hash": "c8c734c553546afb",
-          "change_reason": "manual_full_reaudit_triggered",
-          "changed_files_count": 0,
-          "changed_files": [],
-          "total_notes": 20,
-          "overall_score": 89.8
-        },
-        {
-          "audit_revision": 19,
-          "audit_iso": "2026-10-28T14:45:00+02:00",
-          "base_model_hash": "c7bdf2dd5231e154",
-          "change_reason": "base_3d_model_modified",
-          "changed_files_count": 8,
-          "changed_files": [
-            "data/hafetz44_extracted_plans.json",
-            "dist/projects/hafetz-44/hafetz44_3d_bim_viewer.html",
-            "dist/projects/hafetz-44/hafetz44_3d_model.html",
-            "hafetz44_3d_bim_viewer.html",
-            "hafetz44_3d_model.html",
-            "hafetz44_extracted_plans.json",
-            "public/projects/hafetz-44/hafetz44_3d_bim_viewer.html",
-            "public/projects/hafetz-44/hafetz44_3d_model.html"
-          ],
-          "total_notes": 28,
-          "overall_score": 89.8
-        },
         {
           "audit_revision": 20,
           "audit_iso": "2026-10-28T14:45:29+02:00",
@@ -901,6 +878,30 @@
           "changed_files_count": 1,
           "changed_files": [
             "hafetz44_audit_preload.js"
+          ],
+          "total_notes": 28,
+          "overall_score": 89.8
+        },
+        {
+          "audit_revision": 38,
+          "audit_iso": "2026-10-30T10:07:03+02:00",
+          "base_model_hash": "8a81e3eb34920363",
+          "change_reason": "base_3d_model_modified",
+          "changed_files_count": 1,
+          "changed_files": [
+            "hafetz44_audit_preload.js"
+          ],
+          "total_notes": 28,
+          "overall_score": 89.8
+        },
+        {
+          "audit_revision": 39,
+          "audit_iso": "2026-10-30T10:12:07+02:00",
+          "base_model_hash": "a721f2906c61b0a4",
+          "change_reason": "base_3d_model_modified",
+          "changed_files_count": 1,
+          "changed_files": [
+            "src/benchmark_v2/v1_baseline_metrics.json"
           ],
           "total_notes": 28,
           "overall_score": 89.8

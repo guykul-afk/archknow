@@ -25,7 +25,7 @@ class TestArchiCheckApi(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         data = res.get_json()
         self.assertEqual(data.get('status'), 'success')
-        self.assertEqual(data.get('total'), 5)
+        self.assertEqual(data.get('total'), 7)
         p_ids = [p['id'] for p in data.get('projects', [])]
         self.assertIn('pines48', p_ids)
         self.assertIn('kkl10', p_ids)
