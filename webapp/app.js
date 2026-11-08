@@ -8,6 +8,7 @@
   // DOM References
   const searchForm = document.getElementById('project-search-form');
   const queryInput = document.getElementById('project-query-input');
+  const projectSelectDropdown = document.getElementById('project-select-dropdown');
   const quickChipsContainer = document.getElementById('project-quick-chips');
   const fileUploadInput = document.getElementById('file-upload-input');
 
@@ -45,6 +46,12 @@
   const splitWorkspaceEl = document.getElementById('split-workspace');
   const btnCollapseDocPanel = document.getElementById('btn-collapse-doc-panel');
   const btnExpandDocPanel = document.getElementById('btn-expand-doc-panel');
+  const btnTopToggleDocPanel = document.getElementById('btn-top-toggle-doc-panel');
+  const edgeRestoreDocBtn = document.getElementById('edge-restore-doc-btn');
+  const workspaceResizer = document.getElementById('workspace-resizer');
+  const workspaceResizerBadge = document.getElementById('workspace-resizer-badge');
+  const splitViewResizer = document.getElementById('split-view-resizer');
+  const splitViewResizerBadge = document.getElementById('split-view-resizer-badge');
   const btnFocusMode = document.getElementById('btn-focus-mode');
   const btnCenterOnPlan = document.getElementById('btn-center-on-plan');
   const hdrBreadcrumbSub = document.getElementById('hdr-breadcrumb-sub');
@@ -588,9 +595,30 @@
   // =========================================================================
   // 1. FETCH & ANALYZE PROJECT ACROSS ALL FOLDERS
   // =========================================================================
+  function syncProjectSelectDropdown(queryStr, projectId) {
+    if (!projectSelectDropdown) return;
+    const cleanQ = String(queryStr || '').trim();
+    const pid = String(projectId || '').trim();
+    const options = Array.from(projectSelectDropdown.options || []);
+    let matchedOpt = null;
+    if (pid) {
+      matchedOpt = options.find((opt) => (opt.getAttribute('data-project-id') || '') === pid);
+    }
+    if (!matchedOpt && cleanQ) {
+      matchedOpt = options.find((opt) => {
+        const val = (opt.value || '').trim();
+        return val === cleanQ || cleanQ.includes(val) || val.includes(cleanQ);
+      });
+    }
+    if (matchedOpt) {
+      projectSelectDropdown.value = matchedOpt.value;
+    }
+  }
+
   async function loadProjectAnalysis(queryStr) {
     const cleanQuery = (queryStr || 'חפץ חיים 44').trim();
     queryInput.value = cleanQuery;
+    syncProjectSelectDropdown(cleanQuery, '');
 
     // Update active state on quick chips
     document.querySelectorAll('.proj-chip').forEach((chip) => {
@@ -646,6 +674,7 @@
 
       data._loaded_from_live_api = loadedFromLiveApi;
       currentProject = data;
+      syncProjectSelectDropdown(cleanQuery, data.project_id || '');
       activeNoteId = null;
       qaHighlightedNoteIds = [];
       userExplicitlySelectedNote = false;
@@ -1007,7 +1036,24 @@
       btnExpandDocPanel.classList.toggle('hidden', !isDocCollapsed);
     }
 
-    // Sync floating restore bar inside #plan-viewport (ALWAYS accessible even when visual-toolbar is closed!)
+    // Sync Top Bar toggle button for Right Findings Panel
+    if (btnTopToggleDocPanel) {
+      btnTopToggleDocPanel.innerHTML = isDocCollapsed ? '📋 הצג פאנל ימין ▸' : 'פאנל ימין ◂';
+      btnTopToggleDocPanel.classList.toggle('active', isDocCollapsed);
+      btnTopToggleDocPanel.style.background = isDocCollapsed ? '#eff6ff' : '';
+      btnTopToggleDocPanel.style.borderColor = isDocCollapsed ? '#60a5fa' : '';
+      btnTopToggleDocPanel.style.color = isDocCollapsed ? '#1d4ed8' : '';
+      btnTopToggleDocPanel.title = isDocCollapsed
+        ? 'הצג חזרה את פאנל הממצאים והניתוח מימין'
+        : 'הסתר את פאנל הממצאים הימני כדי להגדיל את שטח התכנית';
+    }
+
+    // Sync Right-Edge Floating Restore Tab when Right Findings Panel is collapsed
+    if (edgeRestoreDocBtn) {
+      edgeRestoreDocBtn.classList.toggle('hidden', !isDocCollapsed);
+    }
+
+    // Sync Global Fixed Restore Bar directly in <body> (100% accessible regardless of panel state!)
     const anyBarCollapsed = isTopCollapsed || isDocCollapsed || isToolbarCollapsed;
     if (planToolbarRestoreBar) {
       planToolbarRestoreBar.classList.toggle('hidden', !anyBarCollapsed);
@@ -1021,9 +1067,8 @@
     if (btnRestorePlanToolbar) {
       btnRestorePlanToolbar.classList.toggle('hidden', !isToolbarCollapsed);
     }
-    const collapsedCount = (isTopCollapsed ? 1 : 0) + (isDocCollapsed ? 1 : 0) + (isToolbarCollapsed ? 1 : 0);
     if (btnRestoreAllBars) {
-      btnRestoreAllBars.classList.toggle('hidden', collapsedCount < 2);
+      btnRestoreAllBars.classList.toggle('hidden', !anyBarCollapsed);
     }
   }
 
@@ -1115,7 +1160,10 @@
 
     // Update top header breadcrumb & collapsed restore pill
     if (hdrBreadcrumbSub) {
-      hdrBreadcrumbSub.textContent = `${currentProject.project_name || ''} · ${sheet.title}`;
+      const shortSheet = getShortSheetTitle(sheet.title);
+      const fullBreadcrumb = `${currentProject.project_name || ''} · ${sheet.title}`;
+      hdrBreadcrumbSub.textContent = `${currentProject.project_name || ''} · ${shortSheet}`;
+      hdrBreadcrumbSub.title = fullBreadcrumb;
     }
     if (restoreBarSheetName) {
       restoreBarSheetName.textContent = getShortSheetTitle(sheet.title);
@@ -5848,7 +5896,15 @@ ${JSON.stringify(wallsMat)}`;
   );
 
   planViewport.addEventListener('mousedown', (e) => {
-    if (e.target.closest('.plan-pin') || e.target.closest('.ctrl-btn')) return;
+    if (
+      e.target.closest('.plan-pin') ||
+      e.target.closest('.ctrl-btn') ||
+      e.target.closest('.split-view-resizer') ||
+      e.target.closest('.workspace-resizer') ||
+      e.target.closest('.plan-toolbar-restore-bar')
+    ) {
+      return;
+    }
     isDragging = true;
     dragStartX = e.clientX - panX;
     dragStartY = e.clientY - panY;
@@ -6377,26 +6433,265 @@ ${JSON.stringify(wallsMat)}`;
   });
 
   // Collapsible Right Document Panel Toggle
+  function toggleDocPanel(forceOpen) {
+    if (!splitWorkspaceEl) return;
+    const isCollapsed = splitWorkspaceEl.classList.contains('doc-collapsed');
+    const shouldOpen = forceOpen !== undefined ? Boolean(forceOpen) : isCollapsed;
+    splitWorkspaceEl.classList.toggle('doc-collapsed', !shouldOpen);
+    syncCollapsedBarsRestoreUi();
+    setTimeout(() => {
+      try {
+        window.dispatchEvent(new Event('resize'));
+        if (model3dIframe && model3dIframe.contentWindow && currentViewMode !== '2d') {
+          model3dIframe.contentWindow.dispatchEvent(new Event('resize'));
+        }
+      } catch (e) {}
+    }, 60);
+  }
+
   if (btnCollapseDocPanel && splitWorkspaceEl) {
-    btnCollapseDocPanel.addEventListener('click', () => {
-      splitWorkspaceEl.classList.add('doc-collapsed');
-      syncCollapsedBarsRestoreUi();
-    });
+    btnCollapseDocPanel.addEventListener('click', () => toggleDocPanel(false));
   }
 
   if (btnExpandDocPanel && splitWorkspaceEl) {
-    btnExpandDocPanel.addEventListener('click', () => {
-      splitWorkspaceEl.classList.remove('doc-collapsed');
-      syncCollapsedBarsRestoreUi();
-    });
+    btnExpandDocPanel.addEventListener('click', () => toggleDocPanel(true));
   }
 
   if (btnRestoreDocPanelFloating && splitWorkspaceEl) {
-    btnRestoreDocPanelFloating.addEventListener('click', () => {
-      splitWorkspaceEl.classList.remove('doc-collapsed');
-      syncCollapsedBarsRestoreUi();
-    });
+    btnRestoreDocPanelFloating.addEventListener('click', () => toggleDocPanel(true));
   }
+
+  if (btnTopToggleDocPanel && splitWorkspaceEl) {
+    btnTopToggleDocPanel.addEventListener('click', () => toggleDocPanel());
+  }
+
+  if (edgeRestoreDocBtn && splitWorkspaceEl) {
+    edgeRestoreDocBtn.addEventListener('click', () => toggleDocPanel(true));
+  }
+
+  // Interactive Drag-Resizers for Right/Left Workspace Panels & 2D/3D Split Viewport
+  const DOC_PANEL_WIDTH_STORAGE_KEY = 'archicheck_doc_panel_width_pct_v1';
+  const SPLIT_2D_WIDTH_STORAGE_KEY = 'archicheck_split_2d_width_pct_v1';
+
+  function applyDocPanelWidthPct(pct, saveToStorage = false) {
+    const clamped = Math.max(16, Math.min(76, Number(pct) || 34));
+    if (splitWorkspaceEl) {
+      splitWorkspaceEl.style.setProperty('--doc-panel-width', `${clamped.toFixed(1)}%`);
+    }
+    if (saveToStorage) {
+      try {
+        localStorage.setItem(DOC_PANEL_WIDTH_STORAGE_KEY, String(clamped.toFixed(1)));
+      } catch (e) {}
+    }
+    return clamped;
+  }
+
+  function applySplitViewWidthPct(pct, saveToStorage = false) {
+    const clamped = Math.max(18, Math.min(82, Number(pct) || 50));
+    if (planViewport) {
+      planViewport.style.setProperty('--split-2d-width', `${clamped.toFixed(1)}%`);
+    }
+    if (saveToStorage) {
+      try {
+        localStorage.setItem(SPLIT_2D_WIDTH_STORAGE_KEY, String(clamped.toFixed(1)));
+      } catch (e) {}
+    }
+    return clamped;
+  }
+
+  function initWorkspaceAndSplitResizers() {
+    // Restore saved user panel ratios on startup
+    try {
+      const savedDocPct = parseFloat(localStorage.getItem(DOC_PANEL_WIDTH_STORAGE_KEY));
+      if (!isNaN(savedDocPct) && savedDocPct >= 16 && savedDocPct <= 76) {
+        applyDocPanelWidthPct(savedDocPct, false);
+      }
+      const savedSplitPct = parseFloat(localStorage.getItem(SPLIT_2D_WIDTH_STORAGE_KEY));
+      if (!isNaN(savedSplitPct) && savedSplitPct >= 18 && savedSplitPct <= 82) {
+        applySplitViewWidthPct(savedSplitPct, false);
+      }
+    } catch (e) {}
+
+    // 1. Main Workspace Resizer (Right Findings Panel vs. Left Plan Canvas)
+    if (workspaceResizer && splitWorkspaceEl) {
+      let isResizingWorkspace = false;
+      let latestDocPct = 34;
+
+      const onWorkspaceMove = (clientX) => {
+        const rect = splitWorkspaceEl.getBoundingClientRect();
+        if (!rect.width) return;
+        // RTL layout: Right Panel (#doc-panel) starts at rect.right and grows leftward
+        const rightWidthPx = rect.right - clientX;
+        const rawPct = (rightWidthPx / rect.width) * 100;
+        latestDocPct = applyDocPanelWidthPct(rawPct, false);
+        if (workspaceResizerBadge) {
+          const rRound = Math.round(latestDocPct);
+          workspaceResizerBadge.textContent = `ימין: ${rRound}% | תכנית: ${100 - rRound}%`;
+          workspaceResizerBadge.classList.remove('hidden');
+        }
+      };
+
+      const stopWorkspaceResize = () => {
+        if (!isResizingWorkspace) return;
+        isResizingWorkspace = false;
+        document.body.classList.remove('is-resizing-panels');
+        workspaceResizer.classList.remove('is-dragging');
+        if (workspaceResizerBadge) workspaceResizerBadge.classList.add('hidden');
+        applyDocPanelWidthPct(latestDocPct, true);
+        try {
+          window.dispatchEvent(new Event('resize'));
+          if (model3dIframe && model3dIframe.contentWindow && currentViewMode !== '2d') {
+            model3dIframe.contentWindow.dispatchEvent(new Event('resize'));
+          }
+        } catch (e) {}
+      };
+
+      workspaceResizer.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (splitWorkspaceEl.classList.contains('doc-collapsed')) {
+          toggleDocPanel(true);
+        }
+        isResizingWorkspace = true;
+        document.body.classList.add('is-resizing-panels');
+        workspaceResizer.classList.add('is-dragging');
+        onWorkspaceMove(e.clientX);
+      });
+
+      workspaceResizer.addEventListener(
+        'touchstart',
+        (e) => {
+          if (!e.touches || !e.touches[0]) return;
+          e.stopPropagation();
+          if (splitWorkspaceEl.classList.contains('doc-collapsed')) {
+            toggleDocPanel(true);
+          }
+          isResizingWorkspace = true;
+          document.body.classList.add('is-resizing-panels');
+          workspaceResizer.classList.add('is-dragging');
+          onWorkspaceMove(e.touches[0].clientX);
+        },
+        { passive: true }
+      );
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isResizingWorkspace) return;
+        onWorkspaceMove(e.clientX);
+      });
+
+      window.addEventListener(
+        'touchmove',
+        (e) => {
+          if (!isResizingWorkspace || !e.touches || !e.touches[0]) return;
+          onWorkspaceMove(e.touches[0].clientX);
+        },
+        { passive: true }
+      );
+
+      window.addEventListener('mouseup', stopWorkspaceResize);
+      window.addEventListener('touchend', stopWorkspaceResize);
+
+      workspaceResizer.addEventListener('dblclick', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        applyDocPanelWidthPct(34, true);
+        try {
+          window.dispatchEvent(new Event('resize'));
+          if (model3dIframe && model3dIframe.contentWindow && currentViewMode !== '2d') {
+            model3dIframe.contentWindow.dispatchEvent(new Event('resize'));
+          }
+        } catch (err) {}
+      });
+    }
+
+    // 2. 2D/3D Split Viewport Resizer (Right 2D Plan vs. Left 3D Model in vmode-split)
+    if (splitViewResizer && planViewport) {
+      let isResizingSplit = false;
+      let latestSplitPct = 50;
+
+      const onSplitMove = (clientX) => {
+        const rect = planViewport.getBoundingClientRect();
+        if (!rect.width) return;
+        // RTL layout: 2D Plan (#plan-stage) is on the right, 3D Model (#model-3d-stage) is on the left
+        const right2dWidthPx = rect.right - clientX;
+        const rawPct = (right2dWidthPx / rect.width) * 100;
+        latestSplitPct = applySplitViewWidthPct(rawPct, false);
+        if (splitViewResizerBadge) {
+          const rRound = Math.round(latestSplitPct);
+          splitViewResizerBadge.textContent = `2D: ${rRound}% | 3D: ${100 - rRound}%`;
+          splitViewResizerBadge.classList.remove('hidden');
+        }
+      };
+
+      const stopSplitResize = () => {
+        if (!isResizingSplit) return;
+        isResizingSplit = false;
+        document.body.classList.remove('is-resizing-panels');
+        splitViewResizer.classList.remove('is-dragging');
+        if (splitViewResizerBadge) splitViewResizerBadge.classList.add('hidden');
+        applySplitViewWidthPct(latestSplitPct, true);
+        try {
+          window.dispatchEvent(new Event('resize'));
+          if (model3dIframe && model3dIframe.contentWindow) {
+            model3dIframe.contentWindow.dispatchEvent(new Event('resize'));
+          }
+        } catch (e) {}
+      };
+
+      splitViewResizer.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        isResizingSplit = true;
+        document.body.classList.add('is-resizing-panels');
+        splitViewResizer.classList.add('is-dragging');
+        onSplitMove(e.clientX);
+      });
+
+      splitViewResizer.addEventListener(
+        'touchstart',
+        (e) => {
+          if (!e.touches || !e.touches[0]) return;
+          e.stopPropagation();
+          isResizingSplit = true;
+          document.body.classList.add('is-resizing-panels');
+          splitViewResizer.classList.add('is-dragging');
+          onSplitMove(e.touches[0].clientX);
+        },
+        { passive: true }
+      );
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isResizingSplit) return;
+        onSplitMove(e.clientX);
+      });
+
+      window.addEventListener(
+        'touchmove',
+        (e) => {
+          if (!isResizingSplit || !e.touches || !e.touches[0]) return;
+          onSplitMove(e.touches[0].clientX);
+        },
+        { passive: true }
+      );
+
+      window.addEventListener('mouseup', stopSplitResize);
+      window.addEventListener('touchend', stopSplitResize);
+
+      splitViewResizer.addEventListener('dblclick', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        applySplitViewWidthPct(50, true);
+        try {
+          window.dispatchEvent(new Event('resize'));
+          if (model3dIframe && model3dIframe.contentWindow) {
+            model3dIframe.contentWindow.dispatchEvent(new Event('resize'));
+          }
+        } catch (err) {}
+      });
+    }
+  }
+
+  initWorkspaceAndSplitResizers();
 
   // Left Side Inspector Dock is permanently disabled (only Right Panel #doc-panel is used)
   function toggleSideDock() {
@@ -6429,15 +6724,27 @@ ${JSON.stringify(wallsMat)}`;
     loadProjectAnalysis(queryInput.value);
   });
 
-  // Quick Project Chips
-  quickChipsContainer.addEventListener('click', (e) => {
-    const chip = e.target.closest('.proj-chip');
-    if (!chip) return;
-    const q = chip.getAttribute('data-query');
-    if (q) {
-      loadProjectAnalysis(q);
-    }
-  });
+  // Project Selection Dropdown Menu
+  if (projectSelectDropdown) {
+    projectSelectDropdown.addEventListener('change', () => {
+      const selectedQuery = projectSelectDropdown.value;
+      if (selectedQuery) {
+        loadProjectAnalysis(selectedQuery);
+      }
+    });
+  }
+
+  // Quick Project Chips (Legacy fallback)
+  if (quickChipsContainer) {
+    quickChipsContainer.addEventListener('click', (e) => {
+      const chip = e.target.closest('.proj-chip');
+      if (!chip) return;
+      const q = chip.getAttribute('data-query');
+      if (q) {
+        loadProjectAnalysis(q);
+      }
+    });
+  }
 
   // Discovered Files Drawer Toggle
   btnToggleFiles.addEventListener('click', () => {

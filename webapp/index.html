@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=8.0" />
+  <link rel="stylesheet" href="styles.css?v=8.2" />
 </head>
 <body>
   <!-- COLLAPSIBLE MINIMALIST TOP BAR -->
@@ -15,7 +15,7 @@
     <div class="brand-area">
       <span class="brand-title">ArchiCheck</span>
       <span class="brand-sep">/</span>
-      <span class="brand-sub" id="hdr-breadcrumb-sub">חפץ חיים 44</span>
+      <span class="brand-sub" id="hdr-breadcrumb-sub" title="חפץ חיים 44">חפץ חיים 44</span>
       <button
         type="button"
         id="hdr-api-cost-widget"
@@ -32,9 +32,29 @@
       </button>
     </div>
 
-    <!-- Quick Project Selector & Compact Search -->
+    <!-- Dropdown Project Selector & Compact Search -->
     <div class="top-bar-center">
-      <div class="quick-chips" id="project-quick-chips">
+      <div class="project-dropdown-wrap">
+        <label for="project-select-dropdown" class="project-select-label">פרויקט:</label>
+        <select
+          id="project-select-dropdown"
+          class="project-select-dropdown"
+          aria-label="בחירת פרויקט מרשימה נגללת"
+          title="בחר פרויקט מהרשימה הנגללת"
+        >
+          <option value="חפץ חיים 44" data-project-id="hafetz44">חפץ חיים 44 — פתח תקווה</option>
+          <option value="פינס 48" data-project-id="pines48">פינס 48 — פתח תקווה</option>
+          <option value="קק״ל 10" data-project-id="kkl10">קק״ל 10 — פתח תקווה</option>
+          <option value="יטקובסקי 7" data-project-id="yatkovski7">יטקובסקי 7 — פתח תקווה</option>
+          <option value="קטרוני 37–39" data-project-id="kitroni37">קטרוני 37–39 — פתח תקווה</option>
+          <option value="פאירברג 3" data-project-id="feierberg3">פאירברג 3 — פתח תקווה</option>
+          <option value="משה שרת 26–28" data-project-id="sharett26">משה שרת 26–28 — תל אביב</option>
+          <option value="אם המושבות" data-project-id="em_hamoshavot">אם המושבות (גדרה 12) — פתח תקווה</option>
+        </select>
+      </div>
+
+      <!-- Legacy Quick Chips kept hidden in DOM for backwards compatibility -->
+      <div class="quick-chips hidden" id="project-quick-chips" hidden>
         <button type="button" class="proj-chip active" data-query="חפץ חיים 44">חפץ חיים 44</button>
         <button type="button" class="proj-chip" data-query="פינס 48">פינס 48</button>
         <button type="button" class="proj-chip" data-query="קק״ל 10">קק״ל 10</button>
@@ -117,12 +137,44 @@
           </div>
         </div>
 
-        <button type="button" id="btn-collapse-top-bar" class="btn-tool btn-collapse-topbar" title="סגור סרגל עליון">
+        <button type="button" id="btn-top-toggle-doc-panel" class="btn-tool" title="הצג או הסתר את פאנל הממצאים הימני">
+          פאנל ימין ◂
+        </button>
+
+        <button type="button" id="btn-collapse-top-bar" class="btn-tool btn-collapse-topbar" title="צמצם סרגל עליון (ניתן לפתוח מחדש בכל עת)">
           סרגל ▴
         </button>
       </div>
     </div>
   </header>
+
+  <!-- GLOBAL FIXED RESTORE BAR & EDGE HANDLE (Always accessible at top of viewport when any bar/panel is closed) -->
+  <div id="plan-toolbar-restore-bar" class="plan-toolbar-restore-bar hidden">
+    <button type="button" id="btn-restore-top-bar-floating" class="btn-restore-plan-toolbar hidden" title="פתח חזרה את הסרגל העליון">
+      <span>⬆️ פתח סרגל עליון ▾</span>
+    </button>
+    <button type="button" id="btn-restore-doc-panel-floating" class="btn-restore-plan-toolbar hidden" title="הצג חזרה את רשימת הממצאים מימין">
+      <span>📋 הצג פאנל ממצאים ימני ▸</span>
+    </button>
+    <button type="button" id="btn-restore-plan-toolbar" class="btn-restore-plan-toolbar hidden" title="פתח חזרה את סרגל הקומות והכלים">
+      <span>📐 <strong id="restore-bar-sheet-name">קומה פעילה</strong></span>
+      <span class="restore-bar-sep">|</span>
+      <span>פתח סרגל קומות וכלים ▾</span>
+    </button>
+    <button type="button" id="btn-restore-all-bars" class="btn-restore-plan-toolbar btn-restore-all-pill hidden" title="הצג את כל הסרגלים והפאנלים (Esc)">
+      <span>🔄 הצג את כל הסרגלים</span>
+    </button>
+  </div>
+
+  <!-- RIGHT EDGE FLOATING TAB WHEN RIGHT FINDINGS PANEL IS COLLAPSED -->
+  <button
+    type="button"
+    id="edge-restore-doc-btn"
+    class="edge-restore-doc-btn hidden"
+    title="לחץ לפתיחת פאנל הממצאים והניתוח מימין"
+  >
+    <span>◂ פתח פאנל ממצאים</span>
+  </button>
 
   <!-- DISCOVERED FILES DRAWER -->
   <section id="discovered-files-drawer" class="files-drawer hidden">
@@ -291,6 +343,21 @@
       </div>
     </aside>
 
+    <!-- DRAGGABLE WORKSPACE SPLITTER (RESIZE RIGHT PANEL VS. LEFT PLAN CANVAS) -->
+    <div
+      id="workspace-resizer"
+      class="workspace-resizer"
+      role="separator"
+      aria-orientation="vertical"
+      aria-label="גרור לשינוי יחס הרוחב בין פאנל הממצאים לתכנית"
+      title="גרור ימינה או שמאלה לשינוי גודל החלונות (לחיצה כפולה לאיפוס היחס)"
+    >
+      <div class="resizer-grip-pill">
+        <span class="resizer-grip-dots">⋮</span>
+      </div>
+      <span id="workspace-resizer-badge" class="resizer-ratio-badge hidden">34% | 66%</span>
+    </div>
+
     <!-- ZONE 2 (CENTER) & ZONE 3 (LEFT INSPECTOR DRAWER) -->
     <section class="visual-panel" id="visual-panel">
       <!-- Clean Top Plan Toolbar (Collapsible & Minimizable) -->
@@ -355,7 +422,7 @@
           </button>
 
           <button type="button" id="btn-collapse-plan-toolbar" class="ctrl-btn btn-collapse-plan-toolbar" title="סגור וצמצם את סרגל הקומות והכלים כדי לפנות מקום למסך התכניות">
-            סגור פאנל ▴
+            סגור סרגל כלים ▴
           </button>
 
           <button type="button" id="btn-toggle-side-dock" class="ctrl-btn hidden" title="חלונית פרטים">
@@ -377,30 +444,27 @@
       <!-- Main Plan Body: Center Drawing Stage + Left Inspector Drawer (Closed by Default) -->
       <div id="plan-body-layout" class="plan-body-layout dock-collapsed">
         <div id="plan-viewport" class="plan-viewport vmode-2d">
-          <!-- Floating Restore Pill when Any Bar / Panel is Closed -->
-          <div id="plan-toolbar-restore-bar" class="plan-toolbar-restore-bar hidden">
-            <button type="button" id="btn-restore-top-bar-floating" class="btn-restore-plan-toolbar hidden" title="פתח חזרה את הסרגל העליון">
-              <span>⬆️ פתח סרגל עליון ▾</span>
-            </button>
-            <button type="button" id="btn-restore-doc-panel-floating" class="btn-restore-plan-toolbar hidden" title="הצג חזרה את רשימת הממצאים מימין">
-              <span>📋 הצג רשימת ממצאים ▸</span>
-            </button>
-            <button type="button" id="btn-restore-plan-toolbar" class="btn-restore-plan-toolbar hidden" title="פתח חזרה את סרגל הקומות והכלים">
-              <span>📐 <strong id="restore-bar-sheet-name">קומה פעילה</strong></span>
-              <span class="restore-bar-sep">|</span>
-              <span>פתח קומות וכלים ▾</span>
-            </button>
-            <button type="button" id="btn-restore-all-bars" class="btn-restore-plan-toolbar btn-restore-all-pill hidden" title="הצג את כל הסרגלים והפאנלים (Esc)">
-              <span>🔄 הצג את כל הסרגלים</span>
-            </button>
-          </div>
-
           <div id="plan-stage" class="plan-stage">
             <div id="plan-image-wrapper" class="plan-image-wrapper">
               <img id="plan-image" class="plan-image" src="/uploads/hafetz44_ground.png" alt="תכנית אדריכלית" draggable="false" />
               <svg id="plan-svg-overlay" class="plan-svg-overlay" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
               <div id="plan-pins-layer" class="plan-pins-layer"></div>
             </div>
+          </div>
+
+          <!-- DRAGGABLE 2D/3D SPLIT VIEWPORT RESIZER (Active in 2D+3D mode) -->
+          <div
+            id="split-view-resizer"
+            class="split-view-resizer"
+            role="separator"
+            aria-orientation="vertical"
+            aria-label="גרור לשינוי יחס הרוחב בין תכנית 2D למודל 3D"
+            title="גרור ימינה או שמאלה לשינוי גודל חלונות 2D ו-3D (לחיצה כפולה לאיפוס)"
+          >
+            <div class="resizer-grip-pill">
+              <span class="resizer-grip-dots">⋮</span>
+            </div>
+            <span id="split-view-resizer-badge" class="resizer-ratio-badge hidden">50% | 50%</span>
           </div>
 
           <div id="model-3d-stage" class="model-3d-stage hidden">
@@ -537,6 +601,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=8.0"></script>
+  <script src="app.js?v=8.2"></script>
 </body>
 </html>
