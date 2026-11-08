@@ -8,6 +8,24 @@ sys.stdout.reconfigure(encoding='utf-8')
 from project_analyzer_service import get_projects_catalog, analyze_project_by_query
 from sync_3d_models import CENTRAL_MODELS_ROOT, PROJECTS_CONFIG
 from spatial_position_lock import build_and_verify_master_registry
+from atkg_spatial_graph import build_portfolio_atkg_index
+
+
+def _safe_write_text(path: str, text: str) -> None:
+    tmp_path = path + '.tmp'
+    with open(tmp_path, 'w', encoding='utf-8', newline='\n') as f:
+        f.write(text)
+    try:
+        os.replace(tmp_path, path)
+    except OSError:
+        if os.path.exists(path):
+            os.remove(path)
+        os.replace(tmp_path, path)
+
+
+def _safe_write_json(path: str, obj) -> None:
+    _safe_write_text(path, json.dumps(obj, ensure_ascii=False, indent=2))
+
 
 # 1. Copy reports to webapp/reports
 os.makedirs('webapp/reports', exist_ok=True)
@@ -21,8 +39,7 @@ for fn in os.listdir('reports'):
 # 2. Export API data for static hosting
 os.makedirs('webapp/api', exist_ok=True)
 cat = get_projects_catalog()
-with open('webapp/api/projects.json', 'w', encoding='utf-8', newline='\n') as f:
-    json.dump({'projects': cat}, f, ensure_ascii=False, indent=2)
+_safe_write_json('webapp/api/projects.json', {'projects': cat})
 print('Wrote webapp/api/projects.json')
 
 project_queries = {
@@ -33,13 +50,36 @@ project_queries = {
     'kitroni37': 'קטרוני 37–39',
     'feierberg3': 'פאירברג 3',
     'sharett26': 'משה שרת 26–28',
+    'em_hamoshavot': 'אם המושבות',
 }
+all_exported_payloads = []
 for pid, q in project_queries.items():
     data = analyze_project_by_query(q, rebuild_artifacts=False)
+    all_exported_payloads.append(data)
     out_p = f'webapp/api/{pid}.json'
-    with open(out_p, 'w', encoding='utf-8', newline='\n') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    _safe_write_json(out_p, data)
     print(f'Wrote {out_p} ({len(data["notes"])} notes, {len(data["sheets"])} sheets)')
+    # Export Tri-Modal View 1: Compact Architectural Twin Markdown (<pid>_ai_twin.md)
+    atkg_obj = data.get('atkg_spatial_graph') or {}
+    ai_twin_md = atkg_obj.get('ai_twin_compact_md', '')
+    if ai_twin_md:
+        twin_path = f'webapp/api/{pid}_ai_twin.md'
+        _safe_write_text(twin_path, ai_twin_md)
+        print(f'Wrote {twin_path} ({len(ai_twin_md)} chars)')
+    try:
+        from export_engine import generate_project_dxf_redline, generate_project_excel_boq
+        with open(f'webapp/api/{pid}_redline.dxf', 'wb') as df:
+            df.write(generate_project_dxf_redline(data))
+        with open(f'webapp/api/{pid}_boq.xlsx', 'wb') as xf:
+            xf.write(generate_project_excel_boq(data))
+        print(f'Wrote webapp/api/{pid}_redline.dxf and webapp/api/{pid}_boq.xlsx')
+    except Exception as ex:
+        print(f'Warning generating static DXF/Excel for {pid}: {ex}')
+
+# Export Tri-Modal View 2: Cross-Project Portfolio ATKG Index (portfolio_atkg_index.json)
+portfolio_idx = build_portfolio_atkg_index(all_exported_payloads)
+_safe_write_json('webapp/api/portfolio_atkg_index.json', portfolio_idx)
+print(f'Wrote webapp/api/portfolio_atkg_index.json ({portfolio_idx["projects_count"]} projects indexed)')
 
 lock_reg = build_and_verify_master_registry(write_file=True)
 shutil.copy2('spatial_lock_registry.json', 'webapp/api/spatial_lock_registry.json')

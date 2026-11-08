@@ -800,6 +800,78 @@ def get_ai_context():
     })
 
 
+@api_v1.route('/ai/ask', methods=['GET', 'POST'])
+@require_api_key
+def ask_ai_plan_v1():
+    """
+    Neuro-Symbolic ATKG Plan Q&A & Action Endpoint.
+    Answers architectural questions using the 4-Layer ATKG graph, Wall Mutability Matrix,
+    OKF Refactoring Patterns, and optional Live Gemini LLM synthesis.
+    """
+    from plan_qa_engine import answer_plan_question
+
+    if request.method == 'POST':
+        body = request.get_json(silent=True) or {}
+        project_id = (body.get('project_id') or body.get('project') or 'hafetz44').strip()
+        question = (body.get('question') or body.get('query') or body.get('q') or '').strip()
+        api_key = (body.get('api_key') or body.get('gemini_api_key') or '').strip() or None
+        model_name = (body.get('model') or body.get('model_name') or '').strip() or None
+    else:
+        project_id = (request.args.get('project_id') or request.args.get('project') or 'hafetz44').strip()
+        question = (request.args.get('question') or request.args.get('query') or request.args.get('q') or '').strip()
+        api_key = (request.args.get('api_key') or '').strip() or None
+        model_name = (request.args.get('model') or request.args.get('model_name') or '').strip() or None
+
+    payload = analyze_project_by_query(project_id, rebuild_artifacts=False)
+    answer = answer_plan_question(payload, question, api_key=api_key, model_name=model_name)
+    return jsonify({
+        "status": "success",
+        "project_id": payload.get("project_id"),
+        "project_name": payload.get("project_name"),
+        "answer": answer,
+    })
+
+
+@api_v1.route('/ai/atkg/<project_id>', methods=['GET'])
+@require_api_key
+def get_project_atkg_v1(project_id):
+    """Returns the 4-Layer ATKG (Architectural Topological Knowledge Graph) for a project."""
+    payload = analyze_project_by_query(project_id, rebuild_artifacts=False)
+    return jsonify({
+        "status": "success",
+        "project_id": payload.get("project_id"),
+        "project_name": payload.get("project_name"),
+        "atkg_spatial_graph": payload.get("atkg_spatial_graph"),
+    })
+
+
+@api_v1.route('/ai/twin/<project_id>', methods=['GET'])
+@require_api_key
+def get_project_ai_twin_v1(project_id):
+    """Returns the Compact Architectural Twin (`ai_twin_compact_md`) for token-efficient LLM reasoning."""
+    payload = analyze_project_by_query(project_id, rebuild_artifacts=False)
+    atkg = payload.get("atkg_spatial_graph") or {}
+    return jsonify({
+        "status": "success",
+        "project_id": payload.get("project_id"),
+        "project_name": payload.get("project_name"),
+        "ai_twin_compact_md": atkg.get("ai_twin_compact_md", ""),
+    })
+
+
+@api_v1.route('/ai/portfolio_index', methods=['GET'])
+@require_api_key
+def get_portfolio_atkg_index_v1():
+    """Returns the cross-project ATKG portfolio index across all cataloged projects."""
+    idx_path = os.path.join(BASE_DIR, 'webapp', 'api', 'portfolio_atkg_index.json')
+    if os.path.isfile(idx_path):
+        with open(idx_path, 'r', encoding='utf-8') as f:
+            return jsonify(json.load(f))
+    from atkg_spatial_graph import build_portfolio_atkg_index
+    all_payloads = [analyze_project_by_query(p['id'], rebuild_artifacts=False) for p in get_projects_catalog()]
+    return jsonify(build_portfolio_atkg_index(all_payloads))
+
+
 # =====================================================================
 # 4. OKF Architectural Rules Knowledge Base
 # =====================================================================
@@ -1074,6 +1146,33 @@ def get_ai_tools_spec():
         "description": "Tool calling specifications for AI Agents (OpenAI & Anthropic formats)",
         "openai_tools": openai_tools,
         "anthropic_tools": anthropic_tools
+    })
+
+
+@api_v1.route('/ai/ask', methods=['GET', 'POST'])
+def ask_plan_v1():
+    """
+    Interactive Plan Q&A endpoint for AI agents and UI clients.
+    Accepts `project_id` and `question` and returns structured architectural analysis,
+    comparison tables, matched notes, and executable UI/BIM actions.
+    """
+    from plan_qa_engine import answer_plan_question
+
+    if request.method == 'POST':
+        body = request.get_json(silent=True) or {}
+        project_id = (body.get('project_id') or body.get('project') or 'hafetz44').strip()
+        question = (body.get('question') or body.get('q') or '').strip()
+    else:
+        project_id = (request.args.get('project_id') or request.args.get('project') or 'hafetz44').strip()
+        question = (request.args.get('question') or request.args.get('q') or '').strip()
+
+    payload = analyze_project_by_query(project_id, rebuild_artifacts=False)
+    answer = answer_plan_question(payload, question)
+    return jsonify({
+        "status": "success",
+        "project_id": payload.get("project_id"),
+        "project_name": payload.get("project_name"),
+        "answer": answer,
     })
 
 
@@ -1559,6 +1658,71 @@ DOCS_HTML_TEMPLATE = """
 """
 
 
+@api_v1.route('/projects/<project_id>/export/dxf', methods=['GET'])
+@require_api_key
+def export_project_dxf_v1(project_id):
+    """Downloads a layered AutoCAD R2010 DXF redline overlay for a project."""
+    from export_engine import generate_project_dxf_redline
+
+    pid_q = str(project_id or 'pines48').strip().lower()
+    payload = analyze_project_by_query(pid_q, rebuild_artifacts=False)
+    pid = str(payload.get('project_id') or payload.get('id') or pid_q)
+    dxf_bytes = generate_project_dxf_redline(payload)
+    return Response(
+        dxf_bytes,
+        mimetype='application/dxf',
+        headers={
+            'Content-Disposition': f'attachment; filename="{pid}_archicheck_redline.dxf"'
+        },
+    )
+
+
+@api_v1.route('/projects/<project_id>/export/excel', methods=['GET'])
+@require_api_key
+def export_project_excel_v1(project_id):
+    """Downloads a multi-sheet Excel (.xlsx) BoQ, Value Engineering & Architect Action Package workbook."""
+    from export_engine import generate_project_excel_boq
+
+    pid_q = str(project_id or 'pines48').strip().lower()
+    payload = analyze_project_by_query(pid_q, rebuild_artifacts=False)
+    pid = str(payload.get('project_id') or payload.get('id') or pid_q)
+    xlsx_bytes = generate_project_excel_boq(payload)
+    return Response(
+        xlsx_bytes,
+        mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        headers={
+            'Content-Disposition': f'attachment; filename="{pid}_archicheck_boq_and_audit.xlsx"'
+        },
+    )
+
+
+@api_v1.route('/analyze/spatial-intelligence', methods=['POST'])
+@require_api_key
+def analyze_spatial_intelligence_v1():
+    """Runs the algorithmic furnishability, sightline, zero-line closet, and livability engines."""
+    from spatial_intelligence_engine import (
+        compute_sightline_and_aesthetics_metrics,
+        simulate_apartment_furnishability,
+        analyze_resident_livability,
+        audit_multi_floor_vertical_stack,
+    )
+
+    body = request.get_json(silent=True) or {}
+    apt = body.get('apartment') or body
+    sight = compute_sightline_and_aesthetics_metrics(apt)
+    furn = simulate_apartment_furnishability(apt)
+    liv = analyze_resident_livability(apt)
+    floors = body.get('floors') or []
+    vert = audit_multi_floor_vertical_stack(floors) if floors else None
+    return jsonify({
+        "status": "success",
+        "sightlines_and_aesthetics": sight,
+        "furnishability_simulation": furn,
+        "resident_livability": liv,
+        "vertical_stack_audit": vert,
+    })
+
+
 @api_v1.route('/sync', methods=['POST', 'GET'])
 @require_api_key
 def trigger_drive_sync():
@@ -1570,6 +1734,16 @@ def trigger_drive_sync():
         return jsonify(res)
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
+
+@api_v1.route('/ai/usage_costs', methods=['GET'])
+def api_v1_usage_costs():
+    """Returns daily, weekly, and cumulative Gemini API cost & token usage telemetry."""
+    from llm_reasoning_agent import get_api_usage_summary
+    return jsonify({
+        "status": "success",
+        "usage_summary": get_api_usage_summary(),
+    })
 
 
 @api_v1.route('/docs', methods=['GET'])

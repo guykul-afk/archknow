@@ -113,6 +113,24 @@
         "1025"
       ],
       "pdf_report_url": "/reports/sharett26_architectural_quality_analysis.pdf"
+    },
+    {
+      "id": "em_hamoshavot",
+      "name": "מתחם גדרה 12 — אם המושבות / הדר המושבות, פתח תקווה (גוש 7194, חלקה 20)",
+      "short_name": "אם המושבות",
+      "subtitle": "מתחם מגורים דו-בנייני (בניינים B ו-A) בן 6 קומות + קומת קרקע ומרתף (28 יח״ד · 42 חניות · טל נחומי אדריכלים)",
+      "score": "92.4 / 100",
+      "status_summary": "312 עוברים · 22 התראות איכות · 0 כישלונות חוקיים · מודל 3D BIM 1:1",
+      "keywords": [
+        "אם המושבות",
+        "הדר המושבות",
+        "גדרה",
+        "em_hamoshavot",
+        "560680",
+        "7194",
+        "20"
+      ],
+      "pdf_report_url": "/reports/em_hamoshavot_architectural_quality_analysis.pdf"
     }
   ]
 }

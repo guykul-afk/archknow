@@ -893,6 +893,7 @@ PROJECT_QUANTITATIVE_DATA = {
                     "opaque_area_sqm": 220.0,
                     "wwr_pct": 34.9,
                     "materials_and_elements": "מרפסות שמש רוחביות (200×940 ס״מ) לכל רוחב החזית, ויטרינות סלון של הדירות המזרחיות וטרסת הפנטהאוז",
+                    "x_pct": 79.3, "y_pct": 36.4, "w_pct": 5.0, "h_pct": 36.0, "cx_pct": 81.8, "cy_pct": 54.4,
                 },
                 {
                     "facade_name": "חזית מערבית (פונה לשצ״פ מערבי ירוק ברוחב 13.95 מ׳)",
@@ -905,6 +906,7 @@ PROJECT_QUANTITATIVE_DATA = {
                     "opaque_area_sqm": 214.0,
                     "wwr_pct": 36.7,
                     "materials_and_elements": "מרפסות שמש רוחביות (200×940 ס״מ) של דירות 5 החדרים, ויטרינות פנורמיות וטרסת גג מערבית בקומה 9",
+                    "x_pct": 14.0, "y_pct": 36.4, "w_pct": 5.0, "h_pct": 36.0, "cx_pct": 16.5, "cy_pct": 54.4,
                 },
                 {
                     "facade_name": "חזית צפונית (אורך 26.80 מ׳ — חדרי שינה, ממ״דים וגרעין)",
@@ -917,6 +919,7 @@ PROJECT_QUANTITATIVE_DATA = {
                     "opaque_area_sqm": 653.0,
                     "wwr_pct": 19.9,
                     "materials_and_elements": "חלונות ממ״דים, סוויטות הורים, חדרי שינה, רפפות מסתורי כביסה וחלון חדר המדרגות",
+                    "x_pct": 19.0, "y_pct": 31.5, "w_pct": 60.3, "h_pct": 4.5, "cx_pct": 49.15, "cy_pct": 33.75,
                 },
                 {
                     "facade_name": "חזית דרומית (אורך 26.80 מ׳ — סלונים, מטבחים וחדרי שינה)",
@@ -929,6 +932,7 @@ PROJECT_QUANTITATIVE_DATA = {
                     "opaque_area_sqm": 641.0,
                     "wwr_pct": 21.3,
                     "materials_and_elements": "חלונות דרומיים של הסלונים והמטבחים, חדרי שינה פינתיים וחיפוי אבן/פורצלן בהיר",
+                    "x_pct": 19.0, "y_pct": 72.5, "w_pct": 60.3, "h_pct": 4.5, "cx_pct": 49.15, "cy_pct": 74.75,
                 },
             ],
         },
@@ -1898,18 +1902,18 @@ PROJECT_QUANTITATIVE_DATA = {
                     "priority": "בינונית (השבחת פנים דירה 2 בתכנית המקור · 8 דירות — מבחנים 8 ו-10)",
                     "target": "דירה 2 בתכנית המקור — סוויטת הורים דרום-מערבית (340×280 ס״מ) וחדר צפוני (350×370 ס״מ) (סיכה #8)",
                     "issue": "רוחב סוויטת ההורים 280 ס״מ (גובלת בקיר המטבח 305 ס״מ ובחדר הרחצה הצמוד 180×170 ס״מ, ולקצה המסדרון נפתחת דלת הממ״ד 295×310 ס״מ).",
-                    "proposal": "שמירה מלאה על המסדרון מול דלת האמבטיה הכללית (230×170) ודלת הממ״ד, הצבת ארון לאורך קיר ה-340 ס״מ המזרחי בסוויטת ההורים וניצול גומחת ה-45 ס״מ הקיימת בחדר השינה הצפוני (350×370 ס״מ).",
+                    "proposal": "שמירה מלאה על המסדרון מול דלת האמבטיה הכללית (230×170) ודלת הממ״ד, הצבת ארון לאורך קיר ה-340 ס״מ המזרחי בסוויטת ההורים וארון לאורך הקיר המזרחי הפנימי (370 ס״מ) בחדר השינה הצפוני (350×370 ס״מ).",
                     "impact": "ניצול מיטבי של החדרים ללא חסימת דלת הממ״ד או האמבטיה הכללית וללא פגיעה במטבח.",
                     "note_id": "FB3-E-02",
                     "pin_num": 8,
                     "sheet_id": "fb_typical",
                 },
                 {
-                    "priority": "בינונית (אילוץ גיאומטרי בדירה 1 בתכנית המקור · 8 דירות — מבחנים 8 ו-10)",
-                    "target": "דירה 1 בתכנית המקור — חדר צפוני (280×370 ס״מ) הצמוד לחדר האמבטיה הכללי (230×170 ס״מ) (סיכה #3)",
-                    "issue": "החדר הצפוני (280×370 ס״מ) גובל ממזרח בחדר האמבטיה הכללי (230×170 ס״מ שבו ממוקמת האמבטיה) וממערב בחדר המדרגות (350 ס״מ) — ללא הקטנת חדר האמבטיה אין אפשרות לנישת ארון שקועה!",
-                    "proposal": "פסילת נישת ארון קו-אפס (שדורשת הקטנת חדר האמבטיה הכללי וביטול האמבטיה), שמירה מלאה על חדר האמבטיה (230×170) והמסדרון (110 ס״מ), והצבת ארון בתוך גבולות החדר הקיים (מעבר 220 ס״מ) לצד ניצול גומחת ה-360/310 ס״מ בחדר הצפון-מזרחי.",
-                    "impact": "שמירה ב-100% על חדר האמבטיה הכללי (230×170 ס״מ) ועל נגישות המסדרון בכל 8 הדירות.",
+                    "priority": "בינונית (אילוץ גיאומטרי בדירה 1 בתכנית המקור · 8 דירות — מבחנים 8, 10 ו-11)",
+                    "target": "דירה 1 בתכנית המקור — חדר צפוני (280×370 ס״מ) וחדר צפון-מזרחי (310×310/360 ס״מ) הצמודים לחדר האמבטיה הכללי (230×170 ס״מ) (סיכות #3 ו-#4)",
+                    "issue": "החדר הצפוני (280×370 ס״מ) גובל ממזרח בחדר האמבטיה הכללי (230×170 ס״מ שבו ממוקמת האמבטיה) וממערב בחדר המדרגות (350 ס״מ), ובחדר הצפון-מזרחי (310×310 ס״מ) גומחת ה-50×140 ס״מ (מדרום לאמבטיה) מכילה את דלת הכניסה לחדר — ולכן הצבת ארון בגומחה זו חוסמת את הכניסה!",
+                    "proposal": "פסילת נישת ארון קו-אפס בקיר האמבטיה ואיסור הצבת ארון בגומחת דלת הכניסה (50×140 ס״מ); הצבת הארונות בתוך גבולות החדרים (קיר ה-370 ס״מ בחדר הצפוני וקיר ה-260 ס״מ הדרומי ממזרח לדלת בחדר הצפון-מזרחי).",
+                    "impact": "שמירה ב-100% על חדר האמבטיה הכללי (230×170 ס״מ), על המסדרון (110 ס״מ) ועל מעבר כניסה פנוי לחדר הצפון-מזרחי בכל 8 הדירות.",
                     "note_id": "FB3-W-03",
                     "pin_num": 3,
                     "sheet_id": "fb_typical",
@@ -2236,6 +2240,186 @@ PROJECT_QUANTITATIVE_DATA = {
                     "note_id": "MS26-TYP-02",
                     "pin_num": 2,
                     "sheet_id": "ms_typical",
+                }
+            ]
+        }
+    },
+    # =========================================================================
+    # 8. מתחם גדרה 12 — אם המושבות, פתח תקווה (גוש 7194, חלקה 20 — 28 יח״ד, 2 בניינים B+A, מרתף + 42 חניות)
+    # =========================================================================
+    "em_hamoshavot": {
+        "project_id": "em_hamoshavot",
+        "project_name": "מתחם גדרה 12 — אם המושבות / הדר המושבות, פתח תקווה (בניינים B ו-A)",
+        "summary_doc_url": "/reports/em_hamoshavot_summary_and_areas_report.html",
+        "lot_area_sqm": 2111.0,
+        "buildings_count": 2,
+        "apartments_count": 28,
+        "floors_above_ground": 6,
+        "underground_levels": 1,
+        "building_height_m": 22.63,
+        "total_built_area_sqm": 5042.0,
+        "above_ground_areas": {
+            "total_sqm": 3931.0,
+            "net_apartments_sqm": 2980.0,
+            "core_and_service_sqm": 951.0,
+            "summary_note": "מתחם מגורים דו-בנייני (בניין B מערב: 14 יח״ד + בניין A מזרח: 14 יח״ד) בן 6 קומות מעל קומת עמודים/לובי מפולשת ומרתף (תכנית 410-0560680): 2 מבואות לובי ראשיות בקרקע ו-42 חניות מסומנות, 24 דירות 3–5 חדרים בקומות 1–4 (6 דירות בקומה: 4 חד' 102 מ״ר, 4 חד' 98.5 מ״ר, 5 חד' 124 מ״ר, 3 חד' 78.5 מ״ר), ובקומה 5: 4 פנטהאוזים מפוארים 4–5 חדרים (118–136 מ״ר) עם טרסות גג רחבות של 22.0–46.5 מ״ר.",
+            "by_floor": [
+                {
+                    "floor_label": "קומת קרקע (±0.00 — 2 מבואות לובי ראשיות, חדר אשפה/משאבות ו-42 חניות)",
+                    "elevation": "±0.00 (גובה 4.20 מ׳)",
+                    "units_count": 0,
+                    "usage_description": "2 מבואות לובי ראשיות (בניין B ובניין A), חדרי אשפה/משאבות, 42 חניות מסומנות (#1–#42) במפלס הקרקע והחניון המקורה, ושבילי גישה מטופחים מרחוב גדרה",
+                    "apartments_sqm": 0.0,
+                    "core_service_sqm": 235.0,
+                    "total_floor_sqm": 235.0,
+                    "pct_of_above_ground": 5.98,
+                },
+                {
+                    "floor_label": "קומות 1–4 (4 קומות טיפוסיות — 24 יח״ד: 12 בבניין B + 12 בבניין A)",
+                    "elevation": "+4.20m עד +13.38m",
+                    "units_count": 24,
+                    "usage_description": "24 דירות מרווחות: בבניין B — 8 דירות 4 חד' צפוניות (102 מ״ר + 11.5 מ״ר מרפסת) ו-4 דירות 4 חד' דרומיות (98.5 מ״ר + 10.5 מ״ר מרפסת); בבניין A — 4 דירות 4 חד' צפ'-מערב (102 מ״ר), 4 דירות 5 חד' צפ'-מזרח (124 מ״ר) ו-4 דירות 3 חד' דרום (78.5 מ״ר + 9.8 מ״ר מרפסת)",
+                    "apartments_sqm": 2432.0,
+                    "core_service_sqm": 608.0,
+                    "total_floor_sqm": 3040.0,
+                    "pct_of_above_ground": 77.33,
+                },
+                {
+                    "floor_label": "קומה 5 (קומת פנטהאוזים — 4 פנטהאוזים #13–#14 ו-#27–#28)",
+                    "elevation": "+16.61 (גובה 3.24 מ׳)",
+                    "units_count": 4,
+                    "usage_description": "4 דירות פנטהאוז מפוארות: 2 פנטהאוזים צפוניים 5 חד' (136 מ״ר + מרפסת ר' 46.5 מ״ר), פנטהאוז דרומי בניין B 5 חד' (128 מ״ר + מרפסת 28 מ״ר), ופנטהאוז דרומי בניין A 4 חד' (118 מ״ר + מרפסת 22 מ״ר)",
+                    "apartments_sqm": 548.0,
+                    "core_service_sqm": 108.0,
+                    "total_floor_sqm": 656.0,
+                    "pct_of_above_ground": 16.69,
+                },
+            ],
+        },
+        "underground_areas": {
+            "total_sqm": 1111.0,
+            "parking_spaces": 42,
+            "parking_ratio": "1:1.50 (42 חניות מסומנות 100% ללא מכפילים ל-28 יח״ד)",
+            "summary_note": "מרתף שירות, מחסנים ומאגרי מים (1,111 מ״ר) מתחת למבנים, ו-42 מקומות חניה תקניים במפלס הקרקע ובאזור המקורה",
+            "by_floor": [
+                {
+                    "floor_label": "מרתף חניה ומחסנים (-1 · מפלס -3.20m)",
+                    "elevation": "-3.20 (גובה 3.20 מ׳)",
+                    "usage_description": "1,111 מ״ר שטחי שירות, מחסני דיירים, מאגרי מים, חדרי משאבות ו-2 גרעיני מדרגות/מעליות לשני הבניינים",
+                    "total_floor_sqm": 1111.0,
+                    "pct_of_underground": 100.0,
+                },
+            ],
+        },
+        "roof_terraces": {
+            "total_sqm": 143.0,
+            "count": 4,
+            "summary_note": "143.0 מ״ר מרפסות גג וטרסות פרטיות בקומה 5 ל-4 הפנטהאוזים (2 מרפסות צפוניות בצורת ר' של 46.5 מ״ר כ״א, מרפסת מערבית של 28.0 מ״ר ומרפסת דרום-מזרחית של 22.0 מ״ר)",
+            "breakdown": [
+                {
+                    "floor_label": "קומה 5 (פנטהאוז צפוני #13 — בניין B)",
+                    "unit_label": "מרפסת גג היקפית צפונית-מזרחית בצורת ר'",
+                    "dimensions": "1160×365 + 270×780 ס״מ (46.5 מ״ר)",
+                    "area_sqm": 46.5,
+                },
+                {
+                    "floor_label": "קומה 5 (פנטהאוז דרומי #14 — בניין B)",
+                    "unit_label": "מרפסת גג מערבית רחבה",
+                    "dimensions": "470×595 ס״מ (28.0 מ״ר)",
+                    "area_sqm": 28.0,
+                },
+                {
+                    "floor_label": "קומה 5 (פנטהאוז צפוני #27 — בניין A)",
+                    "unit_label": "מרפסת גג היקפית צפונית-מזרחית בצורת ר'",
+                    "dimensions": "1160×365 + 270×780 ס״מ (46.5 מ״ר)",
+                    "area_sqm": 46.5,
+                },
+                {
+                    "floor_label": "קומה 5 (פנטהאוז דרומי #28 — בניין A)",
+                    "unit_label": "מרפסת גג דרום-מזרחית",
+                    "dimensions": "275×790 ס״מ (22.0 מ״ר)",
+                    "area_sqm": 22.0,
+                },
+            ],
+        },
+        "suspended_balconies": {
+            "total_sqm": 266.0,
+            "count": 24,
+            "summary_note": "24 מרפסות שמש תלויות בקומות 1–4 (6 מרפסות שמש לקומה בשטח 9.8–11.5 מ״ר לכל אחת מ-24 הדירות הטיפוסיות)",
+            "by_floor": [
+                {
+                    "floor_label": "קומות 1–4 (6 מרפסות שמש בקומה × 4 קומות = 24 מרפסות)",
+                    "count": 24,
+                    "avg_area_sqm": 11.08,
+                    "total_floor_sqm": 266.0,
+                },
+            ],
+        },
+        "facades": {
+            "total_gross_sqm": 2820.0,
+            "total_glazing_sqm": 830.0,
+            "total_opaque_sqm": 1990.0,
+            "average_wwr_pct": 29.4,
+            "by_direction": [
+                {
+                    "facade_name": "חזית דרומית (רחוב גדרה)",
+                    "direction": "דרום",
+                    "length_m": 35.0, "height_m": 22.63, "gross_area_sqm": 780.0, "glazing_area_sqm": 240.0, "opaque_area_sqm": 540.0, "wwr_pct": 30.8,
+                    "materials_and_elements": "ויטרינות סלון דרומיות, מרפסות שמש, שליכט אקרילי לבן, חיפוי HPL דמוי עץ ומסד כניסה כהה",
+                    "x_pct": 49.0, "y_pct": 82.0, "w_pct": 45.0, "h_pct": 12.0, "cx_pct": 71.5, "cy_pct": 88.0,
+                },
+                {
+                    "facade_name": "חזית צפונית (חזית עורפית)",
+                    "direction": "צפון",
+                    "length_m": 35.0, "height_m": 22.63, "gross_area_sqm": 780.0, "glazing_area_sqm": 230.0, "opaque_area_sqm": 550.0, "wwr_pct": 29.5,
+                    "materials_and_elements": "מרפסות שמש צפוניות (460×250 ס״מ), חלונות חדרי שינה וממ״דים, שליכט אקרילי לבן וחיפוי HPL",
+                    "x_pct": 49.0, "y_pct": 12.0, "w_pct": 45.0, "h_pct": 12.0, "cx_pct": 71.5, "cy_pct": 18.0,
+                },
+                {
+                    "facade_name": "חזית מערבית (בניין B)",
+                    "direction": "מערב",
+                    "length_m": 28.0, "height_m": 22.63, "gross_area_sqm": 630.0, "glazing_area_sqm": 180.0, "opaque_area_sqm": 450.0, "wwr_pct": 28.6,
+                    "materials_and_elements": "מסתורי כביסה מאווררים ברפפות אלומיניום, חלונות חדר שינה ראשי ושליכט לבן",
+                    "x_pct": 15.0, "y_pct": 35.0, "w_pct": 12.0, "h_pct": 40.0, "cx_pct": 21.0, "cy_pct": 55.0,
+                },
+                {
+                    "facade_name": "חזית מזרחית (בניין A)",
+                    "direction": "מזרח",
+                    "length_m": 28.0, "height_m": 22.63, "gross_area_sqm": 630.0, "glazing_area_sqm": 180.0, "opaque_area_sqm": 450.0, "wwr_pct": 28.6,
+                    "materials_and_elements": "חלונות חדר שינה נוסף באגף המזרחי (340×280 ס״מ), מסתורי כביסה ושליכט לבן",
+                    "x_pct": 82.0, "y_pct": 35.0, "w_pct": 12.0, "h_pct": 40.0, "cx_pct": 88.0, "cy_pct": 55.0,
+                },
+            ],
+        },
+        "summary_document": {
+            "document_title": "מסמך סיכום הערות בקרת איכות והצעות לשיפור על תכניות המקור — מתחם גדרה 12, אם המושבות, פתח תקווה",
+            "overall_verdict": "ציון איכות משוקלל 92.4/100 (דירוג A — מצוין). מתחם מגורים דו-בנייני איכותי בן 6 קומות (28 יח״ד) על מגרש של 2.111 דונם (גוש 7194, חלקה 20). 0 כשלים חוקיים (0 FAIL), 42 חניות מסומנות (100% ללא מכפילים), ומודל 3D BIM מדויק 1:1. פוטנציאל הנדסת הערך מתמקד בהידוק מעטפת חדרי היציאה לגג בקומה 5 וקומת הקרקע (20.0 מ״ר), ייעול חלוקת תאי המחסנים במרתף (30.0 מ״ר) תוך שימור מלא של כל 42 החניות, והמרת 180 מ״ר חיפוי HPL עורפי/צדדי לשליכט אקרילי.",
+            "critical_notes_summary": [
+                "0 כשלים סטטוטוריים (0 FAIL) בכל 28 הדירות, ב-2 גרעיני הבניינים ובמצבת החניות (42 חניות תקניות).",
+                "[סיכה #1 · EM-TYP-01 · PASS] חלל ציבורי מרווח (סלון 400×400 ס״מ) עם יציאה למרפסת שמש רחבה 460×250 ס״מ (11.5 מ״ר).",
+                "[סיכה #7 · EM-LOCKED-CORE1 · הנדסת ערך] 2 הלובאים הקומתיים (בניין B ובניין A) מוגנים ב-100% לפי TEST-7-BOUTIQUE-LOBBY-PRESERVATION (0.0 מ״ר הקטנה, 0 ₪).",
+                "[סיכה #15 · EM-GND-02 · חניה] 42 מקומות חניה קונבנציונליים במפלס הקרקע ובחניון המקורה — 100% שימור ללא אובדן אף חניה (TEST-9)."
+            ],
+            "improvement_proposals": [
+                {
+                    "priority": "גבוהה (הנדסת ערך במעטפת גג/קרקע, מרתף שירות וחיפוי חזיתות — 301,000 ₪)",
+                    "target": "גג טכני, מרתף שירות וחיפויי חזיתות צפון, מזרח ומערב",
+                    "issue": "בליטות מעטפת עודפות בחדרי היציאה לגג וייעול חלוקת המחסנים במרתף, לצד 180 מ״ר חיפוי HPL בחזיתות עורף וצד.",
+                    "proposal": "הידוק מעטפת חדרי היציאה לגג (20.0 מ״ר עילי = 124,000 ₪), ייעול תאי מחסנים ומשאבות במרתף (30.0 מ״ר תת-קרקעי = 105,000 ₪), והמרת 180 מ״ר חיפוי HPL עורפי/צדדי לשליכט אקרילי (72,000 ₪) תוך שמירה של 100% על חזית רחוב גדרה.",
+                    "impact": "חיסכון ישיר מאומת של 301,000 ₪ ללא גריעת אף חניה מתוך 42 החניות וללא פגיעה בלובאים הקומתיים.",
+                    "note_id": "EM-OPT-AG1",
+                    "pin_num": 18,
+                    "sheet_id": "em_typical",
+                },
+                {
+                    "priority": "בינונית (שמירה על דלת חדר רחצה כללי ומבואת חדרים · מבחן 8)",
+                    "target": "דירות 4 חדרים (בניינים B ו-A) — מבואת חדרים מול דלת חדר רחצה",
+                    "issue": "פתיחת דלת חדר הרחצה הכללי ומעבר אל הממ״ד וחדר השינה.",
+                    "proposal": "שמירה על מרווח פנוי של 105 ס״מ במבואת החדרים ללא הקטנת המסדרון (מבחן 8), ושימוש בארון הזזה לאורך קיר החדר הפנימי.",
+                    "impact": "מעבר נוח ובטוח בכל 24 הדירות הטיפוסיות.",
+                    "note_id": "EM-TYP-03",
+                    "pin_num": 3,
+                    "sheet_id": "em_typical",
                 }
             ]
         }
@@ -3206,6 +3390,49 @@ def build_flooring_data_for_project(pid: str, data_summary: dict) -> dict:
                 },
             ],
         },
+        "em_hamoshavot": {
+            "total_apartments_flooring_sqm": 2340.0,
+            "total_apartments_dry_sqm": 2110.0,
+            "total_apartments_wet_sqm": 230.0,
+            "total_public_flooring_sqm": 480.0,
+            "total_balconies_flooring_sqm": 520.0,
+            "grand_total_flooring_sqm": 3340.0,
+            "methodology_note": "מחושב מתוך פוליגוני החדרים בתכניות 4 (2).pdf ותכנית 410-0560680 (28 יח״ד ב-2 בניינים B ו-A): 24 דירות טיפוסיות בקומות 1–4 (1,840.0 מ״ר ריצוף דירות נטו), 4 פנטהאוזים בקומה 5 (500.0 מ״ר נטו), ריצוף ציבורי ב-2 מבואות הלובי והגרעינים (480.0 מ״ר), וריצוף מרפסות שמש וטרסות גג (520.0 מ״ר).",
+            "by_floor": [
+                {
+                    "floor_label": "מרתף -1 (מבואות מעלית, חדרי מדרגות ומחסנים)",
+                    "elevation": "-3.20",
+                    "units_count": 0,
+                    "apartments_flooring_sqm": 0.0, "apartments_dry_sqm": 0.0, "apartments_wet_sqm": 0.0,
+                    "public_flooring_sqm": 120.0, "balconies_flooring_sqm": 0.0, "total_floor_flooring_sqm": 120.0,
+                    "notes": "מבואות מעליות מוגנות, חדרי מדרגות ומחסני דיירים במרתף שירות",
+                },
+                {
+                    "floor_label": "קומת קרקע (±0.00 — 2 מבואות לובי ראשיות ופיתוח מגרש)",
+                    "elevation": "±0.00",
+                    "units_count": 0,
+                    "apartments_flooring_sqm": 0.0, "apartments_dry_sqm": 0.0, "apartments_wet_sqm": 0.0,
+                    "public_flooring_sqm": 160.0, "balconies_flooring_sqm": 0.0, "total_floor_flooring_sqm": 160.0,
+                    "notes": "2 מבואות לובי ראשיות מפוארות, חדרי משאבות/אשפה ושבילי כניסה",
+                },
+                {
+                    "floor_label": "קומות 1–4 (4 קומות טיפוסיות — 24 יח״ד בבניינים B ו-A)",
+                    "elevation": "+4.20 עד +13.38",
+                    "units_count": 24,
+                    "apartments_flooring_sqm": 1840.0, "apartments_dry_sqm": 1660.0, "apartments_wet_sqm": 180.0,
+                    "public_flooring_sqm": 160.0, "balconies_flooring_sqm": 266.0, "total_floor_flooring_sqm": 2266.0,
+                    "notes": "460.0 מ״ר ריצוף דירות נטו לקומה (6 יח״ד) × 4 קומות | 40.0 מ״ר ציבורי × 4 | 24 מרפסות שמש",
+                },
+                {
+                    "floor_label": "קומה 5 וגג (+16.61 עד +22.63 — 4 פנטהאוזים #13–#14 ו-#27–#28)",
+                    "elevation": "+16.61 עד +22.63",
+                    "units_count": 4,
+                    "apartments_flooring_sqm": 500.0, "apartments_dry_sqm": 450.0, "apartments_wet_sqm": 50.0,
+                    "public_flooring_sqm": 40.0, "balconies_flooring_sqm": 254.0, "total_floor_flooring_sqm": 794.0,
+                    "notes": "4 פנטהאוזים נטו (500.0 מ״ר) | לובי קומתי וחדרי יציאה לגג (40.0 מ״ר) | 4 מרפסות גג ענקיות וגגות פרטיים (254.0 מ״ר)",
+                },
+            ],
+        },
     }
 
     if pid in FLOORING_PRESETS:
@@ -3384,15 +3611,15 @@ def enrich_project_payload(payload):
                 "status": "WARN",
                 "rule_id": "VALUE_ENG_OPT (6,200 ₪/מ״ר — קונטור מאומת)",
                 "title": (
-                    f"צמצום {item.get('saved_sqm')} מ״ר קונטור עילי מאומת = חיסכון {item.get('cost_saving_ils', 0):,.0f} ₪ "
-                    f"(מתוך {prop_gross} מ״ר הפחתת ליבה; {locked_sqm} מ״ר ליבה כלואה הועברו לשיפור תכנון)"
+                    f"צמצום {item.get('saved_sqm')} מ״ר קונטור עילי מאומת = חיסכון {item.get('cost_saving_ils', 0):,.0f} ₪"
+                    + (f" ({locked_sqm} מ״ר ליבה פנימית נשמרו כשיפור תכנון)" if locked_sqm > 0 else " (100% שמירה על הדירות והלובי הקומתי)")
                 ),
                 "measured": f"שטח קיים: {item.get('current_sqm')} מ״ר | {item.get('contour_dims_before_after', '')}",
                 "benchmark": f"שטח קונטור נחסך בפועל (נבנה פחות): {item.get('saved_sqm')} מ״ר × 6,200 ₪ (תרגום לקונטור: {eff_pct}%)",
-                "summary": f"🛠️ איך מבצעים: {item.get('engineering_action')} | 📐 מבחן כיווץ קונטור: {item.get('contour_mechanism', '')}",
+                "summary": f"🛠️ איך מבצעים: {item.get('engineering_action')} | 📐 אופן צמצום הקונטור: {item.get('contour_mechanism', '')}",
                 "recommendation": (
                     f"🛡️ שימושים נשמרים: {item.get('preserved_utilities')}. "
-                    + (f"🔄 קיזוז ליבה כלואה: {item.get('locked_reason_he')} " if locked_sqm > 0 else "")
+                    + (f"🔄 שמירת שטחים פנימיים: {item.get('locked_reason_he')} " if locked_sqm > 0 else "")
                     + f"סה״כ חיסכון ישיר מאומת: {item.get('cost_saving_ils', 0):,.0f} ₪."
                 ),
                 "visual_explanation": {
@@ -3402,14 +3629,14 @@ def enrich_project_payload(payload):
                     "unit_label": "מ״ר ברוטו עילי",
                     "recommendation": {
                         "where": item.get("floor_or_zone", "גרעין ושטחי שירות עיליים"),
-                        "finding": f"אותר עודף של {prop_gross} מ״ר בשטחי הגרעין והשירות ב-{item.get('floor_or_zone')} (כיום {item.get('current_sqm')} מ״ר לעומת יעד תכנוני של {item.get('optimal_sqm')} מ״ר).",
+                        "finding": f"אותר עודף של {prop_gross} מ״ר בשטחי המעטפת הטכנית והשירות ב-{item.get('floor_or_zone')} (כיום {item.get('current_sqm')} מ״ר לעומת יעד תכנוני של {item.get('optimal_sqm')} מ״ר).",
                     },
                     "solution": {
                         "how_to_execute": item.get("engineering_action", ""),
                         "mechanism": item.get("contour_mechanism", ""),
                     },
                     "savings": {
-                        "formula": f"מתוך {prop_gross} מ״ר שהופחתו, {item.get('saved_sqm')} מ״ר ({eff_pct}%) מקטינים בפועל את קונטור הבניין הכולל × 6,200 ₪/מ״ר = {item.get('cost_saving_ils', 0):,.0f} ₪ חיסכון ישיר" + (f" ({locked_sqm} מ״ר ליבה כלואה קוזזו ל-0 ₪ והועברו לשיפור תכנון)." if locked_sqm > 0 else "."),
+                        "formula": f"מתוך {prop_gross} מ״ר שהופחתו, {item.get('saved_sqm')} מ״ר ({eff_pct}%) מקטינים בפועל את קונטור הבניין הכולל × 6,200 ₪/מ״ר = {item.get('cost_saving_ils', 0):,.0f} ₪ חיסכון ישיר" + (f" ({locked_sqm} מ״ר ליבה פנימית נשמרו כשיפור תכנון ב-0 ₪)." if locked_sqm > 0 else "."),
                         "rate_label": "6,200 ₪ למ״ר קונטור עילי",
                         "gross_sqm": prop_gross,
                         "locked_sqm": locked_sqm,
@@ -3419,7 +3646,7 @@ def enrich_project_payload(payload):
                     },
                     "building_impact": {
                         "contour": f"נבנה פחות: -{item.get('saved_sqm')} מ״ר קונטור עילי ({item.get('contour_dims_before_after', '')})",
-                        "apartments": "0.0 מ״ר פגיעה בשטח הפלדלת של הדירות (100% נשמר)",
+                        "apartments": "0.0 מ״ר פגיעה בשטח הפלדלת של הדירות או בלובי הקומתי (100% נשמר)",
                         "parking": "ללא פגיעה בחניות או במיסעות",
                         "utilities": item.get("preserved_utilities", "100% שמירה על ארונות חשמל, מים, גז, תקשורת ומדרגות מוגנות"),
                     },
@@ -3482,19 +3709,22 @@ def enrich_project_payload(payload):
                 "typology": f"צמצום קונטור דיפון מרתף מאומת (3,500 ₪/מ״ר) — {item.get('zone')}",
                 "room_name": f"📍 איפה: {item.get('zone', 'מרתף חניון תת-קרקעי')}",
                 "status": "WARN",
-                "rule_id": "VALUE_ENG_OPT (3,500 ₪/מ״ר — קונטור דיפון מאומת + הגנת רמפה ותמרון + העתקת חנייה)",
+                "rule_id": "VALUE_ENG_OPT (3,500 ₪/מ״ר — קונטור דיפון מאומת + שמירת רמפה וחניות)",
                 "title": (
                     f"צמצום {item.get('saved_sqm')} מ״ר בקונטור דיפון המרתף = חיסכון {item.get('cost_saving_ils', 0):,.0f} ₪ "
-                    f"(מתוך {prop_gross} מ״ר; {prot_ramp_sqm} מ״ר קוזזו להגנת רמפות ומיסעות תמרון)"
+                    f"(ללא פגיעה בחניות או ברמפה)"
                 ),
                 "measured": f"שטח קיים: {item.get('current_sqm')} מ״ר ({ug_opt.get('current_sqm_per_stall')} מ״ר/חניה) | {item.get('contour_dims_before_after', '')}",
                 "benchmark": f"שטח קונטור מרתף מוצע: {item.get('optimal_sqm')} מ״ר ({ug_opt.get('optimized_sqm_per_stall')} מ״ר/חניה · נחסכו {item.get('saved_sqm')} מ״ר × 3,500 ₪)",
-                "summary": f"🛠️ איך מבצעים על תכנית המקור: {item.get('engineering_action')} | 📐 מבחן כיווץ דיפון: {item.get('contour_mechanism', '')}",
+                "summary": f"🛠️ איך מבצעים על תכנית המקור: {item.get('engineering_action')} | 📐 אופן צמצום הדיפון: {item.get('contour_mechanism', '')}",
                 "recommendation": (
                     f"🛡️ שמירת מצבת החניות ומיסעות תמרון: {item.get('parking_spaces_preserved')}. "
-                    + (f"🔄🅿️ העתקת חנייה למקום חלופי מאומת: {parking_reloc_he} " if parking_reloc_he else "")
+                    + (
+                        (f"🔄🅿️ העתקת חנייה למקום חלופי מאומת: {parking_reloc_he} " if int(parking_reloc_obj.get("stalls_relocated_count") or 0) > 0 else f"🅿️ שימור מלא של מיקום החניות: {parking_reloc_he} ")
+                        if parking_reloc_he else ""
+                    )
                     + (f"🚦 בקרת רמפה וגובה ראש פנוי: {ramp_audit_he} " if ramp_audit_he else "")
-                    + (f"🔄 קיזוז שטח רמפה ותמרון מוגן: {item.get('locked_reason_he')} " if locked_sqm > 0 else "")
+                    + (f"🔄 שמירת שטח רמפה ותמרון מוגן: {item.get('locked_reason_he')} " if locked_sqm > 0 else "")
                     + f"סה״כ חיסכון ישיר מאומת: {item.get('cost_saving_ils', 0):,.0f} ₪."
                 ),
                 "visual_explanation": {
@@ -3515,7 +3745,7 @@ def enrich_project_payload(payload):
                         "parking_relocation_audit_he": parking_reloc_he,
                     },
                     "savings": {
-                        "formula": f"מתוך {prop_gross} מ״ר הפחתה תאורטית, קוזזו {prot_ramp_sqm} מ״ר להגנת רמפות ומיסעות תמרון (0 ₪), ו-{item.get('saved_sqm')} מ״ר ({eff_pct}%) מכווצים בפועל את פוליגון הדיפון × 3,500 ₪/מ״ר = {item.get('cost_saving_ils', 0):,.0f} ₪ חיסכון ישיר.",
+                        "formula": f"מתוך {prop_gross} מ״ר שנסקרו, נשמרו {prot_ramp_sqm} מ״ר להגנת רמפות, חניות ומיסעות תמרון (0 ₪), ו-{item.get('saved_sqm')} מ״ר ({eff_pct}%) מכווצים בפועל את פוליגון הדיפון × 3,500 ₪/מ״ר = {item.get('cost_saving_ils', 0):,.0f} ₪ חיסכון ישיר.",
                         "rate_label": "3,500 ₪ למ״ר קונטור דיפון",
                         "gross_sqm": prop_gross,
                         "locked_sqm": locked_sqm,
@@ -3530,7 +3760,11 @@ def enrich_project_payload(payload):
                         "apartments": "0.0 מ״ר פגיעה בדירות או במחסנים הדירתיים",
                         "parking": (
                             f"100% הגנה על מיסעות תמרון (5.20–6.50 מ׳), רדיוסי סיבוב ואוזני תמרון · "
-                            f"{parking_reloc_obj.get('affected_stalls_label', 'חניית קצה')} ← {parking_reloc_obj.get('alternative_location_found_he', 'הועתקה למקום חלופי מאומת')}"
+                            + (
+                                f"{parking_reloc_obj.get('affected_stalls_label', 'חניית קצה')} ← {parking_reloc_obj.get('alternative_location_found_he', 'הועתקה למקום חלופי מאומת')}"
+                                if int(parking_reloc_obj.get("stalls_relocated_count") or 0) > 0
+                                else f"{parking_reloc_obj.get('affected_stalls_label', 'כל החניות נשמרות ב-100% במקומן המקורי ללא הזזה')}"
+                            )
                         ),
                         "utilities": f"ניצול {under_ramp_sqm} מ״ר מתחת לחלק העליון של הרמפה (גובה ראש פנוי H_clear ≥ 2.15–2.20 מ׳) עבור מאגר מים/משאבות/בורות שאיבה",
                     },
@@ -3879,6 +4113,8 @@ def enrich_project_payload(payload):
         "H44-W-05": "STANDARD",
         "H44-E-01": "ARCH_QUALITY",
         "H44-E-02": "INTERIOR_TIP",
+        "H44-E-03": "INTERIOR_TIP",
+        "H44-E-04": "INTERIOR_TIP",
         "H44-PH-01": "INTERIOR_TIP",
         "H44-GND-01": "STANDARD",
         "H44-BSM-01": "STANDARD",
@@ -3943,11 +4179,20 @@ def enrich_project_payload(payload):
         # Feierberg 3
         "FB3-W-01": "ARCH_QUALITY",
         "FB3-W-02": "INTERIOR_TIP",
-        "FB3-W-03": "STANDARD",
+        "FB3-W-03": "INTERIOR_TIP",
         "FB3-E-01": "INTERIOR_TIP",
         "FB3-E-02": "INTERIOR_TIP",
         "FB3-PH-01": "ARCH_QUALITY",
         "FB3-BSM-01": "STANDARD",
+        # Moshe Sharett 26-28
+        "MS26-TYP-01": "ARCH_QUALITY",
+        "MS26-TYP-02": "STANDARD",
+        "MS26-TYP-03": "ARCH_QUALITY",
+        "MS26-TYP-04": "INTERIOR_TIP",
+        "MS26-TYP-05": "INTERIOR_TIP",
+        "MS26-PH-01": "ARCH_QUALITY",
+        "MS26-GND-01": "ARCH_QUALITY",
+        "MS26-BSM-01": "STANDARD",
     }
 
     CATEGORY_LABELS_HE = {
@@ -4216,6 +4461,8 @@ def enrich_project_payload(payload):
     data_summary["summary_md_url"] = f"/reports/{pid}_summary_and_areas_report.md"
 
     payload["project_data_summary"] = data_summary
+    if "design_optimization" in data_summary and "design_optimization" not in payload:
+        payload["design_optimization"] = data_summary["design_optimization"]
 
     # Automatically generate standalone summary & areas report files if not yet generated for this model
     try:
@@ -4239,6 +4486,18 @@ def enrich_project_payload(payload):
     try:
         from spatial_3d_mapper import enrich_payload_with_3d_spatial_data
         payload = enrich_payload_with_3d_spatial_data(payload)
+    except Exception:
+        pass
+
+    try:
+        from plan_qa_engine import build_project_qa_knowledge_index
+        payload["qa_knowledge_index"] = build_project_qa_knowledge_index(payload)
+    except Exception:
+        pass
+
+    try:
+        from atkg_spatial_graph import build_project_atkg_spatial_graph
+        payload["atkg_spatial_graph"] = build_project_atkg_spatial_graph(payload)
     except Exception:
         pass
 

@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=7.7" />
+  <link rel="stylesheet" href="styles.css?v=8.0" />
 </head>
 <body>
   <!-- COLLAPSIBLE MINIMALIST TOP BAR -->
@@ -16,6 +16,20 @@
       <span class="brand-title">ArchiCheck</span>
       <span class="brand-sep">/</span>
       <span class="brand-sub" id="hdr-breadcrumb-sub">חפץ חיים 44</span>
+      <button
+        type="button"
+        id="hdr-api-cost-widget"
+        class="hdr-api-cost-widget"
+        title="לחץ לפתיחת פירוט עלויות Gemini API, נוסחת החישוב ויומן הטוקנים (יומי / שבועי / מצטבר)"
+      >
+        <span class="api-cost-dot" id="hdr-api-cost-dot"></span>
+        <span class="api-cost-label">💳 API</span>
+        <span class="api-cost-metric">יומי: <strong id="hdr-cost-daily">$0.0079</strong></span>
+        <span class="api-cost-sep">|</span>
+        <span class="api-cost-metric">שבועי: <strong id="hdr-cost-weekly">$0.0079</strong></span>
+        <span class="api-cost-sep">|</span>
+        <span class="api-cost-metric">מצטבר: <strong id="hdr-cost-cum">$0.0079 (₪0.03)</strong></span>
+      </button>
     </div>
 
     <!-- Quick Project Selector & Compact Search -->
@@ -28,6 +42,7 @@
         <button type="button" class="proj-chip" data-query="קטרוני 37–39">קטרוני 37–39</button>
         <button type="button" class="proj-chip" data-query="פאירברג 3">פאירברג 3</button>
         <button type="button" class="proj-chip" data-query="משה שרת 26–28">משה שרת 26–28</button>
+        <button type="button" class="proj-chip" data-query="אם המושבות">אם המושבות</button>
       </div>
 
       <form id="project-search-form" class="search-form" autocomplete="off">
@@ -65,6 +80,10 @@
           חבילת אדריכל (<span id="hdr-decisions-count">0</span>)
         </button>
 
+        <button type="button" id="btn-open-ask-ai" class="btn-tool" style="background:#eff6ff;border-color:#93c5fd;color:#1d4ed8;font-weight:800;" title="שאל את המערכת כל שאלה על התכנית והניתוח (סלון ומטבח, תכנון קומה טיפוסית, מפתח חלונות, מבנה מידע ועוד)">
+          💬 שאל על התכנית
+        </button>
+
         <div class="tools-dropdown-wrap">
           <button type="button" id="btn-toggle-more-menu" class="btn-tool" title="כלים וקבצים">
             עוד ▾
@@ -79,6 +98,12 @@
             <a id="btn-open-pdf-report" href="#" target="_blank" class="dropdown-item hidden">
               דוח PDF מלא
             </a>
+            <button type="button" id="btn-export-dxf" class="dropdown-item">
+              📐 ייצוא שכבת CAD (DXF Redline)
+            </button>
+            <button type="button" id="btn-export-excel" class="dropdown-item">
+              📊 ייצוא כתב כמויות וחיסכון (Excel BoQ)
+            </button>
             <button type="button" id="btn-toggle-files" class="dropdown-item">
               קבצי מקור (<span id="files-count-badge">0</span>)
             </button>
@@ -127,10 +152,13 @@
         <!-- Minimalist Score & Count Strip -->
         <div id="doc-metrics-grid" class="doc-metrics-grid"></div>
 
-        <!-- 4 Work Modes: סקירה | הערות מערכת | חיסכון (מופרד) | השוואה -->
+        <!-- 5 Work Modes: סקירה | שאל את המערכת | הערות מערכת | חיסכון | השוואה -->
         <div class="work-modes-bar" id="work-modes-bar" role="tablist">
           <button type="button" class="work-mode-tab active" data-mode="OVERVIEW" title="דבר האדריכל הבודק: סקירה מילולית שוטפת, יתרונות וחסרונות בבוליטים וחלוקה לפי בסיסי הידע">
             סקירה
+          </button>
+          <button type="button" class="work-mode-tab" data-mode="ASK_AI" title="ממשק שאלה ותשובה חכם על התכנית והניתוח + ביצוע פעולות אוטומטיות על השרטוט, המודל וחבילת האדריכל">
+            💬 שאל את המערכת
           </button>
           <button type="button" class="work-mode-tab" data-mode="FINDINGS" title="הערות מערכת מסוננות לפי שלילי/חיובי, תתי-קטגוריות ובסיס הידע">
             הערות מערכת (<span id="count-all">0</span>)
@@ -228,6 +256,12 @@
                 </button>
                 <button type="button" class="kb-filter-btn" data-kb="KB_URBAN_LOCAL" title="ממשק עירוני, קומת קרקע, מסתורי שירות והנחיות מרחביות מקומיות (סעיף 145ד · שכונה 360°)">
                   🏙️ ממשק עירוני (<span id="count-kb-urban">0</span>)
+                </button>
+                <button type="button" class="kb-filter-btn" data-kb="KB_NEURO_HEALTH_BAUBIO" title="נוירו-אדריכלות, פסיכולוגיה סביבתית, בטיחות ביתית וביולוגיית המבנה (PAS 6463 · ANFA · HHSRS · Baubiologie · DSDC)">
+                  🧠 נוירו-אדריכלות ובריאות (<span id="count-kb-neuro">0</span>)
+                </button>
+                <button type="button" class="kb-filter-btn" data-kb="KB_WORKFLOWS_WFH_BENCHMARK" title="הנדסת אנוש של מטלות הבית, עבודה מהבית (WFH) וכיול סטטיסטי מול ביג-דאטה (RT-kortisto · SBi · Swiss Dwellings 45k)">
+                  ⚡ מטלות בית, WFH וכיול (<span id="count-kb-workflows">0</span>)
                 </button>
               </div>
             </div>
@@ -463,6 +497,8 @@
       <div class="summary-modal-header">
         <h2 id="value-eng-modal-title" class="summary-modal-title">ניתוח חיסכון ובקרת קונטור</h2>
         <div class="summary-modal-actions">
+          <button type="button" id="btn-ve-export-dxf" class="btn-tool" title="הורד שכבת סימוני CAD (DXF Redline)">📐 ייצוא DXF Redline</button>
+          <button type="button" id="btn-ve-export-excel" class="btn-tool" title="הורד כתב כמויות וחיסכון (Excel .xlsx)">📊 ייצוא Excel BoQ</button>
           <button type="button" id="btn-close-value-eng-modal" class="btn-close-drawer">✕</button>
         </div>
       </div>
@@ -476,6 +512,8 @@
       <div class="summary-modal-header">
         <h2 id="decisions-modal-title" class="decisions-modal-title summary-modal-title">חבילת תיקונים לאדריכל ומעקב החלטות</h2>
         <div class="summary-modal-actions">
+          <button type="button" id="btn-dec-export-dxf" class="btn-tool" title="הורד שכבת סימוני CAD (DXF Redline)">📐 ייצוא DXF Redline</button>
+          <button type="button" id="btn-dec-export-excel" class="btn-tool" title="הורד כתב כמויות וטבלת החלטות (Excel .xlsx)">📊 ייצוא Excel BoQ</button>
           <button type="button" id="btn-print-decisions" class="btn-tool">הדפסה / PDF</button>
           <button type="button" id="btn-close-decisions-modal" class="btn-close-drawer">✕</button>
         </div>
@@ -484,6 +522,21 @@
     </div>
   </div>
 
-  <script src="app.js?v=7.7"></script>
+  <!-- GEMINI API COST & TOKEN LEDGER MODAL -->
+  <div id="api-cost-breakdown-modal" class="summary-modal-backdrop hidden">
+    <div class="summary-modal-dialog" style="max-width:1100px;">
+      <div class="summary-modal-header">
+        <h2 id="api-cost-modal-title" class="summary-modal-title">💳 בקרת עלויות וצריכת טוקנים — Google Gemini API (יומי / שבועי / מצטבר)</h2>
+        <div class="summary-modal-actions">
+          <button type="button" id="btn-export-api-ledger" class="btn-tool" title="הורד יומן קריאות ועלויות (JSON)">📥 ייצוא יומן עלויות</button>
+          <button type="button" id="btn-reset-api-ledger" class="btn-tool" title="אפס מונה קריאות מקומי לבסיס האימות">🔄 איפוס מונה</button>
+          <button type="button" id="btn-close-api-cost-modal" class="btn-close-drawer">✕</button>
+        </div>
+      </div>
+      <div id="api-cost-modal-body" class="summary-modal-body"></div>
+    </div>
+  </div>
+
+  <script src="app.js?v=8.0"></script>
 </body>
 </html>

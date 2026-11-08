@@ -943,11 +943,11 @@
           addDynamic3DLabel(6.35, zF + 2.65, -0.45, '🟠 מצב קיים: מסדרון דירה 1 (880×110 ס״מ) וחדר האמבטיה הכללי (230×170 ס״מ) הגובל בחדר הצפוני', '#fbbf24', 'rgba(146, 64, 14, 0.94)');
           addDynamic3DLabel(4.92, zF + 2.50, -2.15, '🟠 חדר צפוני בדירה 1 (280×370 ס״מ = 10.36 מ״ר): גובל ממזרח באמבטיה הכללית (230×170) וממערב בחדר המדרגות', '#fbbf24');
         } else {
-          // AFTER: Both Corridor AND General Bathroom (230x170) are 100% PROTECTED (Test 8 & Test 10: 0cm bathroom shrinking, no impossible Z-niche!)
+          // AFTER: Both Corridor AND General Bathroom (230x170) are 100% PROTECTED (0cm bathroom shrinking, no impossible Z-niche!)
           beforeAfterGroup.add(makeOverlayBox(1.80, -1.35, 9.90, -0.25, zF + 0.03, zF + 2.45, 0x10b981, 0.42, 0x6ee7b7));
           beforeAfterGroup.add(makeOverlayBox(6.35, -4.00, 8.65, -2.10, zF + 0.05, zF + 2.55, 0x0284c7, 0.55, 0x7dd3fc));
-          addDynamic3DLabel(5.85, zF + 2.75, -0.80, '🛡️ מבחן 8 ומבחן 10: המסדרון (110 ס״מ) וחדר האמבטיה הכללי (230×170 ס״מ) נשמרים ב-100% ללא הקטנה!', '#34d399', 'rgba(6, 95, 70, 0.94)');
-          addDynamic3DLabel(7.50, zF + 2.75, -2.85, '🚫 נפסלה נישת ארון קו-אפס בחדר הצפוני (280×370): ללא הקטנת חדר האמבטיה (230×170) אין אפשרות לנישת ארון!', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
+          addDynamic3DLabel(5.85, zF + 2.75, -0.80, '🛡️ המסדרון (110 ס״מ), חדר האמבטיה הכללי (230×170) ומבואת דלת החדר הצפון-מזרחי (50×140) נשמרים 100% פנויים!', '#34d399', 'rgba(6, 95, 70, 0.94)');
+          addDynamic3DLabel(7.50, zF + 2.75, -2.85, '✓ חדר צפוני (280×370) וחדר צפון-מזרחי (310×310): ארונות בתוך החדרים ללא חסימת דלת הכניסה או קיר האמבטיה', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
         }
         return;
       }
@@ -965,8 +965,8 @@
         } else {
           beforeAfterGroup.add(makeOverlayBox(-10.15, -1.35, -4.35, -0.30, zF + 0.03, zF + 2.45, 0x10b981, 0.42, 0x6ee7b7));
           beforeAfterGroup.add(makeOverlayBox(-12.95, 0.45, -8.65, 4.00, zF + 0.05, zF + 2.55, 0x0284c7, 0.55, 0x7dd3fc));
-          addDynamic3DLabel(-6.80, zF + 2.75, -0.80, '🛡️ מבחן 8 ומבחן 10: שמירה ב-100% על המסדרון (105 ס״מ) מול דלת האמבטיה הכללית ודלת הממ״ד (295×310)', '#34d399', 'rgba(6, 95, 70, 0.94)');
-          addDynamic3DLabel(-10.60, zF + 2.75, 1.40, '🛋️ הצבת ארון לאורך קיר ה-340 ס״מ בסוויטת ההורים וניצול גומחת ה-45 ס״מ הקיימת בחדר הצפוני (350×370)', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
+          addDynamic3DLabel(-6.80, zF + 2.75, -0.80, '🛡️ שמירה ב-100% על המסדרון (105 ס״מ) מול דלת האמבטיה הכללית ודלת הממ״ד (295×310)', '#34d399', 'rgba(6, 95, 70, 0.94)');
+          addDynamic3DLabel(-10.60, zF + 2.75, 1.40, '🛋️ הצבת ארון לאורך קיר ה-340 ס״מ בסוויטת ההורים וארון לאורך הקיר המזרחי (370 ס״מ) בחדר הצפוני (350×370)', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
         }
         return;
       }
@@ -1026,7 +1026,7 @@
           // B. Protected Stalls #11–#19 (0 stalls relocated — 100% preserved in exact original coordinates!)
           beforeAfterGroup.add(makeOverlayBox(-17.15, 4.80, -12.15, 7.60, -5.05, -4.15, 0x06b6d4, 0.55, 0x67e8f9));
           beforeAfterGroup.add(makeOverlayBox(-9.90, 3.85, -4.90, 8.85, -5.05, -4.15, 0x06b6d4, 0.55, 0x67e8f9));
-          addDynamic3DLabel(-10.50, -3.30, 6.40, '🛡️ מבחן 9: 0 הזזת חניות! כל 13 החניות (#7–#19 כולל #11–#16 ו-#17) נשמרות ב-100% במקומן המקורי (אין להזיז חניה שמגדילה קונטור כללי!)', '#67e8f9', 'rgba(14, 116, 144, 0.95)');
+          addDynamic3DLabel(-10.50, -3.30, 6.40, '🛡️ 0 הזזת חניות! כל 13 החניות (#7–#19 כולל #11–#16 ו-#17) נשמרות ב-100% במקומן המקורי ללא שינוי', '#67e8f9', 'rgba(14, 116, 144, 0.95)');
         }
       }
 
@@ -1044,7 +1044,7 @@
           // AFTER: Uniform 105cm Corridor (100% preserved in front of General Bathroom!) + 3.80m Flush Wardrobe (+1.8 sqm)
           beforeAfterGroup.add(makeOverlayBox(-9.79, -1.38, -1.25, -0.33, zF + 0.03, zF + 2.45, 0x10b981, 0.45, 0x6ee7b7));
           beforeAfterGroup.add(makeOverlayBox(-11.40, -4.95, -9.60, -4.35, zF + 0.03, zF + 2.40, 0x0284c7, 0.72, 0x7dd3fc));
-          addDynamic3DLabel(-6.80, zF + 2.75, -0.85, '🟢 מצב מוצע: יישור משקוף מסדרון ל-105 ס״מ אחיד (ללא קיצור מול דלת האמבטיה הכללית — מבחן 8!)', '#34d399', 'rgba(6, 95, 70, 0.94)');
+          addDynamic3DLabel(-6.80, zF + 2.75, -0.85, '🟢 מצב מוצע: יישור משקוף מסדרון ל-105 ס״מ אחיד לכל האורך (תוך שמירה על הגישה לאמבטיה הכללית)', '#34d399', 'rgba(6, 95, 70, 0.94)');
           addDynamic3DLabel(-10.50, zF + 2.75, -4.45, '🛋️ ביטול קירות חדר ארונות ← ארון קיר 3.80 מ׳ (+1.8 מ״ר נטו לחדר ההורים!)', '#38bdf8', 'rgba(3, 105, 161, 0.94)');
         }
       }
@@ -1071,32 +1071,32 @@
       else if (sceneKey === 'east_north_bedroom_fix') {
         const zF = 12.95;
         if (!isProposedMode) {
-          beforeAfterGroup.add(makeOverlayBox(8.05, -4.95, 10.88, -1.48, zF + 0.03, zF + 2.40, 0xd97706, 0.42, 0xfde047));
-          addDynamic3DLabel(9.45, zF + 2.55, -3.20, '🟠 מצב קיים: חדר צפוני (279×348 ס״מ = 9.71 מ״ר) · נישת ארון של 55 ס״מ ליד משקוף הדלת', '#fbbf24', 'rgba(146, 64, 14, 0.94)');
+          beforeAfterGroup.add(makeOverlayBox(8.05, -4.95, 10.88, -1.48, zF + 0.03, zF + 2.40, 0x16a34a, 0.36, 0x86efac));
+          addDynamic3DLabel(9.45, zF + 2.55, -3.20, '✓ מצב קיים תקין: חדר צפוני מרווח (279×348 ס״מ = 9.71 מ״ר · גומחת ארון 55 ס״מ ליד משקוף הדלת)', '#86efac', 'rgba(6, 95, 70, 0.94)');
         } else {
           beforeAfterGroup.add(makeOverlayBox(8.05, -4.95, 10.88, -1.48, zF + 0.03, zF + 2.40, 0x10b981, 0.36, 0x6ee7b7));
           // Full 60cm deep Wardrobe along South entry wall [9.35..10.85, -2.08..-1.48] INSIDE the bedroom (0 corridor encroachment!)
           beforeAfterGroup.add(makeOverlayBox(9.35, -2.08, 10.85, -1.48, zF + 0.05, zF + 2.35, 0x0284c7, 0.78, 0x7dd3fc));
-          addDynamic3DLabel(9.45, zF + 2.60, -3.20, '🛡️ מבחן 8: לא ניתן להגדיל את החדר על חשבון המסדרון (חוסם את הכניסה לאמבטיה הכללית!) · הזזת דלת ב-5 ס״מ בלבד לארון 60 ס״מ', '#34d399', 'rgba(6, 95, 70, 0.94)');
+          addDynamic3DLabel(9.45, zF + 2.60, -3.20, '🛋️ טיפ נגרות פנים: הזזת פתח הדלת ב-5 ס״מ לאורך אותו קיר מאפשרת ארון בעומק 60 ס״מ מלא (ללא שינוי במסדרון)', '#34d399', 'rgba(6, 95, 70, 0.94)');
         }
       }
 
       // -----------------------------------------------------------------------
-      // SCENE D2: EAST APARTMENT CORRIDOR (416x105cm — 100% PROTECTED FOR GENERAL BATHROOM ENTRANCE!)
+      // SCENE D2: EAST APARTMENT CORRIDOR (416x105cm — 100% PROTECTED + BI-FOLD DOOR TO UTILITY ROOM!)
       // -----------------------------------------------------------------------
       else if (sceneKey === 'east_corridor_doors' || sceneKey === 'east_corridor_apt_fix') {
         const zF = 12.95;
         if (!isProposedMode) {
-          beforeAfterGroup.add(makeOverlayBox(5.45, -1.55, 10.95, -0.35, zF + 0.03, zF + 2.20, 0xd97706, 0.45, 0xfde047));
+          beforeAfterGroup.add(makeOverlayBox(5.45, -1.55, 10.95, -0.35, zF + 0.03, zF + 2.20, 0x16a34a, 0.38, 0x86efac));
           beforeAfterGroup.add(makeOverlayBox(10.95, -4.95, 12.45, -3.35, zF + 0.03, zF + 2.20, 0xf59e0b, 0.40, 0xfde047));
-          addDynamic3DLabel(8.20, zF + 2.45, -0.95, '🟠 מצב קיים: מסדרון מזרחי (416×105 ס״מ) המשרת את דלת האמבטיה הכללית (238×170) + דלת כנף בח. שירות (238×93)', '#fbbf24');
+          addDynamic3DLabel(8.20, zF + 2.45, -0.95, '✓ מצב קיים תקין: מסדרון מזרחי מרווח (416×105 ס״מ) המשרת את האמבטיה הכללית (238×170) וח. השירות (238×93)', '#86efac');
         } else {
-          // Full 416x105cm Corridor preserved 100% (0cm shortening, 0cm narrowing so General Bathroom door is 100% clear!)
+          // Full 416x105cm Corridor preserved 100%
           beforeAfterGroup.add(makeOverlayBox(5.45, -1.55, 10.95, -0.35, zF + 0.03, zF + 2.20, 0x10b981, 0.40, 0x6ee7b7));
-          // Pocket Door between General Bathroom (238x170) and Service Room (238x93) + Z-wardrobe replacing walk-in closet partitions (149x158) inside Master Suite
+          // Bi-fold Door between General Bathroom (238x170) and Service Room (238x93) + Z-wardrobe replacing walk-in closet partitions (149x158) inside Master Suite
           beforeAfterGroup.add(makeOverlayBox(6.40, -3.35, 7.20, -3.20, zF + 0.05, zF + 2.15, 0x06b6d4, 0.85, 0xffffff));
           beforeAfterGroup.add(makeOverlayBox(10.95, -4.95, 12.45, -4.35, zF + 0.05, zF + 2.35, 0x0284c7, 0.75, 0x7dd3fc));
-          addDynamic3DLabel(8.20, zF + 2.55, -0.95, '🛡️ מבחן 8: 0 ס״מ קיצור מסדרון (416×105 נשמר ב-100% להגנת הכניסה לאמבטיה הכללית 238×170!) + דלת כיס בח. שירות וארון קו-אפס בהורים (+0.9 מ״ר)', '#34d399', 'rgba(6, 95, 70, 0.94)');
+          addDynamic3DLabel(8.20, zF + 2.55, -0.95, '🛋️ מסדרון מזרחי (416×105) נשמר במלואו + דלת מתקפלת (Bi-fold) לח. שירות (קיר האמבטיה תפוס בצנרת) וארון קו-אפס בהורים (+0.9 מ״ר)', '#34d399', 'rgba(6, 95, 70, 0.94)');
         }
       }
 
@@ -1119,32 +1119,26 @@
       }
 
       // -----------------------------------------------------------------------
-      // SCENE E2: PENTHOUSE FLOOR 9 BEDROOMS WING EXPANSION (EXACT SPATIAL LOCATION)
+      // SCENE E2: PENTHOUSE FLOOR 9 BEDROOMS WING (SW BEDROOM 280x423 & MASTER WALK-IN CLOSET 160x210)
       // -----------------------------------------------------------------------
       else if (sceneKey === 'penthouse_bedrooms_fix') {
         const zF = 28.70;
         if (!isProposedMode) {
           // SW Bedroom (280x423cm at X=-9.95..-7.15, Y=-0.25..3.98) — width 280cm (<300cm ADG)
           beforeAfterGroup.add(makeOverlayBox(-9.95, -0.25, -7.15, 3.98, zF + 0.03, zF + 2.45, 0xd97706, 0.48, 0xfde047));
-          // NW Bedrooms 1 & 2 (306x344cm each at X=-9.95..-6.85 and X=-6.75..-3.69, Y=-4.94..-1.48)
-          beforeAfterGroup.add(makeOverlayBox(-9.95, -4.94, -6.85, -1.48, zF + 0.03, zF + 2.35, 0x0284c7, 0.30, 0x38bdf8));
-          beforeAfterGroup.add(makeOverlayBox(-6.75, -4.94, -3.69, -1.48, zF + 0.03, zF + 2.35, 0x0284c7, 0.30, 0x38bdf8));
-          // Penthouse Mamad (335x271cm at X=-1.05..2.25, Y=-4.33..-1.62)
-          beforeAfterGroup.add(makeOverlayBox(-1.05, -4.33, 2.25, -1.62, zF + 0.03, zF + 2.35, 0xf59e0b, 0.35, 0xfde047));
-          addDynamic3DLabel(-8.55, zF + 2.65, 2.10, '🟠 מצב קיים: חדר דרום-מערבי ברוחב 280 ס״מ (280×423 ס״מ — מתחת לרף 300 ס״מ של ADG)', '#fbbf24', 'rgba(146, 64, 14, 0.94)');
-          addDynamic3DLabel(-6.80, zF + 2.55, -3.20, 'ℹ️ חדרים צפון-מערביים: 306×344 ס״מ כ״א · ממ״ד צפוני: 335×271 ס״מ', '#38bdf8');
+          // Master Suite Walk-in Closet (160x210cm at X=-3.75..-2.15, Y=-0.25..1.85)
+          beforeAfterGroup.add(makeOverlayBox(-3.75, -0.25, -2.15, 1.85, zF + 0.03, zF + 2.35, 0xf59e0b, 0.40, 0xfde047));
+          addDynamic3DLabel(-8.55, zF + 2.65, 2.10, '🟠 מצב קיים: חדר דרום-מערבי ברוחב 280 ס״מ (280×423 ס״מ) + חדר ארונות צפוף בהורים (160×210 ס״מ)', '#fbbf24', 'rgba(146, 64, 14, 0.94)');
+          addDynamic3DLabel(-5.45, zF + 2.55, 2.10, '🛡️ סוויטת הורים מרווחת (335×423 ס״מ) — נשמרת במלואה ללא הקטנת רוחב החדר!', '#38bdf8');
         } else {
-          // Expanded SW Bedroom: 300x423cm (X=-9.95..-6.95, Y=-0.25..3.98) + 20cm expansion strip [-7.15..-6.95]
-          beforeAfterGroup.add(makeOverlayBox(-9.95, -0.25, -6.95, 3.98, zF + 0.03, zF + 2.45, 0x10b981, 0.42, 0x6ee7b7));
-          beforeAfterGroup.add(makeOverlayBox(-7.15, -0.25, -6.95, 3.98, zF + 0.05, zF + 2.55, 0x059669, 0.85, 0xffffff));
-          beforeAfterGroup.add(make3DArrow(-7.15, 1.85, zF + 1.25, -6.85, 1.85, zF + 1.25, 0x10b981));
-          // Master Bedroom remains generous at 315x423cm (X=-6.95..-3.70, Y=-0.25..3.98) + Walk-in Closet (160x210) & Bath (160x204)
-          beforeAfterGroup.add(makeOverlayBox(-6.95, -0.25, -3.70, 3.98, zF + 0.03, zF + 2.35, 0x0284c7, 0.28, 0x7dd3fc));
-          // NW Bedrooms 1 & 2 with recessed flush wardrobe niches along corridor
-          beforeAfterGroup.add(makeOverlayBox(-9.95, -2.08, -6.85, -1.48, zF + 0.05, zF + 2.35, 0x06b6d4, 0.65, 0xffffff));
-          beforeAfterGroup.add(makeOverlayBox(-6.75, -2.08, -3.69, -1.48, zF + 0.05, zF + 2.35, 0x06b6d4, 0.65, 0xffffff));
-          addDynamic3DLabel(-8.45, zF + 2.70, 2.10, '🟢 מצב מוצע: הרחבת החדר הדרום-מערבי ב-20 ס״מ ל-300×423 ס״מ (12.69 מ״ר — עובר ADG!) · חדר הורים 315×423 ס״מ', '#34d399', 'rgba(6, 95, 70, 0.94)');
-          addDynamic3DLabel(-6.80, zF + 2.60, -2.00, '🛋️ נישות ארונות 60 ס״מ בחדרים הצפון-מערביים (306×344 ס״מ)', '#67e8f9', 'rgba(14, 116, 144, 0.94)');
+          // SW Bedroom (280x423cm) with sliding wardrobe on eastern wall & bed facing West terrace -> 220cm free floor width
+          beforeAfterGroup.add(makeOverlayBox(-9.95, -0.25, -7.15, 3.98, zF + 0.03, zF + 2.45, 0x10b981, 0.42, 0x6ee7b7));
+          beforeAfterGroup.add(makeOverlayBox(-7.75, -0.25, -7.15, 3.20, zF + 0.05, zF + 2.40, 0x0284c7, 0.78, 0x7dd3fc));
+          // Master Bedroom preserved at full 335x423cm + Walk-in Closet partition canceled for 3.60m flush wardrobe (+1.5m²)
+          beforeAfterGroup.add(makeOverlayBox(-7.10, -0.25, -3.75, 3.98, zF + 0.03, zF + 2.35, 0x10b981, 0.28, 0x6ee7b7));
+          beforeAfterGroup.add(makeOverlayBox(-3.75, -0.25, -2.15, 1.85, zF + 0.05, zF + 2.40, 0x06b6d4, 0.72, 0xffffff));
+          addDynamic3DLabel(-8.55, zF + 2.70, 2.10, '🟢 מצב מוצע: ארון הזזה בחדר הדרום-מערבי (280×423 · 220 ס״מ רוחב חופשי) ללא הקטנת חדר ההורים (335×423)!', '#34d399', 'rgba(6, 95, 70, 0.94)');
+          addDynamic3DLabel(-3.00, zF + 2.60, 0.80, '🛋️ ביטול מחיצות חדר הארונות (160×210) לטובת ארון נגרות רציף (+1.5 מ״ר נטו לסוויטת ההורים)', '#67e8f9', 'rgba(14, 116, 144, 0.94)');
         }
       }
 

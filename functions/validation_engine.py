@@ -10,7 +10,30 @@ FALLBACK_THRESHOLDS = {
     "B1.10": {"min_area_sqm": 1.1, "min_width_m": 0.80}, # Toilet Area
     "B1.11": {"min_area_sqm": 6.0, "min_width_m": 1.70}, # Kitchen Area
     "B1.13": {"min_height_m": 2.50},                     # Ceiling Height
+    "B1.30": {
+        "min_local_passage_width_cm": 80.0,
+        "min_statutory_corridor_width_cm": 90.0,
+        "recommended_quality_corridor_width_cm": 100.0,
+        "din18040_accessible_corridor_width_cm": 120.0,
+    },
     "B44": {"min_width_cm": 80},                         # Main Entrance
+}
+
+# Single Source of Truth for Statutory vs. Quality Thresholds & Applicability Context (Audit Section 2.ד)
+CANONICAL_THRESHOLDS_REGISTRY = {
+    "B1.30": {
+        "rule_id": "B1.30",
+        "title_he": "רוחב פרוזדור ומעברים בדירה",
+        "statutory_source_he": "תקנות התכנון והבנייה (בקשה להיתר, תנאים ואגרות) — תוספת שנייה",
+        "min_local_passage_width_cm": 80.0,
+        "min_statutory_corridor_width_cm": 90.0,
+        "recommended_quality_corridor_width_cm": 100.0,
+        "din18040_accessible_corridor_width_cm": 120.0,
+        "applicability_note_he": (
+            "סף סטטוטורי מחייב: 80 ס״מ למעבר נקודתי קצר (עד 1.5 מ׳), 90 ס״מ לפרוזדור דירתי ראשי. "
+            "סף מצוינות תכנונית מומלץ לנוחות מעבר דו-כיווני וריהוט: 100 ס״מ (ו-120 ס״מ לנגישות DIN 18040-2)."
+        ),
+    }
 }
 
 def get_rule_param(rules, rule_id, param, default_val):
@@ -133,41 +156,54 @@ def run_validation(apartment, rules):
             else:
                 results.append({"status": "PASS", "element": f"שטח מטבח ({room_name})", "rule_id": "B1.11", "message": f"תקין ({room_area} מ\"ר)"})
 
-        # Check Corridor Width (B1.30)
+        # Check Corridor Width (B1.30 — Unified Statutory vs. Quality Thresholds)
         elif room_type == "corridor":
             width = room.get("width_cm", 0)
+            c_rules = CANONICAL_THRESHOLDS_REGISTRY["B1.30"]
+            min_local_cm = c_rules["min_local_passage_width_cm"]
+            min_stat_cm = c_rules["min_statutory_corridor_width_cm"]
+            rec_qual_cm = c_rules["recommended_quality_corridor_width_cm"]
             if width > 0:
-                if width < 80.0:
+                if width < min_local_cm:
                     results.append({
                         "status": "FAIL",
                         "element": f"רוחב מסדרון ({room_name})",
                         "rule_id": "B1.30",
-                        "message": f"רוחב המסדרון {width} ס\"מ נמוך מהמינימום המוחלט של 80 ס\"מ."
+                        "message": f"רוחב המסדרון {width} ס\"מ נמוך מהמינימום הסטטוטורי המוחלט למעבר קצר ({min_local_cm:.0f} ס\"מ)."
                     })
-                elif width < 90.0:
+                elif width < min_stat_cm:
                     results.append({
-                        "status": "FAIL", # We can make it a soft fail/warning or fail based on length
+                        "status": "FAIL",
                         "element": f"רוחב מסדרון ({room_name})",
                         "rule_id": "B1.30",
-                        "message": f"רוחב המסדרון {width} ס\"מ נמוך מרוחב המעבר המומלץ למסדרונות ארוכים (90 ס\"מ)."
+                        "message": f"רוחב המסדרון {width} ס\"מ נמוך מהמינימום הסטטוטורי לפרוזדור דירתי ({min_stat_cm:.0f} ס\"מ; מומלץ תכנונית ≥{rec_qual_cm:.0f} ס\"מ)."
                     })
                 else:
+                    qual_suffix = f" (עומד גם ברף המצוינות התכנוני ≥{rec_qual_cm:.0f} ס\"מ)" if width >= rec_qual_cm else f" (עומד במינימום הסטטוטורי {min_stat_cm:.0f} ס\"מ; מומלץ תכנונית ≥{rec_qual_cm:.0f} ס\"מ)"
                     results.append({
                         "status": "PASS",
                         "element": f"רוחב מסדרון ({room_name})",
                         "rule_id": "B1.30",
-                        "message": f"תקין ({width} ס\"מ)"
+                        "message": f"תקין ({width} ס\"מ){qual_suffix}"
                     })
 
         # Check Utility Room (B1.31)
         elif room_type == "utility":
-            area = room.get("area_sqm", 0)
-            results.append({
-                "status": "PASS",
-                "element": f"שטח חדר שירות ({room_name})",
-                "rule_id": "B1.31",
-                "message": f"רשום תקין ({area} מ\"ר)"
-            })
+            area = float(room.get("area_sqm") or 0)
+            if area > 0:
+                results.append({
+                    "status": "PASS",
+                    "element": f"שטח חדר שירות ({room_name})",
+                    "rule_id": "B1.31",
+                    "message": f"רשום תקין ({area} מ\"ר)"
+                })
+            else:
+                results.append({
+                    "status": "WARN",
+                    "element": f"שטח חדר שירות ({room_name})",
+                    "rule_id": "B1.31",
+                    "message": "לא הוזן שטח מדיד לחדר השירות — לא ניתן לאמת תקינות."
+                })
 
         # Check Ventilation (Simulating an A17 / IAQ check)
         if room_type == "bathroom" and not room.get("has_window") and room.get("ventilation_type") == "none":
@@ -492,6 +528,47 @@ ADVANCED_FALLBACKS = {
         "is1142_balcony_railing_min_height_cm": 105,
         "is1142_stairs_railing_min_height_cm": 90,
         "is1142_railing_max_gap_cm": 10,
+    },
+    "NEURO_PSYCH_PAS6463": {
+        "pas6463_max_doors_per_corridor_node": 5,
+        "pas6463_bedroom_max_ambient_noise_dba": 30,
+        "pas6463_living_max_ambient_noise_dba": 35,
+        "anfa_cathedral_public_ceiling_recommended_m": 2.85,
+        "anfa_volumetric_slenderness_min_ratio": 0.48,
+        "anfa_volumetric_slenderness_optimal_ratio": 0.54,
+        "anfa_min_interior_corner_angle_deg": 75,
+        "art_restorative_sightline_min_m": 6.0,
+        "command_pos_min_door_to_bed_offset_m": 0.60,
+        "evans_crowding_secondary_retreat_min_bedspaces": 5,
+    },
+    "HEALTH_BAUBIO_DSDC": {
+        "hhsrs_cooktop_side_clearance_min_cm": 40,
+        "hhsrs_max_threshold_step_mm": 15,
+        "hhsrs_stair_door_landing_min_cm": 100,
+        "baubio_bed_to_elec_panel_min_m": 1.50,
+        "baubio_bed_to_elevator_shaft_min_m": 1.50,
+        "baubio_sleep_air_volume_per_person_min_m3": 13.5,
+        "who_night_facade_noise_max_db": 45,
+        "dsdc_bed_to_toilet_max_dist_m": 4.50,
+        "dsdc_bed_to_toilet_max_turns": 1,
+        "woonkeur_rollator_passage_min_cm": 90,
+    },
+    "WORKFLOWS_WFH_SWISS": {
+        "sbi_food_safety_prep_min_width_cm": 80,
+        "sbi_food_safety_prep_optimal_width_cm": 120,
+        "sbi_sink_to_prep_max_dist_m": 1.00,
+        "chore_grocery_entry_to_fridge_max_m": 6.00,
+        "chore_laundry_folding_surface_min_cm": 90,
+        "rt_wardrobe_length_per_person_min_m": 0.60,
+        "rt_entry_coat_closet_min_width_m": 1.20,
+        "rt_cleaning_utility_closet_min_cm": 60,
+        "wfh_desk_min_width_cm": 120,
+        "wfh_desk_min_depth_cm": 80,
+        "swiss_corridor_ratio_p25_excellent": 0.08,
+        "swiss_corridor_ratio_p50_median": 0.115,
+        "swiss_corridor_ratio_p75_warn": 0.155,
+        "swiss_rectangularity_p50_median": 0.89,
+        "swiss_entry_private_exposure_max_share": 0.05,
     },
 }
 
@@ -965,6 +1042,7 @@ def _check_accessibility(rules, typed, apartment):
                         f"מקסימום Ø{max(tcs):.0f} ס\"מ מול Ø{tc_req:.0f} ס\"מ." + ACCESS_NOTE))
 
     narrow = []
+    doors_checked = 0
     for r, t in typed:
         if r.get("clear_width_cm") is not None:
             v, kind = float(r["clear_width_cm"]), "נטו"
@@ -972,11 +1050,16 @@ def _check_accessibility(rules, typed, apartment):
             v, kind = float(r["door_width_cm"]), "כנף"
         else:
             continue
+        doors_checked += 1
         if v < door_req:
             narrow.append(f"{_label(r)} ({v:.0f} ס\"מ {kind})")
-    out.append(_res("WARN" if narrow else "PASS", "רוחב מעבר בדלתות פנים", "IS1918_ACCESS",
-                    (f"מתחת ל-{door_req:.0f} ס\"מ: {', '.join(narrow)}." if narrow else f"כל הדלתות שהוזנו ≥ {door_req:.0f} ס\"מ.")
-                    + " רוחב כנף גדול בכ-5–8 ס\"מ מהמעבר הנטו." + ACCESS_NOTE))
+    if doors_checked == 0:
+        out.append(_res("WARN", "רוחב מעבר בדלתות פנים", "IS1918_ACCESS",
+                        "לא הוזנו מידות רוחב (clear_width_cm / door_width_cm) לדלתות פנים — לא ניתן לאמת נגישות." + ACCESS_NOTE))
+    else:
+        out.append(_res("WARN" if narrow else "PASS", "רוחב מעבר בדלתות פנים", "IS1918_ACCESS",
+                        (f"מתחת ל-{door_req:.0f} ס\"מ: {', '.join(narrow)}." if narrow else f"כל {doors_checked} הדלתות שהוזנו ≥ {door_req:.0f} ס\"מ.")
+                        + " רוחב כנף גדול בכ-5–8 ס\"מ מהמעבר הנטו." + ACCESS_NOTE))
 
     for r, t in typed:
         if t == "balcony" and r.get("threshold_cm") is not None:
@@ -1373,6 +1456,15 @@ def run_advanced_checks(apartment, rules):
     out += _check_daylight_vent_ieq(rules, typed, apartment, ceiling)
     out += _check_usability_furnish_hqi(rules, typed, apartment, sleeping, livings, bedspaces)
     out += _check_academic_and_new_standards(rules, typed, apartment, sleeping, livings, n_bed, total)
+    try:
+        from design_optimization_engine import check_apartment_value_engineering
+        out += check_apartment_value_engineering(apartment, rules)
+    except Exception:
+        pass
+    try:
+        out += _check_spatial_intelligence_and_livability(apartment, rules)
+    except Exception:
+        pass
     return out
 
 
@@ -1572,7 +1664,266 @@ def _check_academic_and_new_standards(rules, typed, apartment, sleeping, livings
             "; ".join(s_issues) if s_issues else "עומד בדרישות ת\"י 1004 (אקוסטיקה) ות\"י 1142 (מעקים)."
         ))
 
+    # 12. NEURO_PSYCH_PAS6463 — Neuroarchitecture Volumetric Slenderness (ANFA Cathedral Effect) & PAS 6463 Junction Calm
+    ceiling_h = float((apartment.get("global_parameters") or {}).get("ceiling_height_m") or apartment.get("ceiling_height_m") or 0)
+    if ceiling_h > 0 and livings:
+        main_liv = max(livings, key=_area)
+        liv_a = _area(main_liv)
+        if liv_a >= 14.0:
+            rv = ceiling_h / math.sqrt(liv_a)
+            min_rv = float(_p(rules, "NEURO_PSYCH_PAS6463", "anfa_volumetric_slenderness_min_ratio"))
+            rec_h = float(_p(rules, "NEURO_PSYCH_PAS6463", "anfa_cathedral_public_ceiling_recommended_m"))
+            is_vol_ok = rv >= min_rv or ceiling_h >= rec_h
+            out.append(_res(
+                "PASS" if is_vol_ok else "WARN",
+                "פרופורציה נפחית ואפקט הקתדרלה — ANFA / PAS 6463 (NEURO_PSYCH_PAS6463)",
+                "NEURO_PSYCH_PAS6463",
+                f"יחס גובה-מפתח בחלל המגורים H/√A = {rv:.2f} (גובה {ceiling_h:.2f} מ' על {liv_a:.1f} מ\"ר; סף נוירו-אדריכלי ≥ {min_rv:.2f} או גובה ≥ {rec_h:.2f} מ' למניעת תחושת דחיסות)."
+            ))
+
+    topo_edges = apartment.get("topology") or []
+    if topo_edges:
+        corridor_ids = {r.get("id") for r, t in typed if t in ("corridor", "entrance") and r.get("id")}
+        if corridor_ids:
+            deg_count = {cid: 0 for cid in corridor_ids}
+            for e in topo_edges:
+                s, tg = e.get("source"), e.get("target")
+                if s in deg_count:
+                    deg_count[s] += 1
+                if tg in deg_count:
+                    deg_count[tg] += 1
+            max_doors = max(deg_count.values()) if deg_count else 0
+            limit_doors = int(_p(rules, "NEURO_PSYCH_PAS6463", "pas6463_max_doors_per_corridor_node"))
+            if max_doors > 0:
+                out.append(_res(
+                    "PASS" if max_doors <= limit_doors else "WARN",
+                    "ויסות חושי ועומס צמתים במסדרון — BSI PAS 6463 (NEURO_PSYCH_PAS6463)",
+                    "NEURO_PSYCH_PAS6463",
+                    f"מקסימום פתחים בצומת מסדרון יחיד: {max_doors} (סף PAS 6463 למניעת עומס קוגניטיבי ≤ {limit_doors} דלתות לצומת)."
+                ))
+
+    # 13. HEALTH_BAUBIO_DSDC — Baubiologie SBM-2015 Sleep Air Volume & Safe Zone / DSDC Bed-to-Toilet
+    if ceiling_h > 0 and sleeping:
+        min_vol_pp = float(_p(rules, "HEALTH_BAUBIO_DSDC", "baubio_sleep_air_volume_per_person_min_m3"))
+        main_b = max(sleeping, key=_area)
+        vol_issues = []
+        for r in sleeping:
+            a = _area(r)
+            if a <= 0:
+                continue
+            occ = 2 if (r is main_b or a >= 10.5) else 1
+            vol = a * ceiling_h
+            req_vol = min_vol_pp * occ
+            if vol < req_vol:
+                vol_issues.append(f"{_label(r)}: נפח אוויר {vol:.1f} < {req_vol:.1f} מ\"ק ({occ} נפשות)")
+        if any(_area(r) > 0 for r in sleeping):
+            out.append(_res(
+                "WARN" if vol_issues else "PASS",
+                "נפח אוויר לשינה והיגיינת Baubiologie SBM-2015 (HEALTH_BAUBIO_DSDC)",
+                "HEALTH_BAUBIO_DSDC",
+                ("; ".join(vol_issues) + f" — סיכון להצטברות CO2 לילי מעל 1000 ppm (SBM-2015 / Harvard Healthy Buildings ≥ {min_vol_pp:.1f} מ\"ק לנפש)."
+                 if vol_issues else f"כל חדרי השינה מספקים נפח אוויר תקני לשינה (≥ {min_vol_pp:.1f} מ\"ק לנפש לפי Baubiologie SBM-2015 ו-Harvard Healthy Buildings).")
+            ))
+
+    # 14. WORKFLOWS_WFH_SWISS — Archilyse Swiss Dwellings (45k) Statistical Percentile Benchmark
+    if total > 0 and typed:
+        corr_area = sum(_area(r) for r, t in typed if t == "corridor")
+        corr_ratio = corr_area / total if total > 0 else 0.0
+        p25_exc = float(_p(rules, "WORKFLOWS_WFH_SWISS", "swiss_corridor_ratio_p25_excellent"))
+        p50_med = float(_p(rules, "WORKFLOWS_WFH_SWISS", "swiss_corridor_ratio_p50_median"))
+        p75_wrn = float(_p(rules, "WORKFLOWS_WFH_SWISS", "swiss_corridor_ratio_p75_warn"))
+        if corr_ratio <= p25_exc:
+            pct_str = "אחוזון 80+ (מצטיין — Hallenwohnung)"
+            st_sw = "PASS"
+        elif corr_ratio <= p50_med:
+            pct_str = "אחוזון 50–75 (מעל החציון האירופי)"
+            st_sw = "PASS"
+        elif corr_ratio <= p75_wrn:
+            pct_str = "אחוזון 25–50 (מתחת לחציון)"
+            st_sw = "PASS"
+        else:
+            pct_str = "מתחת לאחוזון 25 (בזבוז שטח מסדרון גבוה)"
+            st_sw = "WARN"
+        out.append(_res(
+            st_sw,
+            "דירוג אחוזוני מול מאגר Swiss Dwellings — 45,000 דירות (WORKFLOWS_WFH_SWISS)",
+            "WORKFLOWS_WFH_SWISS",
+            f"יחס שטחי מעבר {corr_ratio * 100:.1f}% מדורג ב-{pct_str} מול מאגר הייחוס Archilyse Swiss Dwellings (חציון אירופי {p50_med * 100:.1f}%, רף מצטיין ≤ {p25_exc * 100:.1f}%)."
+        ))
+
     return out
+
+
+def _check_spatial_intelligence_and_livability(apartment, rules):
+    """v4 Algorithmic Spatial Intelligence: furniture layout & door-clash simulation,
+    12-guest Israeli family hosting, sleep-zone acoustic shielding, and entrance sightline audit."""
+    rooms = apartment.get("rooms") or []
+    if not rooms:
+        return []
+    # Run only when at least one room has measured dimensions (width_cm/length_cm or polygon)
+    has_dims = any(r.get("width_cm") or r.get("length_cm") or r.get("polygon") for r in rooms)
+    if not has_dims:
+        return []
+
+    import copy as _copy
+    from spatial_intelligence_engine import (
+        compute_sightline_and_aesthetics_metrics,
+        simulate_apartment_furnishability,
+        analyze_resident_livability,
+    )
+
+    apt_copy = _copy.deepcopy(apartment)
+    sight = compute_sightline_and_aesthetics_metrics(apt_copy)
+    furn = simulate_apartment_furnishability(apt_copy)
+    liv = analyze_resident_livability(apt_copy)
+    out = []
+
+    if furn.get("status") == "OK":
+        score = furn.get("furnishability_score", 100)
+        clashes = [r for r in furn.get("room_simulations", []) if r.get("status") == "WARN"]
+        if clashes:
+            summary_msgs = "; ".join(
+                f"{r['room_name']}: {r['clashes'][0] if r.get('clashes') else 'צפיפות ריהוט'}"
+                for r in clashes[:3]
+            )
+            out.append(_res(
+                "WARN",
+                "סימולציית העמדת ריהוט ותקיעות דלתות (FURNISH_SIM)",
+                "USABILITY_FURNISH_HQI",
+                f"ציון העמדת ריהוט {score}/100 — {summary_msgs}."
+            ))
+        else:
+            out.append(_res(
+                "PASS",
+                "סימולציית העמדת ריהוט ותקיעות דלתות (FURNISH_SIM)",
+                "USABILITY_FURNISH_HQI",
+                f"ציון העמדת ריהוט {score}/100 — כל חדרי השינה והממ\"ד מאפשרים העמדת מיטה, ארון ופתיחת דלת תקנית ללא התנגשות."
+            ))
+
+        hosting = furn.get("hosting_12_guests")
+        if isinstance(hosting, dict):
+            out.append(_res(
+                hosting.get("status", "PASS"),
+                "מבחן אירוח משפחתי ישראלי — 12 סועדים (HOSTING_12P)",
+                "IL_MOCH_PROG",
+                hosting.get("recommendation", "")
+            ))
+
+    if liv.get("status") == "OK":
+        ac_score = liv.get("acoustic_shield_score", 100)
+        ac_find = liv.get("acoustic_findings") or []
+        warn_ac = [f for f in ac_find if f.get("status") == "WARN"]
+        if warn_ac:
+            out.append(_res(
+                "WARN",
+                "מדד חיץ אקוסטי לאגף השינה (ACOUSTIC_SHIELD)",
+                "IL_IS1004_1142",
+                f"ציון שקט אקוסטי {ac_score}/100 — {warn_ac[0]['recommendation']}"
+            ))
+        elif ac_find:
+            out.append(_res(
+                "PASS",
+                "מדד חיץ אקוסטי לאגף השינה (ACOUSTIC_SHIELD)",
+                "IL_IS1004_1142",
+                f"ציון שקט אקוסטי {ac_score}/100 — אגף השינה מוגן אקוסטית מהחלל הציבורי ומקירות רטובים."
+            ))
+
+    if sight.get("status") == "OK":
+        exposed = sight.get("entrance_exposed_wet_rooms") or []
+        if exposed:
+            out.append(_res(
+                "WARN",
+                "חשיפת קו ראייה מהכניסה לחדרים רטובים (SIGHTLINE_ENTRY)",
+                "SWISS_GK_1",
+                f"קו ראייה ישיר מדלת הכניסה אל {', '.join(exposed)} — מומלץ ליצור מבואה/סיבוב כניסה או קיר מיסוך."
+            ))
+
+    return out
+
+
+# =========================================================================
+# 6 ARCHITECTURAL RECOMMENDATION QUALITY & FEASIBILITY GATES (ZERO-TRUST QA)
+# =========================================================================
+import re as _re
+
+FORBIDDEN_META_JARGON_PATTERNS = [
+    r"מבחן\s*(?:[1-9]|10)\b",
+    r"פרוטוקול\s*10\s*המבחנים",
+    r"stalls_relocated_count\s*=",
+    r"H44-LOCKED-CORE2",
+]
+
+
+def validate_project_recommendations_quality(payload):
+    """
+    Validates all generated project notes and recommendations against the 6 Architectural
+    Recommendation Quality & Feasibility Gates:
+      1. NO_META_JARGON: No internal QA test numbers ('מבחן 1..10') or raw code variables in user-facing text.
+      2. GEOMETRIC_FEASIBILITY: No impossible pocket doors inside bathtub/wet walls or shrinking of balanced Master Suites.
+      3. TRUE_IMPROVEMENT_POLARITY: Notes whose recommendation preserves existing geometry ('שמירה מלאה' / 'אין להגדיל')
+         must be classified as PASS (positive validation) or constructive interior tips, never as negative defects.
+      4. NO_DANGLING_TITLE_PARENTHETICAL: Note titles must have balanced parentheses and concise self-contained phrasing.
+      5. VISUAL_OVERLAY_FIDELITY:
+         - UG notes with stalls_relocated_count == 0 must have relocated_parking_target_rect == None.
+         - AG/UG contour contraction notes must provide before_contour_rect & after_contour_rect on the actual target zone.
+         - Room-specific notes must not use oversized multi-wing bounding boxes (>30% width & >25% height for single-room/pair fixes).
+      6. ARCHITECT_CLARITY_SCHEMA: Every actionable note must include concrete room dimensions, measured vs. benchmark, and clear Hebrew explanation.
+    Returns a dict with {"passed": bool, "violations": list[str], "checked_notes_count": int}.
+    """
+    violations = []
+    notes = payload.get("notes") or []
+    pid = payload.get("project_id", "unknown")
+
+    for note in notes:
+        nid = str(note.get("id") or "")
+        title = str(note.get("title") or "")
+        summary = str(note.get("summary") or "")
+        rec = str(note.get("recommendation") or "")
+        measured = str(note.get("measured") or "")
+        benchmark = str(note.get("benchmark") or "")
+        combined_text = f"{title} | {summary} | {rec} | {measured} | {benchmark}"
+
+        # Gate 1: NO_META_JARGON
+        for pat in FORBIDDEN_META_JARGON_PATTERNS:
+            if _re.search(pat, combined_text):
+                violations.append(f"[{pid}:{nid}] NO_META_JARGON violation — matched '{pat}' in text.")
+
+        # Gate 2: GEOMETRIC_FEASIBILITY
+        if ("דלת כיס" in combined_text or "Pocket Door" in combined_text) and not (
+            "אינו מאפשר דלת כיס" in combined_text or "דלת מתקפלת" in combined_text
+        ):
+            # Check for impossible pocket door between General Bathroom with bathtub (238x170) and Service Room (238x93)
+            if "238×170" in combined_text and "238×93" in combined_text:
+                violations.append(f"[{pid}:{nid}] GEOMETRIC_FEASIBILITY violation — Pocket Door proposed inside wet bathtub wall (238x170 <-> 238x93).")
+
+        # Gate 3: TRUE_IMPROVEMENT_POLARITY
+        if note.get("status") in ("WARN", "FAIL") and not note.get("is_value_eng") and not note.get("is_design_improvement"):
+            if any(phrase in title for phrase in ("איסור הגדלת החדר", "מוגן ב-100% מקיצור")):
+                violations.append(f"[{pid}:{nid}] TRUE_IMPROVEMENT_POLARITY violation — non-defect preservation note marked as '{note.get('status')}'.")
+
+        # Gate 4: NO_DANGLING_TITLE_PARENTHETICAL
+        if title.count("(") != title.count(")"):
+            violations.append(f"[{pid}:{nid}] NO_DANGLING_TITLE_PARENTHETICAL violation — unbalanced parentheses in title: '{title}'.")
+        if "הועברו לשיפור תכנון)" in title:
+            violations.append(f"[{pid}:{nid}] NO_DANGLING_TITLE_PARENTHETICAL violation — legacy trailing parenthetical in title: '{title}'.")
+
+        # Gate 5: VISUAL_OVERLAY_FIDELITY
+        if note.get("ve_category") == "UG":
+            reloc_audit = note.get("parking_relocation_audit") or {}
+            reloc_cnt = int(reloc_audit.get("stalls_relocated_count") or 0)
+            oz = note.get("plan_overlay_zones") or {}
+            if reloc_cnt == 0 and oz.get("relocated_parking_target_rect") is not None:
+                violations.append(f"[{pid}:{nid}] VISUAL_OVERLAY_FIDELITY violation — stalls_relocated_count == 0 but relocated_parking_target_rect is not None.")
+
+        # Gate 6: ARCHITECT_CLARITY_SCHEMA
+        if not title.strip() or not summary.strip() or not rec.strip():
+            violations.append(f"[{pid}:{nid}] ARCHITECT_CLARITY_SCHEMA violation — missing title, summary, or recommendation.")
+
+    return {
+        "passed": len(violations) == 0,
+        "violations": violations,
+        "checked_notes_count": len(notes),
+    }
 
 
 def print_report(results):

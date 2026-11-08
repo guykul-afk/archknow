@@ -67,6 +67,12 @@ PROJECT_FOLDERS = {
         "name_he": "משה שרת 26–28, פתח תקווה",
         "query": "משה שרת 26–28",
         "report_prefix": "sharett26"
+    },
+    "em_hamoshavot": {
+        "folder": "08_אם_המושבות_גדרה_פתח_תקווה",
+        "name_he": "מתחם גדרה 12 — אם המושבות / הדר המושבות, פתח תקווה",
+        "query": "אם המושבות",
+        "report_prefix": "em_hamoshavot"
     }
 }
 

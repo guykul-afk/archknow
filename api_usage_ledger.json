@@ -1,0 +1,72 @@
+{
+  "events": [
+    {
+      "call_id": "seed-atkg-live-verify-01",
+      "timestamp": "2026-11-08T15:06:04",
+      "epoch_ms": 1794142984607,
+      "date_ymd": "2026-11-08",
+      "project_id": "hafetz44",
+      "project_name": "חפץ חיים 44, פתח תקווה",
+      "question": "אילו קירות בדירה מותר להזיז או ליצור בהם נישת ארון ואיך כדאי לשלב פינת עבודה?",
+      "endpoint": "generateContent",
+      "model": "gemini-3-flash-preview",
+      "model_label_he": "Gemini 3.0 Flash Preview",
+      "token_source": "EXACT_USAGE_METADATA",
+      "context_tier": "<=200k",
+      "prompt_tokens": 3180,
+      "cached_tokens": 0,
+      "uncached_input_tokens": 3180,
+      "candidates_tokens": 642,
+      "thoughts_tokens": 418,
+      "billable_output_tokens": 1060,
+      "total_tokens": 4240,
+      "rates_usd_per_1m": {
+        "input": 0.5,
+        "cached": 0.05,
+        "output_and_thinking": 3.0
+      },
+      "breakdown_usd": {
+        "uncached_input_cost_usd": 0.00159,
+        "cached_input_cost_usd": 0.0,
+        "output_and_thinking_cost_usd": 0.00318
+      },
+      "cost_usd": 0.00477,
+      "cost_ils": 0.0177,
+      "usd_to_ils_rate": 3.72
+    },
+    {
+      "call_id": "seed-atkg-live-verify-02",
+      "timestamp": "2026-11-08T15:06:04",
+      "epoch_ms": 1794143074607,
+      "date_ymd": "2026-11-08",
+      "project_id": "hafetz44",
+      "project_name": "חפץ חיים 44, פתח תקווה",
+      "question": "תמליץ על דרך לשפר את אזור הסלון והמטבח לפי גרף ה-ATKG",
+      "endpoint": "generateContent",
+      "model": "gemini-2.5-flash",
+      "model_label_he": "Gemini 2.5 Flash",
+      "token_source": "EXACT_USAGE_METADATA",
+      "context_tier": "<=200k",
+      "prompt_tokens": 2940,
+      "cached_tokens": 0,
+      "uncached_input_tokens": 2940,
+      "candidates_tokens": 590,
+      "thoughts_tokens": 310,
+      "billable_output_tokens": 900,
+      "total_tokens": 3840,
+      "rates_usd_per_1m": {
+        "input": 0.3,
+        "cached": 0.03,
+        "output_and_thinking": 2.5
+      },
+      "breakdown_usd": {
+        "uncached_input_cost_usd": 0.000882,
+        "cached_input_cost_usd": 0.0,
+        "output_and_thinking_cost_usd": 0.00225
+      },
+      "cost_usd": 0.003132,
+      "cost_ils": 0.0117,
+      "usd_to_ils_rate": 3.72
+    }
+  ]
+}

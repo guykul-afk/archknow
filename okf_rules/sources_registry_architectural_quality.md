@@ -4,9 +4,9 @@ indicator: Registry of authoritative sources for architectural & housing design 
 rule_id: SOURCES_REGISTRY
 type: knowledge_registry
 ---
-# מרשם מקורות — איכות אדריכלית ואיכות תכנון דיור (9 בסיסי ידע משולבים)
+# מרשם מקורות — איכות אדריכלית ואיכות תכנון דיור (11 בסיסי ידע משולבים)
 
-המרשם מתעד כל מקור מופת / מקור רשמי ששולב במנוע הבקרה של **ArchiCheck**, ואת **סטטוס השילוב** שלו ב-9 בסיסי הידע של המערכת.
+המרשם מתעד כל מקור מופת / מקור רשמי ששולב במנוע הבקרה של **ArchiCheck**, ואת **סטטוס השילוב** שלו ב-11 בסיסי הידע של המערכת.
 
 **מקרא סטטוס**
 - ✅ **שולב במלואו** — ערכים כמותיים ואיכותניים הוטמעו ב-`okf_rules` וב-`architect_review_builder.py` ומוצגים בדו״ח ובממשק.
@@ -98,3 +98,31 @@ type: knowledge_registry
 | Oliver Heckmann & Friederike Schneider, *Floor Plan Manual Housing* (Birkhäuser) | ✅ | `ACADEMIC_ARCH_COMPENDIUM`, `KB_SPACE_SYNTAX` — טיפולוגיות תוכנית ומערכות תנועה |
 | Edition Hochparterre & *Werk, Bauen + Wohnen*, *Grundrissfibel* (Swiss Competitions) | ✅ | `ACADEMIC_ARCH_COMPENDIUM`, `KB_SPACE_SYNTAX` — *Durchwohnen*, *Schaltzimmer*, מבחן האלכסון הראשי |
 | Lacaton & Vassal (Pritzker 2021) & Frédéric Druot, *Plus* (Winter Gardens & Loggias) | ✅ | `ACADEMIC_ARCH_COMPENDIUM`, `KB_INTL_HOUSING` — מרפסות עמוקות ונגישות מכל חדר |
+
+---
+
+## ו. נוירו-אדריכלות, פסיכולוגיה סביבתית, אפידמיולוגיה של המגורים וביולוגיית המבנה (`KB_NEURO_HEALTH_BAUBIO`)
+
+| מקור | גוף | סטטוס | קובץ / בסיס ידע |
+| :--- | :--- | :---: | :--- |
+| BSI PAS 6463:2022 — *Design for the Mind: Neurodiversity and the Built Environment* | BSI (בריטניה) | ✅ | `NEURO_PSYCH_PAS6463`, `KB_NEURO_HEALTH_BAUBIO` — עומס צמתים ($\le 5$ דלתות), מרחב מפלט חושי (*Calm Zone*) ומניעת סנוור קצה |
+| ANFA Neuroarchitecture — Meyers-Levy (*Cathedral Effect*) & Vartanian (fMRI Spatial Geometry) | ANFA / UPenn | ✅ | `NEURO_PSYCH_PAS6463`, `KB_NEURO_HEALTH_BAUBIO` — יחס גבהות נפחית $H/\sqrt{A} \ge 0.48\text{–}0.54$, תקרה $\ge 2.85\text{ m}$ בסלון |
+| Ulrich (*Stress Recovery Theory*), Kaplan (*Attention Restoration Theory*) & Appleton (*Command Position*) | פסיכולוגיה סביבתית | ✅ | `NEURO_PSYCH_PAS6463`, `KB_NEURO_HEALTH_BAUBIO` — עמדת שליטה במיטה/שולחן (גב לקיר אטום + מבט לדלת מחוץ לציר הפתח) |
+| Gary Evans (Cornell) — *Residential Crowding & Psychological Stress* | Cornell University | ✅ | `NEURO_PSYCH_PAS6463`, `KB_NEURO_HEALTH_BAUBIO` — חלל שהייה/מפלט משני בדירות ל-$\ge 5$ נפשות |
+| UK HHSRS — *Housing Health and Safety Rating System* (29 Hazards) | ממשלת בריטניה | ✅ | `HEALTH_BAUBIO_DSDC`, `KB_NEURO_HEALTH_BAUBIO` — מניעת התנגשות דלתות, מרווח בטיחות לכיריים ($\ge 40\text{ cm}$), ומניעת עובש בפינות חוץ |
+| *Baubiologie* — IBN 25 Guidelines & SBM-2015 (*Sleeping Area Standard*) | IBN (גרמניה) | ✅ | `HEALTH_BAUBIO_DSDC`, `KB_NEURO_HEALTH_BAUBIO` — מרחק ביטחון מראש מיטה ללוח חשמל/מעלית/קולטן ($\ge 1.50\text{ m}$) ונפח אוויר לשינה ($\ge 13.5\text{ m}^3$ לנפש) |
+| WHO *Housing and Health Guidelines* (2018) & *WELL for Residential* (*WELL Residence*) | WHO / IWBI | ✅ | `HEALTH_BAUBIO_DSDC`, `KB_NEURO_HEALTH_BAUBIO` — עקרון החזית השקטה לחדרי שינה ($<45\text{ dB }L_{night}$) ומחסום אוויר כפול |
+| University of Stirling DSDC — *EADDAT (Ageing and Dementia Design Assessment Tool)* | University of Stirling | ✅ | `HEALTH_BAUBIO_DSDC`, `KB_NEURO_HEALTH_BAUBIO` — קו ראייה ישיר ממיטה לאסלה ($\le 4.50\text{ m}$, $\le 1$ פנייה) למניעת נפילות לילה |
+
+---
+
+## ז. הנדסת אנוש של מטלות הבית, עבודה מהבית (WFH) וכיול סטטיסטי מול ביג-דאטה (`KB_WORKFLOWS_WFH_BENCHMARK`)
+
+| מקור | גוף | סטטוס | קובץ / בסיס ידע |
+| :--- | :--- | :---: | :--- |
+| Finnish *RT-kortisto* (Rakennustieto), Danish *SBi-anvisninger 249/253* & Swedish *Konsumentverket* | פינלנד / דנמרק / שוודיה | ✅ | `WORKFLOWS_WFH_SWISS`, `KB_WORKFLOWS_WFH_BENCHMARK` — משולש בטיחות מזון ($\le 1.0\text{ m}$ מכיור למשטח הכנה $80\text{–}120\text{ cm}$), מסלול הכביסה המשפחתי והיררכיית אחסון |
+| Dutch *WoonKeur* (*Levensloopbestendig*) & ISO 21542:2021 | SKG-IKOB (הולנד) / ISO | ✅ | `HEALTH_BAUBIO_DSDC`, `KB_WORKFLOWS_WFH_BENCHMARK` — מעברי הליכון ($\ge 90\text{ cm}$) וקיר פריקה להרחבת חדר רחצה סיעודי |
+| *Leesman Home Index* & BCO *Homeworking Ergonomics* | Leesman / BCO | ✅ | `WORKFLOWS_WFH_SWISS`, `KB_WORKFLOWS_WFH_BENCHMARK` — עמדת עבודה מהבית ($\ge 120 \times 80\text{ cm}$) בניצב לחלון ($90^\circ$) ועם גב לקיר אטום |
+| Singapore BCA *Universal Design Index* & HDB *Household Shelter Guidelines* | BCA / HDB (סינגפור) | ✅ | `WORKFLOWS_WFH_SWISS`, `KB_WORKFLOWS_WFH_BENCHMARK` — מיקום ממ"ד/מקלט דירתי מבלי לקטוע את חזית החלונות הראשית |
+| *Swiss Dwellings Dataset v3.0* (45,000+ Apartments) & *Modified Swiss Dwellings (MSD)* | Archilyse AG / TU Delft | ✅ | `WORKFLOWS_WFH_SWISS`, `KB_WORKFLOWS_WFH_BENCHMARK` — דירוג אחוזוני ($P_{25}/P_{50}/P_{75}/P_{90}$) של יחס מסדרון, מלבניות ו-Isovist כניסה |
+

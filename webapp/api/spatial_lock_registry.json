@@ -1,7 +1,7 @@
 {
   "lock_version": "v3.0-2D3D-LOCK",
-  "total_projects": 7,
-  "total_notes": 205,
+  "total_projects": 8,
+  "total_notes": 231,
   "verified_100_pct": true,
   "projects": {
     "feierberg3": {
@@ -1735,26 +1735,26 @@
       "summary": {
         "lock_version": "v3.0-2D3D-LOCK",
         "project_id": "hafetz44",
-        "total_notes": 28,
-        "locked_notes": 28,
-        "wing_match_count": 28,
-        "orientation_locked_count": 28,
-        "max_drift_pct": 21.9,
-        "avg_drift_pct": 11.91,
+        "total_notes": 27,
+        "locked_notes": 27,
+        "wing_match_count": 27,
+        "orientation_locked_count": 27,
+        "max_drift_pct": 12.75,
+        "avg_drift_pct": 3.79,
         "verified_100_pct": true,
-        "registry_hash": "1741c2f7f8782c1c"
+        "registry_hash": "c887e91999a95fba"
       },
       "notes": {
         "H44-W-01": {
           "pin_num": 1,
           "sheet_id": "h44_typical",
           "box_2d": [
-            14.5,
-            54.0,
-            23.0,
-            18.5,
-            26.0,
-            63.25
+            14.6,
+            55.4,
+            19.2,
+            17.0,
+            24.2,
+            63.9
           ],
           "floor_id": "f4",
           "bbox_3d": [
@@ -1785,21 +1785,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "c894ea04d1b5",
+            "lock_hash": "354729600c5b",
             "sheet_id": "h44_typical",
             "floor_id": "f4",
             "wing_2d": "WEST_LEFT:SOUTH_BOTTOM",
             "wing_3d": "WEST_LEFT:SOUTH_BOTTOM",
             "wing_match": true,
             "expected_3d_xz": [
-              -8.12,
-              2.24
+              -10.97,
+              1.86
             ],
             "actual_3d_xz": [
               -10.2,
               2.2
             ],
-            "normalized_drift_pct": 7.53,
+            "normalized_drift_pct": 4.31,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -1808,12 +1808,12 @@
           "pin_num": 2,
           "sheet_id": "h44_typical",
           "box_2d": [
-            37.5,
-            55.5,
-            8.0,
-            16.5,
-            41.5,
-            63.75
+            34.1,
+            55.4,
+            6.6,
+            17.0,
+            37.4,
+            63.9
           ],
           "floor_id": "f4",
           "bbox_3d": [
@@ -1844,21 +1844,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "f1d5b061ffec",
+            "lock_hash": "c3a4edf6763e",
             "sheet_id": "h44_typical",
             "floor_id": "f4",
             "wing_2d": "WEST_LEFT:SOUTH_BOTTOM",
             "wing_3d": "WEST_LEFT:SOUTH_BOTTOM",
             "wing_match": true,
             "expected_3d_xz": [
-              -2.31,
-              2.32
+              -4.9,
+              1.86
             ],
             "actual_3d_xz": [
               -4.9,
               2.6
             ],
-            "normalized_drift_pct": 9.73,
+            "normalized_drift_pct": 7.23,
             "orientation_locked": true,
             "camera_theta": 1.85
           }
@@ -1867,12 +1867,12 @@
           "pin_num": 3,
           "sheet_id": "h44_typical",
           "box_2d": [
-            19.5,
-            36.0,
-            8.5,
+            19.6,
+            36.4,
+            7.5,
             18.5,
-            23.75,
-            45.25
+            23.35,
+            45.65
           ],
           "floor_id": "f4",
           "bbox_3d": [
@@ -1903,21 +1903,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "3cbb60958899",
+            "lock_hash": "68df395504f2",
             "sheet_id": "h44_typical",
             "floor_id": "f4",
-            "wing_2d": "WEST_LEFT:MID",
+            "wing_2d": "WEST_LEFT:NORTH_TOP",
             "wing_3d": "WEST_LEFT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              -8.96,
-              -0.71
+              -11.36,
+              -2.66
             ],
             "actual_3d_xz": [
               -11.6,
               -1.85
             ],
-            "normalized_drift_pct": 14.71,
+            "normalized_drift_pct": 8.03,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -1927,11 +1927,11 @@
           "sheet_id": "h44_typical",
           "box_2d": [
             45.8,
-            38.0,
-            7.4,
-            16.0,
-            49.5,
-            46.0
+            38.9,
+            7.2,
+            16.1,
+            49.4,
+            46.95
           ],
           "floor_id": "f4",
           "bbox_3d": [
@@ -1962,21 +1962,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "cb8b69687959",
+            "lock_hash": "909c4de09136",
             "sheet_id": "h44_typical",
             "floor_id": "f4",
-            "wing_2d": "CENTER:MID",
+            "wing_2d": "CENTER:NORTH_TOP",
             "wing_3d": "CENTER:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              0.69,
-              -0.59
+              0.61,
+              -2.34
             ],
             "actual_3d_xz": [
               0.6,
               -2.33
             ],
-            "normalized_drift_pct": 17.14,
+            "normalized_drift_pct": 0.11,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -1985,12 +1985,12 @@
           "pin_num": 5,
           "sheet_id": "h44_typical",
           "box_2d": [
-            28.0,
-            48.0,
-            17.5,
-            6.0,
-            36.75,
-            51.0
+            26.8,
+            50.4,
+            18.6,
+            4.6,
+            36.1,
+            52.7
           ],
           "floor_id": "f4",
           "bbox_3d": [
@@ -2021,21 +2021,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "71164f400a83",
+            "lock_hash": "c42a48d394ec",
             "sheet_id": "h44_typical",
             "floor_id": "f4",
-            "wing_2d": "WEST_LEFT:MID",
+            "wing_2d": "WEST_LEFT:NORTH_TOP",
             "wing_3d": "WEST_LEFT:MID",
             "wing_match": true,
             "expected_3d_xz": [
-              -4.09,
-              0.23
+              -5.5,
+              -0.91
             ],
             "actual_3d_xz": [
               -6.8,
               -0.85
             ],
-            "normalized_drift_pct": 14.46,
+            "normalized_drift_pct": 4.73,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -2044,12 +2044,12 @@
           "pin_num": 6,
           "sheet_id": "h44_typical",
           "box_2d": [
-            28.0,
-            36.0,
-            13.5,
+            27.3,
+            36.4,
+            12.9,
             14.0,
-            34.75,
-            43.0
+            33.75,
+            43.4
           ],
           "floor_id": "f4",
           "bbox_3d": [
@@ -2080,21 +2080,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "e1cb42c0790b",
+            "lock_hash": "b7ad37395edf",
             "sheet_id": "h44_typical",
             "floor_id": "f4",
             "wing_2d": "WEST_LEFT:NORTH_TOP",
             "wing_3d": "WEST_LEFT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              -4.84,
-              -1.08
+              -6.58,
+              -3.22
             ],
             "actual_3d_xz": [
               -6.58,
               -3.2
             ],
-            "normalized_drift_pct": 21.78,
+            "normalized_drift_pct": 0.2,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -2103,12 +2103,12 @@
           "pin_num": 7,
           "sheet_id": "h44_typical",
           "box_2d": [
-            60.2,
-            54.0,
-            24.0,
-            18.5,
-            72.2,
-            63.25
+            60.4,
+            55.4,
+            23.3,
+            17.0,
+            72.05,
+            63.9
           ],
           "floor_id": "f4",
           "bbox_3d": [
@@ -2139,21 +2139,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "04173d749f17",
+            "lock_hash": "f79c35cb778b",
             "sheet_id": "h44_typical",
             "floor_id": "f4",
             "wing_2d": "EAST_RIGHT:SOUTH_BOTTOM",
             "wing_3d": "EAST_RIGHT:SOUTH_BOTTOM",
             "wing_match": true,
             "expected_3d_xz": [
-              9.19,
-              2.24
+              11.03,
+              1.86
             ],
             "actual_3d_xz": [
               10.2,
               2.2
             ],
-            "normalized_drift_pct": 3.67,
+            "normalized_drift_pct": 4.45,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -2162,12 +2162,12 @@
           "pin_num": 8,
           "sheet_id": "h44_typical",
           "box_2d": [
-            71.5,
-            36.0,
-            8.2,
+            71.9,
+            36.4,
+            6.9,
             18.5,
-            75.6,
-            45.25
+            75.35,
+            45.65
           ],
           "floor_id": "f4",
           "bbox_3d": [
@@ -2198,21 +2198,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "f4d25c580477",
+            "lock_hash": "066a2444414d",
             "sheet_id": "h44_typical",
             "floor_id": "f4",
-            "wing_2d": "EAST_RIGHT:MID",
+            "wing_2d": "EAST_RIGHT:NORTH_TOP",
             "wing_3d": "EAST_RIGHT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              10.46,
-              -0.71
+              12.54,
+              -2.66
             ],
             "actual_3d_xz": [
               12.5,
               -2.2
             ],
-            "normalized_drift_pct": 16.39,
+            "normalized_drift_pct": 4.55,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -2221,12 +2221,12 @@
           "pin_num": 9,
           "sheet_id": "h44_typical",
           "box_2d": [
-            65.2,
-            36.0,
+            65.6,
+            36.4,
             6.2,
-            13.5,
-            68.3,
-            42.75
+            14.0,
+            68.7,
+            43.4
           ],
           "floor_id": "f4",
           "bbox_3d": [
@@ -2257,21 +2257,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "863823e81166",
+            "lock_hash": "02281d1cf188",
             "sheet_id": "h44_typical",
             "floor_id": "f4",
             "wing_2d": "EAST_RIGHT:NORTH_TOP",
             "wing_3d": "EAST_RIGHT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              7.73,
-              -1.12
+              9.49,
+              -3.22
             ],
             "actual_3d_xz": [
               9.45,
               -3.2
             ],
-            "normalized_drift_pct": 21.37,
+            "normalized_drift_pct": 0.24,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -2280,12 +2280,12 @@
           "pin_num": 10,
           "sheet_id": "h44_typical",
           "box_2d": [
-            59.8,
-            48.0,
-            11.5,
-            6.0,
-            65.55,
-            51.0
+            59.9,
+            50.1,
+            12.0,
+            4.8,
+            65.9,
+            52.5
           ],
           "floor_id": "f4",
           "bbox_3d": [
@@ -2316,21 +2316,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "9fa47979425d",
+            "lock_hash": "4ac87fc024a5",
             "sheet_id": "h44_typical",
             "floor_id": "f4",
-            "wing_2d": "EAST_RIGHT:MID",
+            "wing_2d": "EAST_RIGHT:NORTH_TOP",
             "wing_3d": "EAST_RIGHT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              6.7,
-              0.23
+              8.2,
+              -0.96
             ],
             "actual_3d_xz": [
               8.2,
               -0.95
             ],
-            "normalized_drift_pct": 12.83,
+            "normalized_drift_pct": 0.13,
             "orientation_locked": true,
             "camera_theta": 1.4
           }
@@ -2339,12 +2339,12 @@
           "pin_num": 11,
           "sheet_id": "h44_typical",
           "box_2d": [
-            53.5,
-            38.0,
-            6.3,
-            16.0,
+            53.4,
+            38.9,
+            6.5,
+            16.1,
             56.65,
-            46.0
+            46.95
           ],
           "floor_id": "f4",
           "bbox_3d": [
@@ -2375,21 +2375,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "cc26e78c142e",
+            "lock_hash": "463e0bb4be31",
             "sheet_id": "h44_typical",
             "floor_id": "f4",
-            "wing_2d": "EAST_RIGHT:MID",
+            "wing_2d": "EAST_RIGHT:NORTH_TOP",
             "wing_3d": "EAST_RIGHT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              3.37,
-              -0.59
+              3.95,
+              -2.34
             ],
             "actual_3d_xz": [
               3.96,
               -2.33
             ],
-            "normalized_drift_pct": 17.27,
+            "normalized_drift_pct": 0.11,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -2398,12 +2398,12 @@
           "pin_num": 12,
           "sheet_id": "h44_typical",
           "box_2d": [
-            42.5,
-            52.0,
-            15.0,
-            19.0,
-            50.0,
-            61.5
+            45.8,
+            55.1,
+            14.2,
+            7.3,
+            52.9,
+            58.75
           ],
           "floor_id": "f4",
           "bbox_3d": [
@@ -2434,21 +2434,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "9de9f3fb92cc",
+            "lock_hash": "e409a4451d13",
             "sheet_id": "h44_typical",
             "floor_id": "f4",
-            "wing_2d": "CENTER:SOUTH_BOTTOM",
+            "wing_2d": "CENTER:MID",
             "wing_3d": "CENTER:MID",
             "wing_match": true,
             "expected_3d_xz": [
-              0.87,
-              1.96
+              2.22,
+              0.59
             ],
             "actual_3d_xz": [
               0.8,
               0.25
             ],
-            "normalized_drift_pct": 16.77,
+            "normalized_drift_pct": 6.11,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -2457,12 +2457,12 @@
           "pin_num": 13,
           "sheet_id": "h44_penthouse",
           "box_2d": [
-            56.5,
-            35.5,
-            24.0,
-            36.5,
-            68.5,
-            53.75
+            57.6,
+            36.4,
+            12.9,
+            22.6,
+            64.05,
+            47.7
           ],
           "floor_id": "f9",
           "bbox_3d": [
@@ -2493,21 +2493,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "567e9ade52a7",
+            "lock_hash": "003bb2461c0b",
             "sheet_id": "h44_penthouse",
             "floor_id": "f9",
-            "wing_2d": "EAST_RIGHT:MID",
+            "wing_2d": "EAST_RIGHT:NORTH_TOP",
             "wing_3d": "EAST_RIGHT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              7.62,
-              0.24
+              6.65,
+              -2.06
             ],
             "actual_3d_xz": [
               7.5,
               -1.8
             ],
-            "normalized_drift_pct": 21.71,
+            "normalized_drift_pct": 4.09,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -2516,12 +2516,12 @@
           "pin_num": 14,
           "sheet_id": "h44_penthouse",
           "box_2d": [
-            57.2,
-            58.0,
+            58.6,
+            60.0,
             11.5,
-            13.5,
-            62.95,
-            64.75
+            11.2,
+            64.35,
+            65.6
           ],
           "floor_id": "f9",
           "bbox_3d": [
@@ -2552,21 +2552,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "3e6d597a9fd6",
+            "lock_hash": "8a325c3c1f06",
             "sheet_id": "h44_penthouse",
             "floor_id": "f9",
             "wing_2d": "EAST_RIGHT:SOUTH_BOTTOM",
             "wing_3d": "EAST_RIGHT:SOUTH_BOTTOM",
             "wing_match": true,
             "expected_3d_xz": [
-              5.49,
-              1.91
+              6.79,
+              2.53
             ],
             "actual_3d_xz": [
               7.25,
               2.85
             ],
-            "normalized_drift_pct": 11.87,
+            "normalized_drift_pct": 3.8,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -2575,34 +2575,34 @@
           "pin_num": 15,
           "sheet_id": "h44_penthouse",
           "box_2d": [
-            26.2,
-            36.0,
-            26.5,
-            35.5,
-            39.45,
-            53.75
+            25.0,
+            53.5,
+            17.5,
+            17.5,
+            33.75,
+            62.25
           ],
           "floor_id": "f9",
           "bbox_3d": [
-            -8.66,
-            -2.45,
-            1.54,
-            2.93,
+            -9.95,
+            -0.25,
+            -2.15,
+            3.98,
             28.73,
             31.3
           ],
           "pin_3d": [
-            -3.56,
-            29.93,
-            0.24
+            -6.05,
+            30.5,
+            1.85
           ],
           "camera": {
             "target": [
-              -3.56,
+              -6.05,
               30.02,
-              0.24
+              1.85
             ],
-            "radius": 15.5,
+            "radius": 14.5,
             "phi": 0.5,
             "theta": 1.57,
             "ortho": false
@@ -2611,21 +2611,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "48e4b76810ac",
+            "lock_hash": "a11ea04180c3",
             "sheet_id": "h44_penthouse",
             "floor_id": "f9",
-            "wing_2d": "WEST_LEFT:MID",
-            "wing_3d": "WEST_LEFT:MID",
+            "wing_2d": "WEST_LEFT:SOUTH_BOTTOM",
+            "wing_3d": "WEST_LEFT:SOUTH_BOTTOM",
             "wing_match": true,
             "expected_3d_xz": [
-              -3.56,
-              0.24
+              -6.81,
+              1.67
             ],
             "actual_3d_xz": [
-              -3.56,
-              0.24
+              -6.05,
+              1.85
             ],
-            "normalized_drift_pct": 0.01,
+            "normalized_drift_pct": 3.33,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -2634,12 +2634,12 @@
           "pin_num": 16,
           "sheet_id": "h44_ground",
           "box_2d": [
-            42.0,
-            36.0,
-            36.0,
-            34.0,
-            60.0,
-            53.0
+            51.6,
+            47.2,
+            17.7,
+            8.4,
+            60.45,
+            51.4
           ],
           "floor_id": "kar",
           "bbox_3d": [
@@ -2670,21 +2670,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "6addb74f14ab",
+            "lock_hash": "3f283db3e2b4",
             "sheet_id": "h44_ground",
             "floor_id": "kar",
-            "wing_2d": "EAST_RIGHT:MID",
+            "wing_2d": "EAST_RIGHT:SOUTH_BOTTOM",
             "wing_3d": "EAST_RIGHT:SOUTH_BOTTOM",
             "wing_match": true,
             "expected_3d_xz": [
-              4.15,
-              0.38
+              8.05,
+              1.91
             ],
             "actual_3d_xz": [
               8.2,
               1.8
             ],
-            "normalized_drift_pct": 20.2,
+            "normalized_drift_pct": 1.19,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -2693,12 +2693,12 @@
           "pin_num": 17,
           "sheet_id": "h44_basement",
           "box_2d": [
-            46.2,
-            68.5,
-            24.5,
-            14.5,
-            58.45,
-            75.75
+            44.2,
+            69.4,
+            15.3,
+            9.9,
+            51.85,
+            74.35
           ],
           "floor_id": "mar",
           "bbox_3d": [
@@ -2729,21 +2729,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "4c3b6e655873",
+            "lock_hash": "8ae61aa003f5",
             "sheet_id": "h44_basement",
             "floor_id": "mar",
-            "wing_2d": "EAST_RIGHT:SOUTH_BOTTOM",
+            "wing_2d": "CENTER:SOUTH_BOTTOM",
             "wing_3d": "CENTER:SOUTH_BOTTOM",
             "wing_match": true,
             "expected_3d_xz": [
-              5.65,
-              7.01
+              1.7,
+              7.4
             ],
             "actual_3d_xz": [
               2.5,
               7.2
             ],
-            "normalized_drift_pct": 8.76,
+            "normalized_drift_pct": 2.46,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -2752,12 +2752,12 @@
           "pin_num": 18,
           "sheet_id": "h44_ground",
           "box_2d": [
-            74.0,
-            24.0,
-            14.0,
-            18.0,
-            81.0,
-            33.0
+            61.3,
+            37.2,
+            8.2,
+            5.0,
+            65.4,
+            39.7
           ],
           "floor_id": "kar",
           "bbox_3d": [
@@ -2788,21 +2788,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "3e81fbe520f1",
+            "lock_hash": "94d050763eec",
             "sheet_id": "h44_ground",
             "floor_id": "kar",
             "wing_2d": "EAST_RIGHT:NORTH_TOP",
             "wing_3d": "EAST_RIGHT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              11.81,
-              -2.8
+              11.25,
+              -3.77
             ],
             "actual_3d_xz": [
               11.1,
               -3.8
             ],
-            "normalized_drift_pct": 10.19,
+            "normalized_drift_pct": 0.62,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -2811,34 +2811,34 @@
           "pin_num": 19,
           "sheet_id": "h44_penthouse",
           "box_2d": [
-            43.0,
-            22.0,
-            14.0,
-            20.0,
-            50.0,
-            32.0
+            41.2,
+            48.8,
+            14.8,
+            19.8,
+            48.6,
+            58.7
           ],
           "floor_id": "gag",
           "bbox_3d": [
-            -8.6,
-            -4.5,
-            8.2,
-            1.5,
+            -3.16,
+            -0.33,
+            3.7,
+            4.22,
             31.85,
-            33.1
+            33.4
           ],
           "pin_3d": [
-            0.3,
+            0.27,
             33.4,
-            -1.0
+            1.95
           ],
           "camera": {
             "target": [
-              0.3,
-              32.48,
-              -1.0
+              0.27,
+              32.62,
+              1.95
             ],
-            "radius": 18.5,
+            "radius": 16.5,
             "phi": 0.52,
             "theta": 1.57,
             "ortho": false
@@ -2847,21 +2847,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "54d02ea949ff",
+            "lock_hash": "fd9e85630330",
             "sheet_id": "h44_penthouse",
             "floor_id": "gag",
-            "wing_2d": "CENTER:NORTH_TOP",
-            "wing_3d": "CENTER:MID",
+            "wing_2d": "CENTER:SOUTH_BOTTOM",
+            "wing_3d": "CENTER:SOUTH_BOTTOM",
             "wing_match": true,
             "expected_3d_xz": [
-              0.5,
-              -3.06
+              -0.21,
+              0.76
             ],
             "actual_3d_xz": [
-              0.3,
-              -1.0
+              0.27,
+              1.95
             ],
-            "normalized_drift_pct": 21.9,
+            "normalized_drift_pct": 12.75,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -2870,32 +2870,32 @@
           "pin_num": 20,
           "sheet_id": "h44_basement",
           "box_2d": [
-            46.2,
-            68.5,
-            24.5,
-            14.5,
-            58.45,
-            75.75
+            25.0,
+            36.5,
+            8.5,
+            10.5,
+            29.25,
+            41.75
           ],
           "floor_id": "mar",
           "bbox_3d": [
-            -1.8,
-            5.95,
-            5.2,
-            8.85,
+            -10.6,
+            -3.65,
+            -6.7,
+            -0.6,
             -5.08,
-            -2.75
+            -2.25
           ],
           "pin_3d": [
-            2.5,
+            -8.65,
             -3.0,
-            7.2
+            -2.12
           ],
           "camera": {
             "target": [
-              2.5,
-              -3.92,
-              7.2
+              -8.65,
+              -3.67,
+              -2.12
             ],
             "radius": 28.0,
             "phi": 0.5,
@@ -2906,21 +2906,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "50a480cd9884",
+            "lock_hash": "dd5a9751e503",
             "sheet_id": "h44_basement",
             "floor_id": "mar",
-            "wing_2d": "EAST_RIGHT:SOUTH_BOTTOM",
-            "wing_3d": "CENTER:SOUTH_BOTTOM",
+            "wing_2d": "WEST_LEFT:NORTH_TOP",
+            "wing_3d": "WEST_LEFT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              5.65,
-              7.01
+              -8.66,
+              -2.12
             ],
             "actual_3d_xz": [
-              2.5,
-              7.2
+              -8.65,
+              -2.12
             ],
-            "normalized_drift_pct": 8.76,
+            "normalized_drift_pct": 0.03,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -2929,12 +2929,12 @@
           "pin_num": 21,
           "sheet_id": "h44_typical",
           "box_2d": [
-            80.0,
-            24.0,
-            9.0,
-            50.0,
-            84.5,
-            49.0
+            79.3,
+            36.4,
+            5.0,
+            36.0,
+            81.8,
+            54.4
           ],
           "floor_id": "all",
           "bbox_3d": [
@@ -2965,21 +2965,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "b7f80b1b0294",
+            "lock_hash": "54d45f7a0bad",
             "sheet_id": "h44_typical",
             "floor_id": "all",
             "wing_2d": "EAST_RIGHT:MID",
             "wing_3d": "EAST_RIGHT:MID",
             "wing_match": true,
             "expected_3d_xz": [
-              13.8,
-              -0.09
+              15.51,
+              -0.49
             ],
             "actual_3d_xz": [
               16.6,
               -0.5
             ],
-            "normalized_drift_pct": 10.86,
+            "normalized_drift_pct": 3.94,
             "orientation_locked": true,
             "camera_theta": 0.15
           }
@@ -2988,12 +2988,12 @@
           "pin_num": 22,
           "sheet_id": "h44_typical",
           "box_2d": [
-            11.0,
-            24.0,
-            9.0,
-            50.0,
-            15.5,
-            49.0
+            14.0,
+            36.4,
+            5.0,
+            36.0,
+            16.5,
+            54.4
           ],
           "floor_id": "all",
           "bbox_3d": [
@@ -3024,21 +3024,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "7ee3e6901ae4",
+            "lock_hash": "a8c08ee74f67",
             "sheet_id": "h44_typical",
             "floor_id": "all",
             "wing_2d": "WEST_LEFT:MID",
             "wing_3d": "WEST_LEFT:MID",
             "wing_match": true,
             "expected_3d_xz": [
-              -12.05,
-              -0.09
+              -14.51,
+              -0.49
             ],
             "actual_3d_xz": [
               -15.6,
               -0.5
             ],
-            "normalized_drift_pct": 13.42,
+            "normalized_drift_pct": 3.94,
             "orientation_locked": true,
             "camera_theta": 3.0
           }
@@ -3047,12 +3047,12 @@
           "pin_num": 23,
           "sheet_id": "h44_typical",
           "box_2d": [
-            14.0,
-            16.0,
-            72.0,
-            10.0,
-            50.0,
-            21.0
+            19.0,
+            31.5,
+            60.3,
+            4.5,
+            49.15,
+            33.75
           ],
           "floor_id": "all",
           "bbox_3d": [
@@ -3083,21 +3083,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "7114bb1f9330",
+            "lock_hash": "31ace6b4b4e7",
             "sheet_id": "h44_typical",
             "floor_id": "all",
             "wing_2d": "CENTER:NORTH_TOP",
             "wing_3d": "CENTER:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              0.87,
-              -4.69
+              0.5,
+              -5.61
             ],
             "actual_3d_xz": [
               0.5,
               -5.65
             ],
-            "normalized_drift_pct": 9.56,
+            "normalized_drift_pct": 0.35,
             "orientation_locked": true,
             "camera_theta": -1.57
           }
@@ -3106,12 +3106,12 @@
           "pin_num": 24,
           "sheet_id": "h44_typical",
           "box_2d": [
-            14.0,
-            72.0,
-            72.0,
-            10.0,
-            50.0,
-            77.0
+            19.0,
+            72.5,
+            60.3,
+            4.5,
+            49.15,
+            74.75
           ],
           "floor_id": "all",
           "bbox_3d": [
@@ -3142,21 +3142,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "16ea5a6f1fb1",
+            "lock_hash": "7a085d1855db",
             "sheet_id": "h44_typical",
             "floor_id": "all",
             "wing_2d": "CENTER:SOUTH_BOTTOM",
             "wing_3d": "CENTER:SOUTH_BOTTOM",
             "wing_match": true,
             "expected_3d_xz": [
-              0.87,
-              4.5
+              0.5,
+              4.56
             ],
             "actual_3d_xz": [
               0.5,
               5.55
             ],
-            "normalized_drift_pct": 10.43,
+            "normalized_drift_pct": 9.77,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -3165,30 +3165,30 @@
           "pin_num": 25,
           "sheet_id": "h44_basement",
           "box_2d": [
-            39.5,
-            32.0,
-            11.0,
-            15.0,
-            45.0,
-            39.5
+            45.8,
+            34.2,
+            7.3,
+            13.7,
+            49.45,
+            41.05
           ],
           "floor_id": "mar",
           "bbox_3d": [
-            -5.5,
-            -4.33,
             -1.05,
+            -4.33,
+            2.25,
             -0.33,
             -5.08,
             -2.25
           ],
           "pin_3d": [
-            -3.25,
+            0.6,
             -3.0,
             -2.33
           ],
           "camera": {
             "target": [
-              -3.25,
+              0.6,
               -3.67,
               -2.33
             ],
@@ -3201,114 +3201,55 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "6ef2cea98796",
+            "lock_hash": "f3c94214c932",
             "sheet_id": "h44_basement",
             "floor_id": "mar",
             "wing_2d": "CENTER:NORTH_TOP",
-            "wing_3d": "WEST_LEFT:NORTH_TOP",
+            "wing_3d": "CENTER:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              -1.11,
-              -3.16
+              0.6,
+              -2.32
             ],
             "actual_3d_xz": [
-              -3.25,
+              0.6,
               -2.33
             ],
-            "normalized_drift_pct": 7.46,
-            "orientation_locked": true,
-            "camera_theta": 1.57
-          }
-        },
-        "H44-LOCKED-CORE2": {
-          "pin_num": 26,
-          "sheet_id": "h44_typical",
-          "box_2d": [
-            43.0,
-            48.0,
-            14.0,
-            12.0,
-            50.0,
-            54.0
-          ],
-          "floor_id": "f4",
-          "bbox_3d": [
-            -1.05,
-            -0.33,
-            5.46,
-            1.48,
-            12.98,
-            15.65
-          ],
-          "pin_3d": [
-            0.8,
-            14.85,
-            0.25
-          ],
-          "camera": {
-            "target": [
-              0.8,
-              14.32,
-              0.25
-            ],
-            "radius": 14.5,
-            "phi": 0.52,
-            "theta": 1.57,
-            "ortho": false
-          },
-          "position_lock": {
-            "locked": true,
-            "verified": true,
-            "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "fc5667dddafb",
-            "sheet_id": "h44_typical",
-            "floor_id": "f4",
-            "wing_2d": "CENTER:SOUTH_BOTTOM",
-            "wing_3d": "CENTER:MID",
-            "wing_match": true,
-            "expected_3d_xz": [
-              0.87,
-              0.73
-            ],
-            "actual_3d_xz": [
-              0.8,
-              0.25
-            ],
-            "normalized_drift_pct": 4.68,
+            "normalized_drift_pct": 0.04,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
         },
         "H44-OPT-APT1": {
-          "pin_num": 27,
+          "pin_num": 26,
           "sheet_id": "h44_typical",
           "box_2d": [
-            12.0,
-            25.0,
-            32.0,
-            45.0,
-            28.0,
-            47.5
+            23.2,
+            36.4,
+            17.3,
+            18.1,
+            31.85,
+            45.45
           ],
           "floor_id": "f4",
           "bbox_3d": [
-            -13.36,
-            -4.03,
-            -1.37,
-            3.35,
+            -11.45,
+            -4.95,
+            -3.5,
+            -0.45,
             12.98,
             15.65
           ],
           "pin_3d": [
-            -7.37,
-            14.18,
-            -0.34
+            -9.8,
+            14.85,
+            -3.6
           ],
           "camera": {
             "target": [
-              -7.37,
+              -9.8,
               14.32,
-              -0.34
+              -3.6
             ],
             "radius": 15.0,
             "phi": 0.48,
@@ -3319,55 +3260,55 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "26c6686e6089",
+            "lock_hash": "20f620a52ae9",
             "sheet_id": "h44_typical",
             "floor_id": "f4",
-            "wing_2d": "WEST_LEFT:MID",
-            "wing_3d": "WEST_LEFT:MID",
+            "wing_2d": "WEST_LEFT:NORTH_TOP",
+            "wing_3d": "WEST_LEFT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              -7.37,
-              -0.34
+              -7.45,
+              -2.71
             ],
             "actual_3d_xz": [
-              -7.37,
-              -0.34
+              -9.8,
+              -3.6
             ],
-            "normalized_drift_pct": 0.02,
+            "normalized_drift_pct": 12.16,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
         },
         "H44-OPT-APT2": {
-          "pin_num": 28,
+          "pin_num": 27,
           "sheet_id": "h44_typical",
           "box_2d": [
-            54.0,
-            25.0,
-            32.0,
-            45.0,
-            70.0,
-            47.5
+            71.9,
+            36.4,
+            3.5,
+            6.5,
+            73.65,
+            39.65
           ],
           "floor_id": "f4",
           "bbox_3d": [
-            2.37,
-            -4.03,
-            14.36,
-            3.35,
+            10.95,
+            -4.95,
+            12.55,
+            -3.35,
             12.98,
             15.65
           ],
           "pin_3d": [
-            8.37,
-            14.18,
-            -0.34
+            11.5,
+            14.85,
+            -3.8
           ],
           "camera": {
             "target": [
-              8.37,
+              11.5,
               14.32,
-              -0.34
+              -3.8
             ],
             "radius": 14.0,
             "phi": 0.5,
@@ -3378,21 +3319,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "672a6aeef8e2",
+            "lock_hash": "1abab1e73446",
             "sheet_id": "h44_typical",
             "floor_id": "f4",
-            "wing_2d": "EAST_RIGHT:MID",
-            "wing_3d": "EAST_RIGHT:MID",
+            "wing_2d": "EAST_RIGHT:NORTH_TOP",
+            "wing_3d": "EAST_RIGHT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              8.37,
-              -0.34
+              11.76,
+              -4.15
             ],
             "actual_3d_xz": [
-              8.37,
-              -0.34
+              11.5,
+              -3.8
             ],
-            "normalized_drift_pct": 0.02,
+            "normalized_drift_pct": 3.58,
             "orientation_locked": true,
             "camera_theta": 1.35
           }
@@ -3407,10 +3348,10 @@
         "locked_notes": 25,
         "wing_match_count": 25,
         "orientation_locked_count": 25,
-        "max_drift_pct": 23.0,
-        "avg_drift_pct": 12.03,
+        "max_drift_pct": 22.37,
+        "avg_drift_pct": 10.4,
         "verified_100_pct": true,
-        "registry_hash": "f7919fbbe8adbf50"
+        "registry_hash": "d8ac4acd93c864df"
       },
       "notes": {
         "YAT-N-01": {
@@ -3460,14 +3401,14 @@
             "wing_3d": "EAST_RIGHT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              3.79,
-              -2.67
+              2.28,
+              -3.61
             ],
             "actual_3d_xz": [
               0.5,
               -3.2
             ],
-            "normalized_drift_pct": 23.0,
+            "normalized_drift_pct": 12.51,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -3476,32 +3417,32 @@
           "pin_num": 2,
           "sheet_id": "yat_typical",
           "box_2d": [
-            75.5,
+            66.0,
             37.5,
-            18.5,
-            13.5,
-            84.75,
-            44.25
+            15.5,
+            11.5,
+            73.75,
+            43.25
           ],
           "floor_id": "f4",
           "bbox_3d": [
-            7.03,
-            0.27,
-            12.36,
-            4.68,
+            3.2,
+            -1.8,
+            6.6,
+            2.2,
             13.33,
             16.2
           ],
           "pin_3d": [
-            9.7,
-            14.53,
-            2.47
+            5.1,
+            15.4,
+            0.2
           ],
           "camera": {
             "target": [
-              9.7,
+              5.1,
               14.77,
-              2.47
+              0.2
             ],
             "radius": 14.0,
             "phi": 0.52,
@@ -3512,21 +3453,21 @@
             "locked": true,
             "verified": true,
             "lock_version": "v3.0-2D3D-LOCK",
-            "lock_hash": "2197e9030af3",
+            "lock_hash": "2df596f8c1a2",
             "sheet_id": "yat_typical",
             "floor_id": "f4",
             "wing_2d": "EAST_RIGHT:NORTH_TOP",
             "wing_3d": "EAST_RIGHT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              9.7,
-              2.47
+              4.66,
+              2.05
             ],
             "actual_3d_xz": [
-              9.7,
-              2.47
+              5.1,
+              0.2
             ],
-            "normalized_drift_pct": 0.03,
+            "normalized_drift_pct": 9.36,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -3578,14 +3519,14 @@
             "wing_3d": "WEST_LEFT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              -4.63,
-              -2.18
+              -5.05,
+              -3.03
             ],
             "actual_3d_xz": [
               -6.1,
               -3.1
             ],
-            "normalized_drift_pct": 11.1,
+            "normalized_drift_pct": 7.33,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -3637,14 +3578,14 @@
             "wing_3d": "WEST_LEFT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              -4.27,
-              1.25
+              -4.73,
+              0.99
             ],
             "actual_3d_xz": [
               -5.8,
               -0.05
             ],
-            "normalized_drift_pct": 12.29,
+            "normalized_drift_pct": 8.94,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -3696,14 +3637,14 @@
             "wing_3d": "WEST_LEFT:MID",
             "wing_match": true,
             "expected_3d_xz": [
-              -4.27,
-              4.59
+              -4.73,
+              4.93
             ],
             "actual_3d_xz": [
               -6.0,
               3.0
             ],
-            "normalized_drift_pct": 14.22,
+            "normalized_drift_pct": 12.74,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -3755,14 +3696,14 @@
             "wing_3d": "WEST_LEFT:SOUTH_BOTTOM",
             "wing_match": true,
             "expected_3d_xz": [
-              -3.77,
-              12.84
+              -4.29,
+              14.61
             ],
             "actual_3d_xz": [
               -3.8,
               12.0
             ],
-            "normalized_drift_pct": 4.03,
+            "normalized_drift_pct": 12.94,
             "orientation_locked": true,
             "camera_theta": 1.85
           }
@@ -3814,14 +3755,14 @@
             "wing_3d": "WEST_LEFT:SOUTH_BOTTOM",
             "wing_match": true,
             "expected_3d_xz": [
-              -4.56,
-              7.78
+              -4.98,
+              8.66
             ],
             "actual_3d_xz": [
               -6.0,
               7.2
             ],
-            "normalized_drift_pct": 10.38,
+            "normalized_drift_pct": 9.95,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -3873,14 +3814,14 @@
             "wing_3d": "EAST_RIGHT:SOUTH_BOTTOM",
             "wing_match": true,
             "expected_3d_xz": [
-              4.37,
-              11.94
+              2.78,
+              13.55
             ],
             "actual_3d_xz": [
               1.4,
               12.2
             ],
-            "normalized_drift_pct": 20.65,
+            "normalized_drift_pct": 11.57,
             "orientation_locked": true,
             "camera_theta": 1.25
           }
@@ -3932,14 +3873,14 @@
             "wing_3d": "EAST_RIGHT:SOUTH_BOTTOM",
             "wing_match": true,
             "expected_3d_xz": [
-              4.15,
-              7.62
+              2.59,
+              8.47
             ],
             "actual_3d_xz": [
               1.9,
               8.65
             ],
-            "normalized_drift_pct": 16.4,
+            "normalized_drift_pct": 4.89,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -3991,14 +3932,14 @@
             "wing_3d": "EAST_RIGHT:SOUTH_BOTTOM",
             "wing_match": true,
             "expected_3d_xz": [
-              -0.1,
-              7.78
+              -1.1,
+              8.66
             ],
             "actual_3d_xz": [
               0.9,
               6.3
             ],
-            "normalized_drift_pct": 9.9,
+            "normalized_drift_pct": 17.92,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -4046,18 +3987,18 @@
             "lock_hash": "4411f8ad150c",
             "sheet_id": "yat_typical",
             "floor_id": "f4",
-            "wing_2d": "CENTER:NORTH_TOP",
+            "wing_2d": "WEST_LEFT:NORTH_TOP",
             "wing_3d": "CENTER:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              -1.18,
-              2.39
+              -2.04,
+              2.34
             ],
             "actual_3d_xz": [
               -0.5,
               1.8
             ],
-            "normalized_drift_pct": 5.48,
+            "normalized_drift_pct": 11.0,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -4109,14 +4050,14 @@
             "wing_3d": "CENTER:MID",
             "wing_match": true,
             "expected_3d_xz": [
-              0.26,
-              4.68
+              -0.79,
+              5.02
             ],
             "actual_3d_xz": [
               0.0,
               4.5
             ],
-            "normalized_drift_pct": 2.02,
+            "normalized_drift_pct": 6.01,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -4168,14 +4109,14 @@
             "wing_3d": "WEST_LEFT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              -0.02,
-              -1.2
+              -1.04,
+              -1.88
             ],
             "actual_3d_xz": [
               -1.8,
               0.8
             ],
-            "normalized_drift_pct": 15.61,
+            "normalized_drift_pct": 13.88,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -4227,14 +4168,14 @@
             "wing_3d": "CENTER:SOUTH_BOTTOM",
             "wing_match": true,
             "expected_3d_xz": [
-              -0.02,
-              8.92
+              -1.04,
+              10.01
             ],
             "actual_3d_xz": [
               -1.5,
               9.8
             ],
-            "normalized_drift_pct": 11.08,
+            "normalized_drift_pct": 3.36,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -4459,18 +4400,18 @@
             "lock_hash": "65d536fa3298",
             "sheet_id": "yat_typical",
             "floor_id": "f4",
-            "wing_2d": "CENTER:NORTH_TOP",
+            "wing_2d": "WEST_LEFT:NORTH_TOP",
             "wing_3d": "CENTER:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              -1.32,
-              0.76
+              -2.17,
+              0.42
             ],
             "actual_3d_xz": [
               -0.5,
               1.8
             ],
-            "normalized_drift_pct": 7.57,
+            "normalized_drift_pct": 13.32,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -4581,14 +4522,14 @@
             "wing_3d": "CENTER:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              -0.31,
-              -5.12
+              -1.29,
+              -6.48
             ],
             "actual_3d_xz": [
               -0.6,
               -6.8
             ],
-            "normalized_drift_pct": 8.28,
+            "normalized_drift_pct": 5.02,
             "orientation_locked": true,
             "camera_theta": -1.57
           }
@@ -4640,14 +4581,14 @@
             "wing_3d": "WEST_LEFT:SOUTH_BOTTOM",
             "wing_match": true,
             "expected_3d_xz": [
-              -0.31,
-              13.17
+              -1.29,
+              14.99
             ],
             "actual_3d_xz": [
               -2.1,
               16.5
             ],
-            "normalized_drift_pct": 20.21,
+            "normalized_drift_pct": 9.16,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -4699,14 +4640,14 @@
             "wing_3d": "WEST_LEFT:MID",
             "wing_match": true,
             "expected_3d_xz": [
-              -10.25,
-              4.02
+              -9.93,
+              4.25
             ],
             "actual_3d_xz": [
               -8.5,
               4.2
             ],
-            "normalized_drift_pct": 12.17,
+            "normalized_drift_pct": 9.92,
             "orientation_locked": true,
             "camera_theta": 3.1
           }
@@ -4758,14 +4699,14 @@
             "wing_3d": "EAST_RIGHT:MID",
             "wing_match": true,
             "expected_3d_xz": [
-              9.62,
-              4.02
+              7.35,
+              4.25
             ],
             "actual_3d_xz": [
               6.9,
               4.2
             ],
-            "normalized_drift_pct": 18.94,
+            "normalized_drift_pct": 3.14,
             "orientation_locked": true,
             "camera_theta": 0.05
           }
@@ -4817,14 +4758,14 @@
             "wing_3d": "WEST_LEFT:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              -0.31,
-              3.7
+              -1.29,
+              3.87
             ],
             "actual_3d_xz": [
               -1.95,
               1.85
             ],
-            "normalized_drift_pct": 14.4,
+            "normalized_drift_pct": 10.7,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -4876,14 +4817,14 @@
             "wing_3d": "CENTER:NORTH_TOP",
             "wing_match": true,
             "expected_3d_xz": [
-              -0.17,
-              5.0
+              -1.16,
+              5.4
             ],
             "actual_3d_xz": [
               -0.2,
               2.2
             ],
-            "normalized_drift_pct": 13.41,
+            "normalized_drift_pct": 16.73,
             "orientation_locked": true,
             "camera_theta": 1.57
           }
@@ -12203,6 +12144,1438 @@
             "actual_3d_xz": [
               -9.66,
               7.2
+            ],
+            "normalized_drift_pct": 0.0,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        }
+      }
+    },
+    "em_hamoshavot": {
+      "summary": {
+        "lock_version": "v3.0-2D3D-LOCK",
+        "project_id": "em_hamoshavot",
+        "total_notes": 27,
+        "locked_notes": 27,
+        "wing_match_count": 27,
+        "orientation_locked_count": 27,
+        "max_drift_pct": 20.25,
+        "avg_drift_pct": 6.36,
+        "verified_100_pct": true,
+        "registry_hash": "d843a694b7b093b8"
+      },
+      "notes": {
+        "EM-TYP-01": {
+          "pin_num": 1,
+          "sheet_id": "em_typical",
+          "box_2d": [
+            26.5,
+            28.0,
+            16.0,
+            18.0,
+            34.5,
+            37.0
+          ],
+          "floor_id": "f3",
+          "bbox_3d": [
+            -22.08,
+            -18.83,
+            -12.78,
+            -3.78,
+            10.32,
+            13.16
+          ],
+          "pin_3d": [
+            -17.43,
+            11.5,
+            -11.3
+          ],
+          "camera": {
+            "target": [
+              -17.43,
+              11.74,
+              -11.3
+            ],
+            "radius": 16.0,
+            "phi": 0.5,
+            "theta": 1.57,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "800a2a2d4952",
+            "sheet_id": "em_typical",
+            "floor_id": "f3",
+            "wing_2d": "WEST_LEFT:NORTH_TOP",
+            "wing_3d": "WEST_LEFT:NORTH_TOP",
+            "wing_match": true,
+            "expected_3d_xz": [
+              -9.92,
+              -8.32
+            ],
+            "actual_3d_xz": [
+              -17.43,
+              -11.3
+            ],
+            "normalized_drift_pct": 12.62,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-TYP-02": {
+          "pin_num": 2,
+          "sheet_id": "em_typical",
+          "box_2d": [
+            44.0,
+            28.0,
+            16.0,
+            18.0,
+            52.0,
+            37.0
+          ],
+          "floor_id": "f3",
+          "bbox_3d": [
+            -12.78,
+            -18.83,
+            -3.48,
+            -3.78,
+            10.32,
+            13.16
+          ],
+          "pin_3d": [
+            -8.13,
+            11.5,
+            -11.3
+          ],
+          "camera": {
+            "target": [
+              -8.13,
+              11.74,
+              -11.3
+            ],
+            "radius": 16.0,
+            "phi": 0.5,
+            "theta": 1.57,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "767b61d18362",
+            "sheet_id": "em_typical",
+            "floor_id": "f3",
+            "wing_2d": "CENTER:NORTH_TOP",
+            "wing_3d": "WEST_LEFT:NORTH_TOP",
+            "wing_match": true,
+            "expected_3d_xz": [
+              1.28,
+              -8.32
+            ],
+            "actual_3d_xz": [
+              -8.13,
+              -11.3
+            ],
+            "normalized_drift_pct": 15.42,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-TYP-03": {
+          "pin_num": 3,
+          "sheet_id": "em_typical",
+          "box_2d": [
+            35.0,
+            54.0,
+            16.0,
+            18.0,
+            43.0,
+            63.0
+          ],
+          "floor_id": "f3",
+          "bbox_3d": [
+            -20.08,
+            -3.78,
+            -5.48,
+            8.5,
+            10.32,
+            13.16
+          ],
+          "pin_3d": [
+            -12.78,
+            11.5,
+            2.36
+          ],
+          "camera": {
+            "target": [
+              -12.78,
+              11.74,
+              2.36
+            ],
+            "radius": 16.0,
+            "phi": 0.5,
+            "theta": 1.57,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "dd9981e11ab2",
+            "sheet_id": "em_typical",
+            "floor_id": "f3",
+            "wing_2d": "CENTER:SOUTH_BOTTOM",
+            "wing_3d": "WEST_LEFT:MID",
+            "wing_match": true,
+            "expected_3d_xz": [
+              -4.48,
+              8.32
+            ],
+            "actual_3d_xz": [
+              -12.78,
+              2.36
+            ],
+            "normalized_drift_pct": 15.97,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-TYP-07": {
+          "pin_num": 8,
+          "sheet_id": "em_typical",
+          "box_2d": [
+            32.0,
+            38.0,
+            10.0,
+            12.0,
+            37.0,
+            44.0
+          ],
+          "floor_id": "f3",
+          "bbox_3d": [
+            -11.52,
+            -7.68,
+            -5.12,
+            0.0,
+            10.32,
+            13.16
+          ],
+          "pin_3d": [
+            -8.32,
+            11.52,
+            -3.84
+          ],
+          "camera": {
+            "target": [
+              -8.32,
+              11.74,
+              -3.84
+            ],
+            "radius": 20.1,
+            "theta": 1.57,
+            "phi": 0.5,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "b9dfeca12eb6",
+            "sheet_id": "em_typical",
+            "floor_id": "f3",
+            "wing_2d": "WEST_LEFT:MID",
+            "wing_3d": "WEST_LEFT:MID",
+            "wing_match": true,
+            "expected_3d_xz": [
+              -8.32,
+              -3.84
+            ],
+            "actual_3d_xz": [
+              -8.32,
+              -3.84
+            ],
+            "normalized_drift_pct": 0.0,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-TYP-08": {
+          "pin_num": 9,
+          "sheet_id": "em_typical",
+          "box_2d": [
+            22.0,
+            54.0,
+            12.0,
+            14.0,
+            28.0,
+            61.0
+          ],
+          "floor_id": "f3",
+          "bbox_3d": [
+            -17.92,
+            2.56,
+            -10.24,
+            11.52,
+            10.32,
+            13.16
+          ],
+          "pin_3d": [
+            -14.08,
+            11.52,
+            7.04
+          ],
+          "camera": {
+            "target": [
+              -14.08,
+              11.74,
+              7.04
+            ],
+            "radius": 22.0,
+            "theta": 1.57,
+            "phi": 0.5,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "aad419ab32c9",
+            "sheet_id": "em_typical",
+            "floor_id": "f3",
+            "wing_2d": "WEST_LEFT:SOUTH_BOTTOM",
+            "wing_3d": "WEST_LEFT:SOUTH_BOTTOM",
+            "wing_match": true,
+            "expected_3d_xz": [
+              -14.08,
+              7.04
+            ],
+            "actual_3d_xz": [
+              -14.08,
+              7.04
+            ],
+            "normalized_drift_pct": 0.0,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-TYP-04": {
+          "pin_num": 4,
+          "sheet_id": "em_typical",
+          "box_2d": [
+            66.0,
+            48.0,
+            15.0,
+            18.0,
+            73.5,
+            57.0
+          ],
+          "floor_id": "f3",
+          "bbox_3d": [
+            3.47,
+            -5.02,
+            12.77,
+            10.03,
+            10.32,
+            13.16
+          ],
+          "pin_3d": [
+            8.12,
+            11.5,
+            2.51
+          ],
+          "camera": {
+            "target": [
+              8.12,
+              11.74,
+              2.51
+            ],
+            "radius": 16.0,
+            "phi": 0.5,
+            "theta": 1.57,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "8419efed484a",
+            "sheet_id": "em_typical",
+            "floor_id": "f3",
+            "wing_2d": "EAST_RIGHT:MID",
+            "wing_3d": "EAST_RIGHT:MID",
+            "wing_match": true,
+            "expected_3d_xz": [
+              15.04,
+              4.48
+            ],
+            "actual_3d_xz": [
+              8.12,
+              2.51
+            ],
+            "normalized_drift_pct": 11.24,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-TYP-05": {
+          "pin_num": 5,
+          "sheet_id": "em_typical",
+          "box_2d": [
+            82.0,
+            48.0,
+            16.0,
+            18.0,
+            90.0,
+            57.0
+          ],
+          "floor_id": "f3",
+          "bbox_3d": [
+            12.77,
+            -5.02,
+            22.07,
+            10.03,
+            10.32,
+            13.16
+          ],
+          "pin_3d": [
+            17.42,
+            11.5,
+            2.51
+          ],
+          "camera": {
+            "target": [
+              17.42,
+              11.74,
+              2.51
+            ],
+            "radius": 16.0,
+            "phi": 0.5,
+            "theta": 1.57,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "ab39ae0c4a90",
+            "sheet_id": "em_typical",
+            "floor_id": "f3",
+            "wing_2d": "EAST_RIGHT:MID",
+            "wing_3d": "EAST_RIGHT:MID",
+            "wing_match": true,
+            "expected_3d_xz": [
+              25.6,
+              4.48
+            ],
+            "actual_3d_xz": [
+              17.42,
+              2.51
+            ],
+            "normalized_drift_pct": 13.15,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-TYP-06": {
+          "pin_num": 6,
+          "sheet_id": "em_typical",
+          "box_2d": [
+            74.0,
+            72.0,
+            15.0,
+            16.0,
+            81.5,
+            80.0
+          ],
+          "floor_id": "f3",
+          "bbox_3d": [
+            5.47,
+            10.03,
+            20.07,
+            22.31,
+            10.32,
+            13.16
+          ],
+          "pin_3d": [
+            12.77,
+            11.5,
+            16.17
+          ],
+          "camera": {
+            "target": [
+              12.77,
+              11.74,
+              16.17
+            ],
+            "radius": 16.0,
+            "phi": 0.5,
+            "theta": 1.57,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "a37d995e29eb",
+            "sheet_id": "em_typical",
+            "floor_id": "f3",
+            "wing_2d": "EAST_RIGHT:SOUTH_BOTTOM",
+            "wing_3d": "EAST_RIGHT:SOUTH_BOTTOM",
+            "wing_match": true,
+            "expected_3d_xz": [
+              20.16,
+              19.2
+            ],
+            "actual_3d_xz": [
+              12.77,
+              16.17
+            ],
+            "normalized_drift_pct": 12.48,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-LOCKED-CORE1": {
+          "pin_num": 25,
+          "sheet_id": "em_typical",
+          "box_2d": [
+            24.11,
+            35.33,
+            6.72,
+            8.76,
+            27.47,
+            39.71
+          ],
+          "floor_id": "f3",
+          "bbox_3d": [
+            -16.57,
+            -9.39,
+            -12.27,
+            -3.78,
+            10.32,
+            13.16
+          ],
+          "pin_3d": [
+            -14.42,
+            11.5,
+            -6.58
+          ],
+          "camera": {
+            "target": [
+              -14.42,
+              11.74,
+              -6.58
+            ],
+            "radius": 15.0,
+            "phi": 0.5,
+            "theta": 1.57,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "a4b6cb6aa76b",
+            "sheet_id": "em_typical",
+            "floor_id": "f3",
+            "wing_2d": "WEST_LEFT:NORTH_TOP",
+            "wing_3d": "WEST_LEFT:NORTH_TOP",
+            "wing_match": true,
+            "expected_3d_xz": [
+              -14.42,
+              -6.59
+            ],
+            "actual_3d_xz": [
+              -14.42,
+              -6.58
+            ],
+            "normalized_drift_pct": 0.01,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-F5-01": {
+          "pin_num": 10,
+          "sheet_id": "em_floor5",
+          "box_2d": [
+            35.0,
+            30.0,
+            20.0,
+            20.0,
+            45.0,
+            40.0
+          ],
+          "floor_id": "f5",
+          "bbox_3d": [
+            -22.08,
+            -18.83,
+            -3.48,
+            -5.5,
+            16.61,
+            19.63
+          ],
+          "pin_3d": [
+            -12.78,
+            17.5,
+            -12.16
+          ],
+          "camera": {
+            "target": [
+              -12.78,
+              18.12,
+              -12.16
+            ],
+            "radius": 18.0,
+            "phi": 0.5,
+            "theta": 1.57,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "c30261350a5c",
+            "sheet_id": "em_floor5",
+            "floor_id": "f5",
+            "wing_2d": "CENTER:NORTH_TOP",
+            "wing_3d": "WEST_LEFT:NORTH_TOP",
+            "wing_match": true,
+            "expected_3d_xz": [
+              -3.2,
+              -6.4
+            ],
+            "actual_3d_xz": [
+              -12.78,
+              -12.16
+            ],
+            "normalized_drift_pct": 17.47,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-F5-02": {
+          "pin_num": 11,
+          "sheet_id": "em_floor5",
+          "box_2d": [
+            35.0,
+            58.0,
+            18.0,
+            18.0,
+            44.0,
+            67.0
+          ],
+          "floor_id": "f5",
+          "bbox_3d": [
+            -20.08,
+            -5.5,
+            -5.48,
+            8.5,
+            16.61,
+            19.63
+          ],
+          "pin_3d": [
+            -12.78,
+            17.5,
+            1.5
+          ],
+          "camera": {
+            "target": [
+              -12.78,
+              18.12,
+              1.5
+            ],
+            "radius": 18.0,
+            "phi": 0.5,
+            "theta": 1.57,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "0fffe9e112b3",
+            "sheet_id": "em_floor5",
+            "floor_id": "f5",
+            "wing_2d": "CENTER:SOUTH_BOTTOM",
+            "wing_3d": "WEST_LEFT:MID",
+            "wing_match": true,
+            "expected_3d_xz": [
+              -3.84,
+              10.88
+            ],
+            "actual_3d_xz": [
+              -12.78,
+              1.5
+            ],
+            "normalized_drift_pct": 20.25,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-F5-03": {
+          "pin_num": 12,
+          "sheet_id": "em_floor5",
+          "box_2d": [
+            72.0,
+            45.0,
+            22.0,
+            24.0,
+            83.0,
+            57.0
+          ],
+          "floor_id": "f5",
+          "bbox_3d": [
+            3.47,
+            -5.02,
+            22.07,
+            7.5,
+            16.61,
+            19.63
+          ],
+          "pin_3d": [
+            12.77,
+            17.5,
+            1.24
+          ],
+          "camera": {
+            "target": [
+              12.77,
+              18.12,
+              1.24
+            ],
+            "radius": 18.0,
+            "phi": 0.5,
+            "theta": 1.57,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "45fac9b24636",
+            "sheet_id": "em_floor5",
+            "floor_id": "f5",
+            "wing_2d": "EAST_RIGHT:MID",
+            "wing_3d": "EAST_RIGHT:MID",
+            "wing_match": true,
+            "expected_3d_xz": [
+              21.12,
+              4.48
+            ],
+            "actual_3d_xz": [
+              12.77,
+              1.24
+            ],
+            "normalized_drift_pct": 13.99,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-GND-01": {
+          "pin_num": 13,
+          "sheet_id": "em_ground",
+          "box_2d": [
+            26.33,
+            36.59,
+            9.38,
+            17.7,
+            31.02,
+            45.44
+          ],
+          "floor_id": "kar",
+          "bbox_3d": [
+            -16.57,
+            -9.39,
+            -10.0,
+            3.0,
+            0.0,
+            3.98
+          ],
+          "pin_3d": [
+            -13.28,
+            1.5,
+            -3.2
+          ],
+          "camera": {
+            "target": [
+              -13.28,
+              1.99,
+              -3.2
+            ],
+            "radius": 18.0,
+            "phi": 0.5,
+            "theta": 1.57,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "c27cbe639ed6",
+            "sheet_id": "em_ground",
+            "floor_id": "kar",
+            "wing_2d": "WEST_LEFT:MID",
+            "wing_3d": "WEST_LEFT:MID",
+            "wing_match": true,
+            "expected_3d_xz": [
+              -13.29,
+              -3.19
+            ],
+            "actual_3d_xz": [
+              -13.28,
+              -3.2
+            ],
+            "normalized_drift_pct": 0.01,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-GND-02": {
+          "pin_num": 14,
+          "sheet_id": "em_ground",
+          "box_2d": [
+            14.29,
+            18.57,
+            71.42,
+            65.72,
+            50.0,
+            51.43
+          ],
+          "floor_id": "kar",
+          "bbox_3d": [
+            -25.0,
+            -22.0,
+            25.0,
+            24.0,
+            0.0,
+            3.98
+          ],
+          "pin_3d": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "camera": {
+            "target": [
+              0.0,
+              1.99,
+              0.0
+            ],
+            "radius": 32.0,
+            "phi": 0.6,
+            "theta": 1.57,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "6ec1fa2e8262",
+            "sheet_id": "em_ground",
+            "floor_id": "kar",
+            "wing_2d": "CENTER:MID",
+            "wing_3d": "CENTER:MID",
+            "wing_match": true,
+            "expected_3d_xz": [
+              0.0,
+              1.0
+            ],
+            "actual_3d_xz": [
+              0.0,
+              0.0
+            ],
+            "normalized_drift_pct": 1.43,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-GND-03": {
+          "pin_num": 15,
+          "sheet_id": "em_ground",
+          "box_2d": [
+            30.0,
+            65.0,
+            15.0,
+            18.0,
+            37.5,
+            74.0
+          ],
+          "floor_id": "kar",
+          "bbox_3d": [
+            -14.0,
+            10.5,
+            -3.5,
+            23.1,
+            0.0,
+            3.98
+          ],
+          "pin_3d": [
+            -8.75,
+            1.2,
+            16.8
+          ],
+          "camera": {
+            "target": [
+              -8.75,
+              1.99,
+              16.8
+            ],
+            "radius": 27.3,
+            "theta": 1.57,
+            "phi": 0.5,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "687afba0aa0a",
+            "sheet_id": "em_ground",
+            "floor_id": "kar",
+            "wing_2d": "WEST_LEFT:SOUTH_BOTTOM",
+            "wing_3d": "WEST_LEFT:SOUTH_BOTTOM",
+            "wing_match": true,
+            "expected_3d_xz": [
+              -8.75,
+              16.8
+            ],
+            "actual_3d_xz": [
+              -8.75,
+              16.8
+            ],
+            "normalized_drift_pct": 0.0,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-BSM-01": {
+          "pin_num": 16,
+          "sheet_id": "em_ground",
+          "box_2d": [
+            50.0,
+            45.0,
+            35.0,
+            25.0,
+            67.5,
+            57.5
+          ],
+          "floor_id": "bm1",
+          "bbox_3d": [
+            -22.5,
+            -20.2,
+            22.5,
+            20.2,
+            -3.2,
+            -0.2
+          ],
+          "pin_3d": [
+            0.0,
+            -1.6,
+            0.0
+          ],
+          "camera": {
+            "target": [
+              0.0,
+              -1.7,
+              0.0
+            ],
+            "radius": 28.0,
+            "phi": 0.55,
+            "theta": 1.57,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "306ba27a874d",
+            "sheet_id": "em_ground",
+            "floor_id": "bm1",
+            "wing_2d": "EAST_RIGHT:MID",
+            "wing_3d": "CENTER:MID",
+            "wing_match": true,
+            "expected_3d_xz": [
+              12.25,
+              5.25
+            ],
+            "actual_3d_xz": [
+              0.0,
+              0.0
+            ],
+            "normalized_drift_pct": 19.04,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-OPT-AG1": {
+          "pin_num": 19,
+          "sheet_id": "em_typical",
+          "box_2d": [
+            45.0,
+            40.0,
+            20.0,
+            15.0,
+            55.0,
+            47.5
+          ],
+          "floor_id": "f5",
+          "bbox_3d": [
+            -16.57,
+            -9.39,
+            13.28,
+            10.03,
+            16.61,
+            22.63
+          ],
+          "pin_3d": [
+            -0.12,
+            19.5,
+            0.0
+          ],
+          "camera": {
+            "target": [
+              -0.12,
+              19.62,
+              0.0
+            ],
+            "radius": 24.0,
+            "phi": 0.5,
+            "theta": 1.57,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "1993e09470ca",
+            "sheet_id": "em_typical",
+            "floor_id": "f5",
+            "wing_2d": "CENTER:MID",
+            "wing_3d": "CENTER:MID",
+            "wing_match": true,
+            "expected_3d_xz": [
+              3.2,
+              -1.6
+            ],
+            "actual_3d_xz": [
+              -0.12,
+              0.0
+            ],
+            "normalized_drift_pct": 5.76,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-OPT-UG1": {
+          "pin_num": 20,
+          "sheet_id": "em_ground",
+          "box_2d": [
+            35.0,
+            40.0,
+            30.0,
+            25.0,
+            50.0,
+            52.5
+          ],
+          "floor_id": "bm1",
+          "bbox_3d": [
+            -22.5,
+            -20.2,
+            22.5,
+            20.2,
+            -3.2,
+            -0.2
+          ],
+          "pin_3d": [
+            0.0,
+            -1.6,
+            0.0
+          ],
+          "camera": {
+            "target": [
+              0.0,
+              -1.7,
+              0.0
+            ],
+            "radius": 28.0,
+            "phi": 0.55,
+            "theta": 1.57,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "45165a249905",
+            "sheet_id": "em_ground",
+            "floor_id": "bm1",
+            "wing_2d": "CENTER:MID",
+            "wing_3d": "CENTER:MID",
+            "wing_match": true,
+            "expected_3d_xz": [
+              0.0,
+              1.75
+            ],
+            "actual_3d_xz": [
+              0.0,
+              0.0
+            ],
+            "normalized_drift_pct": 2.5,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM_HAMOSHAVOT-VE-FAC-1": {
+          "pin_num": 21,
+          "sheet_id": "em_typical",
+          "box_2d": [
+            49.0,
+            82.0,
+            45.0,
+            12.0,
+            71.5,
+            88.0
+          ],
+          "floor_id": "all",
+          "bbox_3d": [
+            -0.64,
+            20.48,
+            28.16,
+            28.16,
+            0.0,
+            28.5
+          ],
+          "pin_3d": [
+            13.76,
+            14.5,
+            24.32
+          ],
+          "camera": {
+            "target": [
+              13.76,
+              14.25,
+              24.32
+            ],
+            "radius": 42.0,
+            "theta": 1.57,
+            "phi": 1.05,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "45fb333aff02",
+            "sheet_id": "em_typical",
+            "floor_id": "all",
+            "wing_2d": "EAST_RIGHT:SOUTH_BOTTOM",
+            "wing_3d": "EAST_RIGHT:SOUTH_BOTTOM",
+            "wing_match": true,
+            "expected_3d_xz": [
+              13.76,
+              24.32
+            ],
+            "actual_3d_xz": [
+              13.76,
+              24.32
+            ],
+            "normalized_drift_pct": 0.0,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM_HAMOSHAVOT-VE-FAC-2": {
+          "pin_num": 22,
+          "sheet_id": "em_typical",
+          "box_2d": [
+            49.0,
+            12.0,
+            45.0,
+            12.0,
+            71.5,
+            18.0
+          ],
+          "floor_id": "all",
+          "bbox_3d": [
+            -0.64,
+            -24.32,
+            28.16,
+            -16.64,
+            0.0,
+            28.5
+          ],
+          "pin_3d": [
+            13.76,
+            14.5,
+            -20.48
+          ],
+          "camera": {
+            "target": [
+              13.76,
+              14.25,
+              -20.48
+            ],
+            "radius": 42.0,
+            "theta": -1.57,
+            "phi": 1.05,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "1a8f4bf0a4d5",
+            "sheet_id": "em_typical",
+            "floor_id": "all",
+            "wing_2d": "EAST_RIGHT:NORTH_TOP",
+            "wing_3d": "EAST_RIGHT:NORTH_TOP",
+            "wing_match": true,
+            "expected_3d_xz": [
+              13.76,
+              -20.48
+            ],
+            "actual_3d_xz": [
+              13.76,
+              -20.48
+            ],
+            "normalized_drift_pct": 0.0,
+            "orientation_locked": true,
+            "camera_theta": -1.57
+          }
+        },
+        "EM_HAMOSHAVOT-VE-FAC-3": {
+          "pin_num": 23,
+          "sheet_id": "em_typical",
+          "box_2d": [
+            15.0,
+            35.0,
+            12.0,
+            40.0,
+            21.0,
+            55.0
+          ],
+          "floor_id": "all",
+          "bbox_3d": [
+            -22.4,
+            -9.6,
+            -14.72,
+            16.0,
+            0.0,
+            28.5
+          ],
+          "pin_3d": [
+            -18.56,
+            14.5,
+            3.2
+          ],
+          "camera": {
+            "target": [
+              -18.56,
+              14.25,
+              3.2
+            ],
+            "radius": 42.0,
+            "theta": 3.08,
+            "phi": 1.05,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "d08f9de29280",
+            "sheet_id": "em_typical",
+            "floor_id": "all",
+            "wing_2d": "WEST_LEFT:MID",
+            "wing_3d": "WEST_LEFT:MID",
+            "wing_match": true,
+            "expected_3d_xz": [
+              -18.56,
+              3.2
+            ],
+            "actual_3d_xz": [
+              -18.56,
+              3.2
+            ],
+            "normalized_drift_pct": 0.0,
+            "orientation_locked": true,
+            "camera_theta": 3.08
+          }
+        },
+        "EM_HAMOSHAVOT-VE-FAC-4": {
+          "pin_num": 24,
+          "sheet_id": "em_typical",
+          "box_2d": [
+            82.0,
+            35.0,
+            12.0,
+            40.0,
+            88.0,
+            55.0
+          ],
+          "floor_id": "all",
+          "bbox_3d": [
+            20.48,
+            -9.6,
+            28.16,
+            16.0,
+            0.0,
+            28.5
+          ],
+          "pin_3d": [
+            24.32,
+            14.5,
+            3.2
+          ],
+          "camera": {
+            "target": [
+              24.32,
+              14.25,
+              3.2
+            ],
+            "radius": 42.0,
+            "theta": 0.08,
+            "phi": 1.05,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "434d036c4dcd",
+            "sheet_id": "em_typical",
+            "floor_id": "all",
+            "wing_2d": "EAST_RIGHT:MID",
+            "wing_3d": "EAST_RIGHT:MID",
+            "wing_match": true,
+            "expected_3d_xz": [
+              24.32,
+              3.2
+            ],
+            "actual_3d_xz": [
+              24.32,
+              3.2
+            ],
+            "normalized_drift_pct": 0.0,
+            "orientation_locked": true,
+            "camera_theta": 0.08
+          }
+        },
+        "EM-OPT-APT1": {
+          "pin_num": 26,
+          "sheet_id": "em_typical",
+          "box_2d": [
+            28.0,
+            25.0,
+            18.0,
+            20.0,
+            37.0,
+            35.0
+          ],
+          "floor_id": "f3",
+          "bbox_3d": [
+            -14.08,
+            -16.0,
+            -2.56,
+            -3.2,
+            10.32,
+            13.16
+          ],
+          "pin_3d": [
+            -8.32,
+            11.52,
+            -9.6
+          ],
+          "camera": {
+            "target": [
+              -8.32,
+              11.74,
+              -9.6
+            ],
+            "radius": 27.6,
+            "theta": 1.57,
+            "phi": 0.5,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "1312c66bdb89",
+            "sheet_id": "em_typical",
+            "floor_id": "f3",
+            "wing_2d": "WEST_LEFT:NORTH_TOP",
+            "wing_3d": "WEST_LEFT:NORTH_TOP",
+            "wing_match": true,
+            "expected_3d_xz": [
+              -8.32,
+              -9.6
+            ],
+            "actual_3d_xz": [
+              -8.32,
+              -9.6
+            ],
+            "normalized_drift_pct": 0.0,
+            "orientation_locked": true,
+            "camera_theta": 1.57
+          }
+        },
+        "EM-OPT-APT2": {
+          "pin_num": 27,
+          "sheet_id": "em_typical",
+          "box_2d": [
+            55.0,
+            55.0,
+            22.0,
+            20.0,
+            66.0,
+            65.0
+          ],
+          "floor_id": "f3",
+          "bbox_3d": [
+            3.2,
+            3.2,
+            17.28,
+            16.0,
+            10.32,
+            13.16
+          ],
+          "pin_3d": [
+            10.24,
+            11.52,
+            9.6
+          ],
+          "camera": {
+            "target": [
+              10.24,
+              11.74,
+              9.6
+            ],
+            "radius": 29.4,
+            "theta": 1.57,
+            "phi": 0.5,
+            "ortho": false
+          },
+          "position_lock": {
+            "locked": true,
+            "verified": true,
+            "lock_version": "v3.0-2D3D-LOCK",
+            "lock_hash": "e83fba44667e",
+            "sheet_id": "em_typical",
+            "floor_id": "f3",
+            "wing_2d": "EAST_RIGHT:SOUTH_BOTTOM",
+            "wing_3d": "EAST_RIGHT:SOUTH_BOTTOM",
+            "wing_match": true,
+            "expected_3d_xz": [
+              10.24,
+              9.6
+            ],
+            "actual_3d_xz": [
+              10.24,
+              9.6
             ],
             "normalized_drift_pct": 0.0,
             "orientation_locked": true,

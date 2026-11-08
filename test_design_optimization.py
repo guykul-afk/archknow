@@ -38,8 +38,8 @@ def test_cost_constants():
 
 
 def test_all_five_catalog_projects():
-    print("2. Testing all 7 cataloged projects (including Feierberg 3 & Moshe Sharet 26-28) for zero saleable/parking loss, exact math, and on-plan Where/How coordinates...")
-    pids = ["pines48", "kkl10", "hafetz44", "yatkovski7", "kitroni37", "feierberg3", "sharett26"]
+    print("2. Testing all 8 cataloged projects (including Feierberg 3, Moshe Sharet 26-28 & Em HaMoshavot) for zero saleable/parking loss, exact math, and on-plan Where/How coordinates...")
+    pids = ["pines48", "kkl10", "hafetz44", "yatkovski7", "kitroni37", "feierberg3", "sharett26", "em_hamoshavot"]
     for pid in pids:
         analysis = analyze_project_by_query(pid)
         pds = analysis.get("project_data_summary")

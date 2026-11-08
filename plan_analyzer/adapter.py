@@ -86,6 +86,23 @@ def to_engine_apartment(sheet):
     inst = apt.get("instances") or {}
     if inst.get("apartments") or inst.get("floors"):
         out["instances"] = inst
+    if rooms:
+        try:
+            from spatial_intelligence_engine import (
+                compute_sightline_and_aesthetics_metrics,
+                simulate_apartment_furnishability,
+                analyze_resident_livability,
+            )
+            sight = compute_sightline_and_aesthetics_metrics(out)
+            furn = simulate_apartment_furnishability(out)
+            liv = analyze_resident_livability(out)
+            out["spatial_intelligence"] = {
+                "sightlines_and_aesthetics": sight,
+                "furnishability_simulation": furn,
+                "resident_livability": liv,
+            }
+        except Exception:
+            pass
     return out
 
 
@@ -123,6 +140,13 @@ def to_project(model, preview_url_prefix="/uploads/"):
         floors.append({"floor_name": floor_name, "apartments": [apt],
                        "bg_image_url": preview_url_prefix + sheet["preview_image"]})
     first = model["sheets"][0] if model.get("sheets") else {}
+    vertical_stack = None
+    if floors:
+        try:
+            from spatial_intelligence_engine import audit_multi_floor_vertical_stack
+            vertical_stack = audit_multi_floor_vertical_stack(floors)
+        except Exception:
+            vertical_stack = None
     return {
         "project_name": (first.get("sheet") or {}).get("project_name") or model.get("source_file"),
         "source_file": model.get("source_file"),
@@ -130,6 +154,7 @@ def to_project(model, preview_url_prefix="/uploads/"):
         "floors": floors,
         "plan_model_schema": model.get("schema"),
         "warnings": model.get("warnings", []),
+        "vertical_stack_audit": vertical_stack,
     }
 
 

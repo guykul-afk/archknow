@@ -1,0 +1,432 @@
+{
+  "schema_version": "ATKG-PORTFOLIO-4.0",
+  "projects_count": 8,
+  "portfolio_averages": {
+    "avg_typical_floor_efficiency_pct": 84.5,
+    "avg_wwr_pct": 25.4
+  },
+  "projects_comparison_matrix": [
+    {
+      "project_id": "pines48",
+      "project_name": "פינס 48 פינת הבעל שם טוב 20, פתח תקווה",
+      "apartments_count": 17,
+      "typical_floor_efficiency_pct": 87.5,
+      "projected_efficiency_after_pat01_pct": 88.8,
+      "average_wwr_pct": 23.1,
+      "sqm_per_parking_stall": 38.1,
+      "ve_total_saving_ils": 420000
+    },
+    {
+      "project_id": "kkl10",
+      "project_name": "קק״ל 10 (קרן קיימת לישראל 10), פתח תקווה",
+      "apartments_count": 25,
+      "typical_floor_efficiency_pct": 89.0,
+      "projected_efficiency_after_pat01_pct": 90.1,
+      "average_wwr_pct": 25.1,
+      "sqm_per_parking_stall": 46.6,
+      "ve_total_saving_ils": 420000
+    },
+    {
+      "project_id": "hafetz44",
+      "project_name": "חפץ חיים 44, פתח תקווה",
+      "apartments_count": 17,
+      "typical_floor_efficiency_pct": 88.5,
+      "projected_efficiency_after_pat01_pct": 89.7,
+      "average_wwr_pct": 25.1,
+      "sqm_per_parking_stall": 49.1,
+      "ve_total_saving_ils": 420000
+    },
+    {
+      "project_id": "yatkovski7",
+      "project_name": "יטקובסקי אחים 7 (7א), פתח תקווה",
+      "apartments_count": 11,
+      "typical_floor_efficiency_pct": 88.4,
+      "projected_efficiency_after_pat01_pct": 89.7,
+      "average_wwr_pct": 25.3,
+      "sqm_per_parking_stall": 38.8,
+      "ve_total_saving_ils": 420000
+    },
+    {
+      "project_id": "kitroni37",
+      "project_name": "הרב קיטרוני 37–39, פתח תקווה",
+      "apartments_count": 63,
+      "typical_floor_efficiency_pct": 89.4,
+      "projected_efficiency_after_pat01_pct": 90.0,
+      "average_wwr_pct": 28.7,
+      "sqm_per_parking_stall": 38.4,
+      "ve_total_saving_ils": 420000
+    },
+    {
+      "project_id": "feierberg3",
+      "project_name": "פאירברג 3, פתח תקווה (גוש 6387, חלקה 193)",
+      "apartments_count": 18,
+      "typical_floor_efficiency_pct": 86.0,
+      "projected_efficiency_after_pat01_pct": 87.5,
+      "average_wwr_pct": 21.8,
+      "sqm_per_parking_stall": 57.7,
+      "ve_total_saving_ils": 420000
+    },
+    {
+      "project_id": "sharett26",
+      "project_name": "משה שרת 26–28, פתח תקווה (גוש 6372, חלקה 1025)",
+      "apartments_count": 66,
+      "typical_floor_efficiency_pct": 66.8,
+      "projected_efficiency_after_pat01_pct": 68.5,
+      "average_wwr_pct": 24.8,
+      "sqm_per_parking_stall": 40.1,
+      "ve_total_saving_ils": 420000
+    },
+    {
+      "project_id": "em_hamoshavot",
+      "project_name": "מתחם גדרה 12 — אם המושבות / הדר המושבות, פתח תקווה (גוש 7194, חלקה 20)",
+      "apartments_count": 28,
+      "typical_floor_efficiency_pct": 80.0,
+      "projected_efficiency_after_pat01_pct": 80.2,
+      "average_wwr_pct": 29.4,
+      "sqm_per_parking_stall": 26.5,
+      "ve_total_saving_ils": 420000
+    }
+  ],
+  "projects_summary_table": [
+    {
+      "project_id": "pines48",
+      "project_name": "פינס 48 פינת הבעל שם טוב 20, פתח תקווה",
+      "overall_score": 89,
+      "apartments_count": 17,
+      "floors_above_ground": 8,
+      "total_built_area_sqm": 2819.0,
+      "above_ground_total_sqm": 2134.0,
+      "net_apartments_total_sqm": 1597.0,
+      "parking_spaces": 18,
+      "average_wwr_pct": 23.1
+    },
+    {
+      "project_id": "kkl10",
+      "project_name": "קק״ל 10 (קרן קיימת לישראל 10), פתח תקווה",
+      "overall_score": 84,
+      "apartments_count": 25,
+      "floors_above_ground": 9,
+      "total_built_area_sqm": 5095.4,
+      "above_ground_total_sqm": 3509.4,
+      "net_apartments_total_sqm": 2955.3,
+      "parking_spaces": 34,
+      "average_wwr_pct": 25.1
+    },
+    {
+      "project_id": "hafetz44",
+      "project_name": "חפץ חיים 44, פתח תקווה",
+      "overall_score": 89.8,
+      "apartments_count": 17,
+      "floors_above_ground": 9,
+      "total_built_area_sqm": 3088.0,
+      "above_ground_total_sqm": 2450.0,
+      "net_apartments_total_sqm": 1976.0,
+      "parking_spaces": 13,
+      "average_wwr_pct": 25.1
+    },
+    {
+      "project_id": "yatkovski7",
+      "project_name": "יטקובסקי אחים 7 (7א), פתח תקווה",
+      "overall_score": 91.4,
+      "apartments_count": 11,
+      "floors_above_ground": 7,
+      "total_built_area_sqm": 1915.0,
+      "above_ground_total_sqm": 1450.0,
+      "net_apartments_total_sqm": 1176.0,
+      "parking_spaces": 12,
+      "average_wwr_pct": 25.3
+    },
+    {
+      "project_id": "kitroni37",
+      "project_name": "הרב קיטרוני 37–39, פתח תקווה",
+      "overall_score": 86.8,
+      "apartments_count": 63,
+      "floors_above_ground": 9,
+      "total_built_area_sqm": 11065.0,
+      "above_ground_total_sqm": 8645.0,
+      "net_apartments_total_sqm": 7180.0,
+      "parking_spaces": 63,
+      "average_wwr_pct": 28.7
+    },
+    {
+      "project_id": "feierberg3",
+      "project_name": "פאירברג 3, פתח תקווה (גוש 6387, חלקה 193)",
+      "overall_score": 91.2,
+      "apartments_count": 18,
+      "floors_above_ground": 11,
+      "total_built_area_sqm": 3462.6,
+      "above_ground_total_sqm": 2366.6,
+      "net_apartments_total_sqm": 1752.8,
+      "parking_spaces": 19,
+      "average_wwr_pct": 21.8
+    },
+    {
+      "project_id": "sharett26",
+      "project_name": "משה שרת 26–28, פתח תקווה (גוש 6372, חלקה 1025)",
+      "overall_score": 91.8,
+      "apartments_count": 66,
+      "floors_above_ground": 11,
+      "total_built_area_sqm": 9364.0,
+      "above_ground_total_sqm": 6559.0,
+      "net_apartments_total_sqm": 5269.0,
+      "parking_spaces": 70,
+      "average_wwr_pct": 24.8
+    },
+    {
+      "project_id": "em_hamoshavot",
+      "project_name": "מתחם גדרה 12 — אם המושבות / הדר המושבות, פתח תקווה (גוש 7194, חלקה 20)",
+      "overall_score": 92.4,
+      "apartments_count": 28,
+      "floors_above_ground": 6,
+      "total_built_area_sqm": 5042.0,
+      "above_ground_total_sqm": 3931.0,
+      "net_apartments_total_sqm": 2980.0,
+      "parking_spaces": 42,
+      "average_wwr_pct": 29.4
+    }
+  ],
+  "typical_floors_efficiency_benchmark": [
+    {
+      "project_id": "pines48",
+      "project_name": "פינס 48 פינת הבעל שם טוב 20, פתח תקווה",
+      "total_floor_sqm_locked": 304.0,
+      "before_apartments_sqm": 266.0,
+      "before_public_core_sqm": 38.0,
+      "before_net_to_gross_pct": 87.5,
+      "after_net_to_gross_pct": 88.8,
+      "public_to_apt_shift_sqm": 3.99,
+      "internal_corridor_reclaimed_floor_sqm": 4.35
+    },
+    {
+      "project_id": "kkl10",
+      "project_name": "קק״ל 10 (קרן קיימת לישראל 10), פתח תקווה",
+      "total_floor_sqm_locked": 388.8,
+      "before_apartments_sqm": 346.0,
+      "before_public_core_sqm": 42.8,
+      "before_net_to_gross_pct": 89.0,
+      "after_net_to_gross_pct": 90.1,
+      "public_to_apt_shift_sqm": 4.49,
+      "internal_corridor_reclaimed_floor_sqm": 4.35
+    },
+    {
+      "project_id": "hafetz44",
+      "project_name": "חפץ חיים 44, פתח תקווה",
+      "total_floor_sqm_locked": 255.5,
+      "before_apartments_sqm": 226.0,
+      "before_public_core_sqm": 29.5,
+      "before_net_to_gross_pct": 88.5,
+      "after_net_to_gross_pct": 89.7,
+      "public_to_apt_shift_sqm": 3.1,
+      "internal_corridor_reclaimed_floor_sqm": 2.9
+    },
+    {
+      "project_id": "yatkovski7",
+      "project_name": "יטקובסקי אחים 7 (7א), פתח תקווה",
+      "total_floor_sqm_locked": 225.0,
+      "before_apartments_sqm": 199.0,
+      "before_public_core_sqm": 26.0,
+      "before_net_to_gross_pct": 88.4,
+      "after_net_to_gross_pct": 89.7,
+      "public_to_apt_shift_sqm": 2.73,
+      "internal_corridor_reclaimed_floor_sqm": 2.9
+    },
+    {
+      "project_id": "kitroni37",
+      "project_name": "הרב קיטרוני 37–39, פתח תקווה",
+      "total_floor_sqm_locked": 917.0,
+      "before_apartments_sqm": 820.0,
+      "before_public_core_sqm": 97.0,
+      "before_net_to_gross_pct": 89.4,
+      "after_net_to_gross_pct": 90.0,
+      "public_to_apt_shift_sqm": 5.2,
+      "internal_corridor_reclaimed_floor_sqm": 11.6
+    },
+    {
+      "project_id": "feierberg3",
+      "project_name": "פאירברג 3, פתח תקווה (גוש 6387, חלקה 193)",
+      "total_floor_sqm_locked": 222.0,
+      "before_apartments_sqm": 191.0,
+      "before_public_core_sqm": 31.0,
+      "before_net_to_gross_pct": 86.0,
+      "after_net_to_gross_pct": 87.5,
+      "public_to_apt_shift_sqm": 3.25,
+      "internal_corridor_reclaimed_floor_sqm": 2.9
+    },
+    {
+      "project_id": "sharett26",
+      "project_name": "משה שרת 26–28, פתח תקווה (גוש 6372, חלקה 1025)",
+      "total_floor_sqm_locked": 295.0,
+      "before_apartments_sqm": 197.0,
+      "before_public_core_sqm": 98.0,
+      "before_net_to_gross_pct": 66.8,
+      "after_net_to_gross_pct": 68.5,
+      "public_to_apt_shift_sqm": 5.2,
+      "internal_corridor_reclaimed_floor_sqm": 2.9
+    },
+    {
+      "project_id": "em_hamoshavot",
+      "project_name": "מתחם גדרה 12 — אם המושבות / הדר המושבות, פתח תקווה (גוש 7194, חלקה 20)",
+      "total_floor_sqm_locked": 3040.0,
+      "before_apartments_sqm": 2432.0,
+      "before_public_core_sqm": 608.0,
+      "before_net_to_gross_pct": 80.0,
+      "after_net_to_gross_pct": 80.2,
+      "public_to_apt_shift_sqm": 5.2,
+      "internal_corridor_reclaimed_floor_sqm": 34.8
+    }
+  ],
+  "living_kitchen_ergonomics_benchmark": [
+    {
+      "project_id": "pines48",
+      "project_name": "פינס 48 פינת הבעל שם טוב 20, פתח תקווה",
+      "living_area_sqm": 19.2,
+      "living_width_m": 4.2,
+      "kitchen_area_sqm": 8.16,
+      "aisle_width_cm": 115,
+      "work_triangle_sum_m": 5.3
+    },
+    {
+      "project_id": "kkl10",
+      "project_name": "קק״ל 10 (קרן קיימת לישראל 10), פתח תקווה",
+      "living_area_sqm": 28.5,
+      "living_width_m": 3.85,
+      "kitchen_area_sqm": 10.4,
+      "aisle_width_cm": 115,
+      "work_triangle_sum_m": 5.3
+    },
+    {
+      "project_id": "hafetz44",
+      "project_name": "חפץ חיים 44, פתח תקווה",
+      "living_area_sqm": 28.22,
+      "living_width_m": 4.18,
+      "kitchen_area_sqm": 12.54,
+      "aisle_width_cm": 164,
+      "work_triangle_sum_m": 5.4
+    },
+    {
+      "project_id": "yatkovski7",
+      "project_name": "יטקובסקי אחים 7 (7א), פתח תקווה",
+      "living_area_sqm": 27.96,
+      "living_width_m": 4.2,
+      "kitchen_area_sqm": 10.54,
+      "aisle_width_cm": 135,
+      "work_triangle_sum_m": 5.15
+    },
+    {
+      "project_id": "kitroni37",
+      "project_name": "הרב קיטרוני 37–39, פתח תקווה",
+      "living_area_sqm": 22.8,
+      "living_width_m": 4.08,
+      "kitchen_area_sqm": 10.35,
+      "aisle_width_cm": 130,
+      "work_triangle_sum_m": 5.2
+    },
+    {
+      "project_id": "feierberg3",
+      "project_name": "פאירברג 3, פתח תקווה (גוש 6387, חלקה 193)",
+      "living_area_sqm": 30.8,
+      "living_width_m": 4.2,
+      "kitchen_area_sqm": 10.1,
+      "aisle_width_cm": 130,
+      "work_triangle_sum_m": 5.2
+    },
+    {
+      "project_id": "sharett26",
+      "project_name": "משה שרת 26–28, פתח תקווה (גוש 6372, חלקה 1025)",
+      "living_area_sqm": 28.5,
+      "living_width_m": 3.85,
+      "kitchen_area_sqm": 10.4,
+      "aisle_width_cm": 115,
+      "work_triangle_sum_m": 5.3
+    },
+    {
+      "project_id": "em_hamoshavot",
+      "project_name": "מתחם גדרה 12 — אם המושבות / הדר המושבות, פתח תקווה (גוש 7194, חלקה 20)",
+      "living_area_sqm": 28.5,
+      "living_width_m": 3.85,
+      "kitchen_area_sqm": 10.4,
+      "aisle_width_cm": 115,
+      "work_triangle_sum_m": 5.3
+    }
+  ],
+  "fenestration_wwr_wfr_benchmark": [
+    {
+      "project_id": "pines48",
+      "project_name": "פינס 48 פינת הבעל שם טוב 20, פתח תקווה",
+      "facades_total_sqm": 1920.0,
+      "average_wwr_pct": 23.1,
+      "living_wfr_pct": 58.3
+    },
+    {
+      "project_id": "kkl10",
+      "project_name": "קק״ל 10 (קרן קיימת לישראל 10), פתח תקווה",
+      "facades_total_sqm": 2694.0,
+      "average_wwr_pct": 25.1,
+      "living_wfr_pct": 36.8
+    },
+    {
+      "project_id": "hafetz44",
+      "project_name": "חפץ חיים 44, פתח תקווה",
+      "facades_total_sqm": 2306.0,
+      "average_wwr_pct": 25.1,
+      "living_wfr_pct": 42.7
+    },
+    {
+      "project_id": "yatkovski7",
+      "project_name": "יטקובסקי אחים 7 (7א), פתח תקווה",
+      "facades_total_sqm": 1540.0,
+      "average_wwr_pct": 25.3,
+      "living_wfr_pct": 42.2
+    },
+    {
+      "project_id": "kitroni37",
+      "project_name": "הרב קיטרוני 37–39, פתח תקווה",
+      "facades_total_sqm": 5400.0,
+      "average_wwr_pct": 28.7,
+      "living_wfr_pct": 36.8
+    },
+    {
+      "project_id": "feierberg3",
+      "project_name": "פאירברג 3, פתח תקווה (גוש 6387, חלקה 193)",
+      "facades_total_sqm": 2380.0,
+      "average_wwr_pct": 21.8,
+      "living_wfr_pct": 39.6
+    },
+    {
+      "project_id": "sharett26",
+      "project_name": "משה שרת 26–28, פתח תקווה (גוש 6372, חלקה 1025)",
+      "facades_total_sqm": 5080.0,
+      "average_wwr_pct": 24.8,
+      "living_wfr_pct": 36.8
+    },
+    {
+      "project_id": "em_hamoshavot",
+      "project_name": "מתחם גדרה 12 — אם המושבות / הדר המושבות, פתח תקווה (גוש 7194, חלקה 20)",
+      "facades_total_sqm": 0,
+      "average_wwr_pct": 29.4,
+      "living_wfr_pct": 36.8
+    }
+  ],
+  "okf_refactoring_patterns_catalog": [
+    {
+      "pattern_id": "PAT_CORE_FLUSH_GENKAN",
+      "title_he": "השקעת ארונות מונים בגרעין וסיפוח מבואת סף כניסה לדירה (Flush Core & Genkan)",
+      "category": "TYPICAL_FLOOR_EFFICIENCY"
+    },
+    {
+      "pattern_id": "PAT_ZERO_LINE_CLOSET_CORRIDOR",
+      "title_he": "קיצור פרוזדור דירתי ושילוב נישות ארונות בקו אפס (Zero-Line Closet Reclamation)",
+      "category": "INTERNAL_APARTMENT_YIELD"
+    },
+    {
+      "pattern_id": "PAT_LIVING_KITCHEN_HOSTING_AXIS",
+      "title_he": "אופטימיזציית ציר סלון–מטבח–מרפסת, מעבר אי NKBA וחיץ אקוסטי (Living-Kitchen Axis)",
+      "category": "LIVING_KITCHEN_ERGONOMICS"
+    },
+    {
+      "pattern_id": "PAT_FENESTRATION_WWR_SKU",
+      "title_he": "אופטימיזציית מפתחי חלונות (WFR/WWR), כיס חלון ממ״ד ואיחוד מק״טי אלומיניום",
+      "category": "FENESTRATION_AND_ENVELOPE"
+    }
+  ]
+}

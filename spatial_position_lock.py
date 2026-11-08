@@ -81,28 +81,28 @@ SHEET_2D_TO_3D_TRANSFORMS = {
     },
     "hafetz44": {
         "h44_typical": {
-            "rect_2d_pct": [12.0, 18.0, 86.0, 80.0],
+            "rect_2d_pct": [19.0, 35.5, 79.3, 76.5],
             "rect_3d_xz": [-13.36, -5.18, 14.36, 4.99],
             "floor_id": "f4",
             "z_floor": 12.98,
             "z_ceil": 15.65,
         },
         "h44_penthouse": {
-            "rect_2d_pct": [14.0, 18.0, 86.0, 80.0],
+            "rect_2d_pct": [19.0, 35.5, 81.4, 72.2],
             "rect_3d_xz": [-13.36, -5.18, 14.36, 4.22],
             "floor_id": "f9",
             "z_floor": 28.73,
             "z_ceil": 31.30,
         },
         "h44_ground": {
-            "rect_2d_pct": [12.0, 18.0, 88.0, 82.0],
+            "rect_2d_pct": [27.37, 36.8, 70.20, 57.75],
             "rect_3d_xz": [-13.36, -5.18, 14.36, 4.99],
             "floor_id": "kar",
             "z_floor": 0.03,
             "z_ceil": 3.15,
         },
         "h44_basement": {
-            "rect_2d_pct": [12.0, 18.0, 84.0, 83.0],
+            "rect_2d_pct": [9.5, 17.5, 88.5, 80.0],
             "rect_3d_xz": [-17.72, -9.20, 18.51, 9.05],
             "floor_id": "mar",
             "z_floor": -5.08,
@@ -111,21 +111,28 @@ SHEET_2D_TO_3D_TRANSFORMS = {
     },
     "yatkovski7": {
         "yat_typical": {
-            "rect_2d_pct": [24.0, 18.0, 74.0, 82.0],
+            "rect_2d_pct": [24.0, 22.0, 81.5, 76.5],
             "rect_3d_xz": [-7.80, -6.10, 6.60, 14.80],
             "floor_id": "f4",
             "z_floor": 13.33,
             "z_ceil": 16.20,
         },
         "yat_floor5": {
-            "rect_2d_pct": [24.0, 18.0, 74.0, 82.0],
+            "rect_2d_pct": [24.0, 22.0, 81.5, 76.5],
             "rect_3d_xz": [-7.80, -6.10, 6.60, 14.80],
             "floor_id": "f5",
             "z_floor": 16.56,
             "z_ceil": 19.45,
         },
         "yat_floor6": {
-            "rect_2d_pct": [24.0, 18.0, 74.0, 82.0],
+            "rect_2d_pct": [24.0, 22.0, 81.5, 76.5],
+            "rect_3d_xz": [-7.80, -6.10, 6.60, 14.80],
+            "floor_id": "f6",
+            "z_floor": 19.80,
+            "z_ceil": 22.70,
+        },
+        "yat_penthouse": {
+            "rect_2d_pct": [24.0, 22.0, 81.5, 76.5],
             "rect_3d_xz": [-7.80, -6.10, 6.60, 14.80],
             "floor_id": "f6",
             "z_floor": 19.80,
@@ -322,6 +329,36 @@ SHEET_2D_TO_3D_TRANSFORMS = {
             "z_ceil": -3.20,
         },
     },
+    "em_hamoshavot": {
+        "em_typical": {
+            "rect_2d_pct": [0.0, 0.0, 100.0, 100.0],
+            "rect_3d_xz": [-32.00, -32.00, 32.00, 32.00],
+            "floor_id": "f3",
+            "z_floor": 10.32,
+            "z_ceil": 13.16,
+        },
+        "em_ground": {
+            "rect_2d_pct": [0.0, 0.0, 100.0, 100.0],
+            "rect_3d_xz": [-35.00, -35.00, 35.00, 35.00],
+            "floor_id": "kar",
+            "z_floor": 0.00,
+            "z_ceil": 3.98,
+        },
+        "em_floor5": {
+            "rect_2d_pct": [0.0, 0.0, 100.0, 100.0],
+            "rect_3d_xz": [-32.00, -32.00, 32.00, 32.00],
+            "floor_id": "f5",
+            "z_floor": 16.61,
+            "z_ceil": 19.63,
+        },
+        "em_sections": {
+            "rect_2d_pct": [0.0, 0.0, 100.0, 100.0],
+            "rect_3d_xz": [-35.00, -35.00, 35.00, 35.00],
+            "floor_id": "all",
+            "z_floor": 0.00,
+            "z_ceil": 22.63,
+        },
+    },
 }
 
 
@@ -350,6 +387,18 @@ def map_2d_pct_to_3d_xz(project_id: str, sheet_id: str, x_pct: float, y_pct: flo
     wx = wx0 + u * (wx1 - wx0)
     wz = wz0 + v * (wz1 - wz0)
     return round(wx, 2), round(wz, 2)
+
+
+def map_3d_xz_to_2d_pct(project_id: str, sheet_id: str, wx: float, wz: float) -> tuple:
+    """Maps a 3D world (X, Z) meter coordinate into 2D sheet percentage (x_pct, y_pct)."""
+    tf = get_sheet_transform(project_id, sheet_id)
+    px0, py0, px1, py1 = tf["rect_2d_pct"]
+    wx0, wz0, wx1, wz1 = tf["rect_3d_xz"]
+    u = (float(wx) - wx0) / max(1e-6, (wx1 - wx0))
+    v = (float(wz) - wz0) / max(1e-6, (wz1 - wz0))
+    x_pct = px0 + u * (px1 - px0)
+    y_pct = py0 + v * (py1 - py0)
+    return round(x_pct, 2), round(y_pct, 2)
 
 
 def compute_calibrated_spatial_3d(project_id: str, note: dict) -> dict:
@@ -518,14 +567,35 @@ def verify_and_lock_project_positions(payload: dict, strict_sync: bool = True) -
         raw_drift_pct = math.hypot(u_3d - u_2d, v_3d - v_2d) * 100.0
 
         is_facade = str(note.get("ve_pillar") or "") == "FACADE" or "-FAC-" in nid or floor_id == "all"
+        from_explicit_3d = bool(sp.get("_from_explicit_3d"))
 
         if strict_sync and not is_facade and (opposite_h_wing or opposite_v_wing or raw_drift_pct > 25.0):
-            # Re-anchor 3D bbox & pin to match 2D calibrated location
-            cal = compute_calibrated_spatial_3d(pid, note)
-            bx0, bz0, bx1, bz1, by0, by1 = cal["bbox_3d"]
-            pin = cal["pin_3d"]
-            u_3d = (float(pin[0]) - wx0) / max(1e-6, (wx1 - wx0))
-            v_3d = (float(pin[2]) - wz0) / max(1e-6, (wz1 - wz0))
+            if from_explicit_3d:
+                # 3D is authoritative (1:1 CAD metric coordinates): re-anchor 2D box & pin to match 3D!
+                p2x0, p2y0 = map_3d_xz_to_2d_pct(pid, sheet_id, bx0, bz0)
+                p2x1, p2y1 = map_3d_xz_to_2d_pct(pid, sheet_id, bx1, bz1)
+                x_pct = round(max(1.0, min(95.0, min(p2x0, p2x1))), 2)
+                y_pct = round(max(1.0, min(95.0, min(p2y0, p2y1))), 2)
+                w_pct = round(max(3.0, min(98.0 - x_pct, abs(p2x1 - p2x0))), 2)
+                h_pct = round(max(2.5, min(98.0 - y_pct, abs(p2y1 - p2y0))), 2)
+                cx_pct = round(x_pct + w_pct * 0.5, 2)
+                cy_pct = round(y_pct + h_pct * 0.5, 2)
+                note["x_pct"] = x_pct
+                note["y_pct"] = y_pct
+                note["w_pct"] = w_pct
+                note["h_pct"] = h_pct
+                note["cx_pct"] = cx_pct
+                note["cy_pct"] = cy_pct
+                exp_x, exp_z = map_2d_pct_to_3d_xz(pid, sheet_id, cx_pct, cy_pct)
+                u_2d = (cx_pct - px0) / max(1e-6, (px1 - px0))
+                v_2d = (cy_pct - py0) / max(1e-6, (py1 - py0))
+            else:
+                # Re-anchor 3D bbox & pin to match 2D calibrated location
+                cal = compute_calibrated_spatial_3d(pid, note)
+                bx0, bz0, bx1, bz1, by0, by1 = cal["bbox_3d"]
+                pin = cal["pin_3d"]
+                u_3d = (float(pin[0]) - wx0) / max(1e-6, (wx1 - wx0))
+                v_3d = (float(pin[2]) - wz0) / max(1e-6, (wz1 - wz0))
 
         # Ensure pin_3d is inside bbox_3d (allow exterior offset for facade callouts)
         pad_xz = -0.60 if is_facade else 0.05
@@ -628,7 +698,7 @@ def build_and_verify_master_registry(write_file: bool = True) -> dict:
     """
     from project_analyzer_service import analyze_project_by_query
 
-    project_ids = ["feierberg3", "hafetz44", "yatkovski7", "pines48", "kkl10", "kitroni37", "sharett26"]
+    project_ids = ["feierberg3", "hafetz44", "yatkovski7", "pines48", "kkl10", "kitroni37", "sharett26", "em_hamoshavot"]
     registry = {
         "lock_version": LOCK_VERSION,
         "total_projects": len(project_ids),

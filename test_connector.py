@@ -44,7 +44,7 @@ class TestArchKnowClientSDK(unittest.TestCase):
 
     def test_02_projects(self):
         projects = self.client.list_projects()
-        self.assertEqual(len(projects), 5)
+        self.assertGreaterEqual(len(projects), 7)
         p = self.client.get_project("pines48")
         self.assertEqual(p.get("project_id"), "pines48")
         print("[OK] Client.list_projects() and get_project() passed")
@@ -131,6 +131,26 @@ class TestArchKnowClientSDK(unittest.TestCase):
 
         print("[OK] External Client download URLs verified!")
         print("[OK] Client.get_openapi_spec() passed")
+
+    def test_13_recommendation_quality_gates(self):
+        import glob
+        import json
+        from validation_engine import validate_project_recommendations_quality
+
+        files = [
+            f for f in sorted(glob.glob("webapp/api/*.json"))
+            if not f.endswith("projects.json") and not f.endswith("registry.json")
+        ]
+        self.assertGreaterEqual(len(files), 7)
+        for fp in files:
+            with open(fp, "r", encoding="utf-8") as fh:
+                payload = json.load(fh)
+            res = validate_project_recommendations_quality(payload)
+            self.assertTrue(
+                res["passed"],
+                f"Recommendation quality gate failed for {fp}: {res['violations']}",
+            )
+        print(f"[OK] All {len(files)} projects passed the 6 Recommendation Quality & Feasibility Gates!")
 
 
 if __name__ == "__main__":

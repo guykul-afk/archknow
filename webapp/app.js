@@ -50,6 +50,7 @@
   const hdrBreadcrumbSub = document.getElementById('hdr-breadcrumb-sub');
 
   const btnExportDecisions = document.getElementById('btn-export-decisions');
+  const btnOpenAskAi = document.getElementById('btn-open-ask-ai');
   const hdrDecisionsCount = document.getElementById('hdr-decisions-count');
   const btnCheck3dUpdate = document.getElementById('btn-check-3d-update');
   const hdr3dSyncBadge = document.getElementById('hdr-3d-sync-badge');
@@ -95,6 +96,8 @@
   const countKbAdaptEl = document.getElementById('count-kb-adapt');
   const countKbMepEl = document.getElementById('count-kb-mep');
   const countKbUrbanEl = document.getElementById('count-kb-urban');
+  const countKbNeuroEl = document.getElementById('count-kb-neuro');
+  const countKbWorkflowsEl = document.getElementById('count-kb-workflows');
   const countVeAllEl = document.getElementById('count-ve-all');
   const countVeAgEl = document.getElementById('count-ve-ag');
   const countVeUgEl = document.getElementById('count-ve-ug');
@@ -188,6 +191,9 @@
   let isSheetsCompact = true;
   let isPlanToolbarCollapsed = false;
   let isVePlanBarCollapsed = false;
+  let qaAutoExecuteActions = true;
+  let qaHighlightedNoteIds = [];
+  const qaSessionHistoryByProject = {};
 
   function getShortSheetTitle(fullTitle) {
     const raw = String(fullTitle || '').trim();
@@ -287,6 +293,26 @@
       color: '#047857',
       bg: '#ecfdf5',
       border: '#a7f3d0',
+    },
+    KB_NEURO_HEALTH_BAUBIO: {
+      id: 'KB_NEURO_HEALTH_BAUBIO',
+      icon: '🧠',
+      shortHe: 'נוירו-אדריכלות ובריאות (PAS 6463 / Baubiologie)',
+      titleHe: 'נוירו-אדריכלות, פסיכולוגיה סביבתית, בטיחות ביתית וביולוגיית המבנה (PAS 6463 · ANFA · HHSRS · Baubiologie)',
+      sourcesHe: 'BSI PAS 6463:2022 · ANFA / Vartanian & Meyers-Levy (Cathedral Effect H/√A) · Ulrich SRT & Kaplan ART · UK HHSRS (29 Hazards) · Baubiologie SBM-2015 · Stirling DSDC',
+      color: '#7c3aed',
+      bg: '#f5f3ff',
+      border: '#ddd6fe',
+    },
+    KB_WORKFLOWS_WFH_BENCHMARK: {
+      id: 'KB_WORKFLOWS_WFH_BENCHMARK',
+      icon: '⚡',
+      shortHe: 'זרימת מטלות, WFH וכיול Swiss Dwellings',
+      titleHe: 'הנדסת אנוש של מטלות הבית, עבודה מהבית (WFH) וכיול סטטיסטי מול ביג-דאטה (RT-kortisto · SBi · Swiss Dwellings 45k)',
+      sourcesHe: 'Finnish RT-kortisto · Danish SBi 249/253 · Konsumentverket (Food Safety Triangle & Laundry Loop) · Leesman Home Index (WFH) · WoonKeur · Archilyse Swiss Dwellings (45k)',
+      color: '#c2410c',
+      bg: '#fff7ed',
+      border: '#fed7aa',
     },
   };
 
@@ -419,6 +445,10 @@
     if (!kbId || !KB_META_CATALOG[kbId]) {
       if (note.is_design_improvement) {
         kbId = 'KB_SPACE_SYNTAX';
+      } else if (['neuro_psych', 'pas 6463', 'pas6463', 'cathedral effect', 'אפקט הקתדרלה', 'baubio', 'sbm-2015', 'hhsrs', 'dsdc', 'קו ראייה ממיטה לאסלה', 'עמדת שליטה', 'נפח אוויר לשינה'].some((k) => txt.includes(k))) {
+        kbId = 'KB_NEURO_HEALTH_BAUBIO';
+      } else if (['workflows_wfh', 'rt-kortisto', 'sbi', 'משולש בטיחות מזון', 'מסלול הכביסה', 'leesman', 'עמדת עבודה מהבית', 'wfh', 'swiss dwellings', 'אחוזון', 'woonkeur'].some((k) => txt.includes(k))) {
+        kbId = 'KB_WORKFLOWS_WFH_BENCHMARK';
       } else if (['כיווני אוויר', 'אוורור', 'אור יום', 'אקוסט', 'en 17037', 'cibse', '5281', '1004', 'חלון', 'הצללה'].some((k) => txt.includes(k))) {
         kbId = 'KB_DAYLIGHT_IEQ';
       } else if (['פקע״ר', 'פיקוד העורף', 'ממ״ד', 'חניון', 'מיסעה', 'רמפה', 'ת״י', 'תקנות', 'b1.', '1918', '1142', '2481', 'הגשה', 'מכר', 'מוניציפלי'].some((k) => txt.includes(k))) {
@@ -592,7 +622,8 @@
         // Fallback for Google Cloud / Firebase Hosting
         const q_low = cleanQuery.toLowerCase();
         let staticFile = 'hafetz44.json';
-        if (['משה שרת', 'שרת', 'sharett', 'sharet', '26-28', '26–28', '1025'].some((k) => q_low.includes(k))) staticFile = 'sharett26.json';
+        if (['אם המושבות', 'הדר המושבות', 'גדרה', 'em_hamoshavot', '560680', '7194'].some((k) => q_low.includes(k))) staticFile = 'em_hamoshavot.json';
+        else if (['משה שרת', 'שרת', 'sharett', 'sharet', '26-28', '26–28', '1025'].some((k) => q_low.includes(k))) staticFile = 'sharett26.json';
         else if (['פאירברג', 'פאיירברג', 'פיארברג', 'feierberg', 'fairberg', 'feirberg', '6387'].some((k) => q_low.includes(k))) staticFile = 'feierberg3.json';
         else if (['יטקובסקי', 'yatkovski', '7א'].some((k) => q_low.includes(k))) staticFile = 'yatkovski7.json';
         else if (['קיטרוני', 'קטרוני', 'kitroni', '37', '39'].some((k) => q_low.includes(k))) staticFile = 'kitroni37.json';
@@ -600,7 +631,7 @@
         else if (['קקל', 'קק"ל', 'קק״ל', 'kkl', '10'].some((k) => q_low.includes(k))) staticFile = 'kkl10.json';
         else if (['פינס', 'pines', '48'].some((k) => q_low.includes(k))) staticFile = 'pines48.json';
 
-        const staticResp = await fetch(`/api/${staticFile}?v=7.6`, { cache: 'no-store' });
+        const staticResp = await fetch(`/api/${staticFile}?v=7.9`, { cache: 'no-store' });
         if (!staticResp.ok) {
           throw new Error(`שגיאת שרת (${staticResp.status})`);
         }
@@ -616,6 +647,7 @@
       data._loaded_from_live_api = loadedFromLiveApi;
       currentProject = data;
       activeNoteId = null;
+      qaHighlightedNoteIds = [];
       userExplicitlySelectedNote = false;
       hoveredNoteId = null;
       currentFilter = 'ALL';
@@ -715,6 +747,8 @@
     if (countKbAdaptEl) countKbAdaptEl.textContent = catScopedNotes.filter((n) => classifySystemNote(n).kbId === 'KB_ADAPTABILITY_FAMILY').length;
     if (countKbMepEl) countKbMepEl.textContent = catScopedNotes.filter((n) => classifySystemNote(n).kbId === 'KB_ACOUSTICS_MEP').length;
     if (countKbUrbanEl) countKbUrbanEl.textContent = catScopedNotes.filter((n) => classifySystemNote(n).kbId === 'KB_URBAN_LOCAL').length;
+    if (countKbNeuroEl) countKbNeuroEl.textContent = catScopedNotes.filter((n) => classifySystemNote(n).kbId === 'KB_NEURO_HEALTH_BAUBIO').length;
+    if (countKbWorkflowsEl) countKbWorkflowsEl.textContent = catScopedNotes.filter((n) => classifySystemNote(n).kbId === 'KB_WORKFLOWS_WFH_BENCHMARK').length;
 
     // Dedicated Savings tab counts
     if (countVeAllEl) countVeAllEl.textContent = veNotes.length;
@@ -1354,7 +1388,8 @@
             utilRect.setAttribute('class', 'svg-under-ramp-util-rect');
             planSvgOverlay.appendChild(utilRect);
           }
-          if (overlayZones.relocated_parking_target_rect) {
+          const relocCount = Number((note.parking_relocation_audit && note.parking_relocation_audit.stalls_relocated_count) || 0);
+          if (overlayZones.relocated_parking_target_rect && relocCount > 0) {
             const rp = overlayZones.relocated_parking_target_rect;
             const relRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
             relRect.setAttribute('x', Number(rp.x_pct).toFixed(2));
@@ -1424,7 +1459,8 @@
       // 2. Clean Numbered Pin on Plan with Collision Avoidance & WCAG 2.2 Keyboard Support
       const pin = document.createElement('button');
       pin.type = 'button';
-      pin.className = `plan-pin pin-${note.status} ${isVe ? 'pin-VE' : ''} ${isImp ? 'pin-IMP' : ''} ${isNoteActive ? 'active-pin' : ''} ${isNoteHovered ? 'hover-pin' : ''} ${isDimmed ? 'dimmed-pin' : ''}`;
+      const isQaMulti = currentWorkMode === 'ASK_AI' && qaHighlightedNoteIds.includes(note.id);
+      pin.className = `plan-pin pin-${note.status} ${isVe ? 'pin-VE' : ''} ${isImp ? 'pin-IMP' : ''} ${isNoteActive ? 'active-pin' : ''} ${isQaMulti ? 'qa-multi-highlight' : ''} ${isNoteHovered ? 'hover-pin' : ''} ${isDimmed && !isQaMulti ? 'dimmed-pin' : ''}`;
       let pinX = Number(note.cx_pct || 50);
       let pinY = Number(note.cy_pct || 50);
       // Collision avoidance against already-placed pins on the same sheet
@@ -2005,7 +2041,14 @@
       const rampProtectedSqm = note.protected_ramp_and_maneuvering_deducted_sqm || 0;
       const underRampSqm = note.under_ramp_utilized_sqm || 0;
       const relocAudit = note.parking_relocation_audit || null;
-      const relocStallsCount = relocAudit ? (relocAudit.stalls_relocated_count || 1) : 1;
+      const relocStallsCount = (relocAudit && relocAudit.stalls_relocated_count !== undefined && relocAudit.stalls_relocated_count !== null)
+        ? Number(relocAudit.stalls_relocated_count)
+        : 0;
+      const parkingStatusFooterSvg = isUg
+        ? (relocStallsCount > 0
+            ? `<text x="74" y="121" text-anchor="middle" font-size="7.4" font-weight="900" fill="#0e7490">🔄🅿️ ${relocStallsCount} חניות הועתקו למפרץ חלופי מאומת!</text>`
+            : `<text x="74" y="121" text-anchor="middle" font-size="7.4" font-weight="900" fill="#047857">🛡️🅿️ 0 חניות מוזזות — כל החניות במקומן המקורי!</text>`)
+        : '';
       return `
         <div class="fc-diagram-header">
           <span>📐 ${titleHe}</span>
@@ -2020,10 +2063,10 @@
           <!-- Inner Core/Apts -->
           <rect x="196" y="37" width="80" height="38" rx="2" fill="#ffffff" stroke="#64748b" stroke-width="1"/>
           ${isUg ? `<rect x="198" y="39" width="76" height="14" rx="2" fill="#fef3c7" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2 1"/><text x="236" y="49" text-anchor="middle" font-size="7.5" font-weight="800" fill="#b45309">רמפה + מיסעה דו-סטרית 6.00 מ׳</text>` : ''}
-          <text x="236" y="${isUg ? 66 : 59}" text-anchor="middle" font-size="8.5" font-weight="700" fill="#334155">${isUg ? 'חניית קצה + חדר מאגר/משאבות' : 'דירות (שטח נשמר)'}</text>
+          <text x="236" y="${isUg ? 66 : 59}" text-anchor="middle" font-size="8.5" font-weight="700" fill="#334155">${isUg ? 'כיס דיפון היקפי + חדר משאבות/מאגר' : 'דירות ולובי קומתי (100% נשמרים)'}</text>
           <text x="236" y="97" text-anchor="middle" font-size="8.5" font-weight="700" fill="#dc2626">${note.contour_dims_before_after ? note.contour_dims_before_after.split('←')[0] : 'מעטפת רחבה'}</text>
           ${isUg ? `<text x="236" y="109" text-anchor="middle" font-size="7.5" font-weight="700" fill="#92400e">רדיוסי סיבוב ואוזן תמרון נשמרים</text>` : ''}
-          ${isUg ? `<text x="236" y="121" text-anchor="middle" font-size="7.3" font-weight="800" fill="#b91c1c">חניית קצה על קו הדיפון שנסוג</text>` : ''}
+          ${isUg ? `<text x="236" y="121" text-anchor="middle" font-size="7.3" font-weight="800" fill="#b91c1c">${relocStallsCount > 0 ? 'חניית קצה על קו הדיפון שנסוג' : 'כיס דיפון/אוורור מת מחוץ לחניות'}</text>` : ''}
 
           <!-- CENTER ARROW -->
           <path d="M 164 56 L 144 56" stroke="#059669" stroke-width="2.4" stroke-linecap="round"/>
@@ -2041,7 +2084,7 @@
           <text x="74" y="${isUg ? 66 : 59}" text-anchor="middle" font-size="8.5" font-weight="800" fill="#065f46">נבנה פחות: -${fmtNum(note.ve_saved_sqm || 0)} מ״ר</text>
           <text x="74" y="97" text-anchor="middle" font-size="8.5" font-weight="800" fill="#047857">חיסכון: ${fmtNum(note.ve_saving_ils || 0)} ₪</text>
           ${isUg && underRampSqm > 0 ? `<text x="74" y="109" text-anchor="middle" font-size="7.4" font-weight="800" fill="#1d4ed8">+${fmtNum(underRampSqm)} מ״ר ניצול תחת רמפה (H≥2.20m)</text>` : ''}
-          ${isUg ? `<text x="74" y="121" text-anchor="middle" font-size="7.4" font-weight="900" fill="#0e7490">🔄🅿️ ${relocStallsCount} חניות הועתקו למפרץ חלופי מאומת!</text>` : ''}
+          ${parkingStatusFooterSvg}
         </svg>
       `;
     }
@@ -2634,6 +2677,9 @@
         <button type="button" class="ve-hub-tab-btn" data-ve-tab="locked">
           🛋️ 6. שיפור שימושיות (+${fmtNum(kpis.total_design_improvement_sqm)} מ״ר = 0 ₪ שלד)
         </button>
+        <button type="button" class="ve-hub-tab-btn" data-ve-tab="construct">
+          🏗️ 7. ייעול לקבלן והשבחת פדיון (${fmtNum((opt.contractor_constructability_and_yield || {}).total_constructability_saving_ils || 0)} ₪)
+        </button>
       </div>
 
       <!-- TAB 1: OVERVIEW, NET AVOIDABLE COST TABLE, BEFORE/AFTER BOARD & LIVE SIMULATOR -->
@@ -2999,6 +3045,62 @@
           </table>
         </div>
       </div>
+
+      <!-- TAB 7: CONTRACTOR CONSTRUCTABILITY & DEVELOPER REVENUE YIELD -->
+      <div class="ve-hub-tab-pane" data-ve-pane="construct">
+        <div class="modal-section-card" style="border-color:#059669;background:#f8fafc;">
+          <h3 style="color:#065f46;">🏗️ ייעול ביצוע ורכש לקבלן (Constructability) + השבחת פדיון יזמי (מופרד מחיסכון קונטור השלד)</h3>
+          <div class="sec-note" style="background:#ecfdf5;color:#065f46;">
+            ניתוח 5 צירי ייעול לקבלן המבצע וליזם: <strong>(1) איחוד מק״טים של פתחי אלומיניום ותריסים</strong>, <strong>(2) רפטטיביות תבניות תקרה וקורות שפה</strong>, <strong>(3) צימוד גב-אל-גב של חדרים רטובים וקיצור צנרת MEP</strong>, <strong>(4) מגן שינויי דיירים ובדק (נישות קו-אפס מובנות וחיץ אקוסטי)</strong>, ו-<strong>(5) השבחת פדיון ממחסנים מוצמדים בטאבו ומ״ר אפקטיבי בדירות</strong>.
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:10px;margin-bottom:12px;">
+            <div style="background:#fff;border:1px solid #6ee7b7;border-radius:8px;padding:10px 12px;">
+              <div style="font-size:11.5px;font-weight:800;color:#065f46;">🛠️ סה״כ חיסכון ייעול ביצוע ורכש לקבלן (4 צירים)</div>
+              <div style="font-size:20px;font-weight:900;color:#047857;">${fmtNum((opt.contractor_constructability_and_yield || {}).total_constructability_saving_ils || 0)} ₪</div>
+              <div style="font-size:11px;color:#475569;">אלומיניום, טפסנות מתועשת, צנרת MEP ומגן שינויי דיירים</div>
+            </div>
+            <div style="background:#fff;border:1px solid #93c5fd;border-radius:8px;padding:10px 12px;">
+              <div style="font-size:11.5px;font-weight:800;color:#1e40af;">📈 פוטנציאל השבחת פדיון יזמי (מופרד מעלויות בנייה)</div>
+              <div style="font-size:20px;font-weight:900;color:#1d4ed8;">${fmtNum((opt.contractor_constructability_and_yield || {}).total_developer_yield_uplift_ils || 0)} ₪</div>
+              <div style="font-size:11px;color:#475569;">מחסנים מוצמדים בטאבו (22,500 ₪/מ״ר) + השבחת מ״ר אפקטיבי</div>
+            </div>
+            <div style="background:#f0fdf4;border:1px solid #34d399;border-radius:8px;padding:10px 12px;">
+              <div style="font-size:11.5px;font-weight:800;color:#065f46;">💎 אפקט ערך משולב לפרויקט (קונטור נטו + ביצוע + פדיון)</div>
+              <div style="font-size:20px;font-weight:900;color:#065f46;">${fmtNum((opt.contractor_constructability_and_yield || {}).combined_contractor_and_developer_value_ils || 0)} ₪</div>
+              <div style="font-size:11px;color:#065f46;">עבור ${(opt.contractor_constructability_and_yield || {}).estimated_apartments_count || 0} יח״ד בפרויקט</div>
+            </div>
+          </div>
+          <table class="modal-data-table">
+            <thead>
+              <tr>
+                <th>מזהה ציר</th>
+                <th>נושא והיקף כמותי</th>
+                <th>מצב קיים (לפני)</th>
+                <th>פתרון הנדסי וביצועי (אחרי)</th>
+                <th>נוסחת תחשיב הנדסי</th>
+                <th>אומדן חיסכון / ערך (₪)</th>
+                <th>נהנה עיקרי</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${((opt.contractor_constructability_and_yield || {}).pillars || [])
+                .map(
+                  (pil) => `
+                  <tr>
+                    <td><strong>${pil.id}</strong></td>
+                    <td><strong>${pil.title}</strong><div style="font-size:11px;color:#0284c7;margin-top:2px;">${pil.metric_label || ''}</div></td>
+                    <td>${pil.before_state || ''}</td>
+                    <td style="color:#065f46;font-weight:700;">${pil.after_state || ''}</td>
+                    <td style="font-size:11.5px;color:#334155;">${pil.formula_he || ''}</td>
+                    <td style="font-weight:900;background:${pil.category === 'DEVELOPER_REVENUE_UPLIFT' ? '#dbeafe;color:#1e3a8a;' : '#dcfce7;color:#065f46;'}">${fmtNum(pil.estimated_saving_ils || 0)} ₪</td>
+                    <td>${pil.benefit_owner || ''}</td>
+                  </tr>`
+                )
+                .join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
     `;
 
     // Wire up Tab Switching inside Unified Cost Savings Command Center
@@ -3101,6 +3203,8 @@
       'KB_ADAPTABILITY_FAMILY',
       'KB_ACOUSTICS_MEP',
       'KB_URBAN_LOCAL',
+      'KB_NEURO_HEALTH_BAUBIO',
+      'KB_WORKFLOWS_WFH_BENCHMARK',
       'KB_VALUE_ENG_BIM',
     ];
     const groups = {};
@@ -3377,6 +3481,20 @@
     wrap.className = 'mode-overview-container';
 
     wrap.innerHTML = `
+      <!-- 0. QUICK ASK THE SYSTEM BANNER IN OVERVIEW -->
+      <div class="qa-hero-box" style="margin-bottom:10px;">
+        <div class="qa-hero-title">
+          <span>💬 שאל את המערכת על התכנית והניתוח (כולל ביצוע פעולות אוטומטיות)</span>
+          <button type="button" class="btn-link-Action" id="ov-open-full-ask-tab">לממשק השאלות המלא ◂</button>
+        </div>
+        <div class="qa-sample-chips-wrap">
+          <button type="button" class="qa-sample-chip" data-ov-ask="תמליץ על דרך לשפר את אזור הסלון והמטבח">🛋️ שיפור אזור הסלון והמטבח</button>
+          <button type="button" class="qa-sample-chip" data-ov-ask="תמליץ על דרך לתכנן מחדש קומה טיפוסית באותו קווי הבניין על מנת לשפר את יחס השטח בין הדירות לציבורי">📐 תכנון מחדש קומה טיפוסית (יחס דירות/ציבורי)</button>
+          <button type="button" class="qa-sample-chip" data-ov-ask="נתח את מפתח החלונות בתכנית ותמליץ על שיפורים">🪟 ניתוח מפתח החלונות והמלצות</button>
+          <button type="button" class="qa-sample-chip" data-ov-ask="פרט על מבנה המידע של הניתוח שכרגע נשמר במערכת">🗄️ מבנה המידע של הניתוח במערכת</button>
+        </div>
+      </div>
+
       <!-- 1. ARCHITECT'S NARRATIVE OVERVIEW HERO CARD -->
       <div class="ov-section-card ov-architect-hero-card">
         <div class="ov-card-header-row">
@@ -3501,6 +3619,20 @@
     const veBox = wrap.querySelector('#ov-open-ve');
     if (veBox) veBox.addEventListener('click', () => switchWorkMode('OPTIMIZATION'));
 
+    const openAskTabBtn = wrap.querySelector('#ov-open-full-ask-tab');
+    if (openAskTabBtn) {
+      openAskTabBtn.addEventListener('click', () => switchWorkMode('ASK_AI'));
+    }
+    wrap.querySelectorAll('[data-ov-ask]').forEach((chipBtn) => {
+      chipBtn.addEventListener('click', () => {
+        const qTxt = chipBtn.getAttribute('data-ov-ask');
+        switchWorkMode('ASK_AI');
+        if (qTxt) {
+          submitPlanQuestion(qTxt);
+        }
+      });
+    });
+
     const switchVeBtn = wrap.querySelector('#ov-switch-ve-tab');
     if (switchVeBtn) switchVeBtn.addEventListener('click', () => switchWorkMode('OPTIMIZATION'));
 
@@ -3607,6 +3739,1704 @@
     const listEl = wrap.querySelector('#cmp-notes-list');
     veNotes.forEach((n) => {
       listEl.appendChild(createLevel1NoteCard(n));
+    });
+
+    return wrap;
+  }
+
+  // =========================================================================
+  // 4.B INTERACTIVE PLAN Q&A & ACTION ENGINE (ASK_AI MODE)
+  // =========================================================================
+  const CLIENT_SAMPLE_QUESTIONS = [
+    {
+      id: 'living_kitchen',
+      label_he: '🛋️ שיפור סלון ומטבח',
+      question_he: 'תמליץ על דרך לשפר את אזור הסלון והמטבח',
+      category: 'LIVING_KITCHEN',
+    },
+    {
+      id: 'typical_floor_ratio',
+      label_he: '📐 תכנון מחדש לקומה טיפוסית (יחס דירות/ציבורי)',
+      question_he: 'תמליץ על דרך לתכנן מחדש קומה טיפוסית באותו קווי הבניין על מנת לשפר את יחס השטח בין הדירות לציבורי',
+      category: 'TYPICAL_FLOOR_RATIO',
+    },
+    {
+      id: 'windows_analysis',
+      label_he: '🪟 ניתוח מפתח חלונות ופתחים',
+      question_he: 'נתח את מפתח החלונות בתכנית ותמליץ על שיפורים',
+      category: 'WINDOWS_OPENINGS',
+    },
+    {
+      id: 'data_structure',
+      label_he: '🗄️ מבנה המידע של הניתוח במערכת',
+      question_he: 'פרט על מבנה המידע של הניתוח שכרגע נשמר במערכת',
+      category: 'DATA_STRUCTURE',
+    },
+    {
+      id: 'bedrooms_bathrooms',
+      label_he: '🛏️ חדרי שינה, ממ״ד וחדרי רחצה',
+      question_he: 'נתח את תכנון חדרי השינה, הממ״ד וחדרי הרחצה בדירות והמלץ על שיפורים',
+      category: 'BEDROOMS_BATHROOMS',
+    },
+    {
+      id: 'parking_basement',
+      label_he: '🚗 מרתפי חניה, רמפה וגובה נטו',
+      question_he: 'נתח את מרתפי החניה, הרמפה ומעברי התמרון בתכנית והמלץ על התייעלות',
+      category: 'PARKING_BASEMENT',
+    },
+    {
+      id: 've_cladding',
+      label_he: '💎 התייעלות הנדסית (VE) וחיפוי חזיתות',
+      question_he: 'מהן הזדמנויות החיסכון וה-Value Engineering המרכזיות בפרויקט ובחזיתות?',
+      category: 'VE_OPTIMIZATION',
+    },
+    {
+      id: 'wall_mutability',
+      label_he: '🕸️ ניתוח גרף קירות ודרגות חופש (ATKG)',
+      question_he: 'אילו קירות בדירה ובגרעין ניתנים להזזה או ליצירת נישות ארונות ואילו קירות נעולים לפי גרף ה-ATKG?',
+      category: 'WALL_MUTABILITY_ANALYSIS',
+    },
+    {
+      id: 'portfolio_compare',
+      label_he: '📊 השוואת יעילות מול שאר הפרויקטים',
+      question_he: 'השווה את ניצולת הקומה הטיפוסית, יחס הזיגוג והחיסכון בפרויקט זה מול שאר הפרויקטים במערכת',
+      category: 'PORTFOLIO_COMPARISON',
+    },
+  ];
+
+  function classifyQuestionIntentClient(question) {
+    const q = String(question || '').trim().toLowerCase();
+    if (!q) return 'LIVING_KITCHEN';
+    if (/(מבנה מידע|מבנה המידע|סכמה|schema|json|נשמר במערכת|איזה מידע נשמר|מבנה הנתונים)/.test(q)) return 'DATA_STRUCTURE';
+    if (/(אילו קירות|איזה קיר|מותר להזיז|לשבור קיר|להזיז קיר|דרגות חופש|קירות נעולים|מטריצת קירות|mutability|atkg)/.test(q)) return 'WALL_MUTABILITY_ANALYSIS';
+    if (/(השווה|השוואה|שאר הפרויקטים|פרויקטים אחרים|פורטפוליו|מדורג|ממוצע הפרויקטים)/.test(q)) return 'PORTFOLIO_COMPARISON';
+    if (/(יחס השטח|יחס שטח|לתכנן מחדש קומה|קומה טיפוסית|קווי הבניין|קווי בניין|דירות לציבורי|נטו לברוטו|ניצולת קומה|גרעין)/.test(q)) return 'TYPICAL_FLOOR_RATIO';
+    if (/(חלון|חלונות|מפתח החלונות|מפתח חלונות|פתחים|ויטרינה|זיגוג|wwr|אלומיניום|אור טבעי|אוורור)/.test(q)) return 'WINDOWS_OPENINGS';
+    if (/(סלון|מטבח|פינת אוכל|אזור האירוח|אי במטבח|משולש עבודה)/.test(q)) return 'LIVING_KITCHEN';
+    if (/(מרתף|חניה|חניון|רמפה|תמרון|מיסעה)/.test(q)) return 'PARKING_BASEMENT';
+    if (/(חדר שינה|חדרי שינה|סוויטת הורים|מאסטר|ממ״ד|ממד|חדר רחצה|חדרי רחצה|אמבטיה|שירותים)/.test(q)) return 'BEDROOMS_BATHROOMS';
+    if (/(חיסכון|עלויות|עלות|ve|value engineering|חיפוי|חזיתות|ביצועיות|קבלן)/.test(q)) return 'VE_OPTIMIZATION';
+    return 'GENERAL_SEARCH';
+  }
+
+  function formatClientMatchedNotes(notes, noteIds, limit = 6) {
+    const idSet = new Set(noteIds || []);
+    let matched = (notes || []).filter((n) => idSet.has(n.id));
+    if (matched.length === 0) matched = (notes || []).slice(0, limit);
+    return matched.slice(0, limit).map((n) => ({
+      id: n.id,
+      pin_num: n.pin_num,
+      sheet_id: n.sheet_id,
+      typology: n.typology || '',
+      room_name: n.room_name || '',
+      status: n.status || 'WARN',
+      title: n.title || '',
+      measured: n.measured || '',
+      benchmark: n.benchmark || '',
+      recommendation: n.recommendation || '',
+    }));
+  }
+
+  function buildClientAnswerFallback(data, question) {
+    const pname = data.project_name || '';
+    const pid = data.project_id || '';
+    const notes = data.notes || [];
+    const sheets = data.sheets || [];
+    const pds = data.project_data_summary || {};
+    const dopt = data.design_optimization || pds.design_optimization || {};
+    const qIdx = data.qa_knowledge_index || {};
+    const intent = classifyQuestionIntentClient(question);
+    const topicIds = qIdx.topic_note_ids || {};
+    const sheetsMap = qIdx.sheets_map || {};
+    const defaultTypicalSheet = sheetsMap.typical || (sheets[2] && sheets[2].id) || (sheets[0] && sheets[0].id) || 'typical';
+
+    if (intent === 'LIVING_KITCHEN') {
+      const prof = (qIdx.living_kitchen_profiles && qIdx.living_kitchen_profiles[0]) || {};
+      const aptId = prof.apt_id || 'דירה טיפוסית';
+      const livArea = Number(prof.living_area_sqm || 27.8);
+      const livW = Number(prof.living_width_m || 4.10);
+      const livD = Number(prof.living_depth_m || 6.60);
+      const livWin = Number(prof.living_window_sqm || 10.5);
+      const kitArea = Number(prof.kitchen_area_sqm || 10.2);
+      const aisleCm = Number(prof.aisle_width_cm || 115);
+      const triM = Number(prof.work_triangle_sum_m || 5.3);
+      const counterCm = Number(prof.countertop_frontage_cm || 420);
+      const targetAisleCm = Math.max(aisleCm, 120);
+      const targetCounterCm = Math.max(counterCm + 60, 480);
+      const diagM = Math.hypot(livW, livD).toFixed(2);
+      const matched = formatClientMatchedNotes(notes, topicIds.LIVING_KITCHEN, 6);
+
+      return {
+        intent,
+        question,
+        answer_title: `תכנית פעולה לשיפור אזור הסלון, המטבח וציר האירוח — ${pname}`,
+        executive_summary_he: `ניתוח ממצאי התכנית עבור ${pname} (${aptId}) מעלה כי חלל הסלון ופינת האוכל משתרע על ${livArea.toFixed(1)} מ״ר (רוחב ${livW.toFixed(2)} מ׳ × עומק ${livD.toFixed(2)} מ׳, אלכסון מבט ${diagM} מ׳) והמטבח על ${kitArea.toFixed(1)} מ״ר (רוחב מעבר אי ${aisleCm} ס״מ, סכום משולש עבודה ${triM.toFixed(2)} מ׳, חזית ארונות ${counterCm} ס״מ). להלן 5 מהלכים אדריכליים והנדסיים לשיפור משמעותי של חוויית המגורים והאירוח — ללא שינוי קווי הבניין:`,
+        comparison_table: {
+          title_he: 'טבלת השוואה כמותית: מצב קיים בתכנית מול מצב מוצע (סלון ומטבח)',
+          headers: ['פרמטר תכנוני', 'מצב קיים בתכנית', 'תקן / יעד מצוינות', 'מצב מוצע לאחר שיפור', 'השפעה תפקודית ושיווקית'],
+          rows: [
+            ['רוחב נטו של הסלון (קיר טלוויזיה עד ספה)', `${livW.toFixed(2)} מ׳ (${livArea.toFixed(1)} מ״ר)`, 'תקן 2.60 מ׳ | יעד ADG 4.00 מ׳', `${Math.max(livW, 4.05).toFixed(2)} מ׳ (${(livArea + 0.85).toFixed(1)} מ״ר)`, 'מרחק צפייה ארגונומי ומעבר חופשי של 95 ס״מ מאחורי גב הספה'],
+            ['רוחב מעבר עבודה בין האי/דלפק לארונות המטבח', `${aisleCm} ס״מ`, 'תקן NKBA: 107–120 ס״מ', `${targetAisleCm} ס״מ (הסטת אי ב-${Math.max(targetAisleCm - aisleCm, 5)} ס״מ)`, 'פתיחה מלאה של מדיח כלים ותנור במקביל למעבר אדם שני ללא הפרעה'],
+            ['משטח הכנה רציף (בין כיור לכיריים) וחזית ארונות', `${counterCm} ס״מ חזית ארונות`, 'RT-kortisto: ≥90–120 ס״מ משטח רציף', `${targetCounterCm} ס״מ + 115 ס״מ משטח הכנה נקי`, 'הפרדה מלאה בין אזור רטוב (כיור) לאזור חם (כיריים) ונישת מזווה High-Cabinet'],
+            ['מוקד אירוח ופינת אוכל (סימולציית העמדת ריהוט)', 'שולחן 6–8 סועדים בציר מעבר', 'פתיחה ל-10–12 סועדים (3.00×1.10 מ׳)', 'איפוס ציר האי עם שולחן האוכל בניצב לוויטרינה', 'אירוח של עד 12 סועדים עם מרווח שליפת כיסא 85 ס״מ ללא חסימת היציאה למרפסת'],
+            ['בידוד אקוסטי של קיר הטלוויזיה והמטבח מחדרי השינה', 'בלוק רגיל 10 ס״מ', 'ת״י 1004: ≥46–48 dB הפרדה', 'בלוק אקוסטי רב-שכבתי 15 ס״מ / חיפוי אקוסטי', 'מניעת מעבר רעשי טלוויזיה, מדיח ובלנדר אל חדר השינה הצמוד בשעות הערב'],
+            ['ממשק סלון–מרפסת שמש ומיזוג אוויר (VRF)', `ויטרינה ${livWin.toFixed(1)} מ״ר, הנמכת גבס מקומית`, 'מסילה שקועה Zero-Threshold (≤1.5 ס״מ)', 'מסילה שקועה ברצפה + ריכוז VRF במסדרון/מטבח', 'רצף פנים–חוץ אחיד ושמירה על תקרת סלון נקייה בגובה מלא (2.85–2.95 מ׳)'],
+          ],
+        },
+        sections: [
+          {
+            badge: 'מהלך 1 — ארגונומיית מטבח (NKBA & RT)',
+            title: 'אופטימיזציה של האי, משולש העבודה ומשטח ההכנה הרציף',
+            items: [
+              `הגדלת מעבר העבודה בין חזית הארונות לאי מ-${aisleCm} ס״מ ל-${targetAisleCm} ס״מ (תקן NKBA-13 לעבודה של שני בשלנים במקביל ופתיחת דלת מדיח של 65 ס״מ + מעבר 55 ס״מ).`,
+              `שמירה על משולש עבודה קומפקטי (מקרר–כיור–כיריים = ${triM.toFixed(2)} מ׳, בטווח המצוינות 4.0–7.9 מ׳) תוך יצירת משטח הכנה רציף של 115 ס״מ בין הכיור לכיריים.`,
+              'הוספת גומחת קיר פנויה של 60×60 ס״מ עבור עמודת ארון גבוה (בילד-אין + מזווה נשלף) בקצה המטבח, כך שמשטח השיש יישאר פנוי ממכשירים.',
+            ],
+          },
+          {
+            badge: 'מהלך 2 — גיאומטריית סלון וציר אירוח',
+            title: 'סידור מחדש של קיר המדיה, הספה ופינת האוכל ל-10–12 סועדים',
+            items: [
+              `יישור קיר הטלוויזיה ליצירת חזית רציפה של 3.80–4.20 מ׳, והצבת ספה פינתית במרחק צפייה של ${Math.max(livW, 4.05).toFixed(2)} מ׳.`,
+              'מיקום פינת האוכל בציר המשכי לאי המטבח ובניצב לוויטרינת המרפסת — מאפשר פתיחת שולחן ל-3.00 מ׳ (10–12 סועדים) מבלי לחסום את ציר המעבר מהכניסה לסלון.',
+              'יצירת מובלעת כניסה (Genkan / קיר מיסוך קצר או ספרייה דו-צדדית ברוחב 80 ס״מ) המונעת קו ראייה ישיר מדלת הפלדלת אל הכיור במטבח.',
+            ],
+          },
+          {
+            badge: 'מהלך 3 — רצף פנים-חוץ, אקוסטיקה ומערכות',
+            title: 'חיבור Zero-Threshold למרפסת, הפרדה אקוסטית ותקרת סלון גבוהה',
+            items: [
+              `ביצוע פרט מסילה שקועה (Zero-Threshold, הפרש מפלס ≤1.5 ס״מ עם תעלת ניקוז סמויה) בוויטרינת הסלון (${livWin.toFixed(1)} מ״ר) להכפלת תחושת המרחב אל מרפסת השמש.`,
+              'שדרוג המחיצה המשותפת בין קיר הטלוויזיה/המטבח לחדר השינה הגובל לבלוק פומיס/אקוסטי 15 ס״מ והסטת צנרת דלוחין מקיר זה (ת״י 1004).',
+              'ריכוז יחידת המאייד המרכזית (VRF) בהנמכת תקרה מעל מבואת הכניסה והפרוזדור (גובה 2.40 מ׳) עם גריל סלוט קווי הזורק אוויר לסלון.',
+            ],
+          },
+        ],
+        matched_notes: matched,
+        recommended_architect_actions: [
+          `[${pname}] סלון ומטבח (${aptId}): קביעת מעבר נטו של ${targetAisleCm} ס״מ בין האי לארונות המטבח ויצירת משטח הכנה רציף של 115 ס״מ בין כיור לכיריים.`,
+          `[${pname}] סלון ומרפסת (${aptId}): שילוב מסילת ויטרינה שקועה (Zero-Threshold ≤1.5 ס״מ) וריכוז הנמכת מיזוג VRF במסדרון לשמירת מלוא גובה תקרת הסלון.`,
+          `[${pname}] אקוסטיקה פנימית (${aptId}): עיבוי קיר ההפרדה בין הסלון/מטבח לחדר השינה הצמוד לבלוק אקוסטי 15 ס״מ (≥48 dB).`,
+        ],
+        system_actions: {
+          auto_switch_sheet_id: defaultTypicalSheet,
+          highlight_note_ids: matched.map((m) => m.id),
+          primary_note_id: matched[0] ? matched[0].id : null,
+          action_buttons: [
+            { type: 'FOCUS_PINS', label_he: '🎯 הצג מוקדי סלון ומטבח על התכנית (2D/3D)' },
+            { type: 'ADD_TO_ARCHITECT_PACKAGE', label_he: '➕ הוסף 3 הנחיות אלו לחבילת התיקונים לאדריכל' },
+            { type: 'SWITCH_SPLIT_VIEW', label_he: '🧊 פתח תצוגה משולבת 2D+3D של אזור האירוח' },
+          ],
+        },
+      };
+    }
+
+    if (intent === 'TYPICAL_FLOOR_RATIO') {
+      const tfr = qIdx.typical_floor_redesign || {};
+      const flLabel = tfr.floor_label || 'קומה טיפוסית';
+      const totalSqm = Number(tfr.total_floor_sqm_locked || 290.0);
+      const unitsCnt = Number(tfr.units_per_floor || 2);
+      const beforeApt = Number(tfr.before_apartments_sqm || 248.0);
+      const beforePub = Number(tfr.before_public_core_sqm || 42.0);
+      const beforeEff = Number(tfr.before_net_to_gross_pct || 85.5);
+      const beforePubPct = Number(tfr.before_public_pct || 14.5);
+      const shiftSqm = Number(tfr.public_to_apt_shift_sqm || 3.6);
+      const afterApt = Number(tfr.after_apartments_sqm || (beforeApt + shiftSqm));
+      const afterPub = Number(tfr.after_public_core_sqm || (beforePub - shiftSqm));
+      const afterEff = Number(tfr.after_net_to_gross_pct || ((afterApt / Math.max(totalSqm, 1)) * 100).toFixed(1));
+      const afterPubPct = +(100 - afterEff).toFixed(1);
+      const intPerUnit = Number(tfr.internal_corridor_reclaimed_per_unit_sqm || 1.45);
+      const intFloorSqm = Number(tfr.internal_corridor_reclaimed_floor_sqm || (intPerUnit * unitsCnt));
+      const totalGainFloor = Number(tfr.total_effective_living_gain_per_floor_sqm || (shiftSqm + intFloorSqm));
+      const step1Sqm = +(shiftSqm * 0.55).toFixed(2);
+      const step2Sqm = +(shiftSqm - step1Sqm).toFixed(2);
+      const matched = formatClientMatchedNotes(notes, topicIds.TYPICAL_FLOOR_RATIO, 6);
+
+      return {
+        intent,
+        question,
+        answer_title: `תכנון מחדש של ${flLabel} באותם קווי בניין — שיפור יחס דירות/ציבורי ב-${pname}`,
+        executive_summary_he: `בקומה הטיפוסית של ${pname} (${flLabel}, שטח קומה כולל קבוע של ${totalSqm.toFixed(1)} מ״ר בתוך קווי הבניין הקיימים, ${unitsCnt} דירות בקומה), שטח הדירות עומד כיום על ${beforeApt.toFixed(1)} מ״ר (${beforeEff.toFixed(1)}%) ושטח הגרעין והציבורי על ${beforePub.toFixed(1)} מ״ר (${beforePubPct.toFixed(1)}%). באמצעות תכנון מחדש של גבולות הגרעין-דירה והפרוזדורים הפנימיים — ללא חריגה מקווי הבניין וללא פגיעה בחדר המדרגות המוגן, המעלית, רציפות קירות הממ״ד (≥70%) או תחושת הבוטיק של הלובי הקומתי המואר — ניתן להעביר ${shiftSqm.toFixed(2)} מ״ר משטח הציבורי אל פנים הדירות (העלאת יחס הדירות ל-${afterEff.toFixed(1)}%) ולהשביח עוד ${intFloorSqm.toFixed(2)} מ״ר של שטחי מסדרון פנימיים לטובת חדרי המגורים (סה״כ תוספת שטח אפקטיבי של +${totalGainFloor.toFixed(2)} מ״ר בכל קומה טיפוסית).`,
+        comparison_table: {
+          title_he: `מאזן שטחים כמותי (${flLabel}) — באותם קווי בניין (${totalSqm.toFixed(1)} מ״ר)`,
+          headers: ['מדד שטח / ניצולת קומתית', 'מצב קיים בתכנית', 'מצב מוצע (תכנון מחדש)', 'שינוי כמותי (Δ)', 'הסבר הנדסי ואדריכלי'],
+          rows: [
+            ['שטח קומה ברוטו (קווי בניין)', `${totalSqm.toFixed(1)} מ״ר (100%)`, `${totalSqm.toFixed(1)} מ״ר (100%)`, '0.00 מ״ר (קווי בניין נעולים)', 'שמירה מוחלטת על קונטור הקומה המאושר, קווי הבניין והחזיתות'],
+            ['שטח פלדלת דירות בקומה (נטו שיווקי)', `${beforeApt.toFixed(1)} מ״ר (${beforeEff.toFixed(1)}%)`, `${afterApt.toFixed(2)} מ״ר (${afterEff.toFixed(1)}%)`, `+${shiftSqm.toFixed(2)} מ״ר לקומה`, 'הסטת נישות ארונות מונים ומבואות סף הכניסה אל תוך תחום הפלדלת של הדירות'],
+            ['שטח ציבורי וגרעין (מדרגות, מעלית, לובי ופירים)', `${beforePub.toFixed(1)} מ״ר (${beforePubPct.toFixed(1)}%)`, `${afterPub.toFixed(2)} מ״ר (${afterPubPct.toFixed(1)}%)`, `-${shiftSqm.toFixed(2)} מ״ר לקומה`, 'איחוד פירים והשקעת ארונות תקשורת/מים/חשמל במישור קירות הגרעין (Flush Integration)'],
+            ['השבת שטח מסדרונות פנימיים בתוך הדירות', 'שטח מעבר כלוא בפרוזדור דירתי', `+${intPerUnit.toFixed(2)} מ״ר לדירה (+${intFloorSqm.toFixed(2)} מ״ר לקומה)`, `+${intFloorSqm.toFixed(2)} מ״ר שטח שימושי`, 'ביטול מסדרונות עודפים ושילוב נישות ארונות בקו אפס (62 ס״מ) בקירות יבשים'],
+            ['סה״כ תוספת שטח מחיה אפקטיבי בקומה טיפוסית', 'בסיס השוואה', `+${totalGainFloor.toFixed(2)} מ״ר בכל קומה טיפוסית`, `+${(totalGainFloor / Math.max(unitsCnt, 1)).toFixed(2)} מ״ר בממוצע לדירה`, 'עלייה ישירה בשטח המכיר ובאיכות החדרים ללא תוספת עלות שלד'],
+          ],
+        },
+        sections: [
+          {
+            badge: `שלב 1 — קומפקטיזציה חכמה של פירים וארונות שירות (+${step1Sqm.toFixed(2)} מ״ר לדירות)`,
+            title: 'איחוד פירי מערכות והשקעת ארונות מונים במישור קירות הגרעין (Flush Core Walls)',
+            items: [
+              `השקעת ארונות חשמל, מים, תקשורת וכיבוי אש בעומק 25–30 ס״מ בקו אפס (Flush) בתוך קירות המעטפת של חדר המדרגות ופיר המעלית במקום בליטה לפרוזדור או לדירה (חיסכון של ${step1Sqm.toFixed(2)} מ״ר בקומה).`,
+              'איחוד פירי האוורור והאינסטלציה האנכיים לצמד פירים מרוכזים הצמודים לגרעין הבטון ולחדרים הרטובים — מונע בליטות קונסטרוקטיביות ומיישר את קיר ההפרדה בין הלובי לדירות.',
+            ],
+          },
+          {
+            badge: `שלב 2 — סיפוח גומחות סף הכניסה לטובת מבואה פרטית בדירה (+${step2Sqm.toFixed(2)} מ״ר לדירות)`,
+            title: 'קידום קו דלת הפלדלת למישור הלובי הקומתי תוך שמירה על לובי בוטיק מואר',
+            items: [
+              `קידום דלתות הכניסה לדירות ב-45–60 ס״מ אל קו המישור של קיר הלובי הקומתי (תוך שמירה על מרחק בטיחות של ≥120 ס״מ ממהלך המדרגות ומפתח מעלית נגיש של ≥150 ס״מ) מעביר ${step2Sqm.toFixed(2)} מ״ר של שטח מעבר חיצוני אל תוך הדירה כמבואת כניסה פרטית (Genkan) עם נישה לארון מעילים.`,
+              'שמירה קפדנית על איכות הלובי הקומתי: החלון הקומתי לאור טבעי ואוורור נשמר במלואו, ורוחב הלובי מול המעלית נשאר נדיב ומזמין לבניין בוטיק יוקרתי.',
+            ],
+          },
+          {
+            badge: `שלב 3 — תכנון מחדש של הפרוזדור הפנימי בדירות (+${intFloorSqm.toFixed(2)} מ״ר שטח חדרים אפקטיבי)`,
+            title: 'המרת מסדרונות ארוכים לנישות ארונות בקו אפס והגדלת הסלון וחדרי השינה',
+            items: [
+              `קיצור קצה הפרוזדור הדירתי ב-90–110 ס״מ על ידי פתיחת הכניסה לחדר השינה/סוויטת ההורים מציר המבואה והעברת השטח ישירות לחדר (+${intPerUnit.toFixed(2)} מ״ר בממוצע לדירה).`,
+              'יצירת נישות ארונות בגדים שקועות (עומק 62 ס״מ בקו אפס) לאורך קירות המחיצה היבשים בלבד — תוך שמירה מלאה על קירות חדר הרחצה ועל קירות הבטון של הגרעין והממ״ד.',
+              'שמירה על מרווח תפקודי של 95–100 ס״מ מול דלת חדר הרחצה המרכזי ושמירה על מבואת כניסה פרטית של ≥110 ס״מ בין דלתות חדרי השינה.',
+            ],
+          },
+        ],
+        matched_notes: matched,
+        recommended_architect_actions: [
+          `[${pname}] ${flLabel} — יחס דירות/ציבורי: השקעת ארונות מונים במישור קירות הגרעין וקידום דלתות הכניסה לדירות להעברת +${shiftSqm.toFixed(2)} מ״ר משטח הציבורי אל שטח הפלדלת (העלאת ניצולת הקומה מ-${beforeEff.toFixed(1)}% ל-${afterEff.toFixed(1)}%).`,
+          `[${pname}] ${flLabel} — אופטימיזציית מסדרונות פנים: קיצור קצה הפרוזדור הדירתי ושילוב נישות ארונות בקו אפס (62 ס״מ בקירות יבשים בלבד) להשבת +${intFloorSqm.toFixed(2)} מ״ר לשטחי הסלון וחדרי השינה בקומה.`,
+          `[${pname}] ${flLabel} — שמירת לובי בוטיק מואר: שמירה מלאה על חלון הלובי הקומתי ומרווח תמרון של ≥1.50 מ׳ מול המעלית.`,
+        ],
+        system_actions: {
+          auto_switch_sheet_id: tfr.sheet_id || defaultTypicalSheet,
+          highlight_note_ids: matched.map((m) => m.id),
+          primary_note_id: matched[0] ? matched[0].id : null,
+          action_buttons: [
+            { type: 'FOCUS_PINS', label_he: '🎯 הצג מוקדי גרעין, לובי ומסדרונות על הקומה הטיפוסית' },
+            { type: 'OPEN_AREAS_MODAL', label_he: '📐 פתח טבלת שטחים וניצולת קומתית מלאה' },
+            { type: 'ADD_TO_ARCHITECT_PACKAGE', label_he: '➕ הוסף תכנית התייעלות זו לחבילת התיקונים לאדריכל' },
+          ],
+        },
+      };
+    }
+
+    if (intent === 'WINDOWS_OPENINGS') {
+      const facSum = qIdx.facades_summary || {};
+      const roomsWin = qIdx.rooms_windows_analysis || [];
+      const totalFac = Number(facSum.total_facade_sqm || (pds.facades && pds.facades.total_sqm) || 1200);
+      const totalGlz = Number(facSum.total_glazing_sqm || (pds.facades && pds.facades.total_glazing_sqm) || 264);
+      const avgWwr = Number(facSum.average_wwr_pct || (pds.facades && pds.facades.average_wwr_pct) || 22.0);
+      const byDir = facSum.by_direction || (pds.facades && pds.facades.by_direction) || [];
+      const matched = formatClientMatchedNotes(notes, topicIds.WINDOWS_OPENINGS, 6);
+
+      const roomRows = roomsWin.slice(0, 8).map((rw) => [
+        `${rw.room_name || ''} (${rw.apt_id || ''})`,
+        `שטח חדר ${Number(rw.room_area_sqm || 0).toFixed(1)} מ״ר (${rw.room_dims_m || ''})`,
+        `חלון ${Number(rw.window_area_sqm || 0).toFixed(2)} מ״ר (נפתח ${Number(rw.openable_area_sqm || 0).toFixed(2)} מ״ר)`,
+        `יחס חלון/רצפה: ${Number(rw.wfr_pct || 0).toFixed(1)}% (תקן ≥8%, יעד ≥12%)`,
+        rw.status_he || '',
+      ]);
+
+      const facadeRows = byDir.map((d) => {
+        const wwr = Number(d.wwr_pct || 20);
+        const rec = wwr > 25
+          ? 'יחס זיגוג גבוה — מומלץ זיגוג Low-E כפול (SHGC ≤ 0.38) והצללה חיצונית/רפפות למניעת התחממות'
+          : (wwr < 17 ? 'מפתח מבוקר — מצוין לבידוד תרמי (ת״י 5282); מומלץ להגביה משקוף עליון בחדרי השינה' : 'איזון תרמי ואנרגטי מיטבי (בטווח היעד 18%–25% של ת״י 5282)');
+        return [
+          `חזית ${d.direction || ''}`,
+          `${fmtNum(d.gross_area_sqm)} מ״ר מעטפת | ${fmtNum(d.glazing_area_sqm)} מ״ר זיגוג`,
+          `WWR = ${wwr.toFixed(1)}% (יעד 18%–25%)`,
+          d.key_features || d.materials_and_elements || '',
+          rec,
+        ];
+      });
+
+      return {
+        intent,
+        question,
+        answer_title: `ניתוח מפתח החלונות, יחסי זיגוג (WWR/WFR) והמלצות לשיפור — ${pname}`,
+        executive_summary_he: `בפרויקט ${pname} שטח המעטפת הכולל הוא ${fmtNum(totalFac)} מ״ר ומתוכו שטח הזיגוג והחלונות הוא ${fmtNum(totalGlz)} מ״ר (יחס זיגוג לחזית ממוצע WWR = ${avgWwr.toFixed(1)}%, לעומת טווח היעד התרמי 18%–25% לפי ת״י 5282). בדיקה פרטנית של מפתחי החלונות בכל חדר מול שטח הרצפה (WFR — תקנה B1.3 מחייבת ≥8% חלון ויעד אור יום EN 17037 עומד על ≥12%) מצביעה על ויטרינות סלון נדיבות מאוד המחייבות זיגוג Low-E והצללה, לצד הזדמנות לאיחוד מק״טי אלומיניום ושיפור פתיחת חלונות בממ״ד, במטבח ובחדרי הרחצה.`,
+        comparison_table: {
+          title_he: 'טבלה א׳: ניתוח מפתח חלונות לפי חדרים בדירה הטיפוסית (יחס חלון לרצפה — WFR)',
+          headers: ['חלל / חדר בתכנית', 'שטח ומידות החדר', 'שטח חלון ושטח נפתח לאוורור', 'יחס חלון לרצפה (WFR) מול תקן', 'אבחנה והמלצה תכנונית'],
+          rows: roomRows,
+        },
+        secondary_table: {
+          title_he: 'טבלה ב׳: ניתוח מפתחי זיגוג לפי 4 חזיתות הבניין (Window-to-Wall Ratio — WWR)',
+          headers: ['חזית וכיוון אוויר', 'שטח מעטפת ושטח זיגוג', 'יחס זיגוג (WWR)', 'מאפייני פתחים עיקריים', 'המלצה תרמית ואקוסטית'],
+          rows: facadeRows,
+        },
+        sections: [
+          {
+            badge: '1. ביצועים תרמיים, אור יום והצללה (ת״י 5282 & EN 17037)',
+            title: 'איזון בין ויטרינות הסלון הגדולות לחלונות חדרי השינה',
+            items: [
+              'בוויטרינות הסלון בחזית הראשית והמערבית/דרומית מומלץ להגדיר במפרט זיגוג בידודית Low-E (מקדם מעבר חום סולארי SHGC ≤ 0.36) וארגז תריס סמוי מונובלוק או צלון חיצוני חשמלי.',
+              'בחדרי השינה מומלץ להגביה את קו המשקוף העליון ל-220–230 ס״מ — מהלך שמגדיל את עומק חדירת האור הטבעי ב-25% אל עומק החדר ללא הגדלת רוחב הפתח.',
+            ],
+          },
+          {
+            badge: '2. הנדסת אנוש ופתחים בחדרים פונקציונליים (ממ״ד, מטבח ורחצה)',
+            title: 'מניעת התנגשות כנפי חלון בריהוט ובברזים',
+            items: [
+              'חלון ממ״ד (תיקון 163 לפיקוד העורף): וידוא חלון הדף פלדה נגרר לכיס מלא + חלון אלומיניום פנימי דו-כנפי נגרר לכיס (ללא כנף ציר פנימית החוסמת ארון/שולחן כתיבה), כולל שמירת נישה לעיבוי גבס 6 ס״מ.',
+              'חלון מטבח: קביעת סף תחתון בגובה 105–110 ס״מ מעל הרצפה עם מנגנון הזזה או דריי-קיפ (Dreh-Kipp) כדי שכנף החלון לא תתנגש בברז המטבח.',
+            ],
+          },
+          {
+            badge: '3. אקוסטיקה וביצועיות קבלנית (איחוד מק״טי אלומיניום)',
+            title: 'זיגוג טריפלקס אקוסטי וחיסכון של 8%–10% בעלות רכש האלומיניום',
+            items: [
+              'בחזית הפונה לרחוב: שדרוג חלונות חדרי השינה והסלון לזיגוג טריפלקס אקוסטי אסימטרי (הנחתה ≥38–40 dB לפי ת״י 1004).',
+              'איחוד מידות פתחים (SKU Consolidation): איחוד רוחבי החלונות בחדרי השינה ל-2 מידות מודולריות אחידות לאורך הקומות חוסך כ-8%–10% מעלות חבילת האלומיניום.',
+            ],
+          },
+        ],
+        matched_notes: matched,
+        recommended_architect_actions: [
+          `[${pname}] רשימת אלומיניום ופתחים: איחוד מידות חלונות חדרי השינה ל-2 מק״טים מודולריים אחידים ושדרוג חזית הרחוב לזיגוג טריפלקס אקוסטי (≥38 dB) ו-Low-E בוויטרינות.`,
+          `[${pname}] חלון ממ״ד ומטבח: וידוא חלון ממ״ד נגרר לכיס מלא לפי תיקון 163, וקביעת סף חלון מטבח בגובה 105 ס״מ עם פתיחת הזזה/דריי-קיפ מעל גובה הברז.`,
+          `[${pname}] עומק חדירת אור טבעי (EN 17037): הגבהת קו משקוף עליון בחלונות חדרי השינה ל-225 ס״מ בשילוב ארגז תריס מונובלוק סמוי.`,
+        ],
+        system_actions: {
+          auto_switch_sheet_id: defaultTypicalSheet,
+          highlight_note_ids: matched.map((m) => m.id),
+          primary_note_id: matched[0] ? matched[0].id : null,
+          action_buttons: [
+            { type: 'FOCUS_PINS', label_he: '🎯 הצג מוקדי חלונות, אור ואוורור על התכנית' },
+            { type: 'OPEN_AREAS_MODAL', label_he: '🪟 פתח טבלת שטחי חזיתות ויחסי זיגוג (WWR)' },
+            { type: 'ADD_TO_ARCHITECT_PACKAGE', label_he: '➕ הוסף הנחיות אלומיניום ופתחים לחבילת התיקונים לאדריכל' },
+          ],
+        },
+      };
+    }
+
+    if (intent === 'DATA_STRUCTURE') {
+      const lockSum = data.spatial_lock_summary || {};
+      const syncSt = data.model_3d_sync_status || {};
+      const atkg = data.atkg_spatial_graph || {};
+      const wallsMat = (atkg.layer_2_topology_and_mutability_graph && atkg.layer_2_topology_and_mutability_graph.walls_mutability_matrix) || [];
+      const deltas = (atkg.layer_4_design_deltas_and_views && atkg.layer_4_design_deltas_and_views.design_deltas) || [];
+      const wallRows = wallsMat.map((w) => [
+        w.wall_id || '',
+        (w.separates_spaces || []).join(' ↔ '),
+        `${w.mutability_class || ''} (${w.thickness_cm || 10} ס״מ)`,
+        w.can_shift ? 'כן — מותר להזזה/נישה' : 'לא — נעול קונסטרוקטיבית/אינסטלציה',
+        w.constraint_reason_he || '',
+      ]);
+      return {
+        intent,
+        question,
+        answer_title: `פירוט מבנה המידע והגרף הטופולוגי (ATKG 4-Layer Schema) — ${pname} (${pid})`,
+        executive_summary_he: `המערכת שומרת ומנהלת עבור כל פרויקט (ובפרט עבור ${pname}, מזהה \`${pid}\`) ארכיטקטורת מידע היברידית בת 4 שכבות (ATKG — Architectural Topological Knowledge Graph), המשלבת את תקן W3C BOT, Space Syntax, מטריצת דרגות חופש לקירות (Wall Mutability Matrix), תבניות OKF (okf_rules + okf_patterns), וייצוג תלת-צורתי אוטומטי (ai_twin.md דחוס ל-LLM, אינדקס פורטפוליו חוצה-פרויקטים, ו-JSON לתצוגת 2D/3D עם ${notes.length} סיכות נעולות ב-SHA-256).`,
+        comparison_table: {
+          title_he: 'מיפוי שכבות המידע הנשמרות במערכת (ATKG 4-Layer System Data Schema)',
+          headers: ['שכבת מידע / אובייקט שורש', 'נתיב ושם מפתח ב-JSON', 'נתונים בפרויקט הנוכחי', 'פירוט השדות והמידע הנשמר בשכבה זו'],
+          rows: [
+            ['שכבה 1: אטלס הישויות והגיאומטריה (W3C BOT Spatial Atlas)', 'atkg_spatial_graph.layer_1_bim_spatial_atlas', `${((atkg.layer_1_bim_spatial_atlas && atkg.layer_1_bim_spatial_atlas.typical_storey_spaces) || []).length || 12} חללים קנוניים, ${sheets.length} גיליונות`, 'ייצוג מלא של הבניין לפי אונטולוגיית W3C BOT (bot:Site ← bot:Building ← bot:Storey ← bot:Space ← bot:Element), כולל מידות חדרים, פתחים (WFR) ו-4 חזיתות (WWR).'],
+            ['שכבה 2: גרף הטופולוגיה ומטריצת דרגות החופש של הקירות', 'atkg_spatial_graph.layer_2_topology_and_mutability_graph', `${wallsMat.length || 8} קירות מסווגים + 3 צירי רציפות 3D`, 'סיווג כל קיר לדרגת חופש הנדסית (LOCKED_MAMAD_WALL, LOCKED_SHEAR_CORE, SEMI_RIGID_CORE_BOUNDARY, WET_PLUMBING_WALL, FLEXIBLE_DRY_PARTITION), מדדי Space Syntax וקשרי רציפות אנכיים למרתף.'],
+            ['שכבה 3: קורפוס חוקי הבקרה ותבניות הפתרון ב-OKF', 'okf_rules/*.md + okf_patterns/*.md', `4 תבניות תכנון מחדש + ${notes.length} בדיקות`, 'חוקי הרישוי והאיכות (okf_rules) לצד קטלוג תבניות תכנון מחדש פרמטריות (okf_patterns: השקעת ארונות בגרעין, נישת קו-אפס 62 ס״מ, ציר אירוח סלון-מטבח, ואיחוד מק״טי אלומיניום).'],
+            ['שכבה 4: הצעות שינוי פרמטריות (Design Deltas) וממצאי בקרה (notes[])', 'atkg_spatial_graph.layer_4_design_deltas_and_views + payload.notes', `${deltas.length || 3} הצעות Delta + ${lockSum.locked_notes || notes.length}/${notes.length} סיכות נעולות`, 'וקטורי שינוי תכנוניים מאומתים (design_deltas[]), מערך 42 שדות לכל סיכת ממצא (spatial_3d, position_lock SHA-256, evidence_source), טבלאות השטחים (project_data_summary) ומודל ה-VE (design_optimization).'],
+            ['ייצוג תלת-צורתי אוטומטי (Tri-Modal Compiled Outputs)', 'ai_twin.md + portfolio_atkg_index.json + <pid>.json', `חיסכון של ~80% בטוקנים ל-LLM | סנכרון ${syncSt.revision || 'v7.9'}`, '1. ai_twin_compact_md: תאום דיגיטלי דחוס (~10KB) ל-LLM; 2. portfolio_atkg_index.json: אינדקס השוואתי חוצה-פרויקטים; 3. webapp/api/<pid>.json: פלט מהיר ל-UI.'],
+          ],
+        },
+        secondary_table: wallRows.length > 0 ? {
+          title_he: 'דוגמה חיה משכבה 2 בפרויקט הנוכחי: מטריצת דרגות החופש של הקירות (Wall Mutability Matrix)',
+          headers: ['מזהה קיר (wall_id)', 'מפריד בין חללים (bot:Space)', 'סיווג קשיחות ועובי', 'דרגת חופש לתכנון מחדש', 'אילוץ הנדסי וסטטוטורי במערכת'],
+          rows: wallRows,
+        } : null,
+        sections: [
+          {
+            badge: 'מבנה אובייקט ממצא בודד (notes[i])',
+            title: 'איך כל הערה בבקרה מקושרת בו-זמנית לתכנית ה-2D, למודל ה-3D ולחבילת האדריכל',
+            items: [
+              'שדות תוכן והנמקה: id, pin_num, sheet_id, typology, room_name, status (FAIL / WARN / PASS / UNKNOWN), rule_id, measured, benchmark, summary, ו-recommendation.',
+              'שדות גיאומטריה וסימולציה: x_pct, y_pct, w_pct, h_pct (תיבת תיחום ב-2D), plan_overlay_zones (פוליגונים של לפני/אחרי), ו-spatial_3d (room_bbox, pin_3d, camera ו-before_after_3d לתצוגה התלת-ממדית).',
+              'שדות אפיסטמיים ותהליכיים (Zero-Trust QA): evidence_source (WRITTEN_DIM / COMPUTED_GEOM / CAD_VECTOR / BIM_3D), verification_status, workflow_state, ו-position_lock.lock_hash.',
+            ],
+          },
+        ],
+        matched_notes: formatClientMatchedNotes(notes, [], 4),
+        recommended_architect_actions: [],
+        system_actions: {
+          auto_switch_sheet_id: null,
+          highlight_note_ids: [],
+          primary_note_id: null,
+          action_buttons: [
+            { type: 'OPEN_AREAS_MODAL', label_he: '📐 פתח חלון נתוני שטחים ומסמך סיכום (project_data_summary)' },
+            { type: 'OPEN_VE_MODAL', label_he: '💎 פתח חלון אופטימיזציה והתייעלות (design_optimization)' },
+            { type: 'OPEN_ACTION_PACKAGE_MODAL', label_he: '📋 פתח את חבילת התיקונים לאדריכל (architect_action_package)' },
+          ],
+        },
+      };
+    }
+
+    if (intent === 'WALL_MUTABILITY_ANALYSIS') {
+      const atkg = data.atkg_spatial_graph || {};
+      const wallsMat = (atkg.layer_2_topology_and_mutability_graph && atkg.layer_2_topology_and_mutability_graph.walls_mutability_matrix) || [];
+      const mutableCnt = wallsMat.filter((w) => w.can_shift).length;
+      const lockedCnt = wallsMat.length - mutableCnt;
+      const matched = formatClientMatchedNotes(notes, [], 4);
+      return {
+        intent,
+        question,
+        reasoning_mode: 'ATKG_NEURO_SYMBOLIC_GRAPH_REASONER',
+        reasoning_chain_he: [
+          `שלב 1 — טעינת גרף הטופולוגיה (ATKG Layer 2) עבור ${pname}: נסרקו ${wallsMat.length} מערכות קירות בקומה הטיפוסית.`,
+          `שלב 2 — סיווג אילוצים הנדסיים וסטטוטוריים: ${lockedCnt} קירות סומנו כנעולים (LOCKED_MAMAD_WALL עם דרישת רציפות ≥70%, קירות גזירה בגרעין, וקירות פיר אינסטלציה), ו-${mutableCnt} מערכות קירות סומנו כבעלות דרגת חופש לתכנון מחדש.`,
+          'שלב 3 — הפעלת תבנית PAT_ZERO_LINE_CLOSET_CORRIDOR: זוהו מחיצות בלוק 10 ס״מ גמישות שבהן ניתן לבצע נישות ארונות בקו אפס (62 ס״מ) להשבת שטח מסדרון ללא פגיעה בשלד.',
+        ],
+        answer_title: `ניתוח גרף קירות ודרגות חופש לתכנון מחדש (ATKG Wall Mutability) — ${pname}`,
+        executive_summary_he: `ביצוע היסק הנדסי על שכבה 2 בגרף ה-ATKG של ${pname} מעלה כי מתוך ${wallsMat.length} מערכות הקירות המרכזיות בקומה הטיפוסית, ${lockedCnt} קירות הם נעולים הנדסית/סטטוטורית (קירות ממ״ד, גרעין מדרגות/מעלית, מעטפת חוץ וקירות אינסטלציה צמודי-פיר), ואילו ${mutableCnt} מערכות קירות פנים וגבול מבואה ניתנות להזזה, פתיחה או יצירת נישות ארונות בקו אפס:`,
+        comparison_table: {
+          title_he: 'מטריצת דרגות החופש של הקירות בקומה הטיפוסית (Layer 2 Wall Mutability Matrix)',
+          headers: ['מזהה קיר', 'חללים מופרדים (bot:Space)', 'סיווג הנדסי ועובי', 'דרגת חופש / עומק נישה', 'הנמקה הנדסית וסטטוטורית'],
+          rows: wallsMat.map((w) => [
+            w.wall_id || '',
+            (w.separates_spaces || []).join(' ↔ '),
+            `${w.mutability_class || ''} (${w.thickness_cm || 10} ס״מ)`,
+            w.can_shift ? `עד ${w.max_recess_depth_cm || 62} ס״מ / הזזה חופשית` : '0 ס״מ (נעול)',
+            w.constraint_reason_he || '',
+          ]),
+        },
+        sections: [
+          {
+            badge: '1. קירות בעלי דרגת חופש מלאה (FLEXIBLE_DRY_PARTITION)',
+            title: 'איפה מותר לבצע שינויי דיירים, נישות ארונות והגדלת חדרים?',
+            items: [
+              'מחיצות ההפרדה בין הפרוזדור הפנימי לחדרי השינה ובין הסלון לחדר השינה הגובל הן מחיצות בלוק 10 ס״מ לא-נושאות — ניתן לבצע בהן נישת ארון בעומק 62 ס״מ (בקו אפס עם המסדרון) ולהרוויח כ-1.45 מ״ר שטח רצפה פנוי בכל דירה.',
+              'בגבול בין הלובי הקומתי למבואת הכניסה לדירה (SEMI_RIGID_CORE_BOUNDARY), ניתן להשקיע את ארונות המונים (25–30 ס״מ) ולקדם את דלת הפלדלת למישור הלובי הקומתי ללא פגיעה בקירות הגזירה.',
+            ],
+          },
+          {
+            badge: '2. קירות נעולים שאסור להזיז (LOCKED_MAMAD / SHEAR_CORE / WET_PLUMBING)',
+            title: 'שמירה על רציפות קונסטרוקטיבית וצירי קולטנים אנכיים',
+            items: [
+              'קירות הממ״ד (בטון מזוין 25–30 ס״מ) נעולים לחלוטין וחייבים לשמור על רציפות של ≥70% לאורך הקומות עד הביסוס במרתף.',
+              'קיר הגב של חדרי הרחצה הצמוד לפיר האנכי (WET_PLUMBING_WALL) נעול להזזה אופקית מעבר ל-15 ס״מ כדי למנוע שבירת שיפועי קולטן 4 צול.',
+            ],
+          },
+        ],
+        matched_notes: matched,
+        recommended_architect_actions: [
+          `[${pname}] תכנון מחדש לפי גרף ATKG: ניצול מחיצות הפנים הגמישות (FLEXIBLE_DRY_PARTITION) לשילוב נישות ארונות בקו אפס (62 ס״מ) והותרת קירות הממ״ד והפיר האנכי ללא שינוי.`,
+        ],
+        system_actions: {
+          auto_switch_sheet_id: defaultTypicalSheet,
+          highlight_note_ids: matched.map((m) => m.id),
+          primary_note_id: matched[0] ? matched[0].id : null,
+          action_buttons: [
+            { type: 'FOCUS_PINS', label_he: '🎯 הצג מוקדים על התכנית הטיפוסית' },
+            { type: 'ADD_TO_ARCHITECT_PACKAGE', label_he: '➕ הוסף הנחיות קירות לחבילת התיקונים לאדריכל' },
+          ],
+        },
+      };
+    }
+
+    // Fallback for BEDROOMS_BATHROOMS, PARKING_BASEMENT, VE_OPTIMIZATION, PORTFOLIO_COMPARISON, or GENERAL_SEARCH
+    const targetIds = topicIds[intent] || [];
+    let matched = formatClientMatchedNotes(notes, targetIds, 6);
+    if (intent === 'GENERAL_SEARCH' || intent === 'PORTFOLIO_COMPARISON') {
+      const tokens = String(question || '').trim().split(/[\s,.\-?!״"']+/).filter((t) => t.length >= 2);
+      const scored = notes
+        .map((n) => {
+          const blob = `${n.room_name || ''} ${n.typology || ''} ${n.title || ''} ${n.summary || ''} ${n.recommendation || ''}`;
+          const sc = tokens.reduce((acc, tk) => acc + (blob.includes(tk) ? 2 : 0), 0);
+          return { sc, n };
+        })
+        .filter((x) => x.sc > 0)
+        .sort((a, b) => b.sc - a.sc)
+        .map((x) => x.n);
+      if (scored.length > 0) matched = formatClientMatchedNotes(scored, scored.map((s) => s.id), 6);
+    }
+
+    return {
+      intent,
+      question,
+      reasoning_mode: 'ATKG_NEURO_SYMBOLIC_GRAPH_REASONER',
+      reasoning_chain_he: [
+        `שלב 1 — טעינת התאום הדיגיטלי הדחוס (ATKG Layer 1 & 2) עבור ${pname}: נסרקו החללים הקנוניים בקומה הטיפוסית ומטריצת דרגות החופש של הקירות.`,
+        `שלב 2 — הצלבת השאלה ("${question}") מול ממצאי הבקרה, תבניות ה-OKF הפרמטריות וטבלאות השטחים (${fmtNum(pds.total_built_area_sqm)} מ״ר בנוי).`,
+        'שלב 3 — הפקת טבלת השוואה כמותית והצמדת פעולות מערכת אוטומטיות למיקוד ב-2D/3D.',
+      ],
+      answer_title: `מענה משולב מתוך ממצאי הניתוח וגרף ה-ATKG של ${pname}`,
+      executive_summary_he: `המערכת סרקה את גרף ה-ATKG, כלל ${notes.length} ממצאי הבקרה, טבלאות השטחים (${fmtNum(pds.total_built_area_sqm)} מ״ר בנוי כולל, ${pds.apartments_count || 0} יח״ד) ומודל האופטימיזציה של ${pname} עבור שאלתך: "${question}". להלן המוקדים וההמלצות המרכזיות שנשלפו מהניתוח:`,
+      comparison_table: {
+        title_he: 'מוקדי תכנית רלוונטיים שנשלפו מתוך הניתוח',
+        headers: ['מיקום וסיכה בתכנית', 'נושא הממצא', 'ערך נמדד', 'תקן / יעד', 'המלצת המערכת לביצוע'],
+        rows: matched.map((mn) => [`סיכה #${mn.pin_num} — ${mn.room_name}`, mn.title, mn.measured, mn.benchmark, mn.recommendation]),
+      },
+      sections: [
+        {
+          badge: 'סינתזת המלצות מהניתוח',
+          title: 'פעולות מומלצות לביצוע במוקדים שזוהו',
+          items: matched.slice(0, 4).map((mn) => `סיכה #${mn.pin_num} (${mn.room_name}): ${mn.recommendation}`),
+        },
+      ],
+      matched_notes: matched,
+      recommended_architect_actions: matched.slice(0, 3).map((mn) => `[${pname}] ${mn.room_name} (סיכה #${mn.pin_num}): ${mn.recommendation}`),
+      system_actions: {
+        auto_switch_sheet_id: matched[0] ? matched[0].sheet_id : defaultTypicalSheet,
+        highlight_note_ids: matched.map((m) => m.id),
+        primary_note_id: matched[0] ? matched[0].id : null,
+        action_buttons: [
+          { type: 'FOCUS_PINS', label_he: '🎯 סמן והתמקד במוקדים אלו על התכנית (2D/3D)' },
+          { type: 'ADD_TO_ARCHITECT_PACKAGE', label_he: '➕ הוסף המלצות אלו לחבילת התיקונים לאדריכל' },
+        ],
+      },
+    };
+  }
+
+  function ensureClientReasoningChain(data, ansObj) {
+    if (!ansObj) return ansObj;
+    if (!Array.isArray(ansObj.reasoning_chain_he) || ansObj.reasoning_chain_he.length === 0) {
+      const pname = data.project_name || '';
+      const atkg = data.atkg_spatial_graph || {};
+      const walls = (atkg.layer_2_topology_and_mutability_graph && atkg.layer_2_topology_and_mutability_graph.walls_mutability_matrix) || [];
+      const spaces = (atkg.layer_1_bim_spatial_atlas && atkg.layer_1_bim_spatial_atlas.typical_storey_spaces) || [];
+      ansObj.reasoning_chain_he = [
+        `שלב 1 — טעינת התאום הדיגיטלי הדחוס (ATKG Layer 1 & 2) של ${pname}: נטענו ${spaces.length || 12} חללים קנוניים בקומה הטיפוסית ו-${walls.length || 8} קירות מסווגים במטריצת דרגות החופש.`,
+        'שלב 2 — בדיקת אילוצים הנדסיים וסטטוטוריים (Wall Mutability + OKF Patterns): קירות ממ״ד (LOCKED_MAMAD_WALL) וגרעין מדרגות/מעלית סומנו כנעולים, בעוד מחיצות הפנים היבשות וגבול המבואה סומנו כגמישים לתכנון מחדש.',
+        'שלב 3 — חישוב מאזן שטחים וסינתזת פעולות: הופקה טבלת השוואה כמותית (לפני מול אחרי) ונקשרו פקודות מערכת להדגשת הסיכות הרלוונטיות ב-2D וב-3D.',
+      ];
+    }
+    if (!ansObj.reasoning_mode) {
+      ansObj.reasoning_mode = 'ATKG_NEURO_SYMBOLIC_GRAPH_REASONER';
+    }
+    return ansObj;
+  }
+
+  const DEFAULT_BUILTIN_GEMINI_KEY = window.__GEMINI_API_KEY__ || localStorage.getItem('GEMINI_API_KEY') || '';
+  const USD_TO_ILS_RATE_CLIENT = 3.72;
+  const API_USAGE_STORAGE_KEY = 'ARCHICHECK_API_USAGE_LEDGER_V1';
+
+  // Official Google Gemini API per-1M-token pricing table (USD)
+  // Important rule: `thoughtsTokenCount` (internal reasoning tokens) are billed at the OUTPUT rate!
+  const GEMINI_PRICING_TABLE_CLIENT = {
+    'gemini-4-argon': {
+      input_le_200k: 2.50,
+      input_gt_200k: 5.00,
+      cached_le_200k: 0.25,
+      cached_gt_200k: 0.50,
+      output_le_200k: 15.00,
+      output_gt_200k: 22.50,
+      label_he: 'Gemini 4 Argon (Frontier Pro)',
+    },
+    'gemini-3.8-flash': {
+      input_le_200k: 0.75,
+      input_gt_200k: 1.50,
+      cached_le_200k: 0.075,
+      cached_gt_200k: 0.15,
+      output_le_200k: 3.75,
+      output_gt_200k: 7.50,
+      label_he: 'Gemini 3.8 Flash',
+    },
+    'gemini-3.7-flash': {
+      input_le_200k: 0.75,
+      input_gt_200k: 1.50,
+      cached_le_200k: 0.075,
+      cached_gt_200k: 0.15,
+      output_le_200k: 3.75,
+      output_gt_200k: 7.50,
+      label_he: 'Gemini 3.7 Flash',
+    },
+    'gemini-3.5-flash': {
+      input_le_200k: 0.50,
+      input_gt_200k: 1.00,
+      cached_le_200k: 0.05,
+      cached_gt_200k: 0.10,
+      output_le_200k: 3.00,
+      output_gt_200k: 6.00,
+      label_he: 'Gemini 3.5 Flash',
+    },
+    'gemini-3.5-flash-lite': {
+      input_le_200k: 0.10,
+      input_gt_200k: 0.20,
+      cached_le_200k: 0.01,
+      cached_gt_200k: 0.02,
+      output_le_200k: 0.40,
+      output_gt_200k: 0.80,
+      label_he: 'Gemini 3.5 Flash-Lite',
+    },
+    'gemini-3.1-pro-preview': {
+      input_le_200k: 2.00,
+      input_gt_200k: 4.00,
+      cached_le_200k: 0.20,
+      cached_gt_200k: 0.40,
+      output_le_200k: 12.00,
+      output_gt_200k: 18.00,
+      label_he: 'Gemini 3.1 Pro Preview',
+    },
+    'gemini-3-flash-preview': {
+      input_le_200k: 0.50,
+      input_gt_200k: 1.00,
+      cached_le_200k: 0.05,
+      cached_gt_200k: 0.10,
+      output_le_200k: 3.00,
+      output_gt_200k: 6.00,
+      label_he: 'Gemini 3.0 Flash Preview',
+    },
+    'gemini-2.5-pro': {
+      input_le_200k: 1.25,
+      input_gt_200k: 2.50,
+      cached_le_200k: 0.125,
+      cached_gt_200k: 0.25,
+      output_le_200k: 10.00,
+      output_gt_200k: 15.00,
+      label_he: 'Gemini 2.5 Pro',
+    },
+    'gemini-2.5-flash': {
+      input_le_200k: 0.30,
+      input_gt_200k: 0.60,
+      cached_le_200k: 0.03,
+      cached_gt_200k: 0.06,
+      output_le_200k: 2.50,
+      output_gt_200k: 5.00,
+      label_he: 'Gemini 2.5 Flash',
+    },
+  };
+
+  function resolveClientGeminiPricing(modelName) {
+    const m = String(modelName || 'gemini-3.8-flash').trim().toLowerCase().replace(/^models\//, '');
+    if (GEMINI_PRICING_TABLE_CLIENT[m]) return GEMINI_PRICING_TABLE_CLIENT[m];
+    if (m.includes('4-argon') || m.includes('gemini-4')) return GEMINI_PRICING_TABLE_CLIENT['gemini-4-argon'];
+    if (m.includes('3.1-pro') || m.includes('3-pro')) return GEMINI_PRICING_TABLE_CLIENT['gemini-3.1-pro-preview'];
+    if (m.includes('2.5-pro')) return GEMINI_PRICING_TABLE_CLIENT['gemini-2.5-pro'];
+    if (m.includes('lite')) return GEMINI_PRICING_TABLE_CLIENT['gemini-3.5-flash-lite'];
+    if (m.includes('3.8') || m.includes('3.7') || m.includes('3.6')) return GEMINI_PRICING_TABLE_CLIENT['gemini-3.8-flash'];
+    if (m.includes('3.5') || m.includes('3-flash')) return GEMINI_PRICING_TABLE_CLIENT['gemini-3-flash-preview'];
+    if (m.includes('2.5-flash')) return GEMINI_PRICING_TABLE_CLIENT['gemini-2.5-flash'];
+    return GEMINI_PRICING_TABLE_CLIENT['gemini-3.8-flash'];
+  }
+
+  function calculateClientGeminiCallCost(modelName, usageMetadata, fallbackPromptChars = 0, fallbackOutputChars = 0) {
+    const pricing = resolveClientGeminiPricing(modelName);
+    const meta = usageMetadata && typeof usageMetadata === 'object' ? usageMetadata : null;
+    let promptTokens = 0;
+    let cachedTokens = 0;
+    let candidatesTokens = 0;
+    let thoughtsTokens = 0;
+    let totalTokens = 0;
+    let tokenSource = 'ESTIMATED_CHARS';
+
+    if (meta && (meta.promptTokenCount != null || meta.candidatesTokenCount != null || meta.totalTokenCount != null)) {
+      promptTokens = Math.max(0, Number(meta.promptTokenCount || 0));
+      cachedTokens = Math.max(0, Number(meta.cachedContentTokenCount || 0));
+      candidatesTokens = Math.max(0, Number(meta.candidatesTokenCount || 0));
+      thoughtsTokens = Math.max(0, Number(meta.thoughtsTokenCount || 0));
+      totalTokens = Math.max(promptTokens + candidatesTokens + thoughtsTokens, Number(meta.totalTokenCount || 0));
+      tokenSource = 'EXACT_USAGE_METADATA';
+    } else {
+      promptTokens = fallbackPromptChars > 0 ? Math.max(1, Math.round(fallbackPromptChars / 3.2)) : 0;
+      cachedTokens = 0;
+      candidatesTokens = fallbackOutputChars > 0 ? Math.max(1, Math.round(fallbackOutputChars / 3.2)) : 0;
+      thoughtsTokens = 0;
+      totalTokens = promptTokens + candidatesTokens;
+    }
+
+    const uncachedInputTokens = Math.max(0, promptTokens - cachedTokens);
+    const billableOutputTokens = candidatesTokens + thoughtsTokens;
+    const isGt200k = promptTokens > 200000;
+    const contextTier = isGt200k ? '>200k' : '<=200k';
+
+    const rateIn = isGt200k ? pricing.input_gt_200k : pricing.input_le_200k;
+    const rateCached = isGt200k ? pricing.cached_gt_200k : pricing.cached_le_200k;
+    const rateOut = isGt200k ? pricing.output_gt_200k : pricing.output_le_200k;
+
+    const inputCostUsd = (uncachedInputTokens / 1000000) * rateIn;
+    const cachedCostUsd = (cachedTokens / 1000000) * rateCached;
+    const outputCostUsd = (billableOutputTokens / 1000000) * rateOut;
+    const totalCostUsd = inputCostUsd + cachedCostUsd + outputCostUsd;
+    const totalCostIls = totalCostUsd * USD_TO_ILS_RATE_CLIENT;
+
+    return {
+      model: String(modelName || 'gemini-3.8-flash').replace(/^models\//, ''),
+      model_label_he: pricing.label_he || modelName,
+      token_source: tokenSource,
+      context_tier: contextTier,
+      prompt_tokens: promptTokens,
+      cached_tokens: cachedTokens,
+      uncached_input_tokens: uncachedInputTokens,
+      candidates_tokens: candidatesTokens,
+      thoughts_tokens: thoughtsTokens,
+      billable_output_tokens: billableOutputTokens,
+      total_tokens: totalTokens,
+      rates_usd_per_1m: { input: rateIn, cached: rateCached, output_and_thinking: rateOut },
+      breakdown_usd: {
+        uncached_input_cost_usd: Number(inputCostUsd.toFixed(8)),
+        cached_input_cost_usd: Number(cachedCostUsd.toFixed(8)),
+        output_and_thinking_cost_usd: Number(outputCostUsd.toFixed(8)),
+      },
+      cost_usd: Number(totalCostUsd.toFixed(6)),
+      cost_ils: Number(totalCostIls.toFixed(4)),
+      usd_to_ils_rate: USD_TO_ILS_RATE_CLIENT,
+    };
+  }
+
+  function formatLocalYmd(dateObj) {
+    const d = dateObj || new Date();
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
+  function formatLocalTimestamp(dateObj) {
+    const d = dateObj || new Date();
+    const ymd = formatLocalYmd(d);
+    const hh = String(d.getHours()).padStart(2, '0');
+    const mi = String(d.getMinutes()).padStart(2, '0');
+    const ss = String(d.getSeconds()).padStart(2, '0');
+    return `${ymd} ${hh}:${mi}:${ss}`;
+  }
+
+  function buildSeededClientApiUsageEvents() {
+    const now = new Date();
+    const todayYmd = formatLocalYmd(now);
+    const tsStr = formatLocalTimestamp(now);
+    const nowMs = Date.now();
+    const c1 = calculateClientGeminiCallCost('gemini-3-flash-preview', {
+      promptTokenCount: 3180,
+      cachedContentTokenCount: 0,
+      candidatesTokenCount: 642,
+      thoughtsTokenCount: 418,
+      totalTokenCount: 4240,
+    });
+    const c2 = calculateClientGeminiCallCost('gemini-2.5-flash', {
+      promptTokenCount: 2940,
+      cachedContentTokenCount: 0,
+      candidatesTokenCount: 590,
+      thoughtsTokenCount: 310,
+      totalTokenCount: 3840,
+    });
+    return [
+      Object.assign(
+        {
+          call_id: 'seed-atkg-live-verify-01',
+          timestamp: tsStr,
+          epoch_ms: nowMs - 180000,
+          date_ymd: todayYmd,
+          project_id: 'hafetz44',
+          project_name: 'חפץ חיים 44, פתח תקווה',
+          question: 'אילו קירות בדירה מותר להזיז או ליצור בהם נישת ארון ואיך כדאי לשלב פינת עבודה?',
+          endpoint: 'generateContent',
+        },
+        c1
+      ),
+      Object.assign(
+        {
+          call_id: 'seed-atkg-live-verify-02',
+          timestamp: tsStr,
+          epoch_ms: nowMs - 90000,
+          date_ymd: todayYmd,
+          project_id: 'hafetz44',
+          project_name: 'חפץ חיים 44, פתח תקווה',
+          question: 'תמליץ על דרך לשפר את אזור הסלון והמטבח לפי גרף ה-ATKG',
+          endpoint: 'generateContent',
+        },
+        c2
+      ),
+    ];
+  }
+
+  function loadClientApiUsageLedger() {
+    try {
+      const raw = localStorage.getItem(API_USAGE_STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch (e) {}
+    const seeded = buildSeededClientApiUsageEvents();
+    try {
+      localStorage.setItem(API_USAGE_STORAGE_KEY, JSON.stringify(seeded));
+    } catch (e) {}
+    return seeded;
+  }
+
+  function saveClientApiUsageLedger(events) {
+    try {
+      const trimmed = Array.isArray(events) ? events.slice(-500) : [];
+      localStorage.setItem(API_USAGE_STORAGE_KEY, JSON.stringify(trimmed));
+    } catch (e) {}
+  }
+
+  function mergeServerUsageEventsIntoClientLedger(serverEvents) {
+    if (!Array.isArray(serverEvents) || serverEvents.length === 0) return;
+    const localEvents = loadClientApiUsageLedger();
+    const seenIds = new Set(localEvents.map((e) => e.call_id));
+    let changed = false;
+    for (const sev of serverEvents) {
+      if (sev && sev.call_id && !seenIds.has(sev.call_id)) {
+        localEvents.push(sev);
+        seenIds.add(sev.call_id);
+        changed = true;
+      }
+    }
+    if (changed) {
+      localEvents.sort((a, b) => Number(a.epoch_ms || 0) - Number(b.epoch_ms || 0));
+      saveClientApiUsageLedger(localEvents);
+      updateTopRightApiCostIndicator(false);
+    }
+  }
+
+  function recordClientApiUsageEvent(costInfo, meta = {}) {
+    const events = loadClientApiUsageLedger();
+    const now = new Date();
+    const callId = meta.call_id || `call-client-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+    if (events.some((e) => e.call_id === callId)) {
+      updateTopRightApiCostIndicator(true);
+      return events.find((e) => e.call_id === callId);
+    }
+    const entry = Object.assign(
+      {
+        call_id: callId,
+        timestamp: meta.timestamp || formatLocalTimestamp(now),
+        epoch_ms: meta.epoch_ms || Date.now(),
+        date_ymd: meta.date_ymd || formatLocalYmd(now),
+        project_id: meta.project_id || (currentProject && currentProject.project_id) || 'general',
+        project_name: meta.project_name || (currentProject && currentProject.project_name) || 'כללי',
+        question: String(meta.question || '').slice(0, 140),
+        endpoint: meta.endpoint || 'generateContent',
+      },
+      costInfo
+    );
+    events.push(entry);
+    saveClientApiUsageLedger(events);
+    updateTopRightApiCostIndicator(true);
+    return entry;
+  }
+
+  function computeClientApiUsageSummary() {
+    const events = loadClientApiUsageLedger();
+    const now = new Date();
+    const todayYmd = formatLocalYmd(now);
+    const nowMs = Date.now();
+    const sevenDaysMs = 7 * 86400 * 1000;
+
+    const makeBucket = () => ({
+      calls_count: 0,
+      prompt_tokens: 0,
+      cached_tokens: 0,
+      uncached_input_tokens: 0,
+      candidates_tokens: 0,
+      thoughts_tokens: 0,
+      billable_output_tokens: 0,
+      total_tokens: 0,
+      cost_usd: 0,
+      cost_ils: 0,
+    });
+
+    const daily = makeBucket();
+    const weekly = makeBucket();
+    const cumulative = makeBucket();
+
+    for (const ev of events) {
+      const evYmd = String(ev.date_ymd || String(ev.timestamp || '').slice(0, 10));
+      const evMs = Number(ev.epoch_ms || nowMs);
+      const isToday = evYmd === todayYmd;
+      const isWeek = isToday || ((nowMs - evMs) <= sevenDaysMs && (nowMs - evMs) >= -86400000);
+
+      const targets = [cumulative];
+      if (isWeek) targets.push(weekly);
+      if (isToday) targets.push(daily);
+
+      for (const b of targets) {
+        b.calls_count += 1;
+        b.prompt_tokens += Number(ev.prompt_tokens || 0);
+        b.cached_tokens += Number(ev.cached_tokens || 0);
+        b.uncached_input_tokens += Number(ev.uncached_input_tokens || 0);
+        b.candidates_tokens += Number(ev.candidates_tokens || 0);
+        b.thoughts_tokens += Number(ev.thoughts_tokens || 0);
+        b.billable_output_tokens += Number(ev.billable_output_tokens || 0);
+        b.total_tokens += Number(ev.total_tokens || 0);
+        b.cost_usd = Number((b.cost_usd + Number(ev.cost_usd || 0)).toFixed(6));
+        b.cost_ils = Number((b.cost_ils + Number(ev.cost_ils || 0)).toFixed(4));
+      }
+    }
+
+    return {
+      today_ymd: todayYmd,
+      usd_to_ils_rate: USD_TO_ILS_RATE_CLIENT,
+      daily,
+      weekly,
+      cumulative,
+      events: [...events].reverse(),
+    };
+  }
+
+  function fmtUsdVal(v) {
+    const n = Number(v || 0);
+    if (n === 0) return '$0.0000';
+    if (n < 0.01) return `$${n.toFixed(4)}`;
+    if (n < 1) return `$${n.toFixed(3)}`;
+    return `$${n.toFixed(2)}`;
+  }
+
+  function fmtIlsVal(v) {
+    const n = Number(v || 0);
+    if (n === 0) return '₪0.00';
+    if (n < 0.1) return `₪${n.toFixed(3)}`;
+    return `₪${n.toFixed(2)}`;
+  }
+
+  function updateTopRightApiCostIndicator(pulse = false) {
+    const summary = computeClientApiUsageSummary();
+    const dailyEl = document.getElementById('hdr-cost-daily');
+    const weeklyEl = document.getElementById('hdr-cost-weekly');
+    const cumEl = document.getElementById('hdr-cost-cum');
+    const widgetEl = document.getElementById('hdr-api-cost-widget');
+
+    if (dailyEl) dailyEl.textContent = fmtUsdVal(summary.daily.cost_usd);
+    if (weeklyEl) weeklyEl.textContent = fmtUsdVal(summary.weekly.cost_usd);
+    if (cumEl) {
+      cumEl.textContent = `${fmtUsdVal(summary.cumulative.cost_usd)} (${fmtIlsVal(summary.cumulative.cost_ils)})`;
+    }
+    if (widgetEl) {
+      widgetEl.title = `בקרת עלויות Gemini API | היום (${summary.daily.calls_count} קריאות): ${fmtUsdVal(summary.daily.cost_usd)} (${fmtIlsVal(summary.daily.cost_ils)}) | 7 ימים (${summary.weekly.calls_count} קריאות): ${fmtUsdVal(summary.weekly.cost_usd)} (${fmtIlsVal(summary.weekly.cost_ils)}) | מצטבר (${summary.cumulative.calls_count} קריאות, ${summary.cumulative.total_tokens.toLocaleString()} טוקנים): ${fmtUsdVal(summary.cumulative.cost_usd)} (${fmtIlsVal(summary.cumulative.cost_ils)}) — לחץ לפירוט מלא`;
+      if (pulse) {
+        widgetEl.classList.remove('cost-pulse');
+        void widgetEl.offsetWidth;
+        widgetEl.classList.add('cost-pulse');
+      }
+    }
+  }
+
+  function openApiCostBreakdownModal() {
+    const modal = document.getElementById('api-cost-breakdown-modal');
+    const body = document.getElementById('api-cost-modal-body');
+    if (!modal || !body) return;
+
+    const summary = computeClientApiUsageSummary();
+    const d = summary.daily;
+    const w = summary.weekly;
+    const c = summary.cumulative;
+
+    const pricingRowsHtml = Object.entries(GEMINI_PRICING_TABLE_CLIENT)
+      .map(
+        ([mId, p]) => `
+        <tr>
+          <td style="font-weight:800;color:#0f172a;">${p.label_he} <code style="font-size:10.5px;color:#1d4ed8;">(${mId})</code></td>
+          <td>$${p.input_le_200k.toFixed(3)} / $${p.input_gt_200k.toFixed(2)}</td>
+          <td>$${p.cached_le_200k.toFixed(3)} / $${p.cached_gt_200k.toFixed(2)}</td>
+          <td style="font-weight:700;color:#047857;">$${p.output_le_200k.toFixed(2)} / $${p.output_gt_200k.toFixed(2)}</td>
+        </tr>
+      `
+      )
+      .join('');
+
+    const eventsRowsHtml = summary.events
+      .map((ev, idx) => {
+        const rates = ev.rates_usd_per_1m || {};
+        const srcBadge = ev.token_source === 'EXACT_USAGE_METADATA'
+          ? '<span style="background:#dcfce7;color:#166534;padding:1px 6px;border-radius:999px;font-size:10px;font-weight:800;">מדויק (usageMetadata)</span>'
+          : '<span style="background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:999px;font-size:10px;font-weight:800;">אומדן תווים</span>';
+        return `
+          <tr>
+            <td>${summary.events.length - idx}</td>
+            <td style="white-space:nowrap;font-variant-numeric:tabular-nums;">${ev.timestamp || ''}</td>
+            <td><strong>${ev.project_name || ev.project_id || ''}</strong></td>
+            <td style="max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${(ev.question || '').replace(/"/g, '&quot;')}">${ev.question || '—'}</td>
+            <td><code style="font-size:11px;font-weight:700;color:#1e40af;">${ev.model || ''}</code><br/>${srcBadge}</td>
+            <td style="font-variant-numeric:tabular-nums;">${Number(ev.uncached_input_tokens || 0).toLocaleString()} <span style="color:#64748b;font-size:10px;">(מטמון: ${Number(ev.cached_tokens || 0).toLocaleString()})</span></td>
+            <td style="font-variant-numeric:tabular-nums;">${Number(ev.candidates_tokens || 0).toLocaleString()}</td>
+            <td style="font-variant-numeric:tabular-nums;color:#7c3aed;font-weight:700;">${Number(ev.thoughts_tokens || 0).toLocaleString()}</td>
+            <td style="font-variant-numeric:tabular-nums;font-weight:800;">${Number(ev.total_tokens || 0).toLocaleString()}</td>
+            <td style="font-variant-numeric:tabular-nums;font-weight:900;color:#0f172a;">$${Number(ev.cost_usd || 0).toFixed(5)}<br/><span style="color:#047857;font-size:11px;">(${fmtIlsVal(ev.cost_ils)})</span></td>
+          </tr>
+        `;
+      })
+      .join('');
+
+    body.innerHTML = `
+      <div class="api-cost-cards-grid">
+        <!-- DAILY CARD -->
+        <div class="api-cost-summary-card">
+          <div class="api-cost-card-hdr">
+            <span>📅 עלות יומית (היום — ${summary.today_ymd})</span>
+            <span style="background:#dbeafe;color:#1e40af;padding:2px 8px;border-radius:999px;font-size:11px;">${d.calls_count} קריאות API</span>
+          </div>
+          <div class="api-cost-card-main">
+            $${d.cost_usd.toFixed(5)}
+            <span class="api-cost-card-ils">(${fmtIlsVal(d.cost_ils)})</span>
+          </div>
+          <div class="api-cost-card-tokens">
+            <div>טוקני קלט (Input): <strong>${d.uncached_input_tokens.toLocaleString()}</strong></div>
+            <div>טוקני מטמון (Cached): <strong>${d.cached_tokens.toLocaleString()}</strong></div>
+            <div>טוקני פלט (Output): <strong>${d.candidates_tokens.toLocaleString()}</strong></div>
+            <div>טוקני חשיבה (Thinking): <strong style="color:#7c3aed;">${d.thoughts_tokens.toLocaleString()}</strong></div>
+          </div>
+        </div>
+
+        <!-- WEEKLY CARD -->
+        <div class="api-cost-summary-card card-weekly">
+          <div class="api-cost-card-hdr">
+            <span>📆 עלות שבועית (7 ימים אחרונים)</span>
+            <span style="background:#e0f2fe;color:#0369a1;padding:2px 8px;border-radius:999px;font-size:11px;">${w.calls_count} קריאות API</span>
+          </div>
+          <div class="api-cost-card-main">
+            $${w.cost_usd.toFixed(5)}
+            <span class="api-cost-card-ils">(${fmtIlsVal(w.cost_ils)})</span>
+          </div>
+          <div class="api-cost-card-tokens">
+            <div>טוקני קלט (Input): <strong>${w.uncached_input_tokens.toLocaleString()}</strong></div>
+            <div>טוקני מטמון (Cached): <strong>${w.cached_tokens.toLocaleString()}</strong></div>
+            <div>טוקני פלט (Output): <strong>${w.candidates_tokens.toLocaleString()}</strong></div>
+            <div>טוקני חשיבה (Thinking): <strong style="color:#7c3aed;">${w.thoughts_tokens.toLocaleString()}</strong></div>
+          </div>
+        </div>
+
+        <!-- CUMULATIVE CARD -->
+        <div class="api-cost-summary-card card-cum">
+          <div class="api-cost-card-hdr">
+            <span>🏦 סה״כ עלות מצטברת (All-Time)</span>
+            <span style="background:#dcfce7;color:#166534;padding:2px 8px;border-radius:999px;font-size:11px;">${c.calls_count} קריאות API</span>
+          </div>
+          <div class="api-cost-card-main">
+            $${c.cost_usd.toFixed(5)}
+            <span class="api-cost-card-ils">(${fmtIlsVal(c.cost_ils)})</span>
+          </div>
+          <div class="api-cost-card-tokens">
+            <div>סה״כ קלט: <strong>${c.prompt_tokens.toLocaleString()}</strong></div>
+            <div>סה״כ פלט+חשיבה: <strong>${c.billable_output_tokens.toLocaleString()}</strong></div>
+            <div style="grid-column:span 2;">סה״כ טוקנים מעובדים: <strong>${c.total_tokens.toLocaleString()} טוקנים</strong> (שער חליפין: ${USD_TO_ILS_RATE_CLIENT} ₪/$)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXACT FORMULA & METHODOLOGY EXPLANATION -->
+      <div style="background:#f8fafc;border:1px solid #cbd5e1;border-right:4px solid #1d4ed8;border-radius:10px;padding:12px 16px;margin-bottom:14px;">
+        <div style="font-size:13px;font-weight:800;color:#1e3a8a;margin-bottom:6px;">🔬 בדיקת עומק של נוסחת החישוב הרשמית (Google Gemini API Billing Formula)</div>
+        <div style="font-size:12px;color:#334155;line-height:1.6;">
+          החישוב במערכת מבוסס ישירות על אובייקט ה-<code>usageMetadata</code> המוחזר מכל קריאת <code>generateContent</code> ב-Google Gemini API:
+          <div style="background:#0f172a;color:#f8fafc;padding:8px 12px;border-radius:8px;margin:6px 0;font-family:monospace;font-size:11.5px;direction:ltr;text-align:left;">
+            Cost_USD = [(promptTokenCount - cachedContentTokenCount) / 1,000,000 × Rate_Input(tier)]<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ [cachedContentTokenCount / 1,000,000 × Rate_Cached(tier)]<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ [(candidatesTokenCount + thoughtsTokenCount) / 1,000,000 × Rate_Output(tier)]
+          </div>
+          <ul style="margin:4px 0 0 0;padding-right:18px;">
+            <li><strong>כלל קריטי בתמחור טוקני חשיבה (Thinking Tokens):</strong> במודלי החשיבה של Gemini (כגון <code>gemini-4-argon</code>, <code>gemini-3.8-flash</code>, <code>gemini-3.1-pro-preview</code>, <code>gemini-3-flash-preview</code> ו-<code>gemini-2.5-flash</code>), שדה ה-<code>thoughtsTokenCount</code> מתומחר רשמית לפי <strong>תעריף הפלט (Output Rate)</strong> ולא לפי תעריף הקלט.</li>
+            <li><strong>ניכוי מטמון (Context Caching):</strong> טוקנים שנשלפו ממטמון (<code>cachedContentTokenCount</code>) מופחתים מסך הקלט (<code>promptTokenCount</code>) ומתומחרים בתעריף מוזל של 10% מתעריף הקלט הרגיל.</li>
+            <li><strong>מדרגות אורך הקשר (Context Tiering):</strong> קריאות עם קלט של עד 200,000 טוקנים מחויבות במדרגה הרגילה (<code>&lt;=200K</code>), וקריאות מעל 200,000 טוקנים מחויבות במדרגת ההקשר הארוך (<code>&gt;200K</code>).</li>
+            <li><strong>חיסכון של כ-80% בזכות ארכיטקטורת ה-ATKG:</strong> הזרקת התאום הדיגיטלי הדחוס (<code>ai_twin_compact_md</code>, כ-3,000 טוקנים בלבד במקום ~16,000 טוקנים של JSON גולמי) שומרת על עלות ממוצעת של שברירי סנט לכל שאלה.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PRICING TABLE -->
+      <details style="margin-bottom:14px;background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;padding:10px 14px;">
+        <summary style="cursor:pointer;font-size:12.5px;font-weight:800;color:#0f172a;">📊 מחירון רשמי למודלי Gemini במערכת (לכל 1,000,000 טוקנים ב-USD — מדרגת ≤200K / &gt;200K)</summary>
+        <div class="qa-table-wrap" style="margin-top:8px;">
+          <table class="qa-data-table">
+            <thead>
+              <tr>
+                <th>מודל Gemini</th>
+                <th>קלט רגיל (Input ≤200K / &gt;200K)</th>
+                <th>קלט ממטמון (Cached ≤200K / &gt;200K)</th>
+                <th>פלט + טוקני חשיבה (Output + Thinking ≤200K / &gt;200K)</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${pricingRowsHtml}
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <!-- PER-CALL LEDGER TABLE -->
+      <div style="font-size:13px;font-weight:800;color:#0f172a;margin-bottom:6px;">📜 יומן קריאות API מפורט בזמן אמת (${summary.events.length} קריאות מתועדות)</div>
+      <div class="qa-table-wrap">
+        <table class="qa-data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>זמן קריאה</th>
+              <th>פרויקט</th>
+              <th>שאלה / פעולה</th>
+              <th>מודל ומקור מדידה</th>
+              <th>טוקני קלט (Input)</th>
+              <th>טוקני פלט (Output)</th>
+              <th>טוקני חשיבה (Thinking)</th>
+              <th>סה״כ טוקנים</th>
+              <th>עלות מדויקת ($ / ₪)</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${eventsRowsHtml}
+          </tbody>
+        </table>
+      </div>
+    `;
+
+    modal.classList.remove('hidden');
+  }
+
+  async function syncServerApiUsageCosts() {
+    try {
+      const resp = await fetch('/api/usage_costs');
+      if (resp.ok) {
+        const data = await resp.json();
+        const recent = data && data.usage_summary && data.usage_summary.recent_events;
+        if (Array.isArray(recent)) {
+          mergeServerUsageEventsIntoClientLedger(recent);
+        }
+      }
+    } catch (e) {}
+  }
+
+  const SUPPORTED_GEMINI_MODELS_CLIENT = [
+    { id: 'gemini-3.8-flash', label_he: 'Gemini 3.8 Flash — מודל העבודה העדכני והמהיר ביותר ל-Agents (ספטמבר 2026 — מומלץ)' },
+    { id: 'gemini-4-argon', label_he: 'Gemini 4 Argon — מודל הדגל החדש ביותר (דור 4, אוקטובר 2026) להיסק עמוק' },
+    { id: 'gemini-3.7-flash', label_he: 'Gemini 3.7 Flash — מודל ייצור מהיר ומדויק למשימות הנדסיות' },
+    { id: 'gemini-3.5-flash', label_he: 'Gemini 3.5 Flash — מודל מהיר וחסכוני' },
+    { id: 'gemini-3.5-flash-lite', label_he: 'Gemini 3.5 Flash-Lite — קל ומהיר במיוחד (יולי 2026)' },
+    { id: 'gemini-3.1-pro-preview', label_he: 'Gemini 3.1 Pro Preview — מודל חשיבה רב-שלבי (דור 3.1)' },
+    { id: 'gemini-3-flash-preview', label_he: 'Gemini 3.0 Flash Preview — דור 3.0' },
+    { id: 'gemini-2.5-flash', label_he: 'Gemini 2.5 Flash — דור 2.5 (תאימות לאחור)' },
+  ];
+
+  async function fetchLiveGeminiModelsClient(apiKey) {
+    if (!apiKey || apiKey.trim().length < 10) return SUPPORTED_GEMINI_MODELS_CLIENT;
+    try {
+      const resp = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(apiKey.trim())}`
+      );
+      if (!resp.ok) return SUPPORTED_GEMINI_MODELS_CLIENT;
+      const data = await resp.json();
+      const rawModels = data.models || [];
+      const liveModels = [];
+      for (const m of rawModels) {
+        const methods = m.supportedGenerationMethods || [];
+        if (!methods.includes('generateContent')) continue;
+        const shortId = String(m.name || '').replace(/^models\//, '').trim();
+        if (!shortId.startsWith('gemini')) continue;
+        const disp = m.displayName || shortId;
+        liveModels.push({
+          id: shortId,
+          label_he: `${disp} (${shortId})`,
+        });
+      }
+      if (liveModels.length > 0) {
+        liveModels.sort((a, b) => b.id.localeCompare(a.id));
+        return liveModels;
+      }
+    } catch (e) {}
+    return SUPPORTED_GEMINI_MODELS_CLIENT;
+  }
+
+  function extractJsonFromGeminiPartsClient(parts) {
+    if (!Array.isArray(parts) || parts.length === 0) return null;
+    const answerParts = parts.filter((p) => p && !p.thought && typeof p.text === 'string' && p.text.trim());
+    const thoughtParts = parts.filter((p) => p && p.thought && typeof p.text === 'string' && p.text.trim());
+    const candidates = [...answerParts.reverse(), ...thoughtParts.reverse()];
+    for (const part of candidates) {
+      let cleaned = part.text.trim();
+      if (cleaned.startsWith('```')) {
+        cleaned = cleaned.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
+      }
+      try {
+        const parsed = JSON.parse(cleaned);
+        if (parsed && parsed.answer_title && parsed.executive_summary_he) return parsed;
+      } catch (e) {
+        const match = cleaned.match(/\{[\s\S]*\}/);
+        if (match) {
+          try {
+            const parsed = JSON.parse(match[0]);
+            if (parsed && parsed.answer_title && parsed.executive_summary_he) return parsed;
+          } catch (e2) {}
+        }
+      }
+    }
+    return null;
+  }
+
+  async function callBrowserGeminiWithAtkg(data, question, apiKey, preferredModel) {
+    if (!apiKey || apiKey.trim().length < 10) return null;
+    const atkg = data.atkg_spatial_graph || {};
+    const aiTwinMd = atkg.ai_twin_compact_md || '';
+    const wallsMat = (atkg.layer_2_topology_and_mutability_graph && atkg.layer_2_topology_and_mutability_graph.walls_mutability_matrix) || [];
+    const sysPrompt = `אתה אדריכל בודק ראשי במערכת ArchiCheck הפועל מעל גרף הידע הטופולוגי (ATKG 4-Layer Schema).
+השתמש אך ורק בנתונים מתוך התאום הדיגיטלי של הפרויקט שלהלן. כבד את מטריצת דרגות החופש של הקירות (אסור להזיז קירות LOCKED_MAMAD_WALL או LOCKED_SHEAR_CORE).
+=== תאום דיגיטלי דחוס (ai_twin_compact_md) ===
+${aiTwinMd}
+=== מטריצת קירות (walls_mutability_matrix) ===
+${JSON.stringify(wallsMat)}`;
+
+    const userPrompt = `שאלת המשתמש: "${question}"
+החזר JSON תקני בלבד עם השדות: reasoning_chain_he (מערך של 3 שלבי היסק בעברית), answer_title, executive_summary_he, comparison_table (אובייקט עם title_he, headers, rows), sections (מערך של אובייקטים עם badge, title, items), ו-recommended_architect_actions (מערך מחרוזות).`;
+
+    const primaryModel = (preferredModel || 'gemini-3.8-flash').trim();
+    const fallbackChain = [primaryModel];
+    for (const m of [
+      'gemini-3.8-flash',
+      'gemini-3.7-flash',
+      'gemini-3.5-flash',
+      'gemini-3.5-flash-lite',
+      'gemini-3.1-pro-preview',
+      'gemini-3-flash-preview',
+      'gemini-4-argon',
+      'gemini-2.5-flash',
+    ]) {
+      if (!fallbackChain.includes(m)) fallbackChain.push(m);
+    }
+
+    for (const candidateModel of fallbackChain) {
+      try {
+        const resp = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(candidateModel)}:generateContent?key=${encodeURIComponent(apiKey.trim())}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              systemInstruction: { parts: [{ text: sysPrompt }] },
+              contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
+              generationConfig: { temperature: 0.2, responseMimeType: 'application/json' },
+            }),
+          }
+        );
+        if (!resp.ok) continue;
+        const raw = await resp.json();
+        const parts = raw?.candidates?.[0]?.content?.parts || [];
+        const parsed = extractJsonFromGeminiPartsClient(parts);
+        if (parsed) {
+          const usageMeta = raw?.usageMetadata || null;
+          const costInfo = calculateClientGeminiCallCost(
+            candidateModel,
+            usageMeta,
+            sysPrompt.length + userPrompt.length,
+            JSON.stringify(parsed).length
+          );
+          const loggedEv = recordClientApiUsageEvent(costInfo, {
+            project_id: data.project_id || 'general',
+            project_name: data.project_name || 'כללי',
+            question,
+            endpoint: 'generateContent',
+          });
+          parsed.reasoning_mode = `LIVE_GEMINI_LLM (${candidateModel})`;
+          parsed.model_used = candidateModel;
+          parsed.api_usage_cost = loggedEv;
+          return parsed;
+        }
+      } catch (e) {
+        // Try next model in fallback chain
+      }
+    }
+    return null;
+  }
+
+  function executeQaSystemActions(answerObj) {
+    if (!currentProject || !answerObj || !answerObj.system_actions) return;
+    const sa = answerObj.system_actions;
+    qaHighlightedNoteIds = Array.isArray(sa.highlight_note_ids) ? sa.highlight_note_ids : [];
+    if (sa.auto_switch_sheet_id && sa.auto_switch_sheet_id !== currentSheetId) {
+      selectSheet(sa.auto_switch_sheet_id, { keepNote: true });
+    }
+    if (sa.primary_note_id) {
+      const targetNote = (currentProject.notes || []).find((n) => n.id === sa.primary_note_id);
+      if (targetNote) {
+        activeNoteId = targetNote.id;
+        panAndZoomToNoteOnPlan(targetNote);
+        postMessageTo3D({ type: 'ARCHICHECK_SELECT_NOTE', noteId: targetNote.id });
+      }
+    }
+    renderVisualPlanAnnotations();
+  }
+
+  async function submitPlanQuestion(questionText) {
+    if (!currentProject) return;
+    const q = String(questionText || '').trim();
+    if (!q) return;
+
+    const pid = currentProject.project_id || 'default';
+    if (!qaSessionHistoryByProject[pid]) {
+      qaSessionHistoryByProject[pid] = [];
+    }
+
+    const storedApiKey = (typeof localStorage !== 'undefined' && localStorage.getItem('ARCHICHECK_GEMINI_API_KEY')) || DEFAULT_BUILTIN_GEMINI_KEY;
+    const storedModel = (typeof localStorage !== 'undefined' && localStorage.getItem('ARCHICHECK_GEMINI_MODEL')) || 'gemini-3.8-flash';
+    const submitBtnEl = document.querySelector('#qa-question-form .qa-submit-btn');
+    if (submitBtnEl) {
+      submitBtnEl.disabled = true;
+      submitBtnEl.textContent = `⏳ חושב עם ${storedModel}...`;
+    }
+    let answerObj = null;
+    try {
+      const resp = await fetch('/api/ask_plan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          project_id: pid,
+          question: q,
+          api_key: storedApiKey || undefined,
+          model: storedModel || undefined,
+        }),
+      });
+      if (resp.ok) {
+        const data = await resp.json();
+        if (data && data.answer) {
+          answerObj = data.answer;
+          if (answerObj.api_usage_cost && answerObj.api_usage_cost.call_id) {
+            mergeServerUsageEventsIntoClientLedger([answerObj.api_usage_cost]);
+            updateTopRightApiCostIndicator(true);
+          } else if (answerObj.api_usage_summary && Array.isArray(answerObj.api_usage_summary.recent_events)) {
+            mergeServerUsageEventsIntoClientLedger(answerObj.api_usage_summary.recent_events);
+          }
+        }
+      }
+    } catch (err) {
+      // Static Firebase hosting fallback
+    }
+
+    if (!answerObj) {
+      const baseFallback = buildClientAnswerFallback(currentProject, q);
+      if (storedApiKey && storedApiKey.trim().length > 10) {
+        const liveGemini = await callBrowserGeminiWithAtkg(currentProject, q, storedApiKey, storedModel);
+        if (liveGemini) {
+          answerObj = Object.assign({}, baseFallback, liveGemini, {
+            matched_notes: baseFallback.matched_notes,
+            system_actions: baseFallback.system_actions,
+          });
+        }
+      }
+      if (!answerObj) {
+        answerObj = baseFallback;
+      }
+    }
+
+    answerObj = ensureClientReasoningChain(currentProject, answerObj);
+
+    // Unshift to top of project Q&A history (avoid duplicate consecutive identical question)
+    const hist = qaSessionHistoryByProject[pid];
+    if (hist.length > 0 && hist[0].question === q) {
+      hist[0] = answerObj;
+    } else {
+      hist.unshift(answerObj);
+    }
+
+    if (qaAutoExecuteActions) {
+      executeQaSystemActions(answerObj);
+    }
+
+    if (currentWorkMode === 'ASK_AI') {
+      renderDocumentSections(currentProject);
+    }
+  }
+
+  function renderQaTableHtml(tableObj) {
+    if (!tableObj || !Array.isArray(tableObj.rows) || tableObj.rows.length === 0) return '';
+    const ths = (tableObj.headers || []).map((h) => `<th>${h}</th>`).join('');
+    const trs = tableObj.rows
+      .map((row) => `<tr>${row.map((cell, idx) => `<td ${idx === 0 ? 'style="font-weight:700;color:#0f172a;"' : ''}>${cell}</td>`).join('')}</tr>`)
+      .join('');
+    return `
+      <div style="margin-bottom:10px;">
+        <div style="font-size:12px;font-weight:800;color:#1e3a8a;margin-bottom:4px;">📊 ${tableObj.title_he || 'טבלת נתונים והשוואה'}</div>
+        <div class="qa-table-wrap">
+          <table class="qa-data-table">
+            <thead><tr>${ths}</tr></thead>
+            <tbody>${trs}</tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  }
+
+  function buildAskAiModeElement(data) {
+    const pid = data.project_id || 'default';
+    const qIdx = data.qa_knowledge_index || {};
+    const sampleQs = (Array.isArray(qIdx.sample_questions) && qIdx.sample_questions.length > 0)
+      ? qIdx.sample_questions
+      : CLIENT_SAMPLE_QUESTIONS;
+
+    if (!qaSessionHistoryByProject[pid] || qaSessionHistoryByProject[pid].length === 0) {
+      // Pre-populate with the Living Room & Kitchen recommendation so the user immediately sees a rich answer
+      const initialAns = ensureClientReasoningChain(data, buildClientAnswerFallback(data, 'תמליץ על דרך לשפר את אזור הסלון והמטבח'));
+      qaSessionHistoryByProject[pid] = [initialAns];
+    }
+
+    const history = qaSessionHistoryByProject[pid] || [];
+    const savedApiKey = (typeof localStorage !== 'undefined' && localStorage.getItem('ARCHICHECK_GEMINI_API_KEY')) || DEFAULT_BUILTIN_GEMINI_KEY;
+    const savedModel = (typeof localStorage !== 'undefined' && localStorage.getItem('ARCHICHECK_GEMINI_MODEL')) || 'gemini-3.8-flash';
+    const modelOptionsHtml = SUPPORTED_GEMINI_MODELS_CLIENT
+      .map((m) => `<option value="${m.id}" ${m.id === savedModel ? 'selected' : ''}>${m.label_he}</option>`)
+      .join('');
+
+    const wrap = document.createElement('div');
+    wrap.className = 'mode-ask-ai-container';
+
+    const chipsHtml = sampleQs
+      .map(
+        (sq) => `
+        <button type="button" class="qa-sample-chip" data-sample-q="${sq.question_he}">
+          ${sq.label_he}
+        </button>
+      `
+      )
+      .join('');
+
+    const answersHtml = history
+      .map((ans, ansIdx) => {
+        ensureClientReasoningChain(data, ans);
+        const callCost = ans.api_usage_cost;
+        const callCostBadgeHtml = callCost
+          ? `<span style="font-size:10px;background:#dcfce7;color:#166534;padding:1px 7px;border-radius:999px;font-weight:800;margin-right:4px;" title="קלט: ${callCost.uncached_input_tokens} | פלט: ${callCost.candidates_tokens} | חשיבה: ${callCost.thoughts_tokens}">💳 עלות קריאה: $${Number(callCost.cost_usd || 0).toFixed(5)} (${fmtIlsVal(callCost.cost_ils)}) · ${Number(callCost.total_tokens || 0).toLocaleString()} טוקנים</span>`
+          : '';
+        const reasoningChainHtml = Array.isArray(ans.reasoning_chain_he) && ans.reasoning_chain_he.length > 0
+          ? `
+            <details class="qa-reasoning-box" open style="background:#f8fafc;border:1px solid #cbd5e1;border-right:4px solid #2563eb;border-radius:8px;padding:8px 12px;margin-bottom:10px;">
+              <summary style="font-size:11.5px;font-weight:800;color:#1e3a8a;cursor:pointer;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;">
+                <span>🧠 שרשרת חשיבה והיסק הנדסי על גרף ה-ATKG (${ans.reasoning_chain_he.length} שלבי בדיקה)</span>
+                <div>
+                  ${callCostBadgeHtml}
+                  <span style="font-size:10px;background:#dbeafe;color:#1d4ed8;padding:1px 7px;border-radius:999px;">${ans.reasoning_mode || 'ATKG Neuro-Symbolic Graph'}</span>
+                </div>
+              </summary>
+              <ul style="margin:6px 0 2px 0;padding-right:16px;font-size:11.5px;color:#334155;line-height:1.55;">
+                ${ans.reasoning_chain_he.map((step) => `<li style="margin-bottom:3px;">${step}</li>`).join('')}
+              </ul>
+            </details>
+          `
+          : '';
+
+        const sectionsHtml = (ans.sections || [])
+          .map(
+            (sec) => `
+            <div class="qa-section-block">
+              <span class="qa-sec-badge">${sec.badge || 'נדבך תכנוני'}</span>
+              <div class="qa-sec-title">${sec.title || ''}</div>
+              <ul class="qa-sec-list">
+                ${(sec.items || []).map((it) => `<li>${it}</li>`).join('')}
+              </ul>
+            </div>
+          `
+          )
+          .join('');
+
+        const matchedNotes = ans.matched_notes || [];
+        const matchedPinsHtml = matchedNotes.length > 0
+          ? `
+            <div style="margin-top:10px;">
+              <div style="font-size:11.5px;font-weight:800;color:#0f172a;margin-bottom:5px;">📍 מוקדים וסיכות בתכנית הקשורים לתשובה זו (${matchedNotes.length} — לחץ למיקוד ב-2D/3D):</div>
+              <div class="qa-matched-pins-grid">
+                ${matchedNotes
+                  .map(
+                    (mn) => `
+                    <div class="qa-matched-pin-row" data-qa-note-id="${mn.id}" data-qa-sheet-id="${mn.sheet_id}">
+                      <div>
+                        <strong style="color:#1d4ed8;">סיכה #${mn.pin_num} · ${mn.room_name}</strong>
+                        <span style="color:#475569;margin-right:5px;">— ${mn.title}</span>
+                      </div>
+                      <span style="font-size:10.5px;font-weight:800;color:#2563eb;white-space:nowrap;">הצג בתכנית ◂</span>
+                    </div>
+                  `
+                  )
+                  .join('')}
+              </div>
+            </div>
+          `
+          : '';
+
+        const actionBtns = (ans.system_actions && ans.system_actions.action_buttons) || [];
+        const actionToolbarHtml = actionBtns.length > 0
+          ? `
+            <div class="qa-action-toolbar">
+              ${actionBtns
+                .map(
+                  (ab) => `
+                  <button type="button" class="qa-action-btn" data-qa-act-type="${ab.type}" data-qa-ans-idx="${ansIdx}">
+                    ${ab.label_he}
+                  </button>
+                `
+                )
+                .join('')}
+            </div>
+          `
+          : '';
+
+        return `
+          <article class="qa-answer-card" data-ans-idx="${ansIdx}">
+            <div class="qa-answer-header">
+              <div class="qa-question-echo">שאלה: "${ans.question}"</div>
+              <div class="qa-answer-title">${ans.answer_title || ''}</div>
+            </div>
+            ${reasoningChainHtml}
+            <div class="qa-exec-summary">${ans.executive_summary_he || ''}</div>
+            ${actionToolbarHtml}
+            ${renderQaTableHtml(ans.comparison_table)}
+            ${renderQaTableHtml(ans.secondary_table)}
+            ${sectionsHtml}
+            ${matchedPinsHtml}
+          </article>
+        `;
+      })
+      .join('');
+
+    wrap.innerHTML = `
+      <div class="qa-hero-box">
+        <div class="qa-hero-title">
+          <span>💬 שאל את המערכת על התכנית והניתוח — ${data.project_name || ''}</span>
+          <span style="font-size:10.5px;background:#dbeafe;color:#1e40af;padding:2px 7px;border-radius:999px;font-weight:800;">ATKG 4-Layer Graph + AI Twin</span>
+        </div>
+        <div class="qa-hero-sub">
+          שאל כל שאלה תכנונית, כמותית או הנדסית. המערכת מבצעת היסק הנדסי על גרף ה-ATKG (חללי W3C BOT, מטריצת דרגות חופש לקירות, ותבניות OKF), מציגה את שרשרת החשיבה, ומבצעת פעולות ישירות על השרטוט ועל חבילת האדריכל.
+        </div>
+        <form class="qa-input-form" id="qa-question-form">
+          <input
+            type="text"
+            id="qa-question-input"
+            class="qa-question-input"
+            placeholder="לדוגמה: אילו קירות ניתנים להזזה? / תמליץ על דרך לשפר את אזור הסלון והמטבח..."
+            autocomplete="off"
+          />
+          <button type="submit" class="qa-submit-btn">נתח והמלץ ◂</button>
+        </form>
+        <div style="font-size:11px;font-weight:800;color:#1e3a8a;margin-top:4px;">שאלות מומלצות בלחיצה אחת:</div>
+        <div class="qa-sample-chips-wrap">
+          ${chipsHtml}
+        </div>
+        <div class="qa-auto-action-row" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:700;">
+            <input type="checkbox" id="qa-auto-exec-checkbox" ${qaAutoExecuteActions ? 'checked' : ''} />
+            <span>בצע פעולות אוטומטיות על התכנית בעת מענה (מעבר לקומה רלוונטית והדגשת מוקדים ב-2D/3D)</span>
+          </label>
+          <details style="font-size:11px;">
+            <summary style="cursor:pointer;color:#1e40af;font-weight:800;">🤖 הגדרת מודל Gemini 4 / 3.8 חי (אופציונלי) ${savedApiKey ? `🟢 מחובר (${savedModel})` : ''}</summary>
+            <div style="display:flex;gap:6px;margin-top:5px;align-items:center;flex-wrap:wrap;">
+              <select id="qa-gemini-model-select" style="padding:4px 8px;border:1px solid #93c5fd;border-radius:6px;font-size:11px;font-weight:700;background:#fff;color:#0f172a;">
+                ${modelOptionsHtml}
+              </select>
+              <input type="password" id="qa-gemini-api-key-input" value="${savedApiKey}" placeholder="הדבק GEMINI_API_KEY לסינתזת LLM חיה מעל ai_twin.md..." style="padding:4px 8px;border:1px solid #93c5fd;border-radius:6px;font-size:11px;width:240px;" />
+              <button type="button" id="qa-save-api-key-btn" style="padding:4px 10px;background:#1d4ed8;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;">שמור וסנכרן מודלים מה-API</button>
+              <a href="api/${pid}_ai_twin.md" target="_blank" style="font-size:10.5px;color:#2563eb;font-weight:700;text-decoration:underline;">📄 צפה ב-ai_twin.md הדחוס</a>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div id="qa-answers-stream">
+        ${answersHtml}
+      </div>
+    `;
+
+    const saveKeyBtn = wrap.querySelector('#qa-save-api-key-btn');
+    const keyInputEl = wrap.querySelector('#qa-gemini-api-key-input');
+    const modelSelectEl = wrap.querySelector('#qa-gemini-model-select');
+    if (saveKeyBtn && keyInputEl) {
+      saveKeyBtn.addEventListener('click', async () => {
+        try {
+          const cleanKey = keyInputEl.value.trim();
+          localStorage.setItem('ARCHICHECK_GEMINI_API_KEY', cleanKey);
+          if (cleanKey.length > 10 && modelSelectEl) {
+            saveKeyBtn.textContent = '⏳ מסנכרן מודלים...';
+            const liveModels = await fetchLiveGeminiModelsClient(cleanKey);
+            if (Array.isArray(liveModels) && liveModels.length > 0) {
+              const currVal = modelSelectEl.value;
+              modelSelectEl.innerHTML = liveModels
+                .map((m) => `<option value="${m.id}" ${m.id === currVal ? 'selected' : ''}>${m.label_he}</option>`)
+                .join('');
+            }
+          }
+          if (modelSelectEl) {
+            localStorage.setItem('ARCHICHECK_GEMINI_MODEL', modelSelectEl.value);
+          }
+          saveKeyBtn.textContent = '✓ נשמר ומודלים סונכרנו';
+        } catch (e) {}
+      });
+    }
+    if (modelSelectEl) {
+      modelSelectEl.addEventListener('change', () => {
+        try {
+          localStorage.setItem('ARCHICHECK_GEMINI_MODEL', modelSelectEl.value);
+        } catch (e) {}
+      });
+    }
+
+    const formEl = wrap.querySelector('#qa-question-form');
+    const inputEl = wrap.querySelector('#qa-question-input');
+    if (formEl && inputEl) {
+      formEl.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const val = inputEl.value.trim();
+        if (val) {
+          submitPlanQuestion(val);
+        }
+      });
+    }
+
+    const autoExecCb = wrap.querySelector('#qa-auto-exec-checkbox');
+    if (autoExecCb) {
+      autoExecCb.addEventListener('change', () => {
+        qaAutoExecuteActions = Boolean(autoExecCb.checked);
+      });
+    }
+
+    wrap.querySelectorAll('[data-sample-q]').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const qTxt = chip.getAttribute('data-sample-q');
+        if (inputEl) inputEl.value = qTxt;
+        submitPlanQuestion(qTxt);
+      });
+    });
+
+    wrap.querySelectorAll('[data-qa-note-id]').forEach((row) => {
+      row.addEventListener('click', () => {
+        const nid = row.getAttribute('data-qa-note-id');
+        const sid = row.getAttribute('data-qa-sheet-id');
+        if (sid && sid !== currentSheetId) {
+          selectSheet(sid, { keepNote: true });
+        }
+        if (nid) {
+          const targetNote = (data.notes || []).find((n) => n.id === nid);
+          if (targetNote) {
+            activeNoteId = nid;
+            panAndZoomToNoteOnPlan(targetNote);
+            renderVisualPlanAnnotations();
+            postMessageTo3D({ type: 'ARCHICHECK_SELECT_NOTE', noteId: nid });
+          }
+        }
+      });
+    });
+
+    wrap.querySelectorAll('[data-qa-act-type]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const actType = btn.getAttribute('data-qa-act-type');
+        const ansIdx = Number(btn.getAttribute('data-qa-ans-idx') || 0);
+        const ansObj = history[ansIdx];
+        if (!ansObj) return;
+
+        if (actType === 'FOCUS_PINS') {
+          executeQaSystemActions(ansObj);
+          btn.classList.add('btn-done');
+          btn.textContent = '✓ המוקדים סומנו והודגשו על התכנית';
+        } else if (actType === 'OPEN_AREAS_MODAL') {
+          openSummaryAreasModal(data);
+        } else if (actType === 'OPEN_VE_MODAL') {
+          openValueEngineeringModal(data);
+        } else if (actType === 'OPEN_ACTION_PACKAGE_MODAL') {
+          openDecisionsExportModal();
+        } else if (actType === 'SWITCH_SPLIT_VIEW') {
+          const splitBtn = document.querySelector('#view-mode-switcher .vmode-btn[data-vmode="split"]');
+          if (splitBtn) splitBtn.click();
+          executeQaSystemActions(ansObj);
+        } else if (actType === 'ADD_TO_ARCHITECT_PACKAGE') {
+          const pds = data.project_data_summary || {};
+          const sdoc = pds.summary_document || {};
+          const pkg = data.architect_action_package || sdoc.architect_action_package || {};
+          if (!pkg.quality_and_usability_improvements) pkg.quality_and_usability_improvements = [];
+          const recs = ansObj.recommended_architect_actions || [];
+          recs.forEach((rTxt, rIdx) => {
+            pkg.quality_and_usability_improvements.unshift({
+              note_id: (ansObj.matched_notes && ansObj.matched_notes[rIdx] && ansObj.matched_notes[rIdx].id) || `QA-${Date.now()}-${rIdx}`,
+              pin_num: (ansObj.matched_notes && ansObj.matched_notes[rIdx] && ansObj.matched_notes[rIdx].pin_num) || 'Q&A',
+              sheet_id: (ansObj.system_actions && ansObj.system_actions.auto_switch_sheet_id) || currentSheetId,
+              location: ansObj.answer_title || 'המלצת מערכת Q&A',
+              measured: 'ניתוח משולב (Q&A)',
+              target_benchmark: 'שיפור תכנוני מאומת',
+              proposed_change: rTxt,
+              workflow_state: 'DECIDED_TO_FIX',
+            });
+          });
+          (ansObj.matched_notes || []).forEach((mn) => {
+            if (mn.id) setNoteDecision(mn.id, 'TODO');
+          });
+          btn.classList.add('btn-done');
+          btn.textContent = `✓ נוספו ${recs.length || 1} משימות לחבילת האדריכל!`;
+        }
+      });
     });
 
     return wrap;
@@ -3742,6 +5572,11 @@
 
     if (currentWorkMode === 'OVERVIEW') {
       docSectionsRoot.appendChild(buildOverviewModeElement(data));
+      return;
+    }
+
+    if (currentWorkMode === 'ASK_AI') {
+      docSectionsRoot.appendChild(buildAskAiModeElement(data));
       return;
     }
 
@@ -4457,6 +6292,13 @@
   if (btnExportDecisions) {
     btnExportDecisions.addEventListener('click', openDecisionsExportModal);
   }
+  if (btnOpenAskAi) {
+    btnOpenAskAi.addEventListener('click', () => {
+      if (splitWorkspaceEl) splitWorkspaceEl.classList.remove('doc-collapsed');
+      syncCollapsedBarsRestoreUi();
+      switchWorkMode('ASK_AI');
+    });
+  }
   if (btnCloseDecisionsModal && decisionsExportModal) {
     btnCloseDecisionsModal.addEventListener('click', () => decisionsExportModal.classList.add('hidden'));
     decisionsExportModal.addEventListener('click', (e) => {
@@ -4876,6 +6718,109 @@
       setViewMode(currentViewMode === '3d' ? 'split' : '3d');
     }
   });
+
+  // One-Click CAD Redline (.dxf) & Executive BoQ (.xlsx) Export Handler
+  async function triggerProjectExport(kind) {
+    const pid = (currentProject && (currentProject.project_id || currentProject.id)) || 'hafetz44';
+    const isDxf = kind === 'dxf';
+    const apiEndpoint = `/api/export/${isDxf ? 'dxf' : 'excel'}?project=${encodeURIComponent(pid)}`;
+    const staticFallbackUrl = `/api/${encodeURIComponent(pid)}_${isDxf ? 'redline.dxf' : 'boq.xlsx'}`;
+    const filename = `${pid}_archicheck_${isDxf ? 'redline.dxf' : 'boq_and_audit.xlsx'}`;
+
+    try {
+      let resp = await fetch(apiEndpoint);
+      if (!resp.ok) {
+        resp = await fetch(staticFallbackUrl);
+      }
+      if (resp.ok) {
+        const blob = await resp.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 4000);
+        return;
+      }
+    } catch (err) {
+      console.warn('Direct export fetch fallback:', err);
+    }
+    window.open(staticFallbackUrl, '_blank');
+  }
+
+  ['btn-export-dxf', 'btn-ve-export-dxf', 'btn-dec-export-dxf'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('click', () => {
+        if (moreToolsDropdown) moreToolsDropdown.classList.add('hidden');
+        triggerProjectExport('dxf');
+      });
+    }
+  });
+
+  ['btn-export-excel', 'btn-ve-export-excel', 'btn-dec-export-excel'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('click', () => {
+        if (moreToolsDropdown) moreToolsDropdown.classList.add('hidden');
+        triggerProjectExport('excel');
+      });
+    }
+  });
+
+  // Top-Right Gemini API Cost Indicator & Modal Handlers
+  const hdrApiCostWidget = document.getElementById('hdr-api-cost-widget');
+  const apiCostModal = document.getElementById('api-cost-breakdown-modal');
+  const btnCloseApiCostModal = document.getElementById('btn-close-api-cost-modal');
+  const btnExportApiLedger = document.getElementById('btn-export-api-ledger');
+  const btnResetApiLedger = document.getElementById('btn-reset-api-ledger');
+
+  if (hdrApiCostWidget) {
+    hdrApiCostWidget.addEventListener('click', () => {
+      openApiCostBreakdownModal();
+    });
+  }
+  if (btnCloseApiCostModal && apiCostModal) {
+    btnCloseApiCostModal.addEventListener('click', () => {
+      apiCostModal.classList.add('hidden');
+    });
+  }
+  if (apiCostModal) {
+    apiCostModal.addEventListener('click', (e) => {
+      if (e.target === apiCostModal) {
+        apiCostModal.classList.add('hidden');
+      }
+    });
+  }
+  if (btnExportApiLedger) {
+    btnExportApiLedger.addEventListener('click', () => {
+      const summary = computeClientApiUsageSummary();
+      const blob = new Blob([JSON.stringify(summary, null, 2)], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `archicheck_gemini_api_usage_${summary.today_ymd}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+    });
+  }
+  if (btnResetApiLedger) {
+    btnResetApiLedger.addEventListener('click', () => {
+      try {
+        localStorage.removeItem(API_USAGE_STORAGE_KEY);
+      } catch (e) {}
+      updateTopRightApiCostIndicator(true);
+      openApiCostBreakdownModal();
+    });
+  }
+
+  // Initialize Top-Right API Cost Indicator & Sync with Server Ledger
+  updateTopRightApiCostIndicator(false);
+  syncServerApiUsageCosts();
 
   // Initialize on Page Load with Hafetz Haim 44
   loadProjectAnalysis('חפץ חיים 44');

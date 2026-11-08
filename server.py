@@ -156,6 +156,144 @@ def api_check_3d_models():
     return jsonify(summary)
 
 
+@app.route('/api/export/dxf', methods=['GET'])
+def api_export_dxf():
+    """Exports a layered AutoCAD R2010 DXF redline overlay for a project."""
+    from export_engine import generate_project_dxf_redline
+
+    project_id = (request.args.get('project') or request.args.get('id') or 'pines48').strip().lower()
+    payload = analyze_project_by_query(project_id, rebuild_artifacts=False)
+    pid = str(payload.get('project_id') or payload.get('id') or project_id)
+    dxf_bytes = generate_project_dxf_redline(payload)
+    return Response(
+        dxf_bytes,
+        mimetype='application/dxf',
+        headers={
+            'Content-Disposition': f'attachment; filename="{pid}_archicheck_redline.dxf"'
+        },
+    )
+
+
+@app.route('/api/export/excel', methods=['GET'])
+def api_export_excel():
+    """Exports a multi-sheet Excel (.xlsx) BoQ, Value Engineering & Architect Action Package workbook."""
+    from export_engine import generate_project_excel_boq
+
+    project_id = (request.args.get('project') or request.args.get('id') or 'pines48').strip().lower()
+    payload = analyze_project_by_query(project_id, rebuild_artifacts=False)
+    pid = str(payload.get('project_id') or payload.get('id') or project_id)
+    xlsx_bytes = generate_project_excel_boq(payload)
+    return Response(
+        xlsx_bytes,
+        mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        headers={
+            'Content-Disposition': f'attachment; filename="{pid}_archicheck_boq_and_audit.xlsx"'
+        },
+    )
+
+
+@app.route('/api/spatial_intelligence', methods=['POST'])
+def api_spatial_intelligence():
+    """Runs the algorithmic furnishability, sightline, zero-line closet, and livability engines."""
+    from spatial_intelligence_engine import (
+        compute_sightline_and_aesthetics_metrics,
+        simulate_apartment_furnishability,
+        analyze_resident_livability,
+        audit_multi_floor_vertical_stack,
+    )
+
+    body = request.get_json(silent=True) or {}
+    apt = body.get('apartment') or body
+    sight = compute_sightline_and_aesthetics_metrics(apt)
+    furn = simulate_apartment_furnishability(apt)
+    liv = analyze_resident_livability(apt)
+    floors = body.get('floors') or []
+    vert = audit_multi_floor_vertical_stack(floors) if floors else None
+    return jsonify({
+        "status": "success",
+        "sightlines_and_aesthetics": sight,
+        "furnishability_simulation": furn,
+        "resident_livability": liv,
+        "vertical_stack_audit": vert,
+    })
+
+
+@app.route('/api/ask_plan', methods=['GET', 'POST'])
+def api_ask_plan():
+    """Answers user questions on the architectural plan and its analysis, returning data-grounded recommendations, ATKG reasoning chain, and executable system actions."""
+    from plan_qa_engine import answer_plan_question
+
+    if request.method == 'POST':
+        body = request.get_json(silent=True) or {}
+        project_q = (body.get('project') or body.get('project_id') or body.get('query') or 'hafetz44').strip()
+        question = (body.get('question') or body.get('q') or '').strip()
+        api_key = (body.get('api_key') or body.get('gemini_api_key') or '').strip() or None
+        model_name = (body.get('model') or body.get('model_name') or '').strip() or None
+        custom_payload = body.get('payload')
+    else:
+        project_q = (request.args.get('project') or request.args.get('project_id') or 'hafetz44').strip()
+        question = (request.args.get('question') or request.args.get('q') or '').strip()
+        api_key = (request.args.get('api_key') or '').strip() or None
+        model_name = (request.args.get('model') or request.args.get('model_name') or '').strip() or None
+        custom_payload = None
+
+    if isinstance(custom_payload, dict) and custom_payload.get('notes'):
+        payload = custom_payload
+    else:
+        payload = analyze_project_by_query(project_q, rebuild_artifacts=False)
+
+    answer = answer_plan_question(payload, question, api_key=api_key, model_name=model_name)
+    return jsonify({
+        "status": "success",
+        "project_id": payload.get("project_id"),
+        "project_name": payload.get("project_name"),
+        "answer": answer,
+    })
+
+
+@app.route('/api/atkg/<project_id>', methods=['GET'])
+def api_get_project_atkg(project_id):
+    """Returns the 4-Layer ATKG (Architectural Topological Knowledge Graph) for a project."""
+    payload = analyze_project_by_query(project_id, rebuild_artifacts=False)
+    return jsonify({
+        "status": "success",
+        "project_id": payload.get("project_id"),
+        "project_name": payload.get("project_name"),
+        "atkg_spatial_graph": payload.get("atkg_spatial_graph"),
+    })
+
+
+@app.route('/api/ai_twin/<project_id>', methods=['GET'])
+def api_get_project_ai_twin(project_id):
+    """Returns the Compact Architectural Twin Markdown (`ai_twin_compact_md`, ~10KB) for LLM reasoning."""
+    payload = analyze_project_by_query(project_id, rebuild_artifacts=False)
+    atkg = payload.get("atkg_spatial_graph") or {}
+    md_text = atkg.get("ai_twin_compact_md", "")
+    return Response(md_text, mimetype="text/markdown; charset=utf-8")
+
+
+@app.route('/api/portfolio_index', methods=['GET'])
+def api_get_portfolio_index():
+    """Returns the cross-project ATKG portfolio comparison index across all projects."""
+    idx_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'webapp', 'api', 'portfolio_atkg_index.json')
+    if os.path.isfile(idx_path):
+        with open(idx_path, 'r', encoding='utf-8') as f:
+            return jsonify(json.load(f))
+    from atkg_spatial_graph import build_portfolio_atkg_index
+    all_payloads = [analyze_project_by_query(p['id'], rebuild_artifacts=False) for p in get_projects_catalog()]
+    return jsonify(build_portfolio_atkg_index(all_payloads))
+
+
+@app.route('/api/usage_costs', methods=['GET'])
+def api_get_usage_costs():
+    """Returns the daily, weekly, and cumulative Gemini API cost & token usage summary."""
+    from llm_reasoning_agent import get_api_usage_summary
+    return jsonify({
+        "status": "success",
+        "usage_summary": get_api_usage_summary(),
+    })
+
+
 @app.route('/<path:path>')
 def serve_static(path):
     return send_from_directory('webapp', path)

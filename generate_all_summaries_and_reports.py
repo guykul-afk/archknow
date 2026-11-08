@@ -18,6 +18,7 @@ from project_analyzer_service import (
     build_kitroni37_analysis,
     build_feierberg3_analysis,
     build_sharett26_analysis,
+    build_em_hamoshavot_analysis,
 )
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -933,6 +934,7 @@ def update_all_reports():
         ("kitroni37", build_kitroni37_analysis, "generate_kitroni37_pdf_report.py"),
         ("feierberg3", build_feierberg3_analysis, ""),
         ("sharett26", build_sharett26_analysis, ""),
+        ("em_hamoshavot", build_em_hamoshavot_analysis, ""),
     ]
 
     for pid, builder_fn, script_name in builders:
